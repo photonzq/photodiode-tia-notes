@@ -1,0 +1,156 @@
+{
+  "part": "LMH32401",
+  "manufacturer": "Texas Instruments",
+  "datasheet_file": "datasheets/lmh32401.pdf",
+  "datasheet_id_and_revision": "SBOS965D, October 2019, revised January 2023 (package option addendum 12-May-2026; pack materials 3-Sep-2026; outline RGT0016C 4222419/E 07/2025)",
+  "datasheet_status": "Production Data (p1 footer); VQFN and bare-die orderables Active (p32); automotive LMH32401-Q1 exists (p33)",
+  "citation_convention": "pX = PDF page index; for PDF p1-p31 the printed page number equals the PDF index. Types: TYP / MIN / MAX = Electrical Characteristics (EC) table values; CURVE = read from a 300-dpi clip of a typical-characteristic plot (uncertainty stated); DERIVED = computed here; TEXT = datasheet prose. Default EC/TC conditions (p6-p11): VDD 3.3 V, VOCM open, VOD 0 V, CPD = 1 pF (photodiode capacitance), EN = 0 V (enabled), IDC_EN = 3.3 V (ALC disabled), RL = 100 ohm differential, TA 25 C.",
+  "architecture": "Single-channel integrated TIA for pulsed LIDAR/ToF: single-ended current input -> TIA stage with switched feedback 1 kOhm / 10 kOhm (GAIN pin) -> fixed-gain single-ended-to-differential ADC-driver stage -> OUT+/OUT- each through an internal 10-ohm series resistor; VOCM pin (default 1.1 V from internal divider) and VOD pin (differential output offset, default about 0.5 V) ; integrated ambient-light (DC) cancellation loop that senses the TIA output against VREF and injects an opposing DC current IDC at IN (IDC_EN pin); 100-mA input clamp (fast-recovery clamp when the photodiode sinks current, soft clamp when it sources); EN power-down puts outputs in high impedance for multiplexing. IN sits at a self-bias of 2.47 V. Optimised for the photodiode SINKING photocurrent (cathode to IN, anode to negative bias), i.e. current flowing out of IN. [p1, p3, p20-p23]",
+  "transimpedance_options": [
+    {"setting": "GAIN low / floating (default)", "value_into_100ohm": {"min": 1.75, "typ": 2.0, "max": 2.25, "unit": "kOhm", "type": "MIN/TYP/MAX", "cite": "p6 EC Z21"}, "unloaded": {"value": 2.4, "unit": "kOhm", "type": "TEXT", "cite": "p21 7.3.4"}, "internal_TIA_feedback": "1 kOhm (block diagram p20)"},
+    {"setting": "GAIN high", "value_into_100ohm": {"min": 17, "typ": 20, "max": 22.5, "unit": "kOhm", "type": "MIN/TYP/MAX", "cite": "p7 EC Z21"}, "unloaded": {"value": 24, "unit": "kOhm", "type": "TEXT", "cite": "p21"}, "internal_TIA_feedback": "10 kOhm (p20)"},
+    {"setting": "gain vs load", "value": "Av = 2 k (or 20 k) x 1.2 x 2*RADC_IN / (2*RADC_IN + 20 ohm); with series RISO add 2*RISO to the denominator", "type": "TEXT (Eq 2, Eq 3)", "cite": "p24-p25"},
+    {"setting": "gain vs temperature", "type": "CURVE (+-5 ohm / +-50 ohm)", "cite": "p16 Figs 6-33, 6-34", "value": "2 k: about -0.19 ohm/C (about -100 ppm/C), 1.95-2.02 kOhm over -40..125 C for 3 units; 20 k: about -12 ohm/C (about -600 ppm/C), 20.3-20.6 kOhm at -40 C to 18.3-18.6 kOhm at 125 C"},
+    {"setting": "production distribution", "type": "CURVE (histogram)", "cite": "p18 Figs 6-45, 6-46", "value": "low gain in 2000-2100 ohm bins; high gain in 20000-21000 ohm bins"}
+  ],
+  "bandwidth": {
+    "EC": [
+      {"gain": "2 k", "SSBW_100mVpp": 450, "LSBW_1Vpp": 450, "unit": "MHz", "rise_fall_ns": 0.8, "slew_V_per_us": 1100, "type": "TYP", "cite": "p6"},
+      {"gain": "20 k", "SSBW_100mVpp": 275, "LSBW_1Vpp": 275, "unit": "MHz", "rise_fall_ns": 1.3, "slew_V_per_us": 700, "type": "TYP", "cite": "p7"}
+    ],
+    "vs_input_capacitance_minus3dB_MHz": {"type": "CURVE", "uncertainty": "+-3 MHz (1 px) above 100 MHz; +-1 MHz near 60 MHz", "cite": "p11 Figs 6-1 to 6-4 (current out of IN; RL 100 ohm)",
+      "fig6-1_2k_100mVpp": {"PCB only": 511, "0.5 pF": 488, "1 pF": 462, "2 pF": 393, "4.7 pF": 254, "10 pF": 153},
+      "fig6-2_20k_100mVpp": {"PCB only": 396, "0.5 pF": 314, "1 pF": 264, "2 pF": 189, "4.7 pF": 106, "10 pF": 63},
+      "fig6-3_2k_1Vpp": {"PCB only": 486, "0.5 pF": 468, "1 pF": 450, "2 pF": 395, "4.7 pF": 271, "10 pF": 165},
+      "fig6-4_20k_1Vpp": {"PCB only": 400, "0.5 pF": 334, "1 pF": 289, "2 pF": 201, "4.7 pF": 117, "10 pF": 68},
+      "passband_1pF": "2 k: +0.1 dB at 100 MHz, -0.3 dB at 150 MHz, -0.7 dB at 200 MHz, no peaking; 20 k: -0.1 dB at 100 MHz, -0.8 dB at 150 MHz, -1.6 dB at 200 MHz"},
+    "vs_load_capacitance": {"type": "CURVE", "cite": "p11 Figs 6-5, 6-6 (CIN 0.5 pF)", "2k_MHz": {"CLOAD open": 488, "CLOAD 2.7 pF": 662}, "20k_MHz": {"CLOAD open": 314, "CLOAD 2.7 pF": 347}},
+    "vs_temperature": {"type": "CURVE", "cite": "p12 Figs 6-7, 6-8 (CIN = PCB)", "2k_MHz": {"-40 C": 521, "25 C": 505, "85 C": 473, "125 C": 447}, "20k_MHz": {"-40 C": 415, "25 C": 393, "85 C": 397, "125 C": 375}},
+    "current_into_IN_(PD_sourcing)": {"type": "CURVE", "cite": "p27 Figs 8-4, 8-5 (test circuit Fig 8-3, CPCB about 1 pF)", "2k_MHz": {"0.1 Vpp": 501, "0.5 Vpp": 477, "1 Vpp": 420}, "20k_MHz": {"0.1 Vpp": 379, "0.5 Vpp": 354, "1 Vpp": 271}, "text": "input current range reduced when the input sinks current (p26)"},
+    "gain_switching_time": {"high_to_low_ns": 90, "low_to_high_ns": 750, "with_ALC_enabled_us": 4, "type": "TYP", "cite": "p10"},
+    "enable_time": {"ALC_disabled": "125 ns (2 k), 850 ns (20 k)", "ALC_enabled": "10 us (2 k), 4 us (20 k)", "disable": "3-3.5 ns", "type": "TYP", "cite": "p10"}
+  },
+  "input_referred_current_noise": {
+    "integrated_EC": [
+      {"gain": "2 k", "value": 250, "unit": "nA_RMS", "conditions": "f = 500 MHz, CPD 1 pF, ALC disabled", "type": "TYP", "cite": "p1, p6"},
+      {"gain": "20 k", "value": 49, "unit": "nA_RMS", "conditions": "f = 250 MHz", "type": "TYP", "cite": "p1, p7"}
+    ],
+    "density_fig6-11_2k": {"unit": "pA/rtHz", "type": "CURVE", "uncertainty": "+-0.2 pA/rtHz (trace noise +-0.3)", "cite": "p12 Fig 6-11",
+      "1 pF": {"20 kHz": 13.5, "100 kHz": 11.2, "1 MHz": 9.6, "10 MHz": 9.4, "20 MHz": 9.2, "50 MHz": 8.6, "100 MHz": 8.7, "150 MHz": 9.2, "200 MHz": 9.2, "300 MHz": 9.3, "500 MHz": 9.0},
+      "0.5 pF": {"10 MHz": 9.0, "100 MHz": 9.1, "200 MHz": 8.4, "300 MHz": 8.4},
+      "2 pF": {"10 MHz": 9.0, "100 MHz": 9.0, "200 MHz": 9.1, "300 MHz": 9.6, "500 MHz": 10.1},
+      "3 pF": {"10 MHz": 9.2, "100 MHz": 8.8, "200 MHz": 9.6, "300 MHz": 10.1, "500 MHz": 11.0}},
+    "density_fig6-12_20k": {"unit": "pA/rtHz", "type": "CURVE", "uncertainty": "+-0.05 pA/rtHz", "cite": "p12 Fig 6-12",
+      "1 pF": {"20 kHz": 4.0, "100 kHz": 3.0, "1 MHz": 2.68, "10 MHz": 2.20, "20 MHz": 2.08, "50 MHz": 2.21, "100 MHz": 2.47, "150 MHz": 2.64, "200 MHz": 2.74, "300 MHz": 2.77, "500 MHz": 2.77},
+      "0.5 pF": {"20 MHz": 2.05, "50 MHz": 2.07, "100 MHz": 2.24, "200 MHz": 2.57, "300 MHz": 2.71},
+      "2 pF": {"20 MHz": 2.20, "50 MHz": 2.26, "100 MHz": 2.53, "200 MHz": 2.95, "300 MHz": 3.04},
+      "3 pF": {"10 MHz": 2.26, "50 MHz": 2.37, "100 MHz": 2.82, "200 MHz": 3.12, "300 MHz": 3.13}},
+    "vs_temperature_20k": {"type": "CURVE", "cite": "p13 Fig 6-17", "10_200MHz_mean_pA": {"-40 C": 1.85, "25 C": 2.25, "125 C": 2.82}},
+    "vs_load_capacitance": {"type": "CURVE", "cite": "p13 Figs 6-13, 6-14", "value": "2.7 pF load leaves 10-200 MHz noise unchanged (2 k about 9.0, 20 k about 2.2-2.3 pA/rtHz) but raises 2 k noise above 500 MHz (12.5 pA/rtHz at 800 MHz)"},
+    "output_noise_fig6-18_20k": {"type": "CURVE", "cite": "p13 Fig 6-18", "value": "differential 43.5 (10 MHz), 50.6 (100 MHz), 55.4 (200 MHz); single-ended 29.1 / 33.0 / 38.4; axis labelled pA/rtHz, which is presumably nV/rtHz (differential/20 k matches the 2.2-2.7 pA/rtHz input noise)"}
+  },
+  "integrated_noise": {
+    "DERIVED_from_curves": [
+      {"gain": "2 k", "CPD": "1 pF", "band": "10-200 MHz", "value": 122, "unit": "nA_RMS", "rms_avg_density": "8.9 pA/rtHz", "uncertainty": "+-5 %"},
+      {"gain": "2 k", "CPD": "1 pF", "band": "1-490 MHz", "value": 202, "unit": "nA_RMS", "note": "EC states 250 nA_RMS at f = 500 MHz (about 25 % higher; method not stated)"},
+      {"gain": "20 k", "CPD": "1 pF", "band": "10-200 MHz", "value": 34, "unit": "nA_RMS", "rms_avg_density": "2.45 pA/rtHz"},
+      {"gain": "20 k", "CPD": "1 pF", "band": "1-245 MHz", "value": 39, "unit": "nA_RMS", "note": "EC 49 nA_RMS at f = 250 MHz"}
+    ]
+  },
+  "max_input_current": {
+    "linear_EC_ALC_disabled": [
+      {"gain": "2 k", "min": 600, "typ": 705, "unit": "uA", "conditions": "DC input current range, Z21 < 3-dB degradation from IIN = 50 uA", "type": "MIN/TYP", "cite": "p6"},
+      {"gain": "20 k", "min": 60, "typ": 72, "unit": "uA", "conditions": "Z21 < 3-dB degradation from IIN = 5 uA", "type": "MIN/TYP", "cite": "p7"},
+      {"text": "linear input range approximately 650 uA (2 k) and 65 uA (20 k), PD sinking the photocurrent", "type": "TEXT", "cite": "p21 7.3.2"}
+    ],
+    "gain_vs_DC_current_curves": {"type": "CURVE", "uncertainty": "+-15 uA (2 k), +-2 uA (20 k)", "cite": "p16 Figs 6-31, 6-32; positive current = sinking into the photodiode cathode (out of IN)",
+      "2k_25C": "flat 2.02-2.11 kOhm from -300 to +700 uA; -1 dB at about +795 uA and -418 uA; -3 dB at about +1000 uA and -550 uA",
+      "2k_temperature": "positive side: knee about +600 uA and -1 dB about +705 uA at 125 C; knee about +700 uA and -1 dB about +810 uA at -40 C; negative side: -1 dB about -345 uA at -40 C and about -507 uA at 125 C",
+      "20k_25C": "flat 19.6-19.7 kOhm from -25 to +75 uA; -1 dB at about +87 uA and -38 uA; -3 dB at about -54 uA; -2.1 dB at +100 uA"},
+    "with_ALC": "DC (ambient) current up to 2 mA MIN / 3 mA TYP can be cancelled, PD sinking configuration only (see dc_or_ambient_cancellation)",
+    "absolute_maximum": {"continuous_current_into_IN": {"value": 25, "unit": "mA", "type": "MAX (AMR)", "cite": "p5"}, "pulsed_clamp": "integrated clamp limits pulse extension to a few ns for input pulses up to 100 mA (TEXT p21); clamp stays active in power-down"},
+    "input_resistance": {"2k": "60 / 100 / 120 ohm", "20k": "270 / 350 / 410 ohm", "type": "MIN/TYP/MAX", "cite": "p6, p7"},
+    "input_bias_voltage": {"value": "2.42 / 2.47 / 2.52 V (pin floating)", "drift": "1.1 mV/C TYP (EC); Fig 6-36 shows about 0.73 mV/C (CURVE)", "cite": "p6, p7, p16"}
+  },
+  "dc_or_ambient_cancellation": {
+    "name": "Ambient light cancellation (ALC) loop",
+    "control": "IDC_EN low = enabled (pin-table default), high = disabled; threshold enable < 1 V TYP (0.8 V MIN), disable > 1.8 V TYP (2 V MAX) (p3, p10). All EC and typical curves except Figs 6-9, 6-15, 6-16, 6-27 to 6-30, 6-42 are with ALC disabled.",
+    "polarity": "works only when the photodiode sinks the photocurrent (cathode to IN, anode to negative bias) (p23)",
+    "range": {"min": 2, "typ": 3, "unit": "mA", "conditions": "differential output offset shift from IDC = 10 uA < +-10 mV", "type": "MIN/TYP", "cite": "p9"},
+    "range_vs_temperature": {"type": "CURVE (+-0.03 mA)", "cite": "p17 Fig 6-42", "value": "10 mV droop reached at 2.18 mA (125 C), 2.82 mA (25 C), 3.34 mA (-40 C); output collapses within about 0.1 mA beyond"},
+    "loop_bandwidth": {"text": "high-pass cutoff frequency of 100 kHz (p23)", "curve": {"type": "CURVE (+-3 %)", "cite": "p12 Fig 6-9, IDC = 100 uA", "2k": "-3 dB at 52 kHz, -1 dB at 93 kHz, no peaking", "20k": "-3 dB at 374 kHz, -1 dB at 561 kHz, +0.86 dB peak near 2 MHz"}},
+    "settling": {"type": "TYP", "cite": "p9 (curves p15 Figs 6-27 to 6-30)", "0_to_100uA_2k_us": 18, "100uA_to_0_2k_us": 35, "0_to_10uA_20k_us": 2.5, "10uA_to_0_20k_us": 13},
+    "noise_impact": {"text": "enabling the loop adds noise; shot noise of the cancellation current increases total noise, disable if ambient light is negligible (p9 fn 4, p23)",
+      "curves": {"type": "CURVE / DERIVED", "cite": "p13 Figs 6-15 (2 k), 6-16 (20 k); ALC state not printed on the figures but IDC up to 1 mA implies the loop is on",
+        "2k_rms_avg_density_10_200MHz_pA": {"0 uA": 9.25, "10 uA": 9.2, "100 uA": 9.85, "1 mA": 11.3},
+        "2k_integrated_10_200MHz_nA": {"0 uA": 128, "100 uA": 136, "1 mA": 155},
+        "20k_rms_avg_density_10_200MHz_pA": {"0 uA": 2.87, "1 mA": 5.61},
+        "20k_integrated_10_200MHz_nA": {"0 uA": 40, "1 mA": 77},
+        "low_frequency_hump": "2 k, 1 mA: 51 pA/rtHz at 200 kHz; 20 k, 1 mA: 23 pA/rtHz at 2 MHz; 100 uA: 26 pA/rtHz (2 k, 200 kHz), 11 pA/rtHz (20 k, 1 MHz)"},
+      "comparison_DERIVED": "added ALC noise at 1 mA (2 k) about sqrt(11.3^2 - 9.25^2) = 6.5 pA/rtHz, below the 17.9 pA/rtHz shot noise of the 1 mA photocurrent itself"}
+  },
+  "output": {
+    "type": "fully differential OUT+/OUT-, internal 10-ohm series resistor per output; designed to drive a 100-ohm differential load / ADC directly (p1, p21, p24)",
+    "swing": {"features": "1.5 Vpp (differential)", "VOH": "2.87 MIN / 2.9 TYP V", "VOL": "0.36 TYP / 0.39 MAX V", "type": "MIN/TYP/MAX single-sided, 25 C, achieved by adjusting VOCM, VOD and input current", "cite": "p1, p8"},
+    "usable_differential_swing": "0.75 Vpp with VOD = 0 (one output only moves above, the other below VOCM); about 1.5 Vpp with VOD set to about 0.75 V (Figs 6-39, 6-40: each output 1.02-1.78 V at VOCM 1.4 V, 0.42-1.19 V at VOCM 0.8 V) (p22, p27, p17)",
+    "linear_output_current": {"min": 24, "typ": 26.6, "max": 32, "unit": "mA", "conditions": "25 C, IIN 500 uA, 2 k, RL 25 ohm; 27.1 mA at -40 C, 25.1 mA at 125 C", "type": "MIN/TYP/MAX", "cite": "p8"},
+    "short_circuit": "70 mA differential TYP; cannot withstand a continuous short between outputs (p8)",
+    "output_impedance": {"enabled": "18 / 21 / 24 ohm differential", "shutdown": "2.8 MIN / 3.3 TYP kOhm", "curve": "about 20 ohm to 50 MHz, 23 at 100 MHz, 36 at 200 MHz, 63 at 300 MHz, 133 at 500 MHz (CURVE p12 Fig 6-10)", "cite": "p8, p12"},
+    "common_mode": {"VOCM_default": "1.05 / 1.1 / 1.15 V", "range": "0.7-2.3 V (gain-error test range)", "VOCM_bandwidth": "285 MHz small-signal, 85 MHz large-signal", "VOCM_noise": "17.8 nV/rtHz at 10 MHz with 1 nF on VOCM", "VOCM_input_impedance": "17 kOhm", "cite": "p8"},
+    "differential_offset": {"VOD_default_offset": "490 / 510 / 530 mV (VOD floating or 0.5 V)", "VOD_gain": "1.01 V/V", "VOD_bandwidth": "45 MHz", "offset_with_VOD_0": "-12 / 3.5 / 12 mV (2 k), -20 / 5 / 20 mV (20 k)", "rule": "VOD functional only with PD sinking current; set VOD = 0 V for a sourcing PD (p22)", "cite": "p6, p7, p9"},
+    "single_ended_use": "possible (terminate unused output identically); signal swing halves and common-mode noise adds (p22)",
+    "50_ohm_drive": "specified into 100 ohm differential (equivalent to 50 ohm per side); linear output current 24 mA MIN into 25 ohm"
+  },
+  "overload_recovery_and_clamp": {
+    "clamp": "100-mA protection clamp diverting excess input current to VDD1; fast-recovery clamp when PD sinks current, soft clamp (slower, overload-dependent recovery) when PD sources current (p20, p21)",
+    "pulse_extension": {"value": 4, "unit": "ns", "conditions": "IIN = 10 mA, 10 ns pulse, both gains, measured at 50 % of pulse height", "type": "TYP", "cite": "p6, p7"},
+    "overload_curves_PD_sinking": {"type": "CURVE", "cite": "p14 Figs 6-21, 6-22 (5 ns/div)", "value": "2 k: 500 uA gives 1.0 V, 1 mA clips at 1.48 V with about 1 ns stretch; 20 k: 50 uA gives 1.0 V, 1 mA clips at 1.45 V with about 1 ns stretch and -0.12 V undershoot"},
+    "overload_curves_PD_sourcing": {"type": "CURVE (+-0.5 ns)", "cite": "p27 Figs 8-6, 8-7", "value": "2 k: output limited to about 0.76 V (VOD = 0); 2.5 mA stretches a 10 ns pulse by about 2.3 ns vs 500 uA; 20 k: 1 mA stretches by about 6 ns vs 50 uA"}
+  },
+  "supply_and_power": {
+    "supply": {"min": 3.0, "nom": 3.3, "max": 3.45, "unit": "V", "type": "ROC", "abs_max": "3.65 V", "cite": "p5"},
+    "quiescent_current": {"min": 24, "typ": 30, "max": 33.5, "unit": "mA", "conditions": "25 C; 32 mA TYP at 125 C, 27 mA TYP at -40 C", "type": "MIN/TYP/MAX", "cite": "p9"},
+    "power": {"value": "about 99 mW", "type": "DERIVED (3.3 V x 30 mA)"},
+    "shutdown_current": "2.4 / 3.3 / 4.2 mA (EN = VDD), EN pin bias 75 TYP / 120 MAX uA (p9)",
+    "PSRR+": "54 MIN / 66 TYP dB (p9)",
+    "notes": "VDD1 and VDD2 from the same supply, separately bypassed; bipolar operation possible with pins 1 and 7 at the negative supply (p5, p28)",
+    "logic": "GAIN, EN, IDC_EN thresholds 1 V TYP (0.8 V MIN) low, 1.8 V TYP (2 V MAX) high (p10)",
+    "temperature_range": "-40 to +125 C (p5)",
+    "ESD": "HBM +-1000 V, CDM +-250 V (p5)",
+    "thermal": "RthJA 56.3, RthJC(top) 67, RthJB 31.3, psiJT 3.7, psiJB 31.2, RthJC(bot) 15.6 C/W (table header says 12 pins; package has 16) (p5)"
+  },
+  "input_capacitance_or_input_impedance": {"amplifier_input_capacitance": "not specified; EC/TC use CPD = 1 pF photodiode capacitance; 'CIN = PCB only' curves give the board-only case; application design assumes CPCB about 1 pF (p26)", "input_resistance": "60-120 ohm (2 k), 270-410 ohm (20 k) (p6, p7)"},
+  "packages": [
+    {"name": "VQFN-16 (RGT, RGT0016C)", "body": "3.00 x 3.00 mm (2.9-3.1), 0.8-1.0 mm height", "pitch": "0.5 mm", "exposed_pad": "1.68 +-0.07 mm square; connect to GND or the most negative supply (p3, p28)", "orderables": "LMH32401IRGTR (3000), LMH32401IRGTT (250), .B variants; SN finish, MSL 1-260C-UNLIM, marking L32401", "cite": "p1, p3, p32, p34, p37-p39"},
+    {"name": "Bare die (LMH32401YR, DIESALE)", "body": "1.025 x 1.060 mm, 381 um thick, AlCu pads, 17 pads", "exposed_pad": "backside not isolated; hold at most negative supply (GND)", "cite": "p1, p4, p32"}
+  ],
+  "tia_figures": [
+    {"fig": "6-1 to 6-4", "what": "small/large-signal response vs input capacitance (PCB, 0.5-10 pF), 2 k and 20 k", "measured": "measured (test circuit Fig 8-3)", "cite": "p11"},
+    {"fig": "6-5, 6-6", "what": "response vs load capacitance", "cite": "p11"},
+    {"fig": "6-7, 6-8", "what": "response vs temperature", "cite": "p12"},
+    {"fig": "6-9", "what": "low-side response with ALC (IDC 100 uA)", "cite": "p12"},
+    {"fig": "6-10", "what": "output impedance enabled/disabled", "cite": "p12"},
+    {"fig": "6-11 to 6-18", "what": "input noise density vs CPD, CLOAD, ambient DC current, temperature; output noise", "cite": "p12-p13"},
+    {"fig": "6-19 to 6-26", "what": "pulse, overload, turn-on/off", "cite": "p14-p15"},
+    {"fig": "6-27 to 6-30", "what": "ALC settling", "cite": "p15"},
+    {"fig": "6-31 to 6-50", "what": "gain vs DC input current and temperature, bias voltage, IQ, swing vs current, VOD gain, ALC range, distributions", "cite": "p16-p19"},
+    {"fig": "8-4 to 8-7", "what": "bandwidth and overload pulses with current flowing into IN (PD sourcing)", "cite": "p27"}
+  ],
+  "application_guidance": [
+    "Use PD sinking configuration (cathode to IN, anode to negative bias) for ALC, VOD and fast-recovery clamp; for a sourcing PD the cathode bias must exceed 2.47 V and VOD = 0 V (p22, p25-p26)",
+    "Direct drive of a 100-ohm differential ADC (ADC12QJ1600); Eq 2-4 for other loads and VOD setting (p24-p25)",
+    "Remove ground/power planes between IN and the photodiode; optional series isolation resistor at IN against bond-wire resonance; optional capacitors on VOCM and VOD; 100 pF-0.1 uF C0G plus 2.2-6.8 uF bypass on VDD1 and VDD2 separately (p28-p29)",
+    "Multiplexing via EN: up to four outputs in parallel (p23)"
+  ],
+  "other_notes": [
+    "EC integrated noise (250 nA at 500 MHz, 49 nA at 250 MHz) is about 25 % above the integral of the published density curves (DERIVED 202 nA, 39 nA).",
+    "ALC high-pass stated as 100 kHz (p23) but Fig 6-9 shows 52 kHz (2 k) and 374 kHz (20 k).",
+    "Eq 1 (p22) is printed with 'RL x 20 ohm' in the denominator; Eq 2 uses '+ 20 ohm' (typo).",
+    "Input bias voltage drift 1.1 mV/C (EC) vs about 0.73 mV/C in Fig 6-36.",
+    "Fig 6-18 output-noise axis unit pA/rtHz is presumably nV/rtHz.",
+    "Thermal table header says 12 pins for the 16-pin RGT package.",
+    "EC DC input range (705 uA, '3-dB degradation') is lower than the -3 dB point in Fig 6-31 (about 1 mA); the EC criterion may effectively be tighter."
+  ],
+  "pages_read": "PDF p1-p32 read at 120 dpi and p33-p40 at 160 dpi (all 40 pages). Pages that are only mechanical/tape-reel/legal (p34-p40) were read but carry no TIA data. Plots digitized from 300-dpi clips: Figs 6-1 to 6-17, 6-31, 6-32, 6-42, 8-4, 8-5; Figs 6-21, 6-22, 8-6, 8-7 read by eye.",
+  "status": "complete"
+}

@@ -1,0 +1,704 @@
+{
+ "OPA855|A, 1 pF, 2 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 3.9979757199999995,
+    "analytical_central_pA": 3.903849851380483
+   },
+   "10MHz": {
+    "spice_pA": 3.8635107,
+    "analytical_central_pA": 3.906420617154042
+   },
+   "50MHz": {
+    "spice_pA": 3.9167974042299023,
+    "analytical_central_pA": 3.973886425380753
+   },
+   "100MHz": {
+    "spice_pA": 4.11384802,
+    "analytical_central_pA": 4.176911627583478
+   },
+   "150MHz": {
+    "spice_pA": 4.4249059006839655,
+    "analytical_central_pA": 4.495553963828557
+   },
+   "200MHz": {
+    "spice_pA": 4.826615749709907,
+    "analytical_central_pA": 4.90701396141974
+   }
+  },
+  "spice_penalty_10_150_dB": 3.0239428332264913,
+  "errors": []
+ },
+ "OPA855|A, 2 pF, 2 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 3.99800598,
+    "analytical_central_pA": 3.9038822743133847
+   },
+   "10MHz": {
+    "spice_pA": 3.8666149200000004,
+    "analytical_central_pA": 3.909633443615934
+   },
+   "50MHz": {
+    "spice_pA": 3.9926006013421604,
+    "analytical_central_pA": 4.051793428719667
+   },
+   "100MHz": {
+    "spice_pA": 4.3955858800000005,
+    "analytical_central_pA": 4.465143004200147
+   },
+   "150MHz": {
+    "spice_pA": 4.997597691129173,
+    "analytical_central_pA": 5.080802680104237
+   },
+   "200MHz": {
+    "spice_pA": 5.734537234560864,
+    "analytical_central_pA": 5.834589208404483
+   }
+  },
+  "spice_penalty_10_150_dB": 3.5030797610748152,
+  "errors": []
+ },
+ "OPA855|A, 1 pF, 1.5 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 4.3560267999999995,
+    "analytical_central_pA": 4.263383108411562
+   },
+   "10MHz": {
+    "spice_pA": 4.23274784,
+    "analytical_central_pA": 4.2655996099442826
+   },
+   "50MHz": {
+    "spice_pA": 4.28239103948667,
+    "analytical_central_pA": 4.328410380359527
+   },
+   "100MHz": {
+    "spice_pA": 4.46623563,
+    "analytical_central_pA": 4.518506158428093
+   },
+   "150MHz": {
+    "spice_pA": 4.758849105570004,
+    "analytical_central_pA": 4.8193942997249275
+   },
+   "200MHz": {
+    "spice_pA": 5.140382962083059,
+    "analytical_central_pA": 5.211534355031834
+   }
+  },
+  "spice_penalty_10_150_dB": 2.5030791057433954,
+  "errors": []
+ },
+ "OPA855|A, 2 pF, 1.5 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 4.35605565,
+    "analytical_central_pA": 4.263413968655343
+   },
+   "10MHz": {
+    "spice_pA": 4.235692719999999,
+    "analytical_central_pA": 4.26865817092496
+   },
+   "50MHz": {
+    "spice_pA": 4.3545358859944745,
+    "analytical_central_pA": 4.40284750579134
+   },
+   "100MHz": {
+    "spice_pA": 4.7369655,
+    "analytical_central_pA": 4.796467693273022
+   },
+   "150MHz": {
+    "spice_pA": 5.315520297162468,
+    "analytical_central_pA": 5.390015898042822
+   },
+   "200MHz": {
+    "spice_pA": 6.03228774519342,
+    "analytical_central_pA": 6.1251047378076695
+   }
+  },
+  "spice_penalty_10_150_dB": 2.9268684189545118,
+  "errors": []
+ },
+ "OPA818|B, 1 pF, 2 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 3.08071835,
+    "analytical_central_pA": 3.059362629859935,
+    "analytical_high_pA": 3.062654845225543
+   },
+   "10MHz": {
+    "spice_pA": 3.3289459,
+    "analytical_central_pA": 3.1119913858090626,
+    "analytical_high_pA": 3.1679852249260585
+   },
+   "50MHz": {
+    "spice_pA": 4.8459548102035415,
+    "analytical_central_pA": 4.19025105998976,
+    "analytical_high_pA": 4.424318585471135
+   },
+   "100MHz": {
+    "spice_pA": 7.8264749700000005,
+    "analytical_central_pA": 6.493347274093789,
+    "analytical_high_pA": 7.001026129170594
+   },
+   "150MHz": {
+    "spice_pA": 11.127244586829612,
+    "analytical_central_pA": 9.119894934466505,
+    "analytical_high_pA": 9.876010388487458
+   },
+   "200MHz": {
+    "spice_pA": 14.508179672212476,
+    "analytical_central_pA": 11.856853643649522,
+    "analytical_high_pA": 12.840218969146218
+   }
+  },
+  "spice_penalty_10_150_dB": 7.945075347266661,
+  "errors": []
+ },
+ "OPA818|B, 2 pF, 2 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 3.0810110099999997,
+    "analytical_central_pA": 3.0596409995723803,
+    "analytical_high_pA": 3.062932915730326
+   },
+   "10MHz": {
+    "spice_pA": 3.35559764,
+    "analytical_central_pA": 3.139239543811143,
+    "analytical_high_pA": 3.1947558456676455
+   },
+   "50MHz": {
+    "spice_pA": 5.285139419940508,
+    "analytical_central_pA": 4.670820821621171,
+    "analytical_high_pA": 4.881901079261016
+   },
+   "100MHz": {
+    "spice_pA": 8.89071855,
+    "analytical_central_pA": 7.693959424753907,
+    "analytical_high_pA": 8.126980968915065
+   },
+   "150MHz": {
+    "spice_pA": 12.800392222146819,
+    "analytical_central_pA": 11.022601890352789,
+    "analytical_high_pA": 11.65593625630362
+   },
+   "200MHz": {
+    "spice_pA": 16.78168044237064,
+    "analytical_central_pA": 14.447103154544097,
+    "analytical_high_pA": 15.264502429058583
+   }
+  },
+  "spice_penalty_10_150_dB": 9.012868160643857,
+  "errors": []
+ },
+ "OPA818|B, 1 pF, 1.5 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 3.62852473,
+    "analytical_central_pA": 3.602482589515357,
+    "analytical_high_pA": 3.605278880719392
+   },
+   "10MHz": {
+    "spice_pA": 3.84005312,
+    "analytical_central_pA": 3.647282754617139,
+    "analytical_high_pA": 3.6951740814375156
+   },
+   "50MHz": {
+    "spice_pA": 5.210165222357364,
+    "analytical_central_pA": 4.6017806393311576,
+    "analytical_high_pA": 4.815887877901964
+   },
+   "100MHz": {
+    "spice_pA": 8.0569002,
+    "analytical_central_pA": 6.7662205054785955,
+    "analytical_high_pA": 7.254829285938241
+   },
+   "150MHz": {
+    "spice_pA": 11.290327641898742,
+    "analytical_central_pA": 9.316150746015524,
+    "analytical_high_pA": 10.057522672124085
+   },
+   "200MHz": {
+    "spice_pA": 14.63330812659237,
+    "analytical_central_pA": 12.008461992849156,
+    "analytical_high_pA": 12.980346847538403
+   }
+  },
+  "spice_penalty_10_150_dB": 6.995066218434355,
+  "errors": []
+ },
+ "OPA818|B, 2 pF, 1.5 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 3.6288009000000003,
+    "analytical_central_pA": 3.6027453428001452,
+    "analytical_high_pA": 3.6055414302248883
+   },
+   "10MHz": {
+    "spice_pA": 3.86575036,
+    "analytical_central_pA": 3.6731445959578064,
+    "analytical_high_pA": 3.7207030549096545
+   },
+   "50MHz": {
+    "spice_pA": 5.664916083218152,
+    "analytical_central_pA": 5.090125570129325,
+    "analytical_high_pA": 5.284483827175968
+   },
+   "100MHz": {
+    "spice_pA": 9.20255865,
+    "analytical_central_pA": 8.044483389093683,
+    "analytical_high_pA": 8.459581611211773
+   },
+   "150MHz": {
+    "spice_pA": 13.11346605447691,
+    "analytical_central_pA": 11.374867213595826,
+    "analytical_high_pA": 11.989608071356697
+   },
+   "200MHz": {
+    "spice_pA": 17.12256326439629,
+    "analytical_central_pA": 14.830072545617691,
+    "analytical_high_pA": 15.627453297226035
+   }
+  },
+  "spice_penalty_10_150_dB": 8.09808408580157,
+  "errors": []
+ },
+ "OPA856|Table 8.1, 2 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 3.9466304099999996,
+    "analytical_central_pA": 3.866162272563575
+   },
+   "10MHz": {
+    "spice_pA": 3.8981056200000004,
+    "analytical_central_pA": 3.869672250121569
+   },
+   "50MHz": {
+    "spice_pA": 3.98268855240384,
+    "analytical_central_pA": 3.9595336510009345
+   },
+   "100MHz": {
+    "spice_pA": 4.2488193899999995,
+    "analytical_central_pA": 4.229021396568615
+   },
+   "150MHz": {
+    "spice_pA": 4.659382574738527,
+    "analytical_central_pA": 4.643541827600901
+   },
+   "200MHz": {
+    "spice_pA": 5.178516793762349,
+    "analytical_central_pA": 5.168315289293082
+   }
+  },
+  "spice_penalty_10_150_dB": 3.2702924255196453,
+  "errors": []
+ },
+ "LMH6629|Table 8.1, 2 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 3.8887689599999997,
+    "analytical_central_pA": 3.8875340030880925
+   },
+   "10MHz": {
+    "spice_pA": 3.8881402799999996,
+    "analytical_central_pA": 3.9013329521605056
+   },
+   "50MHz": {
+    "spice_pA": 3.9457807343604716,
+    "analytical_central_pA": 4.222076550979997
+   },
+   "100MHz": {
+    "spice_pA": 4.121474210000001,
+    "analytical_central_pA": 5.095901946499815
+   },
+   "150MHz": {
+    "spice_pA": 4.399211933089043,
+    "analytical_central_pA": 6.287980098967901
+   },
+   "200MHz": {
+    "spice_pA": 4.760701620064939,
+    "analytical_central_pA": 7.650971286860409
+   }
+  },
+  "spice_penalty_10_150_dB": 3.0497245556819568,
+  "errors": []
+ },
+ "OPA858|as OPA855, 2 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 3.1180361600000004,
+    "analytical_central_pA": 3.154440884835774,
+    "analytical_high_pA": 3.1548860591031658
+   },
+   "10MHz": {
+    "spice_pA": 3.1398327399999997,
+    "analytical_central_pA": 3.1527465986083225,
+    "analytical_high_pA": 3.195342057595141
+   },
+   "50MHz": {
+    "spice_pA": 3.62847444591566,
+    "analytical_central_pA": 3.6503921759311098,
+    "analytical_high_pA": 4.363194103876086
+   },
+   "100MHz": {
+    "spice_pA": 4.847488360000001,
+    "analytical_central_pA": 4.859145970601315,
+    "analytical_high_pA": 6.725607728199069
+   },
+   "150MHz": {
+    "spice_pA": 6.38208179770518,
+    "analytical_central_pA": 6.399892965657686,
+    "analytical_high_pA": 9.336500481722558
+   },
+   "200MHz": {
+    "spice_pA": 8.051719308306431,
+    "analytical_central_pA": 8.077431060890829,
+    "analytical_high_pA": 12.018938900478865
+   }
+  },
+  "spice_penalty_10_150_dB": 4.023605896030703,
+  "errors": []
+ },
+ "OPA859|flat design, 2 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 3.2946784,
+    "analytical_central_pA": 3.3381441868367387,
+    "analytical_high_pA": 3.3385648656439058
+   },
+   "10MHz": {
+    "spice_pA": 3.28603026,
+    "analytical_central_pA": 3.3490383951594165,
+    "analytical_high_pA": 3.3891677329769268
+   },
+   "50MHz": {
+    "spice_pA": 4.1381639387638325,
+    "analytical_central_pA": 4.304589447864397,
+    "analytical_high_pA": 4.930665719297303
+   },
+   "100MHz": {
+    "spice_pA": 6.10474417,
+    "analytical_central_pA": 6.441867396001105,
+    "analytical_high_pA": 7.944819399939946
+   },
+   "150MHz": {
+    "spice_pA": 8.482852331375899,
+    "analytical_central_pA": 8.93184924503261,
+    "analytical_high_pA": 11.224506323634927
+   },
+   "200MHz": {
+    "spice_pA": 11.08218767944201,
+    "analytical_central_pA": 11.548606689971228,
+    "analytical_high_pA": 14.580134300809728
+   }
+  },
+  "spice_penalty_10_150_dB": 5.914869206309828,
+  "errors": []
+ },
+ "OPA846|flat design, 2 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 4.091691979999999,
+    "analytical_central_pA": 4.055484608693281
+   },
+   "10MHz": {
+    "spice_pA": 4.07680786,
+    "analytical_central_pA": 4.080374054153572
+   },
+   "50MHz": {
+    "spice_pA": 4.411559599806271,
+    "analytical_central_pA": 4.643110041474507
+   },
+   "100MHz": {
+    "spice_pA": 5.33997949,
+    "analytical_central_pA": 6.074467340266598
+   },
+   "150MHz": {
+    "spice_pA": 6.633813450797453,
+    "analytical_central_pA": 7.903604103140068
+   },
+   "200MHz": {
+    "spice_pA": 8.154878038194626,
+    "analytical_central_pA": 9.912713246677834
+   }
+  },
+  "spice_penalty_10_150_dB": 5.027143128945337,
+  "errors": []
+ },
+ "OPA657|flat design, 2 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 3.7303073899999997,
+    "analytical_central_pA": 3.7476022882894866
+   },
+   "10MHz": {
+    "spice_pA": 4.34933294,
+    "analytical_central_pA": 4.377663200414079
+   },
+   "50MHz": {
+    "spice_pA": 11.841167693320322,
+    "analytical_central_pA": 11.969582163070314
+   },
+   "100MHz": {
+    "spice_pA": 22.777158099999998,
+    "analytical_central_pA": 23.045718769501725
+   },
+   "150MHz": {
+    "spice_pA": 33.89991336029175,
+    "analytical_central_pA": 34.314655484361474
+   },
+   "200MHz": {
+    "spice_pA": 45.06012952232809,
+    "analytical_central_pA": 45.63378331215654
+   }
+  },
+  "spice_penalty_10_150_dB": 17.072187792224227,
+  "errors": []
+ },
+ "OPA847|largest-PM design, 2 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 4.37693306,
+    "analytical_central_pA": 3.830238580901925
+   },
+   "10MHz": {
+    "spice_pA": 4.53867039,
+    "analytical_central_pA": 3.8407808449464063
+   },
+   "50MHz": {
+    "spice_pA": 7.274553184707004,
+    "analytical_central_pA": 4.097012787956703
+   },
+   "100MHz": {
+    "spice_pA": 11.3858485,
+    "analytical_central_pA": 4.810561524159421
+   },
+   "150MHz": {
+    "spice_pA": 14.74349686963109,
+    "analytical_central_pA": 5.808168055947311
+   },
+   "200MHz": {
+    "spice_pA": 17.53723028561933,
+    "analytical_central_pA": 6.968892003029752
+   }
+  },
+  "spice_penalty_10_150_dB": 10.989176051093763,
+  "errors": []
+ },
+ "LMH6624|largest-PM design, 2 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 3.57181705,
+    "analytical_central_pA": 3.70612892189104
+   },
+   "10MHz": {
+    "spice_pA": 3.5829990400000002,
+    "analytical_central_pA": 3.7192162957704253
+   },
+   "50MHz": {
+    "spice_pA": 3.9507325015735475,
+    "analytical_central_pA": 4.023481910001231
+   },
+   "100MHz": {
+    "spice_pA": 4.92968813,
+    "analytical_central_pA": 4.852875102393285
+   },
+   "150MHz": {
+    "spice_pA": 6.239788476246142,
+    "analytical_central_pA": 5.9850129678192365
+   },
+   "200MHz": {
+    "spice_pA": 7.732430474202728,
+    "analytical_central_pA": 7.279997051971554
+   }
+  },
+  "spice_penalty_10_150_dB": 4.277082702727502,
+  "errors": []
+ },
+ "THS4021|largest-PM design, 2 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 3.22911866,
+    "analytical_central_pA": 3.7260582887813136
+   },
+   "10MHz": {
+    "spice_pA": 3.14193854,
+    "analytical_central_pA": 3.7353511784827877
+   },
+   "50MHz": {
+    "spice_pA": 3.610525179993029,
+    "analytical_central_pA": 3.953956370120793
+   },
+   "100MHz": {
+    "spice_pA": 4.82125043,
+    "analytical_central_pA": 4.570191893813124
+   },
+   "150MHz": {
+    "spice_pA": 6.374460036336232,
+    "analytical_central_pA": 5.444397018529158
+   },
+   "200MHz": {
+    "spice_pA": 8.086023539151894,
+    "analytical_central_pA": 6.4728807979214915
+   }
+  },
+  "spice_penalty_10_150_dB": 3.988736162286469,
+  "errors": []
+ },
+ "ADA4817-1|robust design, 2 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 3.3412079,
+    "analytical_central_pA": 3.4986949870991064
+   },
+   "10MHz": {
+    "spice_pA": 3.42672015,
+    "analytical_central_pA": 3.610796838959684
+   },
+   "50MHz": {
+    "spice_pA": 5.2068041411621495,
+    "analytical_central_pA": 5.646118084520423
+   },
+   "100MHz": {
+    "spice_pA": 8.66026094,
+    "analytical_central_pA": 9.41085547298281
+   },
+   "150MHz": {
+    "spice_pA": 12.428745532719354,
+    "analytical_central_pA": 13.572962327872041
+   },
+   "200MHz": {
+    "spice_pA": 16.27879742758868,
+    "analytical_central_pA": 17.83678374097982
+   }
+  },
+  "spice_penalty_10_150_dB": 8.796854697140104,
+  "errors": []
+ },
+ "ADA4899-1|robust design, 2 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 3.80151814,
+    "analytical_central_pA": 3.90445400100047
+   },
+   "10MHz": {
+    "spice_pA": 3.8031183500000005,
+    "analytical_central_pA": 3.9291113346224122
+   },
+   "50MHz": {
+    "spice_pA": 3.8924337346170255,
+    "analytical_central_pA": 4.485583274052324
+   },
+   "100MHz": {
+    "spice_pA": 4.15883788,
+    "analytical_central_pA": 5.895201376783653
+   },
+   "150MHz": {
+    "spice_pA": 4.568318430385747,
+    "analytical_central_pA": 7.6903599317666345
+   },
+   "200MHz": {
+    "spice_pA": 5.088554268319653,
+    "analytical_central_pA": 9.65842467125605
+   }
+  },
+  "spice_penalty_10_150_dB": 3.0803403057103913,
+  "errors": []
+ },
+ "ADA4895-1|flat design, 2 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 3.2816041200000003,
+    "analytical_central_pA": 3.324720656368777
+   },
+   "10MHz": {
+    "spice_pA": 3.4196897500000003,
+    "analytical_central_pA": 3.484042992777615
+   },
+   "50MHz": {
+    "spice_pA": 5.839202981021252,
+    "analytical_central_pA": 6.199713678878241
+   },
+   "100MHz": {
+    "spice_pA": 10.1795222,
+    "analytical_central_pA": 10.982593903048583
+   },
+   "150MHz": {
+    "spice_pA": 14.774560590286303,
+    "analytical_central_pA": 16.04947249614858
+   },
+   "200MHz": {
+    "spice_pA": 19.395585175295945,
+    "analytical_central_pA": 21.197666036526748
+   }
+  },
+  "spice_penalty_10_150_dB": 10.151119792071864,
+  "errors": []
+ },
+ "AD8099|parasitic C_F only, 2 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 3.7705881800000003,
+    "analytical_central_pA": 3.9017519792600917
+   },
+   "10MHz": {
+    "spice_pA": 3.7832858199999997,
+    "analytical_central_pA": 3.9075647215374794
+   },
+   "50MHz": {
+    "spice_pA": 4.184815015306162,
+    "analytical_central_pA": 4.038904132943779
+   },
+   "100MHz": {
+    "spice_pA": 5.24563467,
+    "analytical_central_pA": 4.496451663877767
+   },
+   "150MHz": {
+    "spice_pA": 6.648360425448465,
+    "analytical_central_pA": 5.323673752236267
+   },
+   "200MHz": {
+    "spice_pA": 8.217397668491781,
+    "analytical_central_pA": 6.817540418155372
+   }
+  },
+  "spice_penalty_10_150_dB": 4.8059916506979965,
+  "errors": []
+ },
+ "OPA955|largest-PM design, 2 kOhm": {
+  "spot": {
+   "1MHz": {
+    "spice_pA": 2.94869753,
+    "analytical_central_pA": 2.950603101899864,
+    "analytical_high_pA": 2.950603101899864
+   },
+   "10MHz": {
+    "spice_pA": 2.9516535800000003,
+    "analytical_central_pA": 2.953745762774803,
+    "analytical_high_pA": 2.962764592590863
+   },
+   "50MHz": {
+    "spice_pA": 3.0249303230493685,
+    "analytical_central_pA": 3.0287534790205974,
+    "analytical_high_pA": 3.0735638331876847
+   },
+   "100MHz": {
+    "spice_pA": 3.2432215600000003,
+    "analytical_central_pA": 3.251938686642831,
+    "analytical_high_pA": 3.387455715088288
+   },
+   "150MHz": {
+    "spice_pA": 3.5778757259893053,
+    "analytical_central_pA": 3.5933482665947754,
+    "analytical_high_pA": 3.849935423489551
+   },
+   "200MHz": {
+    "spice_pA": 3.999045074462009,
+    "analytical_central_pA": 4.022936356162896,
+    "analytical_high_pA": 4.4054702275395305
+   }
+  },
+  "spice_penalty_10_150_dB": 0.9135406060399193,
+  "errors": []
+ }
+}

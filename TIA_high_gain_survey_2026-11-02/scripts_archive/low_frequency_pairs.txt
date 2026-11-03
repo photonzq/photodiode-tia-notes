@@ -1,0 +1,89 @@
+Old/new text pairs of Section 6.8 (signals at low frequency) and its links, high-gain note, 3 November
+2026, applied with plain_wording_pass.py: a line "=== FILE <part> <hash>" names the chapter file in parts/
+and its hash before the edit; each pair runs from "=== OLD" through "=== NEW" to "=== END". Usage:
+python plain_wording_pass.py low_frequency_pairs.txt
+
+=== FILE 06_selection.md d7b2923ce764
+
+=== OLD
+those with low shunt resistance and those with large capacitance.
+=== NEW
+those with low shunt resistance and those with large capacitance. Section 6.8 asks what changes when the signal sits at low frequency, where the band integral no longer describes the measurement.
+=== END
+
+=== OLD
+(Table 4a, G12180-050A at 100 MΩ–1 GΩ).
+
+---
+=== NEW
+(Table 4a, G12180-050A at 100 MΩ–1 GΩ).
+
+### 6.8 Signals at low frequency
+
+The excess noise $\Delta N$ of the sweep integrates each design's noise over its whole band, and the upper part of the band dominates that integral. A measurement whose signal sits at low frequency, such as chopped light, a lock-in measurement or a slow modulation, sees instead the noise density near its own frequency. There the amplifiers' 1/f corners decide and the capacitive term is small, so the ranking can differ from that of Tables 6.1–6.5. This section gives the voltage noise an amplifier may have at a given frequency, evaluates the sweep's designs at 10 Hz and 100 Hz (Tables A.8a–b), and states where the choice of Sections 6.1–6.7 changes.
+
+**What an amplifier may add.** At a frequency $f$ the voltage-noise term of Eq. (8) is $e_n^2(f)\,|Y_n(f)|^2$, with $|Y_n|^2 = G^2 + [2\pi f\,(C_T + C_F)]^2$ and $G = 1/R_F + 1/R_{sh}$. Flicker noise raises $e_n^2$ as $1/f$, while the capacitive part of $|Y_n|^2$ falls as $f^2$, so toward low frequency the capacitance matters less, not more, and only the conductance keeps the voltage noise in play. The voltage noise that alone would double the floor of Eq. (10) at the frequency $f$ is
+
+$$
+e_{n,\mathrm{crit}}(f) = \frac{\sqrt{4k_BT\,G}}{|Y_n(f)|},
+\tag{30a}
+$$
+
+which is Eq. (12) where the conductance dominates $|Y_n|$, and $\sqrt{4k_BT\,G}/[2\pi f\,(C_T + C_F)]$ where the capacitance does. Table 6.6 evaluates it at 100 Hz, with 10 pF of amplifier input capacitance and 1 pF of board capacitance. On the small and medium photodiodes it is 41 nV/√Hz at 100 kΩ and hundreds of nanovolts per root hertz above that. On the 14-kΩ photodiode it is about 15 nV/√Hz at every gain, the Johnson voltage noise of $R_{sh}$. On the 380-pF photodiode it falls to 58 and 31 nV/√Hz at 100 MΩ and 1 GΩ, because there the capacitance still dominates $|Y_n|$ at 100 Hz: $2\pi\times100\ \mathrm{Hz}\times391\ \mathrm{pF}$ = 0.25 µS, against $G$ = 3.5 nS at 1 GΩ.
+
+*Table 6.6. The voltage noise $e_{n,\mathrm{crit}}$ of Eq. (30a) at 100 Hz, in nV/√Hz, which alone would double the floor of the resistor and the photodiode, with 10 pF of amplifier input capacitance and 1 pF of board capacitance. `hg_low_frequency_noise.py`.*
+
+<!-- table: table_6_6 -->
+
+**What Tables A.8a–b show.**
+- **On a photodiode with low shunt resistance the 1/f corner decides.** On the 14-kΩ photodiode at 100 Hz, ADA4625-1 adds 0.2–0.3 dB to the floor, OPA827 0.3–0.4 dB, OPA828 0.4–0.5 dB and OPA140 0.6–0.7 dB. The zero-drift OPA388, which has no 1/f noise, adds 0.9–1.0 dB at 10 Hz and at 100 Hz alike. OPA1656 and OPA2156 add 2.1–2.3 dB at 100 Hz and 7.4–8.7 dB at 10 Hz, so on this photodiode they suit only a band that stays above about 1 kHz. The electrometers add 3.8–8.7 dB, OPA818 5.9–6.3 dB and LTC6268-10 15.5–16.0 dB, while the discrete-JFET composites stay within 0.1 dB.
+- **At 100 kΩ the wideband parts and the electrometers lose.** On the small photodiode at 100 Hz, LTC6268-10 adds 7.6 dB, ADA4817-1 4.4 dB, ADA4530-1 2.5 dB and OPA818 1.5 dB; at 10 Hz OPA1656 and OPA2156 add 2.1–2.5 dB. From 10 MΩ up the voltage noise no longer matters on the small and medium photodiodes.
+- **From 10 MΩ up the electrometers lose their noise penalty.** At 100 Hz ADA4530-1 and OPA928 come within 0.1 dB of the floor at 100 MΩ and 1 GΩ on the small photodiode, against 4.3–5.2 dB and 1.5–1.7 dB over the band (Table A.3a). A slow measurement at these gains therefore gives up nothing for the electrometers' DC accuracy and guard buffers (Section 6.5).
+- **A large photodiode no longer needs a composite.** At 100 Hz the precision JFET-input parts stay within 0.4 dB of the floor up to 100 MΩ on the 380-pF and 1-nF photodiodes, against 10–20 dB over the band at 100 kΩ–10 MΩ (Tables A.3c–d). At 1 GΩ on the 380-pF photodiode, where $e_{n,\mathrm{crit}}$ is 31 nV/√Hz, ADA4530-1 adds 3.7 dB, OPA818 2.3 dB and ADA4625-1 1.4 dB, the last from its current noise, while OPA828, OPA827 and OPA140 add 0.2–0.4 dB.
+- **The current noise, as modelled, changes little.** The model holds each FET input's current noise at its datasheet value below the datasheet's frequency. For a JFET input that value is the shot noise of the gate current, which is white; for the CMOS parts whose current noise exceeds that shot noise (Appendix C, item 20), its behaviour below 1 kHz is not specified. $R_{F,\mathrm{crit}}$ of Eq. (11) therefore still rules out OPA2156 from 100 MΩ up, at every frequency. The bipolar OPA211 grows worse toward low frequency, with 2.3 pA/√Hz at 100 Hz.
+
+**What else changes at low frequency.** Three points follow.
+
+*The feedback resistor's excess noise.* With the output at a DC voltage $V_{out}$, the feedback resistor carries a DC current and adds 1/f excess noise. Its noise index NI is the rms excess noise in microvolts per volt of DC per decade of frequency, and a $1/f$ density integrates over one decade to its value at $f$ times $\sqrt{f\ln 10}$, so that
+
+$$
+e_{\mathrm{ex}}(f) = \frac{10^{\mathrm{NI}/20}\ \mathrm{\mu V/V}\times V_{out}}{\sqrt{f\ln 10}}.
+\tag{30b}
+$$
+
+It stays below the resistor's Johnson noise $\sqrt{4k_BTR_F}$ if $\mathrm{NI} < 20\log_{10}\!\left(\sqrt{4k_BTR_F}\,\sqrt{f\ln 10}/(1\ \mathrm{\mu V/V}\times V_{out})\right)$. At 100 Hz with 10 V across the resistor, that is −24 dB for 100 kΩ and +15.8 dB for 1 GΩ. A high-value resistor's own Johnson noise hides its excess noise, whereas a resistor of 100 kΩ or less with volts across it needs a low-noise type; its datasheet gives the noise index.
+
+*Zero bias.* A reverse-biased photodiode adds the shot noise of its dark current (Section 2.2), and possibly low-frequency excess noise that the model does not include, so a slow measurement favours zero bias wherever the capacitance allows it.
+
+*The gaps in the data.* Below their first datasheet point the model holds the voltage noise of LMC662 and LMC6001A flat from 1 kHz, that of OPA381 from 10 kHz, and that of OPA656 and the BF862 composite from 100 kHz, so their entries in Tables A.8a–b are lower bounds (Appendix C, item 22). The 100-Hz values of OPA320 and LMP7721 continue their datasheet slopes, and that of ADA4530-1 is interpolated between its 10-Hz and 1-kHz values.
+
+---
+=== END
+
+=== FILE 00_front.md 6b248b67a571
+
+=== OLD
+- **The manufacturers' SPICE models confirm these results**
+=== NEW
+- **For a signal at low frequency** the noise density at that frequency counts, not the band (Section 6.8). The capacitive term then fades: a large photodiode needs no composite, and from 10 MΩ up the electrometers come within 0.1 dB of the floor at 100 Hz, so their DC accuracy costs no noise. The 1/f corners decide only where the critical voltage noise of Eq. (30a) is small. On photodiodes with low shunt resistance ADA4625-1, OPA827 and OPA828 stay within 0.5 dB at 100 Hz while OPA1656 and OPA2156 do not, and at 100 kΩ the wideband parts lose up to 7.6 dB.
+- **The manufacturers' SPICE models confirm these results**
+=== END
+
+=== FILE 10_conclusions.md 9f7c390c8eb0
+
+=== OLD
+### 10.2 What the model leaves open
+=== NEW
+10. **For a signal at low frequency, judge the noise at that frequency, not over the band.** The capacitive term then fades, and the 1/f corners decide only where $e_{n,\mathrm{crit}}$ of Eq. (30a) is small: on photodiodes with low shunt resistance (15 nV/√Hz), at 100 kΩ (41 nV/√Hz), and on large photodiodes at 1 GΩ (31 nV/√Hz on 380 pF). Elsewhere the precision JFET parts reach the floor, and from 10 MΩ up on small photodiodes so do the electrometers; a large photodiode needs no composite (Section 6.8).
+
+### 10.2 What the model leaves open
+=== END
+
+=== FILE 12_appendix_b_e.md b90a8b41efbc
+
+=== OLD
+Section 7.3 describes the optical reset from two later reports of the same laboratory [A10], [A11].
+=== NEW
+Section 7.3 describes the optical reset from two later reports of the same laboratory [A10], [A11].
+22. **Low-frequency noise (Section 6.8).** Below the first point of its datasheet data the model holds an amplifier's voltage noise flat: LMC662 and LMC6001A from 1 kHz, OPA381 from 10 kHz, and OPA656 and the BF862 composite from 100 kHz. Their entries in Tables A.8a–b are therefore lower bounds, which the noise curves of their datasheets, where they exist, would replace. The current noise of the CMOS parts below 1 kHz (item 20), the noise index of the feedback resistor chosen and the low-frequency noise of a biased photodiode are not known here.
+=== END

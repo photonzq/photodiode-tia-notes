@@ -1,0 +1,86 @@
+Old/new text pairs for low_frequency_section.py (balanced-photodiode note, 3 November 2026): Section 6.9 on
+noise at low frequencies, Table A6.37 (spliced in from data/results/table_a6_37.md where @@TABLE_A6_37@@
+stands), and the references to them. Each pair runs from "=== OLD" through "=== NEW" to "=== END".
+
+=== OLD
+and Sections 6.7 and 6.8 set the op-amp designs against the single-chip TIAs and against the 50-Ω benchmark.
+=== NEW
+and Sections 6.7 and 6.8 set the op-amp designs against the single-chip TIAs and against the 50-Ω benchmark. Section 6.9 then asks what changes if the receiver must also resolve signals below about 100 kHz, where the amplifiers' 1/f noise decides.
+=== END
+
+=== OLD
+---
+
+## 7. Composite front ends
+=== NEW
+### 6.9 Noise at low frequencies
+
+The specification fixes the top of the band, 150 MHz, but not its bottom. If the receiver must also resolve signals between about 100 Hz and 100 kHz, such as a slow modulation, a lock-in measurement or the drift of the balance itself, the amplifiers' 1/f noise decides there, and it ranks them almost in the reverse of their order at 100 MHz. This section states what an amplifier may add at low frequency, compares the ten amplifiers carried forward on their datasheets' noise curves (Table A6.37), and lists what changes in the choice and in the front end.
+
+**What an amplifier may add.** Below about 100 kHz the capacitive term of Eq. (23) vanishes: at 10 kHz, $2\pi fC_{\mathrm{tot}}$ = 2π × 10 kHz × 6 pF = 0.38 µS, against $1/R_F$ = 500 µS. The amplifier then adds $i_n^2(f) + e_n^2(f)/R_F^2$, and both densities rise toward low frequency as $e_n^2(f) = e_w^2(1 + f_{ce}/f)$ and $i_n^2(f) = i_w^2(1 + f_{ci}/f)$, with $e_w$ and $i_w$ the white levels and $f_{ce}$ and $f_{ci}$ the 1/f corners. Against the floor of Eq. (23), $S_0 = 4k_BT/R_F + 2qI_{\mathrm{DC}}$, the amplifier stays negligible only while
+
+$$
+i_n(f) \ll \sqrt{S_0}, \qquad e_n(f) \ll R_F\sqrt{S_0}.
+$$
+
+At 2 kΩ these limits are 2.87 pA/√Hz and 5.74 nV/√Hz in the dark. At $I_1 + I_2$ = 0.1, 1 and 10 mA they are 6.35, 18.1 and 56.7 pA/√Hz, and 12.7, 36.3 and 113 nV/√Hz. They are the limits of a 2-kΩ resistor and of the light, and the 1/f corners of a fast amplifier lie far above them. The current noise of OPA855, for example, has a white level of 2.6 pA/√Hz and a corner near 190 kHz, derived from its Fig 6-11 (p9). That gives $2.6\sqrt{1 + 190/1.05}$ = 35.2 pA/√Hz at 1.05 kHz, where the curve reads 35.2 pA/√Hz: twelve times the limit in the dark, and 5.5 times the limit at 0.1 mA.
+
+**What Table A6.37 shows.**
+- **Fast bipolar inputs lose through their current noise.** The base current of a fast bipolar input carries 1/f noise with a corner far above that of its voltage noise. OPA855 adds 35.2 pA/√Hz at 1 kHz, which is 15.0 dB above the floor at 0.1 mA and 6.8 dB at 1 mA; at 10 kHz it still adds 6.4 dB at 0.1 mA. OPA856 (21 pA/√Hz at 1 kHz), THS4304 (17.8) and LMH6629 (6.4) follow.
+- **FET and CMOS inputs lose through their voltage noise.** Their gate current is tiny, but their voltage-noise corners are high. OPA858 and OPA859, with corners near 110 and 120 kHz, have 25.2 and 32.2 nV/√Hz at 1 kHz, which become 12.6 and 16.1 pA/√Hz through 2 kΩ. OPA818, with a corner of 15 kHz, has 8.4 nV/√Hz at 1 kHz and 25.5 nV/√Hz at 102 Hz, which become 4.2 and 12.8 pA/√Hz.
+- **OPA955, OPA846 and OPA843 have low corners in both.** OPA955 adds 1.06 pA/√Hz at 1 kHz and 2.61 pA/√Hz at 105 Hz, 0.1 and 0.7 dB above the floor at 0.1 mA; its white current noise is only 0.55 pA/√Hz.
+- **The shot noise relaxes the comparison.** From 1 mA up, OPA955, OPA846, OPA843, OPA818 and LMH6629 add at most 0.5 dB at 1 kHz, but at 100 Hz only OPA955, OPA846 and OPA843 stay within 1 dB.
+
+**What it changes in the choice.** If the band must reach below about 100 kHz, the order of Section 9.2 changes.
+- OPA955 is the only amplifier that is quiet at both ends: 560 MHz with a 0.90-dB band penalty in SPICE (Table A6.32), and at most 0.7 dB above the floor at 100 Hz from 0.1 mA up. It is still Advance Information.
+- Among production parts OPA818, variant B, balances the two. It keeps 262 MHz in SPICE (Table A6.32) and the largest ceiling of the single amplifiers, and it adds 0.2 dB at 1 kHz and 1.7 dB at 100 Hz from 1 mA up, against 1.6 and 7.0 dB at 0.1 mA.
+- OPA846 and OPA843 are quieter at low frequency, but neither reaches 150 MHz robustly at 1 pF: the best SPICE design of OPA846 gives 144 MHz at 44.5° (Table A6.32), and the robust design of OPA843 150 MHz (Table A6.5).
+- OPA855, variant A, remains the choice only where nothing below about 100 kHz matters.
+
+**What it changes in the front end.** Four points follow.
+
+*The servo sets the lowest frequency.* A servo makes the TIA a high-pass at its unity-gain frequency, which Section 8.2 places at 1–10 kHz. Signals near 100 Hz need it a decade lower, near 10 Hz, and the imbalance is then followed correspondingly more slowly.
+
+*The servo resistor must be a low-noise type.* The resistor through which the servo injects its current carries the imbalance, up to 12 V across 24 kΩ in the design of Section 8.8 (d). A resistor with a DC voltage $V$ across it adds 1/f excess noise. Its noise index NI is the rms excess noise in microvolts per volt of DC per decade of frequency, and a $1/f$ density integrates over one decade to its value at $f$ times $\sqrt{f\ln 10}$, so that
+
+$$
+e_{\mathrm{ex}}(f) = \frac{10^{\mathrm{NI}/20}\ \mathrm{\mu V/V}\times V}{\sqrt{f\ln 10}}.
+$$
+
+This stays below the resistor's Johnson noise, $\sqrt{4k_BT\times24\ \mathrm{k\Omega}}$ = 19.9 nV/√Hz, at 100 Hz only if $\mathrm{NI} < 20\log_{10}\!\left(19.9\ \mathrm{nV}\times\sqrt{100\times\ln 10}/12\ \mathrm{\mu V}\right)$ = −32 dB, a figure to check in the datasheet of the resistor chosen. $R_F$ carries only the residual imbalance, so its own excess noise does not matter.
+
+*The laser's intensity noise may set the floor.* The residual of Eq. (77), $(I_1 - I_2)^2\,10^{\mathrm{RIN}/10}$, stays below the shot noise $2q(I_1 + I_2)$ only while $|I_1 - I_2|/(I_1 + I_2) < \sqrt{2q/(I_{\mathrm{DC}}\,10^{\mathrm{RIN}/10})}$. A laser with a RIN of −120 dB/Hz at 100 Hz, for example, allows 1.8 % of imbalance at 1 mA. The intensity noise of a laser usually rises toward low frequency, so near 100 Hz this residual, not the amplifier, may set the floor; the RIN of the laser used, at the frequency of interest, decides.
+
+*A split front end could keep OPA855 for the band.* The fast TIA would take the photocurrent through a coupling capacitor, and a precision JFET-input TIA would take the low frequencies and the DC through a resistor $R_s$. The fast amplifier's low-frequency current noise would then stay inside its own loop, and its output would carry no DC. In the band, $R_s$ adds its Johnson noise, $\sqrt{4k_BT/R_s}$ = 0.91 pA/√Hz for 20 kΩ against 2.87 pA/√Hz for $R_F$, and the photodiode bias moves by the imbalance times $R_s$. This arrangement has not been analysed (Appendix C, item 21).
+
+---
+
+## 7. Composite front ends
+=== END
+
+=== OLD
+### 9.3 The front end that follows
+=== NEW
+**If the receiver must also resolve signals below about 100 kHz, the order changes (Section 6.9).** OPA855 then adds the most noise of the ten, 35 pA/√Hz at 1 kHz from the 1/f noise of its base current, and OPA856, THS4304 and the CMOS-input OPA859 and OPA858 follow. OPA955 is quiet at both ends but not yet released. Among production parts OPA818 balances the two: it keeps 262 MHz and adds 0.2 dB at 1 kHz and 1.7 dB at 100 Hz from 1 mA up (Table A6.37).
+
+### 9.3 The front end that follows
+=== END
+
+=== OLD
+    - Which ADCs reach the −152.5 to −163.6 dBFS/Hz that 70.7–81.8 dB in 150 MHz would need is not studied.
+=== NEW
+    - Which ADCs reach the −152.5 to −163.6 dBFS/Hz that 70.7–81.8 dB in 150 MHz would need is not studied.
+21. **Low frequencies (Section 6.9).**
+    - Below the first plotted point of a curve, the values of Table A6.37 are extrapolations: under about 1 kHz for OPA855, OPA856, OPA858 and OPA859, under 200 Hz for LMH6629, and under 10 kHz for the current noise of OPA818, whose curve is labelled simulation.
+    - The curves of OPA955 are Advance Information.
+    - The noise index of the servo resistor and the intensity noise of the laser at low frequency are properties of the parts chosen and are not known here.
+    - The split front end of Section 6.9 has not been analysed: its two loops, the crossover between them and the shift of the photodiode bias need the treatment that Sections 8.2–8.5 give the other options.
+=== END
+
+=== OLD
+### A7. Tables of Chapter 7: Composite front ends
+=== NEW
+@@TABLE_A6_37@@
+
+### A7. Tables of Chapter 7: Composite front ends
+=== END

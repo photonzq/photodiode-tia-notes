@@ -1,0 +1,1426 @@
+[
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 100000.0,
+  "reading": 126.92,
+  "path": 126.92431759653459,
+  "resid": -0.004317596534590962
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 300000.0,
+  "reading": 117.62,
+  "path": 117.61500308774835,
+  "resid": 0.004996912251655772
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 1000000.0,
+  "reading": 107.17,
+  "path": 107.1739497069069,
+  "resid": -0.003949706906894335
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 3000000.0,
+  "reading": 97.64,
+  "path": 97.64449862465969,
+  "resid": -0.004498624659689199
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 10000000.0,
+  "reading": 87.19,
+  "path": 87.18958129488641,
+  "resid": 0.0004187051135886577
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 20000000.0,
+  "reading": 81.15,
+  "path": 81.15322849406144,
+  "resid": -0.0032284940614317748
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 50000000.0,
+  "reading": 73.2,
+  "path": 73.19551546796527,
+  "resid": 0.004484532034737754
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 70000000.0,
+  "reading": 70.27,
+  "path": 70.26942128576029,
+  "resid": 0.0005787142397082334
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 100000000.0,
+  "reading": 67.17,
+  "path": 67.1730611106433,
+  "resid": -0.00306111064330139
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 150000000.0,
+  "reading": 63.7,
+  "path": 63.697047397814856,
+  "resid": 0.002952602185146702
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 200000000.0,
+  "reading": 61.21,
+  "path": 61.20715153473178,
+  "resid": 0.0028484652682223555
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 250000000.0,
+  "reading": 59.3,
+  "path": 59.304850003042404,
+  "resid": -0.00485000304240657
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 300000000.0,
+  "reading": 57.73,
+  "path": 57.73374796238015,
+  "resid": -0.0037479623801530693
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 350000000.0,
+  "reading": 56.56,
+  "path": 56.55812686574184,
+  "resid": 0.0018731342581617128
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 400000000.0,
+  "reading": 55.66,
+  "path": 55.66072683329872,
+  "resid": -0.0007268332987209192
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 450000000.0,
+  "reading": 54.86,
+  "path": 54.86113410437059,
+  "resid": -0.0011341043705925813
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 500000000.0,
+  "reading": 54.19,
+  "path": 54.185697580178804,
+  "resid": 0.004302419821193837
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 550000000.0,
+  "reading": 53.59,
+  "path": 53.59366165336892,
+  "resid": -0.0036616533689155517
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 600000000.0,
+  "reading": 53.07,
+  "path": 53.07413826275116,
+  "resid": -0.004138262751162358
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 650000000.0,
+  "reading": 52.65,
+  "path": 52.650742283276784,
+  "resid": -0.0007422832767858267
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 700000000.0,
+  "reading": 52.27,
+  "path": 52.270535369539765,
+  "resid": -0.000535369539761632
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 750000000.0,
+  "reading": 51.96,
+  "path": 51.95758163043264,
+  "resid": 0.002418369567358525
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 769000000.0,
+  "reading": 51.85,
+  "path": 51.847681594493444,
+  "resid": 0.002318405506557042
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 800000000.0,
+  "reading": 51.68,
+  "path": 51.675594485979786,
+  "resid": 0.004405514020213275
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 900000000.0,
+  "reading": 51.22,
+  "path": 51.221590644295375,
+  "resid": -0.0015906442953763644
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "|Z_OL| (dBohm)",
+  "x": 956700000.0,
+  "reading": 51.01,
+  "path": 51.0071526668678,
+  "resid": 0.0028473331321947626
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 100000.0,
+  "reading": -85.54,
+  "path": -85.54230194188708,
+  "resid": 0.0023019418870688924
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 300000.0,
+  "reading": -88.45,
+  "path": -88.44994318949892,
+  "resid": -5.681050107853025e-05
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 1000000.0,
+  "reading": -89.57,
+  "path": -89.57195819450135,
+  "resid": 0.0019581945013555924
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 3000000.0,
+  "reading": -90.02,
+  "path": -90.01599243153072,
+  "resid": -0.0040075684692766345
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 10000000.0,
+  "reading": -90.64,
+  "path": -90.64368129180929,
+  "resid": 0.0036812918092863356
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 20000000.0,
+  "reading": -91.38,
+  "path": -91.38427121017835,
+  "resid": 0.004271210178359297
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 50000000.0,
+  "reading": -93.54,
+  "path": -93.53764660979134,
+  "resid": -0.0023533902086683156
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 70000000.0,
+  "reading": -94.94,
+  "path": -94.94333593405473,
+  "resid": 0.0033359340547320926
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 100000000.0,
+  "reading": -97.1,
+  "path": -97.09526696228946,
+  "resid": -0.0047330377105367916
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 150000000.0,
+  "reading": -100.63,
+  "path": -100.63295554043975,
+  "resid": 0.0029555404397569873
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 200000000.0,
+  "reading": -104.15,
+  "path": -104.1466344185998,
+  "resid": -0.0033655814002031548
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 250000000.0,
+  "reading": -107.55,
+  "path": -107.54519075519296,
+  "resid": -0.004809244807034929
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 300000000.0,
+  "reading": -110.57,
+  "path": -110.56926242444584,
+  "resid": -0.0007375755541545459
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 350000000.0,
+  "reading": -113.21,
+  "path": -113.2050738028481,
+  "resid": -0.0049261971518888
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 400000000.0,
+  "reading": -116.63,
+  "path": -116.6261612808268,
+  "resid": -0.003838719173188565
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 450000000.0,
+  "reading": -120.59,
+  "path": -120.5860284295086,
+  "resid": -0.0039715704914016214
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 500000000.0,
+  "reading": -124.55,
+  "path": -124.5502680702177,
+  "resid": 0.00026807021770025585
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 550000000.0,
+  "reading": -128.75,
+  "path": -128.75217525550062,
+  "resid": 0.002175255500617368
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 600000000.0,
+  "reading": -133.07,
+  "path": -133.07464162184556,
+  "resid": 0.004641621845564714
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 650000000.0,
+  "reading": -137.61,
+  "path": -137.61309792689138,
+  "resid": 0.0030979268913711167
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 700000000.0,
+  "reading": -142.29,
+  "path": -142.29109074586114,
+  "resid": 0.0010907458611484344
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 750000000.0,
+  "reading": -147.21,
+  "path": -147.21386442944416,
+  "resid": 0.003864429444149664
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 769000000.0,
+  "reading": -149.3,
+  "path": -149.3042766032857,
+  "resid": 0.004276603285688907
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 800000000.0,
+  "reading": NaN,
+  "path": NaN,
+  "resid": NaN
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 900000000.0,
+  "reading": NaN,
+  "path": NaN,
+  "resid": NaN
+ },
+ {
+  "check": "THS3491_Fig8-22_Zol_full",
+  "series": "phase (deg)",
+  "x": 956700000.0,
+  "reading": NaN,
+  "path": NaN,
+  "resid": NaN
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 1.0,
+  "reading": 26.0,
+  "path": NaN,
+  "resid": NaN
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 10.0,
+  "reading": 26.0,
+  "path": 26.002167426215273,
+  "resid": -0.002167426215272883
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 20.0,
+  "reading": 25.0,
+  "path": 25.003239306848197,
+  "resid": -0.0032393068481972875
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 30.0,
+  "reading": 24.5,
+  "path": 24.505260322584267,
+  "resid": -0.0052603225842666745
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 40.0,
+  "reading": 24.0,
+  "path": 23.99912332564683,
+  "resid": 0.0008766743531687382
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 50.0,
+  "reading": 23.0,
+  "path": 23.00471865301995,
+  "resid": -0.00471865301994967
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 60.1,
+  "reading": 22.0,
+  "path": 22.00195687242296,
+  "resid": -0.001956872422958611
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 70.0,
+  "reading": 21.5,
+  "path": 21.501730717109975,
+  "resid": -0.0017307171099751884
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 80.0,
+  "reading": 21.0,
+  "path": 21.004595694156944,
+  "resid": -0.004595694156943608
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 90.0,
+  "reading": 20.51,
+  "path": 20.50731871538061,
+  "resid": 0.002681284619391988
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 100.0,
+  "reading": 20.1,
+  "path": 20.104495993335366,
+  "resid": -0.004495993335364545
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 105.0,
+  "reading": 20.0,
+  "path": 20.003373051847966,
+  "resid": -0.003373051847965769
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 110.0,
+  "reading": 17.83,
+  "path": 17.827479564070746,
+  "resid": 0.0025204359292523293
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 120.0,
+  "reading": 15.89,
+  "path": 15.89142488156535,
+  "resid": -0.0014248815653488123
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 150.0,
+  "reading": 14.17,
+  "path": 14.162238207269562,
+  "resid": 0.0077617927304380885
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 165.0,
+  "reading": 12.62,
+  "path": 12.621140874503642,
+  "resid": -0.0011408745036423085
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 185.0,
+  "reading": 11.26,
+  "path": 11.257272600101361,
+  "resid": 0.0027273998986387937
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 205.0,
+  "reading": 10.03,
+  "path": 10.029674840734616,
+  "resid": 0.0003251592653832347
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 229.9,
+  "reading": 8.94,
+  "path": 8.940689661608708,
+  "resid": -0.0006896616087086471
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 254.8,
+  "reading": 7.97,
+  "path": 7.971124416946636,
+  "resid": -0.0011244169466362308
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 279.9,
+  "reading": 7.11,
+  "path": 7.10910598215921,
+  "resid": 0.0008940178407899069
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 304.8,
+  "reading": 6.33,
+  "path": 6.335474581958731,
+  "resid": -0.005474581958730518
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 330.0,
+  "reading": 5.65,
+  "path": 5.646082018693594,
+  "resid": 0.003917981306406304
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 355.0,
+  "reading": 5.04,
+  "path": 5.035486775216441,
+  "resid": 0.004513224783559089
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 379.9,
+  "reading": 4.49,
+  "path": 4.489036056191468,
+  "resid": 0.0009639438085322638
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 404.6,
+  "reading": 4.0,
+  "path": 4.0023818314616495,
+  "resid": -0.0023818314616494973
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 429.7,
+  "reading": 3.57,
+  "path": 3.569528101774596,
+  "resid": 0.0004718982254039439
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 439.7,
+  "reading": 3.18,
+  "path": 3.1773889873900947,
+  "resid": 0.002611012609905483
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 455.1,
+  "reading": 2.84,
+  "path": 2.8371648984821274,
+  "resid": 0.0028351015178724737
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 475.1,
+  "reading": 2.53,
+  "path": 2.5313324936669233,
+  "resid": -0.001332493666923451
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 499.9,
+  "reading": 2.25,
+  "path": 2.2533018245171914,
+  "resid": -0.0033018245171914096
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-15 V (Vpp)",
+  "x": 524.8,
+  "reading": 2.01,
+  "path": NaN,
+  "resid": NaN
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 1.0,
+  "reading": 12.01,
+  "path": NaN,
+  "resid": NaN
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 10.0,
+  "reading": 12.01,
+  "path": 12.005029296874996,
+  "resid": 0.004970703125003695
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 20.0,
+  "reading": 12.01,
+  "path": 12.005029296874996,
+  "resid": 0.004970703125003695
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 30.0,
+  "reading": 11.76,
+  "path": 11.761396874454563,
+  "resid": -0.0013968744545636014
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 40.0,
+  "reading": 11.76,
+  "path": 11.761024305555551,
+  "resid": -0.0010243055555516634
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 50.0,
+  "reading": 11.76,
+  "path": 11.761024305555551,
+  "resid": -0.0010243055555516634
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 60.1,
+  "reading": 11.76,
+  "path": 11.759661117918805,
+  "resid": 0.00033888208119492447
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 70.0,
+  "reading": 11.51,
+  "path": 11.509564854134725,
+  "resid": 0.00043514586527493293
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 80.0,
+  "reading": 11.0,
+  "path": 11.00425042324682,
+  "resid": -0.004250423246819679
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 90.0,
+  "reading": 10.51,
+  "path": 10.50879601422715,
+  "resid": 0.0012039857728503023
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 100.0,
+  "reading": 10.21,
+  "path": 10.20566392125425,
+  "resid": 0.004336078745751593
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 115.1,
+  "reading": 10.01,
+  "path": 10.00774283918626,
+  "resid": 0.0022571608137393895
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 135.0,
+  "reading": 8.94,
+  "path": 8.940860927397857,
+  "resid": -0.0008609273978574805
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 150.0,
+  "reading": 7.97,
+  "path": 7.96806923696066,
+  "resid": 0.0019307630393399222
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 165.0,
+  "reading": 7.11,
+  "path": 7.107244026678915,
+  "resid": 0.0027559733210855697
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 185.0,
+  "reading": 6.33,
+  "path": 6.335223570566566,
+  "resid": -0.005223570566565527
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 205.0,
+  "reading": 5.65,
+  "path": 5.645528321511973,
+  "resid": 0.004471678488027209
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 229.9,
+  "reading": 5.04,
+  "path": 5.035790840949302,
+  "resid": 0.004209159050698297
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 249.8,
+  "reading": 4.49,
+  "path": 4.48961405109181,
+  "resid": 0.0003859489081898815
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 270.0,
+  "reading": 4.0,
+  "path": 4.001334366751103,
+  "resid": -0.001334366751103211
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 294.7,
+  "reading": 3.57,
+  "path": 3.569342989943354,
+  "resid": 0.000657010056645646
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 324.9,
+  "reading": 3.18,
+  "path": 3.178359977319398,
+  "resid": 0.001640022680602371
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 374.7,
+  "reading": 2.84,
+  "path": 2.8374436202696214,
+  "resid": 0.0025563797303784774
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 399.7,
+  "reading": 2.53,
+  "path": 2.5306358864153884,
+  "resid": -0.0006358864153885868
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 449.6,
+  "reading": 2.25,
+  "path": 2.253805870293162,
+  "resid": -0.003805870293161817
+ },
+ {
+  "check": "THS3491_Fig9-4_Vmax_full",
+  "series": "+/-7.5 V (Vpp)",
+  "x": 499.9,
+  "reading": 2.01,
+  "path": NaN,
+  "resid": NaN
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 100 ohm",
+  "x": 1.0,
+  "reading": -73.66,
+  "path": -73.66481948816501,
+  "resid": 0.004819488165011876
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 100 ohm",
+  "x": 2.5,
+  "reading": -68.1,
+  "path": -68.1010792682353,
+  "resid": 0.001079268235301356
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 100 ohm",
+  "x": 5.0,
+  "reading": -64.24,
+  "path": -64.24017880078098,
+  "resid": 0.00017880078098642116
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 100 ohm",
+  "x": 7.5,
+  "reading": -62.2,
+  "path": -62.20148594075877,
+  "resid": 0.0014859407587692885
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 100 ohm",
+  "x": 10.0,
+  "reading": -60.29,
+  "path": -60.287082652040084,
+  "resid": -0.002917347959915162
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 100 ohm",
+  "x": 12.5,
+  "reading": -58.3,
+  "path": -58.303879080256756,
+  "resid": 0.003879080256758982
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 100 ohm",
+  "x": 15.0,
+  "reading": -56.37,
+  "path": -56.37050164804784,
+  "resid": 0.0005016480478445828
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 100 ohm",
+  "x": 17.5,
+  "reading": -54.17,
+  "path": -54.16921818322663,
+  "resid": -0.0007818167733688597
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 100 ohm",
+  "x": 20.0,
+  "reading": -51.23,
+  "path": -51.23101844457527,
+  "resid": 0.001018444575272781
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 100 ohm",
+  "x": 22.5,
+  "reading": -44.69,
+  "path": -44.68792917972884,
+  "resid": -0.0020708202711574586
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 100 ohm",
+  "x": 24.0,
+  "reading": -38.35,
+  "path": -38.345901554015256,
+  "resid": -0.004098445984745069
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 1 kohm",
+  "x": 1.0,
+  "reading": -75.49,
+  "path": -75.48570852699618,
+  "resid": -0.004291473003817714
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 1 kohm",
+  "x": 2.5,
+  "reading": -67.51,
+  "path": -67.51027455977673,
+  "resid": 0.00027455977672730114
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 1 kohm",
+  "x": 5.0,
+  "reading": -61.14,
+  "path": -61.14351314753542,
+  "resid": 0.0035131475354219788
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 1 kohm",
+  "x": 7.5,
+  "reading": -58.01,
+  "path": -58.0072570946485,
+  "resid": -0.0027429053514964608
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 1 kohm",
+  "x": 10.0,
+  "reading": -56.0,
+  "path": -56.00155781790617,
+  "resid": 0.0015578179061677133
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 1 kohm",
+  "x": 12.5,
+  "reading": -54.36,
+  "path": -54.36391933940175,
+  "resid": 0.003919339401747379
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 1 kohm",
+  "x": 15.0,
+  "reading": -52.91,
+  "path": -52.90751296336782,
+  "resid": -0.002487036632174977
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 1 kohm",
+  "x": 17.5,
+  "reading": -51.49,
+  "path": -51.48891743593789,
+  "resid": -0.0010825640621092703
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 1 kohm",
+  "x": 20.0,
+  "reading": -50.08,
+  "path": -50.08042901918277,
+  "resid": 0.0004290191827749368
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 1 kohm",
+  "x": 22.5,
+  "reading": -48.65,
+  "path": -48.654521511197856,
+  "resid": 0.004521511197857819
+ },
+ {
+  "check": "THS3491_Fig8-13_HD2_vs_swing",
+  "series": "HD2 100 MHz 1 kohm",
+  "x": 24.0,
+  "reading": -47.84,
+  "path": -47.837958160374896,
+  "resid": -0.0020418396251074
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 100 ohm",
+  "x": 1.0,
+  "reading": -72.57,
+  "path": -72.56921793453756,
+  "resid": -0.0007820654624310919
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 100 ohm",
+  "x": 2.5,
+  "reading": -70.34,
+  "path": -70.34359489290091,
+  "resid": 0.0035948929009066433
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 100 ohm",
+  "x": 5.0,
+  "reading": -57.8,
+  "path": -57.80232760636438,
+  "resid": 0.0023276063643820066
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 100 ohm",
+  "x": 7.5,
+  "reading": -53.42,
+  "path": -53.41612083614814,
+  "resid": -0.0038791638518631544
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 100 ohm",
+  "x": 10.0,
+  "reading": -51.31,
+  "path": -51.31306136553846,
+  "resid": 0.0030613655384570393
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 100 ohm",
+  "x": 12.5,
+  "reading": -50.58,
+  "path": -50.584394901801446,
+  "resid": 0.004394901801447304
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 100 ohm",
+  "x": 15.0,
+  "reading": -50.41,
+  "path": -50.4085528588259,
+  "resid": -0.0014471411740970552
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 100 ohm",
+  "x": 17.5,
+  "reading": -49.71,
+  "path": -49.71354708159413,
+  "resid": 0.0035470815941280875
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 100 ohm",
+  "x": 20.0,
+  "reading": -46.91,
+  "path": -46.90792707355189,
+  "resid": -0.002072926448107637
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 100 ohm",
+  "x": 22.5,
+  "reading": -34.09,
+  "path": -34.085137488243674,
+  "resid": -0.004862511756329013
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 100 ohm",
+  "x": 24.0,
+  "reading": -19.67,
+  "path": -19.674190340332416,
+  "resid": 0.004190340332414166
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 1 kohm",
+  "x": 1.0,
+  "reading": -74.61,
+  "path": -74.6076505245639,
+  "resid": -0.0023494754361053083
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 1 kohm",
+  "x": 2.5,
+  "reading": -62.12,
+  "path": -62.12435247176388,
+  "resid": 0.004352471763880317
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 1 kohm",
+  "x": 5.0,
+  "reading": -54.04,
+  "path": -54.04224889491243,
+  "resid": 0.002248894912433741
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 1 kohm",
+  "x": 7.5,
+  "reading": -51.19,
+  "path": -51.18926174871427,
+  "resid": -0.0007382512857248003
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 1 kohm",
+  "x": 10.0,
+  "reading": -50.43,
+  "path": -50.43025143635478,
+  "resid": 0.00025143635478031
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 1 kohm",
+  "x": 12.5,
+  "reading": -50.97,
+  "path": -50.9680352483246,
+  "resid": -0.001964751675401999
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 1 kohm",
+  "x": 15.0,
+  "reading": -51.98,
+  "path": -51.984595963740745,
+  "resid": 0.004595963740747777
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 1 kohm",
+  "x": 17.5,
+  "reading": -52.72,
+  "path": -52.71882949875014,
+  "resid": -0.0011705012498595124
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 1 kohm",
+  "x": 20.0,
+  "reading": -52.05,
+  "path": -52.05123141115931,
+  "resid": 0.0012314111593099142
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 1 kohm",
+  "x": 22.5,
+  "reading": -44.77,
+  "path": -44.77087829210679,
+  "resid": 0.0008782921067833627
+ },
+ {
+  "check": "THS3491_Fig8-14_HD3_vs_swing",
+  "series": "HD3 100 MHz 1 kohm",
+  "x": 24.0,
+  "reading": -36.0,
+  "path": -36.0041408239599,
+  "resid": 0.004140823959900786
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 |A| (dB)",
+  "x": 100000.0,
+  "reading": 66.8,
+  "path": 66.75724884115016,
+  "resid": 0.042751158849839044
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 |A| (dB)",
+  "x": 1000000.0,
+  "reading": 58.8,
+  "path": 58.76085365254903,
+  "resid": 0.039146347450966346
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 |A| (dB)",
+  "x": 10000000.0,
+  "reading": 39.0,
+  "path": 39.021892458915865,
+  "resid": -0.021892458915864665
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 |A| (dB)",
+  "x": 30000000.0,
+  "reading": 29.5,
+  "path": 29.49069148939089,
+  "resid": 0.009308510609109533
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 |A| (dB)",
+  "x": 100000000.0,
+  "reading": 19.0,
+  "path": 18.957760830848585,
+  "resid": 0.04223916915141501
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 |A| (dB)",
+  "x": 200000000.0,
+  "reading": 12.8,
+  "path": 12.747873897719021,
+  "resid": 0.05212610228097958
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 |A| (dB)",
+  "x": 300000000.0,
+  "reading": 9.0,
+  "path": 8.973976023081288,
+  "resid": 0.02602397691871161
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 |A| (dB)",
+  "x": 500000000.0,
+  "reading": 4.1,
+  "path": 4.051338304345354,
+  "resid": 0.04866169565464595
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 |A| (dB)",
+  "x": 700000000.0,
+  "reading": 0.7,
+  "path": 0.705241498657351,
+  "resid": -0.005241498657351018
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 |A| (dB)",
+  "x": 1000000000.0,
+  "reading": -2.5,
+  "path": -2.5285191500130395,
+  "resid": 0.028519150013039507
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 |A| (dB)",
+  "x": 2000000000.0,
+  "reading": -8.7,
+  "path": -8.716557236220279,
+  "resid": 0.016557236220279492
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 |A| (dB)",
+  "x": 3000000000.0,
+  "reading": -9.3,
+  "path": -9.202939166590488,
+  "resid": -0.09706083340951288
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 phase",
+  "x": 100000.0,
+  "reading": -5.6,
+  "path": -5.577099840513341,
+  "resid": -0.022900159486658467
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 phase",
+  "x": 1000000.0,
+  "reading": -64.6,
+  "path": -64.60910839193684,
+  "resid": 0.009108391936848648
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 phase",
+  "x": 10000000.0,
+  "reading": -79.8,
+  "path": -79.83542324912568,
+  "resid": 0.035423249125685174
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 phase",
+  "x": 30000000.0,
+  "reading": -81.9,
+  "path": -81.91643345838446,
+  "resid": 0.01643345838445498
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 phase",
+  "x": 100000000.0,
+  "reading": -85.6,
+  "path": -85.57827364650711,
+  "resid": -0.021726353492880435
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 phase",
+  "x": 200000000.0,
+  "reading": -89.9,
+  "path": -89.95080259982143,
+  "resid": 0.050802599821423655
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 phase",
+  "x": 300000000.0,
+  "reading": -93.6,
+  "path": -93.66198310048719,
+  "resid": 0.06198310048719691
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 phase",
+  "x": 500000000.0,
+  "reading": -99.5,
+  "path": -99.55830542144658,
+  "resid": 0.05830542144657613
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 phase",
+  "x": 700000000.0,
+  "reading": -104.3,
+  "path": -104.29465202649114,
+  "resid": -0.005347973508861514
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 phase",
+  "x": 1000000000.0,
+  "reading": -111.5,
+  "path": -111.59233530979073,
+  "resid": 0.09233530979072668
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 phase",
+  "x": 2000000000.0,
+  "reading": -146.4,
+  "path": -146.56453071715094,
+  "resid": 0.1645307171509387
+ },
+ {
+  "check": "OPA859_Fig6-10_Aol_full",
+  "series": "OPA859 phase",
+  "x": 3000000000.0,
+  "reading": -150.8,
+  "path": -150.83194552274125,
+  "resid": 0.031945522741239074
+ }
+]

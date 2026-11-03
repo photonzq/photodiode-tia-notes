@@ -1,0 +1,121 @@
+{
+  "part": "OPA814",
+  "manufacturer": "Texas Instruments",
+  "datasheet_file": "datasheets/opa814.pdf",
+  "datasheet_id_and_revision": "SBOSA14A, April 2023, revised November 2023; package option addendum p24 dated 9-Nov (year cut off in text extraction, page not re-read); package materials 24-Jul-2025",
+  "datasheet_status": "Production data (p1 footer 'PRODUCTION DATA')",
+  "scope_of_this_file": "headline specifications only (per coordinator); TIA design section 8.1.2 (p17) exists but was not extracted",
+  "citation_convention": "pN = 1-based PDF page index = printed page number for p1-p23. EC = Sec. 6.5 Electrical Characteristics (p5-p6), defaults: TA ~ 25 C, VS = +-5 V, G = 1 V/V (RF = 0), RF = 250 ohm for G >= 2, RL = 100 ohm, referenced to mid-supply.",
+  "value_types": "TYP, MIN/MAX (25 C unless over temperature -40 to 85 C), CURVE (PDF vector paths, axis calibration checked against grid lines), DERIVED (computed here)",
+
+  "input_type": "JFET input stage (p1)",
+  "compensation": "unity-gain stable (p1; comparison table p3: minimum stable gain 1 V/V)",
+  "min_stable_gain": {"value": 1, "unit": "V/V", "type": "TYP", "src": "p1, p3"},
+  "supply": {"total_min_V": 6, "total_max_V": 12.6, "abs_max_V": 13, "dual_or_single": "total supply; split +-5 V characterised", "recommended": "6 / 10 nom / 12.6 V (p4 Sec. 6.3); comparison table +-6.3 V; abs max dVS/dt 1 V/us", "src": "p1, p3, p4"},
+  "quiescent_current": [
+    {"value": 16, "min": 15.3, "max": 16.7, "unit": "mA", "type": "TYP/MIN/MAX 25 C", "src": "p6 EC"},
+    {"min": 15.2, "max": 16.8, "unit": "mA", "type": "MIN/MAX -40 to 85 C", "src": "p6 EC"},
+    {"note": "no power-down pin"}
+  ],
+  "gbw": [{"value": 250, "unit": "MHz", "type": "TYP", "conditions": "G >= 10 V/V", "src": "p5 EC"}],
+  "closed_loop_small_signal_bw": [
+    {"value": 600, "unit": "MHz", "type": "TYP", "conditions": "G = 1, 200 mVpp", "src": "p5 EC"},
+    {"value": 250, "unit": "MHz", "type": "TYP", "conditions": "G = 2, 200 mVpp", "src": "p5 EC"},
+    {"value": 25, "unit": "MHz", "type": "TYP", "conditions": "G = 10, 200 mVpp", "src": "p5 EC"},
+    {"value": 70, "unit": "MHz", "type": "TYP", "conditions": "0.1 dB flatness, 2 Vpp", "src": "p5 EC"},
+    {"value": 0.6, "unit": "dB", "type": "TYP", "conditions": "peaking at G = 1, 200 mVpp", "src": "p5 EC"}
+  ],
+  "large_signal_bw": [
+    {"value": 200, "unit": "MHz", "type": "TYP", "conditions": "2 Vpp, G = 1", "src": "p5 EC"},
+    {"value": 165, "unit": "MHz", "type": "TYP", "conditions": "2 Vpp, G = 2", "src": "p5 EC"},
+    {"value": 110, "unit": "MHz", "type": "TYP", "conditions": "4 Vpp, G = 1", "src": "p5 EC"}
+  ],
+  "slew_rate": [
+    {"value": 750, "unit": "V/us", "type": "TYP", "conditions": "4 V step, G = 1", "src": "p5 EC"},
+    {"value": 550, "unit": "V/us", "type": "TYP", "conditions": "1 V step, G = 2", "src": "p5 EC"}
+  ],
+  "rise_fall_settling": [
+    {"quantity": "rise/fall 10-90 %", "value": 0.8, "unit": "ns", "conditions": "200 mV step, G = 1 (1.3 ns at G = 2)", "type": "TYP", "src": "p5 EC"},
+    {"quantity": "settling to 0.1 %", "value": 7, "unit": "ns", "conditions": "2 V step, G = 1", "type": "TYP", "src": "p5 EC"},
+    {"quantity": "settling to 0.02 %", "value": 16, "unit": "ns", "conditions": "2 V step, G = 2", "type": "TYP", "src": "p5 EC"},
+    {"quantity": "overshoot / undershoot", "value": "6 / 10", "unit": "%", "conditions": "2 V step", "type": "TYP", "src": "p5 EC"}
+  ],
+  "overdrive_recovery": [{"value": 30, "unit": "ns", "type": "TYP", "conditions": "VIN = +-2.5 V, G = 2 V/V", "src": "p5 EC"}],
+  "open_loop_dc_gain": [{"value": 80, "min": 75, "unit": "dB", "type": "TYP/MIN", "conditions": "VO = +-0.5 V (70 dB min -40 to 85 C)", "src": "p5 EC"}],
+  "open_loop_curve": {
+    "figure": "Fig. 6-23 (p10) 'Open-Loop Gain Magnitude and Phase vs Frequency', annotated RL = 1 GOhm; no simulation label",
+    "phase_convention": "phase of A_OL: -23 deg at 1 kHz, -90 deg plateau, -165 deg at 0.95 GHz",
+    "type": "CURVE (vector path, +-0.3 dB, +-1 deg)",
+    "points": [
+      {"f_Hz": 1.05e3, "gain_dB": 101.0, "phase_deg": -23.0},
+      {"f_Hz": 1e4, "gain_dB": 89.6, "phase_deg": -75.9},
+      {"f_Hz": 1e5, "gain_dB": 69.7, "phase_deg": -89.2},
+      {"f_Hz": 1e6, "gain_dB": 49.7, "phase_deg": -90.1},
+      {"f_Hz": 1e7, "gain_dB": 29.7, "phase_deg": -90.8},
+      {"f_Hz": 3e7, "gain_dB": 20.1, "phase_deg": -92.3},
+      {"f_Hz": 1e8, "gain_dB": 9.7, "phase_deg": -97.6},
+      {"f_Hz": 2e8, "gain_dB": 3.7, "phase_deg": -105.5},
+      {"f_Hz": 3e8, "gain_dB": 0.1, "phase_deg": -113.8},
+      {"f_Hz": 5e8, "gain_dB": -4.6, "phase_deg": -129.6},
+      {"f_Hz": 7e8, "gain_dB": -8.0, "phase_deg": -145.4},
+      {"f_Hz": 9.5e8, "gain_dB": -11.6, "phase_deg": -165.3}
+    ],
+    "crossings": "0 dB at 303 MHz, phase ~ -114 deg -> unity-gain phase margin ~66 deg (DERIVED); phase -135 deg at 561 MHz"
+  },
+  "voltage_noise": {
+    "spot": [{"value": 5.3, "unit": "nV/rtHz", "type": "TYP", "conditions": "f > 100 kHz", "src": "p5 EC"}],
+    "one_over_f_corner_Hz": 2000,
+    "curve_figure": "Fig. 6-20 (p10), 10 Hz-1 MHz",
+    "curve_points": [{"f_Hz": 10.3, "nV_rtHz": 75}, {"f_Hz": 100, "nV_rtHz": 24.7}, {"f_Hz": 1e3, "nV_rtHz": 9.34}, {"f_Hz": 2e3, "nV_rtHz": 7.63}, {"f_Hz": 1e4, "nV_rtHz": 5.91}, {"f_Hz": 1e5, "nV_rtHz": 5.45}, {"f_Hz": 9.5e5, "nV_rtHz": 5.40}],
+    "highest_frequency_plotted_Hz": 1e6
+  },
+  "current_noise": {
+    "spot": [{"value": 11, "unit": "fA/rtHz", "type": "TYP", "conditions": "f > 100 kHz", "src": "p5 EC"}],
+    "curve_figure": "Fig. 6-21 'Current Noise Density vs Frequency' (p10), 10 kHz-100 MHz; no simulation label",
+    "curve_points": [{"f_Hz": 1.31e4, "pA_rtHz": 0.00104}, {"f_Hz": 2e4, "pA_rtHz": 0.00128}, {"f_Hz": 1e5, "pA_rtHz": 0.0050}, {"f_Hz": 1e6, "pA_rtHz": 0.0508}, {"f_Hz": 1e7, "pA_rtHz": 0.526}, {"f_Hz": 2e7, "pA_rtHz": 1.11}, {"f_Hz": 3e7, "pA_rtHz": 1.70}, {"f_Hz": 5e7, "pA_rtHz": 2.65}, {"f_Hz": 7e7, "pA_rtHz": 3.19}, {"f_Hz": 9.7e7, "pA_rtHz": 3.91}],
+    "values_at_1_10_100_MHz_pA_rtHz": {"1MHz": 0.051, "10MHz": 0.53, "100MHz": 3.9},
+    "hf_behavior": "rising proportional to f (slope ~1.0) from ~30 kHz to ~30 MHz, slope ~0.6 between 50 and 100 MHz; not specified above 100 MHz",
+    "how_measured_or_defined": "not stated",
+    "derived_check": "DERIVED: i_n / (en x 2 pi f) with en = 5.4 nV/rtHz (plotted white level) = 1.50 pF at 1 MHz, 1.55 pF at 10 MHz, consistent with en acting on a fixed ~1.5 pF.",
+    "reading_uncertainty": "vector path, +-3 %"
+  },
+  "input_capacitance": {"common_mode_pF": 2.5, "differential_pF": 0.2, "definition_notes": "EC p6: 'Input impedance common-mode 12 || 2.5 GOhm || pF'; 'Input impedance differential mode 1000 || 0.2 GOhm || pF' (TYP)", "src": "p6 EC"},
+  "input_bias_current": [{"value": 2, "max": 20, "unit": "pA (+-)", "type": "TYP/MAX", "src": "p5 EC"}, {"max": 1000, "unit": "pA", "type": "MAX -40 to 85 C", "src": "p5 EC"}],
+  "input_offset_voltage": [{"value": 50, "max": 250, "unit": "uV (+-)", "type": "TYP/MAX SOIC", "src": "p5 EC"}, {"value": 100, "max": 350, "unit": "uV (+-)", "type": "TYP/MAX SOT-23", "src": "p5 EC"}, {"max": "500 (SOIC) / 600 (SOT-23)", "unit": "uV", "type": "MAX -40 to 85 C"}, {"quantity": "drift", "value": 1, "max": 3.5, "unit": "uV/C", "type": "TYP/MAX, footnote: based on characterization of 32 devices, not ATE-tested", "src": "p5-p6 EC"}],
+  "input_common_mode_range": [
+    {"quantity": "most positive input (+-5 V)", "typ_V": 2.7, "min_V": 2.1, "conditions": "CMRR > 77 dB (2.0 V min over temp); 3.1 typ / 2.6 min for CMRR > 53 dB", "src": "p6 EC"},
+    {"quantity": "most negative input (+-5 V)", "typ_V": -4.3, "max_V": -3.9, "conditions": "CMRR > 77 dB (-3.7 V over temp); -4.4 typ / -4.0 max for CMRR > 53 dB", "src": "p6 EC"},
+    {"quantity": "CMRR", "value_dB": 100, "min_dB": 84, "min_over_temp_dB": 83, "conditions": "VCM = +-0.5 V", "src": "p6 EC"}
+  ],
+  "cmrr_psrr": [{"quantity": "PSRR+ / PSRR-", "value_dB": 100, "min_dB": "79 (SOIC), 77 (SOT-23)", "min_over_temp_dB": "76 (SOIC), 74 (SOT-23)", "conditions": "VS+ 4.5 to 5.5 V / VS- -4.5 to -5.5 V", "src": "p6 EC"}],
+  "output_swing": [
+    {"supply": "+-5 V", "load_ohm": "no load", "V_typ": "+-3.9", "V_min": "+-3.7", "type": "TYP/MIN", "src": "p6 EC"},
+    {"supply": "+-5 V", "load_ohm": 100, "V_typ": "+-3.7", "V_min": "+-3.4 (SOIC), +-3.35 (SOT-23)", "type": "TYP/MIN", "src": "p6 EC"},
+    {"supply": "+-5 V", "load_ohm": 100, "V_min": "+-3.3", "type": "MIN -40 to 85 C", "src": "p6 EC"}
+  ],
+  "output_swing_vs_load_curve": [{"figure": "Fig. 6-26 Output Voltage vs Output Current Over Temperature (p11), +-5 V; blue -40 C, black 25 C, red 85 C", "type": "CURVE (+-0.05 V)",
+    "points_25C": [{"I_mA": 0.5, "V_high": 3.79, "V_low": -3.81}, {"I_mA": 10, "V_high": 3.70, "V_low": -3.72}, {"I_mA": 30, "V_high": 3.52, "V_low": -3.54}, {"I_mA": 50, "V_high": 3.36, "V_low": -3.38}, {"I_mA": 70, "V_high": 3.18, "V_low": -3.19}, {"I_mA": 80, "V_high": 3.05, "V_low": -3.03}, {"I_mA": 90, "V_high": 2.41, "V_low": -2.60}],
+    "note": "at 85 C the swing collapses above ~70 mA (high side ends near 79 mA)", "src": "p11 Fig. 6-26"}],
+  "output_current": [
+    {"quantity": "linear output drive (sourcing/sinking)", "value": 70, "min": 52, "unit": "mA (+-)", "conditions": "VOUT = +-1 V, dVOS < 2 mV (45 mA min over temp, dVOS < 3 mV)", "type": "TYP/MIN", "src": "p6 EC"},
+    {"quantity": "abs max continuous output current", "max": 30, "unit": "mA (+-)", "type": "ABS MAX (electromigration)", "src": "p4"}
+  ],
+  "short_circuit_current": [{"value": 90, "unit": "mA", "type": "TYP", "src": "p6 EC"}],
+  "distortion": [
+    {"f_Hz": 1e6, "Vout_pp": 2, "R_L_ohm": 1000, "gain": 1, "HD2_dBc": -119, "HD3_dBc": -130, "type": "TYP", "src": "p5 EC"},
+    {"f_Hz": 1e7, "Vout_pp": 2, "R_L_ohm": 100, "gain": 1, "HD2_dBc": -75, "HD3_dBc": -85, "type": "TYP", "src": "p5 EC"}
+  ],
+  "packages": [
+    {"name": "D (SOIC-8, drawing D0008A)", "pins": 8, "body_mm": "4.9 x 6 nominal incl. leads (p1); body 4.81-5.00 x 3.81-3.98 mm, 1.75 mm max height", "pitch_mm": 1.27, "exposed_pad": "no", "theta_JA_C_per_W": 122.9, "other_thermal": {"RthJC_top": 63.1, "RthJB": 66.3, "PsiJT": 16.1, "PsiJB": 65.5}, "pinout": "1 NC, 2 IN-, 3 IN+, 4 VS-, 5 NC, 6 OUT, 7 VS+, 8 NC", "orderables": "OPA814DR (3000)", "src": "p1, p3, p4, p25, p30"},
+    {"name": "DBV (SOT-23-5, drawing DBV0005A)", "pins": 5, "body_mm": "2.9 x 2.8 nominal incl. leads; body 2.75-3.05 x 1.45-1.75 mm, 1.45 mm max height", "pitch_mm": 0.95, "exposed_pad": "no", "theta_JA_C_per_W": 154, "other_thermal": {"RthJC_top": 88.7, "RthJB": 55.4, "PsiJT": 33.7, "PsiJB": 55.1}, "pinout": "1 OUT, 2 VS-, 3 IN+, 4 IN-, 5 VS+", "orderables": "OPA814DBVR (3000)", "notes": "VOS 100 uV typ / 350 uV max and PSRR 77 dB min (vs 79 dB SOIC)", "src": "p1, p3, p4, p25, p27"}
+  ],
+  "pinout_notes": "No FB pin and no power-down pin in either package (p3).",
+  "abs_max_and_input_protection": "p4: VS 13 V; dVS/dt 1 V/us; VI VS- to VS+; VID VS- to VS+; II +-10 mA (ESD diodes to supplies); IO +-30 mA; TJ 150 C; Tstg -65 to 150 C; ESD HBM +-2000 V, CDM +-1500 V.",
+  "other_notes": ["Comparison table (p3): OPA814 +-6.3 V, 250 MHz, FET, 750 V/us, 5.3 nV/rtHz, G >= 1.", "Closed-loop output impedance 0.01 ohm at 100 kHz, G = 1 (p6 EC)."],
+  "inconsistencies_and_uncertainties": [
+    "Input current noise: EC gives 11 fA/rtHz for f > 100 kHz, but the Fig. 6-21 curve is 5 fA/rtHz at 100 kHz and rises proportional to f (0.05 pA/rtHz at 1 MHz, 0.53 at 10 MHz, 3.9 near 100 MHz).",
+    "p1 description says 'available in an 8-pin SOIC package' while the package table and addendum also list the 5-pin SOT-23 (DBV).",
+    "A_OL plot annotated RL = 1 GOhm, unlike the EC default 100 ohm."
+  ],
+  "pages_read": "First pass: p1-p24 rendered at 160 dpi and p25-p33 read at 160 dpi. Second pass: p1, p3, p4, p5, p6 at 120 dpi and p10, p11 at 110 dpi read; curves digitized from vector paths of p10-p11. Not re-read: p2 (contents), p7-p9 and p12-p23 (typical curves, application/TIA/layout text, revision history), p24 (package option addendum; orderables taken from p25 tape-and-reel table)."
+}

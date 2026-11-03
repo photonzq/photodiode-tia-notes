@@ -1,0 +1,91 @@
+Old/new text pairs of the consistency sweep of the high-gain note (3 November 2026), applied with
+plain_wording_pass.py, which reads this format: a line "=== FILE <part> <hash>" names the chapter
+file in parts/ and its hash before the edit; each pair runs from "=== OLD" through "=== NEW" to
+"=== END", the text between the markers used exactly. Usage:
+python plain_wording_pass.py consistency_sweep_pairs.txt
+
+=== FILE 01_problem.md fd4eae6481d6
+
+=== OLD
+TI writes that the feedback resistor
+=== NEW
+Texas Instruments (TI) writes that the feedback resistor
+=== END
+
+=== FILE 02_noise.md 0f0f33a295e9
+
+=== OLD
+Table A.1 lists $R_{F,\mathrm{crit}}$ for every part
+=== NEW
+Table A.2 lists $R_{F,\mathrm{crit}}$ for every part
+=== END
+
+=== FILE 03_bandwidth.md a303c3bed9f4
+
+=== OLD
+this is the principle of Seidl, Swoboda and Zimmermann's CCDR.
+=== NEW
+this is the principle of the capacitive coupled distributed resistor (CCDR) of Seidl, Swoboda and Zimmermann, described at the end of Section 3.4.
+=== END
+
+=== FILE 05_amplifiers.md 625f7296b5d4
+
+=== OLD
+falls by these factors (`hg_numbers.py`):
+=== NEW
+falls by these factors (Table A.6, from `hg_numbers.py`):
+=== END
+
+=== FILE 06_selection.md 769d5bf49c57
+
+=== OLD
+(all $R_{F,\mathrm{crit}}$ exceed 1.6 MΩ, Table A.1)
+=== NEW
+(all $R_{F,\mathrm{crit}}$ exceed 1.6 MΩ, Table A.2)
+=== END
+
+=== OLD
+At 1 MΩ the pattern is the same, with every frequency
+=== NEW
+At 1 MΩ the pattern is the same (Table 6.2), with every frequency
+=== END
+
+=== OLD
+At 10 MΩ the two ceilings of Section 3.2 meet.
+=== NEW
+At 10 MΩ the two ceilings of Section 3.2 meet (Table 6.3).
+=== END
+
+=== OLD
+At 100 MΩ the resistor sets the bandwidth for almost every part on the small photodiodes, at 15–22 kHz.
+=== NEW
+At 100 MΩ the resistor sets the bandwidth for almost every part on the small photodiodes, at 15–22 kHz (Table 6.4).
+=== END
+
+=== OLD
+At 1 GΩ the floor is 4.06 fA/√Hz, and three amplifier properties that were negligible at lower gains now decide.
+=== NEW
+At 1 GΩ the floor is 4.06 fA/√Hz, and three amplifier properties that were negligible at lower gains now decide (Table 6.5).
+=== END
+
+=== FILE 08_dc_errors.md 2a54258263ad
+
+=== OLD
+(the companion's Section 4.8)
+=== NEW
+(the companion's Section 4.10)
+=== END
+
+=== FILE 09_checks.md 3d030079e01d
+
+=== OLD
+of four designs, SPICE (solid) against the analytic model (dashed). The fourth design, OPA657 at 100 MΩ on 380 pF, fails
+=== NEW
+of four designs, SPICE (solid) against the analytic model (dashed): OPA140 at 1 GΩ on the 20-pF photodiode, ADA4625-1 at 1 MΩ on 380 pF (in LTspice), OPA818 at 10 MΩ on 20 pF and OPA657 at 100 MΩ on 380 pF. The fourth, OPA657, fails
+=== END
+
+=== OLD
+*Figure 19. Input voltage-noise density of the ten macromodels (lines) against the datasheet values (circles).*
+=== NEW
+*Figure 19. Input voltage-noise density of the twelve macromodels of Table 9.3 (lines) against the datasheet values (circles).*
+=== END

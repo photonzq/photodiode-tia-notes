@@ -1,0 +1,160 @@
+{
+  "part": "LMH6609",
+  "manufacturer": "Texas Instruments (originally National Semiconductor)",
+  "datasheet_file": "datasheets/lmh6609.pdf",
+  "datasheet_id_and_revision": "SNOSA84F, August 2003, revised March 2013 (appended package option addendum 11-Nov-2025, package materials 10-Aug-2026)",
+  "datasheet_status": "Production data (p1 footer)",
+  "scope_of_this_file": "Headline specifications (survey scope for this part); curves not digitized are marked as such.",
+  "citation_convention": "pN = 1-based PDF page index; printed page number equals N for p1-p18. EC = Electrical Characteristics table. Fig N = datasheet figure number.",
+  "value_types": "TYP = typical; MIN/MAX = limits; boldface rows = over-temperature limits (-40 to 85 C). EC footnote (p2): values apply for factory testing with TJ = TA; 'Min/Max ratings are based on product characterization and simulation. Individual parameters are tested as noted.' LSBW and slew rate are '100% tested' (p1 features). CURVE = read from plot.",
+  "input_type": "bipolar (VIP10 complementary bipolar process, p1; not stated explicitly as bipolar)",
+  "compensation": "unity-gain stable voltage feedback (p1, p11)",
+  "min_stable_gain": {
+    "value": 1,
+    "unit": "V/V",
+    "conditions": "AV = +1 with RF = 0 (buffer: output shorted directly to -IN, p15)",
+    "what_datasheet_says": "Unity gain stable (p1, p11). p15: operates best with RF ~250 Ohm for gains >= +2 and <= -1; large RF at low gains exaggerates parasitic capacitance (ringing, peaking). TIA section p16: CF = CD/2 as a starting point; lower CF peaks the response.",
+    "src": "p1; p11; p15; p16"
+  },
+  "supply": {
+    "total_min_V": 6.6,
+    "total_max_V": 12,
+    "abs_max_V": "+/-6.6 V (printed as 'VS (V+ - V-) +/-6.6V')",
+    "dual_or_single": "dual (nominal +/-3.3 V to +/-6 V); single-supply circuits shown (Fig 34, Fig 35)",
+    "recommended": "Nominal +/-3.3 V to +/-6 V for supplies with 10% regulation or better (p2 operating ratings); EC at +/-5 V and +/-3.3 V; p1: 6.6 V to 12 V supply range, 'specified at 6.6V and 10V'",
+    "src": "p1; p2"
+  },
+  "quiescent_current": [
+    {"value": 7.0, "unit": "mA", "type": "TYP", "conditions": "VS = +/-5 V, RL = infinity", "src": "p3 EC"},
+    {"value": 7.8, "unit": "mA", "type": "MAX 25 C; 8.5 over temperature", "conditions": "VS = +/-5 V", "src": "p3 EC"},
+    {"value": 3.6, "unit": "mA", "type": "TYP; MAX 5 (25 C), 6 (over T)", "conditions": "VS = +/-3.3 V", "src": "p4 EC"}
+  ],
+  "gbw": [
+    {"value": 240, "unit": "MHz", "type": "stated design value (application section)", "conditions": "'GBP = 240MHz'; closed-loop BW ~ GBP/AV for AV > 5", "src": "p13 Eq. 2"}
+  ],
+  "open_loop_dc_gain": [
+    {"value": "~70", "unit": "dB", "type": "CURVE (visual, +/-2 dB)", "conditions": "+/-5 V and +/-3.3 V, low frequency", "src": "p10 Fig 29, Fig 30"}
+  ],
+  "phase_margin_or_crossover": [
+    {"what": "not digitized", "value": null, "note": "Fig 29/30 open-loop gain and phase not digitized (headline-only scope)", "src": "p10"}
+  ],
+  "open_loop_curve": {
+    "figure": "Fig 29 (+/-3.3 V) and Fig 30 (+/-5 V), p10",
+    "conditions": "load not stated; x axis 100 Hz-1 GHz",
+    "phase_convention": "phase of AOL, 0 deg at low frequency (right axis -180..+180 deg, 0 deg aligned with the 40 dB gridline), decreasing",
+    "points": null,
+    "status": "not digitized"
+  },
+  "open_loop_output_impedance": {
+    "figure": null,
+    "points": null,
+    "note": "Open-loop Zout not given. Closed-loop output resistance 0.3 Ohm (+/-5 V EC, p3) and .05 Ohm (+/-3.3 V EC, p4); Fig 31 (p10) |Z|OUT vs f 0.001-100 MHz (not digitized; visually ~0.025-0.04 Ohm at low f, tens of Ohm at 100 MHz)."
+  },
+  "closed_loop_small_signal_bw": [
+    {"value": 900, "unit": "MHz", "type": "TYP", "conditions": "AV = +1, VOUT = 0.25 Vpp, VS = +/-5 V", "src": "p2 EC"},
+    {"value": 260, "unit": "MHz", "type": "TYP", "conditions": "AV = +2, RF = 250, VOUT = 0.5 Vpp, RL = 100, VS = +/-5 V", "src": "p2 EC"},
+    {"value": 130, "unit": "MHz", "type": "TYP", "conditions": "0.1 dB bandwidth, VS = +/-5 V", "src": "p2 EC"},
+    {"value": 450, "unit": "MHz", "type": "TYP", "conditions": "AV = +1, 0.25 Vpp, VS = +/-3.3 V (180 MHz at AV = +2, 0.5 Vpp; 0.1 dB BW 40 MHz at 1 Vpp)", "src": "p4 EC"}
+  ],
+  "large_signal_bw": [
+    {"value": 170, "unit": "MHz", "type": "TYP", "conditions": "AV = +2, VOUT = 4.0 Vpp, VS = +/-5 V", "src": "p2 EC"},
+    {"value": 150, "unit": "MHz", "type": "MIN", "conditions": "same", "src": "p2 EC"},
+    {"value": 280, "unit": "MHz", "type": "TYP (features list)", "conditions": "AV = +2, VOUT = 2 Vpp", "src": "p1"},
+    {"value": 110, "unit": "MHz", "type": "TYP", "conditions": "AV = +2, VOUT = 3.0 Vpp, VS = +/-3.3 V", "src": "p4 EC"}
+  ],
+  "slew_rate": [
+    {"value": 1400, "unit": "V/us", "type": "TYP", "conditions": "4 V step, VS = +/-5 V, average of rising and falling 40-60% slew rates", "src": "p2 EC"},
+    {"value": 1200, "unit": "V/us", "type": "MIN", "conditions": "same", "src": "p2 EC"},
+    {"value": 800, "unit": "V/us", "type": "TYP", "conditions": "2 V step, VS = +/-3.3 V", "src": "p4 EC"}
+  ],
+  "rise_fall_settling": [
+    {"value": 1.6, "unit": "ns", "type": "TYP", "conditions": "rise and fall, 1 V step, +/-5 V", "src": "p2 EC"},
+    {"value": 2.6, "unit": "ns", "type": "TYP", "conditions": "4 V step, +/-5 V", "src": "p2 EC"},
+    {"value": 15, "unit": "ns", "type": "TYP", "conditions": "settling to 0.05%, 2 V step, +/-5 V", "src": "p2 EC"},
+    {"value": 2.2, "unit": "ns", "type": "TYP", "conditions": "1 V step, +/-3.3 V", "src": "p4 EC"}
+  ],
+  "overdrive_recovery": null,
+  "voltage_noise": {
+    "spot": [
+      {"value": 3.1, "unit": "nV/rtHz", "type": "TYP", "conditions": "> 1 MHz, VS = +/-5 V", "src": "p3 EC"},
+      {"value": 3.7, "unit": "nV/rtHz", "type": "TYP", "conditions": "> 1 MHz, VS = +/-3.3 V (unit printed 'nV/ pA/rtHz')", "src": "p4 EC"}
+    ],
+    "curve_points": null,
+    "curve_note": "Fig 20 (p9) voltage and current noise 1 Hz-1 MHz (not digitized); visually voltage noise flattens near 3 nV/rtHz by ~100 kHz",
+    "one_over_f_corner_Hz": null,
+    "highest_frequency_plotted_Hz": 1e6
+  },
+  "current_noise": {
+    "spot": [
+      {"value": 1.6, "unit": "pA/rtHz", "type": "TYP", "conditions": "> 1 MHz, VS = +/-5 V", "src": "p3 EC"},
+      {"value": 1.1, "unit": "pA/rtHz", "type": "TYP", "conditions": "> 1 MHz, VS = +/-3.3 V", "src": "p4 EC"}
+    ],
+    "curve_points": null,
+    "hf_behavior": "not specified above 1 MHz (Fig 20 ends at 1 MHz; visually flat ~1.5 pA/rtHz above ~100 kHz)",
+    "how_measured_or_defined": "not stated (single 'Current Noise' row)",
+    "src": "p3, p4 EC; p9 Fig 20"
+  },
+  "input_capacitance": {
+    "common_mode_pF": null,
+    "differential_pF": null,
+    "value_pF": 1.2,
+    "definition_notes": "Single EC row 'CIN Input Capacitance 1.2 pF' (TYP, +/-5 V); common-mode vs differential not stated. RIN 1 MOhm.",
+    "src": "p3 EC"
+  },
+  "input_bias_current": [
+    {"value": -2, "unit": "uA", "type": "TYP", "conditions": "+/-5 V; max +/-5 (25 C), +/-8 (over T); drift 11 nA/C", "src": "p3 EC"},
+    {"value": 0.1, "unit": "uA", "type": "TYP", "conditions": "input offset current, +/-5 V; max +/-1.5, +/-3", "src": "p3 EC"}
+  ],
+  "input_offset_voltage": [
+    {"value": 0.8, "unit": "mV", "type": "TYP (+/-)", "conditions": "+/-5 V; max +/-2.5 (25 C), +/-3.5 (over T); drift 4 uV/C", "src": "p3 EC"}
+  ],
+  "input_common_mode_range": [
+    {"value": "+/-3.0", "unit": "V", "type": "TYP", "conditions": "VS = +/-5 V, CMRR > 60 dB; min +/-2.8 (25 C), +/-2.5 (over T)", "src": "p3 EC"},
+    {"value": "+/-1.3", "unit": "V", "type": "TYP", "conditions": "VS = +/-3.3 V", "src": "p4 EC"}
+  ],
+  "cmrr_psrr": [
+    {"what": "CMRR", "value": 73, "unit": "dB", "type": "TYP; MIN 67 (65 over T)", "conditions": "DC, 2 V step, +/-5 V", "src": "p3 EC"},
+    {"what": "PSRR", "value": 73, "unit": "dB", "type": "TYP; MIN 67 (65 over T)", "conditions": "DC, 1 V step, +/-5 V", "src": "p3 EC"}
+  ],
+  "output_swing": [
+    {"supply": "+/-5 V", "load_ohm": "infinite", "V_low": -3.9, "V_high": 3.9, "type": "TYP", "src": "p3 EC"},
+    {"supply": "+/-5 V", "load_ohm": "infinite", "V_low": -3.6, "V_high": 3.6, "type": "MIN 25 C; +/-3.3 over T", "src": "p3 EC"},
+    {"supply": "+/-5 V", "load_ohm": 100, "V_low": -3.5, "V_high": 3.5, "type": "TYP", "src": "p3 EC"},
+    {"supply": "+/-5 V", "load_ohm": 100, "V_low": -3.2, "V_high": 3.2, "type": "MIN 25 C; +/-3.0 over T", "src": "p3 EC"},
+    {"supply": "+/-3.3 V", "load_ohm": "infinite", "V_low": -2.3, "V_high": 2.3, "type": "TYP; MIN +/-2.1", "src": "p4 EC"},
+    {"supply": "+/-3.3 V", "load_ohm": 100, "V_low": -2.0, "V_high": 2.0, "type": "TYP; MIN +/-1.9", "src": "p4 EC"}
+  ],
+  "output_swing_vs_load_curve": null,
+  "output_current": [
+    {"value": 90, "unit": "mA", "type": "TYP (+/-)", "conditions": "linear output current, +/-5 V", "src": "p3 EC"},
+    {"value": 60, "unit": "mA", "type": "MIN (+/-); 50 over T", "conditions": "+/-5 V", "src": "p3 EC"},
+    {"value": 45, "unit": "mA", "type": "TYP (+/-); MIN 30", "conditions": "+/-3.3 V", "src": "p4 EC"}
+  ],
+  "short_circuit_current": null,
+  "distortion": [
+    {"f_Hz": 2e7, "Vout_pp": 2, "R_L_ohm": 100, "gain": 2, "HD2_dBc": -63, "HD3_dBc": -57, "type": "TYP", "conditions": "VS = +/-5 V, RF = 250", "src": "p3 EC"},
+    {"f_Hz": 2e7, "Vout_pp": 2, "R_L_ohm": 100, "gain": 2, "HD2_dBc": -63, "HD3_dBc": -43, "type": "TYP", "conditions": "VS = +/-3.3 V", "src": "p4 EC"},
+    {"f_Hz": "1-~50e6", "Vout_pp": 2, "R_L_ohm": 100, "gain": 2, "HD2_dBc": null, "HD3_dBc": null, "type": "CURVE, not digitized", "conditions": "Fig 25 (+/-3.3 V) and Fig 26 (+/-5 V) HD2/HD3 vs frequency not digitized; visually HD2 ~-55 and HD3 ~-43 near 50 MHz at +/-5 V", "src": "p9 Fig 25; p10 Fig 26"}
+  ],
+  "imd_or_oip3": null,
+  "packages": [
+    {"name": "SOIC-8 (D, D0008A)", "pins": 8, "body_mm": "4.81-5.00 x 3.81-3.98 (5.80-6.19 span), 1.75 max height", "pitch_mm": 1.27, "exposed_pad": false, "ep_connection": null, "theta_JA_C_per_W": 145, "notes": "thetaJC 65 C/W (operating ratings p2); application text p15 gives thetaJA 148 C/W; LMH6609MA/NOPB (tube 95), MAX/NOPB (T&R 2500); EVM LMH730227", "src": "p2; p15; p19; p24"},
+    {"name": "SOT-23-5 (DBV, DBV0005A)", "pins": 5, "body_mm": "2.75-3.05 x 1.45-1.75 (2.6-3.0 span), 1.45 max height", "pitch_mm": 0.95, "exposed_pad": false, "ep_connection": null, "theta_JA_C_per_W": 187, "notes": "thetaJC 120 C/W (p2); application text p15 gives thetaJA 250 C/W; LMH6609MF/NOPB (T&R 1000), MFX/NOPB (3000), marking A89A; EVM LMH730216", "src": "p2; p15; p19; p27"}
+  ],
+  "pinout_notes": "SOT-23-5: 1 OUT, 2 V-, 3 +IN, 4 -IN, 5 V+. SOIC-8: 1 N/C, 2 -IN, 3 +IN, 4 V-, 5 N/C, 6 OUTPUT, 7 V+, 8 N/C. The captions under the two drawings are swapped (SOT-23 says D0008A, SOIC says DBV0005A). (p5)",
+  "tia_content": [
+    {"what": "Transimpedance amplifier circuit and starting-point compensation rule", "R_F": null, "C_F": "CF = CD/2 as a starting point ('Lower feedback capacitors will peak frequency response')", "C_D_or_source_C": "CD = equivalent diode capacitance (no value)", "bandwidth": null, "measured_or_simulated": "neither (qualitative guidance, no data)", "figure_or_section": "p16 'TRANSIMPEDANCE AMPLIFIER', Fig 38 (VOUT = -IIN x RF; +IN grounded)"}
+  ],
+  "application_guidance": "p15: RF ~250 Ohm best for |gain| >= 2; RF much below 100 Ohm loads the output (less swing, more distortion); buffer: short output to -IN; SMT parts, no wire-wound resistors. p14: ground plane removed near input/output pins; 10 uF tantalum + 0.01 uF per supply plus optional 0.1 uF V+ to V- for HD2; series ROUT for capacitive loads (Fig 13: ~55 Ohm at 10 pF, ~15 Ohm at 100 pF, chosen for <= 0.5 dB peaking). p13: closed-loop BW ~ 240 MHz/AV for AV > 5; fMAX = SR/(2 pi VP). p16: 'low input current noise and unity gain stability ... excellent choice for transimpedance applications'.",
+  "abs_max_and_input_protection": "VS +/-6.6 V; IOUT limited by power dissipation; common-mode input V+ to V-; TJ 150 C; ESD 2000 V HBM, 200 V MM (p2). ESD diodes conduct if a large input is applied while unpowered (p16).",
+  "other_notes": [
+    "GBP stated as 240 MHz (p13) while the AV = +1 small-signal bandwidth is 900 MHz and AV = +2 is 260 MHz (p2).",
+    "Output drive text says '100mA of output current' (p13) vs 90 mA typ linear output current (p1, p3).",
+    "Thermal resistance: operating ratings 145 C/W (SOIC) and 187 C/W (SOT-23) vs application text 148 and 250 C/W (p2 vs p15).",
+    "+/-3.3 V EC row 'ROUT Input Resistance Close Loop .05 Ohm' mixes labels; +/-5 V closed-loop ROUT is 0.3 Ohm (p3, p4).",
+    "VN unit at +/-3.3 V printed as 'nV/ pA/rtHz' (p4).",
+    "Package captions swapped on the connection diagram (p5).",
+    "Not digitized: open-loop gain/phase (Fig 29/30), noise curve (Fig 20), HD vs f (Fig 25/26), |Z|OUT (Fig 31)."
+  ],
+  "pages_read": "All 30 pages rendered and read at 160 dpi (p1-p18 datasheet body, p19-p20 addendum, p21-p23 package materials, p24-p29 mechanical/land/stencil drawings, p30 notice). No zoomed digitizing done for this part."
+}

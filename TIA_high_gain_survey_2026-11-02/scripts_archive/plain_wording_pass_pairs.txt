@@ -1,0 +1,284 @@
+Old/new text pairs for plain_wording_pass.py (high-gain note, 3 November 2026).
+A line "=== FILE <part> <hash>" names the chapter file in parts/ that the following pairs edit, with
+the first 12 hex digits of its SHA-256 before the edit. Each pair runs from a line "=== OLD"
+through "=== NEW" to "=== END"; the text between the markers is used exactly, line breaks included.
+
+=== FILE 00_front.md 37794199e691
+
+=== OLD
+Chapter 9 checks the analysis against the manufacturers' SPICE models in ngspice and LTspice, and checks the closed forms against the full model.
+=== NEW
+Chapter 9 checks the analysis against the manufacturers' SPICE models in ngspice and LTspice, and checks the approximate formulas of Chapter 3 against the full model.
+=== END
+
+=== FILE 02_noise.md c74bc1aeda2d
+
+=== OLD
+## 2. The noise of a high-gain TIA
+
+### 2.1 The exact result
+
+The noise analysis treats the feedback element
+=== NEW
+## 2. The noise of a high-gain TIA
+
+Every comparison in this note is made on the noise referred to the photocurrent, so this chapter derives it first. Section 2.1 gives it exactly for the circuit of Figure 1, and the following sections take its terms one at a time: the floor that the feedback resistor and the photodiode set (Section 2.2), the amplifier's current noise (Section 2.3) and voltage noise (Section 2.4), the rule that matches the two to the summing node (Section 2.5), the signal's own shot noise (Section 2.6) and temperature (Section 2.7). Section 2.8 defines the figure of merit by which Chapters 4–6 compare the designs.
+
+### 2.1 The input-referred noise of the circuit
+
+This section derives the noise of the TIA referred to the photocurrent, for any feedback network, and shows that the loop gain drops out of it (Eq. (7)). The noise analysis treats the feedback element
+=== END
+
+=== OLD
+With $R_{sh}\to\infty$ and $I_D$ = 0 this is the companion note's Eq. (17), derived there for its own circuit.
+=== NEW
+With $R_{sh}\to\infty$ and $I_D$ = 0 this is the companion note's Eq. (23), derived there for its own circuit.
+=== END
+
+=== OLD
+### 2.2 The floor: the feedback resistor and the photodiode's shunt resistance
+=== NEW
+### 2.2 The floor set by the feedback resistor and the photodiode
+=== END
+
+=== OLD
+### 2.4 The amplifier's voltage noise on the admittance of the summing node
+
+Equation (9) has two parts, and they dominate in different places.
+=== NEW
+### 2.4 The amplifier's voltage noise acting on the summing node
+
+The loop holds the summing node at the amplifier's voltage noise $e_n$, so $e_n$ drives a current through everything connected to the node: the resistances $R_F$ and $R_{sh}$, and the whole node capacitance $C_T + C_F$ (Eq. (7)). It is the amplifier term that grows with the photodiode's capacitance and with frequency, and Chapter 4 shows where it dominates. Equation (9) has two parts, and they dominate in different places.
+=== END
+
+=== OLD
+### 2.5 Matching the amplifier to the node: $R_{opt} = e_n/i_n$
+
+The two amplifier terms of Eq. (8)
+=== NEW
+### 2.5 Matching the amplifier to the node impedance
+
+Neither the voltage noise nor the current noise of an amplifier says on its own whether the part suits a given gain, because the node weighs the two differently at each gain and frequency. Their ratio does, and it is the quickest way to place an amplifier class in the gain range. The two amplifier terms of Eq. (8)
+=== END
+
+=== FILE 03_bandwidth.md 0f2f6f681348
+
+=== OLD
+## 3. Bandwidth, stability and the feedback resistor
+
+### 3.1 The loop and the maximally flat feedback capacitance
+
+For the lumped network and a photodiode
+=== NEW
+## 3. Bandwidth, stability and the feedback resistor
+
+Chapter 2 gave the noise density; this chapter gives the band over which it is integrated, and the stability of the loop that sets that band. A high-gain TIA has two bandwidth limits: the amplifier's gain–bandwidth product acting on the node capacitance, and the feedback resistor's own capacitance. Section 3.1 derives the first, together with the feedback capacitance that gives a flat response. Section 3.2 finds the gain at which the second takes over, Section 3.3 treats photodiodes with low shunt resistance, Section 3.4 models the resistor as the distributed line it is, and Section 3.5 weighs four ways to more bandwidth.
+
+### 3.1 The loop and the maximally flat feedback capacitance
+
+Once $R_F$ is chosen, the feedback capacitance $C_F$ is the one value left, and it sets both the flatness and the width of the response. This section derives the $C_F$ of a maximally flat response and the bandwidth it gives (Eqs. (18) and (19)), then two properties of the high-gain loop that keep the analysis simple, and one that limits it. For the lumped network and a photodiode
+=== END
+
+=== OLD
+### 3.2 Two ceilings: the amplifier's and the resistor's
+
+Equation (19) holds while
+=== NEW
+### 3.2 When the resistor, not the amplifier, sets the bandwidth
+
+A real resistor carries a fraction of a picofarad across itself, so the feedback capacitance can never be smaller than that. This section finds the gain at which the resistor's own capacitance takes the bandwidth over from the amplifier, and how the noise differs on the two sides of that gain. Equation (19) holds while
+=== END
+
+=== OLD
+The two regimes differ in their noise as well, and the difference has a simple closed form.
+=== NEW
+The two regimes differ in their noise as well, and two short formulas show how.
+=== END
+
+=== OLD
+### 3.3 Photodiodes with low shunt resistance
+
+When $R_{sh}$ is not much larger than $R_F$, the loop changes as well as the floor. At low frequency
+=== NEW
+### 3.3 Photodiodes with low shunt resistance
+
+Some photodiodes have a shunt resistance far below the feedback resistors of this note, such as the extended-InGaAs diode of Table 1 with 14 kΩ. Section 2.2 showed what a shunt resistance comparable to or below $R_F$ does to the floor; this section shows what it does to the loop. At low frequency
+=== END
+
+=== OLD
+### 3.5 Beyond the resistor's corner, and three things that cost noise
+
+**Equalization.**
+=== NEW
+### 3.5 Four ways to more bandwidth, and what each costs
+
+Sections 3.1–3.4 set the bandwidth that a single feedback resistor allows: the amplifier's ceiling below the crossover gain and the resistor's own pole above it. Four techniques promise more: an equalizer after the TIA, a T-network or a smaller resistor followed by a voltage stage, a resistor split in two, and a bootstrapped photodiode. This section says what each gains and what it costs in noise or offset.
+
+**Equalization.**
+=== END
+
+=== FILE 04_maps.md 5abd14389af8
+
+=== OLD
+Chapters 2 and 3 give each noise term and each bandwidth limit in closed form.
+=== NEW
+Chapters 2 and 3 give each noise term and each bandwidth limit as a formula.
+=== END
+
+=== OLD
+### 4.1 The maps
+=== NEW
+### 4.1 Maps of the largest noise term
+=== END
+
+=== OLD
+### 4.2 The spectra
+=== NEW
+### 4.2 Noise spectra of the five gain decades
+=== END
+
+=== OLD
+### 4.3 The shares in numbers
+=== NEW
+### 4.3 How much each term contributes
+=== END
+
+=== FILE 05_amplifiers.md da8fc32b6959
+
+=== OLD
+### 5.1 CMOS electrometers
+
+ADA4530-1 and OPA928 specify
+=== NEW
+### 5.1 CMOS electrometers
+
+Electrometer amplifiers are built for the smallest possible input current, and at the highest gains of this note that current, multiplied by $R_F$, is the DC error (Chapter 8). ADA4530-1 and OPA928 specify
+=== END
+
+=== OLD
+### 5.2 A bias-current-cancelled CMOS amplifier
+
+LMP7721 reaches a typical bias current
+=== NEW
+### 5.2 A bias-current-cancelled CMOS amplifier
+
+LMP7721 shows that a femtoampere bias current does not by itself mean low current noise. It reaches a typical bias current
+=== END
+
+=== OLD
+### 5.3 Precision JFET op amps
+
+ADA4625-1, OPA828, OPA827, OPA140 and OPA145 combine
+=== NEW
+### 5.3 Precision JFET op amps
+
+The precision JFET op amps are the general-purpose class of this note: their voltage noise and current noise are both moderate, and their ratio matches the node impedances of most designs. ADA4625-1, OPA828, OPA827, OPA140 and OPA145 combine
+=== END
+
+=== OLD
+### 5.4 Low-noise CMOS op amps
+
+OPA1656 and OPA2156 reach
+=== NEW
+### 5.4 Low-noise CMOS op amps
+
+The low-noise CMOS op amps match the voltage noise of the best JFET parts at 10 kHz and above, though not at low frequency, which makes them the quietest choice at the lower gains, whose bands reach far above 10 kHz. OPA1656 and OPA2156 reach
+=== END
+
+=== OLD
+### 5.5 Wideband FET op amps
+
+OPA656, OPA657, OPA818, ADA4817-1 and LTC6268-10 offer
+=== NEW
+### 5.5 Wideband FET op amps
+
+The wideband FET op amps are built for speed: they give the widest bandwidth at the lowest gains, and as the gain rises they are the first to reach the resistor's own pole (Section 3.2). OPA656, OPA657, OPA818, ADA4817-1 and LTC6268-10 offer
+=== END
+
+=== OLD
+### 5.6 Zero-drift and auto-zero op amps
+
+OPA388 has 0.25 µV
+=== NEW
+### 5.6 Zero-drift and auto-zero op amps
+
+Zero-drift and auto-zero op amps are built for the smallest offset, which matters wherever a large low-frequency noise gain multiplies it. OPA388 has 0.25 µV
+=== END
+
+=== OLD
+### 5.7 Bipolar op amps
+
+OPA211 has 1.1 nV/√Hz
+=== NEW
+### 5.7 Bipolar op amps
+
+A bipolar input has the lowest voltage noise of the op amps in this survey, but the shot noise of its base current gives it by far the largest current noise. OPA211 has 1.1 nV/√Hz
+=== END
+
+=== FILE 06_selection.md 09dadc19bcbb
+
+=== OLD
+### 6.7 Large photodiodes: composites, bootstrapping, bias and cooling
+=== NEW
+### 6.7 What helps with a large photodiode
+=== END
+
+=== FILE 09_checks.md 9aa08810e432
+
+=== OLD
+## 9. Checks: the vendors' SPICE models, and the closed forms against the full model
+=== NEW
+## 9. Checking the model against SPICE and against its own approximations
+=== END
+
+=== OLD
+The second compares the closed forms of Chapter 3, which the text uses to explain the results, with the full model they approximate.
+=== NEW
+The second compares the approximate formulas of Chapter 3, which the text uses to explain the results, with the full model they approximate.
+=== END
+
+=== OLD
+### 9.2 The TIA designs
+
+Twelve amplifiers were run
+=== NEW
+### 9.2 The TIA designs
+
+The most direct check builds the designs of the sweep in SPICE, with each vendor's macromodel in place of the single-pole amplifier and the datasheet noise, and compares their bandwidth and excess noise with the analytic model. Twelve amplifiers were run
+=== END
+
+=== OLD
+### 9.7 The closed forms against the full model
+
+Chapter 3 explains the results with closed forms:
+=== NEW
+### 9.7 How well the approximate formulas of Chapter 3 hold
+
+Chapter 3 explains the results with approximate formulas:
+=== END
+
+=== OLD
+*Figure 23. The closed forms of Chapter 3 against the full model,
+=== NEW
+*Figure 23. The approximate formulas of Chapter 3 against the full model,
+=== END
+
+=== OLD
+The closed forms therefore describe the mechanism correctly, and the tables of the note use the full model.
+=== NEW
+The approximate formulas therefore describe the mechanism correctly, and the tables of the note use the full model.
+=== END
+
+=== OLD
+and the closed forms' account of the mechanisms (Section 9.7).
+=== NEW
+and the approximate formulas' account of the mechanisms (Section 9.7).
+=== END
+
+=== FILE 12_appendix_b_e.md a371007b22dd
+
+=== OLD
+- **Its noise theory.** Section 2.1 generalizes its Eq. (17) to a two-port feedback network
+=== NEW
+- **Its noise theory.** Section 2.1 generalizes its Eq. (23) to a two-port feedback network
+=== END

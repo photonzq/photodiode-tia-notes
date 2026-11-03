@@ -1,0 +1,325 @@
+{
+ "about": "Single-chip TIAs for Section 11.4 of the survey. Values read from rendered datasheet pages (datasheets/integrated_tia/); 'curve' = read from a plotted curve; 'derived' = computed here from datasheet data. i_pk_lin_A is the largest bipolar peak input current the datasheet shows as linear (about 1-3 % gain change unless stated), because the balanced pair's difference current swings both ways around zero; for a unipolar part it is half its range, centred by a DC offset current. noise_rms_A is the input-referred noise integrated over noise_bw_Hz. Only parts with at least 150 MHz of bandwidth and a linear (non-AGC) gain are plotted. Coherent-receiver TIAs (variable gain, one photodiode on each input) are taken at the gain setting at which their noise is published: i_pk_lin_A is their linear differential output swing over twice that transimpedance (Eq. (60)), capped by their largest stated input; alt_settings lists other published or bounding settings (evaluated, not plotted); i_dc_max_A is the largest I1 + I2 that their per-input DC limit allows. Records with only notes have no usable figures.",
+ "parts": {
+  "LMH32401": {
+   "label": "LMH32401 (2 kΩ)", "maker": "TI", "z_t_ohm": 2000, "bw_MHz": 461,
+   "bw_basis": "Fig 6-1, 1 pF, curve (450 MHz TYP at 1 pF, p6)",
+   "noise_rms_A": 109e-9, "noise_bw_Hz": 150e6,
+   "noise_basis": "Fig 6-11 (1 pF) integrated 10 kHz-150 MHz, derived; 8.6 pA/rtHz at 100 MHz, 9.2 at 150 MHz (curve); 250 nA rms TYP to 500 MHz (p6)",
+   "i_pk_lin_A": 250e-6,
+   "i_pk_basis": "Fig 6-31 (p16, 25 C), curve: -1 % at -150 uA, -2 % at -250 uA, -8 % at -400 uA (photodiode sourcing); within 2 % to about +700 uA sinking; 'approximately 650 uA in the low-gain configuration (PD sinking)' (p21)",
+   "dc_handling": "600 MIN / 705 TYP uA through the TIA (gain within 3 dB, p6); ambient-light cancellation 2 MIN / 3 TYP mA, photodiode sinking only, 100-kHz corner, adds noise (p9, p23)",
+   "input": "single-ended at 2.47 V, both current directions, optimised for sinking (p21)",
+   "output": "differential, 1.5 Vpp TYP into 100 ohm (p1)",
+   "status": "ACTIVE, USD 5.26 (1ku, ti.com, 26 Oct 2026)",
+   "citations": "SBOS965D (Jan 2023) p6-p9, p11-p13, p16, p21-p23",
+   "in_band": true, "plotted": true
+  },
+  "LMH32404": {
+   "label": "LMH32404 (20 kΩ)", "maker": "TI", "z_t_ohm": 20000, "bw_MHz": 336,
+   "bw_basis": "Fig 6-1, 1 pF, curve (350 MHz TYP, p8)",
+   "noise_rms_A": 35e-9, "noise_bw_Hz": 150e6,
+   "noise_basis": "Fig 6-7 (1 pF) integrated to 150 MHz, derived; 56 nA rms TYP to 250 MHz (p8)",
+   "i_pk_lin_A": 45e-6,
+   "i_pk_basis": "Fig 6-22 (p15), curve: -1.4 % at -45 uA, -3.1 % at -50 uA; 'approximately 65 uA' (p20)",
+   "dc_handling": "60 / 72 uA through the TIA (p8); ambient-light cancellation 1.8 / 2.5 mA, sinking only, 400-kHz corner (p9, p22)",
+   "input": "single-ended x4 at 2.47 V", "output": "differential, four channels",
+   "status": "ACTIVE, USD 10.72 (1ku)", "citations": "SBOSA05C (Nov 2022) p7-p9, p12-p13, p15, p20, p22",
+   "in_band": true, "plotted": true
+  },
+  "LMH34400": {
+   "label": "LMH34400 (40 kΩ)", "maker": "TI", "z_t_ohm": 40000, "bw_MHz": 261,
+   "bw_basis": "Fig 5-1, 1.0 pF, curve (240 MHz TYP at 1 pF, p5)",
+   "noise_rms_A": 34e-9, "noise_bw_Hz": 150e6,
+   "noise_basis": "Fig 5-8 (1 pF) integrated to 150 MHz, derived; 50 nA rms TYP to 250 MHz (p5)",
+   "i_pk_lin_A": 8e-6,
+   "i_pk_basis": "Fig 5-16 (p9), curve: -1.9 % at -8 uA and -3.5 % at -10 uA (sourcing); -2.0 % at +30 uA (sinking); 'approximately 30 uA' (p13)",
+   "dc_handling": "27 / 34 uA through the TIA (p5); ambient-light cancellation 2 / 3 mA, 400-kHz corner (p5, p14)",
+   "input": "single-ended at 2.5 V", "output": "single-ended, 1.0 Vpp (p1)",
+   "status": "ACTIVE, USD 1.44 (1ku)", "citations": "SBOSA56C (Oct 2023) p4-p5, p7-p9, p13-p16",
+   "in_band": true, "plotted": true
+  },
+  "OPA857": {
+   "label": "OPA857 (5 kΩ)", "maker": "TI", "z_t_ohm": 4500, "bw_MHz": 125,
+   "bw_basis": "125 MHz TYP at 1.5 pF (p6): below the 150-MHz band",
+   "noise_rms_A": 25e-9, "noise_bw_Hz": 135e6,
+   "noise_basis": "25 nA rms TYP in a 135-MHz brick-wall band (p6)",
+   "i_pk_lin_A": 120e-6,
+   "i_pk_basis": "unipolar: 1.2 V of output swing = 240 uA (p15); half of it, centred by a 120-uA DC offset",
+   "dc_handling": "no DC cancellation; absolute maximum input 10 mA (p5)",
+   "input": "single-ended, current into IN only, 1.83 V (p18)", "output": "pseudo-differential, swings downward only (p6, p18)",
+   "status": "ACTIVE, USD 2.59 (1ku)", "citations": "SBOS630D (Aug 2016) p5-p6, p11-p12, p15, p18",
+   "in_band": false, "plotted": false
+  },
+  "MAX40660": {
+   "label": "MAX40660 (25 kΩ)", "maker": "ADI (Maxim)", "z_t_ohm": 25000, "bw_MHz": 444,
+   "bw_basis": "toc15a (p9), 1 pF, curve (490 MHz TYP at 0.5 pF, p5)",
+   "noise_rms_A": 25e-9, "noise_bw_Hz": 150e6,
+   "noise_basis": "toc17A (0.5 pF): 0.62 mV rms output to 150 MHz / 25 kOhm, derived; 2.1 pA/rtHz at 10 MHz (p5); higher at 1 pF",
+   "i_pk_lin_A": 15e-6,
+   "i_pk_basis": "toc11 (p8), curve: within 2 % from -20 to +10 uA; centred with the OFFSET input, about +/-15 uA",
+   "dc_handling": "0.4 mA out of IN to 0 into IN, absolute maximum continuous (p4); manual OFFSET current input (p15)",
+   "input": "single-ended at 0.85 V, current out of IN (APD anode side)", "output": "differential, 50 ohm per side",
+   "status": "PRODUCTION, USD 5.67 (1ku, analog.com, 27 Oct 2026)",
+   "citations": "19-100541 Rev 4 (1/21) p4-p5, p8-p10, p15; analog.com lists Rev 6",
+   "in_band": true, "plotted": true
+  },
+  "MAX40662": {
+   "label": "MAX40662 (25 kΩ)", "maker": "ADI (Maxim)", "z_t_ohm": 25000, "bw_MHz": 412,
+   "bw_basis": "toc17a (p9), 1 pF, curve (420 MHz TYP at 0.5 pF, p6)",
+   "noise_rms_A": 33e-9, "noise_bw_Hz": 150e6,
+   "noise_basis": "integrated output noise 0.6 mV (0.1-100 MHz) and 1.0 mV (0.1-200 MHz) at 25 kOhm (p6), interpolated in power to 150 MHz, derived",
+   "i_pk_lin_A": 20e-6,
+   "i_pk_basis": "'linear input current range of 40 uA' at 25 kOhm (p14); half of it, centred with the OFFSET input",
+   "dc_handling": "0.4 mA absolute maximum continuous (p5); OFFSET input for DC cancellation (p1)",
+   "input": "single-ended x4 at 0.86 V, current out of IN", "output": "differential, one output for four inputs",
+   "status": "RECOMMENDED FOR NEW DESIGNS, USD 15.27 (1ku)", "citations": "19-100714 Rev 1 (9/20) p1, p5-p6, p9, p13-p14",
+   "in_band": true, "plotted": true
+  },
+  "MAX40658": {
+   "label": "MAX40658 (18 kΩ)", "maker": "ADI (Maxim)", "z_t_ohm": 18300, "bw_MHz": 264,
+   "bw_basis": "toc09 (p6), 1 pF, curve (520 MHz TYP at 0.25 pF, p3)",
+   "noise_rms_A": 39e-9, "noise_bw_Hz": 150e6,
+   "noise_basis": "toc11 (0.55 pF): 29 nA rms to 150 MHz, scaled by 61/45 for 1 pF from toc12, derived; 45 nA rms in 267 MHz (p3)",
+   "i_pk_lin_A": 3e-6,
+   "i_pk_basis": "toc04a (p5), curve: within 3 % only from -2.5 to +4.5 uA; 6 % MAX over +/-2 uA around the centre (p3)",
+   "dc_handling": "OFFSET current input, effective I/4 (p9)",
+   "input": "single-ended at 0.78 V, current into IN (anode)", "output": "differential, 75 ohm per side",
+   "status": "PRODUCTION, USD 4.00 (1ku)", "citations": "19-100082 Rev 2 (6/18) p2-p3, p5-p6, p8-p9; analog.com lists Rev 4",
+   "in_band": true, "plotted": true
+  },
+  "LTC6561": {
+   "label": "LTC6561 (74 kΩ)", "maker": "ADI (LT)", "z_t_ohm": 74000, "bw_MHz": 220,
+   "bw_basis": "220 MHz at 2 pF total input capacitance (p2)",
+   "noise_rms_A": 48e-9, "noise_bw_Hz": 150e6,
+   "noise_basis": "39 nA rms (0.1-100 MHz) and 56 nA rms (0.1-200 MHz) at 2 pF (p2), interpolated in power to 150 MHz, derived",
+   "i_pk_lin_A": 15e-6,
+   "i_pk_basis": "linear 0-30 uA, current out of the input only (p1, p10-p11); half of it, centred by an external 15-uA offset",
+   "dc_handling": "no DC cancellation; DC from ambient light or dark current reduces the dynamic range (p10)",
+   "input": "single-ended x4 at 1.55 V", "output": "single-ended, 2 Vpp on 100 ohm",
+   "status": "RECOMMENDED FOR NEW DESIGNS, USD 6.27 (1ku)", "citations": "Rev 0 (6/18) p1-p3, p5, p9-p11; analog.com lists Rev C",
+   "in_band": true, "plotted": true
+  },
+  "HMC799": {
+   "label": "HMC799 (10 kΩ)", "maker": "ADI (Hittite)", "z_t_ohm": 10000, "bw_MHz": 630,
+   "bw_basis": "630 MHz at 1 pF (p2); 700 MHz TYP, 600 MIN (p1)",
+   "noise_rms_A": 45e-9, "noise_bw_Hz": 150e6,
+   "noise_basis": "density curve at 1 pF (3.2-4.2 pA/rtHz over 10-150 MHz) integrated to 150 MHz, derived; 164 nA rms in 630 MHz (p2)",
+   "i_pk_lin_A": 50e-6,
+   "i_pk_basis": "not stated; from OP1dB 4 dBm into 50 ohm at 200 MHz (p2): 0.50 V peak / 10 kOhm, derived (1-dB compression, a looser criterion)",
+   "dc_handling": "not stated; input AC-coupled through 22 nF in the application circuit (p7)",
+   "input": "single-ended at 2.1 V", "output": "single-ended, 50 ohm",
+   "status": "LAST TIME BUY", "citations": "v01.1009 p1-p7",
+   "in_band": true, "plotted": true
+  },
+  "ADA4355": {
+   "label": "ADA4355 (2 kΩ)", "maker": "ADI", "z_t_ohm": 2000, "bw_MHz": 43,
+   "bw_basis": "TIA bandwidth 43 MHz TYP at 2 kOhm (p3 Table 1): below the 150-MHz band",
+   "noise_rms_A": 159e-9, "noise_bw_Hz": 43e6,
+   "noise_basis": "159 nA rms (2 kOhm, p3)",
+   "i_pk_lin_A": 80e-6,
+   "i_pk_basis": "-80 to +800 uA at 2 kOhm (p3, p26), essentially unipolar; +/-80 uA without an offset",
+   "dc_handling": "within its input range", "input": "single-ended at 1.65 V", "output": "14-bit 125-MSPS ADC, LVDS",
+   "status": "RECOMMENDED FOR NEW DESIGNS, USD 159.90 (1ku)", "citations": "Rev A (10/20) p1, p3, p14-p15, p26",
+   "in_band": false, "plotted": false
+  },
+  "MATA-006801": {
+   "label": "MATA-006801 (2 kΩ, product page)", "maker": "MACOM", "z_t_ohm": 2000, "bw_MHz": 45000,
+   "bw_basis": "45 GHz small-signal bandwidth (product page); datasheet only on request",
+   "noise_density_A_rtHz": 16e-12,
+   "noise_basis": "16 pA/rtHz input-referred (product page, specification table, beside the 2-kOhm gain; no conditions stated), a figure for a 45-GHz receiver; taken as white over 0-150 MHz",
+   "i_pk_lin_A": 175e-6,
+   "i_pk_basis": "the 700-mVppd output swing (product page) at the 2-kOhm gain: 0.7 V / (2 x 2 kOhm) = 175 uA peak, derived (Eq. (60)); the 3 mApp differential input the page states as linear needs 233 ohm or less, where no noise is stated",
+   "alt_settings": [
+    {"label": "1.5 kOhm, the manual-mode maximum, with the noise of 2 kOhm (an upper bound)", "z_t_ohm": 1500, "i_pk_lin_A": 233.3e-6, "noise_density_A_rtHz": 16e-12},
+    {"label": "3 mApp with the 16 pA/rtHz of 2 kOhm (an upper bound: the two figures hold at different gains)", "z_t_ohm": 233, "i_pk_lin_A": 1.5e-3, "noise_density_A_rtHz": 16e-12}
+   ],
+   "gain_settings": "2 kOhm differential transimpedance (specification table); manual mode 65 ohm to 1.5 kOhm through an external pin; automatic mode holds 200-700 mVpp differential (product page)",
+   "dc_handling": "not public", "input": "differential, one photodiode on each input", "output": "differential, 700 mVppd",
+   "status": "product page; flip-chip die, 300 mW per channel", "citations": "macom.com product page MATA-006801 (read 27 Oct 2026)",
+   "in_band": true, "plotted": true
+  },
+  "GX39220": {
+   "label": "GX39220 (500 Ω)", "maker": "Renesas (IDT)", "z_t_ohm": 500, "bw_MHz": 65000,
+   "bw_basis": "Zt bandwidth 59 MIN / 65 TYP GHz with its photodiode model, 30-50 fF, 10-40 ohm, 150-300 pH (p8-p9); low-frequency cutoff 50 TYP / 200 MAX kHz (p9); behaviour with a 1-pF photodiode not specified",
+   "noise_density_A_rtHz": 28e-12,
+   "noise_basis": "28 pA/rtHz TYP at Zt = 500 ohm, the average input noise at the photodiode model's current source up to f3dB (p9, note 1 on p10); 22 at 1 kOhm, 19 at 3.25 kOhm; taken as white over 0-150 MHz",
+   "i_pk_lin_A": 500e-6,
+   "i_pk_basis": "THD 1.5 % TYP at 1 GHz for 0.06-3 mAppd of input, 0-4 mA of DC and Vout < 500 mVppd (p9): at 500 ohm, 0.5 V / (2 x 500 ohm) = 500 uA peak, derived (Eq. (60)); the full 3 mAppd needs Zt <= 167 ohm, where no noise is stated; THD 2 % TYP for 500-550 mVppd",
+   "i_dc_max_A": 8e-3,
+   "alt_settings": [
+    {"label": "1 kOhm", "z_t_ohm": 1000, "i_pk_lin_A": 250e-6, "noise_density_A_rtHz": 22e-12},
+    {"label": "3.25 kOhm, the maximum gain", "z_t_ohm": 3250, "i_pk_lin_A": 76.92e-6, "noise_density_A_rtHz": 19e-12}
+   ],
+   "gain_settings": "differential transimpedance 50 ohm MAX at the minimum gain, 2800 MIN / 3250 TYP at the maximum gain, VGA range 30 dB MIN (p9); manual gain through VGC (p4); AGC loop 1.1 MHz TYP (p10)",
+   "dc_handling": "input DC current 4 mA MAX on each input; DC offset between the inputs -0.5 to +0.5 mA (p9, notes 3-4 on p10); absolute maximum 6 mA per photodiode (p7); hence I1 + I2 up to 8 mA",
+   "input": "differential: one photodiode on each input, INP and INN (p4); differential input current Iin = I_INP - I_INN (note 1, p10)",
+   "output": "differential CML with 50-ohm loads (p13); 550 mVppd MIN at the maximum output setting, clipped at 900 mVppd (p10)",
+   "status": "OBSOLETE: end-of-life notice PLC250030 (12 Sep 2025), last-time buy 12 Mar 2026, last shipment 12 Sep 2026, replacement GX39221-DNT, whose full datasheet is not public; die GX39220-DNT (p15)",
+   "citations": "R08DS0227EU0100 Rev 1.00 (28 Nov 2022) p1, p4, p7-p10, p13, p15; Renesas PLC250030 p2",
+   "in_band": true, "plotted": true
+  },
+  "RG8G32423": {
+   "label": "RG8G32423 (6 kΩ)", "maker": "Renesas", "z_t_ohm": 6000, "bw_MHz": 24000,
+   "bw_basis": "24-GHz 3-dB bandwidth (short-form datasheet p1); photodiode capacitance not stated",
+   "noise_density_A_rtHz": 18e-12,
+   "noise_basis": "'Low noise < 18 pA/rtHz' (short-form p1), conditions not stated, taken at the maximum gain; taken as white over 0-150 MHz",
+   "i_pk_lin_A": 37.5e-6,
+   "i_pk_basis": "'THD < 3 % for 450 mVppd output' (short-form p1): at 6 kOhm, 0.45 V / (2 x 6 kOhm) = 37.5 uA peak, derived (Eq. (60)); a looser criterion",
+   "gain_settings": "differential linear gain 250 to 6,000 ohm; automatic and manual gain control (short-form p1)",
+   "dc_handling": "not stated in the short form",
+   "input": "differential, INxP and INxN (block diagram, p1); four channels", "output": "differential",
+   "status": "ACTIVE, USD 66.15 (1ku, renesas.com product selector, 27 Oct 2026); flip-chip die RG8G32423BGGWT, -40 to +105 C",
+   "citations": "short-form datasheet R08DO0023EU0100 Rev 1.00 (3 Oct 2023) p1",
+   "in_band": true, "plotted": true
+  },
+  "TGA4868": {
+   "label": "TGA4868 (4.8 kΩ)", "maker": "Qorvo", "z_t_ohm": 4800, "bw_MHz": 28000,
+   "bw_basis": "28 GHz, tunable 24-32 GHz (product page)",
+   "noise_density_A_rtHz": 24e-12,
+   "noise_basis": "equivalent input noise 24 pA/rtHz (product page), conditions not stated, taken at the maximum gain; taken as white over 0-150 MHz",
+   "i_pk_lin_A": 72.9e-6,
+   "i_pk_basis": "'THD of <1% for Vout,se<350mVpp' (product page), i.e. 700 mVppd: at 4.8 kOhm, 0.7 V / (2 x 4.8 kOhm) = 72.9 uA peak, derived (Eq. (60))",
+   "gain_settings": "250 to 4,800 ohm differential; output 200 to 900 mVppd (product page)",
+   "dc_handling": "'able to handle large DC input currents' and offsets between them (product page); not quantified there",
+   "input": "differential, two channels, OIF intradyne receiver MSA", "output": "differential",
+   "status": "DISCONTINUED (product page, 27 Oct 2026); datasheet not read, qorvo.com refuses scripted downloads",
+   "citations": "qorvo.com product page TGA4868 (read 27 Oct 2026)",
+   "in_band": true, "plotted": false
+  },
+  "TGA4872": {
+   "label": "TGA4872 (7.5 kΩ)", "maker": "Qorvo", "z_t_ohm": 7500, "bw_MHz": 30000,
+   "bw_basis": "30 GHz (product page)",
+   "noise_density_A_rtHz": 20e-12,
+   "noise_basis": "equivalent input noise 20 pA/rtHz (product page), conditions not stated, taken at the maximum gain; taken as white over 0-150 MHz",
+   "i_pk_lin_A": 46.7e-6,
+   "i_pk_basis": "its page states no THD figure; with the < 1 % at Vout,se < 350 mVpp of its siblings TGA4861, TGA4864 and TGA4868: 0.7 V / (2 x 7.5 kOhm) = 46.7 uA peak, derived",
+   "gain_settings": "100 to 7,500 ohm differential; output 200 to 900 mVppd (product page)",
+   "dc_handling": "handles large DC input currents and offsets between them (product page); not quantified there",
+   "input": "differential, two channels, fully differential", "output": "differential",
+   "status": "DISCONTINUED: end of life announced 17 Oct 2019 (PCN 19-0183), last-time buy 28 Apr 2020 (product page)",
+   "citations": "qorvo.com product page TGA4872 (read 27 Oct 2026)",
+   "in_band": true, "plotted": false
+  },
+  "TGA4864": {
+   "label": "TGA4864", "maker": "Qorvo",
+   "notes": "32-Gb/s dual linear TIA with AGC: 250-4,800 ohm differential, 28 GHz (tunable 24-32 GHz), 24 pA/rtHz, output 200-900 mVppd, THD < 1 % for Vout,se < 350 mVpp, the same figures as TGA4868. DISCONTINUED: end of life announced 22 Feb 2016 (PCN16-0027), replacement TGA4872; data sheet of 17 Jan 2013 listed but not read. qorvo.com product page (read 27 Oct 2026)",
+   "in_band": true, "plotted": false
+  },
+  "TGA4861": {
+   "label": "TGA4861", "maker": "Qorvo",
+   "notes": "13-Gb/s dual linear TIA with AGC for 44.6-Gb/s DP-QPSK, tunable 8.5-13.5 GHz, THD < 1 % for Vout,se < 350 mVpp; no gain or noise figure on its store page. DISCONTINUED. store.qorvo.com product page (read 27 Oct 2026)",
+   "in_band": true, "plotted": false
+  },
+  "GX39221": {
+   "label": "GX39221", "maker": "Renesas",
+   "notes": "2 x 96-Gbaud linear TIA, the replacement of GX39220: differential linear gain 70 to 3,250 ohm, > 30 dB, > 60 GHz adjustable (short-form datasheet R08DO0013EU0100 Rev 1.00, 28 Sep 2023, p1); no noise, THD or input range in the public short form, and the full datasheet needs a login. ACTIVE, USD 94.19 (1ku, renesas.com product selector, 27 Oct 2026)",
+   "in_band": true, "plotted": false
+  },
+  "RG8G31220": {
+   "label": "RG8G31220", "maker": "Renesas",
+   "notes": "2 x 128-Gbaud linear TIA: 50 ohm to 2.3 kOhm typical differential, > 30 dB, > 80 GHz SDD21, output clipped above 1,200 mVppd (short-form R15DO0006EU0100 Rev 1.00, 9 Feb 2026, p1); no noise or THD figure. ACTIVE, USD 157.50 (1ku, product selector, 27 Oct 2026)",
+   "in_band": true, "plotted": false
+  },
+  "RG8G31223": {
+   "label": "RG8G31223", "maker": "Renesas",
+   "notes": "2 x 128-Gbaud linear TIA: 50 ohm to 2.5 kOhm typical differential, > 30 dB, > 80 GHz SDD21, output clipped above 1,200 mVppd (short-form R15DO0007EU0100 Rev 1.00, 9 Feb 2026, p1); no noise or THD figure. ACTIVE, USD 157.50 (1ku, product selector, 27 Oct 2026)",
+   "in_band": true, "plotted": false
+  },
+  "RG8G3122B": {
+   "label": "RG8G3122B", "maker": "Renesas",
+   "notes": "2 x 150-Gbaud linear TIA: 75 to 1,450 ohm typical differential, > 20 dB, > 90 GHz SDD21 (short-form, 9 Feb 2026, p1); no noise or THD figure. ACTIVE, no price listed (product selector, 27 Oct 2026)",
+   "in_band": true, "plotted": false
+  },
+  "RG8G31420": {
+   "label": "RG8G31420", "maker": "Renesas",
+   "notes": "4 x 128-Gbaud linear TIA: 50 to 2,300 ohm typical differential, > 30 dB, > 75 GHz (short-form, 9 Feb 2026, p1); no noise or THD figure. ACTIVE, USD 315.00 (1ku, product selector, 27 Oct 2026)",
+   "in_band": true, "plotted": false
+  },
+  "RG8G3122A": {
+   "label": "RG8G3122A", "maker": "Renesas",
+   "notes": "2 x 128-Gbaud linear TIA: 50 to 1,500 ohm typical differential, > 27 dB, > 80 GHz SDD21 (short-form R08DO0012EU0100 Rev 1.00, 28 Sep 2023, p1); no noise or THD figure. OBSOLETE: PLC250030, last shipment 12 Sep 2026, replacements RG8G31220 and RG8G31223",
+   "in_band": true, "plotted": false
+  },
+  "GX36220": {
+   "label": "GX36220", "maker": "Renesas (IDT)",
+   "notes": "2 x 64-Gbps linear TIA: 150 to 5,000 ohm differential, > 30 dB, > 40 GHz (short-form, 22 Mar 2018, p1); no noise or THD figure. OBSOLETE: PLC250030, last shipment 12 Sep 2026",
+   "in_band": true, "plotted": false
+  },
+  "GX36420": {
+   "label": "GX36420", "maker": "Renesas (IDT)",
+   "notes": "4 x 64-Gbps linear TIA: 150 to 5,000 ohm differential, > 30 dB, > 40 GHz (IDT short-form, 20 Mar 2018, p1); no noise or THD figure. OBSOLETE: PLC250030, last shipment 12 Sep 2026",
+   "in_band": true, "plotted": false
+  },
+  "GX32222": {
+   "label": "GX32222", "maker": "Renesas (IDT)",
+   "notes": "2 x 32-Gb/s linear TIA: 6,500 ohm typical differential, 25 GHz MIN, > 30 dB (short-form, 3 Nov 2017, p1); no noise or THD figure. OBSOLETE: PLC230010, last shipment 18 Jul 2024",
+   "in_band": true, "plotted": false
+  },
+  "GX32223": {
+   "label": "GX32223", "maker": "Renesas (IDT)",
+   "notes": "2 x 32-Gbps linear TIA: 150 to 5,000 ohm differential, > 30 dB, > 25 GHz (short-form X0106031 Rev 1.0, 18 Nov 2020, p1); no noise or THD figure. OBSOLETE: PLC230010, last shipment 18 Jul 2024",
+   "in_band": true, "plotted": false
+  },
+  "GX32424": {
+   "label": "GX32424", "maker": "Renesas",
+   "notes": "4 x 32-Gbps linear TIA for 100G/200G coherent receivers; its datasheet needs a login and was not read. ACTIVE (product selector, 27 Oct 2026)",
+   "in_band": true, "plotted": false
+  },
+  "IN3250TA": {
+   "label": "IN3250TA", "maker": "Marvell (Inphi)",
+   "notes": "32-Gbaud dual-channel, differential-input linear TIA/VGA, die; product brief (revised 05/21) states no gain, bandwidth, noise, THD or input-range figure",
+   "in_band": true, "plotted": false
+  },
+  "IN3252TA": {
+   "label": "IN3252TA", "maker": "Marvell (Inphi)",
+   "notes": "32-Gbaud dual-channel, high-gain linear TIA/VGA with input DC offset cancellation, die; product brief (revised 05/21) states no figures",
+   "in_band": true, "plotted": false
+  },
+  "IN3254TA": {
+   "label": "IN3254TA", "maker": "Marvell (Inphi)",
+   "notes": "32-Gbaud quad-channel, high-gain linear TIA/VGA with input DC offset cancellation and SPI, die; product brief (revised 05/21) states no figures",
+   "in_band": true, "plotted": false
+  },
+  "IN6450TA": {
+   "label": "IN6450TA", "maker": "Marvell (Inphi)",
+   "notes": "64-Gbaud dual-channel, differential-input linear TIA/VGA, 625-um pitch, die; product brief (revised 05/21) states no figures",
+   "in_band": true, "plotted": false
+  },
+  "IN6452TA": {
+   "label": "IN6452TA", "maker": "Marvell (Inphi)",
+   "notes": "64-Gbaud dual-channel, differential-input linear TIA/VGA, 500-um pitch, die; product brief (revised 05/21) states no figures",
+   "in_band": true, "plotted": false
+  },
+  "IN6454TA": {
+   "label": "IN6454TA", "maker": "Marvell (Inphi)",
+   "notes": "64-Gbaud quad-channel, differential-input linear TIA/VGA with input DC offset cancellation and SPI, die; product brief (revised 05/21) states no figures",
+   "in_band": true, "plotted": false
+  },
+  "MxL9105": {
+   "label": "MxL9105", "maker": "MaxLinear",
+   "notes": "32-Gbaud dual-channel linear coherent TIA, announced 2017; no public datasheet or figures, and not listed on MaxLinear's TIA page (27 Oct 2026), which shows PAM4 parts only",
+   "in_band": true, "plotted": false
+  },
+  "MxL9162": {
+   "label": "MxL9162", "maker": "MaxLinear",
+   "notes": "64-Gbaud dual-channel linear TIA for coherent receivers, announced at OFC 2017 (> 40 GHz); no public datasheet or figures, and not listed on MaxLinear's TIA page (27 Oct 2026)",
+   "in_band": true, "plotted": false
+  },
+  "PHY1095": {
+   "label": "PHY1095", "maker": "Phyworks (Maxim)",
+   "notes": "1.25-Gb/s GEPON TIA with AGC, 60 kOhm, specified for inputs under 8 uApp, output held at 320-480 mVpp above that; not a linear TIA. NOT RECOMMENDED FOR NEW DESIGNS. 19-5689 Rev 1/11 p1-p5",
+   "in_band": true, "plotted": false
+  },
+  "PHY1090": {
+   "label": "PHY1090", "maker": "Phyworks (Maxim)",
+   "notes": "10GbE TIA with AGC, 2 kOhm, 6 GHz; linear to 2 mApp but THD up to 2 % (100-600 uApp) and 6.5 % (0.75-2 mApp), 1100 nA rms MAX in 7.5 GHz. NOT RECOMMENDED FOR NEW DESIGNS. 19-5686 Rev 1/11 p1, p3-p6",
+   "in_band": true, "plotted": false
+  },
+  "MAX3654": {
+   "label": "MAX3654", "maker": "Maxim",
+   "notes": "47-870 MHz CATV TIA, differential input, 1.26 kOhm at maximum gain with AGC, 5.5 pA/rtHz, OIP3 21 dBm; largest linear input not stated; 47-MHz lower edge. LAST TIME BUY. 19-3745 Rev 0 p1-p2, p5-p6",
+   "in_band": false, "plotted": false
+  }
+ }
+}

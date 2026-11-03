@@ -1,0 +1,132 @@
+{
+  "part": "OPA857",
+  "manufacturer": "Texas Instruments",
+  "datasheet_file": "datasheets/opa857.pdf",
+  "datasheet_id_and_revision": "SBOS630D, December 2013, revised August 2016 (package addendum dated 8-Jan-2026)",
+  "datasheet_status": "Production Data (p1 footer); orderables Active (p27)",
+  "citation_convention": "pX = PDF page index; for PDF p1-p26 the printed page number equals the PDF index. Types: TYP, MIN, MAX (guaranteed; test level A = 100% tested at 25 C, B = characterization/simulation, C = typical only), CURVE (read from a typical-characteristic plot at 300 dpi, uncertainty stated), DERIVED (computed here from datasheet values), TEXT (statement in prose).",
+  "architecture": "Integrated single-ended-input transimpedance amplifier with pseudo-differential output: TIA core with two internal feedback resistors (RF1, RF2, each with a parallel capacitor; RF2 switched in by CTRL, which also recompensates the core open-loop gain), class-A output stage, 25-ohm series resistor on OUT and on OUTN, reference buffer (5/9 VS) driving OUTN and (through an RC filter) the TIA non-inverting input, internal clamp + ESD diodes on IN, and an internal V-to-I test structure (Test_IN/Test_SD). Single supply 2.7-3.6 V. Photocurrent must flow into IN (photodiode cathode to positive bias); output only swings down from the reference. No DC / ambient-light cancellation. [p1 block diagram, p14 7.1, p15 7.3.1-7.3.3, p18 8.1, p21 8.2.2]",
+  "transimpedance_options": [
+    {"setting": "CTRL = 0 (GND), low gain", "nominal_internal": {"value": 5, "unit": "kOhm", "type": "TEXT", "cite": "p4 pin table; p17 Table 1"}, "effective_into_500ohm_diff": {"value": 4.5, "unit": "kOhm", "type": "TYP (test level C)", "cite": "p6 EC table + footnote 4"}},
+    {"setting": "CTRL = 1 (+VS), high gain", "nominal_internal": {"value": 20, "unit": "kOhm", "type": "TEXT", "cite": "p4; p17 Table 1"}, "effective_into_500ohm_diff": {"value": 18.2, "unit": "kOhm", "type": "TYP (C)", "cite": "p6 EC + footnote 4"}},
+    {"setting": "gain error", "value": "+-1 % TYP, +-15 % MAX", "type": "TYP / MAX (test level A)", "conditions": "TA 25 C, RF = 20 k and 5 k", "cite": "p6 EC"},
+    {"setting": "load attenuation", "value": 0.83, "unit": "dB", "type": "TEXT", "conditions": "500-ohm differential load vs the two internal 25-ohm series resistors", "cite": "p15 7.3.1"},
+    {"setting": "external RF (|| CF) from IN to OUT in parallel with internal RF (application example)", "value": "6.8 kOhm || 0.1 pF; 5k||6.8k = 2.88 kOhm and 20k||6.8k = 5.07 kOhm internal-node values (DERIVED)", "type": "TEXT / DERIVED", "cite": "p21 Fig 44, Table 4; p22 Figs 45-47"}
+  ],
+  "bandwidth": {
+    "conditions_EC": "TA 25 C (row condition -40 to +85 C), VS 3.3 V, Csource 1.5 pF, VOUT 0.5 Vpp differential, RL 500 ohm differential",
+    "small_signal_EC": [
+      {"gain": "20 k (CTRL=1)", "value": 105, "unit": "MHz", "type": "TYP (C)", "cite": "p6"},
+      {"gain": "5 k (CTRL=0)", "value": 125, "unit": "MHz", "type": "TYP (C)", "cite": "p6"},
+      {"note": "p21 text states 130 MHz for the 5 k gain (inconsistent with 125 MHz in the EC table)", "type": "TEXT", "cite": "p21"}
+    ],
+    "vs_input_capacitance_fig11_20k": {"type": "CURVE", "uncertainty": "+-3 MHz (+-1 px) in f, +-0.03 dB in gain", "cite": "p9 Fig 11 (RL 500 ohm)", "minus3dB_MHz": {"parasitic": 110, "1.5 pF": 113, "4.7 pF": 96, "10 pF": 75, "22 pF": 53}, "peaking_dB": {"1.5 pF": 0.08, "4.7 pF": 0.21, "10 pF": 0.72, "22 pF": 1.23}},
+    "vs_input_capacitance_fig12_5k": {"type": "CURVE", "uncertainty": "+-3 MHz, +-0.03 dB", "cite": "p9 Fig 12", "minus3dB_MHz": {"parasitic": 131, "1.5 pF": 135, "4.7 pF": 126, "10 pF": 104, "22 pF": 79}, "peaking_dB": {"4.7 pF": 0.10, "10 pF": 0.38, "22 pF": 0.78}},
+    "vs_load_fig1_20k": {"type": "CURVE", "cite": "p8 Fig 1 (Cs 1.5 pF)", "minus3dB_MHz": {"100 ohm": 68, "500 ohm": 113, "1 kohm": 136, "5 kohm": 157}, "peaking_dB": {"1 kohm": 0.70, "5 kohm": 2.95}},
+    "vs_load_fig3_5k": {"type": "CURVE", "cite": "p8 Fig 3", "minus3dB_MHz": {"100 ohm": 89, "500 ohm": 135, "1 kohm": 160, "5 kohm": 180}, "peaking_dB": {"1 kohm": 0.75, "5 kohm": 2.9}},
+    "vs_temperature": {"type": "CURVE", "uncertainty": "+-5 MHz", "cite": "p8 Figs 2, 4", "20k_minus3dB_MHz": {"-40 C": 107, "25 C": 104, "85 C": 104}, "5k_minus3dB_MHz": {"-40 C": 113, "25 C": 121, "85 C": 125}},
+    "extended_with_external_RF": {"type": "CURVE", "uncertainty": "+-5 MHz", "cite": "p22 Figs 45-47; Csource not stated for these application curves",
+      "fig45_RF_6k8_no_CF_500ohm": {"20k||6.8k": "+3.84 dB peak near 140 MHz, -3 dB 444 MHz", "5k||6.8k": "+1.94 dB peak near 85 MHz, -3 dB 301 MHz", "datasheet_comment": "large peaking = low phase margin, potential instability"},
+      "fig46_6k8_0p1pF_500ohm": {"20k||6.8k": "flat within +0.09 dB, -1 dB 126 MHz, -2 dB about 171 MHz; -3 dB off scale", "5k||6.8k": "-1 dB 102 MHz, -2 dB about 140 MHz; -3 dB off scale"},
+      "fig47_6k8_0p1pF_1kohm": {"20k||6.8k": "+1.03 dB peak near 65 MHz, -3 dB 263 MHz", "5k||6.8k": "+0.86 dB peak near 60 MHz, -3 dB 211 MHz"},
+      "text": ">250 MHz possible (p21); Table 4 target 250 MHz, effective gain 5 kOhm"},
+    "slew_rate": {"value": 215, "unit": "V/us", "type": "TYP (C)", "conditions": "differential, 1-V step", "cite": "p6"},
+    "settling": {"1pct_ns": {"5k": 8, "20k": 8, "type": "TYP (B)"}, "0.001pct_ns": {"5k": 600, "20k": 700, "type": "TYP (C)"}, "conditions": "0.5-V step", "cite": "p6"}
+  },
+  "input_referred_current_noise": {
+    "integrated_EC": [
+      {"gain": "5 k", "value": 25, "unit": "nA_RMS", "type": "TYP (C)", "conditions": "135-MHz brickwall filter, Csource 1.5 pF", "cite": "p6"},
+      {"gain": "20 k", "value": 15, "unit": "nA_RMS", "type": "TYP (C)", "conditions": "135-MHz brickwall", "cite": "p1, p6"},
+      {"note": "equivalent mean density over 135 MHz: 2.15 pA/rtHz (5 k), 1.29 pA/rtHz (20 k)", "type": "DERIVED"}
+    ],
+    "density_fig26_5k": {"unit": "pA/rtHz", "type": "CURVE", "uncertainty": "+-5 %", "cite": "p12 Fig 26",
+      "no_cap": {"5 MHz": 2.27, "10 MHz": 2.20, "20 MHz": 2.13, "50 MHz": 1.93, "100 MHz": 1.53, "150 MHz": 1.13, "200 MHz": 0.78},
+      "1.5 pF": {"1.2 MHz": 2.57, "10 MHz": 2.32, "20 MHz": 2.31, "50 MHz": 2.36, "100 MHz": 2.10, "150 MHz": 1.55, "200 MHz": 1.09},
+      "4.7 pF": {"10 MHz": 2.73, "50 MHz": 3.66, "100 MHz": 3.33, "150 MHz": 2.28},
+      "10 pF": {"10 MHz": 3.98, "50 MHz": 5.78, "100 MHz": 4.57},
+      "22 pF": {"10 MHz": 7.42, "20 MHz": 8.81, "50 MHz": 8.58, "100 MHz": 5.26},
+      "mean_10_100MHz": {"no_cap": 1.99, "1.5 pF": 2.32, "4.7 pF": 3.30, "10 pF": 5.11},
+      "note": "curves end at about 230 MHz; the fall above about 100 MHz suggests output noise referred through the low-frequency gain (inference, not stated)"},
+    "density_fig27_20k": {"unit": "pA/rtHz", "type": "CURVE", "uncertainty": "+-5 %", "cite": "p12 Fig 27",
+      "no_cap": {"1.2 MHz": 1.07, "10 MHz": 1.10, "50 MHz": 1.03, "100 MHz": 0.83, "200 MHz": 0.41},
+      "1.5 pF": {"1.2 MHz": 1.11, "10 MHz": 1.30, "20 MHz": 1.41, "50 MHz": 1.49, "100 MHz": 1.21, "200 MHz": 0.59},
+      "4.7 pF": {"1.2 MHz": 1.23, "10 MHz": 2.05, "30 MHz": 2.47, "100 MHz": 1.74},
+      "10 pF": {"10 MHz": 3.79, "20 MHz": 4.02, "100 MHz": 2.06},
+      "22 pF": {"10 MHz": 7.98, "50 MHz": 3.60},
+      "mean_10_100MHz": {"no_cap": 1.04, "1.5 pF": 1.41, "4.7 pF": 2.26, "10 pF": 3.43}},
+    "rms_vs_source_capacitance": {"unit": "nA_RMS", "type": "CURVE", "uncertainty": "+-0.4 nA", "cite": "p9 Figs 9 (20 k), 10 (5 k); bandwidth assumed 135-MHz brickwall as in EC (not restated on figure)",
+      "20k": {"0.1 pF": 11.6, "1 pF": 14.0, "2 pF": 16.7, "5 pF": 24.2, "10 pF": 33.1, "22 pF": 45.7},
+      "5k": {"0.1 pF": 21.8, "1 pF": 24.5, "2 pF": 28.0, "5 pF": 40.3, "10 pF": 57.6, "22 pF": 82.2}},
+    "rms_vs_temperature": {"unit": "nA_RMS", "type": "CURVE", "cite": "p9 Fig 7", "20k": {"-40 C": 13.7, "25 C": 15.5, "95 C": 16.8}, "5k": {"-40 C": 22.7, "25 C": 25.9, "95 C": 28.9}},
+    "rms_vs_supply": {"type": "CURVE", "cite": "p9 Fig 8", "20k": "about 15.7 nA, flat 2.75-3.6 V", "5k": "26.6 to 26.3 nA over 2.75-3.6 V (higher than the 25 nA EC value; plot at Cs 1.5 pF per TC header)"}
+  },
+  "integrated_noise": "see input_referred_current_noise.integrated_EC (25 / 15 nA_RMS in 135 MHz brickwall); no 10-200 MHz figure given; DERIVED mean densities 2.15 / 1.29 pA/rtHz",
+  "max_input_current": {
+    "linear": [
+      {"value": 60, "unit": "uA", "type": "TEXT", "conditions": "20 k gain, 1.2-V output range (1.83 V down to 0.6 V), VS 3.3 V", "cite": "p15 7.3.1"},
+      {"value": 240, "unit": "uA", "type": "TEXT", "conditions": "5 k gain", "cite": "p15"},
+      {"value": "about 0.42 mA", "type": "DERIVED", "conditions": "1.2 V / 2.88 kOhm for 5k || 6.8k external RF; unipolar (current into IN only)"}
+    ],
+    "polarity": "unipolar: photodiode anode to IN, cathode to positive bias; output swings down from reference (p18, p19 step 2)",
+    "absolute_maximum_input_current": {"value": 10, "unit": "mA", "type": "MAX (AMR)", "cite": "p5"},
+    "esd_diode_continuous": {"value": 30, "unit": "mA", "type": "TEXT (typical)", "cite": "p16; conflicts with the 10 mA AMR input-current limit"},
+    "differential_input_voltage_AMR": {"value": 1, "unit": "V", "cite": "p5"}
+  },
+  "dc_or_ambient_cancellation": "none on chip; no DC-restore or ambient-light loop in this datasheet (only a test V-to-I that must be off in normal use, p15-p17)",
+  "output": {
+    "type": "pseudo-differential: OUT (signal) and OUTN (reference = 5/9 VS through 25 ohm); each output has an internal 25-ohm series resistor; class-A output stage",
+    "swing_OUT": {"min": 0.6, "max": 1.9, "unit": "V", "type": "MIN/MAX (A) at 25 C; 1.9 V MAX (B) over -40..85 C", "cite": "p6"},
+    "usable_signal_range": {"value": 1.2, "unit": "V", "type": "TEXT", "conditions": "1.83 V down to 0.6 V, VS 3.3 V", "cite": "p15"},
+    "reference_VOUTN": {"min": 1.78, "typ": 1.83, "max": 1.88, "unit": "V", "type": "MIN/TYP/MAX (A)", "cite": "p6; p18 text says 1.85 V"},
+    "output_current_linear": {"source": "+5 mA", "sink": "-20 mA", "type": "TYP (C)", "conditions": "50 ohm differential between OUT and OUTN", "cite": "p6"},
+    "output_current_vs_temp": {"type": "CURVE", "cite": "p10 Fig 17", "sink_mA": {"-40 C": 20.6, "25 C": 19.8, "85 C": 18.3}, "source_mA": 4.07},
+    "closed_loop_output_impedance": {"value": 50, "unit": "ohm", "type": "TYP (C)", "conditions": "1 MHz, differential", "cite": "p6"},
+    "load": "characterized with 500 ohm differential; 50-ohm drive only as the linear-current test above; bandwidth drops to 68 MHz (20 k) / 89 MHz (5 k) with 100 ohm (Figs 1, 3)",
+    "output_offset": {"value": "+-1 TYP, +-5 MAX (25 C), +-6 MAX (-40..85 C)", "unit": "mV", "drift": "+-15 uV/C MAX (C)", "cite": "p6"}
+  },
+  "overload_recovery_and_clamp": {
+    "recovery": {"value": 25, "unit": "ns", "type": "TYP (B)", "conditions": "2x overload, CTRL = 1, settling to 1 %", "cite": "p6; features say < 25 ns (p1)"},
+    "clamp": "internal clamp holds OUT at about 0.60 V during 2x overdrive (Figs 13, 14 CURVE, +-0.01 V); output rejoins the ideal sine within a few ns of the ideal crossing 0.6 V (CURVE, 100 ns/div)",
+    "cite": "p10 Figs 13-14; p14 7.1; p16 7.3.4"
+  },
+  "distortion": {"HD2_10MHz_dBc": {"5k": -80, "20k": -83}, "HD3_10MHz_dBc": {"5k": -88, "20k": -83}, "type": "TYP (C)", "conditions": "0.5 Vpp, RL 500 ohm", "cite": "p6; curves vs f, Vout, RL, VS in p10-p12 Figs 18-25 (HD2 rises to about -60 dBc at 100 MHz)"},
+  "supply_and_power": {
+    "supply_range": {"min": 2.7, "nom": 3.3, "max": 3.6, "unit": "V", "type": "ROC", "cite": "p5"},
+    "abs_max_supply": {"value": 3.8, "unit": "V", "cite": "p5"},
+    "quiescent_current": {"min": 20.5, "typ": 23.4, "max": 26.3, "unit": "mA", "type": "MIN/TYP/MAX (A) 25 C; 20.0-26.8 mA (B) -40..85 C", "cite": "p7"},
+    "power": {"value": "about 77 mW", "type": "DERIVED (3.3 V x 23.4 mA)"},
+    "PSRR": {"dc": "70 MIN / 80 TYP dB (A)", "10 MHz": "15 MIN / 18 TYP dB (B)", "cite": "p7; Figs 15-16 p10"},
+    "CTRL_logic": "VIH 2 V MIN, VIL 0.8 V MAX, bias 1 uA MAX (p7)"
+  },
+  "input_capacitance_or_input_impedance": {"input_pin_capacitance": {"value": 2, "unit": "pF", "type": "TYP (C)", "cite": "p6"}, "design_target": "1.5 pF total source capacitance incl. board (photodiode 0.5-0.7 pF + 0.8-1 pF parasitic), p14"},
+  "packages": [{"name": "VQFN-16 (RGT, RGT0016A)", "body": "3 x 3 mm (2.9-3.1), 1 mm max height", "pitch": "0.5 mm", "exposed_pad": "1.45 +-0.1 mm square (pad 17); must be soldered for thermal/mechanical performance; electrical connection not stated in the pin table", "orderables": "OPA857IRGTR (3000), OPA857IRGTT (250), .B variants; MSL 2, NIPDAU", "cite": "p4, p27, p31-p33"}],
+  "thermal": {"RthJA": 67.1, "RthJC_top": 91.6, "RthJB": 41.6, "RthJC_bot": 23.1, "unit": "C/W", "cite": "p5"},
+  "tia_figures": [
+    {"fig": "Figs 1-4", "what": "frequency response vs RL and temperature, 20 k / 5 k", "measured_or_sim": "measured (not stated; plotted data)", "cite": "p8"},
+    {"fig": "Figs 5-6", "what": "1-Vpp pulse response", "cite": "p8"},
+    {"fig": "Figs 7-10", "what": "RMS input current noise vs temperature, supply, source capacitance", "cite": "p9"},
+    {"fig": "Figs 11-12", "what": "frequency response vs input capacitance (parasitic, 1.5, 4.7, 10, 22 pF)", "cite": "p9"},
+    {"fig": "Figs 13-14", "what": "2x overdrive recovery", "cite": "p10"},
+    {"fig": "Figs 15-16", "what": "PSRR vs frequency", "cite": "p10"},
+    {"fig": "Fig 17", "what": "output current vs temperature", "cite": "p10"},
+    {"fig": "Figs 18-25", "what": "harmonic distortion vs f, Vout, RL, VS (50 MHz for Vout/RL/VS sweeps)", "cite": "p10-p12"},
+    {"fig": "Figs 26-27", "what": "input-referred current noise density vs f for 0-22 pF", "cite": "p12"},
+    {"fig": "Figs 28-36", "what": "IQ, offset and VOUTN histograms / temperature (axis label 'mV' on Figs 35-36 should read V)", "cite": "p12-p13"},
+    {"fig": "Figs 40-43", "what": "optical pulse response and long-term settling (20 k, 5 k)", "cite": "p20"},
+    {"fig": "Figs 45-47", "what": "bandwidth extension with external 6.8 k || 0.1 pF", "cite": "p22"}
+  ],
+  "application_guidance": [
+    "Target total source capacitance 1.5 pF incl. board; open planes under IN; minimise stray capacitance (p14, p23-p24)",
+    "Photodiode cathode to positive bias, anode to IN; Test_IN = +VS, Test_SD = GND in normal use (p19)",
+    "Signal chain example: OPA857 -> THS4541 (gain 5) -> ADC34J45; RG 374 ohm gives 798 ohm load; TIDA-00725 (p18-p19)",
+    "External RF || CF from IN to OUT lowers gain and extends bandwidth; 0.1 pF needed to remove peaking (p21-p22)",
+    "Bypass 10 nF + 100 nF within 0.25 inch; do not socket (p23-p24)"
+  ],
+  "other_notes": [
+    "Inconsistencies: 5 k bandwidth 125 MHz (EC p6) vs 130 MHz (p21); reference 1.83 V (p6, p15) vs 1.85 V (p18); Table 4 lists '500 kOhm' load (typo for 500 ohm); ESD diodes 'typically 30 mA continuous' (p16) vs 10 mA AMR input current (p5); revision history cites 'Figure 50' (layout is Figure 48); Figs 35-36 axis unit mV should be V.",
+    "Plots of Figs 2, 4, 17 extend to 105-125 C although the device is rated -40 to +85 C.",
+    "Bandwidth values are typical only (test level C)."
+  ],
+  "pages_read": "All 34 PDF pages rendered at 160 dpi and read; zoomed 300-dpi clips of Figs 1-4, 7-14, 17, 26-27, 45-47 and the EC table digitized.",
+  "status": "complete"
+}

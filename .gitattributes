@@ -1,0 +1,3 @@
+* text=auto eol=lf
+# Vendor model files are kept byte for byte, as their terms allow only unmodified copies.
+*.cir -text

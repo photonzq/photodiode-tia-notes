@@ -1,0 +1,34 @@
+{
+  "_about": "Photodiode capacitance, shunt resistance and dark current used as examples of the source an amplifier sees. Values typed by hand from the rendered pages; page = 1-based PDF page. Conditions as in the datasheet: Ct at the stated reverse bias VR and frequency; Rsh at VR = 10 mV (Hamamatsu derive Rsh from the dark current at 10 mV, technical note KSPD9001E04, p. 4).",
+  "sources": {
+    "S1336": "Hamamatsu, Si photodiodes S1336 series, Cat. No. KSPD1022E09, Jul. 2023",
+    "G12180": "Hamamatsu, InGaAs PIN photodiodes G12180 series, Cat. No. KIRD1121E11, Feb. 2024",
+    "G12183": "Hamamatsu, InGaAs PIN photodiodes G12183 series, Cat. No. KIRD1119E10, Feb. 2025",
+    "S3204": "Hamamatsu, Si PIN photodiodes S3204/S3584 series, Cat. No. KPIN1051E10, Jan. 2012",
+    "KSPD9001E": "Hamamatsu, Si photodiodes technical note, Cat. No. KSPD9001E04, Dec. 2025"
+  },
+  "parts": [
+    {"part": "S1336-18BQ/BK", "material": "Si", "area": "1.1 x 1.1 mm", "Ct_pF": 20, "Ct_cond": "VR=0 V, f=10 kHz", "Rsh_min_GOhm": 0.5, "Rsh_typ_GOhm": 2, "ID_max_pA": 20, "ID_cond": "VR=10 mV", "TCID_per_C": 1.15, "cite": "S1336 p. 1 (both tables)"},
+    {"part": "S1336-5BQ/BK", "material": "Si", "area": "2.4 x 2.4 mm", "Ct_pF": 65, "Ct_cond": "VR=0 V, f=10 kHz", "Rsh_min_GOhm": 0.3, "Rsh_typ_GOhm": 1, "ID_max_pA": 30, "ID_cond": "VR=10 mV", "TCID_per_C": 1.15, "cite": "S1336 p. 1"},
+    {"part": "S1336-44BQ/BK", "material": "Si", "area": "3.6 x 3.6 mm", "Ct_pF": 150, "Ct_cond": "VR=0 V, f=10 kHz", "Rsh_min_GOhm": 0.2, "Rsh_typ_GOhm": 0.6, "ID_max_pA": 50, "ID_cond": "VR=10 mV", "TCID_per_C": 1.15, "cite": "S1336 p. 1"},
+    {"part": "S1336-8BQ/BK", "material": "Si", "area": "5.8 x 5.8 mm", "Ct_pF": 380, "Ct_cond": "VR=0 V, f=10 kHz", "Rsh_min_GOhm": 0.1, "Rsh_typ_GOhm": 0.4, "ID_max_pA": 100, "ID_cond": "VR=10 mV", "TCID_per_C": 1.15, "cite": "S1336 p. 1"},
+    {"part": "S3204-08", "material": "Si PIN", "area": "18 x 18 mm", "Ct_pF_70V": 130, "Ct_pF_0p1V_curve": 1700, "Ct_pF_1V_curve": 1000, "ID_typ_nA_70V": 6, "ID_max_nA_70V": 20, "TCID_per_C": 1.12, "cite": "S3204 p. 1 (tables); Ct at 0.1 and 1 V read by eye from 'Terminal capacitance vs. reverse voltage', p. 3; no Rsh given (specified at VR=70 V)"},
+    {"part": "S3584-08", "material": "Si PIN", "area": "28 x 28 mm", "Ct_pF_70V": 300, "Ct_pF_0p1V_curve": 3700, "Ct_pF_1V_curve": 2200, "ID_typ_nA_70V": 10, "ID_max_nA_70V": 30, "TCID_per_C": 1.12, "cite": "S3204 p. 1; curve p. 3"},
+    {"part": "G12180-003A", "material": "InGaAs", "area": "dia 0.3 mm", "Ct_pF": 5, "Ct_max_pF": 7.5, "Ct_cond": "VR=5 V, f=1 MHz (footnote *6)", "Rsh_min_MOhm": 200, "Rsh_typ_MOhm": 1000, "T_C": 25, "cite": "G12180 p. 1 (area), p. 3 (table and footnote *6)"},
+    {"part": "G12180-005A", "material": "InGaAs", "area": "dia 0.5 mm", "Ct_pF": 15, "Ct_max_pF": 20, "Ct_cond": "VR=5 V, f=1 MHz", "Rsh_min_MOhm": 80, "Rsh_typ_MOhm": 400, "T_C": 25, "cite": "G12180 p. 3"},
+    {"part": "G12180-010A", "material": "InGaAs", "area": "dia 1 mm", "Ct_pF": 55, "Ct_max_pF": 120, "Ct_cond": "VR=5 V, f=1 MHz", "Rsh_min_MOhm": 25, "Rsh_typ_MOhm": 125, "T_C": 25, "cite": "G12180 p. 3"},
+    {"part": "G12180-020A", "material": "InGaAs", "area": "dia 2 mm", "Ct_pF": 250, "Ct_max_pF": 800, "Ct_cond": "VR=1 V, f=1 MHz", "Rsh_min_MOhm": 6.5, "Rsh_typ_MOhm": 30, "T_C": 25, "cite": "G12180 p. 3"},
+    {"part": "G12180-030A", "material": "InGaAs", "area": "dia 3 mm", "Ct_pF": 450, "Ct_max_pF": 1500, "Ct_cond": "VR=1 V, f=1 MHz", "Rsh_min_MOhm": 4, "Rsh_typ_MOhm": 20, "T_C": 25, "cite": "G12180 p. 3"},
+    {"part": "G12180-050A", "material": "InGaAs", "area": "dia 5 mm", "Ct_pF": 1000, "Ct_max_pF": 7000, "Ct_cond": "VR=1 V, f=1 MHz", "Rsh_min_MOhm": 1.3, "Rsh_typ_MOhm": 6.5, "T_C": 25, "cite": "G12180 p. 3"},
+    {"part": "G12180-250A", "material": "InGaAs, two-stage TE cooled", "area": "dia 5 mm", "Ct_pF": 1000, "Ct_max_pF": 7000, "Ct_cond": "VR=1 V, f=1 MHz", "Rsh_min_MOhm": 90, "Rsh_typ_MOhm": 500, "T_C": -20, "cite": "G12180 p. 3"},
+    {"part": "G12183-003K", "material": "InGaAs to 2.6 um", "area": "dia 0.3 mm", "Ct_pF": 50, "Ct_max_pF": 100, "Ct_cond": "VR=0 V, f=1 MHz", "Rsh_min_kOhm": 20, "Rsh_typ_kOhm": 100, "T_C": 25, "cite": "G12183 p. 1 (area), p. 3 (table)"},
+    {"part": "G12183-010K", "material": "InGaAs to 2.6 um", "area": "dia 1 mm", "Ct_pF": 500, "Ct_max_pF": 1000, "Ct_cond": "VR=0 V, f=1 MHz", "Rsh_min_kOhm": 2.8, "Rsh_typ_kOhm": 14, "T_C": 25, "cite": "G12183 p. 3"},
+    {"part": "G12183-030K", "material": "InGaAs to 2.6 um", "area": "dia 3 mm", "Ct_pF": 4000, "Ct_max_pF": 5000, "Ct_cond": "VR=0 V, f=1 MHz", "Rsh_min_kOhm": 0.25, "Rsh_typ_kOhm": 1.4, "T_C": 25, "cite": "G12183 p. 3"},
+    {"part": "G12183-210K", "material": "InGaAs to 2.6 um, two-stage TE cooled", "area": "dia 1 mm", "Ct_pF": 400, "Ct_max_pF": 1000, "Ct_cond": "VR=0 V, f=1 MHz", "Rsh_min_kOhm": 55, "Rsh_typ_kOhm": 280, "T_C": -20, "cite": "G12183 p. 3"}
+  ],
+  "temperature": {
+    "G12180_Rsh_vs_T": "Straight lines on the log scale of 'Shunt resistance vs. element temperature' (G12180 p. 5): about six decades from -40 to +100 C, i.e. a decade per about 23-25 C, halving every 7-8 C; read by eye",
+    "S1336_Rsh_vs_T": "Rsh derived from ID at 10 mV, so it falls by TCID = 1.15 per C (S1336 p. 1): halves every ln2/ln1.15 = 4.96 C",
+    "FET_IB": "KSPD9001E04 p. 10: the bias current of FET-input op amps generally doubles for every 10 C"
+  }
+}

@@ -1,0 +1,2266 @@
+{
+ "notes": {
+  "gmin stepping (operating point found only with it)": "317 of the 406 decks, all of them with the OPA859 or the THS3491 macromodel: Newton iteration from the initial guess does not converge and ngspice falls back on its automatic dynamic gmin stepping, which completes ('Dynamic gmin stepping completed').  The bipolar composites, the stand-alone transistor decks and the THS3491's open-loop decks converge without it.  The operating points reached are the expected ones (THS3491 16.8 mA, OPA859 20.2 mA, outputs within millivolts of their targets, the designed drain and collector currents), so no action was needed.",
+  "warning": "Only the LSBF862 decks: ngspice's 'Model issue' warning for the PSpice-only parameters of Linear Systems' card (NETLIST_NOTES, 'PSpice-only JFET parameters')."
+ },
+ "netlist_notes": {
+  "subcircuit name collision": "With the OPA859 and THS3491 libraries in one deck, ngspice reported 'redefinition of .subckt femt, ignored' and 'of .subckt vnse', then 'Mismatch: 5 formal but 3 actual params' and 'Undefined parameter [glff]': both TI libraries define the noise subcircuits FEMT and VNSE, with different parameter lists, and ngspice keeps the first definition of a name for both models.  Fix: the translated copy of the THS3491 library has all its helper subcircuits renamed THS3491_<name> (namespace_subckts); the vendor file is not touched.  The THS3491-only decks give the same results with and without the renaming.",
+  "PSpice-only JFET parameters": "Linear Systems' LSBF862 card is used as published.  ngspice warns 'unrecognized parameter (isr) - ignored' and the same for nr, zxti, alpha, vk and mj, among them PSpice's recombination current (ISR, NR) and impact ionization (ALPHA, VK), which ngspice's JFET model does not have.  It accepts M = 0.33 and MFG without a warning but does not use them: every result is the same to the last printed digit with and without them, so its junction capacitances keep the exponent 0.5 (C_gd = 1.12 pF at the operating point instead of the 1.6 pF that M = 0.33 would give).",
+  "noise plot after other analyses": "In a deck that runs op and three ac analyses before 'noise', 'setplot noise1' finds no such plot; the noise analysis therefore runs in a deck of its own (as in Section 10)."
+ },
+ "decks": {
+  "composite/ths_smoke/G5_Rs0p001": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/ths_smoke/G5_Rs1000": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/ths_referee/G2": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/ths_referee/G5": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+06"
+   ]
+  },
+  "composite/ths_referee/G10": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/ths_referee/G20": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_compare/G5_F0p100p_L1p0p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_compare/G5_F0p100p_L1p0p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_compare/G5_F0p200p_L1p0p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  8.54631e+05"
+   ]
+  },
+  "composite/hv_compare/G5_F0p200p_L1p0p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_compare/G5_F0p300p_L1p0p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_compare/G5_F0p300p_L1p0p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_compare/G5_F0p100p_L2p0p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.73018e+09"
+   ]
+  },
+  "composite/hv_compare/G5_F0p100p_L2p0p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_compare/G5_F0p200p_L2p0p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  9.23977e+07"
+   ]
+  },
+  "composite/hv_compare/G5_F0p200p_L2p0p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_compare/G5_F0p300p_L2p0p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_compare/G5_F0p300p_L2p0p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_compare/G5_F0p100p_L3p0p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  4.43570e+08"
+   ]
+  },
+  "composite/hv_compare/G5_F0p100p_L3p0p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_compare/G5_F0p200p_L3p0p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  4.43570e+08"
+   ]
+  },
+  "composite/hv_compare/G5_F0p200p_L3p0p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_compare/G5_F0p300p_L3p0p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_compare/G5_F0p300p_L3p0p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_compare/G5_F0p100p_L4p0p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  6.33184e+05"
+   ]
+  },
+  "composite/hv_compare/G5_F0p100p_L4p0p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.73780e+05"
+   ]
+  },
+  "composite/hv_compare/G5_F0p200p_L4p0p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  7.82735e+06"
+   ]
+  },
+  "composite/hv_compare/G5_F0p200p_L4p0p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_compare/G5_F0p300p_L4p0p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_compare/G5_F0p300p_L4p0p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_compare/G3_F0p100p_L3p0p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_compare/G3_F0p100p_L3p0p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_compare/G8_F0p100p_L3p0p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  3.68815e+08"
+   ]
+  },
+  "composite/hv_compare/G8_F0p100p_L3p0p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_compare/G5_F0p200p_L0p0p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  5.79917e+06"
+   ]
+  },
+  "composite/hv_compare/G5_F0p200p_L0p0p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_compare/G2_F0p375p_L0p0p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_compare/G2_F0p375p_L0p0p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D0p8_F0p025_L2p15": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D0p8_F0p025_L2p25": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  2.21042e+07"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D0p8_F0p025_L2p35": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D0p8_F0p125_L2p15": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D0p8_F0p125_L2p25": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  5.26474e+05"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D0p8_F0p125_L2p35": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D0p8_F0p225_L2p15": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D0p8_F0p225_L2p25": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  3.36304e+08"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D0p8_F0p225_L2p35": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  2.69664e+05"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D1p0_F0p025_L2p15": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D1p0_F0p025_L2p25": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D1p0_F0p025_L2p35": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D1p0_F0p125_L2p15": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.37372e+09"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D1p0_F0p125_L2p25": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  3.22557e+09"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D1p0_F0p125_L2p25/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D1p0_F0p125_L2p35": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D1p0_F0p225_L2p15": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D1p0_F0p225_L2p25": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  4.91269e+05"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D1p0_F0p225_L2p35": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D1p2_F0p025_L2p15": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.56383e+07"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D1p2_F0p025_L2p25": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D1p2_F0p025_L2p35": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D1p2_F0p125_L2p15": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D1p2_F0p125_L2p25": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D1p2_F0p125_L2p35": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D1p2_F0p225_L2p15": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.87253e+06"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D1p2_F0p225_L2p25": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G4_F0p125p_L2p25p__D1p2_F0p225_L2p35": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.66120e+05"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D0p8_F0p020_L2p40": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D0p8_F0p020_L2p50": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  5.02735e+05"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D0p8_F0p020_L2p60": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.07166e+05",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  5.16738e+06"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D0p8_F0p100_L2p40": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D0p8_F0p100_L2p50": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D0p8_F0p100_L2p60": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D0p8_F0p200_L2p40": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  2.17912e+09"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D0p8_F0p200_L2p50": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.95234e+05"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D0p8_F0p200_L2p60": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  8.26948e+08"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D1p0_F0p020_L2p40": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  2.11075e+07"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D1p0_F0p020_L2p50": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D1p0_F0p020_L2p60": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D1p0_F0p100_L2p40": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D1p0_F0p100_L2p50": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D1p0_F0p100_L2p50/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D1p0_F0p100_L2p60": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.46570e+08"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D1p0_F0p200_L2p40": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D1p0_F0p200_L2p50": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  7.71651e+08"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D1p0_F0p200_L2p60": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  8.98938e+06"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D1p2_F0p020_L2p40": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  4.31549e+07"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D1p2_F0p020_L2p50": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D1p2_F0p020_L2p60": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D1p2_F0p100_L2p40": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D1p2_F0p100_L2p50": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D1p2_F0p100_L2p60": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.28186e+09"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D1p2_F0p200_L2p40": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D1p2_F0p200_L2p50": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G4p5_F0p100p_L2p50p__D1p2_F0p200_L2p60": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D0p8_F0p020_L2p90": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D0p8_F0p020_L3p00": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  2.07172e+08"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D0p8_F0p020_L3p10": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D0p8_F0p100_L2p90": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D0p8_F0p100_L3p00": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D0p8_F0p100_L3p10": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D0p8_F0p200_L2p90": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  2.53858e+07"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D0p8_F0p200_L3p00": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D0p8_F0p200_L3p10": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D1p0_F0p020_L2p90": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D1p0_F0p020_L3p00": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D1p0_F0p020_L3p10": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  3.25753e+06"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D1p0_F0p100_L2p90": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.45284e+06"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D1p0_F0p100_L3p00": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D1p0_F0p100_L3p00/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D1p0_F0p100_L3p10": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D1p0_F0p200_L2p90": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D1p0_F0p200_L3p00": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  7.33618e+07"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D1p0_F0p200_L3p10": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D1p2_F0p020_L2p90": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D1p2_F0p020_L3p00": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D1p2_F0p020_L3p10": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D1p2_F0p100_L2p90": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  7.16887e+07"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D1p2_F0p100_L3p00": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  4.43570e+08"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D1p2_F0p100_L3p10": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D1p2_F0p200_L2p90": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D1p2_F0p200_L3p00": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G5_F0p100p_L3p00p__D1p2_F0p200_L3p10": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D0p8_F0p020_L3p15": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D0p8_F0p020_L3p25": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D0p8_F0p020_L3p35": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  2.68197e+09"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D0p8_F0p100_L3p15": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D0p8_F0p100_L3p25": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D0p8_F0p100_L3p35": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  8.62192e+07"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D0p8_F0p200_L3p15": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  3.81162e+05",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  8.94987e+05"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D0p8_F0p200_L3p25": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  7.20051e+08"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D0p8_F0p200_L3p35": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D1p0_F0p020_L3p15": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D1p0_F0p020_L3p25": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  3.36304e+08"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D1p0_F0p020_L3p35": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D1p0_F0p100_L3p15": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  2.29450e+05"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D1p0_F0p100_L3p25": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D1p0_F0p100_L3p25/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D1p0_F0p100_L3p35": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.48022e+05"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D1p0_F0p200_L3p15": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  6.81554e+06"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D1p0_F0p200_L3p25": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D1p0_F0p200_L3p35": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D1p2_F0p020_L3p15": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  2.08086e+09"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D1p2_F0p020_L3p25": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.20269e+05"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D1p2_F0p020_L3p35": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D1p2_F0p100_L3p15": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  6.53694e+07"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D1p2_F0p100_L3p25": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D1p2_F0p100_L3p35": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  2.56103e+09"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D1p2_F0p200_L3p15": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D1p2_F0p200_L3p25": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  2.17912e+09"
+   ]
+  },
+  "composite/hv_verify/G5p5_F0p100p_L3p25p__D1p2_F0p200_L3p35": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.63048e+06"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D0p8_F0p050_L2p90": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  3.37789e+09"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D0p8_F0p050_L3p00": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D0p8_F0p050_L3p10": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D0p8_F0p150_L2p90": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.82983e+06",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  5.82477e+07"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D0p8_F0p150_L3p00": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D0p8_F0p150_L3p10": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D0p8_F0p250_L2p90": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  6.78559e+05"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D0p8_F0p250_L3p00": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  7.50739e+07"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D0p8_F0p250_L3p10": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D1p0_F0p050_L2p90": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D1p0_F0p050_L3p00": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  6.66010e+06"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D1p0_F0p050_L3p10": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.34239e+09"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D1p0_F0p150_L2p90": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  3.86231e+08"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D1p0_F0p150_L3p00": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D1p0_F0p150_L3p00/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D1p0_F0p150_L3p10": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D1p0_F0p250_L2p90": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  6.12674e+08"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D1p0_F0p250_L3p00": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  3.31890e+05"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D1p0_F0p250_L3p10": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D1p2_F0p050_L2p90": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D1p2_F0p050_L3p00": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  3.49096e+06"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D1p2_F0p050_L3p10": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.43859e+09"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D1p2_F0p150_L2p90": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.55011e+05"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D1p2_F0p150_L3p00": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D1p2_F0p150_L3p10": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D1p2_F0p250_L2p90": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D1p2_F0p250_L3p00": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  9.15875e+05"
+   ]
+  },
+  "composite/hv_verify/G6_F0p150p_L3p00p__D1p2_F0p250_L3p10": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  3.60404e+08"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D0p8_F0p050_L3p65": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D0p8_F0p050_L3p75": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  2.48068e+07"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D0p8_F0p050_L3p85": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  5.82477e+07"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D0p8_F0p150_L3p65": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  8.86208e+08"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D0p8_F0p150_L3p75": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D0p8_F0p150_L3p85": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  2.00672e+06"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D0p8_F0p250_L3p65": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  2.95732e+05"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D0p8_F0p250_L3p75": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  3.86231e+08"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D0p8_F0p250_L3p85": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D1p0_F0p050_L3p65": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D1p0_F0p050_L3p75": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D1p0_F0p050_L3p85": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  2.17912e+09"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D1p0_F0p150_L3p65": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  3.28635e+08"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D1p0_F0p150_L3p75": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D1p0_F0p150_L3p75/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D1p0_F0p150_L3p85": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D1p0_F0p250_L3p65": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D1p0_F0p250_L3p75": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  8.62192e+07"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D1p0_F0p250_L3p85": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D1p2_F0p050_L3p65": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  4.06254e+09"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D1p2_F0p050_L3p75": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.06583e+09"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D1p2_F0p050_L3p85": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D1p2_F0p150_L3p65": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  4.33454e+08"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D1p2_F0p150_L3p75": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D1p2_F0p150_L3p85": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D1p2_F0p250_L3p65": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D1p2_F0p250_L3p75": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_verify/G7_F0p150p_L3p75p__D1p2_F0p250_L3p85": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  2.91545e+07"
+   ]
+  },
+  "composite/hv_tone/G5p5_f100M_a0p5": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5p5_f100M_a0p6": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5p5_f100M_a0p7": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5p5_f100M_a0p8": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5p5_f100M_a0p9": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5p5_f100M_a1": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5p5_f100M_a1p1": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5p5_f100M_a1p2": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5p5_f100M_a1p3": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5p5_f150M_a0p5": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5p5_f150M_a0p6": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5p5_f150M_a0p7": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5p5_f150M_a0p8": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5p5_f150M_a0p9": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5p5_f150M_a1": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5p5_f150M_a1p1": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5p5_f150M_a1p2": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5p5_f150M_a1p3": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5_f100M_a0p5": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5_f100M_a0p6": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5_f100M_a0p7": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5_f100M_a0p8": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5_f100M_a0p9": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5_f100M_a1": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5_f100M_a1p1": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5_f100M_a1p2": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5_f100M_a1p3": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5_f150M_a0p5": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5_f150M_a0p6": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5_f150M_a0p7": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5_f150M_a0p8": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5_f150M_a0p9": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5_f150M_a1": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5_f150M_a1p1": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5_f150M_a1p2": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/hv_tone/G5_f150M_a1p3": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_devices/LSBF862/op": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_devices/LSBF862/buffer": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_devices/CPH3910/op": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_devices/CPH3910/buffer": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_devices/CE3512K2/op": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00"
+   ]
+  },
+  "composite/fet_devices/CE3512K2/buffer": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/CE3512K2_N0p0p_F0p20p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/CE3512K2_N0p0p_F0p20p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/CE3512K2_N0p0p_F0p50p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/CE3512K2_N0p0p_F0p50p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/CE3512K2_N3p0p_F0p20p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/fet_compare/CE3512K2_N3p0p_F0p20p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/CE3512K2_N3p0p_F0p50p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  9.71879e+08"
+   ]
+  },
+  "composite/fet_compare/CE3512K2_N3p0p_F0p50p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/CE3512K2_N10p0p_F0p20p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/CE3512K2_N10p0p_F0p20p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/fet_compare/CE3512K2_N10p0p_F0p50p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/CE3512K2_N10p0p_F0p50p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/CPH3910_N0p0p_F0p20p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/CPH3910_N0p0p_F0p20p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/CPH3910_N0p0p_F0p50p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/CPH3910_N0p0p_F0p50p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/fet_compare/CPH3910_N3p0p_F0p20p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/CPH3910_N3p0p_F0p20p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/CPH3910_N3p0p_F0p50p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/CPH3910_N3p0p_F0p50p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/CPH3910_N10p0p_F0p20p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/fet_compare/CPH3910_N10p0p_F0p20p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/CPH3910_N10p0p_F0p50p": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/fet_compare/CPH3910_N10p0p_F0p50p/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/LSBF862_N0p0p_F0p20p": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/LSBF862_N0p0p_F0p20p/noise": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/fet_compare/LSBF862_N0p0p_F0p50p": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/LSBF862_N0p0p_F0p50p/noise": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/fet_compare/LSBF862_N3p0p_F0p20p": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/LSBF862_N3p0p_F0p20p/noise": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/fet_compare/LSBF862_N3p0p_F0p50p": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  4.39680e+06"
+   ]
+  },
+  "composite/fet_compare/LSBF862_N3p0p_F0p50p/noise": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/LSBF862_N10p0p_F0p20p": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  2.80861e+09"
+   ]
+  },
+  "composite/fet_compare/LSBF862_N10p0p_F0p20p/noise": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/LSBF862_N10p0p_F0p50p": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_compare/LSBF862_N10p0p_F0p50p/noise": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_devices/LSBF862/y_J1": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ]
+  },
+  "composite/fet_devices/LSBF862/y_J2": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ]
+  },
+  "composite/fet_devices/LSBF862/en": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ]
+  },
+  "composite/fet_verify/CE3512K2_N8p0p_F0p55p__D0p8_F0p450": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_verify/CE3512K2_N8p0p_F0p55p__D0p8_F0p550": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_verify/CE3512K2_N8p0p_F0p55p__D0p8_F0p650": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_verify/CE3512K2_N8p0p_F0p55p__D1p0_F0p450": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_verify/CE3512K2_N8p0p_F0p55p__D1p0_F0p550": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_verify/CE3512K2_N8p0p_F0p55p__D1p0_F0p550/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/fet_verify/CE3512K2_N8p0p_F0p55p__D1p0_F0p650": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_verify/CE3512K2_N8p0p_F0p55p__D1p2_F0p450": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_verify/CE3512K2_N8p0p_F0p55p__D1p2_F0p550": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/fet_verify/CE3512K2_N8p0p_F0p55p__D1p2_F0p650": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_verify/LSBF862_N0p0p_F0p10p__D0p8_F0p020": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_verify/LSBF862_N0p0p_F0p10p__D0p8_F0p100": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/fet_verify/LSBF862_N0p0p_F0p10p__D0p8_F0p200": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_verify/LSBF862_N0p0p_F0p10p__D1p0_F0p020": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_verify/LSBF862_N0p0p_F0p10p__D1p0_F0p100": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.36769e+08"
+   ]
+  },
+  "composite/fet_verify/LSBF862_N0p0p_F0p10p__D1p0_F0p100/noise": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_verify/LSBF862_N0p0p_F0p10p__D1p0_F0p200": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_verify/LSBF862_N0p0p_F0p10p__D1p2_F0p020": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/fet_verify/LSBF862_N0p0p_F0p10p__D1p2_F0p100": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/fet_verify/LSBF862_N0p0p_F0p10p__D1p2_F0p200": {
+   "warning": [
+    "stderr Warning: Model issue on line 3 :"
+   ],
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_verify/CPH3910_N2p0p_F0p10p__D0p8_F0p020": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_verify/CPH3910_N2p0p_F0p10p__D0p8_F0p100": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  9.23977e+07"
+   ]
+  },
+  "composite/fet_verify/CPH3910_N2p0p_F0p10p__D0p8_F0p200": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/fet_verify/CPH3910_N2p0p_F0p10p__D1p0_F0p020": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_verify/CPH3910_N2p0p_F0p10p__D1p0_F0p100": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_verify/CPH3910_N2p0p_F0p10p__D1p0_F0p100/noise": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_verify/CPH3910_N2p0p_F0p10p__D1p0_F0p200": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_verify/CPH3910_N2p0p_F0p10p__D1p2_F0p020": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  0.00000e+00",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_verify/CPH3910_N2p0p_F0p10p__D1p2_F0p100": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed",
+    "stderr Note: Dynamic gmin stepping completed Reference value :  1.00000e+05"
+   ]
+  },
+  "composite/fet_verify/CPH3910_N2p0p_F0p10p__D1p2_F0p200": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_devices/BFP740ESD_1mA/buffer": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_devices/BFP740ESD_3mA/buffer": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  },
+  "composite/fet_devices/BFP740ESD_10mA/buffer": {
+   "gmin stepping (operating point found only with it)": [
+    "stderr Note: Starting dynamic gmin stepping",
+    "stderr Note: Dynamic gmin stepping completed"
+   ]
+  }
+ }
+}

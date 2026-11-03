@@ -1,0 +1,435 @@
+Old/new text pairs for plain_wording_pass.py (balanced-photodiode note, 3 November 2026).
+Each pair runs from a line "=== OLD" through "=== NEW" to "=== END"; the text between the markers
+is used exactly, line breaks included.
+
+=== OLD
+### 1.2 The balanced photodiode pair: what the photocurrent figures mean
+=== NEW
+### 1.2 What the photocurrent figures mean for a balanced photodiode pair
+=== END
+
+=== OLD
+is an **analytical estimate**, closed-form theory plus each amplifier's datasheet open-loop curve, unless it is labelled SPICE.
+=== NEW
+is an **analytical estimate**, from the equations of Chapter 4 with each amplifier's datasheet open-loop curve, unless it is labelled SPICE.
+=== END
+
+=== OLD
+### 2.1 The plain 50-Ω termination: the benchmark
+=== NEW
+### 2.1 A plain 50-Ω termination as the benchmark
+=== END
+
+=== OLD
+### 2.2 The op-amp TIA: how the candidate list was built
+
+**The starting list.**
+=== NEW
+### 2.2 How the list of op-amp candidates was built
+
+The inverting op-amp TIA of Figure 1 is the front end this note designs, so the list of amplifiers we analyse decides what the comparisons of Chapter 6 can find. We built it in three steps, from six parts known at the start, through a search across manufacturers, to a selection rule aimed at the four equations of Section 3.1. This section gives each step with the parts it kept and removed.
+
+**The starting list.**
+=== END
+
+=== OLD
+### 2.5 Single-chip TIAs
+
+In the balanced pair with its imbalance servoed to zero (Sections 1.2 and 8.8), a single-chip TIA carries no DC
+=== NEW
+### 2.5 Single-chip TIAs
+
+A single-chip TIA puts the amplifier and its feedback resistor on one die. It would replace the whole front end with one part, and its feedback capacitance would no longer depend on the board, so it is worth asking whether one suits this receiver. In the balanced pair with its imbalance servoed to zero (Sections 1.2 and 8.8), a single-chip TIA carries no DC
+=== END
+
+=== OLD
+### 4.3 Single-pole closed forms: the Butterworth design
+
+For a single-pole amplifier the loop has a closed form, which gives the $C_F$ of a flat response and the bandwidth it reaches. Above its dominant pole
+=== NEW
+### 4.3 A flat (Butterworth) response with a single-pole amplifier
+
+With $R_F$ fixed by the specification, the feedback capacitance $C_F$ is the one value left to choose, and it decides both how flat the response is and how far it extends. For an amplifier with a single pole the loop can be solved exactly, and the solution gives the $C_F$ of a maximally flat response and the bandwidth it reaches. These are the formulas behind Eq. (9) of Chapter 3 and the starting point of every design in Chapter 6. Above its dominant pole
+=== END
+
+=== OLD
+### 4.4 Decompensated amplifiers: the noise gain at crossover
+
+**The stability condition.**
+=== NEW
+### 4.4 When a decompensated amplifier is stable in a TIA
+
+Most of the parts with sub-nanovolt $e_n$ are decompensated: their internal compensation is lighter than that of a unity-gain-stable part, which buys gain-bandwidth but leaves them stable only at closed-loop gains of at least a minimum $G_{\min}$. Whether such a part can serve a 2-kΩ TIA on a 1-pF photodiode is the first question the comparison of Chapter 6 asks. This section derives the answer: a condition on the capacitance at the summing node, Eq. (20), and a split of the phase margin into the amplifier's own share and the share the feedback network takes, Eq. (21).
+
+**The stability condition.**
+=== END
+
+=== OLD
+The single-pole forms ignore the higher poles
+=== NEW
+The single-pole results of Section 4.3 ignore the higher poles
+=== END
+
+=== OLD
+### 4.8 Dynamic range: definitions
+
+The dynamic range is the largest RF photocurrent
+=== NEW
+### 4.8 How the dynamic range is defined
+
+Dynamic range is the priority of this receiver (Section 1.1), so its definition decides how Chapter 6 ranks the candidates. It is the largest RF photocurrent
+=== END
+
+=== OLD
+### 4.10 A bench measurement: OPA846 at $R_F$ = 1.2 kΩ
+
+**The measurement.**
+=== NEW
+### 4.10 A measurement on an OPA846 board at $R_F$ = 1.2 kΩ
+
+The comparisons of Section 4.9 test the loop part of the model against the datasheets, but not its noise, and not on a real board. A prototype TIA with OPA846 tests both at once. Its measured transimpedance and noise at 50 MHz are compared here with the model, and together they tell how much capacitance the board puts at the summing node and across $R_F$, the two quantities that the designs of this note can only assume (Table 1.1).
+
+**The measurement.**
+=== END
+
+=== OLD
+Sections 5.4–5.8 give the results: the datasheets' own test circuits as referee, the TIA designs with scans of their feedback capacitance, the noise, the large-signal limits and the bench board.
+=== NEW
+Sections 5.4–5.8 give the results. The datasheets' own test circuits decide between curve and macromodel where the two disagree (Section 5.4); the TIA designs with scans of their feedback capacitance, the noise, the large-signal limits and the measured OPA846 board follow (Sections 5.5–5.8).
+=== END
+
+=== OLD
+Appendix B.1 is a working guide to running it this way
+=== NEW
+Appendix B.1 explains how to run it this way
+=== END
+
+=== OLD
+### 5.2 Middlebrook's double injection: what it measures, and what it adds to a plain TIA simulation
+=== NEW
+### 5.2 Reading the loop gain with Middlebrook's double injection
+=== END
+
+=== OLD
+### 5.4 The datasheets' own test circuits as referee
+
+Each datasheet states the closed-loop behaviour of one test circuit, measured or at least published as typical. Both descriptions claim to reproduce it, so it decides between them.
+=== NEW
+### 5.4 The datasheets' test circuits decide between curve and macromodel
+
+Where a datasheet's open-loop curve and the vendor's macromodel disagree, our phase margins could follow either, and with them the choice between designs. The datasheets offer an independent test. Each states the closed-loop behaviour of one test circuit, measured or at least published as typical, and both descriptions of the amplifier claim to reproduce it, so that circuit acts as a referee between them.
+=== END
+
+=== OLD
+### 5.5 The TIA designs in SPICE
+
+The designs are those chosen with our analytical model:
+=== NEW
+### 5.5 The TIA designs in SPICE
+
+With the macromodels checked against our equations (Section 5.3) and against the datasheets (Section 5.4), we now simulate the TIA designs themselves. The question is whether the designs chosen with our analytical model keep their phase margin and bandwidth when the feedback and photodiode capacitances move to their corners, and what gain margin they have, which our analysis does not give reliably (Section 5.3).
+
+The designs are those chosen with our analytical model:
+=== END
+
+=== OLD
+### 5.6 Noise
+
+**Reading Table A5.11.**
+=== NEW
+### 5.6 Noise
+
+The noise figures of Chapters 6 and 8 rest on Eq. (23) with the datasheet noise densities. Here each macromodel's own noise sources take their place in the same circuits, which tests those figures.
+
+**Reading Table A5.11.**
+=== END
+
+=== OLD
+### 5.7 Large-signal limits
+
+The tone check drives
+=== NEW
+### 5.7 Large-signal limits
+
+From about 0.15 mA up, the largest undistorted tone, not the noise, sets the dynamic range (Section 6.6.3), and our analysis takes that tone from the datasheet swing and slew rate through Eq. (30). This section checks those limits in the macromodels by driving the designs with a tone until they distort.
+
+The tone check drives
+=== END
+
+=== OLD
+### 5.8 The bench board in SPICE
+
+Section 4.10 inferred from two measurements on an OPA846 board — 1.45 kΩ and about 7 pA/√Hz at 50 MHz, with $R_F$ = 1.2 kΩ and no external feedback capacitor — that about 14 pF sits at the summing node and about 0.3 pF across $R_F$. The same circuit
+=== NEW
+### 5.8 The measured OPA846 board in SPICE
+
+Section 4.10 inferred from two measurements on an OPA846 board — 1.45 kΩ and about 7 pA/√Hz at 50 MHz, with $R_F$ = 1.2 kΩ and no external feedback capacitor — that about 14 pF sits at the summing node and about 0.3 pF across $R_F$. That inference rests on our analytical model, which for OPA846 predicts more peaking than the part shows (Section 5.4), so here we repeat it with the vendor's macromodel. The same circuit
+=== END
+
+=== OLD
+#### 6.2.3 Calibrated open-loop variants
+
+The calibrated variant of Section 4.5 scales the plotted curve to the table GBW and adds the delay that reproduces the stated phase margin (Table A4.2); Table A6.7 compares the two.
+=== NEW
+#### 6.2.3 With the open-loop curves calibrated to the datasheet tables
+
+Three TI datasheets state a gain-bandwidth product or phase margin that disagrees with their own plotted open-loop curve (Table A4.2), so for those parts the results above depend on which of the two is right. We therefore repeat the analysis with the calibrated variant of Section 4.5, which scales the plotted curve to the table GBW and adds the delay that reproduces the stated phase margin. Table A6.7 compares the two.
+=== END
+
+=== OLD
+#### 6.2.5 Sensitivity to the board: parasitic corners
+
+To show what a board with one fixed external capacitor does when the parasitics land at their corners, the flat design's external $C_F$ was frozen. $C_{\mathrm{PCB}}$ was then set to 0.2 or 0.5 pF, and $C_{F,\mathrm{par}}$ to 0.1 or 0.3 pF.
+=== NEW
+#### 6.2.5 What the board's parasitic capacitances do to a fixed design
+
+A board is built with one external feedback capacitor, chosen before its parasitic capacitances are known, and the parasitics then land somewhere in their tolerance. To see what that does, we froze the flat design's external $C_F$ and set $C_{\mathrm{PCB}}$ to 0.2 or 0.5 pF and $C_{F,\mathrm{par}}$ to 0.1 or 0.3 pF, the corners of the ranges in Table 1.1.
+=== END
+
+=== OLD
+#### 6.2.6 Decompensated amplifiers on a 1-pF photodiode: why OPA818, OPA846 and OPA847 fail on their datasheet curves, and what added capacitance buys
+
+Table A6.11 splits
+=== NEW
+#### 6.2.6 Why three decompensated amplifiers fail on a 1-pF photodiode, and what added capacitance buys
+
+OPA847 and OPA846 have some of the lowest voltage noise of all the candidates, 0.85 and 1.2 nV/√Hz, and OPA818 combines a JFET input with the largest output swing of the leading parts. Yet on their datasheet curves none of the three reaches 45° of phase margin at this operating point without capacitance added at the input (Section 6.2.1). This section shows where their phase margin goes and what it costs in noise to buy it back. Table A6.11 splits
+=== END
+
+=== OLD
+#### 6.2.8 Accepting peaking that is equalized later: how much phase margin is enough
+=== NEW
+#### 6.2.8 How much phase margin is enough when the peaking is equalized later
+=== END
+
+=== OLD
+#### 6.3.1 Input-referred noise and its components
+
+**What Table A6.16 shows.** It explains the ranking better than any single specification can.
+=== NEW
+#### 6.3.1 Input-referred noise and its components
+
+Figure 13 ranks the parts by their band noise, and this section explains the ranking. Table A6.16 splits each design's noise at 100 and 200 MHz into the terms of Eq. (23), so that one can see which property of each amplifier puts it where it is.
+
+**What Table A6.16 shows.** The split explains the ranking better than any single specification can.
+=== END
+
+=== OLD
+#### 6.3.2 Band-integrated noise
+
+For comparison, the shot noise of the DC photocurrent integrated over 10–150 MHz is
+=== NEW
+#### 6.3.2 Band-integrated noise
+
+A receiver sees its noise integrated over its band, not at one frequency, and an integral of this kind enters the dynamic range (Eq. (31)). Table A6.19 integrates each design's input-referred noise over 10–150 MHz and 10–200 MHz. For comparison, the shot noise of the DC photocurrent integrated over 10–150 MHz is
+=== END
+
+=== OLD
+#### 6.3.3 Totals with photocurrent, and the output noise referred to the input
+
+**Reading Table A6.21.**
+=== NEW
+#### 6.3.3 Total noise with photocurrent, and the noise at the output
+
+The receiver runs with 0.1–10 mA of photocurrent, so what matters in the end is the total noise, the amplifier's together with the shot noise. Table A6.21 gives it at 100 MHz for each design. Table A6.22 gives the noise at the output, which is what a following instrument sees, referred back to the photocurrent through the in-band gain.
+
+**Reading Table A6.21.**
+=== END
+
+=== OLD
+#### 6.3.4 With DC photocurrent: shot-noise clearance
+
+A clearance of $x$ dB means
+=== NEW
+#### 6.3.4 How far the amplifier noise stays below the shot noise
+
+At the planned photocurrents the amplifier's job is to keep its own noise well below the shot noise (Section 1.1). The shot-noise clearance of Section 1.5 measures that directly: the ratio, in decibels, of the shot noise to all other noise at the same frequency. A clearance of $x$ dB means
+=== END
+
+=== OLD
+#### 6.3.5 The 2-pF option: 1 pF in each diode
+=== NEW
+#### 6.3.5 The option of 1 pF in each diode
+=== END
+
+=== OLD
+#### 6.4.1 DC current that $R_F$ can carry: the uncorrected imbalance
+
+Eq. (29) with the typical swing and input common-mode limits of Section 6.1 gives Table A6.25. In the balanced pair (Section 1.2) the DC current through $R_F$ is the imbalance $I_1 - I_2$; in a single-ended detector it would be the whole photocurrent.
+=== NEW
+#### 6.4.1 How much DC current $R_F$ can carry
+
+Any DC current through $R_F$ moves the output away from the centre of its swing and takes headroom from the RF signal. In the balanced pair (Section 1.2) that current is the imbalance $I_1 - I_2$ left uncorrected; in a single-ended detector it would be the whole photocurrent. Eq. (29), with the typical swing and input common-mode limits of Section 6.1, gives the largest such current for each part in Table A6.25.
+=== END
+
+=== OLD
+#### 6.4.2 Largest RF amplitude
+
+Eq. (30) at 100 and 150 MHz
+=== NEW
+#### 6.4.2 Largest RF amplitude
+
+Once the shot noise dominates the floor, the largest RF amplitude the output can deliver sets the dynamic range (Eq. (33)), so this is where the amplifiers differ most at high photocurrent. Eq. (30) at 100 and 150 MHz
+=== END
+
+=== OLD
+#### 6.4.3 Dynamic range in 150 MHz
+
+**How to read Tables A6.29 and A6.30.**
+=== NEW
+#### 6.4.3 Dynamic range in a 150-MHz band
+
+Tables A6.29 and A6.30 combine the noise of Section 6.3 and the amplitude of Section 6.4.2 into the dynamic range of Eq. (31), in 150 MHz for a 100-MHz tone, at $R_F$ = 2 kΩ and 1.5 kΩ, in the dark and at 0.1, 1 and 10 mA.
+
+**How to read Tables A6.29 and A6.30.**
+=== END
+
+=== OLD
+#### 6.4.4 Linearity and overload recovery
+
+Datasheet distortion is measured
+=== NEW
+#### 6.4.4 Linearity and overload recovery
+
+The ceiling of Section 6.4.2 is the amplitude at which the output clips or slews. Below it the amplifier still distorts, and a receiver with a distortion limit meets that limit first; an overload, in turn, costs the time the amplifier needs to recover. Datasheet distortion is measured
+=== END
+
+=== OLD
+Section 6.6.3 takes one design, OPA818, apart: which noise
+=== NEW
+Section 6.6.3 examines one design, OPA818, in detail: which noise
+=== END
+
+=== OLD
+#### 6.6.2 The leading op-amp designs: SPICE against our analytical model
+
+**Example: OPA855
+=== NEW
+#### 6.6.2 The leading designs in SPICE and in our analytical model
+
+Section 6.4 computed the dynamic range with our analytical model and the datasheet curves. Here the macromodels supply the noise and the transimpedance of the five leading amplifiers, each at the best design SPICE found for it (Table A6.32), and Table A6.33 compares the two computations at the same feedback capacitance. One example shows how each entry is obtained.
+
+**Example: OPA855
+=== END
+
+=== OLD
+#### 6.6.3 What limits the dynamic range: the OPA818 design taken apart
+
+Figure 19 draws
+=== NEW
+#### 6.6.3 What limits the dynamic range of the OPA818 design
+
+Knowing which limit sets the dynamic range tells where an improvement would pay: a quieter amplifier where the noise sets the floor, more swing or slew rate where the ceiling does. We examine the OPA818 design, the one with the largest ceiling, because both of its large-signal limits, swing and slew rate, bind within the band, while the 5-V parts are limited by their swing alone (Section 6.6.2). Figure 19 draws
+=== END
+
+=== OLD
+### 6.8 The designs against the 50-Ω benchmark
+=== NEW
+### 6.8 How the designs compare with the 50-Ω benchmark
+=== END
+
+=== OLD
+### 7.1 A discrete transistor at the summing node: silicon JFET, GaAs pHEMT and SiGe bipolar composites
+
+This section asks whether a discrete transistor at the summing node, a FET or a SiGe bipolar transistor, can lower
+=== NEW
+### 7.1 A discrete transistor at the summing node
+
+This section asks whether a discrete transistor at the summing node, a silicon JFET, a GaAs pHEMT or a SiGe bipolar transistor, can lower
+=== END
+
+=== OLD
+## 8. The proposed front end: DC photocurrent, servos and starting values
+=== NEW
+## 8. The proposed front end
+=== END
+
+=== OLD
+### 8.1 The constraint
+
+In the balanced pair of this design
+=== NEW
+### 8.1 Where the DC photocurrent goes
+
+At 2 kΩ every milliampere of DC through $R_F$ takes 2 V of output swing, so before anything else the front end must decide where the DC photocurrent goes. In the balanced pair of this design
+=== END
+
+=== OLD
+### 8.2 Option A (recommended for a single-ended detector): resistive DC sink at the summing node, driven by a slow servo
+
+**Circuit (Figure 23).**
+=== NEW
+### 8.2 Option A: a resistive DC sink at the summing node, set by a slow servo
+
+Option A is the one we recommend for a single-ended detector, because it keeps the photodiode bias fixed and costs only about 1 % of the shot-noise power (Eq. (69); the four options are compared at the end of Section 8.5). It removes the DC where it arrives, at the summing node, through a resistor whose far end a slow servo moves until the resistor carries exactly the photocurrent.
+
+**Circuit (Figure 23).**
+=== END
+
+=== OLD
+### 8.3 Option B: photodiode AC-coupled into the TIA, DC returned through a bias resistor
+
+**Circuit (Figure 24).**
+=== NEW
+### 8.3 Option B: the photodiode AC-coupled into the TIA
+
+Option B keeps the DC out of the TIA altogether: the photodiode's DC returns through its own bias resistor, and only the RF is coupled into the summing node. It needs no servo, but the photodiode bias then falls as the light rises.
+
+**Circuit (Figure 24).**
+=== END
+
+=== OLD
+### 8.4 Option C: inductive bias tee at the summing node
+
+A choke
+=== NEW
+### 8.4 Option C: an inductive bias tee at the summing node
+
+Option C asks whether the DC sink of Option A can be hidden from the summing node at RF, as the bias tee hides the DC path of the 50-Ω termination (Section 2.1). A choke
+=== END
+
+=== OLD
+### 8.5 Option D: two-stage split gain
+
+**Circuit (Figure 26).**
+=== NEW
+### 8.5 Option D: the gain split over two stages
+
+Option D needs no DC sink at all. It splits the transimpedance over two stages: a first TIA whose feedback resistor is small enough to carry the whole photocurrent, and an AC-coupled voltage stage that restores the 2-kΩ gain. The question is what the small first resistor costs in noise.
+
+**Circuit (Figure 26).**
+=== END
+
+=== OLD
+### 8.8 Servos for the imbalance and for the photodiode bias
+
+**Is an active servo possible?** Yes.
+=== NEW
+### 8.8 Servos for the imbalance and for the photodiode bias
+
+In the balanced pair the imbalance $I_1 - I_2$ is the only DC that reaches $R_F$, and a few per cent of imbalance at 10 mA per diode costs OPA855 2.6–9.3 dB of dynamic range (Section 1.2, Table A1.2). This section asks how to hold the imbalance at zero without adding noise at the summing node, and how to hold the photodiode bias while the photocurrent changes.
+
+**Is an active servo possible?** Yes.
+=== END
+
+=== OLD
+### 8.9 The proposed balanced front end: two variants
+=== NEW
+### 8.9 The proposed balanced front end, in two variants
+=== END
+
+=== OLD
+### 9.6 What the next stage must respect
+
+Table A9.4 gives
+=== NEW
+### 9.6 What the next stage must respect
+
+The TIA drives an instrument or a further amplifier, whose noise adds to the TIA's once both are referred to the photocurrent. A quiet front end is wasted behind a noisy next stage, so this section states how quiet that stage must be. Table A9.4 gives
+=== END
+
+=== OLD
+### B.1 Running ngspice from a script: a working guide
+=== NEW
+### B.1 How to run ngspice from a script
+=== END

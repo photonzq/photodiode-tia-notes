@@ -1,0 +1,199 @@
+{
+  "part": "LTC6409",
+  "manufacturer": "Linear Technology (now part of Analog Devices)",
+  "datasheet_file": "datasheets/ltc6409_distributor_copy.pdf",
+  "datasheet_id_and_revision": "LTC6409 data sheet, document code 6409fb, footer 'LT 0517 REV B'; revision history Rev A 12/10, Rev B 05/17; copyright Linear Technology Corporation 2010",
+  "datasheet_status": "production data sheet (no preliminary marking)",
+  "citation_convention": "pN = PDF page index N; printed page numbers equal the PDF index. Typical-performance graphs are cited by title and graph code (e.g. '6409 G18'). Types: TYP; MIN/MAX at 25 C; MIN/MAX (over temp) = row marked with the full-temperature bullet; CURVE = read from a plot (vector path sampled after gridline calibration, cross-checked on renders); DERIVED = computed here, not printed. Unless noted, EC conditions are TA = 25 C, V+ = 5 V, V- = 0 V, VCM = VOCM = VICM = 1.25 V, SHDN open.",
+  "device_class": "fully differential amplifier (differential in / differential out, VOCM pin sets output common mode); considered only as an alternative architecture (balanced TIA or post-amplifier)",
+  "input_type": "not stated. Input common-mode range includes ground and the input bias current is negative (current flows out of the inputs, Note 6 definition), but the input transistor type is not named.",
+  "compensation": "internally compensated; 'stable in a differential gain of 1' (p1). p16: 'intentionally compensated in such a way that its GBW is significantly larger than its f-3dB' (non-single-pole open-loop roll-off). Feedback capacitors CF across each RF are recommended at low gains.",
+  "min_stable_gain": {
+    "value": "differential gain 1 V/V, i.e. RI = RF, feedback factor beta = RI/(RI + RF) = 1/2",
+    "conditions": "p16: 'Since the LTC6409 is designed to be stable in a differential signal gain of 1 (where RI = RF or beta = 1/2), the maximum f-3dB is obtained ... in this gain setting'; p1: 'External Resistors Set Gain (Min 1V/V)'. Recommended RI = RF = 150 ohm with CF = 1.3 pF across each RF (p16, graph G15 table).",
+    "below_minimum": "Operation with beta > 1/2 (noise gain < 2) is not discussed. CF guidance (p16): CF in parallel with RF 'implements a pole-zero pair ... adds positive phase to the feedback loop gain ... boosts the phase margin'; larger CF reduces peaking and bandwidth (AV = 5: CF = 0.8 pF gives maximum f-3dB, CF = 1.2 pF gives no overshoot). p17: keep stray capacitance at +IN and -IN to an absolute minimum, 'especially true when the feedback resistor network uses resistor values greater than 500 ohm in circuits with RI = RF'.",
+    "source": "p1, p7 G15, p16, p17"
+  },
+  "supply": {
+    "total_min_V": 2.7,
+    "total_max_V": 5.25,
+    "abs_max_V": 5.5,
+    "dual_or_single": "single supply specified (V- = 0 V); split supplies allowed (bypassing advice p17; exposed pad must then go to V-, not ground, p8)",
+    "recommended": "5 V (EC table also gives 3 V values); range guaranteed by the PSRR test (Note 10)",
+    "source": "p2 Absolute Maximum Ratings, p3 EC table"
+  },
+  "quiescent_current": [
+    {"value": 52, "unit": "mA", "type": "TYP", "conditions": "VS = 5 V", "source": "p3"},
+    {"value": 56, "unit": "mA", "type": "MAX (25 C)", "source": "p3"},
+    {"value": 58, "unit": "mA", "type": "MAX (over temp)", "source": "p3"},
+    {"value": "100 typ / 500 max", "unit": "uA", "type": "TYP / MAX (over temp)", "conditions": "shutdown, VSHDN <= 0.6 V", "source": "p3"}
+  ],
+  "gbw": [
+    {"value": 10, "unit": "GHz", "type": "TYP", "conditions": "RI = 25 ohm, RF = 10 kohm, f_TEST = 100 MHz (GBW = gain at f_TEST x f_TEST)", "source": "p4"},
+    {"value": 9.5, "unit": "GHz", "type": "MIN (25 C)", "source": "p4"},
+    {"value": 8, "unit": "GHz", "type": "MIN (over temp)", "source": "p4"},
+    {"value": "AV = 400: -3 dB at ~23 MHz; AV = 100: -3 dB at ~114 MHz", "type": "CURVE (+/-5 %)", "conditions": "VS = 5 V, RLOAD = 400 ohm, RI = 25 ohm, CF = 0", "source": "p7 G15"}
+  ],
+  "open_loop_dc_gain": [
+    {"value": 65, "unit": "dB", "type": "TYP", "conditions": "large-signal open-loop voltage gain AVOL", "source": "p3"}
+  ],
+  "phase_margin_or_crossover": [
+    {"value": "not given (no open-loop phase or phase margin anywhere in the datasheet)", "source": "-"},
+    {"value": "open-loop |A| reaches 0 dB at ~2.7 GHz; roll-off ~25 dB/decade from 0.2 to 1 GHz and ~40 dB/decade from 1 to 3 GHz", "type": "DERIVED from the AV = 400 curve of G15 (see open_loop_curve)", "source": "p7 G15"}
+  ],
+  "open_loop_curve": {
+    "figure": null,
+    "note": "No open-loop gain or phase plot is published. The closed-loop curves for AV = 400 and AV = 100 in G15 ('Frequency Response vs Closed Loop Gain', p7; VS = 5 V, VOCM = VICM = 1.25 V, RLOAD = 400 ohm, RI = 25 ohm, RF = 10 kohm / 2.5 kohm, CF = 0) merge above ~200 MHz; where loop gain << 1 the AV = 400 curve approximates |A_OL| (DERIVED: within ~0.5 dB above 300 MHz; at 100-200 MHz it may read up to ~2 dB low).",
+    "phase_convention": "no phase data",
+    "derived_magnitude_points": [
+      {"f_Hz": 1e8, "gain_dB": 40.3, "note": "datasheet p16: 'the gain at 100MHz is close to 40dB = 100V/V'"},
+      {"f_Hz": 2e8, "gain_dB": 34.2}, {"f_Hz": 3e8, "gain_dB": 30.3}, {"f_Hz": 5e8, "gain_dB": 25.3},
+      {"f_Hz": 7e8, "gain_dB": 21.8}, {"f_Hz": 1e9, "gain_dB": 16.7}, {"f_Hz": 1.5e9, "gain_dB": 9.8},
+      {"f_Hz": 2e9, "gain_dB": 5.2}, {"f_Hz": 2.5e9, "gain_dB": 1.9}, {"f_Hz": 3e9, "gain_dB": -2.6},
+      {"f_Hz": 4e9, "gain_dB": -6.7}, {"f_Hz": 5e9, "gain_dB": -15.3, "note": "resonant dip; beyond ~4 GHz the curves show package/fixture structure"}
+    ],
+    "reading_uncertainty": "+/-0.5 dB on the plotted curve; plus the approximation error above"
+  },
+  "open_loop_output_impedance": {
+    "figure": null,
+    "note": "not given; only closed-loop differential output impedance (below)"
+  },
+  "closed_loop_output_impedance": {
+    "figure": "p6 'Differential Output Impedance vs Frequency' (6409 G09)",
+    "conditions": "VS = 5 V, RI = RF = 150 ohm (CF not stated)",
+    "type": "CURVE (+/-5 %)",
+    "points": [
+      {"f_Hz": 1e6, "ohm": 0.075}, {"f_Hz": 1e7, "ohm": 1.26}, {"f_Hz": 5e7, "ohm": 6.2}, {"f_Hz": 1e8, "ohm": 12.2},
+      {"f_Hz": 2e8, "ohm": 24.5}, {"f_Hz": 5e8, "ohm": 68}, {"f_Hz": 1e9, "ohm": 245}, {"f_Hz": 1.2e9, "ohm": 470, "note": "peak"},
+      {"f_Hz": 2.2e9, "ohm": 12, "note": "dip"}, {"f_Hz": 3e9, "ohm": 100}
+    ]
+  },
+  "closed_loop_small_signal_bw": [
+    {"value": 2, "unit": "GHz", "type": "TYP", "conditions": "-3 dB, RI = RF = 150 ohm, RLOAD = 400 ohm, CF = 1.3 pF", "source": "p4"},
+    {"value": 600, "unit": "MHz", "type": "TYP", "conditions": "0.1 dB flatness, same circuit", "source": "p4; p7 G17 (+0.4 dB peak near 800 MHz in G17)"},
+    {"value": "AV=1: 2.0 GHz (peak +0.3 dB at 1 GHz); AV=2: 1.5 GHz; AV=5: 1.04 GHz; AV=10: 0.70 GHz; AV=20: 0.58 GHz; AV=100: 114 MHz; AV=400: 23 MHz", "type": "CURVE (+/-5 %)", "conditions": "component table of G15: AV 1: RI 150, RF 150, CF 1.3 pF; AV 2: 100, 200, 1 pF; AV 5: 50, 250, 0.8 pF; AV 10: 50, 500, 0.4 pF; AV 20: 25, 500, 0.4 pF; AV 100: 25, 2.5k, 0; AV 400: 25, 10k, 0; VS = 5 V, RLOAD = 400 ohm", "source": "p7 G15"},
+    {"value": "load capacitance from each output to ground, no series resistors (RI = RF = 150 ohm, CF = 1.3 pF): peak +0.4 dB (CL = 0), +0.8 dB (0.5 pF, ~2.1 GHz), +6.4 dB (1 pF, ~2.0 GHz), +13.9 dB (1.5 pF, ~1.9 GHz), +11 dB (2 pF, ~1.8 GHz)", "type": "CURVE (+/-1 dB)", "source": "p7 G16"}
+  ],
+  "large_signal_bw": [
+    {"value": 550, "unit": "MHz", "type": "TYP", "conditions": "full-power bandwidth, VOUTDIFF = 2 V p-p", "source": "p4"}
+  ],
+  "slew_rate": [
+    {"value": 3300, "unit": "V/us", "type": "TYP", "conditions": "differential output, VOUTDIFF = 4 V p-p", "source": "p4"},
+    {"value": "1720 (+OUT rising, -OUT falling) / 1580 (+OUT falling, -OUT rising)", "unit": "V/us", "type": "TYP", "conditions": "single-ended per output", "source": "p4"},
+    {"value": "~3245 (-50 C) to ~3298 (125 C)", "unit": "V/us", "type": "CURVE (by eye, +/-5 V/us)", "source": "p7 G08"}
+  ],
+  "rise_fall_settling": [
+    {"value": 1.9, "unit": "ns", "type": "TYP", "conditions": "1 % settling, VOUTDIFF = 2 V p-p step, RI = RF = 150 ohm, RLOAD = 400 ohm", "source": "p4"},
+    {"value": "turn-on 160 ns, turn-off 80 ns (SHDN)", "type": "TYP", "source": "p3"}
+  ],
+  "overdrive_recovery": [
+    {"value": "no number given; G14 'Overdriven Output Transient Response' (VS = 5 V, VOCM = 1.25 V, RLOAD = 200 ohm to ground per output) shows the outputs clipping at about 0.05 V and 3.75 V; on release there is a ~0.5 V spike that settles within ~10 ns (20 ns/div)", "type": "CURVE (qualitative)", "source": "p6 G14"}
+  ],
+  "voltage_noise": {
+    "spot": [
+      {"value": 1.1, "unit": "nV/rtHz", "type": "TYP", "conditions": "differential input-referred, f = 1 MHz, not including RI/RF noise", "source": "p2"},
+      {"value": 12, "unit": "nV/rtHz", "type": "TYP", "conditions": "common-mode noise voltage density e_nVOCM, f = 10 MHz (does not appear differentially if the circuit is balanced, p12)", "source": "p3, p12"}
+    ],
+    "curve_points": [
+      {"f_Hz": 10, "nV_rtHz": 46.8}, {"f_Hz": 100, "nV_rtHz": 16.9}, {"f_Hz": 1e3, "nV_rtHz": 6.1}, {"f_Hz": 1e4, "nV_rtHz": 2.23},
+      {"f_Hz": 1e5, "nV_rtHz": 1.31}, {"f_Hz": 1e6, "nV_rtHz": 1.09}, {"f_Hz": 1e7, "nV_rtHz": 1.09}, {"f_Hz": 1e8, "nV_rtHz": 1.09},
+      {"f_Hz": 2e8, "nV_rtHz": 1.09}, {"f_Hz": 7e8, "nV_rtHz": 1.09}, {"f_Hz": 1e9, "nV_rtHz": 1.6, "note": "rising at the end of the plot"}
+    ],
+    "curve_source": "p6 'Input Noise Density vs Frequency' (6409 G18), VS = 5 V; CURVE +/-4 %. The traces are coarse 13-segment polylines (idealised drawings).",
+    "one_over_f_corner_Hz": "3e4 to 5e4 (DERIVED from the plotted points; not stated)",
+    "highest_frequency_plotted_Hz": 1e9,
+    "statement": "p12: input-referred voltage noise is equivalent to the noise of a 75 ohm resistor",
+    "output_noise_curve": "p6 'Differential Output Voltage Noise vs Frequency' (6409 G07), VS = 5 V, RI = RF = 150 ohm, includes RI/RF noise, x axis 1 Hz to 10 GHz: 9.4 nV/rtHz at 10 kHz, 4.5 nV/rtHz flat from ~1 MHz to ~700 MHz, peak ~10 nV/rtHz at 1.4-2 GHz, 3.6 at 2.8 GHz (CURVE; frequency +/-10 % because the printed gridlines are irregular)"
+  },
+  "current_noise": {
+    "spot": [{"value": 8.8, "unit": "pA/rtHz", "type": "TYP", "conditions": "input noise current density, f = 1 MHz, not including RI/RF noise", "source": "p2; repeated p12"}],
+    "curve_points": [
+      {"f_Hz": 10, "pA_rtHz": 364}, {"f_Hz": 100, "pA_rtHz": 134}, {"f_Hz": 1e3, "pA_rtHz": 49.5}, {"f_Hz": 1e4, "pA_rtHz": 18.3},
+      {"f_Hz": 1e5, "pA_rtHz": 10.8}, {"f_Hz": 1e6, "pA_rtHz": 8.4}, {"f_Hz": 1e7, "pA_rtHz": 8.4}, {"f_Hz": 1e8, "pA_rtHz": 8.4},
+      {"f_Hz": 7e8, "pA_rtHz": 8.4}, {"f_Hz": 1e9, "pA_rtHz": 12.2, "note": "rising at the end of the plot"}
+    ],
+    "curve_source": "p6 G18 (right axis); CURVE +/-4 %; plotted plateau 8.4 vs 8.8 pA/rtHz in the table",
+    "hf_behavior": "flat ~8.4-8.8 pA/rtHz from ~1 MHz to ~700 MHz, then rising to ~12 pA/rtHz at 1 GHz (end of plot); 1/f corner ~3e4-6e4 Hz (DERIVED). Values: 1 MHz 8.4, 10 MHz 8.4, 100 MHz 8.4 pA/rtHz.",
+    "how_measured_or_defined": "per input (noise model p12 Fig. 4 has separate sources i_n+ and i_n- each flowing through its own RF; output term 2 (i_n RF)^2). Measurement method not described."
+  },
+  "noise_model": "p12 Fig. 4 / equation: e_no^2 = [e_ni (1 + RF/RI)]^2 + 2 (i_n RF)^2 + 2 (e_nRI RF/RI)^2 + 2 e_nRF^2 (differential output); p13 Fig. 6 adds source and termination resistors; NF = 10 log(1 + e_no^2 / e_no(RS)^2).",
+  "input_capacitance": {
+    "common_mode_pF": null,
+    "differential_pF": 0.5,
+    "differential_type": "TYP ('Input Capacitance, Differential Mode')",
+    "definition_notes": "Only differential-mode input capacitance is given; common-mode input capacitance is not specified. Input resistance 165 kohm common mode, 860 ohm differential mode (TYP).",
+    "source": "p2"
+  },
+  "input_bias_current": [
+    {"value": "-62 typ (-140 min, 0 max)", "unit": "uA", "type": "TYP / MIN-MAX (over temp)", "conditions": "VS = 3 V", "source": "p2"},
+    {"value": "-70 typ (-160 min, 0 max)", "unit": "uA", "type": "TYP / MIN-MAX (over temp)", "conditions": "VS = 5 V", "source": "p2"},
+    {"value": "+/-2 typ, +/-10 max", "unit": "uA", "type": "TYP / MAX (over temp)", "conditions": "input offset current, VS = 3 V and 5 V", "source": "p2"},
+    {"value": "Note 6: IB is the average of the currents flowing into the inputs, so negative = flowing out of the pins", "source": "p4"}
+  ],
+  "input_offset_voltage": [
+    {"value": "+/-300 typ, +/-1000 max (25 C), +/-1200 max (over temp)", "unit": "uV", "type": "TYP / MAX", "conditions": "differential, input-referred, VS = 3 V", "source": "p2"},
+    {"value": "+/-300 typ, +/-1100 max (25 C), +/-1400 max (over temp)", "unit": "uV", "type": "TYP / MAX", "conditions": "VS = 5 V", "source": "p2"},
+    {"value": 2, "unit": "uV/C", "type": "TYP", "conditions": "drift, 3 V and 5 V", "source": "p2"},
+    {"value": "common-mode offset VOUTCM - VOCM: +/-1 typ, +/-5 max (3 V), +/-6 max (5 V) mV; drift 4 uV/C", "source": "p3"}
+  ],
+  "input_common_mode_range": [
+    {"value": "0 to 1.5", "unit": "V", "type": "MIN-MAX (over temp)", "conditions": "VS = 3 V", "source": "p3 (Note 7)"},
+    {"value": "0 to 3.5", "unit": "V", "type": "MIN-MAX (over temp)", "conditions": "VS = 5 V", "source": "p3 (Note 7)"}
+  ],
+  "cmrr_psrr": [
+    {"value": "input CMRR 90 typ / 75 min", "unit": "dB", "type": "TYP / MIN (over temp)", "conditions": "VICM 0-1.5 V (3 V) or 0-3.5 V (5 V)", "source": "p3"},
+    {"value": "output CMRR (VOCM to differential) 80 / 55 (3 V), 85 / 60 (5 V)", "unit": "dB", "type": "TYP / MIN (over temp)", "source": "p3"},
+    {"value": "differential PSRR 85 / 60; common-mode PSRR 70 / 55", "unit": "dB", "type": "TYP / MIN (over temp)", "conditions": "VS = 2.7 V to 5.25 V", "source": "p3"},
+    {"value": "curves G10 (CMRR, 0.1 % resistors) and G11 (PSRR) not digitised; by eye CMRR ~88 dB at 1-10 MHz falling to ~65 dB near 1 GHz, PSRR ~82 dB at 1 MHz falling to ~51 dB near 1 GHz", "type": "CURVE (by eye, +/-2 dB)", "source": "p6"},
+    {"value": "0.1 % resistors give about 54 dB worst-case common-mode rejection (feedback-factor mismatch)", "source": "p11"}
+  ],
+  "output_swing": [
+    {"supply": "5 V", "load_ohm": "IL = 0", "V_low": 0.06, "V_high": 4.0, "type": "TYP, per output pin"},
+    {"supply": "5 V", "load_ohm": "IL = 0", "V_low": 0.15, "V_high": 3.85, "type": "MAX low / MIN high (over temp)"},
+    {"supply": "5 V", "load_ohm": "IL = +/-20 mA", "V_low": 0.2, "V_high": 3.95, "type": "TYP"},
+    {"supply": "5 V", "load_ohm": "IL = +/-20 mA", "V_low": 0.4, "V_high": 3.8, "type": "MAX low / MIN high (over temp)"},
+    {"supply": "3 V", "load_ohm": "IL = 0", "V_low": 0.06, "V_high": 2.0, "type": "TYP"},
+    {"supply": "3 V", "load_ohm": "IL = 0", "V_low": 0.15, "V_high": 1.85, "type": "MAX low / MIN high (over temp)"},
+    {"supply": "3 V", "load_ohm": "IL = +/-20 mA", "V_low": 0.2, "V_high": 1.95, "type": "TYP"},
+    {"supply": "3 V", "load_ohm": "IL = +/-20 mA", "V_low": 0.4, "V_high": 1.8, "type": "MAX low / MIN high (over temp)"}
+  ],
+  "output_swing_notes": "p9: outputs swing 'from close-to-ground to 1V below V+'. Output common-mode (VOCM) range 0.5-1.5 V (3 V) and 0.5-3.5 V (5 V); VOCM self-bias 1.25 V typ (0.9-1.6 V) at 5 V, 0.85 V at 3 V. DERIVED: on 5 V, IL = 0, each output spans 0.06-4.0 V, so the differential swing is at most ~7.9 V p-p with VOCM near 2.03 V; with the default VOCM = 1.25 V the low rail limits each output to +/-1.19 V, i.e. ~4.8 V p-p differential.",
+  "output_swing_vs_load_curve": [],
+  "output_current": [
+    {"value": "approximately 70", "unit": "mA", "type": "text", "conditions": "'can source or sink up to approximately 70mA'", "source": "p9"}
+  ],
+  "short_circuit_current": [
+    {"value": "+/-95 typ / +/-70 min", "unit": "mA", "type": "TYP / MIN (over temp)", "conditions": "VS = 5 V, either output", "source": "p3"},
+    {"value": "+/-70 typ / +/-50 min", "unit": "mA", "type": "TYP / MIN (over temp)", "conditions": "VS = 3 V", "source": "p3"}
+  ],
+  "distortion": [
+    {"f_Hz": 2.5e7, "Vout_pp": "2 (differential)", "R_L_ohm": 400, "gain": "1 (RI = RF = 150 ohm)", "HD2_dBc": -104, "HD3_dBc": -106, "type": "TYP", "notes": "differential input, VS = 5 V; p4"},
+    {"f_Hz": 1e8, "Vout_pp": "2 (differential)", "R_L_ohm": 400, "gain": "1", "HD2_dBc": -93, "HD3_dBc": -88, "type": "TYP", "notes": "differential input; p4"},
+    {"f_Hz": 2.5e7, "Vout_pp": "2 (differential)", "R_L_ohm": 400, "gain": "1", "HD2_dBc": -101, "HD3_dBc": -103, "type": "TYP", "notes": "single-ended input; p4"},
+    {"f_Hz": 1e8, "Vout_pp": "2 (differential)", "R_L_ohm": 400, "gain": "1", "HD2_dBc": -88, "HD3_dBc": -93, "type": "TYP", "notes": "single-ended input; p4"},
+    {"f_Hz": "1e7 / 2e7 / 5e7 / 1e8 / 1.5e8 / 2e8", "Vout_pp": "2 (differential)", "R_L_ohm": 400, "gain": "1", "HD2_dBc": "-102.4/-105.9/-94.7/-93.3/-83.8/-72.3", "HD3_dBc": "-113.4/-107.6/-105.2/-87.8/-69.6/-56.9", "type": "CURVE (+/-1 dB)", "notes": "differential inputs, VOCM = VICM = 1.25 V; p7 G19"},
+    {"f_Hz": "1e7 / 2e7 / 5e7 / 1e8 / 1.5e8 / 2e8", "Vout_pp": "2 (differential)", "R_L_ohm": 400, "gain": "1", "HD2_dBc": "-104.5/-99.1/-94.5/-87.7/-71.6/-61.4", "HD3_dBc": "-109.6/-104.1/-99.8/-92.9/-69.0/-55.7", "type": "CURVE (+/-1 dB)", "notes": "single-ended input; p8 G22"},
+    {"f_Hz": 1e8, "Vout_pp": "0.4 to 2 (input -3 to +10 dBm)", "R_L_ohm": 400, "gain": "1", "HD2_dBc": "about -106 at -3 dBm rising to about -93 at +10 dBm", "HD3_dBc": "about -112 at -3 dBm rising to about -88 at +10 dBm", "type": "CURVE (by eye, +/-1 dB)", "notes": "differential inputs; p7 G21 (also vs output common mode G20, single-ended G23-G24)"}
+  ],
+  "imd_or_oip3": [
+    {"value": "IMD3 -110 (25 MHz), -98 (100 MHz), -88 (140 MHz)", "unit": "dBc", "type": "TYP", "conditions": "2 tones 200 kHz apart, VOUTDIFF = 2 V p-p envelope, RI = RF = 150 ohm, RLOAD = 400 ohm", "source": "p4"},
+    {"value": "OIP3 59 (25 MHz), 53 (100 MHz), 48 (140 MHz)", "unit": "dBm", "type": "TYP", "conditions": "'equivalent OIP3' normalised to a 50 ohm load (Note 12, p15: 4 dBm more than half |IMD3|)", "source": "p4, p15"},
+    {"value": "IMD3 -99.5 (10 MHz), -111 (30 MHz), -110 (50 MHz), -98.9 (100 MHz), -88.8 (140 MHz), -77 (200 MHz)", "unit": "dBc", "type": "CURVE (+/-1 dB)", "conditions": "differential inputs, same circuit", "source": "p8 G25"}
+  ],
+  "packages": [
+    {"name": "UDB, 10-lead plastic QFN 3 mm x 2 mm (LTC DWG 05-08-1848 Rev A; not a JEDEC outline)", "pins": 10, "body_mm": "3.00 x 2.00 (+/-0.05), height 0.75 +/-0.05", "pitch_mm": 0.5, "exposed_pad": "yes, pin 11, 0.90 +/-0.10 x 0.25 +/-0.10 mm strip (bottom view detail A)", "ep_connection": "connected to V-; tie the bottom pad to V-; with split supplies do NOT tie the pad to ground", "theta_JA_C_per_W": 138, "theta_JC_C_per_W": 5.2, "notes": "TJMAX 150 C; marking LFPF; grades C (0 to 70 C), I (-40 to 85 C), H (-40 to 125 C)"}
+  ],
+  "packages_source": "p2 Pin Configuration and Order Information, p8 Pin Functions, p22 Package Description",
+  "pinout_notes": "1 -OUT, 2 +IN, 3 SHDN, 4 V+, 5 VOCM, 6 -IN, 7 +OUT, 8 V-, 9 V+, 10 V-, 11 exposed pad (V-). SHDN: CMOS input with 150 kohm pull-up, floating or high = active, low = shutdown (~100 uA). VOCM: internal divider (block diagram 200 k to V+, 50 k to V-) gives the default; bypass with >= 0.01 uF.",
+  "tia_content": [],
+  "tia_notes": "No transimpedance example, capacitive-source example or photodiode application. Relevant statements: (1) minimum stable configuration beta = 1/2 (p16); (2) CF across RF adds phase margin (p16; values in G15 table); (3) keep stray capacitance at +IN and -IN to an absolute minimum, especially with RI = RF > 500 ohm (p17); (4) load capacitance must be decoupled with >= 10 ohm series resistance per output (p9, p17), G16 shows +6 to +14 dB peaking with 1-2 pF per output and no series resistor; (5) 'Time Domain Reflectometry' is listed as an application (p1).",
+  "application_guidance": "Optimum distortion with 200 ohm to 1 kohm load at each output (p13); RF >= 150 ohm recommended at gain 1 (p12); lower resistor values lower noise but load the output; balanced output loads; 0.1 uF || 1000 pF bypass from each V+ to its nearest V- (and to ground with split supplies), extra bypass for loads < 200 ohm; VOCM bypass >= 0.01 uF (p17). Typical circuits: ADC driver RI = RF = 150 ohm, CF = 1.3 pF, 33.2 ohm + 39 pF output filter (p1, p18); I/Q demodulator level shift RI = 2 x 75 ohm, RF = 620 ohm, CF = 0.9 pF, gain 12.3 dB (p21); single-ended to differential with 50 MHz LPF, 3.3 V supply, RI = 150 ohm, RF = 474 ohm, CF = 0.8 pF (p21); no-overshoot RI = 50 ohm, RF = 250 ohm, CF = 1.2 pF (p24). Measured output noise / NF (p14 Fig. 7, frequency not stated): AV = 1 (150/150, 1.3 pF): 4.70 nV/rtHz, NF 14.41 dB with 1:4 transformer and 600 ohm termination; 5.88 nV/rtHz, NF 17.59 dB direct 50 ohm source; AV = 2 (100/200, 1 pF): 5.77 nV/rtHz, NF 10.43 dB (transformer); 9.76 nV/rtHz, NF 16.66 dB (direct); AV = 5: 100/500/0.4 pF with transformer 11.69 nV/rtHz, NF 8.81 dB; 50/250/0.8 pF direct 14.23 nV/rtHz, NF 13.56 dB. NF at 100 MHz 6.9 dB TYP (shunt-terminated to 50 ohm, RS = 50 ohm, RI = 25 ohm, RF = 10 kohm; p2).",
+  "abs_max_and_input_protection": "Total supply 5.5 V; input current (+IN, -IN, VOCM, SHDN) +/-10 mA (Note 2): steering diodes to either supply, and +IN/-IN protected by back-to-back diodes (p9: two pairs of series diodes) - if the differential input exceeds 1.4 V limit the current to < 10 mA; output short-circuit duration indefinite (Note 3, heat sink may be needed); operating and specified -40 to 125 C; TJ 150 C; storage -65 to 150 C (p2, p4, p9).",
+  "other_notes": [
+    "GBW (10 GHz at 100 MHz) is far above the gain-1 f-3dB (2 GHz) by design (p16).",
+    "VOCM self-bias is specified as 1.25 V at 5 V (0.85 V at 3 V), whereas the block-diagram divider (200 k / 50 k) would give 1.0 V (0.6 V); RINVOCM 40 kohm matches 200 k || 50 k. Not explained.",
+    "The GBW and NF test condition RF = 10 kohm with RI = 25 ohm (gain 400) is as printed.",
+    "Output balance -65 dB (single-ended input) / -70 dB (differential input) typ, -50 dB max; common-mode gain error +/-0.1 % typ."
+  ],
+  "pages_read": "All 24 pages rendered at 160 dpi and read (p20 demo-board layout, p22 package drawing and p23 revision history were read, not skipped). Zooms: p2 EC table (250 dpi), p6 G07/G18 (300/600 dpi), p14 Fig. 7 (220 dpi). Plot values from vector paths of G07, G09, G15, G16, G18, G19, G22, G25."
+}

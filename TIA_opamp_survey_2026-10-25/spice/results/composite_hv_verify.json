@@ -1,0 +1,3914 @@
+{
+ "macromodels, G2 = 4": {
+  "g2": 4.0,
+  "c_f_pF": 0.125,
+  "c_l_pF": 2.25,
+  "spice_worst": {
+   "pm_deg": 45.5831967145798,
+   "gm_dB": 9.851350833117676,
+   "peak_dB": 0.3755351348123676,
+   "f3_MHz": 155.07964487564556,
+   "second": false
+  },
+  "spice_nominal": {
+   "c_d_pF": 1.0,
+   "c_f_pF": 0.125,
+   "c_l_pF": 2.25,
+   "nominal": true,
+   "f_c_MHz": 447.35701296273925,
+   "pm_deg": 54.108221258193254,
+   "gm_dB": 10.626984001594328,
+   "second_MHz": null,
+   "f3_MHz": 238.56433995433318,
+   "peak_dB": 0.0,
+   "flags": [
+    "gmin stepping (operating point found only with it)"
+   ],
+   "op": [
+    "v(o2) = 7.712841e-05",
+    "v(oa) = -1.69183e-03",
+    "v(inm) = 7.713255e-05",
+    "i(vcc) = -2.02100e-02",
+    "i(vcc2) = -1.68161e-02"
+   ],
+   "noise_nA": 120.88984589738232,
+   "noise_100MHz_pA": 11.2249905
+  },
+  "spice_robust": true,
+  "analytical_worst": {
+   "pm_deg": 45.711509168239814,
+   "gm_dB": 9.84241356904363,
+   "peak_dB": 0.36808788166375095,
+   "f3_MHz": 154.84060751197757,
+   "second": false
+  },
+  "analytical_nominal": {
+   "f_c_MHz": 448.83067084762916,
+   "pm_deg": 54.13455688347658,
+   "gm_dB": 10.62170945756435,
+   "second": false,
+   "peak_dB": 0.0,
+   "f3_MHz": 237.3326902485667
+  },
+  "analytical_noise_nA": 120.67720169414763,
+  "analytical_robust": true,
+  "corners": [
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.024999999999999994,
+    "c_l_pF": 2.15,
+    "nominal": false,
+    "f_c_MHz": 403.4092625102367,
+    "pm_deg": 60.076913397071195,
+    "gm_dB": 10.226784462468592,
+    "second_MHz": null,
+    "f3_MHz": 316.01469132113664,
+    "peak_dB": 0.20684519909452834,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.024999999999999994,
+    "c_l_pF": 2.25,
+    "nominal": false,
+    "f_c_MHz": 415.6999964201753,
+    "pm_deg": 61.581861966525125,
+    "gm_dB": 10.033026062796255,
+    "second_MHz": null,
+    "f3_MHz": 299.3457375695567,
+    "peak_dB": 0.050146552913131484,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.024999999999999994,
+    "c_l_pF": 2.35,
+    "nominal": false,
+    "f_c_MHz": 428.02798255307147,
+    "pm_deg": 62.845890532000624,
+    "gm_dB": 9.851350833117676,
+    "second_MHz": null,
+    "f3_MHz": 282.4663882841885,
+    "peak_dB": 6.761131303965624e-09,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.125,
+    "c_l_pF": 2.15,
+    "nominal": false,
+    "f_c_MHz": 454.2489634436371,
+    "pm_deg": 53.28693003500662,
+    "gm_dB": 10.454038076100876,
+    "second_MHz": null,
+    "f3_MHz": 256.6830946382788,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.125,
+    "c_l_pF": 2.25,
+    "nominal": false,
+    "f_c_MHz": 463.1258819734027,
+    "pm_deg": 54.387434603151036,
+    "gm_dB": 10.263247850435992,
+    "second_MHz": null,
+    "f3_MHz": 234.83373119772668,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.125,
+    "c_l_pF": 2.35,
+    "nominal": false,
+    "f_c_MHz": 471.9440223058213,
+    "pm_deg": 55.36293553478379,
+    "gm_dB": 10.084053451991021,
+    "second_MHz": null,
+    "f3_MHz": 216.10239934331156,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.225,
+    "c_l_pF": 2.15,
+    "nominal": false,
+    "f_c_MHz": 495.06822032627576,
+    "pm_deg": 45.5831967145798,
+    "gm_dB": 10.659764226008532,
+    "second_MHz": null,
+    "f3_MHz": 175.3334355217955,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.225,
+    "c_l_pF": 2.25,
+    "nominal": false,
+    "f_c_MHz": 501.3345209136523,
+    "pm_deg": 46.649494382461825,
+    "gm_dB": 10.472746376696396,
+    "second_MHz": null,
+    "f3_MHz": 164.4511338698511,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.225,
+    "c_l_pF": 2.35,
+    "nominal": false,
+    "f_c_MHz": 507.602340026029,
+    "pm_deg": 47.627596858290985,
+    "gm_dB": 10.296807086939292,
+    "second_MHz": null,
+    "f3_MHz": 155.07964487564556,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.024999999999999994,
+    "c_l_pF": 2.15,
+    "nominal": false,
+    "f_c_MHz": 387.3015030712977,
+    "pm_deg": 59.01780073633648,
+    "gm_dB": 10.606293829069513,
+    "second_MHz": null,
+    "f3_MHz": 314.60244498808345,
+    "peak_dB": 0.28819719135771177,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.024999999999999994,
+    "c_l_pF": 2.25,
+    "nominal": false,
+    "f_c_MHz": 398.92197691283417,
+    "pm_deg": 60.617038086141406,
+    "gm_dB": 10.400637456847715,
+    "second_MHz": null,
+    "f3_MHz": 298.76769600331835,
+    "peak_dB": 0.09861886399385242,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.024999999999999994,
+    "c_l_pF": 2.35,
+    "nominal": false,
+    "f_c_MHz": 410.62712667646394,
+    "pm_deg": 61.976519971817055,
+    "gm_dB": 10.209196950784955,
+    "second_MHz": null,
+    "f3_MHz": 282.6552243704502,
+    "peak_dB": 0.006659137091089654,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.125,
+    "c_l_pF": 2.15,
+    "nominal": false,
+    "f_c_MHz": 438.6757121275498,
+    "pm_deg": 52.979123818236516,
+    "gm_dB": 10.829131426410237,
+    "second_MHz": null,
+    "f3_MHz": 260.39393075808493,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.125,
+    "c_l_pF": 2.25,
+    "nominal": true,
+    "f_c_MHz": 447.35701296273925,
+    "pm_deg": 54.108221258193254,
+    "gm_dB": 10.626984001594328,
+    "second_MHz": null,
+    "f3_MHz": 238.56433995433318,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ],
+    "noise_nA": 120.88984589738232,
+    "noise_100MHz_pA": 11.2249905
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.125,
+    "c_l_pF": 2.35,
+    "nominal": false,
+    "f_c_MHz": 455.9984376964875,
+    "pm_deg": 55.11131670476816,
+    "gm_dB": 10.43678958272729,
+    "second_MHz": null,
+    "f3_MHz": 219.5557264835703,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.225,
+    "c_l_pF": 2.15,
+    "nominal": false,
+    "f_c_MHz": 480.46857704308974,
+    "pm_deg": 45.72155854991473,
+    "gm_dB": 11.03000129314962,
+    "second_MHz": null,
+    "f3_MHz": 178.5130275833064,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.225,
+    "c_l_pF": 2.25,
+    "nominal": false,
+    "f_c_MHz": 486.7483373628718,
+    "pm_deg": 46.774449586153025,
+    "gm_dB": 10.832157324877143,
+    "second_MHz": null,
+    "f3_MHz": 167.06498430578324,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.225,
+    "c_l_pF": 2.35,
+    "nominal": false,
+    "f_c_MHz": 492.9975565250339,
+    "pm_deg": 47.74302392189,
+    "gm_dB": 10.645712943339811,
+    "second_MHz": null,
+    "f3_MHz": 157.27211248772957,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.024999999999999994,
+    "c_l_pF": 2.15,
+    "nominal": false,
+    "f_c_MHz": 372.8782985340743,
+    "pm_deg": 58.01161639789224,
+    "gm_dB": 10.969110956237817,
+    "second_MHz": null,
+    "f3_MHz": 312.93455690046585,
+    "peak_dB": 0.3755351348123676,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.024999999999999994,
+    "c_l_pF": 2.25,
+    "nominal": false,
+    "f_c_MHz": 383.8645707450261,
+    "pm_deg": 59.6925359163281,
+    "gm_dB": 10.75611179092759,
+    "second_MHz": null,
+    "f3_MHz": 297.89896956896973,
+    "peak_dB": 0.1574521186679224,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.024999999999999994,
+    "c_l_pF": 2.35,
+    "nominal": false,
+    "f_c_MHz": 394.98624699043233,
+    "pm_deg": 61.136230202498226,
+    "gm_dB": 10.555910641666834,
+    "second_MHz": null,
+    "f3_MHz": 282.53046180730087,
+    "peak_dB": 0.029912797907233262,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.125,
+    "c_l_pF": 2.15,
+    "nominal": false,
+    "f_c_MHz": 424.2763164217322,
+    "pm_deg": 52.687059747360195,
+    "gm_dB": 11.186514901947838,
+    "second_MHz": null,
+    "f3_MHz": 263.5044886252722,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.125,
+    "c_l_pF": 2.25,
+    "nominal": false,
+    "f_c_MHz": 432.7611374729597,
+    "pm_deg": 53.84383801735882,
+    "gm_dB": 10.974579936647622,
+    "second_MHz": null,
+    "f3_MHz": 241.91897469271646,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.125,
+    "c_l_pF": 2.35,
+    "nominal": false,
+    "f_c_MHz": 441.22416136800166,
+    "pm_deg": 54.8736914735336,
+    "gm_dB": 10.77836662265831,
+    "second_MHz": null,
+    "f3_MHz": 222.81317665741747,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.225,
+    "c_l_pF": 2.15,
+    "nominal": false,
+    "f_c_MHz": 466.72437721231074,
+    "pm_deg": 45.867754768775995,
+    "gm_dB": 11.383050414360634,
+    "second_MHz": null,
+    "f3_MHz": 181.76752511150914,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.225,
+    "c_l_pF": 2.25,
+    "nominal": false,
+    "f_c_MHz": 472.9815287930725,
+    "pm_deg": 46.9112052166667,
+    "gm_dB": 11.175005857835865,
+    "second_MHz": null,
+    "f3_MHz": 169.73834435452363,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.225,
+    "c_l_pF": 2.35,
+    "nominal": false,
+    "f_c_MHz": 479.2303825712813,
+    "pm_deg": 47.870144596264254,
+    "gm_dB": 10.97935748097715,
+    "second_MHz": null,
+    "f3_MHz": 159.50478433626807,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.712841e-05",
+     "v(oa) = -1.69183e-03",
+     "v(inm) = 7.713255e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   }
+  ]
+ },
+ "macromodels, G2 = 4.5": {
+  "g2": 4.5,
+  "c_f_pF": 0.1,
+  "c_l_pF": 2.5,
+  "spice_worst": {
+   "pm_deg": 45.56386912442014,
+   "gm_dB": 9.430185148499985,
+   "peak_dB": 0.4274374283515149,
+   "f3_MHz": 170.89139802804843,
+   "second": false
+  },
+  "spice_nominal": {
+   "c_d_pF": 1.0,
+   "c_f_pF": 0.1,
+   "c_l_pF": 2.5,
+   "nominal": true,
+   "f_c_MHz": 447.819547366924,
+   "pm_deg": 54.80289458929067,
+   "gm_dB": 10.10966186706085,
+   "second_MHz": null,
+   "f3_MHz": 275.0822362947846,
+   "peak_dB": 0.0,
+   "flags": [
+    "gmin stepping (operating point found only with it)"
+   ],
+   "op": [
+    "v(o2) = 7.711440e-05",
+    "v(oa) = -1.66046e-03",
+    "v(inm) = 7.711854e-05",
+    "i(vcc) = -2.02100e-02",
+    "i(vcc2) = -1.68161e-02"
+   ],
+   "noise_nA": 122.57385781401018,
+   "noise_100MHz_pA": 11.3825964
+  },
+  "spice_robust": true,
+  "analytical_worst": {
+   "pm_deg": 45.69369724072638,
+   "gm_dB": 9.424393091898152,
+   "peak_dB": 0.4165390047672922,
+   "f3_MHz": 170.47316881092073,
+   "second": false
+  },
+  "analytical_nominal": {
+   "f_c_MHz": 449.54093832546937,
+   "pm_deg": 54.820276011133075,
+   "gm_dB": 10.10673175043225,
+   "second": false,
+   "peak_dB": 0.0,
+   "f3_MHz": 273.0426020273244
+  },
+  "analytical_noise_nA": 122.19041741425241,
+  "analytical_robust": true,
+  "corners": [
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.02,
+    "c_l_pF": 2.4,
+    "nominal": false,
+    "f_c_MHz": 411.01517819787904,
+    "pm_deg": 60.0931958726122,
+    "gm_dB": 9.751369871021906,
+    "second_MHz": null,
+    "f3_MHz": 336.2682553177527,
+    "peak_dB": 0.2529326350651908,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.02,
+    "c_l_pF": 2.5,
+    "nominal": false,
+    "f_c_MHz": 422.4279144359665,
+    "pm_deg": 61.57312531960686,
+    "gm_dB": 9.585452903658748,
+    "second_MHz": null,
+    "f3_MHz": 320.74711301096033,
+    "peak_dB": 0.0777838602508373,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.02,
+    "c_l_pF": 2.5999999999999996,
+    "nominal": false,
+    "f_c_MHz": 433.9456640735871,
+    "pm_deg": 62.8434694417886,
+    "gm_dB": 9.430185148499985,
+    "second_MHz": null,
+    "f3_MHz": 304.77042401802623,
+    "peak_dB": 0.0016239661618074606,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.1,
+    "c_l_pF": 2.4,
+    "nominal": false,
+    "f_c_MHz": 454.2117618097767,
+    "pm_deg": 54.14820637962241,
+    "gm_dB": 9.932591619571474,
+    "second_MHz": null,
+    "f3_MHz": 295.8256864816407,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.1,
+    "c_l_pF": 2.5,
+    "nominal": false,
+    "f_c_MHz": 462.75755536728485,
+    "pm_deg": 55.2619052832423,
+    "gm_dB": 9.768014664299338,
+    "second_MHz": null,
+    "f3_MHz": 271.9671744782344,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.1,
+    "c_l_pF": 2.5999999999999996,
+    "nominal": false,
+    "f_c_MHz": 471.28435001576446,
+    "pm_deg": 56.256131212309626,
+    "gm_dB": 9.612669923329406,
+    "second_MHz": null,
+    "f3_MHz": 250.3647146064173,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.2,
+    "c_l_pF": 2.4,
+    "nominal": false,
+    "f_c_MHz": 497.2325919293577,
+    "pm_deg": 45.56386912442014,
+    "gm_dB": 10.142443783769856,
+    "second_MHz": null,
+    "f3_MHz": 194.16567785073738,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.2,
+    "c_l_pF": 2.5,
+    "nominal": false,
+    "f_c_MHz": 502.98884227336004,
+    "pm_deg": 46.62311791145666,
+    "gm_dB": 9.980153607723746,
+    "second_MHz": null,
+    "f3_MHz": 181.56899047160098,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.2,
+    "c_l_pF": 2.5999999999999996,
+    "nominal": false,
+    "f_c_MHz": 508.7811702891319,
+    "pm_deg": 47.59847535191514,
+    "gm_dB": 9.826758435640725,
+    "second_MHz": null,
+    "f3_MHz": 170.89139802804843,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.02,
+    "c_l_pF": 2.4,
+    "nominal": false,
+    "f_c_MHz": 395.676988914242,
+    "pm_deg": 58.95230690732197,
+    "gm_dB": 10.1055222880578,
+    "second_MHz": null,
+    "f3_MHz": 334.3296416436792,
+    "peak_dB": 0.3380560106475727,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.02,
+    "c_l_pF": 2.5,
+    "nominal": false,
+    "f_c_MHz": 406.44205908752576,
+    "pm_deg": 60.50656725834892,
+    "gm_dB": 9.931806668574866,
+    "second_MHz": null,
+    "f3_MHz": 319.59132517797656,
+    "peak_dB": 0.13444943504941306,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.02,
+    "c_l_pF": 2.5999999999999996,
+    "nominal": false,
+    "f_c_MHz": 417.3387962642974,
+    "pm_deg": 61.85406342299244,
+    "gm_dB": 9.76789061351255,
+    "second_MHz": null,
+    "f3_MHz": 304.3721526800667,
+    "peak_dB": 0.019646270447882214,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.1,
+    "c_l_pF": 2.4,
+    "nominal": false,
+    "f_c_MHz": 439.51531287557833,
+    "pm_deg": 53.66209444108789,
+    "gm_dB": 10.281313234131972,
+    "second_MHz": null,
+    "f3_MHz": 298.17322654745635,
+    "peak_dB": 7.055353399741823e-09,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.1,
+    "c_l_pF": 2.5,
+    "nominal": true,
+    "f_c_MHz": 447.819547366924,
+    "pm_deg": 54.80289458929067,
+    "gm_dB": 10.10966186706085,
+    "second_MHz": null,
+    "f3_MHz": 275.0822362947846,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ],
+    "noise_nA": 122.57385781401018,
+    "noise_100MHz_pA": 11.3825964
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.1,
+    "c_l_pF": 2.5999999999999996,
+    "nominal": false,
+    "f_c_MHz": 456.11799709307866,
+    "pm_deg": 55.82408181711176,
+    "gm_dB": 9.947500124121735,
+    "second_MHz": null,
+    "f3_MHz": 253.75969142302094,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.2,
+    "c_l_pF": 2.4,
+    "nominal": false,
+    "f_c_MHz": 483.79492198878853,
+    "pm_deg": 45.573345529096144,
+    "gm_dB": 10.486338250252473,
+    "second_MHz": null,
+    "f3_MHz": 198.04072798616008,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.2,
+    "c_l_pF": 2.5,
+    "nominal": false,
+    "f_c_MHz": 489.54071216731796,
+    "pm_deg": 46.61782957230855,
+    "gm_dB": 10.31507667340518,
+    "second_MHz": null,
+    "f3_MHz": 184.72009528916593,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.2,
+    "c_l_pF": 2.5999999999999996,
+    "nominal": false,
+    "f_c_MHz": 495.3010311724186,
+    "pm_deg": 47.58365800596573,
+    "gm_dB": 10.155709579475673,
+    "second_MHz": null,
+    "f3_MHz": 173.50827179216503,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.02,
+    "c_l_pF": 2.4,
+    "nominal": false,
+    "f_c_MHz": 381.9387644180877,
+    "pm_deg": 57.8888516779584,
+    "gm_dB": 10.44719107349301,
+    "second_MHz": null,
+    "f3_MHz": 332.2146363786489,
+    "peak_dB": 0.4274374283515149,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.02,
+    "c_l_pF": 2.5,
+    "nominal": false,
+    "f_c_MHz": 392.0958629498888,
+    "pm_deg": 59.504692637433095,
+    "gm_dB": 10.263641785962728,
+    "second_MHz": null,
+    "f3_MHz": 318.2061448003588,
+    "peak_dB": 0.19950186603047096,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.02,
+    "c_l_pF": 2.5999999999999996,
+    "nominal": false,
+    "f_c_MHz": 402.41420129447346,
+    "pm_deg": 60.91811814983653,
+    "gm_dB": 10.090181024650537,
+    "second_MHz": null,
+    "f3_MHz": 303.703166430556,
+    "peak_dB": 0.05295140647832827,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.1,
+    "c_l_pF": 2.4,
+    "nominal": false,
+    "f_c_MHz": 425.9218259147006,
+    "pm_deg": 53.2113855094813,
+    "gm_dB": 10.62053560000654,
+    "second_MHz": null,
+    "f3_MHz": 299.84416660465087,
+    "peak_dB": 7.063748834658812e-09,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.1,
+    "c_l_pF": 2.5,
+    "nominal": false,
+    "f_c_MHz": 433.9962755288972,
+    "pm_deg": 54.377519034901184,
+    "gm_dB": 10.439369953017339,
+    "second_MHz": null,
+    "f3_MHz": 277.6346557706691,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.1,
+    "c_l_pF": 2.5999999999999996,
+    "nominal": false,
+    "f_c_MHz": 442.0830831028818,
+    "pm_deg": 55.42486429135657,
+    "gm_dB": 10.267962527964398,
+    "second_MHz": null,
+    "f3_MHz": 256.7500688776348,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.2,
+    "c_l_pF": 2.4,
+    "nominal": false,
+    "f_c_MHz": 471.0900325014145,
+    "pm_deg": 45.607069773483715,
+    "gm_dB": 10.819285953889677,
+    "second_MHz": null,
+    "f3_MHz": 202.00785325277255,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.2,
+    "c_l_pF": 2.5,
+    "nominal": false,
+    "f_c_MHz": 476.8214164533368,
+    "pm_deg": 46.63918626586553,
+    "gm_dB": 10.641726060679487,
+    "second_MHz": null,
+    "f3_MHz": 187.94097433847602,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.2,
+    "c_l_pF": 2.5999999999999996,
+    "nominal": false,
+    "f_c_MHz": 482.55017946858845,
+    "pm_deg": 47.59598840932216,
+    "gm_dB": 10.4734870227413,
+    "second_MHz": null,
+    "f3_MHz": 176.18239329645482,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.711440e-05",
+     "v(oa) = -1.66046e-03",
+     "v(inm) = 7.711854e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   }
+  ]
+ },
+ "macromodels, G2 = 5": {
+  "g2": 5.0,
+  "c_f_pF": 0.1,
+  "c_l_pF": 3.0,
+  "spice_worst": {
+   "pm_deg": 45.34089095684914,
+   "gm_dB": 8.77432871396539,
+   "peak_dB": 7.706355660728582e-05,
+   "f3_MHz": 152.4287797352066,
+   "second": false
+  },
+  "spice_nominal": {
+   "c_d_pF": 1.0,
+   "c_f_pF": 0.1,
+   "c_l_pF": 3.0,
+   "nominal": true,
+   "f_c_MHz": 476.0899876901696,
+   "pm_deg": 55.47678172513241,
+   "gm_dB": 9.366888013823598,
+   "second_MHz": null,
+   "f3_MHz": 238.31940104427647,
+   "peak_dB": 0.0,
+   "flags": [
+    "gmin stepping (operating point found only with it)"
+   ],
+   "op": [
+    "v(o2) = 7.710319e-05",
+    "v(oa) = -1.63537e-03",
+    "v(inm) = 7.710733e-05",
+    "i(vcc) = -2.02100e-02",
+    "i(vcc2) = -1.68161e-02"
+   ],
+   "noise_nA": 131.92887984439025,
+   "noise_100MHz_pA": 12.273379799999999
+  },
+  "spice_robust": true,
+  "analytical_worst": {
+   "pm_deg": 45.49246074735865,
+   "gm_dB": 8.769261486443371,
+   "peak_dB": 3.913255323505735e-05,
+   "f3_MHz": 152.155514951741,
+   "second": false
+  },
+  "analytical_nominal": {
+   "f_c_MHz": 478.28792041357764,
+   "pm_deg": 55.47007738122876,
+   "gm_dB": 9.364830300746071,
+   "second": false,
+   "peak_dB": 0.0,
+   "f3_MHz": 236.55507175825582
+  },
+  "analytical_noise_nA": 131.38996438603274,
+  "analytical_robust": true,
+  "corners": [
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.02,
+    "c_l_pF": 2.9000000000000004,
+    "nominal": false,
+    "f_c_MHz": 444.82088740108406,
+    "pm_deg": 62.35771258836648,
+    "gm_dB": 9.015432438983416,
+    "second_MHz": null,
+    "f3_MHz": 320.30141957335735,
+    "peak_dB": 6.681857800311488e-09,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.02,
+    "c_l_pF": 3.0,
+    "nominal": false,
+    "f_c_MHz": 455.1407412322131,
+    "pm_deg": 63.40430923903257,
+    "gm_dB": 8.891812862811161,
+    "second_MHz": null,
+    "f3_MHz": 303.50364579624136,
+    "peak_dB": 8.044111140825737e-10,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.02,
+    "c_l_pF": 3.1,
+    "nominal": false,
+    "f_c_MHz": 465.4776352030933,
+    "pm_deg": 64.31546453944586,
+    "gm_dB": 8.77432871396539,
+    "second_MHz": null,
+    "f3_MHz": 286.56872968203055,
+    "peak_dB": 9.186472739768627e-09,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.1,
+    "c_l_pF": 2.9000000000000004,
+    "nominal": false,
+    "f_c_MHz": 482.72767738582405,
+    "pm_deg": 55.051833081964375,
+    "gm_dB": 9.190847612499686,
+    "second_MHz": null,
+    "f3_MHz": 254.36332724340323,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.1,
+    "c_l_pF": 3.0,
+    "nominal": false,
+    "f_c_MHz": 490.0557745817314,
+    "pm_deg": 55.917939897473275,
+    "gm_dB": 9.067847543167673,
+    "second_MHz": null,
+    "f3_MHz": 234.5559135944547,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.1,
+    "c_l_pF": 3.1,
+    "nominal": false,
+    "f_c_MHz": 497.346308328474,
+    "pm_deg": 56.703860520278596,
+    "gm_dB": 8.950848042484141,
+    "second_MHz": null,
+    "f3_MHz": 217.80475687907995,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.2,
+    "c_l_pF": 2.9000000000000004,
+    "nominal": false,
+    "f_c_MHz": 520.3427328116287,
+    "pm_deg": 45.37784027375548,
+    "gm_dB": 9.396830541673282,
+    "second_MHz": null,
+    "f3_MHz": 167.65694921527682,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.2,
+    "c_l_pF": 3.0,
+    "nominal": false,
+    "f_c_MHz": 525.0784624157695,
+    "pm_deg": 46.28545823174724,
+    "gm_dB": 9.27504922020669,
+    "second_MHz": null,
+    "f3_MHz": 159.59755761314224,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.2,
+    "c_l_pF": 3.1,
+    "nominal": false,
+    "f_c_MHz": 529.8384466112572,
+    "pm_deg": 47.13319653421857,
+    "gm_dB": 9.159081772906557,
+    "second_MHz": null,
+    "f3_MHz": 152.4287797352066,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.02,
+    "c_l_pF": 2.9000000000000004,
+    "nominal": false,
+    "f_c_MHz": 429.36660087715353,
+    "pm_deg": 61.34740207131496,
+    "gm_dB": 9.32462497584385,
+    "second_MHz": null,
+    "f3_MHz": 319.74059154566163,
+    "peak_dB": 6.857990283285232e-09,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.02,
+    "c_l_pF": 3.0,
+    "nominal": false,
+    "f_c_MHz": 439.1430670988223,
+    "pm_deg": 62.44593915623298,
+    "gm_dB": 9.192141404114553,
+    "second_MHz": null,
+    "f3_MHz": 303.7017427925462,
+    "peak_dB": 8.117843618911541e-10,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.02,
+    "c_l_pF": 3.1,
+    "nominal": false,
+    "f_c_MHz": 448.95646897913696,
+    "pm_deg": 63.41135644743571,
+    "gm_dB": 9.066871659537771,
+    "second_MHz": null,
+    "f3_MHz": 287.42450135175153,
+    "peak_dB": 9.194115999260441e-09,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.1,
+    "c_l_pF": 2.9000000000000004,
+    "nominal": false,
+    "f_c_MHz": 468.94117167586694,
+    "pm_deg": 54.59964255734589,
+    "gm_dB": 9.49849908406126,
+    "second_MHz": null,
+    "f3_MHz": 258.40059888498934,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.1,
+    "c_l_pF": 3.0,
+    "nominal": true,
+    "f_c_MHz": 476.0899876901696,
+    "pm_deg": 55.47678172513241,
+    "gm_dB": 9.366888013823598,
+    "second_MHz": null,
+    "f3_MHz": 238.31940104427647,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ],
+    "noise_nA": 131.92887984439025,
+    "noise_100MHz_pA": 12.273379799999999
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.1,
+    "c_l_pF": 3.1,
+    "nominal": false,
+    "f_c_MHz": 483.2221047588079,
+    "pm_deg": 56.27911752477145,
+    "gm_dB": 9.241529087433824,
+    "second_MHz": null,
+    "f3_MHz": 221.15911505358048,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.2,
+    "c_l_pF": 2.9000000000000004,
+    "nominal": false,
+    "f_c_MHz": 508.43420883162275,
+    "pm_deg": 45.34089095684914,
+    "gm_dB": 9.702147693477507,
+    "second_MHz": null,
+    "f3_MHz": 169.99794072287946,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.2,
+    "c_l_pF": 3.0,
+    "nominal": false,
+    "f_c_MHz": 513.1594025419872,
+    "pm_deg": 46.23056852333363,
+    "gm_dB": 9.572070896199273,
+    "second_MHz": null,
+    "f3_MHz": 161.59935036756082,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.2,
+    "c_l_pF": 3.1,
+    "nominal": false,
+    "f_c_MHz": 517.906436582572,
+    "pm_deg": 47.06230631624362,
+    "gm_dB": 9.448040509759439,
+    "second_MHz": null,
+    "f3_MHz": 154.16135035758307,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.02,
+    "c_l_pF": 2.9000000000000004,
+    "nominal": false,
+    "f_c_MHz": 415.4036176672772,
+    "pm_deg": 60.41159289253342,
+    "gm_dB": 9.62394803776445,
+    "second_MHz": null,
+    "f3_MHz": 318.91500503609427,
+    "peak_dB": 7.706355660728582e-05,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.02,
+    "c_l_pF": 3.0,
+    "nominal": false,
+    "f_c_MHz": 424.7009228710191,
+    "pm_deg": 61.554762735104944,
+    "gm_dB": 9.485598727680138,
+    "second_MHz": null,
+    "f3_MHz": 303.6015059039473,
+    "peak_dB": 7.82985686115032e-09,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.02,
+    "c_l_pF": 3.1,
+    "nominal": false,
+    "f_c_MHz": 434.04714980588625,
+    "pm_deg": 62.56666019726005,
+    "gm_dB": 9.353862585644483,
+    "second_MHz": null,
+    "f3_MHz": 287.97673145173286,
+    "peak_dB": 9.201724542963488e-09,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.1,
+    "c_l_pF": 2.9000000000000004,
+    "nominal": false,
+    "f_c_MHz": 456.08597488610565,
+    "pm_deg": 54.19546325597892,
+    "gm_dB": 9.7946240842288,
+    "second_MHz": null,
+    "f3_MHz": 262.06426774708405,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.1,
+    "c_l_pF": 3.0,
+    "nominal": false,
+    "f_c_MHz": 463.07842026293315,
+    "pm_deg": 55.08548568718251,
+    "gm_dB": 9.657623377492664,
+    "second_MHz": null,
+    "f3_MHz": 241.8606389742278,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.1,
+    "c_l_pF": 3.1,
+    "nominal": false,
+    "f_c_MHz": 470.0559166292223,
+    "pm_deg": 55.89964682093593,
+    "gm_dB": 9.527049064947184,
+    "second_MHz": null,
+    "f3_MHz": 224.40212424453637,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.2,
+    "c_l_pF": 2.9000000000000004,
+    "nominal": false,
+    "f_c_MHz": 497.0716504290517,
+    "pm_deg": 45.344158461658964,
+    "gm_dB": 9.993907589723968,
+    "second_MHz": null,
+    "f3_MHz": 172.3993776524757,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.2,
+    "c_l_pF": 3.0,
+    "nominal": false,
+    "f_c_MHz": 501.78835776300855,
+    "pm_deg": 46.21737388000787,
+    "gm_dB": 9.858717033736344,
+    "second_MHz": null,
+    "f3_MHz": 163.64621493723837,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.2,
+    "c_l_pF": 3.1,
+    "nominal": false,
+    "f_c_MHz": 506.5284323597074,
+    "pm_deg": 47.03362959807879,
+    "gm_dB": 9.73003491121499,
+    "second_MHz": null,
+    "f3_MHz": 155.92842303129493,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.710319e-05",
+     "v(oa) = -1.63537e-03",
+     "v(inm) = 7.710733e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   }
+  ]
+ },
+ "macromodels, G2 = 5.5": {
+  "g2": 5.5,
+  "c_f_pF": 0.1,
+  "c_l_pF": 3.25,
+  "spice_worst": {
+   "pm_deg": 45.04070233426188,
+   "gm_dB": 8.50294649555955,
+   "peak_dB": 0.02336215825511123,
+   "f3_MHz": 158.10441899782552,
+   "second": false
+  },
+  "spice_nominal": {
+   "c_d_pF": 1.0,
+   "c_f_pF": 0.1,
+   "c_l_pF": 3.25,
+   "nominal": true,
+   "f_c_MHz": 481.67124940517965,
+   "pm_deg": 55.792581746363865,
+   "gm_dB": 9.060718305964318,
+   "second_MHz": null,
+   "f3_MHz": 253.3561816717056,
+   "peak_dB": 0.0,
+   "flags": [
+    "gmin stepping (operating point found only with it)"
+   ],
+   "op": [
+    "v(o2) = 7.709867e-05",
+    "v(oa) = -1.62525e-03",
+    "v(inm) = 7.710281e-05",
+    "i(vcc) = -2.02100e-02",
+    "i(vcc2) = -1.68161e-02"
+   ],
+   "noise_nA": 136.5175699662924,
+   "noise_100MHz_pA": 12.709810599999999
+  },
+  "spice_robust": true,
+  "analytical_worst": {
+   "pm_deg": 45.199368440989616,
+   "gm_dB": 8.497817831085346,
+   "peak_dB": 0.021502495966140702,
+   "f3_MHz": 157.7596781583773,
+   "second": false
+  },
+  "analytical_nominal": {
+   "f_c_MHz": 484.0382517497142,
+   "pm_deg": 55.76867424530886,
+   "gm_dB": 9.057229459895561,
+   "second": false,
+   "peak_dB": 0.0,
+   "f3_MHz": 251.0481894606014
+  },
+  "analytical_noise_nA": 135.91371693736136,
+  "analytical_robust": true,
+  "corners": [
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.02,
+    "c_l_pF": 3.15,
+    "nominal": false,
+    "f_c_MHz": 452.7735768505553,
+    "pm_deg": 63.409582046724836,
+    "gm_dB": 8.716266275315377,
+    "second_MHz": null,
+    "f3_MHz": 330.8225382702593,
+    "peak_dB": 9.568668501484926e-09,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.02,
+    "c_l_pF": 3.25,
+    "nominal": false,
+    "f_c_MHz": 463.1373476420947,
+    "pm_deg": 64.40422973472273,
+    "gm_dB": 8.607074242979474,
+    "second_MHz": null,
+    "f3_MHz": 315.92147421804384,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.02,
+    "c_l_pF": 3.35,
+    "nominal": false,
+    "f_c_MHz": 473.54735689916527,
+    "pm_deg": 65.26951793567636,
+    "gm_dB": 8.50294649555955,
+    "second_MHz": null,
+    "f3_MHz": 300.7029909165137,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.1,
+    "c_l_pF": 3.15,
+    "nominal": false,
+    "f_c_MHz": 488.2006137964524,
+    "pm_deg": 55.47228133809473,
+    "gm_dB": 8.888162240520142,
+    "second_MHz": null,
+    "f3_MHz": 269.98900915844,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.1,
+    "c_l_pF": 3.25,
+    "nominal": false,
+    "f_c_MHz": 495.26725604309917,
+    "pm_deg": 56.311108597169806,
+    "gm_dB": 8.779312773255086,
+    "second_MHz": null,
+    "f3_MHz": 249.52487915258044,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.1,
+    "c_l_pF": 3.35,
+    "nominal": false,
+    "f_c_MHz": 502.3257880096309,
+    "pm_deg": 57.07789245153113,
+    "gm_dB": 8.675431888354009,
+    "second_MHz": null,
+    "f3_MHz": 231.99176148185765,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.2,
+    "c_l_pF": 3.15,
+    "nominal": false,
+    "f_c_MHz": 523.1597116378147,
+    "pm_deg": 45.25394276949922,
+    "gm_dB": 9.091153100129311,
+    "second_MHz": null,
+    "f3_MHz": 173.154263955714,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.2,
+    "c_l_pF": 3.25,
+    "nominal": false,
+    "f_c_MHz": 527.6053059112917,
+    "pm_deg": 46.14855254030155,
+    "gm_dB": 8.983109076188615,
+    "second_MHz": null,
+    "f3_MHz": 165.19864829475787,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.2,
+    "c_l_pF": 3.35,
+    "nominal": false,
+    "f_c_MHz": 532.0887419874374,
+    "pm_deg": 46.98418766624246,
+    "gm_dB": 8.879899352525763,
+    "second_MHz": null,
+    "f3_MHz": 158.10441899782552,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.02,
+    "c_l_pF": 3.15,
+    "nominal": false,
+    "f_c_MHz": 437.03006441701723,
+    "pm_deg": 62.31285025130012,
+    "gm_dB": 9.005623878217785,
+    "second_MHz": null,
+    "f3_MHz": 330.0271422304188,
+    "peak_dB": 0.003029298481130938,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.02,
+    "c_l_pF": 3.25,
+    "nominal": false,
+    "f_c_MHz": 446.7764704330216,
+    "pm_deg": 63.36145434022487,
+    "gm_dB": 8.890322448279681,
+    "second_MHz": null,
+    "f3_MHz": 315.75074871333305,
+    "peak_dB": 2.3144592055317706e-08,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.02,
+    "c_l_pF": 3.35,
+    "nominal": false,
+    "f_c_MHz": 456.57930959572525,
+    "pm_deg": 64.28419376391942,
+    "gm_dB": 8.780299907475685,
+    "second_MHz": null,
+    "f3_MHz": 301.11944802028245,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.1,
+    "c_l_pF": 3.15,
+    "nominal": false,
+    "f_c_MHz": 474.7930939999318,
+    "pm_deg": 54.93912142359686,
+    "gm_dB": 9.175252677403043,
+    "second_MHz": null,
+    "f3_MHz": 273.9542832871583,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.1,
+    "c_l_pF": 3.25,
+    "nominal": true,
+    "f_c_MHz": 481.67124940517965,
+    "pm_deg": 55.792581746363865,
+    "gm_dB": 9.060718305964318,
+    "second_MHz": null,
+    "f3_MHz": 253.3561816717056,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ],
+    "noise_nA": 136.5175699662924,
+    "noise_100MHz_pA": 12.709810599999999
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.1,
+    "c_l_pF": 3.35,
+    "nominal": false,
+    "f_c_MHz": 488.52918552512784,
+    "pm_deg": 56.57117996305787,
+    "gm_dB": 8.951337809545105,
+    "second_MHz": null,
+    "f3_MHz": 235.50064104053288,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.2,
+    "c_l_pF": 3.15,
+    "nominal": false,
+    "f_c_MHz": 511.9563724571874,
+    "pm_deg": 45.12399678091853,
+    "gm_dB": 9.375796295067147,
+    "second_MHz": null,
+    "f3_MHz": 175.57145408031417,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.2,
+    "c_l_pF": 3.25,
+    "nominal": false,
+    "f_c_MHz": 516.3752461142894,
+    "pm_deg": 46.001468364783165,
+    "gm_dB": 9.261540373459008,
+    "second_MHz": null,
+    "f3_MHz": 167.27100887951593,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.2,
+    "c_l_pF": 3.35,
+    "nominal": false,
+    "f_c_MHz": 520.8311846443853,
+    "pm_deg": 46.82214557956462,
+    "gm_dB": 9.153330529718687,
+    "second_MHz": null,
+    "f3_MHz": 159.90383070111415,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.02,
+    "c_l_pF": 3.15,
+    "nominal": false,
+    "f_c_MHz": 422.8892281383874,
+    "pm_deg": 61.2959433224746,
+    "gm_dB": 9.28868441438684,
+    "second_MHz": null,
+    "f3_MHz": 329.0219933492855,
+    "peak_dB": 0.02336215825511123,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.02,
+    "c_l_pF": 3.25,
+    "nominal": false,
+    "f_c_MHz": 432.1176410001769,
+    "pm_deg": 62.39086640864137,
+    "gm_dB": 9.165902507011843,
+    "second_MHz": null,
+    "f3_MHz": 315.339646683283,
+    "peak_dB": 2.317291435293486e-08,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.02,
+    "c_l_pF": 3.35,
+    "nominal": false,
+    "f_c_MHz": 441.4158740526365,
+    "pm_deg": 63.36259550246335,
+    "gm_dB": 9.048601752165844,
+    "second_MHz": null,
+    "f3_MHz": 301.27855077792657,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.1,
+    "c_l_pF": 3.15,
+    "nominal": false,
+    "f_c_MHz": 462.31503303874155,
+    "pm_deg": 54.463608628530935,
+    "gm_dB": 9.45737266108324,
+    "second_MHz": null,
+    "f3_MHz": 277.44789479603804,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.1,
+    "c_l_pF": 3.25,
+    "nominal": false,
+    "f_c_MHz": 469.0135679071853,
+    "pm_deg": 55.32693899147195,
+    "gm_dB": 9.335551252117959,
+    "second_MHz": null,
+    "f3_MHz": 256.92028154103997,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.1,
+    "c_l_pF": 3.35,
+    "nominal": false,
+    "f_c_MHz": 475.69679276607246,
+    "pm_deg": 56.11634796590022,
+    "gm_dB": 9.21907487015683,
+    "second_MHz": null,
+    "f3_MHz": 238.86925262875985,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.2,
+    "c_l_pF": 3.15,
+    "nominal": false,
+    "f_c_MHz": 501.26012605876906,
+    "pm_deg": 45.04070233426188,
+    "gm_dB": 9.655289588952847,
+    "second_MHz": null,
+    "f3_MHz": 178.05642964221605,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.2,
+    "c_l_pF": 3.25,
+    "nominal": false,
+    "f_c_MHz": 505.6610502617711,
+    "pm_deg": 45.90154728959041,
+    "gm_dB": 9.53505428588554,
+    "second_MHz": null,
+    "f3_MHz": 169.3949571771232,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.2,
+    "c_l_pF": 3.35,
+    "nominal": false,
+    "f_c_MHz": 510.09100808155375,
+    "pm_deg": 46.709887136249534,
+    "gm_dB": 9.419979659842982,
+    "second_MHz": null,
+    "f3_MHz": 161.7430201230489,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709867e-05",
+     "v(oa) = -1.62525e-03",
+     "v(inm) = 7.710281e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68161e-02"
+    ]
+   }
+  ]
+ },
+ "datasheet, G2 = 6": {
+  "g2": 6.0,
+  "c_f_pF": 0.15,
+  "c_l_pF": 3.0,
+  "spice_worst": {
+   "pm_deg": 34.44338559271932,
+   "gm_dB": 8.83509709546922,
+   "peak_dB": 0.5203473139372539,
+   "f3_MHz": 169.47875994682602,
+   "second": false
+  },
+  "spice_nominal": {
+   "c_d_pF": 1.0,
+   "c_f_pF": 0.15,
+   "c_l_pF": 3.0,
+   "nominal": true,
+   "f_c_MHz": 477.54591365071826,
+   "pm_deg": 46.227998683826826,
+   "gm_dB": 9.452675614056478,
+   "second_MHz": null,
+   "f3_MHz": 339.8017002773112,
+   "peak_dB": 0.0,
+   "flags": [
+    "gmin stepping (operating point found only with it)"
+   ],
+   "op": [
+    "v(o2) = 7.709490e-05",
+    "v(oa) = -1.61682e-03",
+    "v(inm) = 7.709904e-05",
+    "i(vcc) = -2.02100e-02",
+    "i(vcc2) = -1.68160e-02"
+   ],
+   "noise_nA": 129.2332939248174,
+   "noise_100MHz_pA": 12.014176299999999
+  },
+  "spice_robust": false,
+  "analytical_worst": {
+   "pm_deg": 34.7927430765896,
+   "gm_dB": 8.83086672593051,
+   "peak_dB": 0.4937469241443751,
+   "f3_MHz": 169.01071788084454,
+   "second": false
+  },
+  "analytical_nominal": {
+   "f_c_MHz": 480.15635695636723,
+   "pm_deg": 46.368691305378235,
+   "gm_dB": 9.453432974206383,
+   "second": false,
+   "peak_dB": 0.0,
+   "f3_MHz": 329.8117661524742
+  },
+  "analytical_noise_nA": 128.69354799423266,
+  "analytical_robust": false,
+  "corners": [
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.04999999999999999,
+    "c_l_pF": 2.9000000000000004,
+    "nominal": false,
+    "f_c_MHz": 430.66454667865105,
+    "pm_deg": 55.31554574573293,
+    "gm_dB": 9.076057888953814,
+    "second_MHz": null,
+    "f3_MHz": 401.87137930574306,
+    "peak_dB": 0.3246357300969843,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.04999999999999999,
+    "c_l_pF": 3.0,
+    "nominal": false,
+    "f_c_MHz": 439.0370312954689,
+    "pm_deg": 56.76894426537801,
+    "gm_dB": 8.952529740669235,
+    "second_MHz": null,
+    "f3_MHz": 388.7779368092282,
+    "peak_dB": 0.11182052397758291,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.04999999999999999,
+    "c_l_pF": 3.1,
+    "nominal": false,
+    "f_c_MHz": 447.57321029941926,
+    "pm_deg": 58.086271756121405,
+    "gm_dB": 8.83509709546922,
+    "second_MHz": null,
+    "f3_MHz": 374.83569271718386,
+    "peak_dB": 0.0030422138262638293,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.15,
+    "c_l_pF": 2.9000000000000004,
+    "nominal": false,
+    "f_c_MHz": 483.67768919096574,
+    "pm_deg": 45.419648964934225,
+    "gm_dB": 9.277696392649215,
+    "second_MHz": null,
+    "f3_MHz": 383.38925369579493,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.15,
+    "c_l_pF": 3.0,
+    "nominal": false,
+    "f_c_MHz": 488.82429753169913,
+    "pm_deg": 46.58332963832615,
+    "gm_dB": 9.155190487172575,
+    "second_MHz": null,
+    "f3_MHz": 331.24303762687714,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.15,
+    "c_l_pF": 3.1,
+    "nominal": false,
+    "f_c_MHz": 494.035069036957,
+    "pm_deg": 47.672401935740936,
+    "gm_dB": 9.038610397203197,
+    "second_MHz": null,
+    "f3_MHz": 289.21222609326355,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.25,
+    "c_l_pF": 2.9000000000000004,
+    "nominal": false,
+    "f_c_MHz": 524.2917981567198,
+    "pm_deg": 34.44338559271932,
+    "gm_dB": 9.465809015859504,
+    "second_MHz": null,
+    "f3_MHz": 185.79441517434398,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.25,
+    "c_l_pF": 3.0,
+    "nominal": false,
+    "f_c_MHz": 527.2004969811949,
+    "pm_deg": 35.66256448379113,
+    "gm_dB": 9.344713296809136,
+    "second_MHz": null,
+    "f3_MHz": 177.12140993476496,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.25,
+    "c_l_pF": 3.1,
+    "nominal": false,
+    "f_c_MHz": 530.2168573234133,
+    "pm_deg": 36.81485133583698,
+    "gm_dB": 9.229362644278293,
+    "second_MHz": null,
+    "f3_MHz": 169.47875994682602,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.04999999999999999,
+    "c_l_pF": 2.9000000000000004,
+    "nominal": false,
+    "f_c_MHz": 418.03607620859424,
+    "pm_deg": 54.25143395322567,
+    "gm_dB": 9.3843990449537,
+    "second_MHz": null,
+    "f3_MHz": 398.60065862452166,
+    "peak_dB": 0.42188952478832864,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.04999999999999999,
+    "c_l_pF": 3.0,
+    "nominal": false,
+    "f_c_MHz": 425.9428436392422,
+    "pm_deg": 55.725106091637585,
+    "gm_dB": 9.252102391304867,
+    "second_MHz": null,
+    "f3_MHz": 386.14077547351206,
+    "peak_dB": 0.18665862792551724,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.04999999999999999,
+    "c_l_pF": 3.1,
+    "nominal": false,
+    "f_c_MHz": 434.00814517106465,
+    "pm_deg": 57.06671524484628,
+    "gm_dB": 9.126641458875655,
+    "second_MHz": null,
+    "f3_MHz": 372.83417541116995,
+    "peak_dB": 0.034863505265233276,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.15,
+    "c_l_pF": 2.9000000000000004,
+    "nominal": false,
+    "f_c_MHz": 472.49162894599374,
+    "pm_deg": 45.075397463862714,
+    "gm_dB": 9.583622035369316,
+    "second_MHz": null,
+    "f3_MHz": 386.185728441149,
+    "peak_dB": 5.221370352632736e-09,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.15,
+    "c_l_pF": 3.0,
+    "nominal": true,
+    "f_c_MHz": 477.54591365071826,
+    "pm_deg": 46.227998683826826,
+    "gm_dB": 9.452675614056478,
+    "second_MHz": null,
+    "f3_MHz": 339.8017002773112,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ],
+    "noise_nA": 129.2332939248174,
+    "noise_100MHz_pA": 12.014176299999999
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.15,
+    "c_l_pF": 3.1,
+    "nominal": false,
+    "f_c_MHz": 482.66003791841285,
+    "pm_deg": 47.308023778839356,
+    "gm_dB": 9.327896785887335,
+    "second_MHz": null,
+    "f3_MHz": 297.58574786498406,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.25,
+    "c_l_pF": 2.9000000000000004,
+    "nominal": false,
+    "f_c_MHz": 514.527141518417,
+    "pm_deg": 34.507172519713976,
+    "gm_dB": 9.768927275433288,
+    "second_MHz": null,
+    "f3_MHz": 189.07515920285263,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.25,
+    "c_l_pF": 3.0,
+    "nominal": false,
+    "f_c_MHz": 517.4687797896677,
+    "pm_deg": 35.690839304986184,
+    "gm_dB": 9.639712890407422,
+    "second_MHz": null,
+    "f3_MHz": 179.85689054014236,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.25,
+    "c_l_pF": 3.1,
+    "nominal": false,
+    "f_c_MHz": 520.511884941433,
+    "pm_deg": 36.81041537583528,
+    "gm_dB": 9.51646657940095,
+    "second_MHz": null,
+    "f3_MHz": 171.80507708043203,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.04999999999999999,
+    "c_l_pF": 2.9000000000000004,
+    "nominal": false,
+    "f_c_MHz": 406.4756409984714,
+    "pm_deg": 53.27965182694723,
+    "gm_dB": 9.682457519615628,
+    "second_MHz": null,
+    "f3_MHz": 395.2581547840996,
+    "peak_dB": 0.5203473139372539,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.04999999999999999,
+    "c_l_pF": 3.0,
+    "nominal": false,
+    "f_c_MHz": 413.9800263584254,
+    "pm_deg": 54.77062805606943,
+    "gm_dB": 9.544463444979428,
+    "second_MHz": null,
+    "f3_MHz": 383.3345261498852,
+    "peak_dB": 0.26722778795636054,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.04999999999999999,
+    "c_l_pF": 3.1,
+    "nominal": false,
+    "f_c_MHz": 421.67450412607263,
+    "pm_deg": 56.13836063926527,
+    "gm_dB": 9.413025269819945,
+    "second_MHz": null,
+    "f3_MHz": 370.6755769421062,
+    "peak_dB": 0.08581457730291436,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.15,
+    "c_l_pF": 2.9000000000000004,
+    "nominal": false,
+    "f_c_MHz": 461.8927927526603,
+    "pm_deg": 44.78514206655822,
+    "gm_dB": 9.87715501787871,
+    "second_MHz": null,
+    "f3_MHz": 387.0112699504979,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.15,
+    "c_l_pF": 3.0,
+    "nominal": false,
+    "f_c_MHz": 466.8648060432535,
+    "pm_deg": 45.92799349569307,
+    "gm_dB": 9.741114759809328,
+    "second_MHz": null,
+    "f3_MHz": 346.0317301789624,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.15,
+    "c_l_pF": 3.1,
+    "nominal": false,
+    "f_c_MHz": 471.895133347057,
+    "pm_deg": 46.998885408785355,
+    "gm_dB": 9.61139907928737,
+    "second_MHz": null,
+    "f3_MHz": 305.21558088533754,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.25,
+    "c_l_pF": 2.9000000000000004,
+    "nominal": false,
+    "f_c_MHz": 505.1192638947556,
+    "pm_deg": 34.61068714677151,
+    "gm_dB": 10.058713668549915,
+    "second_MHz": null,
+    "f3_MHz": 192.54406228798388,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.25,
+    "c_l_pF": 3.0,
+    "nominal": false,
+    "f_c_MHz": 508.0990294145533,
+    "pm_deg": 35.76088771616142,
+    "gm_dB": 9.923556378957404,
+    "second_MHz": null,
+    "f3_MHz": 182.71879883064264,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.25,
+    "c_l_pF": 3.1,
+    "nominal": false,
+    "f_c_MHz": 511.1349958131268,
+    "pm_deg": 36.85801641638278,
+    "gm_dB": 9.79593482058188,
+    "second_MHz": null,
+    "f3_MHz": 174.2216465843077,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.709490e-05",
+     "v(oa) = -1.61682e-03",
+     "v(inm) = 7.709904e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   }
+  ]
+ },
+ "datasheet, G2 = 7": {
+  "g2": 7.0,
+  "c_f_pF": 0.15,
+  "c_l_pF": 3.75,
+  "spice_worst": {
+   "pm_deg": 36.7964514014576,
+   "gm_dB": 8.107230541374262,
+   "peak_dB": 0.09218934934373252,
+   "f3_MHz": 158.85297224554446,
+   "second": false
+  },
+  "spice_nominal": {
+   "c_d_pF": 1.0,
+   "c_f_pF": 0.15,
+   "c_l_pF": 3.75,
+   "nominal": true,
+   "f_c_MHz": 497.1164453884381,
+   "pm_deg": 49.16789992508103,
+   "gm_dB": 8.636810918309715,
+   "second_MHz": null,
+   "f3_MHz": 281.3171116441215,
+   "peak_dB": 0.0,
+   "flags": [
+    "gmin stepping (operating point found only with it)"
+   ],
+   "op": [
+    "v(o2) = 7.708898e-05",
+    "v(oa) = -1.60356e-03",
+    "v(inm) = 7.709312e-05",
+    "i(vcc) = -2.02100e-02",
+    "i(vcc2) = -1.68160e-02"
+   ],
+   "noise_nA": 145.64438556733228,
+   "noise_100MHz_pA": 13.5763996
+  },
+  "spice_robust": false,
+  "analytical_worst": {
+   "pm_deg": 37.11868234266643,
+   "gm_dB": 8.100543132579984,
+   "peak_dB": 0.0823607253386656,
+   "f3_MHz": 158.463377585223,
+   "second": false
+  },
+  "analytical_nominal": {
+   "f_c_MHz": 500.23422856098466,
+   "pm_deg": 49.24587118788668,
+   "gm_dB": 8.634619404055679,
+   "second": false,
+   "peak_dB": 0.0,
+   "f3_MHz": 275.64077815938487
+  },
+  "analytical_noise_nA": 144.93778249685707,
+  "analytical_robust": false,
+  "corners": [
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.04999999999999999,
+    "c_l_pF": 3.65,
+    "nominal": false,
+    "f_c_MHz": 464.3865729042518,
+    "pm_deg": 60.53148182723659,
+    "gm_dB": 8.274937116688285,
+    "second_MHz": null,
+    "f3_MHz": 380.1456398465762,
+    "peak_dB": 0.007809803774357391,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.04999999999999999,
+    "c_l_pF": 3.75,
+    "nominal": false,
+    "f_c_MHz": 473.1239161943775,
+    "pm_deg": 61.574185229330595,
+    "gm_dB": 8.189314186446321,
+    "second_MHz": null,
+    "f3_MHz": 367.90241180457735,
+    "peak_dB": 2.8743193797128453e-08,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.04999999999999999,
+    "c_l_pF": 3.85,
+    "nominal": false,
+    "f_c_MHz": 481.97612049771925,
+    "pm_deg": 62.51317509080303,
+    "gm_dB": 8.107230541374262,
+    "second_MHz": null,
+    "f3_MHz": 354.9971888276525,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.15,
+    "c_l_pF": 3.65,
+    "nominal": false,
+    "f_c_MHz": 502.8798497510391,
+    "pm_deg": 48.75277618116485,
+    "gm_dB": 8.470238878506409,
+    "second_MHz": null,
+    "f3_MHz": 305.6324941116404,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.15,
+    "c_l_pF": 3.75,
+    "nominal": false,
+    "f_c_MHz": 507.7528536233719,
+    "pm_deg": 49.679687568801825,
+    "gm_dB": 8.385029271034421,
+    "second_MHz": null,
+    "f3_MHz": 273.94157012064403,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.15,
+    "c_l_pF": 3.85,
+    "nominal": false,
+    "f_c_MHz": 512.6887499302037,
+    "pm_deg": 50.55871772671725,
+    "gm_dB": 8.303279591010655,
+    "second_MHz": null,
+    "f3_MHz": 251.38177772410245,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.25,
+    "c_l_pF": 3.65,
+    "nominal": false,
+    "f_c_MHz": 533.7783622022333,
+    "pm_deg": 37.062805397136714,
+    "gm_dB": 8.654847874881781,
+    "second_MHz": null,
+    "f3_MHz": 170.24667041710595,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.25,
+    "c_l_pF": 3.75,
+    "nominal": false,
+    "f_c_MHz": 536.5413849032358,
+    "pm_deg": 38.09384106971061,
+    "gm_dB": 8.570323919229239,
+    "second_MHz": null,
+    "f3_MHz": 164.29559035875474,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 0.8,
+    "c_f_pF": 0.25,
+    "c_l_pF": 3.85,
+    "nominal": false,
+    "f_c_MHz": 539.3810513761185,
+    "pm_deg": 39.074374731562045,
+    "gm_dB": 8.489172748206165,
+    "second_MHz": null,
+    "f3_MHz": 158.85297224554446,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.04999999999999999,
+    "c_l_pF": 3.65,
+    "nominal": false,
+    "f_c_MHz": 450.4693527063341,
+    "pm_deg": 59.39360283143961,
+    "gm_dB": 8.533846671400804,
+    "second_MHz": null,
+    "f3_MHz": 378.5135285694416,
+    "peak_dB": 0.04293178053016569,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.04999999999999999,
+    "c_l_pF": 3.75,
+    "nominal": false,
+    "f_c_MHz": 458.62743188985013,
+    "pm_deg": 60.46441104052495,
+    "gm_dB": 8.441571129953676,
+    "second_MHz": null,
+    "f3_MHz": 366.7299986710844,
+    "peak_dB": 1.9523405492804102e-08,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.04999999999999999,
+    "c_l_pF": 3.85,
+    "nominal": false,
+    "f_c_MHz": 466.88762874966744,
+    "pm_deg": 61.43621767617503,
+    "gm_dB": 8.353015318780342,
+    "second_MHz": null,
+    "f3_MHz": 354.3580727936117,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.15,
+    "c_l_pF": 3.65,
+    "nominal": false,
+    "f_c_MHz": 492.3685576578314,
+    "pm_deg": 48.24855560070833,
+    "gm_dB": 8.728466731994082,
+    "second_MHz": null,
+    "f3_MHz": 314.9843361610412,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.15,
+    "c_l_pF": 3.75,
+    "nominal": true,
+    "f_c_MHz": 497.1164453884381,
+    "pm_deg": 49.16789992508103,
+    "gm_dB": 8.636810918309715,
+    "second_MHz": null,
+    "f3_MHz": 281.3171116441215,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ],
+    "noise_nA": 145.64438556733228,
+    "noise_100MHz_pA": 13.5763996
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.15,
+    "c_l_pF": 3.85,
+    "nominal": false,
+    "f_c_MHz": 501.92386959776917,
+    "pm_deg": 50.04467394140414,
+    "gm_dB": 8.548784211262646,
+    "second_MHz": null,
+    "f3_MHz": 257.0855767520711,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.25,
+    "c_l_pF": 3.65,
+    "nominal": false,
+    "f_c_MHz": 525.2167860013716,
+    "pm_deg": 36.90848122921798,
+    "gm_dB": 8.911951517211657,
+    "second_MHz": null,
+    "f3_MHz": 172.34106361480335,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.25,
+    "c_l_pF": 3.75,
+    "nominal": false,
+    "f_c_MHz": 527.9716257063632,
+    "pm_deg": 37.91006334030487,
+    "gm_dB": 8.821188303237511,
+    "second_MHz": null,
+    "f3_MHz": 166.13680929958045,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.0,
+    "c_f_pF": 0.25,
+    "c_l_pF": 3.85,
+    "nominal": false,
+    "f_c_MHz": 530.7985461231104,
+    "pm_deg": 38.863307544229855,
+    "gm_dB": 8.733956160186953,
+    "second_MHz": null,
+    "f3_MHz": 160.48416215640484,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.04999999999999999,
+    "c_l_pF": 3.65,
+    "nominal": false,
+    "f_c_MHz": 437.8980411195527,
+    "pm_deg": 58.34993090172236,
+    "gm_dB": 8.78110870018601,
+    "second_MHz": null,
+    "f3_MHz": 376.72638343844267,
+    "peak_dB": 0.09218934934373252,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.04999999999999999,
+    "c_l_pF": 3.75,
+    "nominal": false,
+    "f_c_MHz": 445.57415930446786,
+    "pm_deg": 59.443423171721236,
+    "gm_dB": 8.684166717673762,
+    "second_MHz": null,
+    "f3_MHz": 365.39473595848403,
+    "peak_dB": 0.004978187878246584,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.04999999999999999,
+    "c_l_pF": 3.85,
+    "nominal": false,
+    "f_c_MHz": 453.3614801306585,
+    "pm_deg": 60.442999048212386,
+    "gm_dB": 8.591090013708282,
+    "second_MHz": null,
+    "f3_MHz": 353.5249222906361,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.15,
+    "c_l_pF": 3.65,
+    "nominal": false,
+    "f_c_MHz": 482.4345176259468,
+    "pm_deg": 47.808320012108254,
+    "gm_dB": 8.975214480639263,
+    "second_MHz": null,
+    "f3_MHz": 323.27411278175043,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.15,
+    "c_l_pF": 3.75,
+    "nominal": false,
+    "f_c_MHz": 487.0778042285154,
+    "pm_deg": 48.72233200016251,
+    "gm_dB": 8.877997454603738,
+    "second_MHz": null,
+    "f3_MHz": 288.5832782069097,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.15,
+    "c_l_pF": 3.85,
+    "nominal": false,
+    "f_c_MHz": 491.7702420707169,
+    "pm_deg": 49.59407153011361,
+    "gm_dB": 8.78581738436359,
+    "second_MHz": null,
+    "f3_MHz": 262.85978630107303,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.25,
+    "c_l_pF": 3.65,
+    "nominal": false,
+    "f_c_MHz": 516.9781322676816,
+    "pm_deg": 36.7964514014576,
+    "gm_dB": 9.157807342230482,
+    "second_MHz": null,
+    "f3_MHz": 174.51672379004202,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.25,
+    "c_l_pF": 3.75,
+    "nominal": false,
+    "f_c_MHz": 519.7346917952349,
+    "pm_deg": 37.77035598815394,
+    "gm_dB": 9.060960107076804,
+    "second_MHz": null,
+    "f3_MHz": 168.0353337194402,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   },
+   {
+    "c_d_pF": 1.2,
+    "c_f_pF": 0.25,
+    "c_l_pF": 3.85,
+    "nominal": false,
+    "f_c_MHz": 522.5397227057846,
+    "pm_deg": 38.70640478690959,
+    "gm_dB": 8.96931420167565,
+    "second_MHz": null,
+    "f3_MHz": 162.16243049193238,
+    "peak_dB": 0.0,
+    "flags": [
+     "gmin stepping (operating point found only with it)"
+    ],
+    "op": [
+     "v(o2) = 7.708898e-05",
+     "v(oa) = -1.60356e-03",
+     "v(inm) = 7.709312e-05",
+     "i(vcc) = -2.02100e-02",
+     "i(vcc2) = -1.68160e-02"
+    ]
+   }
+  ]
+ }
+}

@@ -1,0 +1,266 @@
+{
+ "part": "LT6200-10",
+ "related_variant_recorded": "LT6200-5 (same die family, A_V >= 5); values given under keys *_LT6200_5 or in entries tagged part=LT6200-5 where they differ",
+ "manufacturer": "Linear Technology (now Analog Devices)",
+ "datasheet_file": "datasheets/lt6200_family_distributor_copy.pdf",
+ "datasheet_id_and_revision": "LT6200/LT6200-5/LT6200-10/LT6201 family data sheet, document code 62001ff, Rev F (12/11) per revision history p25; footer 'LT 1211 REV F'; copyright 2002",
+ "datasheet_status": "production data sheet as printed (no preliminary marking)",
+ "page_numbering": "PDF page index equals printed page number (1-26)",
+ "type_legend": "TYP = typical at 25 C; MIN/MAX = guaranteed (25 C unless 'over temp' stated; 0-70 C = C grade, -40-85 C = I grade); CURVE = read from typical-characteristic plot (vector-path digitization unless stated 'eye'); SCOPE = read from oscilloscope photo",
+ "input_type": "bipolar, rail-to-rail input: NPN pair (Q2/Q3) and PNP pair (Q1/Q4) in parallel, both active only when V_CM is at least 1.5 V from either rail (p20, Fig. 1)",
+ "compensation": "decompensated (reduced Miller capacitor C_M vs LT6200); fixed internal compensation, no external compensation pin (p20)",
+ "min_stable_gain": {
+  "value": 10, "unit": "V/V",
+  "conditions": "p1 features: 'LT6200-10 1.6GHz A_V >= 10'; LT6200-5: A_V >= 5",
+  "below_minimum": "Data sheet gives no guidance on operation below A_V = 10, on capacitive (TIA) feedback or on noise-gain shaping for the -5/-10 versions; the only photodiode circuit (p1) uses the unity-gain-stable LT6200.",
+  "min_stable_gain_LT6200_5": 5
+ },
+ "supply": {
+  "total_min_V": 2.5, "total_max_V": 12.6, "abs_max_V": 12.6,
+  "dual_or_single": "single or split",
+  "recommended": "specified at 3 V, 5 V and +/-5 V; minimum supply 2.5 V MIN at 25 C, 3 V MIN over temperature (Note 6: guaranteed by PSRR test)",
+  "source": "p1 features; p2 abs max; p3, p5, p6 tables"
+ },
+ "quiescent_current": [
+  {"value": 16.5, "max": 20, "unit": "mA", "type": "TYP/MAX 25C", "conditions": "per amplifier, V_S = 5 V", "source": "p4"},
+  {"value": 15, "max": 18, "unit": "mA", "type": "TYP/MAX 25C", "conditions": "V_S = 3 V", "source": "p4"},
+  {"value": 20, "max": 23, "unit": "mA", "type": "TYP/MAX 25C", "conditions": "V_S = +/-5 V", "source": "p7"},
+  {"value": 20, "max": 23, "unit": "mA", "type": "TYP/MAX over temp 0-70C", "conditions": "V_S = 5 V (3 V: 19/22)", "source": "p5"},
+  {"value": 22, "max": 25.3, "unit": "mA", "type": "TYP/MAX over temp -40-85C", "conditions": "V_S = 5 V (3 V: 20/23)", "source": "p6"},
+  {"value": 25, "max": 29, "unit": "mA", "type": "TYP/MAX over temp", "conditions": "V_S = +/-5 V, 0-70 C and -40-85 C", "source": "p8, p9"},
+  {"value": 1.3, "max": 1.8, "unit": "mA", "type": "TYP/MAX 25C", "conditions": "shutdown, V_SHDN = 0.3 V, 5 V/3 V (+/-5 V: 1.6/2.1)", "source": "p4, p7"},
+  {"note": "Table does not distinguish family members; same values apply to LT6200-5/-10"}
+ ],
+ "gbw": [
+  {"value": 1450, "unit": "MHz", "type": "TYP 25C", "conditions": "f = 1 MHz, V_S = 5 V", "source": "p4"},
+  {"value": 1600, "min": 1060, "unit": "MHz", "type": "TYP/MIN 25C", "conditions": "f = 1 MHz, V_S = +/-5 V", "source": "p7; p1 features 1.6 GHz"},
+  {"part": "LT6200-5", "value": 750, "unit": "MHz", "type": "TYP 25C", "conditions": "f = 1 MHz, V_S = 5 V", "source": "p4"},
+  {"part": "LT6200-5", "value": 800, "min": 530, "unit": "MHz", "type": "TYP/MIN 25C", "conditions": "f = 1 MHz, V_S = +/-5 V", "source": "p7"},
+  {"type": "CURVE", "figure": "G62 p18", "conditions": "GBW vs temperature (A_V not stated)", "points": [
+   {"T_C": -40, "pm5V_MHz": 1515, "3V_MHz": 1185}, {"T_C": 0, "pm5V_MHz": 1608, "3V_MHz": 1219},
+   {"T_C": 25, "pm5V_MHz": 1616, "3V_MHz": 1279}, {"T_C": 50, "pm5V_MHz": 1634, "3V_MHz": 1289},
+   {"T_C": 85, "pm5V_MHz": 1739, "3V_MHz": 1299}], "key_note": "pm5V = +/-5 V supply", "uncertainty": "+/-10 MHz"},
+  {"type": "CURVE", "figure": "G69 p18", "conditions": "GBW vs total supply, T_A = 25 C, R_L = 1k, C_L = 5 pF", "points": [
+   {"Vs_total": 2.5, "MHz": 1186}, {"Vs_total": 3, "MHz": 1289}, {"Vs_total": 4, "MHz": 1381}, {"Vs_total": 5, "MHz": 1440},
+   {"Vs_total": 6, "MHz": 1480}, {"Vs_total": 8, "MHz": 1527}, {"Vs_total": 10, "MHz": 1630}], "uncertainty": "+/-15 MHz (gridlines unevenly spaced)"},
+  {"type": "CURVE", "figure": "G70 p18", "conditions": "GBW vs resistor load, V_S = +/-5 V, R_F = 10k, R_G = 1k, 25 C", "points": [
+   {"R_L_ohm": 26, "MHz": 441}, {"R_L_ohm": 50, "MHz": 779}, {"R_L_ohm": 100, "MHz": 1147}, {"R_L_ohm": 150, "MHz": 1295},
+   {"R_L_ohm": 200, "MHz": 1369}, {"R_L_ohm": 300, "MHz": 1449}, {"R_L_ohm": 500, "MHz": 1521}, {"R_L_ohm": 1000, "MHz": 1593}], "uncertainty": "+/-15 MHz"},
+  {"part": "LT6200-5", "type": "CURVE", "figure": "G45 p16 / G52 p16 / G53 p16",
+   "values": "G45 25 C: +/-5 V 839 MHz, 3 V 664 MHz (-40 C: 801/621; 85 C: 891/672). G52 (25 C, R_L = 1k, C_L = 5 pF): 2.5 V 593, 3 V 668, 4 V 692, 5 V 733, 6 V 773, 8 V 835, 9.9 V 825 MHz. G53 (+/-5 V, R_F = 10k, R_G = 1k): 30 ohm 386, 50 ohm 565, 100 ohm 688, 200 ohm 761, 500 ohm 820, 1000 ohm 837 MHz"}
+ ],
+ "open_loop_dc_gain": [
+  {"value": 120, "min": 70, "unit": "V/mV", "type": "TYP/MIN 25C", "conditions": "V_S = 5 V, V_O = 0.5-4.5 V, R_L = 1k to V_S/2", "source": "p3"},
+  {"value": 18, "min": 11, "unit": "V/mV", "type": "TYP/MIN 25C", "conditions": "V_S = 5 V, V_O = 1-4 V, R_L = 100 ohm", "source": "p3"},
+  {"value": 70, "min": 17, "unit": "V/mV", "type": "TYP/MIN 25C", "conditions": "V_S = 3 V, V_O = 0.5-2.5 V, R_L = 1k", "source": "p3"},
+  {"value": 200, "min": 115, "unit": "V/mV", "type": "TYP/MIN 25C", "conditions": "V_S = +/-5 V, V_O = +/-4.5 V, R_L = 1k", "source": "p7"},
+  {"value": 26, "min": 15, "unit": "V/mV", "type": "TYP/MIN 25C", "conditions": "V_S = +/-5 V, V_O = +/-2 V, R_L = 100 ohm", "source": "p7"},
+  {"note": "over temp (5 V, R_L = 1k): 46/80 (0-70 C), 40/70 (-40-85 C) V/mV MIN/TYP; +/-5 V R_L = 1k: 46/80 both ranges (p5, p6, p8, p9). DC specs identical across family (p20)."}
+ ],
+ "phase_margin_or_crossover": [
+  {"type": "CURVE", "figure": "G62 p18", "value_pm5V_deg": 58.4, "value_3V_deg": 54.0, "conditions": "25 C; gain at which PM is evaluated not stated", "other_T": "+/-5 V: 58.4 (-40 C), 58.3 (0 C), 63.3 (50 C), 63.1 (85 C)"},
+  {"type": "CURVE", "figure": "G69 p18", "conditions": "25 C, R_L = 1k, C_L = 5 pF, vs total supply", "points": "3 V 58.8, 4 V 60.3, 5 V 61.3, 6 V 62.2, 8 V 63.9, 10 V 65.2 deg"},
+  {"type": "CURVE derived from G67", "value": "open-loop |A| = 20 dB at 100 MHz with 65.4 deg (+/-5 V); 0 dB crossover ~ 340 MHz with ~5 deg (+/-5 V), i.e. not unity-gain stable"},
+  {"part": "LT6200-5", "type": "CURVE", "figure": "G45/G52 p16", "value": "G45 25 C: +/-5 V 68.4, 3 V 61.6 deg; G52: 3 V 65.3, 5 V 69.5, 10 V 73.6 deg"},
+  {"note": "G62 (58.4 deg at +/-5 V, 25 C) and G69 (65.2 deg at 10 V total, 25 C) disagree by ~7 deg; same pattern for LT6200-5 (G45 68.4 vs G52 73.6)."}
+ ],
+ "open_loop_curve": {
+  "figure": "G67 p18 (LT6200-10)",
+  "conditions": "V_S = +/-5 V and +/-1.5 V, V_CM = 0 V, C_L = 5 pF, R_L = 1k; temperature not stated",
+  "phase_convention": "right axis 'PHASE (DEG)' plotted as 180 deg + arg(A_OL): ~86 deg above the dominant pole, falling toward 0 at the 0 dB crossover (phase-margin convention)",
+  "digitization": "vector-path centerline; digitization error < +/-0.2 dB and < +/-0.5 deg; plot ends at ~340 MHz, nothing plotted at >= 3.4e8 Hz",
+  "points": [
+   {"f_Hz": 1.01e5, "gain_dB": 81.9, "phase_deg": 86.3, "supply": "+/-5V"},
+   {"f_Hz": 2e5, "gain_dB": 77.6, "phase_deg": 86.1, "supply": "+/-5V"},
+   {"f_Hz": 5e5, "gain_dB": 71.1, "phase_deg": 86.0, "supply": "+/-5V"},
+   {"f_Hz": 1e6, "gain_dB": 65.0, "phase_deg": 85.9, "supply": "+/-5V"},
+   {"f_Hz": 2e6, "gain_dB": 58.5, "phase_deg": 85.8, "supply": "+/-5V"},
+   {"f_Hz": 5e6, "gain_dB": 49.7, "phase_deg": 84.8, "supply": "+/-5V"},
+   {"f_Hz": 1e7, "gain_dB": 43.1, "phase_deg": 82.8, "supply": "+/-5V"},
+   {"f_Hz": 2e7, "gain_dB": 36.5, "phase_deg": 75.5, "supply": "+/-5V"},
+   {"f_Hz": 3e7, "gain_dB": 32.7, "phase_deg": 70.6, "supply": "+/-5V"},
+   {"f_Hz": 5e7, "gain_dB": 27.6, "phase_deg": 66.0, "supply": "+/-5V"},
+   {"f_Hz": 7e7, "gain_dB": 23.7, "phase_deg": 65.4, "supply": "+/-5V"},
+   {"f_Hz": 1e8, "gain_dB": 20.0, "phase_deg": 65.4, "supply": "+/-5V"},
+   {"f_Hz": 1.5e8, "gain_dB": 16.9, "phase_deg": 62.0, "supply": "+/-5V"},
+   {"f_Hz": 2e8, "gain_dB": 14.5, "phase_deg": 49.6, "supply": "+/-5V"},
+   {"f_Hz": 2.5e8, "gain_dB": 11.7, "phase_deg": 30.2, "supply": "+/-5V"},
+   {"f_Hz": 3e8, "gain_dB": 7.3, "phase_deg": 14.5, "supply": "+/-5V"},
+   {"f_Hz": 3.2e8, "gain_dB": 4.8, "phase_deg": 9.2, "supply": "+/-5V"},
+   {"f_Hz": 3.36e8, "gain_dB": 2.0, "phase_deg": 4.7, "supply": "+/-5V", "note": "curve end"},
+   {"f_Hz": 1.01e5, "gain_dB": 80.3, "phase_deg": 85.9, "supply": "+/-1.5V"},
+   {"f_Hz": 1e6, "gain_dB": 62.3, "phase_deg": 84.8, "supply": "+/-1.5V"},
+   {"f_Hz": 1e7, "gain_dB": 40.8, "phase_deg": 77.0, "supply": "+/-1.5V"},
+   {"f_Hz": 3e7, "gain_dB": 30.5, "phase_deg": 63.3, "supply": "+/-1.5V"},
+   {"f_Hz": 5e7, "gain_dB": 25.0, "phase_deg": 59.4, "supply": "+/-1.5V"},
+   {"f_Hz": 1e8, "gain_dB": 17.0, "phase_deg": 56.5, "supply": "+/-1.5V"},
+   {"f_Hz": 1.5e8, "gain_dB": 13.6, "phase_deg": 50.9, "supply": "+/-1.5V"},
+   {"f_Hz": 2e8, "gain_dB": 11.2, "phase_deg": 34.4, "supply": "+/-1.5V"},
+   {"f_Hz": 2.5e8, "gain_dB": 7.5, "phase_deg": 18.8, "supply": "+/-1.5V"},
+   {"f_Hz": 3e8, "gain_dB": 2.8, "phase_deg": 7.0, "supply": "+/-1.5V"},
+   {"f_Hz": 3.2e8, "gain_dB": 0.7, "phase_deg": 3.2, "supply": "+/-1.5V"},
+   {"f_Hz": 3.42e8, "gain_dB": -1.6, "phase_deg": 0.1, "supply": "+/-1.5V", "note": "curve end"}
+  ],
+  "single_supply_curve": {
+   "figure": "G68 p18", "conditions": "V_S = 5 V, 0 V; V_CM = 0.5 V or 4.5 V (one input pair active); C_L = 5 pF, R_L = 1k",
+   "curve_assignment": "upper gain/phase curves assigned to V_CM = 0.5 V from label placement (moderate confidence)",
+   "points_VCM_0p5V": "f(Hz): gain dB / phase deg - 1e5: 78.3/92.3; 1e6: 58.5/90.1; 1e7: 37.9/79.8; 3e7: 26.1/70.0; 5e7: 20.3/66.4; 1e8: 13.0/63.9; 1.5e8: 9.9/57.3; 2e8: 7.9/43.7; 2.5e8: 4.7/21.9; 3e8: 0.7/(phase ends 10.8 deg at 2.9e8); 3.2e8: -1.2; end -4.7 dB at 3.5e8",
+   "points_VCM_4p5V": "1e5: 75.2/90.2; 1e6: 56.1/89.7; 1e7: 35.6/78.9; 3e7: 23.6/66.3; 5e7: 17.9/60.5; 1e8: 10.9/57.3; 1.5e8: 7.4/51.7; 2e8: 4.9/42.7; 2.5e8: 1.7/23.1; 3e8: -2.1/(phase ends 11.3 deg at 3.0e8); end -7.3 dB at 3.5e8"
+  },
+  "LT6200_5_curves": {
+   "figure": "G50 p16 (+/-5 V, +/-1.5 V, V_CM = 0, C_L = 5 pF, R_L = 1k); G51 p16 (5 V, V_CM = 0.5/4.5 V)",
+   "points_pm5V": "1e5: 77.4/88.8; 1e6: 58.1/90.5; 1e7: 37.8/83.0; 3e7: 28.0/75.9; 5e7: 22.5/72.9; 1e8: 15.0/75.7; 1.5e8: 12.3/75.3; 2e8: 11.1/65.4; 2.5e8: 9.4/49.9; 3e8: 5.4/(phase ends 33.1 deg at 3.0e8); 3.2e8: 3.4; end 0.2 dB at 3.48e8",
+   "points_pm1p5V": "1e5: 75.2/89.6; 1e6: 56.2/90.5; 1e7: 35.7/80.5; 5e7: 20.2/67.1; 1e8: 13.1/68.4; 2e8: 8.1/50.3; 2.5e8: 6.0/34.0; 3e8: 1.7/(ends 17.5 deg); end -3.4 dB at 3.48e8",
+   "points_5V_VCM0p5": "1e6: 52.8/90.0; 1e7: 31.7/82.1; 5e7: 15.7/70.0; 1e8: 9.1/70.5; 2e8: 4.7/62.2; 2.5e8: 2.8/46.2; 3e8: -1.0",
+   "points_5V_VCM4p5": "1e6: 50.8/91.3; 1e7: 30.0/81.3; 5e7: 13.3/66.5; 1e8: 7.4/65.5; 2e8: 2.3/52.2; 2.5e8: -0.1/34.1; 3e8: -4.9"
+  }
+ },
+ "open_loop_output_impedance": {"figure": null, "points": [], "note": "Not given. Only closed-loop output impedance is plotted (see closed_loop_output_impedance)."},
+ "closed_loop_output_impedance": [
+  {"figure": "G66 p18", "conditions": "LT6200-10, V_S = 5 V, A_V = 10", "type": "CURVE", "points": [
+   {"f_Hz": 1.04e5, "ohm": 0.071}, {"f_Hz": 1e6, "ohm": 0.37}, {"f_Hz": 1e7, "ohm": 3.6}, {"f_Hz": 2e7, "ohm": 6.8},
+   {"f_Hz": 3e7, "ohm": 10.2}, {"f_Hz": 5e7, "ohm": 21.5}, {"f_Hz": 7e7, "ohm": 33}, {"f_Hz": 9e7, "ohm": 36.5}, {"f_Hz": 9.9e7, "ohm": 35.9}]},
+  {"figure": "G66 p18", "conditions": "LT6200-10, V_S = 5 V, A_V = 100", "type": "CURVE", "points": [
+   {"f_Hz": 1.05e5, "ohm": 0.60}, {"f_Hz": 1e6, "ohm": 3.5}, {"f_Hz": 1e7, "ohm": 28.6}, {"f_Hz": 2e7, "ohm": 34.4},
+   {"f_Hz": 3e7, "ohm": 30.6}, {"f_Hz": 5e7, "ohm": 24.0}, {"f_Hz": 9.9e7, "ohm": 21.6}]},
+  {"figure": "G49 p16", "conditions": "LT6200-5, V_S = 5 V", "type": "CURVE", "points_text": "A_V = 5: 0.035 ohm @0.1 MHz, 0.26 @1 MHz, 2.4 @10 MHz, 7.7 @30 MHz, 15.9 @50 MHz, 25.8 @70 MHz, 22.9 @99 MHz; A_V = 50: 0.31, 2.1, 18.3, 20.0 (30 MHz), 16.1 (50 MHz), 15.7 (99 MHz)"}
+ ],
+ "closed_loop_small_signal_bw": [
+  {"value": null, "note": "No -3 dB bandwidth specified for the LT6200-10 alone."},
+  {"type": "measured (photo of analyzer trace)", "value": 85, "unit": "MHz", "conditions": "instrumentation amplifier of three LT6200-10, A_V = 130 (13 x 10), -3 dB", "source": "p26 TA04"},
+  {"type": "SCOPE", "figure": "G77 p19", "conditions": "5 V, A_V = 10, R_L = 1k, C_L = 10.8 pF probe, 50 mV/div, 50 ns/div", "note": "step shows a short overshoot spike; rise time not resolvable from the photo"}
+ ],
+ "large_signal_bw": [
+  {"value": 47, "min": 33, "unit": "MHz", "type": "TYP/MIN 25C", "conditions": "FPBW, V_S = +/-5 V, V_OUT = 3 V_pp; Note 9: FPBW = SR/(2 pi V_P), i.e. calculated from slew rate", "source": "p8"},
+  {"value": 43, "min": 30, "unit": "MHz", "type": "TYP/MIN 0-70C", "source": "p8"},
+  {"value": 39, "min": 27, "unit": "MHz", "type": "TYP/MIN -40-85C", "source": "p9"},
+  {"type": "CURVE", "figure": "G72 p19", "conditions": "max undistorted output vs f, V_S = +/-5 V, A_V = 10, 25 C (distortion criterion not stated)",
+   "points": "9.17 V_pp flat to 10 MHz; 9.05 @12 MHz; 7.0 @14 MHz; 5.6 @15 MHz; 4.2 @16 MHz; 2.0 @17.8 MHz (end)"},
+  {"part": "LT6200-5", "type": "CURVE", "figure": "G55 p17", "points": "+/-5 V, A_V = 5: 9.51 V_pp flat to 8 MHz; 9.35 @10 MHz; 7.7 @11 MHz; 5.35 @12 MHz; 2.1 @13 MHz"}
+ ],
+ "slew_rate": [
+  {"value": 340, "unit": "V/us", "type": "TYP 25C", "conditions": "V_S = 5 V, A_V = -10, R_L = 1k, V_O = 4 V", "source": "p4"},
+  {"value": 450, "min": 315, "unit": "V/us", "type": "TYP/MIN 25C", "conditions": "V_S = +/-5 V, A_V = -10, R_L = 1k, V_O = 4 V", "source": "p7"},
+  {"value": 410, "min": 290, "unit": "V/us", "type": "TYP/MIN 0-70C", "conditions": "+/-5 V (5 V: 310 TYP)", "source": "p8, p5"},
+  {"value": 370, "min": 260, "unit": "V/us", "type": "TYP/MIN -40-85C", "conditions": "+/-5 V (5 V: 260 TYP)", "source": "p9, p6"},
+  {"type": "CURVE eye", "figure": "G63 p18", "conditions": "A_V = -10, R_F = R_L = 1k, R_G = 100 ohm, 25 C", "value": "+/-5 V rising ~500, falling ~435; +/-2.5 V rising ~385, falling ~335 V/us (+/-10)"},
+  {"part": "LT6200-5", "value": "5 V: 210 TYP; +/-5 V: 250 TYP / 175 MIN (25 C); 215/150 (0-70 C); 180/125 (-40-85 C)", "unit": "V/us", "conditions": "A_V = -10, R_L = 1k, V_O = 4 V", "source": "p4, p7, p8, p9"}
+ ],
+ "rise_fall_settling": [{"value": null, "note": "Settling time specified only for LT6200/LT6201 (165 ns 0.1% 2 V step at 5 V; 140 ns at +/-5 V), not for -5/-10 (p4, p8)."}],
+ "overdrive_recovery": [
+  {"type": "SCOPE", "figure": "G76 p19", "conditions": "V_S = 5 V, 0 V, A_V = 10, C_L = 10.8 pF probe, 50 ns/div; input ~1.3 V pulse (13 V demanded)", "value": "output leaves either rail and reaches mid-swing ~30 ns after the input edge (+/-10 ns; 275-pixel raster photo)"},
+  {"part": "LT6200-5", "type": "SCOPE", "figure": "G59 p17", "value": "~30-35 ns, same conditions with A_V = 5"}
+ ],
+ "voltage_noise": {
+  "spot": [
+   {"value": 0.95, "unit": "nV/rtHz", "type": "TYP 25C", "conditions": "f = 100 kHz, V_S = +/-5 V", "source": "p7"},
+   {"value": 1.4, "max": 2.3, "unit": "nV/rtHz", "type": "TYP/MAX 25C", "conditions": "f = 10 kHz, V_S = +/-5 V", "source": "p7"},
+   {"value": 1.1, "unit": "nV/rtHz", "type": "TYP 25C", "conditions": "f = 100 kHz, V_S = 5 V", "source": "p3"},
+   {"value": 1.5, "max": 2.4, "unit": "nV/rtHz", "type": "TYP/MAX 25C", "conditions": "f = 10 kHz, V_S = 5 V", "source": "p3"},
+   {"value": 600, "unit": "nV_pp", "type": "TYP", "conditions": "0.1-10 Hz", "source": "p3, p7"}
+  ],
+  "curve_points": [
+   {"f_Hz": 10.5, "nV_rtHz": 18.3}, {"f_Hz": 100, "nV_rtHz": 6.6}, {"f_Hz": 1e3, "nV_rtHz": 2.56}, {"f_Hz": 1e4, "nV_rtHz": 1.80},
+   {"f_Hz": 3e4, "nV_rtHz": 1.51}, {"f_Hz": 9.9e4, "nV_rtHz": 1.28},
+   {"f_Hz": 2.5e6, "nV_rtHz": 0.88}, {"f_Hz": 5e6, "nV_rtHz": 0.87}, {"f_Hz": 7e6, "nV_rtHz": 1.02}, {"f_Hz": 1e7, "nV_rtHz": 1.03},
+   {"f_Hz": 2e7, "nV_rtHz": 1.16}, {"f_Hz": 3e7, "nV_rtHz": 1.23}, {"f_Hz": 5e7, "nV_rtHz": 1.40}, {"f_Hz": 7.5e7, "nV_rtHz": 1.44},
+   {"f_Hz": 1e8, "nV_rtHz": 1.52}, {"f_Hz": 1.12e8, "nV_rtHz": 1.67}, {"f_Hz": 1.2e8, "nV_rtHz": 1.62}, {"f_Hz": 1.35e8, "nV_rtHz": 1.50},
+   {"f_Hz": 1.5e8, "nV_rtHz": 1.56}
+  ],
+  "curve_sources": "10.5 Hz-99 kHz: G18 p12 (V_S = 5 V, 25 C, V_CM = 2.5 V, both input pairs active; PNP-only V_CM = 0.5 V: 38.4/14.4/5.4/2.6/2.1/1.88 and NPN-only V_CM = 4.5 V: 31.2/11.1/4.4/2.4/2.0/1.88 at the same frequencies). 2.5-150 MHz: G78 p19 'Input Referred High Frequency Noise Spectrum' (linear 15 MHz/div; supply, gain, source impedance not stated). G61 p17 (LT6200-5) is the identical trace.",
+  "one_over_f_corner_Hz": "not stated; G18 curve still falling at 100 kHz (1.28 nV/rtHz vs 0.95 TYP spec at 100 kHz, +/-5 V)",
+  "highest_frequency_plotted_Hz": 1.5e8,
+  "hf_behavior": "rises from ~0.87 nV/rtHz (2.5-5 MHz) to ~1.4 at 50 MHz and 1.5-1.67 at 100-120 MHz (G78)"
+ },
+ "current_noise": {
+  "spot": [
+   {"value": 2.2, "unit": "pA/rtHz", "type": "TYP 25C", "conditions": "balanced source, f = 10 kHz, V_S = 5 V and +/-5 V", "source": "p3, p7"},
+   {"value": 3.5, "unit": "pA/rtHz", "type": "TYP 25C", "conditions": "unbalanced source, f = 10 kHz", "source": "p3, p7"}
+  ],
+  "curve_points": [
+   {"f_Hz": 10.5, "pA_rtHz": 20.9}, {"f_Hz": 100, "pA_rtHz": 9.2}, {"f_Hz": 1e3, "pA_rtHz": 4.65}, {"f_Hz": 1e4, "pA_rtHz": 3.43}, {"f_Hz": 9.9e4, "pA_rtHz": 3.43}
+  ],
+  "curve_sources": "G20 p12 unbalanced source, V_S = 5 V, 25 C, V_CM = 2.5 V (both active). PNP-only: 29.0/12.4/5.5/4.05/4.05; NPN-only: 11.3/4.5/2.3/1.80/1.80. G19 balanced: both active 13.2/5.6/2.96/2.56 (merges with PNP curve 2.52 above 13 kHz); NPN-only 1.22 above 10 kHz.",
+  "hf_behavior": "flat from ~5 kHz to 100 kHz (end of plot); not specified above 100 kHz; no values at 1, 10, 100 MHz",
+  "how_measured_or_defined": "Two specs, 'balanced source' and 'unbalanced source' resistance; no further definition in the data sheet"
+ },
+ "input_capacitance": {"common_mode_pF": 3.1, "differential_pF": 4.2, "type": "TYP", "definition_notes": "Table rows 'Common Mode' and 'Differential Mode', no test conditions or definition; same at 5 V/3 V (p3) and +/-5 V (p7). Input resistance: 0.57 MOhm CM, 2.1 kOhm DM."},
+ "input_bias_current": [
+  {"value": -10, "min": -40, "unit": "uA", "type": "TYP/MIN 25C", "conditions": "V_CM = half supply (flows out of the inputs)", "source": "p3, p7"},
+  {"value": 8, "max": 18, "unit": "uA", "type": "TYP/MAX", "conditions": "V_CM = V+", "source": "p3"},
+  {"value": -23, "min": -50, "unit": "uA", "type": "TYP/MIN", "conditions": "V_CM = V-", "source": "p3"},
+  {"note": "I_B shift V- to V+: 31 TYP / 68 MAX uA; I_OS 0.1/4 uA (5 V) and 1.3/7 uA (+/-5 V) at half supply"}
+ ],
+ "input_offset_voltage": [
+  {"value": 0.1, "max": 1, "unit": "mV", "type": "TYP/MAX 25C", "conditions": "V_S = 5 V, V_CM = half supply (3 V: 0.9/2.5)", "source": "p3"},
+  {"value": 1.4, "max": 4, "unit": "mV", "type": "TYP/MAX 25C", "conditions": "V_S = +/-5 V, V_CM = half supply (V_CM = V+ or V-: 2.5/6)", "source": "p6"},
+  {"note": "drift 2.5/8 uV/C (5 V), 8.2/24 uV/C (+/-5 V), Note 8 not 100% tested"}
+ ],
+ "input_common_mode_range": [
+  {"value": "V- to V+ (rail-to-rail)", "type": "guaranteed via CMRR test range", "conditions": "CMRR specified for V_CM = V- to V+", "source": "p1, p3, p20"},
+  {"note": "Both input pairs active only for V_CM >= 1.5 V from either rail; nearer a rail gm halves and V_OS shifts (p20, G05)."}
+ ],
+ "cmrr_psrr": [
+  {"param": "CMRR", "value": 90, "min": 65, "unit": "dB", "conditions": "V_S = 5 V, V_CM = V- to V+ (1.5-3.5 V: 112/85)", "source": "p3"},
+  {"param": "CMRR", "value": 96, "min": 68, "unit": "dB", "conditions": "+/-5 V, V_CM = V- to V+ (-2 to 2 V: 100/75)", "source": "p7"},
+  {"param": "PSRR", "value": 68, "min": 60, "unit": "dB", "conditions": "V_S = 2.5-10 V", "source": "p3"},
+  {"param": "PSRR vs f", "type": "CURVE eye", "figure": "G65 p18", "value": "5 V, 25 C: ~67 dB low f, ~60 @2 MHz, ~43 @10 MHz, ~22 @30 MHz, ~8 @80 MHz (+/-2 dB)"},
+  {"param": "CMRR vs f", "type": "CURVE eye", "figure": "G71 p19", "value": "5 V: ~95 dB to 50 kHz, ~70 @1 MHz, ~50 @10 MHz, ~30 @100 MHz, 0 near 700 MHz (+/-3 dB)"}
+ ],
+ "output_swing": [
+  {"supply": "5V or 3V", "load": "no load", "V_low_mV_from_rail": {"typ": 9, "max": 50}, "V_high_mV_from_rail": {"typ": 55, "max": 110}, "type": "25C", "source": "p4"},
+  {"supply": "5V or 3V", "load": "5 mA sink/source", "V_low_mV_from_rail": {"typ": 50, "max": 100}, "V_high_mV_from_rail": {"typ": 95, "max": 190}, "type": "25C", "source": "p4"},
+  {"supply": "5V", "load": "20 mA", "V_low_mV_from_rail": {"typ": 150, "max": 290}, "V_high_mV_from_rail": {"typ": 220, "max": 400}, "type": "25C", "source": "p4"},
+  {"supply": "3V", "load": "20 mA", "V_low_mV_from_rail": {"typ": 160, "max": 300}, "V_high_mV_from_rail": {"typ": 240, "max": 450}, "type": "25C", "source": "p4"},
+  {"supply": "+/-5V", "load": "no load / 5 mA / 20 mA", "V_low_mV_from_rail": {"typ": [12, 55, 150], "max": [50, 110, 290]}, "V_high_mV_from_rail": {"typ": [70, 110, 225], "max": [130, 210, 420]}, "type": "25C", "source": "p7"},
+  {"supply": "5V", "load": "no load / 5 mA / 20 mA", "V_low_mV_from_rail": {"typ": [18, 60, 170], "max": [70, 120, 310]}, "V_high_mV_from_rail": {"typ": [65, 115, 270], "max": [120, 210, 450]}, "type": "-40-85C", "source": "p6"},
+  {"supply": "+/-5V", "load": "no load / 5 mA / 20 mA", "V_low_mV_from_rail": {"typ": [16, 60, 170], "max": [75, 125, 310]}, "V_high_mV_from_rail": {"typ": [85, 125, 265], "max": [150, 230, 480]}, "type": "-40-85C", "source": "p9"},
+  {"note": "Note 7: swings measured between output and the supply rail. Swing specified versus load current, not R_L."}
+ ],
+ "output_swing_vs_load_curve": [
+  {"figure": "G08 p11 (output low) and G09 p11 (output high)", "conditions": "V_S = 5 V, 25 C curve", "type": "CURVE",
+   "points": "load current mA: V_OL / (V+ - V_OH) in V - 0.1: 0.0084/0.063; 1: 0.020/0.072; 5: 0.060/0.110; 10: 0.098/0.157; 20: 0.176/0.262; 30: 0.25/0.41; 50: 0.57/1.01; 70: 2.6/2.15 (current limit)"}
+ ],
+ "output_current": [{"value": 60, "unit": "mA", "type": "MIN (features)", "source": "p1"}],
+ "short_circuit_current": [
+  {"value": 90, "min": 60, "unit": "mA (+/-)", "type": "TYP/MIN 25C", "conditions": "V_S = 5 V and +/-5 V", "source": "p4, p7"},
+  {"value": 80, "min": 50, "unit": "mA (+/-)", "type": "TYP/MIN 25C", "conditions": "V_S = 3 V", "source": "p4"},
+  {"value": 80, "min": 50, "unit": "mA (+/-)", "type": "TYP/MIN -40-85C", "conditions": "V_S = 5 V (3 V: 60/30; +/-5 V: 90/60)", "source": "p6, p9"}
+ ],
+ "distortion": [
+  {"figure": "G74 p19", "gain": 10, "Vout_pp": 2, "supply": "+/-5V", "type": "CURVE", "points": [
+   {"f_Hz": 1e5, "R_L_ohm": 100, "HD2_dBc": -86.9, "HD3_dBc": -96.4}, {"f_Hz": 1e5, "R_L_ohm": 1000, "HD2_dBc": -92.2, "HD3_dBc": -92.2},
+   {"f_Hz": 1e6, "R_L_ohm": 100, "HD2_dBc": -69.3, "HD3_dBc": -89.1}, {"f_Hz": 1e6, "R_L_ohm": 1000, "HD2_dBc": -95.7, "HD3_dBc": -92.7},
+   {"f_Hz": 2e6, "R_L_ohm": 100, "HD2_dBc": -62.2, "HD3_dBc": -78.7}, {"f_Hz": 2e6, "R_L_ohm": 1000, "HD2_dBc": -89.5, "HD3_dBc": -87.1},
+   {"f_Hz": 5e6, "R_L_ohm": 100, "HD2_dBc": -53.8, "HD3_dBc": -67.5}, {"f_Hz": 5e6, "R_L_ohm": 1000, "HD2_dBc": -76.0, "HD3_dBc": -81.5},
+   {"f_Hz": 1e7, "R_L_ohm": 100, "HD2_dBc": -50.5, "HD3_dBc": -60.1}, {"f_Hz": 1e7, "R_L_ohm": 1000, "HD2_dBc": -61.4, "HD3_dBc": -81.1}]},
+  {"figure": "G73 p19", "gain": 10, "Vout_pp": 2, "supply": "+/-2.5V", "type": "CURVE", "points": [
+   {"f_Hz": 1e6, "R_L_ohm": 100, "HD2_dBc": -63.5, "HD3_dBc": -75.8}, {"f_Hz": 1e6, "R_L_ohm": 1000, "HD2_dBc": -89.0, "HD3_dBc": -84.6},
+   {"f_Hz": 5e6, "R_L_ohm": 100, "HD2_dBc": -52.0, "HD3_dBc": -61.4}, {"f_Hz": 5e6, "R_L_ohm": 1000, "HD2_dBc": -72.4, "HD3_dBc": -82.1},
+   {"f_Hz": 1e7, "R_L_ohm": 100, "HD2_dBc": -47.1, "HD3_dBc": -51.7}, {"f_Hz": 1e7, "R_L_ohm": 1000, "HD2_dBc": -61.5, "HD3_dBc": -77.9}]},
+  {"part": "LT6200-5", "figure": "G57 p17 (+/-5 V) / G56 p17 (+/-2.5 V)", "gain": 5, "Vout_pp": 2, "type": "CURVE",
+   "points_text": "+/-5 V, 1 MHz: HD2 -76.2 (100 ohm) / -97.5 (1k), HD3 -94.1 / -97.1; 5 MHz: -61.8/-74.6, -72.9/-88.8; 9.8 MHz: -49.3/-60.3, -56.7/-72.5. +/-2.5 V, 1 MHz: -70.4/-92.3, -82.1/-95.8; 5 MHz: -56.7/-74.4, -66.2/-81.8; 9.8 MHz: -50.2/-58.6, -54.2/-68.3"},
+  {"note": "Plots end at 10 MHz; y-axis labelled 'DISTORTION (dB)'; temperature not stated. Curve identity from arrows/labels and dash style (2nd = solid, 3rd = dashed)."}
+ ],
+ "imd_or_oip3": [],
+ "packages": [
+  {"name": "S6, 6-lead plastic TSOT-23 (ThinSOT)", "pins": 6, "body_mm": "2.90 x 1.50-1.75 (2.80 BSC over leads), 1.00 max height", "pitch_mm": 0.95, "exposed_pad": false, "ep_connection": null, "theta_JA_C_per_W": 160, "notes": "theta_JA 135-200 C/W depending on copper on V- pin (Table 1 p21); V- pin fused to lead frame; order LT6200CS6-10/IS6-10, marking LTACC", "source": "p2, p21, p23"},
+  {"name": "S8, 8-lead plastic SO (narrow 0.150 in)", "pins": 8, "body_mm": "4.80-5.00 x 3.81-3.99", "pitch_mm": 1.27, "exposed_pad": false, "ep_connection": null, "theta_JA_C_per_W": 100, "notes": "order LT6200CS8-10/IS8-10, marking 620010 / 200I10", "source": "p2, p3, p24"},
+  {"note": "DD 3x3 mm DFN (exposed pad to V-) exists only for the dual LT6201. LT6200-5 uses the same S6/S8 packages (markings LTACB, 62005/6200I5)."}
+ ],
+ "pinout_notes": "S6: 1 OUT, 2 V-, 3 +IN, 4 -IN, 5 SHDN, 6 V+. S8: 1 SHDN, 2 -IN, 3 +IN, 4 V-, 5 NC, 6 OUT, 7 V+, 8 NC. SHDN open or >= V+ - 0.5 V = on; <= 0.3 V = off (1.3 mA remains); SHDN pin current 200 uA TYP at 0.3 V; t_ON = t_OFF = 180 ns (p2, p4).",
+ "tia_content": [
+  {"what": "p1 TA01 'Single Supply, 1.5nV/rtHz, Photodiode Amplifier' using the unity-gain LT6200 (not -10): BF862 JFET source follower (1k source resistor) driving -IN, +IN at 2.5 V (10k/10k divider, 0.1 uF), R_F || C_F from output to the JFET gate; V_OUT ~ 2 V + I_PD R_F", "R_F": null, "C_F": null, "C_D_or_source_C": null, "bandwidth": null, "measured_or_simulated": "schematic only, no values or performance", "figure_or_section": "p1 Typical Application"},
+  {"what": "p1 applications list includes 'Transimpedance Amplifiers'; no TIA design equations, C_F guidance or decompensated-TIA guidance anywhere", "figure_or_section": "p1"}
+ ],
+ "application_guidance": "Noise equals that of a 56 ohm resistor: keep R_S + R_G||R_F <= 56 ohm for lowest noise; resistor noise dominates 56 ohm-6 kohm, current noise above ~6 kohm (p21). No internal input series resistors; back-to-back input diodes clamp +/-0.7 V, limit continuous diode current to 40 mA (25 ohm per volt of overdrive); 100 ohm in series with each input would raise noise from 0.95 to 2.03 nV/rtHz (p20). Capacitive load (G64 p18, 5 V, A_V = 10): ~20% overshoot at 10 pF with R_S = 0-10 ohm, ~50% at 110 pF with R_S = 0; R_S = 50 ohm gives 15% at 10 pF. Thermal: theta_JA tables, thermal shutdown at 160 C (to ~1.2 mA), restart ~150 C (p21-22).",
+ "abs_max_and_input_protection": "Total supply 12.6 V; input current +/-40 mA (Note 2: back-to-back diodes, limit current if differential input > 0.7 V); output short-circuit duration indefinite (heat sink may be needed); pin current beyond supplies +/-30 mA transient (ESD diodes to rails, Note 12); T_J 150 C; operating -40 to 85 C; storage -65 to 150 C (p2, p9-10).",
+ "other_notes": [
+  "Open-loop output impedance not given; closed-loop |Z_out| levels at ~20-36 ohm near 100 MHz (G66), which indicates an open-loop output impedance of that order (inference, not a data-sheet value).",
+  "Typical-curve GBW at 1 MHz from G67 (+/-5 V): 65.0 dB x 1 MHz = 1.78 GHz versus 1.6 GHz TYP in the table.",
+  "Data-sheet inconsistencies: phase margin G62 vs G69 (~7 deg apart); p9 V_OH 20 mA row labelled I_SINK (should be I_SOURCE); p8 'Setting Time' typo; Table 2 p22 titled 'LT6200 8-Lead DD Package' although DD is LT6201-only; HF noise G61 (LT6200-5) and G78 (LT6200-10) are the identical trace; G78 conditions not stated.",
+  "G18 noise curve at 10 kHz (1.80 nV/rtHz at 5 V) is higher than the table TYP 1.5 (rev D changed the table values, p25)."
+ ],
+ "pages_read": "All 26 pages read as 160 dpi renders. Zoomed/digitized: p1 TA01; p11 G08, G09; p12 G18-G20; p16 G45, G47, G49-G53; p17 G55-G57, G59, G61; p18 G62-G70; p19 G72-G78. Pages 23-24 (package drawings) read for dimensions; p25 revision history.",
+ "digitization_tool": "scripts_archive/extraction/pdf_vector_curves.py (vector paths, gridline calibration)"
+}

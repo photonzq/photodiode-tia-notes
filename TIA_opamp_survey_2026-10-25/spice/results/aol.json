@@ -1,0 +1,1694 @@
+{
+ "OPA855": {
+  "errors": [],
+  "rows": {
+   "0.1MHz": {
+    "spice_dB": 75.6369221084541,
+    "spice_deg": -174.9979403649332,
+    "datasheet_dB": 79.18,
+    "datasheet_deg": 0.2700000000000001,
+    "inverting_dB": 75.64308762359107,
+    "inverting_deg": -173.83646494823492
+   },
+   "1MHz": {
+    "spice_dB": 73.91888672693003,
+    "spice_deg": -140.4132673090423,
+    "datasheet_dB": 76.58,
+    "datasheet_deg": -47.56000000000001,
+    "inverting_dB": 73.92161293700268,
+    "inverting_deg": -140.32151122601974
+   },
+   "10MHz": {
+    "spice_dB": 58.170647660296495,
+    "spice_deg": -97.13787542656479,
+    "datasheet_dB": 58.17999999999999,
+    "datasheet_deg": -77.45,
+    "inverting_dB": 58.16851141286995,
+    "inverting_deg": -97.13254593440368
+   },
+   "100MHz": {
+    "spice_dB": 38.24345980710285,
+    "spice_deg": -91.50148688558701,
+    "datasheet_dB": 38.22,
+    "datasheet_deg": -82.67,
+    "inverting_dB": 38.244213030507204,
+    "inverting_deg": -91.53226631168523
+   },
+   "300MHz": {
+    "spice_dB": 28.71410466304628,
+    "spice_deg": -92.60536303460123,
+    "datasheet_dB": 28.69,
+    "datasheet_deg": -87.09,
+    "inverting_dB": 28.74047672948854,
+    "inverting_deg": -92.71194159856883
+   },
+   "1000MHz": {
+    "spice_dB": 18.43578253607452,
+    "spice_deg": -97.75547960478542,
+    "datasheet_dB": 18.55,
+    "datasheet_deg": -101.3,
+    "inverting_dB": 18.73768040047608,
+    "inverting_deg": -98.56086362294455
+   },
+   "2000MHz": {
+    "spice_dB": 13.446906405336138,
+    "spice_deg": -105.34305246942967,
+    "datasheet_dB": 14.220000000000002,
+    "datasheet_deg": -123.80000000000001,
+    "inverting_dB": 14.529713357818896,
+    "inverting_deg": -109.77343013438123
+   },
+   "3000MHz": {
+    "spice_dB": 12.835232607021235,
+    "spice_deg": -124.90743410378603,
+    "datasheet_dB": 13.24,
+    "datasheet_deg": -154.5,
+    "inverting_dB": 14.78214822429323,
+    "inverting_deg": -137.73045318958413
+   },
+   "5000MHz": {
+    "spice_dB": 1.1276699547570028,
+    "spice_deg": -195.90557434294027,
+    "datasheet_dB": 14.719999999999999,
+    "datasheet_deg": 118.50000000000003,
+    "inverting_dB": 2.9413130959188765,
+    "inverting_deg": 124.87732730593311
+   },
+   "7000MHz": {
+    "spice_dB": -7.571006751556162,
+    "spice_deg": -190.4406672537132,
+    "datasheet_dB": 13.919999999999998,
+    "datasheet_deg": 24.10000000000004,
+    "inverting_dB": -8.194307207267418,
+    "inverting_deg": 111.7177934515271
+   },
+   "10000MHz": {
+    "spice_dB": -13.993534433848078,
+    "spice_deg": -186.3059131669184,
+    "datasheet_dB": -4.81306789625085,
+    "datasheet_deg": -117.49999999999989,
+    "inverting_dB": -18.239078554066698,
+    "inverting_deg": 106.06579687939558
+   }
+  },
+  "unity_gain_MHz": 5189.27862
+ },
+ "OPA818": {
+  "errors": [],
+  "rows": {
+   "0.1MHz": {
+    "spice_dB": 86.54540054218964,
+    "spice_deg": -86.85097591494707,
+    "datasheet_dB": 87.4,
+    "datasheet_deg": -63.6,
+    "inverting_dB": 86.87204189063321,
+    "inverting_deg": -84.86111284172384
+   },
+   "1MHz": {
+    "spice_dB": 68.23996604761265,
+    "spice_deg": -89.29875916823687,
+    "datasheet_dB": 68.4,
+    "datasheet_deg": -87.2,
+    "inverting_dB": 68.24288421000313,
+    "inverting_deg": -89.26075493676716
+   },
+   "10MHz": {
+    "spice_dB": 48.26173018506236,
+    "spice_deg": -90.41551584316714,
+    "datasheet_dB": 48.5,
+    "datasheet_deg": -90.9,
+    "inverting_dB": 48.25940537483839,
+    "inverting_deg": -90.44532525852891
+   },
+   "100MHz": {
+    "spice_dB": 28.296142836809256,
+    "spice_deg": -94.96477280503933,
+    "datasheet_dB": 28.4,
+    "datasheet_deg": -100.9,
+    "inverting_dB": 28.29494371687943,
+    "inverting_deg": -95.30279958403386
+   },
+   "300MHz": {
+    "spice_dB": 18.954716499509978,
+    "spice_deg": -106.28892911415981,
+    "datasheet_dB": 18.4,
+    "datasheet_deg": -122.50000000000001,
+    "inverting_dB": 18.963281412711247,
+    "inverting_deg": -107.3294461440971
+   },
+   "1000MHz": {
+    "spice_dB": 5.745787559818839,
+    "spice_deg": -156.62412184999076,
+    "datasheet_dB": 3.6183080639815204,
+    "datasheet_deg": 176.95000000000005,
+    "inverting_dB": 5.778896389176534,
+    "inverting_deg": -160.75823980268373
+   },
+   "2000MHz": {
+    "spice_dB": -7.428508349094621,
+    "spice_deg": -177.5642762298937,
+    "datasheet_dB": -6.2586744339122555,
+    "datasheet_deg": 109.45000000000033,
+    "inverting_dB": -7.683399641674692,
+    "inverting_deg": 173.0969428127331
+   },
+   "3000MHz": {
+    "spice_dB": -14.945025469297242,
+    "spice_deg": -180.74275783089107,
+    "datasheet_dB": -12.036338815459295,
+    "datasheet_deg": 41.95000000000061,
+    "inverting_dB": -15.799390705028332,
+    "inverting_deg": 166.5249612280184
+   },
+   "5000MHz": {
+    "spice_dB": -23.74586620327491,
+    "spice_deg": -184.3343278257882,
+    "datasheet_dB": -19.315335090588793,
+    "datasheet_deg": -93.04999999999883,
+    "inverting_dB": -25.72662667653291,
+    "inverting_deg": 161.6637446708216
+   },
+   "7000MHz": {
+    "spice_dB": -29.37071872705516,
+    "spice_deg": -189.13232102488692,
+    "datasheet_dB": -24.10988736655738,
+    "datasheet_deg": 131.95000000000175,
+    "inverting_dB": -32.03227966565002,
+    "inverting_deg": 158.23025681906344
+   },
+   "10000MHz": {
+    "spice_dB": -35.49722120390252,
+    "spice_deg": -197.45019997326003,
+    "datasheet_dB": -29.19231758848257,
+    "datasheet_deg": -70.54999999999737,
+    "inverting_dB": -38.67052817247835,
+    "inverting_deg": 152.30817774516188
+   }
+  },
+  "unity_gain_MHz": 1424.36992
+ },
+ "OPA856": {
+  "errors": [],
+  "rows": {
+   "0.1MHz": {
+    "spice_dB": 76.46245419108165,
+    "spice_deg": -133.51754205808035,
+    "datasheet_dB": 78.1,
+    "datasheet_deg": -36.0,
+    "inverting_dB": 76.50385833795072,
+    "inverting_deg": -132.88555836011753
+   },
+   "1MHz": {
+    "spice_dB": 60.01367111722058,
+    "spice_deg": -95.60834674912591,
+    "datasheet_dB": 61.0,
+    "datasheet_deg": -85.0,
+    "inverting_dB": 60.012532637362945,
+    "inverting_deg": -95.56987530040998
+   },
+   "10MHz": {
+    "spice_dB": 40.03869373852061,
+    "spice_deg": -91.55833104580779,
+    "datasheet_dB": 40.9,
+    "datasheet_deg": -90.0,
+    "inverting_dB": 40.036487484846305,
+    "inverting_deg": -91.56330220221157
+   },
+   "100MHz": {
+    "spice_dB": 19.699509668517084,
+    "spice_deg": -94.49825495094642,
+    "datasheet_dB": 20.9,
+    "datasheet_deg": -95.0,
+    "inverting_dB": 19.71257161494758,
+    "inverting_deg": -94.61209219648126
+   },
+   "300MHz": {
+    "spice_dB": 9.695057930633693,
+    "spice_deg": -100.55976619988633,
+    "datasheet_dB": 10.9,
+    "datasheet_deg": -104.0,
+    "inverting_dB": 9.791754377665464,
+    "inverting_deg": -101.3096339951434
+   },
+   "1000MHz": {
+    "spice_dB": -3.0636440779231444,
+    "spice_deg": -108.92820450097655,
+    "datasheet_dB": -0.30000000000000027,
+    "datasheet_deg": -125.00000000000001,
+    "inverting_dB": -2.9023124476901097,
+    "inverting_deg": -114.12810751848596
+   },
+   "2000MHz": {
+    "spice_dB": -10.85342810382759,
+    "spice_deg": -105.20450709957152,
+    "datasheet_dB": -5.700000000000001,
+    "datasheet_deg": -152.0,
+    "inverting_dB": -11.038111257346621,
+    "inverting_deg": -116.1073990790303
+   },
+   "3000MHz": {
+    "spice_dB": -14.848794225765102,
+    "spice_deg": -100.8455875358798,
+    "datasheet_dB": -10.600000000000001,
+    "datasheet_deg": 173.00000000000003,
+    "inverting_dB": -15.565071116979652,
+    "inverting_deg": -115.92351837290971
+   },
+   "5000MHz": {
+    "spice_dB": -19.21439714645988,
+    "spice_deg": -97.88672465572579,
+    "datasheet_dB": -19.878659997786496,
+    "datasheet_deg": 121.0,
+    "inverting_dB": -21.104353087810978,
+    "inverting_deg": -117.34614185247958
+   },
+   "7000MHz": {
+    "spice_dB": -21.991889451340935,
+    "spice_deg": -99.23470356548088,
+    "datasheet_dB": -25.99035709568541,
+    "datasheet_deg": 69.0,
+    "inverting_dB": -24.881287288200646,
+    "inverting_deg": -119.63954399138242
+   },
+   "10000MHz": {
+    "spice_dB": -25.23211752297399,
+    "spice_deg": -103.16777655675907,
+    "datasheet_dB": -32.469017093471905,
+    "datasheet_deg": -8.999999999999986,
+    "inverting_dB": -29.161212155603373,
+    "inverting_deg": -122.33307788511489
+   }
+  },
+  "unity_gain_MHz": 781.508495
+ },
+ "OPA858": {
+  "errors": [],
+  "rows": {
+   "0.1MHz": {
+    "spice_dB": 77.71347027655989,
+    "spice_deg": -8.221535315274377,
+    "datasheet_dB": 79.5,
+    "datasheet_deg": 0.7999999999999999,
+    "inverting_dB": 77.72096291691037,
+    "inverting_deg": -7.215521976521035
+   },
+   "1MHz": {
+    "spice_dB": 72.90659078746532,
+    "spice_deg": -55.367487441435124,
+    "datasheet_dB": 77.2,
+    "datasheet_deg": -46.50000000000001,
+    "inverting_dB": 72.90912632049094,
+    "inverting_deg": -55.29394446968012
+   },
+   "10MHz": {
+    "spice_dB": 54.58204603777352,
+    "spice_deg": -86.31952272699637,
+    "datasheet_dB": 59.0,
+    "datasheet_deg": -77.3,
+    "inverting_dB": 54.57989217414544,
+    "inverting_deg": -86.31336690760682
+   },
+   "100MHz": {
+    "spice_dB": 34.59468294890592,
+    "spice_deg": -92.33012339927028,
+    "datasheet_dB": 38.9,
+    "datasheet_deg": -82.8,
+    "inverting_dB": 34.59237163825014,
+    "inverting_deg": -92.32960623174377
+   },
+   "300MHz": {
+    "spice_dB": 24.98844231635293,
+    "spice_deg": -98.0090990781475,
+    "datasheet_dB": 29.4,
+    "datasheet_deg": -87.3,
+    "inverting_dB": 24.986620489386667,
+    "inverting_deg": -98.00938355387323
+   },
+   "1000MHz": {
+    "spice_dB": 13.873546726089055,
+    "spice_deg": -115.86529441926879,
+    "datasheet_dB": 19.0,
+    "datasheet_deg": -101.9,
+    "inverting_dB": 13.871111766244802,
+    "inverting_deg": -115.86650541508247
+   },
+   "2000MHz": {
+    "spice_dB": 6.224766320098427,
+    "spice_deg": -136.32004424265145,
+    "datasheet_dB": 13.2,
+    "datasheet_deg": -124.7,
+    "inverting_dB": 6.221277964979244,
+    "inverting_deg": -136.32230869078953
+   },
+   "3000MHz": {
+    "spice_dB": 0.8005782241609506,
+    "spice_deg": -151.7610807013349,
+    "datasheet_dB": 9.200000000000001,
+    "datasheet_deg": -150.7,
+    "inverting_dB": 0.7979584527911731,
+    "inverting_deg": -151.7643982168699
+   },
+   "5000MHz": {
+    "spice_dB": -7.560293428831628,
+    "spice_deg": -171.44931424162493,
+    "datasheet_dB": 0.8000000000000006,
+    "datasheet_deg": 154.3,
+    "inverting_dB": -7.566072993823224,
+    "inverting_deg": -171.45439412954948
+   },
+   "7000MHz": {
+    "spice_dB": -13.850899072097567,
+    "spice_deg": -181.14108536827644,
+    "datasheet_dB": -4.732938553045162,
+    "datasheet_deg": 99.3,
+    "inverting_dB": -13.861837322836674,
+    "inverting_deg": 178.85133175928416
+   },
+   "10000MHz": {
+    "spice_dB": -20.800945122476943,
+    "spice_deg": -187.71268780789498,
+    "datasheet_dB": -10.598089770396493,
+    "datasheet_deg": 16.800000000000036,
+    "inverting_dB": -20.80842100662141,
+    "inverting_deg": 172.276608036072
+   }
+  },
+  "unity_gain_MHz": 3270.21962
+ },
+ "LMH6629": {
+  "errors": [],
+  "rows": {
+   "0.1MHz": {
+    "spice_dB": 78.4621103578836,
+    "spice_deg": -9.64603000969523,
+    "datasheet_dB": 78.9,
+    "datasheet_deg": -84.7,
+    "inverting_dB": 78.45960211363024,
+    "inverting_deg": -8.290191388858537
+   },
+   "1MHz": {
+    "spice_dB": 72.69095699791157,
+    "spice_deg": -59.55242579481848,
+    "datasheet_dB": 72.4,
+    "datasheet_deg": -84.7,
+    "inverting_dB": 72.69035921559319,
+    "inverting_deg": -59.42509074474487
+   },
+   "10MHz": {
+    "spice_dB": 53.9702297514165,
+    "spice_deg": -87.02002307932948,
+    "datasheet_dB": 51.6,
+    "datasheet_deg": -91.9,
+    "inverting_dB": 53.96786346658377,
+    "inverting_deg": -87.08107228293666
+   },
+   "100MHz": {
+    "spice_dB": 33.97375129435985,
+    "spice_deg": -93.55845107124524,
+    "datasheet_dB": 31.7,
+    "datasheet_deg": -95.7,
+    "inverting_dB": 33.97046789366875,
+    "inverting_deg": -94.30242901520249
+   },
+   "300MHz": {
+    "spice_dB": 24.339248631920324,
+    "spice_deg": -101.51604476828193,
+    "datasheet_dB": 22.3,
+    "datasheet_deg": -104.4,
+    "inverting_dB": 24.32993115113467,
+    "inverting_deg": -103.75057516951001
+   },
+   "1000MHz": {
+    "spice_dB": 12.945257043138806,
+    "spice_deg": -126.79616636449308,
+    "datasheet_dB": 11.527512822091467,
+    "datasheet_deg": -145.08620689655174,
+    "inverting_dB": 12.861745639032065,
+    "inverting_deg": -134.2010691443362
+   },
+   "2000MHz": {
+    "spice_dB": 4.69364405911536,
+    "spice_deg": -155.21802069481154,
+    "datasheet_dB": 6.528248745105435,
+    "datasheet_deg": 146.29310344827587,
+    "inverting_dB": 4.374786981062094,
+    "inverting_deg": -169.74650640935954
+   },
+   "3000MHz": {
+    "spice_dB": -1.2205989893731264,
+    "spice_deg": -176.11957546060236,
+    "datasheet_dB": 3.603866728866242,
+    "datasheet_deg": 77.67241379310339,
+    "inverting_dB": -1.9020918133655493,
+    "inverting_deg": 162.73556668652805
+   },
+   "5000MHz": {
+    "spice_dB": -9.907929130209965,
+    "spice_deg": -205.92121433687888,
+    "datasheet_dB": -0.08041889202353623,
+    "datasheet_deg": -59.568965517241395,
+    "inverting_dB": -11.584580181629288,
+    "inverting_deg": 121.67967161588312
+   },
+   "7000MHz": {
+    "spice_dB": -16.38408912624165,
+    "spice_deg": -228.05004175868518,
+    "datasheet_dB": -2.5071957911010356,
+    "datasheet_deg": 163.18965517241372,
+    "inverting_dB": -19.22432993216381,
+    "inverting_deg": 90.98552723722699
+   },
+   "10000MHz": {
+    "spice_dB": -23.987843416547765,
+    "spice_deg": -254.47000188426935,
+    "datasheet_dB": -5.07968296900957,
+    "datasheet_deg": -42.67241379310359,
+    "inverting_dB": -28.574446387019975,
+    "inverting_deg": 55.73541269118815
+   }
+  },
+  "unity_gain_MHz": 2847.1995
+ },
+ "OPA859": {
+  "errors": [],
+  "rows": {
+   "0.1MHz": {
+    "spice_dB": 66.37200509973539,
+    "spice_deg": -12.075256295114952,
+    "datasheet_dB": 66.8,
+    "datasheet_deg": -5.6,
+    "inverting_dB": 66.37512938548358,
+    "inverting_deg": -11.190426039252019
+   },
+   "1MHz": {
+    "spice_dB": 59.120254548309234,
+    "spice_deg": -64.60678133142893,
+    "datasheet_dB": 58.8,
+    "datasheet_deg": -64.6,
+    "inverting_dB": 59.12189577648272,
+    "inverting_deg": -64.53244727189244
+   },
+   "10MHz": {
+    "spice_dB": 40.05345909659973,
+    "spice_deg": -87.54562082114022,
+    "datasheet_dB": 39.0,
+    "datasheet_deg": -79.8,
+    "inverting_dB": 40.05128139079241,
+    "inverting_deg": -87.54109730598933
+   },
+   "100MHz": {
+    "spice_dB": 20.048364877040058,
+    "spice_deg": -93.01928701677474,
+    "datasheet_dB": 18.999999999999996,
+    "datasheet_deg": -85.6,
+    "inverting_dB": 20.04601760384929,
+    "inverting_deg": -93.02915836235886
+   },
+   "300MHz": {
+    "spice_dB": 10.375924321045462,
+    "spice_deg": -99.60380611480169,
+    "datasheet_dB": 9.0,
+    "datasheet_deg": -93.6,
+    "inverting_dB": 10.37402199352017,
+    "inverting_deg": -99.6350851279634
+   },
+   "1000MHz": {
+    "spice_dB": -1.0435741281622377,
+    "spice_deg": -116.92099037718178,
+    "datasheet_dB": -2.4999999999999996,
+    "datasheet_deg": -111.5,
+    "inverting_dB": -1.0461514408658787,
+    "inverting_deg": -117.02526041288635
+   },
+   "2000MHz": {
+    "spice_dB": -7.49824888783016,
+    "spice_deg": -129.52918076217435,
+    "datasheet_dB": -8.7,
+    "datasheet_deg": -146.4,
+    "inverting_dB": -7.499305522370534,
+    "inverting_deg": -129.7378720826842
+   },
+   "3000MHz": {
+    "spice_dB": -8.989956125736914,
+    "spice_deg": -140.7379238140609,
+    "datasheet_dB": -9.3,
+    "datasheet_deg": -150.8,
+    "inverting_dB": -8.988481835648948,
+    "inverting_deg": -141.0534554474711
+   },
+   "5000MHz": {
+    "spice_dB": -0.8505222013812886,
+    "spice_deg": -253.39356043688184,
+    "datasheet_dB": -10.055910602738798,
+    "datasheet_deg": -159.60000000000002,
+    "inverting_dB": -0.6184383205021763,
+    "inverting_deg": 106.06954753351651
+   },
+   "7000MHz": {
+    "spice_dB": -23.205333997641205,
+    "spice_deg": -379.74828268632183,
+    "datasheet_dB": -10.553816188042266,
+    "datasheet_deg": -168.40000000000003,
+    "inverting_dB": -23.3228497919575,
+    "inverting_deg": -20.476567852451065
+   },
+   "10000MHz": {
+    "spice_dB": -44.081583728007665,
+    "spice_deg": -403.48353960786494,
+    "datasheet_dB": -11.081617377549675,
+    "datasheet_deg": 178.39999999999998,
+    "inverting_dB": -44.13069438881544,
+    "inverting_deg": -44.521904717511724
+   }
+  },
+  "unity_gain_MHz": 940.038696
+ },
+ "OPA846": {
+  "errors": [],
+  "rows": {
+   "0.1MHz": {
+    "spice_dB": 85.81247152287753,
+    "spice_deg": -68.30609691615983,
+    "datasheet_dB": 82.9,
+    "datasheet_deg": -72.2,
+    "inverting_dB": 85.80399030964185,
+    "inverting_deg": -65.83884113416038
+   },
+   "1MHz": {
+    "spice_dB": 66.44559538615762,
+    "spice_deg": -87.82526024689302,
+    "datasheet_dB": 63.5,
+    "datasheet_deg": -87.9,
+    "inverting_dB": 66.4437019663565,
+    "inverting_deg": -87.57832777902765
+   },
+   "10MHz": {
+    "spice_dB": 46.452589558611365,
+    "spice_deg": -90.82108205820299,
+    "datasheet_dB": 43.6,
+    "datasheet_deg": -91.3,
+    "inverting_dB": 46.4503681220702,
+    "inverting_deg": -90.79645357179099
+   },
+   "100MHz": {
+    "spice_dB": 26.429398743441432,
+    "spice_deg": -100.46127470749626,
+    "datasheet_dB": 23.799999999999997,
+    "datasheet_deg": -103.5,
+    "inverting_dB": 26.428241432560327,
+    "inverting_deg": -100.45998959353086
+   },
+   "300MHz": {
+    "spice_dB": 16.70471106406482,
+    "spice_deg": -121.26234455415037,
+    "datasheet_dB": 15.4,
+    "datasheet_deg": -134.0,
+    "inverting_dB": 16.713065158265643,
+    "inverting_deg": -121.2690332202008
+   },
+   "1000MHz": {
+    "spice_dB": 4.7867610581271745,
+    "spice_deg": -190.2081923611284,
+    "datasheet_dB": 4.816386878470621,
+    "datasheet_deg": 82.39999999999998,
+    "inverting_dB": 4.889388229931074,
+    "inverting_deg": 169.69798776924546
+   },
+   "2000MHz": {
+    "spice_dB": -5.014840132440286,
+    "spice_deg": -298.3635088459142,
+    "datasheet_dB": -10.207077906178215,
+    "datasheet_deg": -132.59999999999997,
+    "inverting_dB": -4.624685964395646,
+    "inverting_deg": 61.317836124385344
+   },
+   "3000MHz": {
+    "spice_dB": -20.51854745561354,
+    "spice_deg": -383.64779564239444,
+    "datasheet_dB": -18.995241436102624,
+    "datasheet_deg": 12.39999999999997,
+    "inverting_dB": -19.704634901886376,
+    "inverting_deg": -24.21872468816491
+   },
+   "5000MHz": {
+    "spice_dB": -44.880840779509626,
+    "spice_deg": -445.25479569319725,
+    "datasheet_dB": -30.067018087556413,
+    "datasheet_deg": -57.599999999999824,
+    "inverting_dB": -42.436973523130575,
+    "inverting_deg": -86.49766612994142
+   },
+   "7000MHz": {
+    "spice_dB": -62.738914413622425,
+    "spice_deg": -472.9047586152606,
+    "datasheet_dB": -37.35981093107237,
+    "datasheet_deg": -127.59999999999995,
+    "inverting_dB": -57.08906630934763,
+    "inverting_deg": -115.4805119376634
+   },
+   "10000MHz": {
+    "spice_dB": -100.29118662104695,
+    "spice_deg": -435.06999676870754,
+    "datasheet_dB": -45.09048287220524,
+    "datasheet_deg": -52.599999999999696,
+    "inverting_dB": -72.14539765897328,
+    "inverting_deg": -139.82423233203474
+   }
+  },
+  "unity_gain_MHz": 1562.17185
+ },
+ "OPA657": {
+  "errors": [],
+  "rows": {
+   "0.1MHz": {
+    "spice_dB": 74.04175774609955,
+    "spice_deg": -18.14438840998676,
+    "datasheet_dB": 74.6,
+    "datasheet_deg": -12.000000000000002,
+    "inverting_dB": 74.06805929734182,
+    "inverting_deg": -17.2531546583905
+   },
+   "1MHz": {
+    "spice_dB": 63.65728255836851,
+    "spice_deg": -73.66954384331369,
+    "datasheet_dB": 67.3,
+    "datasheet_deg": -65.2,
+    "inverting_dB": 63.65700192666904,
+    "inverting_deg": -73.62820277307635
+   },
+   "10MHz": {
+    "spice_dB": 44.00928788602373,
+    "spice_deg": -89.97647114812888,
+    "datasheet_dB": 48.10000000000001,
+    "datasheet_deg": -89.7,
+    "inverting_dB": 44.00669846281901,
+    "inverting_deg": -90.07515739097673
+   },
+   "100MHz": {
+    "spice_dB": 23.78889737372542,
+    "spice_deg": -106.33314844989808,
+    "datasheet_dB": 27.800000000000004,
+    "datasheet_deg": -113.0,
+    "inverting_dB": 23.787571912629538,
+    "inverting_deg": -107.37004384822262
+   },
+   "300MHz": {
+    "spice_dB": 12.714273438577155,
+    "spice_deg": -135.5080386984814,
+    "datasheet_dB": 16.200000000000003,
+    "datasheet_deg": -153.9,
+    "inverting_dB": 12.724246028289803,
+    "inverting_deg": -138.6177072283642
+   },
+   "1000MHz": {
+    "spice_dB": -5.407942995225837,
+    "spice_deg": -191.40725970548033,
+    "datasheet_dB": -3.5999999999999996,
+    "datasheet_deg": 128.80000000000004,
+    "inverting_dB": -5.274884410381759,
+    "inverting_deg": 158.32998044409482
+   },
+   "2000MHz": {
+    "spice_dB": -19.87525655063283,
+    "spice_deg": -223.0292695862982,
+    "datasheet_dB": -16.426164185173242,
+    "datasheet_deg": 48.466666666666704,
+    "inverting_dB": -19.347805810671083,
+    "inverting_deg": 117.07013667449672
+   },
+   "3000MHz": {
+    "spice_dB": -29.448100204869306,
+    "spice_deg": -237.71149605505445,
+    "datasheet_dB": -23.928989261592314,
+    "datasheet_deg": -31.866666666666582,
+    "inverting_dB": -28.321202340683612,
+    "inverting_deg": 93.80012145003803
+   },
+   "5000MHz": {
+    "spice_dB": -42.17467979998149,
+    "spice_deg": -251.5143474323129,
+    "datasheet_dB": -33.38143097119181,
+    "datasheet_deg": 167.4666666666667,
+    "inverting_dB": -39.55810917360267,
+    "inverting_deg": 66.40004113593542
+   },
+   "7000MHz": {
+    "spice_dB": -50.77975781609558,
+    "spice_deg": -258.31234590612127,
+    "datasheet_dB": -39.60759515636505,
+    "datasheet_deg": 6.800000000000216,
+    "inverting_dB": -46.58955022463145,
+    "inverting_deg": 50.09111601874267
+   },
+   "10000MHz": {
+    "spice_dB": -60.030830079518324,
+    "spice_deg": -264.22786887036,
+    "datasheet_dB": -46.20759515636506,
+    "datasheet_deg": 125.80000000000017,
+    "inverting_dB": -53.64257226787119,
+    "inverting_deg": 34.905953688331046
+   }
+  },
+  "unity_gain_MHz": 746.243732
+ },
+ "OPA847": {
+  "errors": [],
+  "rows": {
+   "0.1MHz": {
+    "spice_dB": 80.5769813712174,
+    "spice_deg": -20.32156938684772,
+    "datasheet_dB": 90.3,
+    "datasheet_deg": -57.400000000000006,
+    "inverting_dB": 80.60341967391508,
+    "inverting_deg": -19.63432017207635
+   },
+   "1MHz": {
+    "spice_dB": 69.46970450305972,
+    "spice_deg": -75.13055484901525,
+    "datasheet_dB": 71.5,
+    "datasheet_deg": -85.90000000000002,
+    "inverting_dB": 69.47038823525499,
+    "inverting_deg": -75.10700283674373
+   },
+   "10MHz": {
+    "spice_dB": 49.7688429267513,
+    "spice_deg": -91.10721613969937,
+    "datasheet_dB": 51.8,
+    "datasheet_deg": -90.8,
+    "inverting_dB": 49.76660725650212,
+    "inverting_deg": -91.10536982078199
+   },
+   "100MHz": {
+    "spice_dB": 29.380346634474733,
+    "spice_deg": -115.21642334529824,
+    "datasheet_dB": 31.8,
+    "datasheet_deg": -102.0,
+    "inverting_dB": 29.37586269412442,
+    "inverting_deg": -115.20738283161474
+   },
+   "300MHz": {
+    "spice_dB": 18.162901309774856,
+    "spice_deg": -160.5928671386364,
+    "datasheet_dB": 23.5,
+    "datasheet_deg": -129.8,
+    "inverting_dB": 18.153826614453745,
+    "inverting_deg": -160.49994625939848
+   },
+   "1000MHz": {
+    "spice_dB": -3.184786656877065,
+    "spice_deg": -248.8822955345326,
+    "datasheet_dB": 13.317197229628771,
+    "datasheet_deg": 105.95000000000003,
+    "inverting_dB": -3.541239563555434,
+    "inverting_deg": 112.06754649151466
+   },
+   "2000MHz": {
+    "spice_dB": -14.39863056951655,
+    "spice_deg": -283.2102296693504,
+    "datasheet_dB": 3.6338265576412763,
+    "datasheet_deg": -80.54999999999987,
+    "inverting_dB": -16.891386511876476,
+    "inverting_deg": 83.47017910943279
+   },
+   "3000MHz": {
+    "spice_dB": -18.543378703747283,
+    "spice_deg": -308.1856979875973,
+    "datasheet_dB": -2.0305821660544328,
+    "datasheet_deg": 92.9500000000003,
+    "inverting_dB": -24.568371866144993,
+    "inverting_deg": 65.78853040520754
+   },
+   "5000MHz": {
+    "spice_dB": -22.345718463225918,
+    "spice_deg": -338.8255477607017,
+    "datasheet_dB": -9.166893186867304,
+    "datasheet_deg": 79.9500000000003,
+    "inverting_dB": -41.35478205970073,
+    "inverting_deg": 71.47497872864531
+   },
+   "7000MHz": {
+    "spice_dB": -24.131598769002576,
+    "spice_deg": -355.78946911127144,
+    "datasheet_dB": -13.867461088483573,
+    "datasheet_deg": 66.95000000000073,
+    "inverting_dB": -39.206264774174805,
+    "inverting_deg": 167.62265180647253
+   },
+   "10000MHz": {
+    "spice_dB": -25.619262179481442,
+    "spice_deg": -371.62574580470834,
+    "datasheet_dB": -18.850263858854795,
+    "datasheet_deg": -132.54999999999896,
+    "inverting_dB": -34.58446408028557,
+    "inverting_deg": 163.0573287216056
+   }
+  },
+  "unity_gain_MHz": 897.620421
+ },
+ "LMH6624": {
+  "errors": [],
+  "rows": {
+   "0.1MHz": {
+    "spice_dB": 79.15560068776533,
+    "spice_deg": -50.276504831663075,
+    "datasheet_dB": 78.7,
+    "datasheet_deg": -29.999999999999993,
+    "inverting_dB": 79.15099818525162,
+    "inverting_deg": -48.42504445756677
+   },
+   "1MHz": {
+    "spice_dB": 61.41058067098874,
+    "spice_deg": -85.47765669737309,
+    "datasheet_dB": 62.0,
+    "datasheet_deg": -88.0,
+    "inverting_dB": 61.408289333877015,
+    "inverting_deg": -85.29390493900199
+   },
+   "10MHz": {
+    "spice_dB": 41.43788168010751,
+    "spice_deg": -91.84608928474961,
+    "datasheet_dB": 41.2,
+    "datasheet_deg": -92.0,
+    "inverting_dB": 41.435181209025416,
+    "inverting_deg": -91.84011509594737
+   },
+   "100MHz": {
+    "spice_dB": 21.1640410589882,
+    "spice_deg": -112.94617346309758,
+    "datasheet_dB": 20.0,
+    "datasheet_deg": -130.0,
+    "inverting_dB": 21.161235464332925,
+    "inverting_deg": -113.0703878748312
+   },
+   "300MHz": {
+    "spice_dB": 9.72477595504454,
+    "spice_deg": -154.40528242632695,
+    "datasheet_dB": 7.0,
+    "datasheet_deg": 163.0,
+    "inverting_dB": 9.721414137082455,
+    "inverting_deg": -154.783589553297
+   },
+   "1000MHz": {
+    "spice_dB": -11.13542719393946,
+    "spice_deg": -243.55310929023057,
+    "datasheet_dB": -7.463827314092473,
+    "datasheet_deg": -48.99999999999999,
+    "inverting_dB": -11.154909566549653,
+    "inverting_deg": 115.18953250466774
+   },
+   "2000MHz": {
+    "spice_dB": -30.224055700403692,
+    "spice_deg": -299.88339561333487,
+    "datasheet_dB": -15.53070126535766,
+    "datasheet_deg": 4.333333333333363,
+    "inverting_dB": -30.28133580305116,
+    "inverting_deg": 57.62181017829566
+   },
+   "3000MHz": {
+    "spice_dB": -43.579369472977845,
+    "spice_deg": -325.51330198266214,
+    "datasheet_dB": -20.2495200248921,
+    "datasheet_deg": 57.66666666666673,
+    "inverting_dB": -43.66837452836302,
+    "inverting_deg": 30.79536712592672
+   },
+   "5000MHz": {
+    "spice_dB": -61.47620578869885,
+    "spice_deg": -347.5538295458919,
+    "datasheet_dB": -26.194528579450132,
+    "datasheet_deg": 164.33333333333323,
+    "inverting_dB": -61.699161240338626,
+    "inverting_deg": 6.560250670324681
+   },
+   "7000MHz": {
+    "spice_dB": -73.4304594003389,
+    "spice_deg": -357.64504007453496,
+    "datasheet_dB": -30.11040560679507,
+    "datasheet_deg": -88.99999999999987,
+    "inverting_dB": -73.84616616487091,
+    "inverting_deg": -5.342100024562399
+   },
+   "10000MHz": {
+    "spice_dB": -86.13814133522095,
+    "spice_deg": -366.8330935750142,
+    "datasheet_dB": -34.261402530715316,
+    "datasheet_deg": 70.99999999999999,
+    "inverting_dB": -86.87608163057672,
+    "inverting_deg": -16.295007258967647
+   }
+  },
+  "unity_gain_MHz": 592.400834
+ },
+ "THS4021": {
+  "errors": [],
+  "rows": {
+   "0.1MHz": {
+    "spice_dB": 79.64344157282466,
+    "spice_deg": -81.99872212852614,
+    "datasheet_dB": 86.7,
+    "datasheet_deg": -81.0,
+    "inverting_dB": 79.63949945948909,
+    "inverting_deg": -80.52135641496272
+   },
+   "1MHz": {
+    "spice_dB": 59.728745044693326,
+    "spice_deg": -89.33478485781605,
+    "datasheet_dB": 66.5,
+    "datasheet_deg": -91.0,
+    "inverting_dB": 59.72682132378977,
+    "inverting_deg": -89.18694298998655
+   },
+   "10MHz": {
+    "spice_dB": 39.736712658818625,
+    "spice_deg": -91.3364025182574,
+    "datasheet_dB": 46.1,
+    "datasheet_deg": -97.0,
+    "inverting_dB": 39.734415573905274,
+    "inverting_deg": -91.32155338025304
+   },
+   "100MHz": {
+    "spice_dB": 20.41634194100196,
+    "spice_deg": -105.05574466633685,
+    "datasheet_dB": 23.5,
+    "datasheet_deg": -126.0,
+    "inverting_dB": 20.414918692227538,
+    "inverting_deg": -105.05360397440478
+   },
+   "300MHz": {
+    "spice_dB": 15.53793154861452,
+    "spice_deg": -173.51155951846988,
+    "datasheet_dB": 12.8,
+    "datasheet_deg": -163.0,
+    "inverting_dB": 15.557157720043563,
+    "inverting_deg": -173.50940188111647
+   },
+   "1000MHz": {
+    "spice_dB": -15.769708944534473,
+    "spice_deg": -309.8722526374133,
+    "datasheet_dB": -9.8,
+    "datasheet_deg": 9.000000000000012,
+    "inverting_dB": -15.739153495841215,
+    "inverting_deg": 50.499293967461334
+   },
+   "2000MHz": {
+    "spice_dB": -41.0072138087959,
+    "spice_deg": -420.042277140781,
+    "datasheet_dB": -32.230525699851114,
+    "datasheet_deg": 98.99999999999997,
+    "inverting_dB": -40.62291545285261,
+    "inverting_deg": -58.933762793494196
+   },
+   "3000MHz": {
+    "spice_dB": -61.87394379973556,
+    "spice_deg": -446.4121002691456,
+    "datasheet_dB": -45.35154210572618,
+    "datasheet_deg": -171.00000000000003,
+    "inverting_dB": -60.9089424601492,
+    "inverting_deg": -87.16957587641282
+   },
+   "5000MHz": {
+    "spice_dB": -87.62783281650051,
+    "spice_deg": -472.2945254266146,
+    "datasheet_dB": -61.88206780557729,
+    "datasheet_deg": 9.000000000000108,
+    "inverting_dB": -85.41691629684107,
+    "inverting_deg": -117.78232022210562
+   },
+   "7000MHz": {
+    "spice_dB": -107.75544194135719,
+    "spice_deg": -475.0498212540181,
+    "datasheet_dB": -72.77044672781659,
+    "datasheet_deg": -171.00000000000009,
+    "inverting_dB": -104.12609694313059,
+    "inverting_deg": -135.23693627541365
+   },
+   "10000MHz": {
+    "spice_dB": -131.5182737657378,
+    "spice_deg": -435.70246783254856,
+    "datasheet_dB": -84.3125935054284,
+    "datasheet_deg": 98.99999999999986,
+    "inverting_dB": -128.94917193144283,
+    "inverting_deg": -155.36678841470072
+   }
+  },
+  "unity_gain_MHz": 540.144113
+ },
+ "ADA4817-1": {
+  "errors": [],
+  "rows": {
+   "0.1MHz": {
+    "spice_dB": 66.44832062060891,
+    "spice_deg": -6.738865551086587,
+    "datasheet_dB": 66.4,
+    "datasheet_deg": -11.000000000000002,
+    "inverting_dB": 66.4482768552563,
+    "inverting_deg": -6.05207533809418
+   },
+   "1MHz": {
+    "spice_dB": 52.00481939547221,
+    "spice_deg": -83.90131365726366,
+    "datasheet_dB": 52.2,
+    "datasheet_deg": -85.0,
+    "inverting_dB": 52.00287089845014,
+    "inverting_deg": -83.83446363160803
+   },
+   "10MHz": {
+    "spice_dB": 31.67348375230853,
+    "spice_deg": -90.6008046730483,
+    "datasheet_dB": 31.4,
+    "datasheet_deg": -92.0,
+    "inverting_dB": 31.671185701257983,
+    "inverting_deg": -90.59404084802311
+   },
+   "100MHz": {
+    "spice_dB": 11.657596426477063,
+    "spice_deg": -99.68838980258576,
+    "datasheet_dB": 10.600000000000001,
+    "datasheet_deg": -100.0,
+    "inverting_dB": 11.655281837132092,
+    "inverting_deg": -99.687798188225
+   },
+   "300MHz": {
+    "spice_dB": 2.04480271740298,
+    "spice_deg": -119.15554147532595,
+    "datasheet_dB": 1.499999999999999,
+    "datasheet_deg": -116.5,
+    "inverting_dB": 2.043357248116749,
+    "inverting_deg": -119.15620371467683
+   },
+   "1000MHz": {
+    "spice_dB": -9.033674384742298,
+    "spice_deg": -188.3008848097771,
+    "datasheet_dB": -6.000000000000001,
+    "datasheet_deg": -180.0,
+    "inverting_dB": -9.029541288434112,
+    "inverting_deg": 171.6974333004858
+   },
+   "2000MHz": {
+    "spice_dB": -19.591304832376757,
+    "spice_deg": -307.1018140038677,
+    "datasheet_dB": -9.360691675086422,
+    "datasheet_deg": 113.33333333333334,
+    "inverting_dB": -19.584079109647234,
+    "inverting_deg": 52.90023953382189
+   },
+   "3000MHz": {
+    "spice_dB": -35.999855853697376,
+    "spice_deg": -386.62606614721415,
+    "datasheet_dB": -11.326570281497744,
+    "datasheet_deg": 46.66666666666661,
+    "inverting_dB": -36.02182717244115,
+    "inverting_deg": -26.613343724162352
+   },
+   "5000MHz": {
+    "spice_dB": -60.4314030595676,
+    "spice_deg": -445.6086070397656,
+    "datasheet_dB": -13.803284418637226,
+    "datasheet_deg": -86.66666666666669,
+    "inverting_dB": -60.47446122301548,
+    "inverting_deg": -85.55608670848056
+   },
+   "7000MHz": {
+    "spice_dB": -77.1527814073116,
+    "spice_deg": -471.50642308646536,
+    "datasheet_dB": -15.434654315571873,
+    "datasheet_deg": 139.99999999999997,
+    "inverting_dB": -77.24129557126562,
+    "inverting_deg": -111.35784239132857
+   },
+   "10000MHz": {
+    "spice_dB": -95.29523523164974,
+    "spice_deg": -491.5603354724661,
+    "datasheet_dB": -17.163976093723647,
+    "datasheet_deg": -60.00000000000001,
+    "inverting_dB": -95.42135968755319,
+    "inverting_deg": -131.11351949529887
+   }
+  },
+  "unity_gain_MHz": 390.965647
+ },
+ "AD8099": {
+  "errors": [],
+  "rows": {
+   "0.1MHz": {
+    "spice_dB": 84.96497577870485,
+    "spice_deg": -25.495425852818077,
+    "datasheet_dB": 85.19999999999999,
+    "datasheet_deg": -80.6,
+    "inverting_dB": 84.96203188358331,
+    "inverting_deg": -23.899237371555103
+   },
+   "1MHz": {
+    "spice_dB": 72.11868190225297,
+    "spice_deg": -79.21492597105224,
+    "datasheet_dB": 71.5,
+    "datasheet_deg": -80.6,
+    "inverting_dB": 72.11709934933225,
+    "inverting_deg": -79.05605512351029
+   },
+   "10MHz": {
+    "spice_dB": 51.52997016493338,
+    "spice_deg": -94.175305384878,
+    "datasheet_dB": 51.1,
+    "datasheet_deg": -93.4,
+    "inverting_dB": 51.52735503839732,
+    "inverting_deg": -94.15948303463888
+   },
+   "100MHz": {
+    "spice_dB": 30.89917777989498,
+    "spice_deg": -98.26533227314542,
+    "datasheet_dB": 31.6,
+    "datasheet_deg": -102.4,
+    "inverting_dB": 30.896849829832608,
+    "inverting_deg": -98.26375601767357
+   },
+   "300MHz": {
+    "spice_dB": 21.157540287710404,
+    "spice_deg": -112.91749815871873,
+    "datasheet_dB": 22.9,
+    "datasheet_deg": -140.0,
+    "inverting_dB": 21.155796795211927,
+    "inverting_deg": -112.9175153679742
+   },
+   "1000MHz": {
+    "spice_dB": 8.440833701667135,
+    "spice_deg": -162.1658797385409,
+    "datasheet_dB": 11.400000000000002,
+    "datasheet_deg": 109.99999999999999,
+    "inverting_dB": 8.43823873391034,
+    "inverting_deg": -162.16623396932627
+   },
+   "2000MHz": {
+    "spice_dB": -3.0654206466910923,
+    "spice_deg": -212.27237603950823,
+    "datasheet_dB": -4.900000000000001,
+    "datasheet_deg": -30.000000000000004,
+    "inverting_dB": -3.0731423822619846,
+    "inverting_deg": 147.72756212862006
+   },
+   "3000MHz": {
+    "spice_dB": -12.120204671648835,
+    "spice_deg": -243.50988011541136,
+    "datasheet_dB": -10.0,
+    "datasheet_deg": -169.99999999999997,
+    "inverting_dB": -12.127022297406945,
+    "inverting_deg": 116.49035269346572
+   },
+   "5000MHz": {
+    "spice_dB": -25.77274141916115,
+    "spice_deg": -279.14386457414906,
+    "datasheet_dB": -16.42524012327977,
+    "datasheet_deg": -89.99999999999997,
+    "inverting_dB": -25.786959046283656,
+    "inverting_deg": 80.85638851331338
+   },
+   "7000MHz": {
+    "spice_dB": -35.85833884259173,
+    "spice_deg": -298.68605312303373,
+    "datasheet_dB": -20.657437598359216,
+    "datasheet_deg": -9.999999999999945,
+    "inverting_dB": -35.885910469767175,
+    "inverting_deg": 61.31382747188456
+   },
+   "10000MHz": {
+    "spice_dB": -47.24876212347614,
+    "spice_deg": -315.3788176159132,
+    "datasheet_dB": -25.14374770917219,
+    "datasheet_deg": -70.00000000000007,
+    "inverting_dB": -47.268934411352944,
+    "inverting_deg": 44.62121336172792
+   }
+  },
+  "unity_gain_MHz": 1713.30555
+ },
+ "ADA4899-1": {
+  "errors": [],
+  "rows": {
+   "0.1MHz": {
+    "spice_dB": 68.62590409945197,
+    "spice_deg": -72.80223486584276,
+    "datasheet_dB": 69.0,
+    "datasheet_deg": -79.0,
+    "inverting_dB": 68.62134203234866,
+    "inverting_deg": -71.09902917785489
+   },
+   "1MHz": {
+    "spice_dB": 49.02092461673374,
+    "spice_deg": -88.40783176383454,
+    "datasheet_dB": 49.2,
+    "datasheet_deg": -90.6,
+    "inverting_dB": 49.018986877069686,
+    "inverting_deg": -88.23738085222031
+   },
+   "10MHz": {
+    "spice_dB": 29.018517571956245,
+    "spice_deg": -91.64845814969203,
+    "datasheet_dB": 29.5,
+    "datasheet_deg": -90.0,
+    "inverting_dB": 29.016198465313803,
+    "inverting_deg": -91.63137705301638
+   },
+   "100MHz": {
+    "spice_dB": 8.45337691095323,
+    "spice_deg": -106.45823331145834,
+    "datasheet_dB": 9.600000000000001,
+    "datasheet_deg": -100.2,
+    "inverting_dB": 8.450584547727644,
+    "inverting_deg": -106.45671441564545
+   },
+   "300MHz": {
+    "spice_dB": -2.569423370999446,
+    "spice_deg": -125.30761744126507,
+    "datasheet_dB": 0.7499999999999997,
+    "datasheet_deg": -121.9,
+    "inverting_dB": -2.571554339153783,
+    "inverting_deg": -125.30794774530337
+   },
+   "1000MHz": {
+    "spice_dB": -14.52802582120337,
+    "spice_deg": -186.7048611324058,
+    "datasheet_dB": -9.0,
+    "datasheet_deg": 147.00000000000003,
+    "inverting_dB": -14.526223500137936,
+    "inverting_deg": 173.2933650040351
+   },
+   "2000MHz": {
+    "spice_dB": -25.6062500379674,
+    "spice_deg": -275.4823201128334,
+    "datasheet_dB": -24.220790225576437,
+    "datasheet_deg": 17.000000000000025,
+    "inverting_dB": -25.6036854798909,
+    "inverting_deg": 84.51732728084988
+   },
+   "3000MHz": {
+    "spice_dB": -36.381009866192564,
+    "spice_deg": -345.13098322126166,
+    "datasheet_dB": -33.124381738881766,
+    "datasheet_deg": -112.99999999999999,
+    "inverting_dB": -36.38605628288918,
+    "inverting_deg": 14.872442705417402
+   },
+   "5000MHz": {
+    "spice_dB": -55.925320698123414,
+    "spice_deg": -436.4969313362726,
+    "datasheet_dB": -44.34158045115288,
+    "datasheet_deg": -12.999999999999979,
+    "inverting_dB": -55.95482567457446,
+    "inverting_deg": -76.49318772384379
+   },
+   "7000MHz": {
+    "spice_dB": -71.96324321617544,
+    "spice_deg": -490.6069009239054,
+    "datasheet_dB": -51.730160357378296,
+    "datasheet_deg": 86.99999999999991,
+    "inverting_dB": -72.037025947333,
+    "inverting_deg": -130.68717617847508
+   },
+   "10000MHz": {
+    "spice_dB": -90.80641878689987,
+    "spice_deg": -540.0927768872111,
+    "datasheet_dB": -59.562370676729316,
+    "datasheet_deg": 56.99999999999997,
+    "inverting_dB": -90.84107226697316,
+    "inverting_deg": 179.18638099447412
+   }
+  },
+  "unity_gain_MHz": 235.264024
+ },
+ "ADA4895-1": {
+  "errors": [],
+  "rows": {
+   "0.1MHz": {
+    "spice_dB": 89.09229711824862,
+    "spice_deg": -84.7340278719678,
+    "datasheet_dB": 90.9,
+    "datasheet_deg": -84.6,
+    "inverting_dB": 89.06641195416637,
+    "inverting_deg": -80.40118648046774
+   },
+   "1MHz": {
+    "spice_dB": 69.1241641934783,
+    "spice_deg": -91.08090956565202,
+    "datasheet_dB": 70.9,
+    "datasheet_deg": -91.7,
+    "inverting_dB": 69.12211288680297,
+    "inverting_deg": -90.65264949443107
+   },
+   "10MHz": {
+    "spice_dB": 48.45421326381324,
+    "spice_deg": -104.64681424627797,
+    "datasheet_dB": 49.6,
+    "datasheet_deg": -108.40000000000002,
+    "inverting_dB": 48.45149149611453,
+    "inverting_deg": -104.6642793735169
+   },
+   "100MHz": {
+    "spice_dB": 23.020521849963803,
+    "spice_deg": -117.75353409012538,
+    "datasheet_dB": 23.65,
+    "datasheet_deg": -118.40000000000002,
+    "inverting_dB": 23.01764166406243,
+    "inverting_deg": -118.35911623309048
+   },
+   "300MHz": {
+    "spice_dB": 12.197568132616915,
+    "spice_deg": -141.359239224034,
+    "datasheet_dB": 12.9,
+    "datasheet_deg": -141.5,
+    "inverting_dB": 12.195938868465706,
+    "inverting_deg": -143.18833575744708
+   },
+   "1000MHz": {
+    "spice_dB": -6.579589463420959,
+    "spice_deg": -229.35235338771935,
+    "datasheet_dB": 0.8699999999999992,
+    "datasheet_deg": 141.4,
+    "inverting_dB": -6.592304210164902,
+    "inverting_deg": 124.55579109245845
+   },
+   "2000MHz": {
+    "spice_dB": -24.39906465491145,
+    "spice_deg": -271.999644826213,
+    "datasheet_dB": -5.125127578645413,
+    "datasheet_deg": 40.90000000000006,
+    "inverting_dB": -24.417158943202082,
+    "inverting_deg": 75.84908571007003
+   },
+   "3000MHz": {
+    "spice_dB": -35.60138798328404,
+    "spice_deg": -295.05627769502814,
+    "datasheet_dB": -8.632052399192206,
+    "datasheet_deg": -59.59999999999988,
+    "inverting_dB": -35.612336440556916,
+    "inverting_deg": 46.80361549613521
+   },
+   "5000MHz": {
+    "spice_dB": -51.26279813951771,
+    "spice_deg": -325.22964480217615,
+    "datasheet_dB": -13.050255157290827,
+    "datasheet_deg": 99.40000000000015,
+    "inverting_dB": -51.283445063504814,
+    "inverting_deg": 4.975439686775509
+   },
+   "7000MHz": {
+    "spice_dB": -62.77011926263966,
+    "spice_deg": -343.108575958739,
+    "datasheet_dB": -15.960450916273487,
+    "datasheet_deg": -101.59999999999977,
+    "inverting_dB": -62.81043698077557,
+    "inverting_deg": -23.95839052621577
+   },
+   "10000MHz": {
+    "spice_dB": -75.84267441135162,
+    "spice_deg": -357.4501969902551,
+    "datasheet_dB": -19.04538273593624,
+    "datasheet_deg": -43.09999999999962,
+    "inverting_dB": -75.87641736062157,
+    "inverting_deg": -53.45024774003243
+   }
+  },
+  "unity_gain_MHz": 746.243732
+ },
+ "OPA955": {
+  "errors": [],
+  "rows": {
+   "0.1MHz": {
+    "spice_dB": 82.85856404674261,
+    "spice_deg": 0.36676095060099845,
+    "datasheet_dB": 86.05000000000001,
+    "datasheet_deg": 12.269999999999998,
+    "inverting_dB": 82.87318937226254,
+    "inverting_deg": 1.1323474761083308
+   },
+   "1MHz": {
+    "spice_dB": 78.67840014790706,
+    "spice_deg": -54.77139378866793,
+    "datasheet_dB": 79.43,
+    "datasheet_deg": -64.52,
+    "inverting_dB": 78.6780609974949,
+    "inverting_deg": -54.70063852050253
+   },
+   "10MHz": {
+    "spice_dB": 60.27113128081226,
+    "spice_deg": -86.28724020964418,
+    "datasheet_dB": 60.8,
+    "datasheet_deg": -86.23,
+    "inverting_dB": 60.269098763403484,
+    "inverting_deg": -86.28038905754451
+   },
+   "100MHz": {
+    "spice_dB": 40.257431266507375,
+    "spice_deg": -91.38111186937768,
+    "datasheet_dB": 40.87,
+    "datasheet_deg": -93.61,
+    "inverting_dB": 40.277567985382944,
+    "inverting_deg": -91.4100464754718
+   },
+   "300MHz": {
+    "spice_dB": 30.50777839808852,
+    "spice_deg": -94.68666005923508,
+    "datasheet_dB": 31.21,
+    "datasheet_deg": -101.6,
+    "inverting_dB": 30.6858561822691,
+    "inverting_deg": -95.24400533802672
+   },
+   "1000MHz": {
+    "spice_dB": 19.24164289205549,
+    "spice_deg": -97.28082460771584,
+    "datasheet_dB": 20.29,
+    "datasheet_deg": -125.10000000000001,
+    "inverting_dB": 19.700524705966924,
+    "inverting_deg": -107.0056826423437
+   },
+   "2000MHz": {
+    "spice_dB": 13.423658509492164,
+    "spice_deg": -101.41290113354516,
+    "datasheet_dB": 13.49,
+    "datasheet_deg": -155.9,
+    "inverting_dB": 12.28379120235983,
+    "inverting_deg": -119.57210436376545
+   },
+   "3000MHz": {
+    "spice_dB": 9.546649464996188,
+    "spice_deg": -109.30237671329083,
+    "datasheet_dB": 9.81,
+    "datasheet_deg": 177.30000000000004,
+    "inverting_dB": 7.150125239589879,
+    "inverting_deg": -126.86911663729205
+   },
+   "5000MHz": {
+    "spice_dB": 3.4416038337934873,
+    "spice_deg": -118.27285967982874,
+    "datasheet_dB": 5.239999999999999,
+    "datasheet_deg": 106.19999999999997,
+    "inverting_dB": -0.028468850424482463,
+    "inverting_deg": -131.49287519710808
+   },
+   "7000MHz": {
+    "spice_dB": -0.9620859731406116,
+    "spice_deg": -120.41777359104259,
+    "datasheet_dB": 5.4,
+    "datasheet_deg": 26.99999999999996,
+    "inverting_dB": -4.8154861249866805,
+    "inverting_deg": -130.53721825269716
+   },
+   "10000MHz": {
+    "spice_dB": -5.527479361743904,
+    "spice_deg": -119.4301526693938,
+    "datasheet_dB": -7.210076600789309,
+    "datasheet_deg": -91.80000000000013,
+    "inverting_dB": -9.60147919406051,
+    "inverting_deg": -126.7908825337641
+   }
+  },
+  "unity_gain_MHz": 6536.90276
+ },
+ "OPA817": {
+  "errors": [],
+  "rows": {
+   "0.1MHz": {
+    "spice_dB": 71.72285225579144,
+    "spice_deg": -91.57854931764695,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": 71.90082484100148,
+    "inverting_deg": -90.6581973986105
+   },
+   "1MHz": {
+    "spice_dB": 51.96081737877722,
+    "spice_deg": -90.230027159441,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": 51.960729641560576,
+    "inverting_deg": -90.1592237732608
+   },
+   "10MHz": {
+    "spice_dB": 31.963438902709452,
+    "spice_deg": -90.73413929839596,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": 31.96121925147107,
+    "inverting_deg": -90.72944409594987
+   },
+   "100MHz": {
+    "spice_dB": 11.944599534633928,
+    "spice_deg": -97.17575630193633,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": 11.950130895669615,
+    "inverting_deg": -97.217569730906
+   },
+   "300MHz": {
+    "spice_dB": 2.2731539121744895,
+    "spice_deg": -111.45361964299109,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": 2.306782300772346,
+    "inverting_deg": -111.86400768767898
+   },
+   "1000MHz": {
+    "spice_dB": -10.20172283511621,
+    "spice_deg": -163.97260820637518,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": -10.337358207010944,
+    "inverting_deg": -165.43629599167633
+   },
+   "2000MHz": {
+    "spice_dB": -23.58643835443776,
+    "spice_deg": -211.9040309927112,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": -23.87158687992695,
+    "inverting_deg": 146.98443720192193
+   },
+   "3000MHz": {
+    "spice_dB": -33.36955288577051,
+    "spice_deg": -229.93557307109813,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": -33.68873264480465,
+    "inverting_deg": 129.2551712737429
+   },
+   "5000MHz": {
+    "spice_dB": -46.08658967521868,
+    "spice_deg": -244.24954366785673,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": -46.43187089849937,
+    "inverting_deg": 115.24010537546553
+   },
+   "7000MHz": {
+    "spice_dB": -54.574537268590866,
+    "spice_deg": -250.88738154511623,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": -54.93413716112136,
+    "inverting_deg": 108.74132243537632
+   },
+   "10000MHz": {
+    "spice_dB": -63.686116122271855,
+    "spice_deg": -256.28816816495754,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": -64.04255565345326,
+    "inverting_deg": 103.44737153040599
+   }
+  },
+  "unity_gain_MHz": 390.965647
+ },
+ "OPA814": {
+  "errors": [],
+  "rows": {
+   "0.1MHz": {
+    "spice_dB": 68.4549323096594,
+    "spice_deg": -82.29268992437571,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": 68.58406704269855,
+    "inverting_deg": -81.14156349226062
+   },
+   "1MHz": {
+    "spice_dB": 48.52915881514302,
+    "spice_deg": -89.29947194560081,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": 48.52856964909557,
+    "inverting_deg": -89.19832431230354
+   },
+   "10MHz": {
+    "spice_dB": 28.530117534523196,
+    "spice_deg": -90.67433748319898,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": 28.527723335058823,
+    "inverting_deg": -90.67588784777917
+   },
+   "100MHz": {
+    "spice_dB": 8.509239159522277,
+    "spice_deg": -97.52837790167679,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": 8.499633504786607,
+    "inverting_deg": -97.6214604628421
+   },
+   "300MHz": {
+    "spice_dB": -1.2396037681169427,
+    "spice_deg": -112.61503507953138,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": -1.2661287337241791,
+    "inverting_deg": -112.72248576420589
+   },
+   "1000MHz": {
+    "spice_dB": -13.890304429136574,
+    "spice_deg": -160.66288704383803,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": -13.926819244164179,
+    "inverting_deg": -160.70780687450846
+   },
+   "2000MHz": {
+    "spice_dB": -24.973817687302592,
+    "spice_deg": -211.56643390532932,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": -25.0154622971005,
+    "inverting_deg": 148.41031601768162
+   },
+   "3000MHz": {
+    "spice_dB": -33.91431416339023,
+    "spice_deg": -245.39499456637952,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": -33.95602228655907,
+    "inverting_deg": 114.58955751454619
+   },
+   "5000MHz": {
+    "spice_dB": -47.81889827386064,
+    "spice_deg": -284.30497310328917,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": -47.86859597064562,
+    "inverting_deg": 75.68569837265788
+   },
+   "7000MHz": {
+    "spice_dB": -58.17345970386263,
+    "spice_deg": -305.06308405237394,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": -58.23670666792953,
+    "inverting_deg": 54.92988825854849
+   },
+   "10000MHz": {
+    "spice_dB": -69.80809859017234,
+    "spice_deg": -322.53830156390154,
+    "datasheet_dB": null,
+    "datasheet_deg": null,
+    "inverting_dB": -69.86223008737367,
+    "inverting_deg": 37.457609858722186
+   }
+  },
+  "unity_gain_MHz": 270.218166
+ }
+}

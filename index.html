@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Photodiode transimpedance amplifiers: two design studies and amplifier surveys</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <style>
+  html { font-family: Arial, "Segoe UI Symbol", "Cambria Math", sans-serif; font-size: 11pt; line-height: 1.45;
+    color: #161616; background: #fff; }
+  body { max-width: 56rem; margin: 0 auto; padding: 1.5rem 1.25rem 4rem; }
+  h1, h2, h3 { font-family: Arial, sans-serif; color: #1d2f55; line-height: 1.2; }
+  h1 { font-size: 2.1rem; margin: 1.5rem 0 0.8rem; }
+  h2 { font-size: 1.5rem; margin-top: 2em; padding-bottom: 0.2em; border-bottom: 1px solid #c8d0e0; }
+  h3 { font-size: 1.2rem; margin-top: 1.6em; }
+  a { color: #1a4f9c; text-decoration: none; }
+  a:hover, a:focus { text-decoration: underline; }
+  code { font-family: Consolas, "Courier New", monospace; font-size: 0.92em; overflow-wrap: anywhere; }
+  pre { background: #f4f6f9; padding: 0.6em 0.8em; overflow-x: auto; font-size: 0.9em; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.93em; margin: 0.8em 0 1.1em; }
+  th, td { border: 1px solid #b9bfca; padding: 0.3em 0.5em; vertical-align: top; text-align: left; }
+  th { background: #e9edf5; }
+  math { font-family: "Cambria Math", "STIX Two Math", math; }
+  </style>
+</head>
+<body>
+<h1 id="photodiode-transimpedance-amplifiers-two-design-studies-and-amplifier-surveys">Photodiode transimpedance amplifiers: two design studies and amplifier surveys</h1>
+<p>This repository holds two notes on the choice of operational amplifier for a photodiode transimpedance amplifier (TIA). They cover opposite corners of the design space: a balanced receiver with milliamperes of DC photocurrent and at least 150 MHz of bandwidth, and weak-light front ends whose feedback resistors lie between 100 kΩ and 1 GΩ.</p>
+<p>These notes were created with significant AI assistance. They may contain errors, so check the cited datasheet pages, tables and scripts before relying on a figure.</p>
+<h2 id="the-two-notes">The two notes</h2>
+<p><strong>Operational amplifiers for a balanced-photodiode transimpedance amplifier: 1 pF, 1.5–2 kΩ, ≥ 150 MHz, 0.1–10 mA of DC photocurrent</strong> (October–November 2026, folder <a href="TIA_opamp_survey_2026-10-25/"><code>TIA_opamp_survey_2026-10-25/</code></a>). The note covers the front end of a balanced optical receiver: a photodiode pair with 1 pF at the summing node, a 1.5–2-kΩ feedback resistor, at least 150 MHz of bandwidth and 0.1–10 mA of DC photocurrent. Read it as a <a href="https://photonzq.github.io/photodiode-tia-notes/TIA_opamp_survey_2026-10-25/">web page</a>, as a <a href="TIA_opamp_survey_2026-10-25/TIA_opamp_survey.pdf">PDF</a>, or in its Markdown source, <a href="TIA_opamp_survey_2026-10-25/TIA_opamp_survey.md"><code>TIA_opamp_survey.md</code></a>, which GitHub also renders with its equations.</p>
+<p><strong>Operational amplifiers for high-gain photodiode transimpedance amplifiers: 100 kΩ to 1 GΩ, from DC to a few megahertz</strong> (November 2026, folder <a href="TIA_high_gain_survey_2026-11-02/"><code>TIA_high_gain_survey_2026-11-02/</code></a>). The note covers weak light: signal photocurrents from about a picoampere to a few tens of microamperes, bandwidths from below a kilohertz to a few megahertz, and photodiodes of any material with capacitances from a few picofarads to several nanofarads. Read it as a <a href="https://photonzq.github.io/photodiode-tia-notes/TIA_high_gain_survey_2026-11-02/">web page</a>, as a <a href="TIA_high_gain_survey_2026-11-02/TIA_high_gain_survey.pdf">PDF</a>, or in its Markdown source, <a href="TIA_high_gain_survey_2026-11-02/TIA_high_gain_survey.md"><code>TIA_high_gain_survey.md</code></a>, which is assembled from the chapter files in <code>parts/</code>.</p>
+<h2 id="which-note-to-read">Which note to read</h2>
+<p>The photocurrent decides. Its shot noise equals the Johnson noise of the feedback resistor <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>F</mi></msub><annotation encoding="application/x-tex">R_F</annotation></semantics></math> at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>=</mo><mn>2</mn><msub><mi>k</mi><mi>B</mi></msub><mi>T</mi><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>q</mi><msub><mi>R</mi><mi>F</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">I = 2k_BT/(qR_F)</annotation></semantics></math>, which is 51.4 mV divided by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>R</mi><mi>F</mi></msub><annotation encoding="application/x-tex">R_F</annotation></semantics></math> at 25 °C. A current above about 10 µA, with a bandwidth above about 10 MHz, leaves room for only a few kilohms of feedback resistance. The light then sets the noise floor, and the amplifier’s stability and output swing decide the design: that is the balanced-photodiode note. A signal below about 10 µA, and certainly below 1 µA, needs 100 kΩ or more to keep the resistor’s noise below the signal’s. The amplifier’s input current, its voltage noise acting on the photodiode’s capacitance, the photodiode’s shunt resistance and the feedback resistor’s own capacitance then decide the design: that is the high-gain note. Each note opens with a box that says the same, and Table 0 of the high-gain note compares the two regimes line by line.</p>
+<h2 id="what-each-note-does">What each note does</h2>
+<p><strong>The balanced-photodiode note</strong> starts from three properties of the problem. The light, not the amplifier, sets the noise floor over most of the range; the DC photocurrent must stay out of the feedback resistor, which the balanced pair makes possible; and the 1-pF, 2-kΩ operating point is hard to stabilize, which removes most fast, low-noise amplifiers before noise is considered. From these it sets out the approaches, the list of candidates and a plain 50-Ω termination as the benchmark (Chapter 2), and works through a first design (Chapter 3), the theory and its open-loop model (Chapter 4), a cross-check against the manufacturers’ SPICE macromodels (Chapter 5), a comparison of 25 amplifiers in stability, noise and dynamic range, against the 50-Ω benchmark and at low frequencies (Chapter 6), composite front ends with a discrete input transistor or a high-voltage output stage (Chapter 7), the handling of the DC photocurrent and the proposed front end (Chapter 8), and the conclusions (Chapter 9). The tables are in Appendix A.</p>
+<p><strong>The high-gain note</strong> is built around three facts. The feedback resistor sets a noise floor that no amplifier can beat. The amplifier enters through its current noise, through its voltage noise acting on the admittance of the summing node, and through its DC errors, and the weights of these terms change from one gain decade to the next. The bandwidth has two ceilings, the amplifier’s and that of the resistor’s own capacitance, and above the crossover between them the resistor behaves as a distributed RC line. The note describes the circuit and the photodiode (Chapter 1), derives the noise (Chapter 2) and the bandwidth, the stability and the behaviour of the distributed resistor (Chapter 3), and maps which noise term dominates at each gain and frequency (Chapter 4). It then surveys 21 op amps and three discrete-JFET front ends (Chapter 5), selects amplifiers for each gain decade, for photodiodes with low shunt resistance or large capacitance and for signals at low frequency (Chapter 6), and covers gain ranging, logarithmic amplifiers and switched integrators (Chapter 7) and the DC errors, leakage and guarding (Chapter 8). Chapter 9 checks the model against the manufacturers’ SPICE models, and Chapter 10 gives the conclusions. The tables are in Appendix A.</p>
+<h2 id="what-is-in-this-repository">What is in this repository</h2>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>README.md</code>, <code>index.html</code></td>
+<td>This overview, and the same text as the landing page of the web site</td>
+</tr>
+<tr>
+<td><code>LICENSE</code></td>
+<td>The CC0 1.0 Universal dedication</td>
+</tr>
+<tr>
+<td><code>build/</code></td>
+<td>The build of the PDFs and web pages, shared by both notes, and its stylesheet</td>
+</tr>
+<tr>
+<td><code>TIA_opamp_survey_2026-10-25/</code></td>
+<td>The balanced-photodiode note and its files</td>
+</tr>
+<tr>
+<td><code>TIA_high_gain_survey_2026-11-02/</code></td>
+<td>The high-gain note and its files</td>
+</tr>
+</tbody>
+</table>
+<p>In the two tables below, the paths are relative to the note’s folder.</p>
+<h3 id="the-balanced-photodiode-note">The balanced-photodiode note</h3>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TIA_opamp_survey.md</code></td>
+<td>The note</td>
+</tr>
+<tr>
+<td><code>TIA_opamp_survey.pdf</code>, <code>index.html</code></td>
+<td>The note as a PDF and as a web page, with its section, table, figure and equation references as links</td>
+</tr>
+<tr>
+<td><code>figures/</code></td>
+<td>Figures 1–31 as PNG and PDF; Appendix E of the note maps the file names to the figure numbers</td>
+</tr>
+<tr>
+<td><code>data/specs/</code></td>
+<td>One extraction record per amplifier, with a page or figure citation for every value and the digitized open-loop and noise curves</td>
+</tr>
+<tr>
+<td><code>data/market_scan.md</code>, <code>data/market_scan.json</code></td>
+<td>The candidate scan, the rejected parts, lifecycle status and prices, the integrated TIAs and the list of application notes</td>
+</tr>
+<tr>
+<td><code>data/integrated_tias.json</code></td>
+<td>The single-chip TIA records of Section 6.7</td>
+</tr>
+<tr>
+<td><code>data/results/</code></td>
+<td>The output of the analysis scripts, with the tables generated from it</td>
+</tr>
+<tr>
+<td><code>data/digitization_checks/</code></td>
+<td>The residuals of the digitized THS3491 and OPA859 curves against the datasheet figures’ vector paths</td>
+</tr>
+<tr>
+<td><code>spice/results/</code></td>
+<td>The results of every SPICE check, one JSON file per check, and the tables generated from them</td>
+</tr>
+<tr>
+<td><code>spice/models/</code></td>
+<td><code>README.md</code> with the source and terms of every vendor model used, and the four Analog Devices model files that ADI’s terms allow to be shared unmodified</td>
+</tr>
+<tr>
+<td><code>scripts_archive/</code></td>
+<td>Every script used for the analysis, the SPICE checks, the figures and the edits of the note, indexed in <code>scripts_archive/README.md</code></td>
+</tr>
+</tbody>
+</table>
+<p>The manufacturers’ datasheets and application notes, the Texas Instruments and Infineon SPICE models, and the renderings of datasheet figures are not included. Appendix D of the note gives each document’s source and revision, and <code>spice/models/README.md</code> gives the download page of every model. The decks, logs and data that the SPICE checks write to <code>spice/runs/</code> (about 500 MB) are not included either; running the checks regenerates them.</p>
+<h3 id="the-high-gain-note">The high-gain note</h3>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TIA_high_gain_survey.md</code></td>
+<td>The note, assembled from <code>parts/</code> by <code>scripts_archive/assemble_note.py</code></td>
+</tr>
+<tr>
+<td><code>TIA_high_gain_survey.pdf</code>, <code>index.html</code></td>
+<td>The note as a PDF and as a web page, with its section, table, figure and equation references as links</td>
+</tr>
+<tr>
+<td><code>parts/</code></td>
+<td>The chapters as separate files, the source of the note</td>
+</tr>
+<tr>
+<td><code>figures/</code></td>
+<td>Figures 1–23 as PNG and PDF; Appendix E of the note maps the file names to the figure numbers</td>
+</tr>
+<tr>
+<td><code>data/photodiodes.json</code>, <code>data/amplifiers.json</code></td>
+<td>The photodiode examples of Table 1 and the amplifier data of Table A.1, each value with its datasheet page</td>
+</tr>
+<tr>
+<td><code>data/results/</code></td>
+<td>The output of the analysis scripts; <code>data/results/note_tables/</code> holds the table bodies that <code>assemble_note.py</code> inserts into the chapters</td>
+</tr>
+<tr>
+<td><code>spice/results/</code></td>
+<td>The summaries of the SPICE checks of Chapter 9</td>
+</tr>
+<tr>
+<td><code>spice/models/README.md</code></td>
+<td>The source of every vendor model the checks use</td>
+</tr>
+<tr>
+<td><code>scripts_archive/</code></td>
+<td>The model, the analysis, the SPICE checks, the figures and the edits of the note, indexed in <code>scripts_archive/README.md</code></td>
+</tr>
+</tbody>
+</table>
+<p>The datasheets, application notes and papers read for the note, the vendor SPICE models and the decks and logs that the SPICE checks write to <code>spice/runs/</code> are not included. Appendix D of the note gives each document’s source, and <code>spice/models/README.md</code> gives each model’s.</p>
+<h2 id="building-the-pdfs-and-the-web-pages">Building the PDFs and the web pages</h2>
+<p><code>build/build_pdf.py</code> turns a note’s Markdown into HTML with pandoc (MathML for the equations) and prints it to PDF with headless Chrome. With <code>KEEP_HTML=1</code> it also keeps the HTML, from which <code>build/make_web_html.py</code> makes the <code>index.html</code> of the note’s folder. <code>build/make_landing.py</code> makes the landing page <code>index.html</code> from this README. The scripts run from the repository folder with Python 3, BeautifulSoup and PyMuPDF. <code>build/build_pdf.py</code> runs <code>pandoc</code> and <code>chrome</code>, and <code>build/make_landing.py</code> runs <code>pandoc</code>, each from the PATH or as named by <code>PANDOC</code> and <code>CHROME</code>. For the high-gain note, for example:</p>
+<pre><code>python TIA_high_gain_survey_2026-11-02/scripts_archive/assemble_note.py
+KEEP_HTML=1 python build/build_pdf.py TIA_high_gain_survey_2026-11-02/TIA_high_gain_survey.md
+python build/make_web_html.py TIA_high_gain_survey_2026-11-02/TIA_high_gain_survey.md --remove-print-html
+python build/make_landing.py</code></pre>
+<p>The first line assembles the note from its chapter files; the balanced-photodiode note is edited directly and needs no such step. In a PDF, the link to the other note points to that note’s PDF on the web site, whose address <code>SITE_URL</code> can change; on a web page it points to the other note’s web page. The site is served as static files, as the empty <code>.nojekyll</code> file tells GitHub Pages.</p>
+<h2 id="reproducing-the-numbers">Reproducing the numbers</h2>
+<p><strong>The balanced-photodiode note.</strong> The analysis needs Python 3 with NumPy, SciPy and Matplotlib; the PDF extraction tools also need PyMuPDF. The SPICE checks need ngspice 45 or later as a shared library, for example the one installed with KiCad 10, and the vendor models of Table B.1 of the note. Appendix B.2 of the note lists the steps, and <code>scripts_archive/README.md</code> says what each script does. The scripts, their docstrings and the tables they generate use the section, table and equation numbers of the note before its reorganization of 27 October 2026; <code>scripts_archive/rework/TIA_opamp_survey.map.txt</code> converts each of them to the present number.</p>
+<p><strong>The high-gain note.</strong> The analysis needs the same Python packages, with Pillow for the PDF tools. The SPICE checks run the Texas Instruments models in the ngspice shared library of KiCad 10 and the Analog Devices models in LTspice. Appendix B.4 of the note lists the scripts in the order in which they run, and <code>scripts_archive/README.md</code> says what each one does. The analytic scripts run in under a minute and the SPICE checks in a few minutes.</p>
+<h2 id="licence">Licence</h2>
+<p>The notes, their figures, scripts and data are dedicated to the public domain under CC0 1.0 Universal; no copyright is reserved. See <a href="LICENSE">LICENSE</a>. The manufacturers’ SPICE model files are not covered: each remains under its vendor’s terms, which the <code>spice/models/README.md</code> of each note gives. Nor is the LSBF862 model card that the scripts of both notes reproduce, which remains Linear Systems’ model.</p>
+</body>
+</html>

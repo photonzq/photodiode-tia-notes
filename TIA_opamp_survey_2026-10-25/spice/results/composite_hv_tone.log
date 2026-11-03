@@ -1,0 +1,7 @@
+
+===== hv_tone
+macromodels, G2 = 5.5   100 MHz: ceiling 8.30 V (first stage (swing or slew rate) times |H2|); THD -60 dBc at 8.10 V (0.98 x), -40 dBc at 8.26 V (1.00 x); at 1.0 x: output +8.30/-8.07 V THD -35.8 dBc, OPA859 +1.50/-1.45 V | flags ['gmin stepping (operating point found only with it)']
+macromodels, G2 = 5.5   150 MHz: ceiling 6.80 V (first stage (swing or slew rate) times |H2|); THD -60 dBc at 8.02 V (1.18 x), -40 dBc at 8.16 V (1.20 x); at 1.0 x: output +6.81/-6.81 V THD -136.5 dBc, OPA859 +1.22/-1.22 V | flags ['gmin stepping (operating point found only with it)']
+macromodels, G2 = 5   100 MHz: ceiling 7.55 V (first stage (swing or slew rate) times |H2|); THD -60 dBc at 7.37 V (0.98 x), -40 dBc at 7.52 V (1.00 x); at 1.0 x: output +7.55/-7.34 V THD -35.8 dBc, OPA859 +1.50/-1.45 V | flags ['gmin stepping (operating point found only with it)']
+macromodels, G2 = 5   150 MHz: ceiling 6.18 V (first stage (swing or slew rate) times |H2|); THD -60 dBc at 7.29 V (1.18 x), -40 dBc at 7.42 V (1.20 x); at 1.0 x: output +6.19/-6.19 V THD -136.5 dBc, OPA859 +1.22/-1.22 V | flags ['gmin stepping (operating point found only with it)']
+  [gmin stepping (operating point found only with it)] in 36 deck(s), e.g. composite/hv_tone/G5p5_f100M_a0p5: ['stderr Note: Starting dynamic gmin stepping', 'stderr Note: Dynamic gmin stepping completed']

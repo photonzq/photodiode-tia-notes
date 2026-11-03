@@ -1,0 +1,288 @@
+{
+ "OPA855|A, 1 pF, 2 kOhm": {
+  "spice": {
+   "z_lf_ohm": 2000.4642516585045,
+   "f3_MHz": 431.0168637094896,
+   "peak_dB": 0.0,
+   "f_peak_MHz": 0.1
+  },
+  "analytical": {
+   "f3_MHz": 420.58687866150257,
+   "peak_dB": 0.0
+  },
+  "errors": []
+ },
+ "OPA855|A, 2 pF, 2 kOhm": {
+  "spice": {
+   "z_lf_ohm": 2000.4641912612024,
+   "f3_MHz": 290.9730747671999,
+   "peak_dB": 0.0,
+   "f_peak_MHz": 0.1
+  },
+  "analytical": {
+   "f3_MHz": 280.0099125914498,
+   "peak_dB": 0.0
+  },
+  "errors": []
+ },
+ "OPA855|A, 1 pF, 1.5 kOhm": {
+  "spice": {
+   "z_lf_ohm": 1500.3239659618607,
+   "f3_MHz": 547.6025944377982,
+   "peak_dB": 0.0,
+   "f_peak_MHz": 0.1
+  },
+  "analytical": {
+   "f3_MHz": 539.0447791855771,
+   "peak_dB": 0.0
+  },
+  "errors": []
+ },
+ "OPA855|A, 2 pF, 1.5 kOhm": {
+  "spice": {
+   "z_lf_ohm": 1500.3239273410925,
+   "f3_MHz": 342.37508335297986,
+   "peak_dB": 0.0,
+   "f_peak_MHz": 0.1
+  },
+  "analytical": {
+   "f3_MHz": 330.0665193240047,
+   "peak_dB": 0.0
+  },
+  "errors": []
+ },
+ "OPA818|B, 1 pF, 2 kOhm": {
+  "spice": {
+   "z_lf_ohm": 1999.9936255674481,
+   "f3_MHz": 225.62387931166737,
+   "peak_dB": 0.0,
+   "f_peak_MHz": 0.1
+  },
+  "analytical": {
+   "f3_MHz": 330.68273063316394,
+   "peak_dB": 0.0
+  },
+  "errors": []
+ },
+ "OPA818|B, 2 pF, 2 kOhm": {
+  "spice": {
+   "z_lf_ohm": 1999.9937455734278,
+   "f3_MHz": 230.6709716583551,
+   "peak_dB": 0.0,
+   "f_peak_MHz": 0.1
+  },
+  "analytical": {
+   "f3_MHz": 301.87441611011593,
+   "peak_dB": 0.0
+  },
+  "errors": []
+ },
+ "OPA818|B, 1 pF, 1.5 kOhm": {
+  "spice": {
+   "z_lf_ohm": 1499.9950002578837,
+   "f3_MHz": 333.3212673727121,
+   "peak_dB": 0.0072540367695171065,
+   "f_peak_MHz": 61.659500200000004
+  },
+  "analytical": {
+   "f3_MHz": 442.2994813200891,
+   "peak_dB": 0.7913805529007146
+  },
+  "errors": []
+ },
+ "OPA818|B, 2 pF, 1.5 kOhm": {
+  "spice": {
+   "z_lf_ohm": 1499.994996937774,
+   "f3_MHz": 267.7171964138503,
+   "peak_dB": 0.0,
+   "f_peak_MHz": 0.1
+  },
+  "analytical": {
+   "f3_MHz": 373.28747665233226,
+   "peak_dB": 0.0
+  },
+  "errors": []
+ },
+ "OPA856|Table 8.1, 2 kOhm": {
+  "spice": {
+   "z_lf_ohm": 2000.2997911478888,
+   "f3_MHz": 183.75444586940455,
+   "peak_dB": 0.1050712051701539,
+   "f_peak_MHz": 67.6082975
+  },
+  "analytical": {
+   "f3_MHz": 204.9336693248847,
+   "peak_dB": 0.10953144410279061
+  },
+  "errors": []
+ },
+ "LMH6629|Table 8.1, 2 kOhm": {
+  "spice": {
+   "z_lf_ohm": 1999.6299225111434,
+   "f3_MHz": 169.48242766248387,
+   "peak_dB": 0.0,
+   "f_peak_MHz": 0.1
+  },
+  "analytical": {
+   "f3_MHz": 228.52625030217732,
+   "peak_dB": 0.0002391625917406538
+  },
+  "errors": []
+ },
+ "OPA858|as OPA855, 2 kOhm": {
+  "spice": {
+   "z_lf_ohm": 1999.741050992126,
+   "f3_MHz": 508.4423436140907,
+   "peak_dB": 0.014741760866075662,
+   "f_peak_MHz": 123.026877
+  },
+  "analytical": {
+   "f3_MHz": 416.63679540559633,
+   "peak_dB": 0.0
+  },
+  "errors": []
+ },
+ "OPA859|flat design, 2 kOhm": {
+  "spice": {
+   "z_lf_ohm": 1999.0568491771323,
+   "f3_MHz": 196.2277312313498,
+   "peak_dB": 0.0862272185840396,
+   "f_peak_MHz": 69.1830971
+  },
+  "analytical": {
+   "f3_MHz": 174.50752834519193,
+   "peak_dB": 0.01942710933861502
+  },
+  "errors": []
+ },
+ "OPA846|flat design, 2 kOhm": {
+  "spice": {
+   "z_lf_ohm": 1999.9480348607246,
+   "f3_MHz": 163.48126342775493,
+   "peak_dB": 0.0,
+   "f_peak_MHz": 0.1
+  },
+  "analytical": {
+   "f3_MHz": 232.6082870349725,
+   "peak_dB": 0.0022762903898917524
+  },
+  "errors": []
+ },
+ "OPA657|flat design, 2 kOhm": {
+  "spice": {
+   "z_lf_ohm": 1999.6201794167923,
+   "f3_MHz": 161.61510738202801,
+   "peak_dB": 2.2127069748864315e-06,
+   "f_peak_MHz": 0.177827941
+  },
+  "analytical": {
+   "f3_MHz": 321.4989494575849,
+   "peak_dB": 0.0
+  },
+  "errors": []
+ },
+ "OPA847|largest-PM design, 2 kOhm": {
+  "spice": {
+   "z_lf_ohm": 1999.6347096762915,
+   "f3_MHz": 270.7040277435894,
+   "peak_dB": 4.268335419900977,
+   "f_peak_MHz": 141.253754
+  },
+  "analytical": {
+   "f3_MHz": 550.5769024649403,
+   "peak_dB": 11.450410326536796
+  },
+  "errors": []
+ },
+ "LMH6624|largest-PM design, 2 kOhm": {
+  "spice": {
+   "z_lf_ohm": 1999.7907066523685,
+   "f3_MHz": 119.75713180677157,
+   "peak_dB": 0.0,
+   "f_peak_MHz": 0.1
+  },
+  "analytical": {
+   "f3_MHz": 231.83324858815087,
+   "peak_dB": 19.706480121934266
+  },
+  "errors": []
+ },
+ "THS4021|largest-PM design, 2 kOhm": {
+  "spice": {
+   "z_lf_ohm": 1999.9678031497397,
+   "f3_MHz": 321.70925598992557,
+   "peak_dB": 19.405619876531954,
+   "f_peak_MHz": 281.838293
+  },
+  "analytical": {
+   "f3_MHz": 351.61201415042564,
+   "peak_dB": 17.731126299775447
+  },
+  "errors": []
+ },
+ "ADA4817-1|robust design, 2 kOhm": {
+  "spice": {
+   "z_lf_ohm": 1999.0505835365825,
+   "f3_MHz": 119.50851343783043,
+   "peak_dB": 0.87053641479579,
+   "f_peak_MHz": 63.0957344
+  },
+  "analytical": {
+   "f3_MHz": 114.66346448344395,
+   "peak_dB": 1.0043853253610449
+  },
+  "errors": []
+ },
+ "ADA4899-1|robust design, 2 kOhm": {
+  "spice": {
+   "z_lf_ohm": 1999.6664979592156,
+   "f3_MHz": 73.61141599708363,
+   "peak_dB": 0.0,
+   "f_peak_MHz": 0.1
+  },
+  "analytical": {
+   "f3_MHz": 76.12803481699498,
+   "peak_dB": 0.8727353909089663
+  },
+  "errors": []
+ },
+ "ADA4895-1|flat design, 2 kOhm": {
+  "spice": {
+   "z_lf_ohm": 1999.9907334422344,
+   "f3_MHz": 127.33526528194987,
+   "peak_dB": 0.6222824542668153,
+   "f_peak_MHz": 77.6247117
+  },
+  "analytical": {
+   "f3_MHz": 129.74952029598657,
+   "peak_dB": 0.02214208240589958
+  },
+  "errors": []
+ },
+ "AD8099|parasitic C_F only, 2 kOhm": {
+  "spice": {
+   "z_lf_ohm": 1999.8460932312346,
+   "f3_MHz": 323.5346126491585,
+   "peak_dB": 9.956007538097312,
+   "f_peak_MHz": 208.929613
+  },
+  "analytical": {
+   "f3_MHz": 491.6490256162066,
+   "peak_dB": 9.652278832411298
+  },
+  "errors": []
+ },
+ "OPA955|largest-PM design, 2 kOhm": {
+  "spice": {
+   "z_lf_ohm": 1999.8553985121994,
+   "f3_MHz": 459.44011042116557,
+   "peak_dB": 3.551970210194772e-05,
+   "f_peak_MHz": 0.416869383
+  },
+  "analytical": {
+   "f3_MHz": 529.60058626036,
+   "peak_dB": 0.0
+  },
+  "errors": []
+ }
+}

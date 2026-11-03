@@ -1,0 +1,989 @@
+{
+ "_about": "Amplifier parameters for the high-gain survey, typed by hand from rendered datasheet rows (scripts_archive/spec_rows.py). Page = 1-based PDF page. Typical values at 25 C unless marked max. en in nV/rtHz keyed by frequency in Hz; in_ in fA/rtHz keyed by frequency; IB in fA; capacitances in pF; GBW in MHz. Parts marked companion are taken from the companion survey's records (data/specs in that repository), which give the pages.",
+ "parts": {
+  "ADA4530-1": {
+   "maker": "ADI",
+   "doc": "ADA4530-1 data sheet Rev. C",
+   "input": "CMOS electrometer, integrated guard buffer",
+   "supply": "4.5-16 V (p. 1)",
+   "gbw": 2.0,
+   "min_gain": 1,
+   "en": {
+    "10": 80,
+    "1000": 16,
+    "10000": 14
+   },
+   "en_pp_uV": 4,
+   "in_": {
+    "0.1": 0.07
+   },
+   "ib_typ": 1,
+   "ib_max25": 20,
+   "ib_hot": {
+    "85": 20,
+    "125": 250
+   },
+   "c_cm": 8,
+   "c_diff": 0,
+   "c_note": "single CIN value, 8 pF (p. 3)",
+   "vos_max_uV": 40,
+   "drift_max": 0.5,
+   "cite": "pp. 3-4 (5 V table); 10 V and 15 V tables pp. 4-7 give the same noise, IB and CIN",
+   "aol_db": 143,
+   "aol_note": "Large signal voltage gain 143 dB typ, 5 V, RL = 2 kOhm (p. 3); 150 and 155 dB at 10 and 15 V (pp. 5-6)"
+  },
+  "OPA928": {
+   "maker": "TI",
+   "doc": "OPA928 data sheet, revised Apr. 2024",
+   "input": "CMOS electrometer, integrated guard buffer",
+   "supply": "4.5-36 V (p. 4, PSRR condition)",
+   "gbw": 2.5,
+   "min_gain": 1,
+   "en": {
+    "100": 18,
+    "1000": 15
+   },
+   "en_pp_uV": 1.4,
+   "in_": {
+    "0.1": 0.07
+   },
+   "ib_typ": 1,
+   "ib_max25": 20,
+   "ib_hot": {
+    "85": 20
+   },
+   "c_cm": 6,
+   "c_diff": 3,
+   "vos_max_uV": 25,
+   "drift_max": 0.8,
+   "cite": "pp. 4-5 (first table); a later table on p. 8 lists IB max 75 fA",
+   "aol_db": 126,
+   "aol_note": "AOL 126 dB typ, RL = 10 kOhm (p. 4); 120 dB with 2 kOhm"
+  },
+  "LMP7721": {
+   "maker": "TI",
+   "doc": "LMP7721 data sheet, revised Dec. 2014",
+   "input": "CMOS electrometer, bias-current cancellation",
+   "supply": "1.8-5.5 V (abs. max 6 V, p. 4)",
+   "gbw": 17,
+   "min_gain": 1,
+   "en": {
+    "400": 7.5,
+    "1000": 6.5
+   },
+   "in_": {
+    "1000": 10
+   },
+   "ib_typ": 3,
+   "ib_max25": 20,
+   "ib_hot": {
+    "85": 900,
+    "125": 5000
+   },
+   "c_cm": null,
+   "c_diff": null,
+   "c_note": "input capacitance not specified",
+   "vos_max_uV": 150,
+   "drift_max": 4,
+   "cite": "pp. 6-7 (5 V table); 2.7 V table pp. 5-6",
+   "aol_db": 111,
+   "aol_note": "Large signal voltage gain 111 dB typ at 5 V, RL = 2 kOhm (p. 6); 107 dB at 2.7 V (p. 5)"
+  },
+  "LMC6001A": {
+   "maker": "TI",
+   "doc": "LMC6001 data sheet SNOS694I, Sep. 2015",
+   "input": "CMOS electrometer",
+   "supply": "to 16 V (abs. max, p. 3)",
+   "gbw": 1.3,
+   "min_gain": 1,
+   "en": {
+    "1000": 22
+   },
+   "in_": {
+    "1000": 0.13
+   },
+   "ib_typ": 10,
+   "ib_max25": 25,
+   "ib_hot": {
+    "extremes": 2000
+   },
+   "c_cm": null,
+   "c_diff": null,
+   "c_note": "input capacitance not specified",
+   "cite": "p. 4 (IB, A grade), p. 9 (GBW, noise)"
+  },
+  "LMC662": {
+   "maker": "TI",
+   "doc": "LMC66x data sheet, revised Feb. 2024",
+   "input": "CMOS, general purpose",
+   "supply": "to 16 V (p. 4)",
+   "gbw": 1.4,
+   "min_gain": 1,
+   "en": {
+    "1000": 22
+   },
+   "in_": {
+    "1000": 0.2
+   },
+   "ib_typ": 2,
+   "ib_hot": {
+    "85": 4000
+   },
+   "c_cm": null,
+   "c_diff": null,
+   "c_note": "input capacitance not specified; RIN > 1 TOhm",
+   "vos_max_uV": 3000,
+   "cite": "pp. 6-7; current noise: p. 23 (revision history)",
+   "aol_db": 126,
+   "aol_note": "AOL 2000 V/mV typ, sourcing, LMC66xAI (p. 7)",
+   "in_note": "0.2 fA/rtHz at 1 kHz from Revision C, as quoted in the Revision D history (p. 23): 'Changed input current noise density from 0.0002pA/rtHz to 4fA/rtHz to align with modern noise test setup'. Revision D gives 4 fA/rtHz (p. 6). The shot noise of the ~2-fA input leakage is about 0.025 fA/rtHz."
+  },
+  "ADA4625-1": {
+   "maker": "ADI",
+   "doc": "ADA4625-1/ADA4625-2 data sheet Rev. C",
+   "input": "JFET",
+   "supply": "to 36 V (p. 1)",
+   "gbw": 18,
+   "min_gain": 1,
+   "en": {
+    "10": 5.5,
+    "100": 3.6,
+    "1000": 3.3
+   },
+   "en_pp_uV": 0.15,
+   "in_": {
+    "1000": 4.5
+   },
+   "ib_typ": 15000,
+   "ib_max25": 75000,
+   "ib_hot": {
+    "125": 5500000
+   },
+   "c_cm": 11.3,
+   "c_diff": 8.6,
+   "vos_max_uV": 80,
+   "drift_max": 1.2,
+   "cite": "pp. 3-4 (+-18 V table); 5 V table pp. 5-6 gives CDM 12.1, CCM 16.3 pF, GBP 16 MHz",
+   "aol_db": 150,
+   "aol_note": "Large signal voltage gain 150 dB typ, +-18 V, RL = 2 kOhm (p. 3); 145 dB at 5 V (p. 5)"
+  },
+  "OPA828": {
+   "maker": "TI",
+   "doc": "OPA828 data sheet SBOS671D, Dec. 2022",
+   "input": "JFET",
+   "supply": "+-18 V class",
+   "gbw": 45,
+   "min_gain": 1,
+   "en": {
+    "10": 7.5,
+    "100": 4.8,
+    "1000": 4.0
+   },
+   "en_pp_uV": 0.34,
+   "in_": {
+    "1000": 1.2
+   },
+   "ib_typ": 1000,
+   "ib_max25": 8000,
+   "ib_hot": {
+    "85": 400000,
+    "125": 3000000
+   },
+   "c_cm": 9,
+   "c_diff": 6,
+   "vos_max_uV": 300,
+   "drift_max": 1.5,
+   "cite": "p. 5 (D package; DGN: IB 0.2/5 pA), GBW p. 6",
+   "aol_db": 130,
+   "aol_note": "AOL 130 dB typ, RL = 600 Ohm (p. 6)"
+  },
+  "OPA827": {
+   "maker": "TI",
+   "doc": "OPA827 data sheet SBOS376I, Jul. 2016",
+   "input": "JFET",
+   "supply": "+-18 V (p. 6)",
+   "gbw": 22,
+   "min_gain": 1,
+   "en": {
+    "1000": 4.0,
+    "10000": 3.8
+   },
+   "en_pp_uV": 0.25,
+   "in_": {
+    "1000": 2.2
+   },
+   "ib_typ": 3000,
+   "ib_max25": 10000,
+   "ib_hot": {
+    "85": 500000,
+    "125": 5000000
+   },
+   "c_cm": 9,
+   "c_diff": 9,
+   "vos_max_uV": 150,
+   "drift_max": 2,
+   "cite": "p. 6",
+   "aol_db": 126,
+   "aol_note": "AOL 126 dB typ, RL = 1 kOhm (p. 6)"
+  },
+  "OPA140": {
+   "maker": "TI",
+   "doc": "OPA140 data sheet SBOS498F, Mar. 2023",
+   "input": "JFET, rail-to-rail output",
+   "supply": "4.5-36 V (p. 2, revision history)",
+   "gbw": 11,
+   "min_gain": 1,
+   "en": {
+    "10": 8,
+    "100": 5.8,
+    "1000": 5.1
+   },
+   "en_pp_uV": 0.25,
+   "in_": {
+    "1000": 0.8
+   },
+   "ib_typ": 500,
+   "ib_max25": 10000,
+   "ib_hot": {
+    "125": 3000000
+   },
+   "c_cm": 7,
+   "c_diff": 10,
+   "vos_max_uV": 120,
+   "drift_max": 1,
+   "cite": "p. 7",
+   "aol_db": 126,
+   "aol_note": "AOL 126 dB typ, RL = 10 kOhm and 2 kOhm (p. 7)"
+  },
+  "OPA145": {
+   "maker": "TI",
+   "doc": "OPA145 data sheet SBOS427F, Mar. 2021",
+   "input": "JFET",
+   "supply": "+-18 V (p. 6)",
+   "gbw": 5.5,
+   "min_gain": 1,
+   "en": {
+    "10": 9,
+    "100": 7.2,
+    "1000": 7
+   },
+   "en_pp_uV": 0.32,
+   "in_": {
+    "1000": 0.8
+   },
+   "ib_typ": 2000,
+   "ib_max25": 10000,
+   "ib_hot": {
+    "85": 600000,
+    "125": 10000000
+   },
+   "c_cm": 4.3,
+   "c_diff": 5,
+   "vos_max_uV": 150,
+   "cite": "pp. 6-7",
+   "aol_db": 123,
+   "aol_note": "AOL 123 dB typ, RL = 10 kOhm (p. 7)"
+  },
+  "OPA320": {
+   "maker": "TI",
+   "doc": "OPA320 data sheet SBOS513F, Dec. 2016",
+   "input": "CMOS, rail-to-rail",
+   "supply": "1.8-5.5 V (p. 7)",
+   "gbw": 20,
+   "min_gain": 1,
+   "en": {
+    "1000": 8.5,
+    "10000": 7
+   },
+   "en_pp_uV": 2.8,
+   "in_": {
+    "1000": 0.6
+   },
+   "ib_typ": 200,
+   "ib_max25": 900,
+   "ib_hot": {
+    "85": 50000,
+    "125": 600000
+   },
+   "c_cm": 4,
+   "c_diff": 5,
+   "vos_max_uV": 150,
+   "drift_max": 5,
+   "cite": "pp. 7-8",
+   "aol_db": 132,
+   "aol_note": "AOL 132 dB typ, RL = 10 kOhm (p. 8)"
+  },
+  "OPA2156": {
+   "maker": "TI",
+   "doc": "OPA2156 data sheet SBOS900B, Jun. 2019",
+   "input": "CMOS, low noise",
+   "supply": "to +-18 V (p. 6)",
+   "gbw": 25,
+   "min_gain": 1,
+   "en": {
+    "100": 12.0,
+    "1000": 4,
+    "10000": 3.0
+   },
+   "in_": {
+    "1000": 19
+   },
+   "ib_typ": 5000,
+   "ib_max25": 40000,
+   "ib_hot": {
+    "85": 1500000
+   },
+   "c_cm": 1.9,
+   "c_diff": 9.1,
+   "vos_max_uV": 200,
+   "cite": "pp. 5-6 (PMOS input region, SOIC)",
+   "aol_db": 154,
+   "aol_note": "AOL 154 dB typ, +-18 V, SOIC (p. 6)",
+   "gbw_note": "25 MHz gain-bandwidth at G = 100, 20 MHz unity-gain bandwidth (p. 6). The model uses 25 MHz: TI's PSpice model SBOMAR0 Rev. B has 24.8-24.9 MHz from 10 Hz to 100 kHz, 24.7 MHz at 300 kHz, 23.2 MHz at 1 MHz and unity gain at 18.7 MHz (hg_spice_gbw_check.py OPA2156 25).",
+   "aol_shape": [
+    [
+     1000.0,
+     1.0,
+     -0.01
+    ],
+    [
+     1585.0,
+     1.0,
+     -0.01
+    ],
+    [
+     2512.0,
+     1.0,
+     -0.02
+    ],
+    [
+     3981.0,
+     1.0,
+     -0.04
+    ],
+    [
+     6310.0,
+     1.0,
+     -0.06
+    ],
+    [
+     10000.0,
+     1.0,
+     -0.1
+    ],
+    [
+     15850.0,
+     1.0,
+     -0.16
+    ],
+    [
+     25120.0,
+     0.9999,
+     -0.26
+    ],
+    [
+     39810.0,
+     0.9999,
+     -0.41
+    ],
+    [
+     63100.0,
+     0.9997,
+     -0.65
+    ],
+    [
+     100000.0,
+     0.9991,
+     -1.03
+    ],
+    [
+     158500.0,
+     0.9978,
+     -1.63
+    ],
+    [
+     251200.0,
+     0.9946,
+     -2.55
+    ],
+    [
+     398100.0,
+     0.9869,
+     -3.95
+    ],
+    [
+     631000.0,
+     0.9694,
+     -5.92
+    ],
+    [
+     1000000.0,
+     0.9344,
+     -8.28
+    ],
+    [
+     1585000.0,
+     0.8793,
+     -10.23
+    ],
+    [
+     2512000.0,
+     0.819,
+     -10.8
+    ],
+    [
+     3981000.0,
+     0.7761,
+     -10.26
+    ],
+    [
+     6310000.0,
+     0.7594,
+     -10.23
+    ],
+    [
+     10000000.0,
+     0.763,
+     -12.73
+    ],
+    [
+     15850000.0,
+     0.7624,
+     -19.82
+    ],
+    [
+     25120000.0,
+     0.7122,
+     -31.93
+    ],
+    [
+     39810000.0,
+     0.5912,
+     -46.49
+    ],
+    [
+     63100000.0,
+     0.437,
+     -59.93
+    ],
+    [
+     100000000.0,
+     0.2998,
+     -70.38
+    ]
+   ],
+   "aol_shape_note": "Open-loop gain beyond a single pole, H(f) = A/A_1, from TI's PSpice model SBOMAR0 Rev. B (DC gain 154.5 dB, 24.9 MHz at 1 kHz); rows are f in Hz, |H|, phase of H in degrees (add_aol_shape.py)."
+  },
+  "OPA1656": {
+   "maker": "TI",
+   "doc": "OPA1656 data sheet SBOS901C, Sep. 2022",
+   "input": "CMOS, low noise",
+   "supply": "+-2.25 to +-18 V (p. 6)",
+   "gbw": 53,
+   "min_gain": 1,
+   "en": {
+    "100": 11.8,
+    "1000": 4.3,
+    "10000": 2.9
+   },
+   "en_pp_uV": 1.9,
+   "in_": {
+    "1000": 6
+   },
+   "ib_typ": 10000,
+   "ib_max25": 20000,
+   "c_cm": 1.9,
+   "c_diff": 9.1,
+   "vos_max_uV": 1000,
+   "drift_max": 2,
+   "cite": "p. 6",
+   "aol_db": 150,
+   "aol_note": "AOL 150 dB typ, RL = 600 Ohm; 154 dB with 2 kOhm (p. 6)",
+   "gbw_note": "53 MHz gain-bandwidth at G = 100, 20 MHz unity-gain bandwidth (p. 6). The model uses 53 MHz: TI's PSpice model SBOMAW6 Rev. C has 55-56 MHz from 10 Hz to 300 kHz, 47 MHz at 1 MHz, 30 MHz at 3 MHz and unity gain at 21 MHz (hg_spice_gbw_check.py).",
+   "aol_shape": [
+    [
+     1000.0,
+     1.0,
+     -0.02
+    ],
+    [
+     1585.0,
+     1.0,
+     -0.04
+    ],
+    [
+     2512.0,
+     1.0,
+     -0.06
+    ],
+    [
+     3981.0,
+     1.0,
+     -0.1
+    ],
+    [
+     6310.0,
+     1.0,
+     -0.17
+    ],
+    [
+     10000.0,
+     1.0,
+     -0.26
+    ],
+    [
+     15850.0,
+     0.9999,
+     -0.42
+    ],
+    [
+     25120.0,
+     0.9999,
+     -0.67
+    ],
+    [
+     39810.0,
+     0.9997,
+     -1.06
+    ],
+    [
+     63100.0,
+     0.9991,
+     -1.67
+    ],
+    [
+     100000.0,
+     0.9978,
+     -2.65
+    ],
+    [
+     158500.0,
+     0.9945,
+     -4.18
+    ],
+    [
+     251200.0,
+     0.9865,
+     -6.57
+    ],
+    [
+     398100.0,
+     0.9673,
+     -10.18
+    ],
+    [
+     631000.0,
+     0.9245,
+     -15.28
+    ],
+    [
+     1000000.0,
+     0.842,
+     -21.52
+    ],
+    [
+     1585000.0,
+     0.7183,
+     -27.07
+    ],
+    [
+     2512000.0,
+     0.5852,
+     -29.29
+    ],
+    [
+     3981000.0,
+     0.4831,
+     -27.38
+    ],
+    [
+     6310000.0,
+     0.424,
+     -23.68
+    ],
+    [
+     10000000.0,
+     0.3958,
+     -21.43
+    ],
+    [
+     15850000.0,
+     0.3825,
+     -22.71
+    ],
+    [
+     25120000.0,
+     0.3717,
+     -28.76
+    ],
+    [
+     39810000.0,
+     0.3511,
+     -40.88
+    ],
+    [
+     63100000.0,
+     0.3054,
+     -59.87
+    ],
+    [
+     100000000.0,
+     0.2309,
+     -84.58
+    ]
+   ],
+   "aol_shape_note": "Open-loop gain beyond a single pole, H(f) = A/A_1, from TI's PSpice model SBOMAW6 Rev. C (DC gain 155.1 dB, 56.2 MHz at 1 kHz); rows are f in Hz, |H|, phase of H in degrees (add_aol_shape.py)."
+  },
+  "OPA381": {
+   "maker": "TI",
+   "doc": "OPA381 data sheet SBOS313B, Nov. 2004",
+   "input": "CMOS, auto-zero, transimpedance-oriented",
+   "supply": "2.7-5.5 V (p. 3)",
+   "gbw": 18,
+   "min_gain": 1,
+   "en": {
+    "10000": 70,
+    "1000000": 10
+   },
+   "en_pp_uV": 3,
+   "in_": {
+    "10000": 20
+   },
+   "ib_typ": 3000,
+   "ib_max25": 50000,
+   "c_cm": 2.5,
+   "c_diff": 1,
+   "vos_max_uV": 25,
+   "drift_max": 0.1,
+   "cite": "p. 3",
+   "aol_db": 135,
+   "aol_note": "AOL 135 dB typ (p. 3)"
+  },
+  "OPA388": {
+   "maker": "TI",
+   "doc": "OPA388 data sheet SBOS777D, Jul. 2020",
+   "input": "CMOS, zero drift",
+   "supply": "to 5.5 V (p. 7)",
+   "gbw": 10,
+   "min_gain": 1,
+   "en": {
+    "10": 7,
+    "100": 7,
+    "1000": 7,
+    "10000": 7
+   },
+   "en_pp_uV": 0.14,
+   "in_": {
+    "1000": 100
+   },
+   "ib_typ": 30000,
+   "ib_max25": 350000,
+   "c_cm": 4.5,
+   "c_diff": 2,
+   "vos_max_uV": 5,
+   "drift_max": 0.05,
+   "cite": "pp. 7-9; IB 350 pA max at 25 C, 400 pA at 0-85 C, 700 pA at -40-125 C (p. 8)",
+   "ib_hot": {
+    "85": 400000,
+    "125": 700000
+   },
+   "aol_db": 148,
+   "aol_note": "AOL 148 dB typ, RL = 10 kOhm (p. 9)"
+  },
+  "OPA656": {
+   "maker": "TI",
+   "doc": "OPA656 data sheet SBOS196I, Feb. 2024",
+   "input": "JFET, wideband",
+   "supply": "+-6 V (p. 2)",
+   "gbw": 230,
+   "min_gain": 1,
+   "en": {
+    "100000": 6
+   },
+   "in_": {
+    "100000": 5
+   },
+   "ib_typ": 2000,
+   "ib_max25": 20000,
+   "ib_hot": {
+    "85": 5000000
+   },
+   "c_cm": 0.4,
+   "c_diff": 2.6,
+   "vos_max_uV": 1800,
+   "cite": "p. 5",
+   "aol_db": 75,
+   "aol_note": "AOL 75 dB typ, VCM = 0 V (p. 5)"
+  },
+  "OPA211": {
+   "maker": "TI",
+   "doc": "OPA211 data sheet SBOS377L, Jan. 2020",
+   "input": "bipolar, low noise",
+   "supply": "+-15 V (p. 8)",
+   "gbw": 45,
+   "min_gain": 1,
+   "en": {
+    "10": 2,
+    "100": 1.4,
+    "1000": 1.1
+   },
+   "en_pp_uV": 0.08,
+   "in_": {
+    "10": 3200,
+    "1000": 1700
+   },
+   "ib_typ": 60000000,
+   "ib_max25": 175000000,
+   "c_cm": 2,
+   "c_diff": 8,
+   "vos_max_uV": 125,
+   "drift_max": 1.5,
+   "cite": "pp. 8-9 (GBW 80 MHz at G = 100, 45 MHz at G = 1)",
+   "ib_hot": {
+    "125": 200000000
+   },
+   "ib_note": "bipolar: IB max 200 nA at -40 to 125 C (p. 8); not extrapolated upward",
+   "aol_db": 110,
+   "aol_note": "AOL row of the OPA211 table, 110 dB as printed (p. 10)"
+  },
+  "LTC6268-10": {
+   "companion": true,
+   "maker": "ADI",
+   "doc": "LTC6268-10/LTC6269-10 data sheet 626810f Rev. F, Apr. 2015",
+   "input": "CMOS, wideband, decompensated",
+   "supply": "3.1-5.25 V",
+   "gbw": 4000,
+   "min_gain": 10,
+   "en": {
+    "20000.0": 9.3,
+    "30000.0": 7.3,
+    "40000.0": 6.4,
+    "50000.0": 5.85,
+    "70000.0": 5.5,
+    "100000.0": 5.1,
+    "200000.0": 4.4,
+    "300000.0": 4.1,
+    "500000.0": 4.0,
+    "1000000.0": 3.87,
+    "10000000.0": 4.0,
+    "30000000.0": 3.9,
+    "50000000.0": 4.1,
+    "100000000.0": 4.2,
+    "1.0": 889.6269701567652,
+    "10.0": 281.3490778428652,
+    "100.0": 89.04728721473249,
+    "1000.0": 28.401248846314946
+   },
+   "in_": {
+    "100000": 7,
+    "1000000.0": 180.0,
+    "5000000.0": 570.0,
+    "10000000.0": 890.0,
+    "20000000.0": 1430.0,
+    "30000000.0": 2050.0,
+    "40000000.0": 2760.0,
+    "50000000.0": 3490.0,
+    "60000000.0": 4260.0,
+    "70000000.0": 4860.0,
+    "80000000.0": 5530.0,
+    "90000000.0": 6350.0,
+    "100000000.0": 7060.0
+   },
+   "ib_typ": 3,
+   "ib_max25": 20,
+   "ib_hot": {
+    "85": 900,
+    "125": 4000
+   },
+   "c_cm": 0.45,
+   "c_diff": 0.1,
+   "cite": "companion record LTC6268-10.json: pp. 3-6; current-noise curve digitized there",
+   "vos_max_uV": 700,
+   "vos_note": "companion record: 0.7 mV max at 25 C, VCM = 2.75 V (pp. 3, 5)",
+   "curve_note": "en and in_ curve points copied from the companion record (digitized there)",
+   "en_estimate_note": "points at 1 Hz-1 kHz estimated from the 0.1-10 Hz noise of 12.6 uVpp (p. 3) assuming a 1/f density and p-p = 6.6 x rms: K = 7.91e-13 V^2",
+   "aol_db": 108,
+   "aol_note": "companion record: 250 V/mV typ, RL = 10 kOhm (p. 4)"
+  },
+  "OPA657": {
+   "companion": true,
+   "maker": "TI",
+   "doc": "OPA657 data sheet SBOS197F, Aug. 2015",
+   "input": "JFET, wideband, decompensated",
+   "supply": "+-4 to +-6 V",
+   "gbw": 1600,
+   "min_gain": 7,
+   "en": {
+    "10": 38.7,
+    "87": 13.8,
+    "770": 6.4,
+    "9500.0": 5.0,
+    "40000.0": 4.88,
+    "10000000.0": 4.77
+   },
+   "in_": {
+    "100000": 1.3
+   },
+   "ib_typ": 2000,
+   "ib_max25": 20000,
+   "ib_hot": {
+    "85": 5000000
+   },
+   "c_cm": 4.5,
+   "c_diff": 0.7,
+   "cite": "companion record OPA657.json: p. 5, Fig. 13 p. 10",
+   "vos_max_uV": 1800,
+   "vos_note": "companion record: 1.8 mV max, standard grade (p. 5)",
+   "curve_note": "en and in_ curve points copied from the companion record (digitized there)",
+   "aol_db": 70,
+   "aol_note": "companion record: 70 dB typ, RL = 100 Ohm (p. 5); 74.8 dB curve plateau (p. 10)"
+  },
+  "OPA818": {
+   "companion": true,
+   "maker": "TI",
+   "doc": "OPA818 data sheet SBOS940B, Dec. 2025",
+   "input": "FET, wideband, decompensated",
+   "supply": "6-13 V",
+   "gbw": 2700,
+   "min_gain": 7,
+   "en": {
+    "102": 25.5,
+    "1000.0": 8.4,
+    "10000.0": 3.32,
+    "15000.0": 2.97,
+    "30000.0": 2.57,
+    "100000.0": 2.25,
+    "150000.0": 2.2,
+    "300000.0": 2.15,
+    "976000.0": 2.12
+   },
+   "in_": {
+    "10000": 3,
+    "10200.0": 2.5300000000000002,
+    "20000.0": 4.08,
+    "50000.0": 8.56,
+    "100000.0": 15.9,
+    "200000.0": 30.5,
+    "500000.0": 73.7,
+    "1000000.0": 142.0,
+    "2000000.0": 256.0,
+    "3000000.0": 339.0,
+    "5000000.0": 448.0,
+    "10000000.0": 593.0,
+    "20000000.0": 786.0,
+    "30000000.0": 980.0,
+    "50000000.0": 1420.0,
+    "70000000.0": 1890.0,
+    "97600000.0": 2560.0
+   },
+   "ib_typ": 4000,
+   "ib_max25": 25000,
+   "ib_hot": {
+    "85": 700000
+   },
+   "c_cm": 1.9,
+   "c_diff": 0.5,
+   "cite": "companion record OPA818.json: p. 5 (EC), Figs. 6-19 and 6-20 p. 10 (current-noise curve labelled simulation)",
+   "vos_max_uV": 1250,
+   "vos_note": "companion record: 1.25 mV max (p. 5)",
+   "curve_note": "en and in_ curve points copied from the companion record (digitized there)",
+   "aol_db": 92,
+   "aol_note": "companion record: 92 dB typ, RL = 100 Ohm (p. 5)"
+  },
+  "ADA4817-1": {
+   "companion": true,
+   "maker": "ADI",
+   "doc": "ADA4817-1/ADA4817-2 data sheet Rev. A, Mar. 2009 (Chinese edition)",
+   "input": "FET, wideband",
+   "supply": "5-10 V",
+   "gbw": 410,
+   "min_gain": 1,
+   "en": {
+    "11": 166,
+    "100": 54,
+    "1000.0": 11.8,
+    "10000.0": 5.4,
+    "30000.0": 4.6,
+    "100000.0": 4.24,
+    "300000.0": 4.05,
+    "1000000.0": 4.0,
+    "3000000.0": 3.96,
+    "10000000.0": 4.0,
+    "30000000.0": 3.96,
+    "70000000.0": 3.96,
+    "100000000.0": 3.9
+   },
+   "in_": {
+    "100000": 2.5
+   },
+   "ib_typ": 2000,
+   "ib_max25": 20000,
+   "c_cm": 1.3,
+   "c_diff": 0.1,
+   "cite": "companion record ADA4817-1.json: p. 3 Table 1, voltage-noise curve digitized there",
+   "vos_max_uV": 2000,
+   "vos_note": "companion record: 2 mV max at +-5 V (p. 3)",
+   "curve_note": "en and in_ curve points copied from the companion record (digitized there)",
+   "aol_db": 65,
+   "aol_note": "companion record: 65 dB typ at +-5 V, RL = 100 Ohm (p. 3)"
+  },
+  "IF3601 composite": {
+   "composite": true,
+   "maker": "InterFET",
+   "doc": "IF3601 data sheet IF35076-R01, Apr. 2022 (companion folder)",
+   "input": "discrete JFET + op amp (assumed composite GBW 50 MHz)",
+   "gbw": 50,
+   "min_gain": 1,
+   "en": {
+    "100": 0.35
+   },
+   "in_": {
+    "1": 5.66
+   },
+   "ib_typ": null,
+   "ib_max25": 100000,
+   "c_cm": 710,
+   "c_diff": 0,
+   "cite": "en 0.35 nV/rtHz at 100 Hz, VDS 3 V, ID 5 mA; Ciss 650 pF (VGS -4 V, VDS 0, 1 MHz table); Crss about 60 pF read from the Crss-VGS curve; IGSS 0.1 nA max at VGS -10 V (pp. 1-3); in_ = sqrt(2 q IGSS) as an upper bound"
+  },
+  "LSK170 composite": {
+   "composite": true,
+   "maker": "Linear Systems",
+   "doc": "LSK170 data sheet Doc 201110 Rev. A22, Nov. 2019 (companion folder)",
+   "input": "discrete JFET + op amp (assumed composite GBW 50 MHz)",
+   "gbw": 50,
+   "min_gain": 1,
+   "en": {
+    "10": 1.4,
+    "1000": 0.9
+   },
+   "in_": {
+    "1": 12.66
+   },
+   "ib_typ": null,
+   "ib_max25": 500000,
+   "c_cm": 25,
+   "c_diff": 0,
+   "cite": "en 0.9 at 1 kHz and 1.4 at 10 Hz, ID 2 mA; Ciss 20 pF; Crss 5 pF (companion table); IG 0.5 nA max operating (p. 2); in_ = sqrt(2 q IG) as an upper bound"
+  },
+  "BF862 composite": {
+   "composite": true,
+   "maker": "NXP",
+   "doc": "BF862 product specification, Jan. 2000 (companion folder)",
+   "input": "discrete JFET + op amp (assumed composite GBW 50 MHz)",
+   "gbw": 50,
+   "min_gain": 1,
+   "en": {
+    "100000": 0.8
+   },
+   "in_": {
+    "1": 17.9
+   },
+   "ib_typ": null,
+   "ib_max25": 1000000,
+   "c_cm": 11.9,
+   "c_diff": 0,
+   "cite": "companion table: en 0.8 at 100 kHz, Ciss 10 pF, Crss 1.9 pF, IGSS 1 nA max (p. 4); in_ = sqrt(2 q IGSS) as an upper bound; 1/f noise not modelled"
+  }
+ }
+}

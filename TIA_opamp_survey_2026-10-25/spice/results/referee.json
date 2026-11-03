@@ -1,0 +1,656 @@
+{
+ "OPA855": {
+  "stated": "62 deg at noise gain 7 (p18)",
+  "spice_closed_loop": {
+   "z_lf_ohm": 7.048741243574143,
+   "f3_MHz": 3445.955539841766,
+   "peak_dB": 0.6434275121772539,
+   "f_peak_MHz": 2922.84888
+  },
+  "spice_loop": {
+   "f_c_MHz": 1137.7102813563915,
+   "pm_deg": 59.93224023694064,
+   "gm_dB": 5.355653433792469,
+   "second_crossing_MHz": null
+  },
+  "resistive_pm_datasheet_curve": [
+   1244.6292285015388,
+   73.89455251283863
+  ],
+  "resistive_pm_macromodel_curve": [
+   1201.0946249539995,
+   80.80196491341144
+  ],
+  "errors": [],
+  "analytical_datasheet_no_cin": {
+   "pm_deg": 73.89455251283864,
+   "f_c_MHz": 1244.6292285015388,
+   "f3_MHz": 5371.149362876492,
+   "peak_dB": 6.20075817327928
+  },
+  "analytical_datasheet_with_cin": {
+   "pm_deg": 55.155283831789504,
+   "f_c_MHz": 1152.0292550335555,
+   "f3_MHz": 4183.073648393161,
+   "peak_dB": 3.5422446100392557
+  },
+  "macromodel_parameters": {
+   "pm_deg": 59.338372794481685,
+   "f_c_MHz": 1151.4531027181326,
+   "f3_MHz": 3606.4757662814895,
+   "peak_dB": 2.4208722971358734
+  }
+ },
+ "OPA818": {
+  "stated": "about 50 deg at noise gain 7 (p16); 765 MHz and 1.4 dB peaking (p5)",
+  "spice_closed_loop": {
+   "z_lf_ohm": 6.960234050153169,
+   "f3_MHz": 758.1279099852336,
+   "peak_dB": 1.3656678724665148,
+   "f_peak_MHz": 495.226547
+  },
+  "spice_loop": {
+   "f_c_MHz": 370.00425158208924,
+   "pm_deg": 53.981687417558476,
+   "gm_dB": 9.596547125140052,
+   "second_crossing_MHz": null
+  },
+  "resistive_pm_datasheet_curve": [
+   351.69340862640087,
+   51.697546342788655
+  ],
+  "resistive_pm_macromodel_curve": [
+   384.98592683165765,
+   67.97054727510434
+  ],
+  "errors": [],
+  "analytical_datasheet_no_cin": {
+   "pm_deg": 51.697546342788684,
+   "f_c_MHz": 351.69340862640087,
+   "f3_MHz": 663.6115899895765,
+   "peak_dB": 1.2228986455149855
+  },
+  "analytical_datasheet_with_cin": {
+   "pm_deg": 39.85099011923154,
+   "f_c_MHz": 344.0682327668113,
+   "f3_MHz": 669.4652441662238,
+   "peak_dB": 4.257894252926249
+  },
+  "macromodel_parameters": {
+   "pm_deg": 53.97901360031993,
+   "f_c_MHz": 370.05374894574976,
+   "f3_MHz": 783.1760382632734,
+   "peak_dB": 1.864690770903148
+  }
+ },
+ "OPA858": {
+  "stated": "55 deg at noise gain 7 (p18); 1.2 GHz and < 1 dB peaking at G = 7 (p6)",
+  "spice_closed_loop": {
+   "z_lf_ohm": 7.033490110544593,
+   "f3_MHz": 1338.0119030726103,
+   "peak_dB": 0.4182142756538479,
+   "f_peak_MHz": 638.185781
+  },
+  "spice_loop": {
+   "f_c_MHz": 702.1572598790659,
+   "pm_deg": 58.09553867617828,
+   "gm_dB": 14.794969498037847,
+   "second_crossing_MHz": null
+  },
+  "resistive_pm_datasheet_curve": [
+   1277.3888184194159,
+   70.0470918222075
+  ],
+  "resistive_pm_macromodel_curve": [
+   728.2325708984567,
+   70.75046204474761
+  ],
+  "errors": [],
+  "analytical_datasheet_no_cin": {
+   "pm_deg": 70.0470918222075,
+   "f_c_MHz": 1277.3888184194159,
+   "f3_MHz": 2554.9070493912413,
+   "peak_dB": 0.0006520494698299163
+  },
+  "analytical_datasheet_with_cin": {
+   "pm_deg": 51.041832402785616,
+   "f_c_MHz": 1185.5978369046684,
+   "f3_MHz": 2690.2705672000075,
+   "peak_dB": 2.855774340722221
+  },
+  "macromodel_parameters": {
+   "pm_deg": 58.09177464663358,
+   "f_c_MHz": 702.3394747857035,
+   "f3_MHz": 1375.6219064266656,
+   "peak_dB": 0.508162107854565
+  }
+ },
+ "OPA856": {
+  "stated": "about 57 deg as a unity-gain buffer (p16)",
+  "spice_closed_loop": {
+   "z_lf_ohm": 1.0001064057682707,
+   "f3_MHz": 1074.674017093883,
+   "peak_dB": 0.02268371945497992,
+   "f_peak_MHz": 291.410024
+  },
+  "spice_loop": {
+   "f_c_MHz": 786.7373540154965,
+   "pm_deg": 65.77515804696476,
+   "gm_dB": 19.51706382609214,
+   "second_crossing_MHz": null
+  },
+  "resistive_pm_datasheet_curve": [
+   961.2601554586081,
+   56.125
+  ],
+  "resistive_pm_macromodel_curve": [
+   764.2734869138299,
+   71.93300784566227
+  ],
+  "errors": [],
+  "analytical_datasheet_no_cin": {
+   "pm_deg": 56.124999999999986,
+   "f_c_MHz": 961.2601554586081,
+   "f3_MHz": 2397.763607963809,
+   "peak_dB": 0.6930269463142309
+  },
+  "analytical_datasheet_with_cin": {
+   "pm_deg": 56.124999999999986,
+   "f_c_MHz": 961.2601554586081,
+   "f3_MHz": 2397.763607963809,
+   "peak_dB": 0.6930269463142309
+  },
+  "macromodel_parameters": {
+   "pm_deg": 68.11447972220382,
+   "f_c_MHz": 777.4504787059625,
+   "f3_MHz": 1038.5537342039136,
+   "peak_dB": 0.04920954773371385
+  }
+ },
+ "LMH6629": {
+  "stated": "900 MHz, no peaking at Av = +10, RL = 100 ohm, COMP high (p5)",
+  "spice_closed_loop": {
+   "z_lf_ohm": 10.075145477382385,
+   "f3_MHz": 834.3232860887452,
+   "peak_dB": 5.8258200482438457e-08,
+   "f_peak_MHz": 0.117514412
+  },
+  "spice_loop": {
+   "f_c_MHz": 451.8960709477888,
+   "pm_deg": 64.0507022621612,
+   "gm_dB": 14.779693555004181,
+   "second_crossing_MHz": null
+  },
+  "resistive_pm_datasheet_curve": [
+   388.3902714360422,
+   71.15149903527089
+  ],
+  "resistive_pm_macromodel_curve": [
+   481.1708813707855,
+   71.57833500312434
+  ],
+  "errors": [],
+  "analytical_datasheet_no_cin": {
+   "pm_deg": 71.1514990352709,
+   "f_c_MHz": 388.3902714360422,
+   "f3_MHz": 589.0163554488448,
+   "peak_dB": 0.01336488869722271
+  },
+  "analytical_datasheet_with_cin": {
+   "pm_deg": 53.95957548808023,
+   "f_c_MHz": 369.0739318679277,
+   "f3_MHz": 788.9922550614692,
+   "peak_dB": 1.373591332140056
+  },
+  "macromodel_parameters": {
+   "pm_deg": 63.82024049841344,
+   "f_c_MHz": 455.26534783689306,
+   "f3_MHz": 853.6032128636477,
+   "peak_dB": 4.138860264104341e-05
+  }
+ },
+ "OPA859": {
+  "stated": "about 63 deg as a unity-gain buffer (p18); 1.8 GHz at G = 1 (p6)",
+  "spice_closed_loop": {
+   "z_lf_ohm": 0.9995329060188228,
+   "f3_MHz": 1620.306865130714,
+   "peak_dB": 1.0345949591998227,
+   "f_peak_MHz": 3766.60057
+  },
+  "spice_loop": {
+   "f_c_MHz": 916.8004855337638,
+   "pm_deg": 62.685568403310995,
+   "gm_dB": 6.222432818240954,
+   "second_crossing_MHz": null
+  },
+  "resistive_pm_datasheet_curve": [
+   756.8029979119758,
+   74.12500000000001
+  ],
+  "resistive_pm_macromodel_curve": [
+   900.9662942774276,
+   64.96327480669402
+  ],
+  "errors": [],
+  "analytical_datasheet_no_cin": {
+   "pm_deg": 74.12500000000001,
+   "f_c_MHz": 756.8029979119758,
+   "f3_MHz": 1250.5906695927792,
+   "peak_dB": 0.0
+  },
+  "analytical_datasheet_with_cin": {
+   "pm_deg": 74.12500000000001,
+   "f_c_MHz": 756.8029979119758,
+   "f3_MHz": 1250.5906695927792,
+   "peak_dB": 0.0
+  },
+  "macromodel_parameters": {
+   "pm_deg": 64.8721788786943,
+   "f_c_MHz": 901.0864702261962,
+   "f3_MHz": 1428.7366367398074,
+   "peak_dB": 6.117239566513724
+  }
+ },
+ "OPA846": {
+  "stated": "500 MHz at G = +7, RG = 50 ohm (p3); +3.1 dB near 350 MHz, -3 dB at 499 MHz (p4 curve)",
+  "spice_closed_loop": {
+   "z_lf_ohm": 6.999071664652626,
+   "f3_MHz": 521.4398775895424,
+   "peak_dB": 1.3778311592887653,
+   "f_peak_MHz": 298.206774
+  },
+  "spice_loop": {
+   "f_c_MHz": 260.6133628556918,
+   "pm_deg": 50.98759385801364,
+   "gm_dB": 9.949345253255292,
+   "second_crossing_MHz": null
+  },
+  "resistive_pm_datasheet_curve": [
+   244.88406845340697,
+   53.7100654414637
+  ],
+  "resistive_pm_macromodel_curve": [
+   293.50286060825215,
+   59.40784108941257
+  ],
+  "errors": [],
+  "analytical_datasheet_no_cin": {
+   "pm_deg": 53.7100654414637,
+   "f_c_MHz": 244.88406845340697,
+   "f3_MHz": 669.8977522680677,
+   "peak_dB": 2.326745401803326
+  },
+  "analytical_datasheet_with_cin": {
+   "pm_deg": 41.36049837969392,
+   "f_c_MHz": 236.8177163051307,
+   "f3_MHz": 579.2628314887158,
+   "peak_dB": 5.583440902997281
+  },
+  "macromodel_parameters": {
+   "pm_deg": 49.71831822076129,
+   "f_c_MHz": 267.15229937040897,
+   "f3_MHz": 591.8503647529644,
+   "peak_dB": 2.020652061802717
+  }
+ },
+ "OPA657": {
+  "stated": "350 MHz and 7 dB peaking at G = +7 (p5); RF/RG not printed, 453/75.5 ohm from the page header",
+  "spice_closed_loop": {
+   "z_lf_ohm": 6.990862403805931,
+   "f3_MHz": 360.07151245818204,
+   "peak_dB": 5.837099953861244,
+   "f_peak_MHz": 220.977605
+  },
+  "spice_loop": {
+   "f_c_MHz": 190.06402174695052,
+   "pm_deg": 34.358508139642,
+   "gm_dB": 7.193124917551446,
+   "second_crossing_MHz": null
+  },
+  "resistive_pm_datasheet_curve": [
+   282.3718721196768,
+   28.967584545845625
+  ],
+  "resistive_pm_macromodel_curve": [
+   204.6773592079061,
+   57.50392990303088
+  ],
+  "errors": [],
+  "analytical_datasheet_no_cin": {
+   "pm_deg": 28.967584545845625,
+   "f_c_MHz": 282.3718721196768,
+   "f3_MHz": 488.08025247901185,
+   "peak_dB": 6.578234835628742
+  },
+  "analytical_datasheet_with_cin": {
+   "pm_deg": 5.076420660613849,
+   "f_c_MHz": 256.38519617540356,
+   "f3_MHz": 426.93271001257716,
+   "peak_dB": 23.902976750251614
+  },
+  "macromodel_parameters": {
+   "pm_deg": 34.36195850920251,
+   "f_c_MHz": 190.07685617605028,
+   "f3_MHz": 367.7355208120544,
+   "peak_dB": 6.07885413391927
+  }
+ },
+ "OPA847": {
+  "stated": "600 MHz and 4.5 dB peaking (7 dB max) at G = +12, RG = 39.2 ohm (p3, p10)",
+  "spice_closed_loop": {
+   "z_lf_ohm": 11.987214389107615,
+   "f3_MHz": 347.3073998936582,
+   "peak_dB": 5.337059624732917,
+   "f_peak_MHz": 211.019322
+  },
+  "spice_loop": {
+   "f_c_MHz": 185.63199318851107,
+   "pm_deg": 33.344726881212296,
+   "gm_dB": 6.811553312446295,
+   "second_crossing_MHz": null
+  },
+  "resistive_pm_datasheet_curve": [
+   407.3607644172254,
+   31.63511642172722
+  ],
+  "resistive_pm_macromodel_curve": [
+   221.6042089698945,
+   36.79270367621555
+  ],
+  "errors": [],
+  "analytical_datasheet_no_cin": {
+   "pm_deg": 31.63511642172722,
+   "f_c_MHz": 407.3607644172254,
+   "f3_MHz": 838.896466279891,
+   "peak_dB": 10.963666742368407
+  },
+  "analytical_datasheet_with_cin": {
+   "pm_deg": 18.0397891354865,
+   "f_c_MHz": 380.9967616811178,
+   "f3_MHz": 751.5895670106191,
+   "peak_dB": 15.713428102689704
+  },
+  "macromodel_parameters": {
+   "pm_deg": 19.353498353277956,
+   "f_c_MHz": 209.64988440985582,
+   "f3_MHz": 374.36632073207767,
+   "peak_dB": 11.979840083224925
+  }
+ },
+ "LMH6624": {
+  "stated": "no table value at Av = +10; curve with RF = 500 ohm, RL not printed: about 215 MHz, +0.7 dB (p11 Fig 14)",
+  "spice_closed_loop": {
+   "z_lf_ohm": 9.986024288733605,
+   "f3_MHz": 212.4658134438355,
+   "peak_dB": 0.3364057302632577,
+   "f_peak_MHz": 98.6035623
+  },
+  "spice_loop": {
+   "f_c_MHz": 107.67324806991222,
+   "pm_deg": 57.75336177419828,
+   "gm_dB": 12.14193274336656,
+   "second_crossing_MHz": null
+  },
+  "resistive_pm_datasheet_curve": [
+   100.05628759705033,
+   49.97158595304731
+  ],
+  "resistive_pm_macromodel_curve": [
+   113.38452665633478,
+   64.04650375653009
+  ],
+  "errors": [],
+  "analytical_datasheet_no_cin": {
+   "pm_deg": 49.8949528341887,
+   "f_c_MHz": 99.95389932474946,
+   "f3_MHz": 195.00971973597422,
+   "peak_dB": 1.6945074665697548
+  },
+  "analytical_datasheet_with_cin": {
+   "pm_deg": 44.839215958188305,
+   "f_c_MHz": 99.59461677553587,
+   "f3_MHz": 197.88541072772747,
+   "peak_dB": 2.8979169350038294
+  },
+  "macromodel_parameters": {
+   "pm_deg": 57.341647300530795,
+   "f_c_MHz": 108.80585326115349,
+   "f3_MHz": 218.95747419612684,
+   "peak_dB": 0.4343857062046168
+  }
+ },
+ "THS4021": {
+  "stated": "290 MHz at G = +10, +/-15 V (p6, SOIC); curve +1.6 dB (p10 Fig 5-1)",
+  "spice_closed_loop": {
+   "z_lf_ohm": 10.014840894588993,
+   "f3_MHz": 336.1917567893089,
+   "peak_dB": 1.3786566559917826,
+   "f_peak_MHz": 284.768185
+  },
+  "spice_loop": {
+   "f_c_MHz": 96.95188147020679,
+   "pm_deg": 72.53665892637613,
+   "gm_dB": 5.55188537212431,
+   "second_crossing_MHz": null
+  },
+  "resistive_pm_datasheet_curve": [
+   140.0058577180172,
+   47.36043334216333
+  ],
+  "resistive_pm_macromodel_curve": [
+   105.71189032067579,
+   73.96514233283409
+  ],
+  "errors": [],
+  "analytical_datasheet_no_cin": {
+   "pm_deg": 47.36043334216333,
+   "f_c_MHz": 140.0058577180172,
+   "f3_MHz": 307.34035561173505,
+   "peak_dB": 2.0027161349062577
+  },
+  "analytical_datasheet_with_cin": {
+   "pm_deg": 45.7078078614,
+   "f_c_MHz": 139.95660847789924,
+   "f3_MHz": 310.56369913638025,
+   "peak_dB": 2.2505448180767513
+  },
+  "macromodel_parameters": {
+   "pm_deg": 72.48069887198203,
+   "f_c_MHz": 97.22620289050158,
+   "f3_MHz": 337.2451220121748,
+   "peak_dB": 1.545222981970129
+  }
+ },
+ "ADA4817-1": {
+  "stated": "1050 MHz at G = +1 (p3); curve +3.1 dB (p8 Fig 8)",
+  "spice_closed_loop": {
+   "z_lf_ohm": 0.9995276555523935,
+   "f3_MHz": 1108.6620914406392,
+   "peak_dB": 3.305333823197547,
+   "f_peak_MHz": 668.302616
+  },
+  "spice_loop": {
+   "f_c_MHz": 395.61557271086,
+   "pm_deg": 49.249006017616495,
+   "gm_dB": 5.182224992245594,
+   "second_crossing_MHz": null
+  },
+  "resistive_pm_datasheet_curve": [
+   374.1657386773942,
+   56.500000000000014
+  ],
+  "resistive_pm_macromodel_curve": [
+   377.66059829411086,
+   53.29249756408208
+  ],
+  "errors": [],
+  "analytical_datasheet_no_cin": {
+   "pm_deg": 56.499999999999986,
+   "f_c_MHz": 374.1657386773942,
+   "f3_MHz": 1301.6251272675518,
+   "peak_dB": 1.8123868416300644
+  },
+  "analytical_datasheet_with_cin": {
+   "pm_deg": 56.499999999999986,
+   "f_c_MHz": 374.1657386773942,
+   "f3_MHz": 1301.6251272675518,
+   "peak_dB": 1.8123868416300644
+  },
+  "macromodel_parameters": {
+   "pm_deg": 53.30091709484903,
+   "f_c_MHz": 377.69896965005574,
+   "f3_MHz": 865.9077887122371,
+   "peak_dB": 1.0950781183283989
+  }
+ },
+ "AD8099": {
+  "stated": "700 MHz and 3.1 dB peaking at G = +2 with the SOIC compensation network (p17 Table 4, Fig 61)",
+  "spice_closed_loop": {
+   "z_lf_ohm": 1.9998050936805762,
+   "f3_MHz": 803.4603382329616,
+   "peak_dB": 4.344323823683415,
+   "f_peak_MHz": 366.973475
+  },
+  "spice_loop": {
+   "f_c_MHz": 399.7465642478345,
+   "pm_deg": 46.556449547211884,
+   "gm_dB": 14.185406995598305,
+   "second_crossing_MHz": null
+  },
+  "resistive_pm_datasheet_curve": [
+   1257.0347608184552,
+   -105.984891521424
+  ],
+  "resistive_pm_macromodel_curve": [
+   1187.2377973036034,
+   6.539665587961792
+  ],
+  "errors": []
+ },
+ "ADA4899-1": {
+  "stated": "605 MHz at G = +1 with RS = 24.9 ohm, RL = 1 kohm (p14 Table 4); curve +0.8 dB (p6 Fig 5)",
+  "spice_closed_loop": {
+   "z_lf_ohm": 0.9999050913108827,
+   "f3_MHz": 512.7283671890372,
+   "peak_dB": 0.7674887889029004,
+   "f_peak_MHz": 201.509807
+  },
+  "spice_loop": {
+   "f_c_MHz": 269.47781146262776,
+   "pm_deg": 55.5236845376194,
+   "gm_dB": 11.579336772059818,
+   "second_crossing_MHz": null
+  },
+  "resistive_pm_datasheet_curve": [
+   341.90983195388196,
+   52.509090909090915
+  ],
+  "resistive_pm_macromodel_curve": [
+   232.49031273793142,
+   59.96880434081663
+  ],
+  "errors": [],
+  "analytical_datasheet_no_cin": {
+   "pm_deg": 52.509090909090915,
+   "f_c_MHz": 341.90983195388196,
+   "f3_MHz": 920.3937295398945,
+   "peak_dB": 7.634019498258251
+  },
+  "analytical_datasheet_with_cin": {
+   "pm_deg": 52.509090909090915,
+   "f_c_MHz": 341.90983195388196,
+   "f3_MHz": 920.3937295398945,
+   "peak_dB": 7.634019498258251
+  },
+  "macromodel_parameters": {
+   "pm_deg": 59.97382191124365,
+   "f_c_MHz": 232.54261074255055,
+   "f3_MHz": 408.7714852805992,
+   "peak_dB": 0.4483939758812839
+  }
+ },
+ "ADA4895-1": {
+  "stated": "216 MHz at G = +10, +/-2.5 V (p4 Table 3); curve +2.1 dB (p10 Fig 8)",
+  "spice_closed_loop": {
+   "z_lf_ohm": 9.988824321325238,
+   "f3_MHz": 222.31985831273178,
+   "peak_dB": 2.040346366145254,
+   "f_peak_MHz": 100.903359
+  },
+  "spice_loop": {
+   "f_c_MHz": 114.98891156772514,
+   "pm_deg": 46.67927802051295,
+   "gm_dB": 11.658037898305631,
+   "second_crossing_MHz": null
+  },
+  "resistive_pm_datasheet_curve": [
+   145.61259412278392,
+   55.85336751055091
+  ],
+  "resistive_pm_macromodel_curve": [
+   136.72777256314473,
+   58.95842074826783
+  ],
+  "errors": [],
+  "analytical_datasheet_no_cin": {
+   "pm_deg": 55.853367510550925,
+   "f_c_MHz": 145.61259412278392,
+   "f3_MHz": 267.8901375161167,
+   "peak_dB": 1.105445592708837
+  },
+  "analytical_datasheet_with_cin": {
+   "pm_deg": 39.41374488457441,
+   "f_c_MHz": 139.88821273329694,
+   "f3_MHz": 298.01336575630023,
+   "peak_dB": 3.9142376290622805
+  },
+  "macromodel_parameters": {
+   "pm_deg": 46.59419930041747,
+   "f_c_MHz": 115.24709542551147,
+   "f3_MHz": 240.34994845138223,
+   "peak_dB": 2.285650741329762
+  }
+ },
+ "OPA955": {
+  "stated": "2.8 GHz at G = +7, 100 mVpp (p5, advance information); curve 2.95 GHz with +1.3 dB, RF = 453 ohm (p7 Fig 6-1)",
+  "spice_closed_loop": {
+   "z_lf_ohm": 6.996446145677943,
+   "f3_MHz": 2354.260168521532,
+   "peak_dB": 3.6835010033745834,
+   "f_peak_MHz": 1365.7674
+  },
+  "spice_loop": {
+   "f_c_MHz": 1168.8068722063465,
+   "pm_deg": 41.71583859203034,
+   "gm_dB": 13.703629021785023,
+   "second_crossing_MHz": null
+  },
+  "resistive_pm_datasheet_curve": [
+   1436.7782388860583,
+   39.738202471157365
+  ],
+  "resistive_pm_macromodel_curve": [
+   1312.3698710699173,
+   82.46361351879638
+  ],
+  "errors": [],
+  "analytical_datasheet_no_cin": {
+   "pm_deg": 39.7443564573766,
+   "f_c_MHz": 1436.6282482879242,
+   "f3_MHz": 3195.1393978826695,
+   "peak_dB": 3.815042063507667
+  },
+  "analytical_datasheet_with_cin": {
+   "pm_deg": 15.897750626382532,
+   "f_c_MHz": 1272.4932993999441,
+   "f3_MHz": 2499.41186377767,
+   "peak_dB": 14.562909455823442
+  },
+  "macromodel_parameters": {
+   "pm_deg": 41.713925514148144,
+   "f_c_MHz": 1169.0144965808822,
+   "f3_MHz": 2491.072319793156,
+   "peak_dB": 4.292178367848144
+  }
+ }
+}

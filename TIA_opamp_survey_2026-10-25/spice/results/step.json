@@ -1,0 +1,134 @@
+{
+ "OPA855|A, 1 pF, 2 kOhm": {
+  "step_mV": 19.99547415273851,
+  "overshoot_pct": 0.316022827754662,
+  "rise_10_90_ps": 797.9999999999999,
+  "errors": []
+ },
+ "OPA855|A, 2 pF, 2 kOhm": {
+  "step_mV": 19.99547358578978,
+  "overshoot_pct": 4.306000695177391e-05,
+  "rise_10_90_ps": 1188.0,
+  "errors": []
+ },
+ "OPA855|A, 1 pF, 1.5 kOhm": {
+  "step_mV": 14.996842756079397,
+  "overshoot_pct": 1.2292407603318583,
+  "rise_10_90_ps": 621.0000000000002,
+  "errors": []
+ },
+ "OPA855|A, 2 pF, 1.5 kOhm": {
+  "step_mV": 14.99684244457301,
+  "overshoot_pct": 0.00011012602852994914,
+  "rise_10_90_ps": 999.0,
+  "errors": []
+ },
+ "OPA818|B, 1 pF, 2 kOhm": {
+  "step_mV": 19.99945559118369,
+  "overshoot_pct": 0.6812740445798011,
+  "rise_10_90_ps": 1510.0,
+  "errors": []
+ },
+ "OPA818|B, 2 pF, 2 kOhm": {
+  "step_mV": 19.999455590174737,
+  "overshoot_pct": 3.5299800877921257,
+  "rise_10_90_ps": 1467.0,
+  "errors": []
+ },
+ "OPA818|B, 1 pF, 1.5 kOhm": {
+  "step_mV": 14.999587991562109,
+  "overshoot_pct": 3.9717870939863986,
+  "rise_10_90_ps": 1009.0000000000001,
+  "errors": []
+ },
+ "OPA818|B, 2 pF, 1.5 kOhm": {
+  "step_mV": 14.999587990950529,
+  "overshoot_pct": 2.6836150449122327,
+  "rise_10_90_ps": 1258.0000000000005,
+  "errors": []
+ },
+ "OPA856|Table 8.1, 2 kOhm": {
+  "step_mV": 19.99675511992614,
+  "overshoot_pct": 6.965775555684271,
+  "rise_10_90_ps": 1866.0000000000005,
+  "errors": []
+ },
+ "LMH6629|Table 8.1, 2 kOhm": {
+  "step_mV": 19.996311099999996,
+  "overshoot_pct": 0.0,
+  "rise_10_90_ps": 2057.0000000000005,
+  "errors": []
+ },
+ "OPA858|as OPA855, 2 kOhm": {
+  "step_mV": 19.997413147968665,
+  "overshoot_pct": 5.556561589191551,
+  "rise_10_90_ps": 677.9999999999999,
+  "errors": []
+ },
+ "OPA859|flat design, 2 kOhm": {
+  "step_mV": 19.99032939825297,
+  "overshoot_pct": 6.611384965959729,
+  "rise_10_90_ps": 1740.9999999999998,
+  "errors": []
+ },
+ "OPA846|flat design, 2 kOhm": {
+  "step_mV": 19.99948410338418,
+  "overshoot_pct": 2.202703520549214e-08,
+  "rise_10_90_ps": 2129.9999999999995,
+  "errors": []
+ },
+ "OPA657|flat design, 2 kOhm": {
+  "step_mV": 19.99626731807063,
+  "overshoot_pct": 2.0468505622817254e-07,
+  "rise_10_90_ps": 2200.0000000000005,
+  "errors": []
+ },
+ "OPA847|largest-PM design, 2 kOhm": {
+  "step_mV": 19.996480747483446,
+  "overshoot_pct": 39.78878149526373,
+  "rise_10_90_ps": 1166.9999999999998,
+  "errors": []
+ },
+ "LMH6624|largest-PM design, 2 kOhm": {
+  "step_mV": 19.997879259366055,
+  "overshoot_pct": 0.00018112237540109842,
+  "rise_10_90_ps": 2626.0000000000005,
+  "errors": []
+ },
+ "THS4021|largest-PM design, 2 kOhm": {
+  "step_mV": 20.24869651061872,
+  "overshoot_pct": 31.21186912611819,
+  "rise_10_90_ps": 1212.0,
+  "errors": []
+ },
+ "ADA4817-1|robust design, 2 kOhm": {
+  "step_mV": 19.99223417805524,
+  "overshoot_pct": 13.620123277335672,
+  "rise_10_90_ps": 2802.0,
+  "errors": []
+ },
+ "ADA4899-1|robust design, 2 kOhm": {
+  "step_mV": 19.996621499396827,
+  "overshoot_pct": 0.0002664980340290559,
+  "rise_10_90_ps": 4679.0,
+  "errors": []
+ },
+ "ADA4895-1|flat design, 2 kOhm": {
+  "step_mV": 19.988127780166185,
+  "overshoot_pct": 11.086743812158065,
+  "rise_10_90_ps": 2781.9999999999995,
+  "errors": []
+ },
+ "AD8099|parasitic C_F only, 2 kOhm": {
+  "step_mV": 19.978716300602578,
+  "overshoot_pct": 59.59611133503,
+  "rise_10_90_ps": 886.9999999999999,
+  "errors": []
+ },
+ "OPA955|largest-PM design, 2 kOhm": {
+  "step_mV": 19.99866340902293,
+  "overshoot_pct": 6.525924659542798e-05,
+  "rise_10_90_ps": 747.0,
+  "errors": []
+ }
+}

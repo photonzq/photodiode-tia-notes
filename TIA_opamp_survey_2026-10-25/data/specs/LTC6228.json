@@ -1,0 +1,221 @@
+{
+  "part": "LTC6228",
+  "manufacturer": "Analog Devices (LTC part; Analog Devices-branded data sheet)",
+  "datasheet_file": "datasheets/ltc6228_distributor_copy.pdf",
+  "datasheet_id_and_revision": "LTC6228/LTC6229 data sheet, Rev. B (03/20), (c) Analog Devices 2019-2020; revision history p29: Rev. A 09/19 added LTC6229, Rev. B 03/20 corrected wording and values on pp. 1, 9, 17, 20, 30",
+  "datasheet_status": "Production data sheet as printed",
+  "input_type": "bipolar (PNP input pair Q1/Q2, p17), with optional internal input-bias-current cancellation",
+  "compensation": "unity-gain stable",
+  "min_stable_gain": {
+    "value": 1,
+    "unit": "V/V",
+    "type": "stated ('unity gain stable', p1)",
+    "below_minimum_guidance": "n/a. Feedback-network pole: e.g. G = +2 with 1 kOhm resistors and 7 pF at -IN oscillates (pole at 45 MHz); 7 pF across RF cures it (p18-19 Fig 2). Capacitive loads: 10-100 Ohm series resistor (p18).",
+    "src": "p1, p18-19"
+  },
+  "supply": {
+    "total_min_V": 2.8,
+    "total_max_V": 11.75,
+    "abs_max_V": 12,
+    "dual_or_single": "single or split (V- may be negative with 2.8 V <= V+ - V- <= 11.75 V)",
+    "recommended": "specified at +/-5 V, 5 V and 3 V",
+    "type": "MIN/MAX over temperature (Note 5: guaranteed by PSRR test)",
+    "src": "p2, p4, p16"
+  },
+  "quiescent_current": [
+    {"value_typ": 16, "value_max": 16.9, "unit": "mA", "type": "TYP/MAX 25 C (19.8 max over T)", "conditions": "per channel, +/-5 V", "src": "p4"},
+    {"value_typ": 16.5, "value_max": 17.8, "unit": "mA", "type": "TYP/MAX 25 C (19.6 over T)", "conditions": "5 V", "src": "p6"},
+    {"value_typ": 16.4, "value_max": 17.6, "unit": "mA", "type": "TYP/MAX 25 C (19 over T)", "conditions": "3 V", "src": "p8"},
+    {"value_typ": 500, "value_max": 610, "unit": "uA", "type": "TYP/MAX 25 C (770 over T)", "conditions": "shutdown, +/-5 V, VSHDN = V+ - 2.75 V", "src": "p4"}
+  ],
+  "gbw": [
+    {"value_min": 700, "value_typ": 890, "unit": "MHz", "type": "MIN/TYP 25 C (650 min over T)", "conditions": "f = 5 MHz, RL = 1 kOhm to half supply, +/-5 V", "src": "p4"},
+    {"value_min": 700, "value_typ": 865, "unit": "MHz", "type": "MIN/TYP 25 C (600 min over T)", "conditions": "5 V", "src": "p7"},
+    {"value_min": 700, "value_typ": 845, "unit": "MHz", "type": "MIN/TYP 25 C (560 min over T)", "conditions": "3 V", "src": "p9"},
+    {"value": "842 (3 V), 866 (5 V), 893 (10 V), 902 (11.5 V)", "unit": "MHz", "type": "CURVE (vector data, +/-2 MHz)", "conditions": "VCM = half supply, RL = 1 kOhm to half supply, 25 C", "src": "p13 G29"}
+  ],
+  "open_loop_dc_gain": [
+    {"value_min": 120, "value_typ": 135, "unit": "dB", "type": "MIN/TYP 25 C (113 over T)", "conditions": "+/-5 V, RL = 1 kOhm to half supply, VOUT = +/-4 V (front page: 5.6 V/uV)", "src": "p1, p4"},
+    {"value_min": 100, "value_typ": 120, "unit": "dB", "type": "MIN/TYP 25 C (92 over T)", "conditions": "+/-5 V, RL = 100 Ohm, VOUT = +/-3 V", "src": "p4"},
+    {"value_min": 120, "value_typ": 140, "unit": "dB", "type": "MIN/TYP", "conditions": "5 V, RL = 1 kOhm", "src": "p6"}
+  ],
+  "phase_margin_or_crossover": [
+    {"value": "open-loop 0 dB crossing at about 295 MHz; plotted phase there 51 deg", "type": "CURVE (vector data)", "conditions": "+/-5 V, RL = 1 kOhm, 25 C", "src": "p13 G28"},
+    {"value": "phase margin 55.4 (3 V), 55.7 (5 V), 52.4 (10 V), 51.9 (11.5 V) deg", "type": "CURVE (vector data)", "conditions": "RL = 1 kOhm to half supply, 25 C", "src": "p13 G29"}
+  ],
+  "open_loop_curve": {
+    "figure": "G28 'Open Loop Gain and Phase vs Frequency', p13 (printed 13), 500 kHz-1 GHz, gain and phase share one axis (-5 to 70)",
+    "conditions": "VS = +/-5 V, TA = 25 C, RL = 1 kOhm",
+    "phase_convention": "plotted phase = 180 deg + angle(A_OL), i.e. the phase margin at the 0 dB crossing (reads 51 deg there, matching the G29/G30 phase-margin plots). Values above 70 deg (below ~14 MHz) are off-scale and not shown.",
+    "reading_uncertainty": "+/-0.3 dB, +/-1 deg (read from the PDF vector paths)",
+    "points": [
+      {"f_Hz": 5e5, "gain_dB": 64.0, "phase_deg": null},
+      {"f_Hz": 1e6, "gain_dB": 58.9, "phase_deg": null},
+      {"f_Hz": 2e6, "gain_dB": 53.1, "phase_deg": null},
+      {"f_Hz": 5e6, "gain_dB": 45.2, "phase_deg": null},
+      {"f_Hz": 1e7, "gain_dB": 38.7, "phase_deg": null},
+      {"f_Hz": 2e7, "gain_dB": 31.5, "phase_deg": 64},
+      {"f_Hz": 3e7, "gain_dB": 26.4, "phase_deg": 57},
+      {"f_Hz": 5e7, "gain_dB": 19.7, "phase_deg": 52.3},
+      {"f_Hz": 7e7, "gain_dB": 15.4, "phase_deg": 51.8},
+      {"f_Hz": 1e8, "gain_dB": 11.1, "phase_deg": 52.7},
+      {"f_Hz": 1.5e8, "gain_dB": 6.3, "phase_deg": 52.0},
+      {"f_Hz": 2e8, "gain_dB": 3.1, "phase_deg": 53.4},
+      {"f_Hz": 3e8, "gain_dB": -0.2, "phase_deg": 51.3},
+      {"f_Hz": 4e8, "gain_dB": -2.0, "phase_deg": 45.6},
+      {"f_Hz": 5e8, "gain_dB": -3.5, "phase_deg": 36.2},
+      {"f_Hz": 7e8, "gain_dB": -7.0, "phase_deg": 8.4},
+      {"f_Hz": 8e8, "gain_dB": -9.1, "phase_deg": -5.1}
+    ],
+    "notes": "0 dB crossing ~295 MHz; plotted phase crosses 0 deg (i.e. angle(A) = -180 deg) at ~755 MHz. Curves end before 1 GHz (bottom of plot)."
+  },
+  "open_loop_output_impedance": {
+    "value": null,
+    "note": "not given. Closed-loop curves G31 (p13) tend to ~13-20 Ohm at 100-500 MHz for AV = 10, which bounds the open-loop value (inference, not stated)."
+  },
+  "closed_loop_output_impedance": {
+    "figure": "G31 'Output Impedance vs Frequency', p13, VS = +/-5 V, AV = 1, 2, 10",
+    "type": "CURVE (vector data, +/-5 %)",
+    "points_AV1": [{"f_Hz": 1e5, "ohm": 0.037}, {"f_Hz": 1e6, "ohm": 0.038}, {"f_Hz": 1e7, "ohm": 0.14}, {"f_Hz": 3e7, "ohm": 0.56}, {"f_Hz": 1e8, "ohm": 4.9}, {"f_Hz": 2e8, "ohm": 27}, {"f_Hz": 3e8, "ohm": 56}, {"f_Hz": 5e8, "ohm": 20}],
+    "points_AV2": [{"f_Hz": 1e5, "ohm": 0.034}, {"f_Hz": 1e6, "ohm": 0.039}, {"f_Hz": 1e7, "ohm": 0.19}, {"f_Hz": 3e7, "ohm": 0.94}, {"f_Hz": 1e8, "ohm": 22}, {"f_Hz": 2e8, "ohm": 24}, {"f_Hz": 3e8, "ohm": 20}, {"f_Hz": 5e8, "ohm": 15.5}],
+    "points_AV10": [{"f_Hz": 1e5, "ohm": 0.037}, {"f_Hz": 1e6, "ohm": 0.057}, {"f_Hz": 1e7, "ohm": 0.73}, {"f_Hz": 3e7, "ohm": 6.1}, {"f_Hz": 1e8, "ohm": 12.9}, {"f_Hz": 2e8, "ohm": 13.1}, {"f_Hz": 3e8, "ohm": 18.2}, {"f_Hz": 5e8, "ohm": 14.3}],
+    "notes": "curve-to-gain assignment by colour and label position (AV = 10 rises first)"
+  },
+  "closed_loop_small_signal_bw": [
+    {"value": 730, "unit": "MHz", "type": "TYP", "conditions": "AV = +1, RL = 1 kOhm to half supply, +/-5 V", "src": "p4"},
+    {"value": 800, "unit": "MHz", "type": "TYP", "conditions": "AV = +1, 5 V", "src": "p7"},
+    {"value": 763, "unit": "MHz", "type": "TYP", "conditions": "AV = +1, 3 V", "src": "p9"},
+    {"value": "-3 dB at ~737 MHz, peaking 1.9 dB at ~160 MHz", "type": "CURVE (vector)", "conditions": "AV = +1, +/-5 V, RL = 1 kOhm", "src": "p12 G26"},
+    {"value": "-3 dB at ~192 MHz, peaking 1.7 dB at ~90 MHz", "type": "CURVE (vector)", "conditions": "AV = +2, RF = RG = 301 Ohm, CF = 2.7 pF, RL = 1 kOhm, +/-5 V", "src": "p12 G27"}
+  ],
+  "large_signal_bw": [
+    {"value": 12.5, "unit": "MHz", "type": "TYP", "conditions": "full-power BW, VOUT = 8 V p-p, AV = +2, THD < -40 dBc, +/-5 V", "src": "p5"},
+    {"value": 18, "unit": "MHz", "type": "TYP", "conditions": "VOUT = 4 V p-p, AV = +2, THD < -40 dBc, 5 V", "src": "p7"},
+    {"value": 22, "unit": "MHz", "type": "TYP", "conditions": "VOUT = 2 V p-p, VCM = 1 V, AV = -1, THD < -40 dBc, 3 V", "src": "p9"},
+    {"value": "about 9.8 V p-p up to a few MHz, falling to ~1 V p-p by 40 MHz", "type": "CURVE (visual)", "conditions": "maximum undistorted output (HD2, HD3 < -40 dBc), +/-5 V, RL = 1 kOhm", "src": "p14 G43"}
+  ],
+  "slew_rate": [
+    {"value_min": 320, "value_typ": 500, "unit": "V/us", "type": "MIN/TYP 25 C (250 min over T)", "conditions": "AV = +4, 8 V output step, +/-5 V; Note 8: middle 2/3 of waveform, RL = 1 kOhm", "src": "p5"},
+    {"value_typ": 350, "unit": "V/us", "type": "TYP", "conditions": "AV = +4, 4 V step, 5 V", "src": "p7"},
+    {"value_typ": 200, "unit": "V/us", "type": "TYP", "conditions": "AV = +4, 2 V step, 3 V", "src": "p9"}
+  ],
+  "rise_fall_settling": [
+    {"value": 26, "unit": "ns", "type": "TYP", "conditions": "0.1 %, AV = 1, 2 V step, RL = 1 kOhm, +/-5 V", "src": "p5"},
+    {"value": 34, "unit": "ns", "type": "TYP", "conditions": "0.1 %, AV = 1, 4 V step", "src": "p5"},
+    {"value": 53, "unit": "ns", "type": "TYP", "conditions": "0.01 %, AV = 1, 6 V step", "src": "p5"}
+  ],
+  "overdrive_recovery": [
+    {"value": null, "note": "not specified; plot only (G49 p15: AV = 2, RF = RG = 500 Ohm, CF = 2.7 pF, RL = 1 kOhm, +/-5 V, 25 ns/div)"}
+  ],
+  "voltage_noise": {
+    "spot": [
+      {"value": 0.88, "unit": "nV/rtHz", "type": "TYP", "conditions": "f = 1 MHz, +/-5 V, 5 V and 3 V", "src": "p3, p6, p8"},
+      {"value": 0.94, "unit": "uV p-p", "type": "TYP", "conditions": "0.1-10 Hz", "src": "p3"}
+    ],
+    "curve_points": [
+      {"f_Hz": 1, "nV_rtHz": 68}, {"f_Hz": 10, "nV_rtHz": 20.6}, {"f_Hz": 100, "nV_rtHz": 6.4},
+      {"f_Hz": 1e3, "nV_rtHz": 2.64}, {"f_Hz": 1e4, "nV_rtHz": 1.29}, {"f_Hz": 1e5, "nV_rtHz": 0.93},
+      {"f_Hz": 3e5, "nV_rtHz": 0.91}, {"f_Hz": 1e6, "nV_rtHz": 0.88}, {"f_Hz": 3e6, "nV_rtHz": 0.89},
+      {"f_Hz": 1e7, "nV_rtHz": 0.98}, {"f_Hz": 2e7, "nV_rtHz": 1.26}, {"f_Hz": 3e7, "nV_rtHz": 1.43},
+      {"f_Hz": 5e7, "nV_rtHz": 1.26}
+    ],
+    "curve_source": "G13 'Input Voltage Noise and Current Noise Spectral Densities vs Frequency', p11, VS = +/-5 V, 25 C; read from vector paths (+/-3 %)",
+    "one_over_f_corner_Hz": "about 1e4-3e4 (CURVE-derived: 1.29 nV/rtHz at 10 kHz); not stated",
+    "highest_frequency_plotted_Hz": 5e7,
+    "notes": "eN rises above ~5 MHz to ~1.4 nV/rtHz near 30 MHz. Text p20: 0.88 nV/rtHz equals a 47 Ohm resistor; a 100 Ohm resistor in series with each input would raise total noise to 2 nV/rtHz (p18)."
+  },
+  "current_noise": {
+    "spot": [
+      {"value": 3, "unit": "pA/rtHz", "type": "TYP", "conditions": "f = 1 MHz, bias cancellation disabled (SHDN floating)", "src": "p3, p6, p8"},
+      {"value": 6.3, "unit": "pA/rtHz", "type": "TYP", "conditions": "f = 1 MHz, bias cancellation enabled (SHDN within 350 mV of V+)", "src": "p3, p6, p8"}
+    ],
+    "curve_points_cancellation_disabled": [
+      {"f_Hz": 1, "pA_rtHz": 571}, {"f_Hz": 100, "pA_rtHz": 49}, {"f_Hz": 1e4, "pA_rtHz": 8.8}, {"f_Hz": 1e5, "pA_rtHz": 4.1},
+      {"f_Hz": 3e5, "pA_rtHz": 3.5}, {"f_Hz": 1e6, "pA_rtHz": 3.0}, {"f_Hz": 3e6, "pA_rtHz": 2.45}, {"f_Hz": 1e7, "pA_rtHz": 2.2},
+      {"f_Hz": 2e7, "pA_rtHz": 2.9}, {"f_Hz": 3e7, "pA_rtHz": 3.2}
+    ],
+    "curve_points_cancellation_enabled": [
+      {"f_Hz": 1, "pA_rtHz": 1226}, {"f_Hz": 100, "pA_rtHz": 136}, {"f_Hz": 1e4, "pA_rtHz": 14.2}, {"f_Hz": 1e5, "pA_rtHz": 7.9},
+      {"f_Hz": 1e6, "pA_rtHz": 6.3}, {"f_Hz": 3e6, "pA_rtHz": 4.4}, {"f_Hz": 1e7, "pA_rtHz": 3.2}, {"f_Hz": 3e7, "pA_rtHz": 3.4}
+    ],
+    "hf_behavior": "plotted only to ~30 MHz. Cancellation disabled: falls to ~2.2 pA/rtHz at 10 MHz, then rises mildly to ~3.2 pA/rtHz at 30 MHz (end of plot). Not specified above 30 MHz.",
+    "how_measured_or_defined": "spot values TYP at 1 MHz; G13 not stated as measured or simulated. Curve identity fixed by the table values (higher curve = cancellation enabled); the in-plot labels are ambiguous. No explanation of the upturn above 10 MHz. Text p18/p20: lower eN is bought with higher collector current, raising iN; enabling bias cancellation increases current noise; iN dominates when R_EQ > 1.8 kOhm (cancellation disabled).",
+    "src": "p3, p11 G13, p18, p20"
+  },
+  "input_capacitance": {
+    "common_mode_pF": 1.5,
+    "differential_pF": 3.5,
+    "type": "TYP, no frequency range or method stated; all three supply tables",
+    "definition_notes": "listed as 'Differential Mode' 3.5 pF and 'Common Mode' 1.5 pF. Input resistance: differential 2.6 kOhm, common mode 4 MOhm.",
+    "src": "p3, p6, p8"
+  },
+  "input_bias_current": [
+    {"value_typ": -16, "value_min": -40, "unit": "uA", "type": "TYP/MIN 25 C (-44 over T)", "conditions": "bias cancellation disabled, +/-5 V (Note 6: average of both inputs)", "src": "p3"},
+    {"value_typ": 0.6, "value_max": 2.5, "unit": "uA", "type": "TYP/MAX 25 C (4.1 over T)", "conditions": "bias cancellation enabled, +/-5 V", "src": "p3"},
+    {"value": "cancellation ineffective (IB can exceed 50 uA) when VCM is within ~500 mV of V-", "type": "text", "src": "p17"}
+  ],
+  "input_offset_voltage": [
+    {"value_typ": 20, "value_max": 95, "unit": "uV", "type": "TYP/MAX 25 C (250 over T)", "conditions": "+/-5 V", "src": "p3"},
+    {"value_typ": 0.4, "unit": "uV/C", "type": "TYP drift", "src": "p3"}
+  ],
+  "input_common_mode_range": [
+    {"value": "V- - 0.1 V to V+ - 1.2 V", "type": "MIN/MAX over T (CMRR test)", "conditions": "all supplies", "src": "p4, p6, p8, p16"}
+  ],
+  "cmrr_psrr": [
+    {"param": "CMRR", "value_min": 100, "value_typ": 110, "unit": "dB", "conditions": "+/-5 V, VCM = V- - 0.1 to V+ - 1.2 V (94 min over T)", "src": "p4"},
+    {"param": "PSRR+", "value_min": 100, "value_typ": 110, "unit": "dB", "conditions": "V- = -1 V, V+ = 1.8-10.75 V", "src": "p4"},
+    {"param": "PSRR-", "value_min": 101, "value_typ": 126, "unit": "dB", "conditions": "V+ = 1.5 V, V- = -1.3 to -10.25 V", "src": "p4"}
+  ],
+  "output_swing": [
+    {"supply": "+/-5 V", "load": "no load", "V_low": "V- + 8 mV typ (16 max, 20 over T)", "V_high": "V+ - 27 mV typ (50 max, 60 over T)", "type": "TYP/MAX", "src": "p4"},
+    {"supply": "+/-5 V", "load": "5 mA", "V_low": "V- + 46 mV typ (70 max, 85 over T)", "V_high": "V+ - 90 mV typ (140 max, 180 over T)", "type": "TYP/MAX", "src": "p4 (VOH row printed 'ISINK = 5mA')"},
+    {"supply": "+/-5 V", "load": "25 mA", "V_low": "V- + 140 mV typ (220 max, 280 over T)", "V_high": "V+ - 250 mV typ (340 max, 450 over T)", "type": "TYP/MAX", "src": "p4"},
+    {"supply": "5 V", "load": "no load / 5 mA / 25 mA", "V_low": "7 / 40 / 150 mV typ (18 / 70 / 220 max)", "V_high": "26 / 93 / 255 mV typ (48 / 144 / 347 max)", "type": "TYP/MAX", "src": "p6"},
+    {"supply": "3 V", "load": "no load / 5 mA / 25 mA", "V_low": "7 / 48 / 165 mV typ (10 / 74 / 320 max)", "V_high": "27 / 106 / 290 mV typ (49 / 166 / 520 max)", "type": "TYP/MAX", "src": "p8"},
+    {"supply": "10 V total", "load": "25 mA", "V_low": "within 320 mV of the supply (text)", "V_high": "within 320 mV of the supply (text)", "type": "text", "src": "p18"}
+  ],
+  "output_swing_vs_load_curve": [
+    {"figure": "G20/G21 (p12) output saturation vs load current, +/-5 V, 1 uA-100 mA log axes", "type": "CURVE (not digitised)"}
+  ],
+  "output_current": [
+    {"value": 80, "unit": "mA", "type": "MIN (front page 'Large output current: 80 mA min')", "src": "p1"},
+    {"value": "more than 90 mA typical (10 V total supply)", "type": "text", "src": "p16, p18"},
+    {"value": "+/-100 mA", "type": "abs max (Note 3)", "src": "p2"}
+  ],
+  "short_circuit_current": [
+    {"value": "-130 sourcing (-80 limit, -65 over T); 140 sinking (80 min, 60 over T)", "unit": "mA", "type": "TYP/limit", "conditions": "+/-5 V", "src": "p4"},
+    {"value": "-110 sourcing; 110 sinking", "unit": "mA", "type": "TYP", "conditions": "5 V", "src": "p6"}
+  ],
+  "distortion": [
+    {"f_Hz": 1e5, "Vout_pp": 4, "R_L_ohm": 1000, "gain": 1, "HD2_dBc": -113, "HD3_dBc": -119, "type": "TYP", "supply": "+/-5 V", "src": "p5"},
+    {"f_Hz": 1e6, "Vout_pp": 4, "R_L_ohm": 1000, "gain": 1, "HD2_dBc": -107, "HD3_dBc": -114, "type": "TYP", "supply": "+/-5 V", "src": "p5"},
+    {"f_Hz": 1e6, "Vout_pp": 2, "R_L_ohm": 1000, "gain": 1, "HD2_dBc": -119, "HD3_dBc": -132, "type": "TYP", "supply": "+/-5 V", "src": "p5"},
+    {"f_Hz": 5e6, "Vout_pp": 4, "R_L_ohm": 1000, "gain": 1, "HD2_dBc": -83, "HD3_dBc": -96, "type": "TYP", "supply": "+/-5 V", "src": "p5"},
+    {"f_Hz": 5e6, "Vout_pp": 2, "R_L_ohm": 1000, "gain": 1, "HD2_dBc": -90, "HD3_dBc": -113, "type": "TYP", "supply": "+/-5 V", "src": "p5"},
+    {"f_Hz": 1e7, "Vout_pp": 2, "R_L_ohm": 1000, "gain": 1, "HD2_dBc": -74, "HD3_dBc": -89, "type": "TYP", "supply": "+/-5 V", "src": "p5"},
+    {"f_Hz": 1e6, "Vout_pp": 4, "R_L_ohm": 100, "gain": 1, "HD2_dBc": -97, "HD3_dBc": -107, "type": "TYP", "supply": "+/-5 V", "src": "p5"},
+    {"f_Hz": 5e6, "Vout_pp": 4, "R_L_ohm": 100, "gain": 1, "HD2_dBc": -79, "HD3_dBc": -75, "type": "TYP", "supply": "+/-5 V", "src": "p5"},
+    {"f_Hz": 5e6, "Vout_pp": 2, "R_L_ohm": 100, "gain": 1, "HD2_dBc": -83, "HD3_dBc": -82, "type": "TYP", "supply": "+/-5 V", "src": "p5"},
+    {"f_Hz": 1e7, "Vout_pp": 2, "R_L_ohm": 100, "gain": 1, "HD2_dBc": -72, "HD3_dBc": -68, "type": "TYP", "supply": "+/-5 V", "src": "p5"},
+    {"f_Hz": 1e7, "Vout_pp": 2, "R_L_ohm": 1000, "gain": 1, "HD2_dBc": -78, "HD3_dBc": -90, "type": "TYP", "supply": "5 V", "src": "p7"},
+    {"f_Hz": 1e7, "Vout_pp": 2, "R_L_ohm": 100, "gain": 1, "HD2_dBc": -70, "HD3_dBc": -73, "type": "TYP", "supply": "5 V", "src": "p7"}
+  ],
+  "distortion_notes": "Curves G37-G42 (p14) for AV = 1 and 2 at +/-5 V, 5 V, 3 V extend only to ~20-50 MHz (not digitised). Front page: HD2/HD3 < -100 dBc at AV = +1, 4 V p-p, 2 MHz, RL = 1 kOhm. The +/-5 V RL = 100 Ohm rows list '100 kHz, 4 V p-p' twice (-105/-106 and -118/-124); the second is probably 2 V p-p.",
+  "imd_or_oip3": null,
+  "packages": [
+    {"name": "S8, 8-lead SOIC (narrow)", "pins": 8, "body_mm": "4.80-5.00 x 3.81-3.99", "pitch_mm": 1.27, "exposed_pad": "no", "ep_connection": null, "theta_JA_C_per_W": 120, "notes": "pinout 1 FB (internally tied to OUT; take feedback from FB), 2 -IN, 3 +IN, 4 V-, 5 V-, 6 OUT, 7 V+, 8 SHDN", "src": "p2, p19, p24"},
+    {"name": "S6, 6-lead TSOT-23", "pins": 6, "body_mm": "2.90 x 1.50-1.75", "pitch_mm": 0.95, "exposed_pad": "no", "ep_connection": null, "theta_JA_C_per_W": 192, "notes": "1 OUT, 2 V-, 3 +IN, 4 -IN, 5 SHDN, 6 V+", "src": "p2, p26"},
+    {"name": "DC6, 6-lead DFN 2 x 2 mm", "pins": 6, "body_mm": "2.00 x 2.00, 0.75 high", "pitch_mm": 0.5, "exposed_pad": "yes, about 1.37 x 0.60 mm", "ep_connection": "V- (pin 7), must be soldered to PCB", "theta_JA_C_per_W": 80, "notes": "1 V+, 2 +IN, 3 V-, 4 SHDN, 5 -IN, 6 OUT", "src": "p2, p25"},
+    {"name": "LTC6229 dual: DD 10-lead DFN 3 x 3 mm; MSE 8-lead MSOP", "pins": "10 / 8", "body_mm": "3 x 3", "pitch_mm": "0.5 / 0.65", "exposed_pad": "yes", "ep_connection": "V-, must be soldered", "theta_JA_C_per_W": "43 / 35", "notes": "DD shows TJMAX = 125 C on p2 while abs max says 150 C", "src": "p2, p27, p28"}
+  ],
+  "pinout_notes": "SHDN referenced to V+: < V+ - 2.75 V shuts down (outputs high-impedance, ~500 uA); within 350 mV of V+ enables input-bias cancellation; floating = on, cancellation off (internally biased 1.2 V below V+). Bypass with 0.1 uF || 1000 pF; no ground/supply plane under the input pins.",
+  "tia_content": [
+    {"what": "High-speed high-dynamic-range photodiode amplifier: JFET (ON Semi 2SK932-22) source-follower front end inside the LTC6228 loop", "R_F": "1 MOhm", "C_F": "0.055 pF (parasitic)", "C_D_or_source_C": "photodiode SFH213 (capacitance not given), anode at -5 V", "bandwidth": "-3 dB 4.6 MHz; rise time 77 ns; integrated output noise 661 uV rms over 4.6 MHz; output noise density ~150 nV/rtHz at 100 kHz rising to ~410 nV/rtHz near 5 MHz", "supply": "+/-5 V", "measured_or_simulated": "measured (noise spectrum and scope plots)", "figure_or_section": "p30 TA02"},
+    {"what": "Gain-stage noise model: eT^2 = en^2 + in^2 R_EQ^2 + 4kT R_EQ, R_EQ = R_S1 + R_G || R_F; voltage noise dominates for R_EQ << 47 Ohm, resistor noise for 55 Ohm << R_EQ << 1.8 kOhm, current noise above 1.8 kOhm (cancellation disabled)", "R_F": null, "C_F": null, "C_D_or_source_C": null, "bandwidth": null, "measured_or_simulated": "equations", "figure_or_section": "p20 Fig 3"},
+    {"what": "Feedback-pole guidance: 1 kOhm/1 kOhm G = +2 with 7 pF at -IN oscillates (pole 45 MHz), 7 pF across RF fixes it; a 5 kOhm feedback resistor with 400 fF parasitic affects gain above 79 MHz", "R_F": "1 kOhm; 5 kOhm", "C_F": "7 pF; 0.4 pF parasitic", "C_D_or_source_C": "7 pF", "bandwidth": null, "measured_or_simulated": "text", "figure_or_section": "p18-20, Fig 2"}
+  ],
+  "application_guidance": "Front page lists 'Optical electronics: fast transimpedance amplifiers'. Capacitive loads: 10-100 Ohm series output resistor (G35/G36 overshoot vs CL). Use 0306 rather than 0603 capacitors for low inductance. For SOIC take feedback from the FB pin. No resistor in series with the inputs internally (noise); limit differential input current.",
+  "abs_max_and_input_protection": "Total supply 12 V; inputs and SHDN V- - 0.3 V to V+ + 0.3 V; input current +/-10 mA; output +/-100 mA; junction 150 C; storage -65 to 150 C. Back-to-back diodes D5/D7 limit the differential input to +/-0.7 V; limit current to < 10 mA (about 25 Ohm per 250 mV of overdrive beyond 0.7 V). Not for comparator/open-loop use. Avoid hot-plugging (supply clamp).",
+  "other_notes": "Front-page GBW 890 MHz is at f = 5 MHz; the open-loop gain falls faster above ~50 MHz, so the open-loop 0 dB crossing is only ~295 MHz while the AV = 1 closed-loop -3 dB is 730 MHz (with ~1.9 dB peaking). G13 in-plot labels for the two current-noise curves are ambiguous; the table values identify them. VOH 5 mA row says 'ISINK'. Pages 22-23 (instrumentation amp, differential-to-single-ended converter) read from text only.",
+  "pages_read": "PDF pages 1-21 and 30 rendered at 120 dpi and read; pages 22-23 (non-TIA application circuits), 24-28 (package drawings) and 29 (revision history) read from extracted text only. Curves G13, G26, G27, G28, G29, G31 read from PDF vector paths. PDF page index = printed page number."
+}

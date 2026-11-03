@@ -1,0 +1,6756 @@
+{
+ "OPA855|A, 1 pF, 2 kOhm": {
+  "part": "OPA855",
+  "R_F": 2000.0,
+  "C_D_pF": 1.0,
+  "C_F_pF": 0.25,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 736.6947913313201,
+     "pm_deg": 51.70421321144261,
+     "gm_dB": 8.238560862049958,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 734.2142681789794,
+     "pm_deg": 51.94587623433097,
+     "gm_dB": 8.234218083173145,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 1.95,
+     "f_c_MHz": 733.3602939088486,
+     "pm_deg": 50.94042866045723,
+     "gm_dB": 9.46109265673236,
+     "f3_MHz": 714.3922580605832,
+     "peak_dB": 0.5800527914387209,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 1.95,
+     "f_c_MHz": 728.4445031760372,
+     "pm_deg": 51.14389332361009,
+     "gm_dB": 12.578196692052899,
+     "f3_MHz": 712.4411846809661,
+     "peak_dB": 0.8274370460858881,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 686.8710344057854,
+     "pm_deg": 50.144884862849324,
+     "gm_dB": 9.025923561041806,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 684.8626276748886,
+     "pm_deg": 50.37516157042148,
+     "gm_dB": 9.030995212268257,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.15,
+     "f_c_MHz": 684.3191811635938,
+     "pm_deg": 49.99158208579121,
+     "gm_dB": 10.251177040270473,
+     "f3_MHz": 695.2303125180661,
+     "peak_dB": 0.8023013583986495,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.15,
+     "f_c_MHz": 680.6594574610235,
+     "pm_deg": 49.56338332698243,
+     "gm_dB": 13.368297868049408,
+     "f3_MHz": 695.391224254974,
+     "peak_dB": 1.090891741994763,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 645.3749927641327,
+     "pm_deg": 48.691274627044805,
+     "gm_dB": 9.747824930697991,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 643.7164616894806,
+     "pm_deg": 48.912114707342226,
+     "gm_dB": 9.766368267886033,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.35,
+     "f_c_MHz": 643.5001215162569,
+     "pm_deg": 48.86681161865303,
+     "gm_dB": 10.975353953746666,
+     "f3_MHz": 677.4800840213161,
+     "peak_dB": 1.019530118446269,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.35,
+     "f_c_MHz": 640.5939656279693,
+     "pm_deg": 48.09803899166741,
+     "gm_dB": 14.092487707855216,
+     "f3_MHz": 678.5290228125605,
+     "peak_dB": 1.3489892789609592,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 1029.5993470337946,
+     "pm_deg": 65.92811751744046,
+     "gm_dB": 4.353691872080824,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 1015.7127723598815,
+     "pm_deg": 66.47934753090561,
+     "gm_dB": 4.334470782051827,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 1.95,
+     "f_c_MHz": 1009.1698245743293,
+     "pm_deg": 63.04612738888453,
+     "gm_dB": 5.448493236240683,
+     "f3_MHz": 413.6175730478855,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 1.95,
+     "f_c_MHz": 995.3238408018611,
+     "pm_deg": 66.62536744071237,
+     "gm_dB": 9.056148360777437,
+     "f3_MHz": 429.6259058776703,
+     "peak_dB": 0.0014331324059023412,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 941.6266534220711,
+     "pm_deg": 65.30448679093125,
+     "gm_dB": 5.1067624504301765,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 930.7605810131653,
+     "pm_deg": 65.79867569465704,
+     "gm_dB": 5.086015706518381,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.15,
+     "f_c_MHz": 927.8009614465768,
+     "pm_deg": 63.058667807624815,
+     "gm_dB": 6.20419262065531,
+     "f3_MHz": 420.58687866150257,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.15,
+     "f_c_MHz": 916.4005636949,
+     "pm_deg": 65.7684924091377,
+     "gm_dB": 9.811860496891011,
+     "f3_MHz": 437.4772127169701,
+     "peak_dB": 0.0014331327229440416,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 869.8733105234669,
+     "pm_deg": 64.57455523748442,
+     "gm_dB": 5.799744096601087,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 861.09081101769,
+     "pm_deg": 65.02884878816664,
+     "gm_dB": 5.778581685084642,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.35,
+     "f_c_MHz": 860.4287332307171,
+     "pm_deg": 62.939084981666895,
+     "gm_dB": 6.899378841761834,
+     "f3_MHz": 426.2139683927268,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.35,
+     "f_c_MHz": 850.7405035750263,
+     "pm_deg": 64.8780052430791,
+     "gm_dB": 10.507056642083763,
+     "f3_MHz": 443.71695309292176,
+     "peak_dB": 0.0014331330399838132,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 1423.2000648009268,
+     "pm_deg": 68.51327432741529,
+     "gm_dB": 1.856425408497778,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 1372.6309303552896,
+     "pm_deg": 69.86254219836202,
+     "gm_dB": 1.844181898687023,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 1.95,
+     "f_c_MHz": 1389.4829974898655,
+     "pm_deg": 62.74206248831234,
+     "gm_dB": 2.904655667247945,
+     "f3_MHz": 260.06957455868564,
+     "peak_dB": 0.0,
+     "stable": false
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 1.95,
+     "f_c_MHz": 1317.4367416636696,
+     "pm_deg": 71.68543858286998,
+     "gm_dB": 6.7843342749725615,
+     "f3_MHz": 268.35894422736277,
+     "peak_dB": 0.00143312829545396,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 1279.5249358032074,
+     "pm_deg": 69.20516182454418,
+     "gm_dB": 2.577427457957151,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 1241.989657355412,
+     "pm_deg": 70.32587875113344,
+     "gm_dB": 2.5619635976275084,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.15,
+     "f_c_MHz": 1246.8869498881857,
+     "pm_deg": 64.98301076357914,
+     "gm_dB": 3.628837203156803,
+     "f3_MHz": 263.60593624247537,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.15,
+     "f_c_MHz": 1204.5943421333873,
+     "pm_deg": 71.60180182346112,
+     "gm_dB": 7.508526539784654,
+     "f3_MHz": 272.8756564286989,
+     "peak_dB": 0.0014331286129468913,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 1167.3016042836575,
+     "pm_deg": 69.51569532120726,
+     "gm_dB": 3.243602953600915,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 1137.9853834145829,
+     "pm_deg": 70.48874197234841,
+     "gm_dB": 3.225478493355725,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.35,
+     "f_c_MHz": 1142.0131366764572,
+     "pm_deg": 66.00254082668194,
+     "gm_dB": 4.303338536798758,
+     "f3_MHz": 267.08681643923836,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.35,
+     "f_c_MHz": 1111.6341207632572,
+     "pm_deg": 71.40064147818255,
+     "gm_dB": 8.176961408841777,
+     "f3_MHz": 277.3700272165789,
+     "peak_dB": 0.0014331289304398223,
+     "stable": true
+    }
+   }
+  },
+  "spice_worst_pm": 48.691274627044805,
+  "second_crossings": []
+ },
+ "OPA855|A, 2 pF, 2 kOhm": {
+  "part": "OPA855",
+  "R_F": 2000.0,
+  "C_D_pF": 2.0,
+  "C_F_pF": 0.35000000000000003,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 715.7522413254374,
+     "pm_deg": 62.1214279306827,
+     "gm_dB": 7.598273285945619,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 710.6335807323235,
+     "pm_deg": 62.49379013265748,
+     "gm_dB": 7.582496785243455,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.9499999999999997,
+     "f_c_MHz": 711.391974491622,
+     "pm_deg": 62.267238593722496,
+     "gm_dB": 8.702802014428372,
+     "f3_MHz": 435.2850270744817,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.9499999999999997,
+     "f_c_MHz": 706.414687818126,
+     "pm_deg": 62.15495743055638,
+     "gm_dB": 12.310499241823038,
+     "f3_MHz": 453.42083375752816,
+     "peak_dB": 0.0014331339911069852,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 677.8850387940599,
+     "pm_deg": 61.27743426501557,
+     "gm_dB": 8.123594954240575,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 673.4709404466411,
+     "pm_deg": 61.63272319607373,
+     "gm_dB": 8.119133389280336,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.15,
+     "f_c_MHz": 674.3805083490356,
+     "pm_deg": 61.75806111213197,
+     "gm_dB": 9.22935651474056,
+     "f3_MHz": 436.06263094206133,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.15,
+     "f_c_MHz": 670.312417868144,
+     "pm_deg": 61.26090050065169,
+     "gm_dB": 12.837058051399207,
+     "f3_MHz": 454.1562194235775,
+     "peak_dB": 0.0014331343081448282,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 644.6312846490797,
+     "pm_deg": 60.438963885022886,
+     "gm_dB": 8.618955497086954,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 640.7910500410084,
+     "pm_deg": 60.77932603584226,
+     "gm_dB": 8.627139643417324,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.3499999999999996,
+     "f_c_MHz": 641.8142631604561,
+     "pm_deg": 61.15919961323229,
+     "gm_dB": 9.731793339815821,
+     "f3_MHz": 435.95487488732755,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.3499999999999996,
+     "f_c_MHz": 638.4356698218705,
+     "pm_deg": 60.38276805194906,
+     "gm_dB": 13.333512995073232,
+     "f3_MHz": 453.9385560871661,
+     "peak_dB": 0.011745035506873478,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 935.3731361728964,
+     "pm_deg": 69.32765525542172,
+     "gm_dB": 4.981512307888338,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 918.9171483854944,
+     "pm_deg": 70.0524208776376,
+     "gm_dB": 4.961820646379718,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.9499999999999997,
+     "f_c_MHz": 920.3013998950604,
+     "pm_deg": 67.70684675502584,
+     "gm_dB": 6.046244850543183,
+     "f3_MHz": 276.97319233716803,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.9499999999999997,
+     "f_c_MHz": 908.5285414433986,
+     "pm_deg": 70.37895955888612,
+     "gm_dB": 9.91988497797446,
+     "f3_MHz": 290.37305574978126,
+     "peak_dB": 0.0014331298829205438,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 879.5750771024512,
+     "pm_deg": 69.06227723626448,
+     "gm_dB": 5.4913141305530875,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 865.5415326731625,
+     "pm_deg": 69.73474444837345,
+     "gm_dB": 5.473250874699835,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.15,
+     "f_c_MHz": 868.2077861221766,
+     "pm_deg": 67.87875158910514,
+     "gm_dB": 6.557305087402048,
+     "f3_MHz": 280.0099125914498,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.15,
+     "f_c_MHz": 857.7750897332629,
+     "pm_deg": 69.9531945828237,
+     "gm_dB": 10.430949094223234,
+     "f3_MHz": 294.4256171296316,
+     "peak_dB": 0.0014331302004115464,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 830.8972600316303,
+     "pm_deg": 68.73641476362137,
+     "gm_dB": 5.972856074761397,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 818.7635619637778,
+     "pm_deg": 69.3671231916316,
+     "gm_dB": 5.9575010109966255,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.3499999999999996,
+     "f_c_MHz": 822.0217814623171,
+     "pm_deg": 68.00170524075114,
+     "gm_dB": 7.039960276011645,
+     "f3_MHz": 282.88341786023994,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.3499999999999996,
+     "f_c_MHz": 812.9732524008539,
+     "pm_deg": 69.49918858733757,
+     "gm_dB": 10.913607550329214,
+     "f3_MHz": 298.28028279696053,
+     "peak_dB": 0.0014331305179064056,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 1188.1423985782396,
+     "pm_deg": 71.01356469188408,
+     "gm_dB": 3.069317058107091,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 1147.725039937334,
+     "pm_deg": 72.35321677708066,
+     "gm_dB": 3.0546324106573985,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.9499999999999997,
+     "f_c_MHz": 1159.7702301266447,
+     "pm_deg": 67.9317758852101,
+     "gm_dB": 4.11731502801804,
+     "f3_MHz": 199.39395526012476,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.9499999999999997,
+     "f_c_MHz": 1126.7854622613518,
+     "pm_deg": 73.6046953898759,
+     "gm_dB": 8.181936680690148,
+     "f3_MHz": 205.74616283655328,
+     "peak_dB": 0.001433124403112033,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 1111.0237423005476,
+     "pm_deg": 71.30305195044221,
+     "gm_dB": 3.5645015365738564,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 1076.9927377047218,
+     "pm_deg": 72.5197009604651,
+     "gm_dB": 3.5501321232862586,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.15,
+     "f_c_MHz": 1085.6259729829562,
+     "pm_deg": 68.81066234817435,
+     "gm_dB": 4.613766876889733,
+     "f3_MHz": 201.0106808773624,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.15,
+     "f_c_MHz": 1061.565171481559,
+     "pm_deg": 73.53587679329918,
+     "gm_dB": 8.678392049123039,
+     "f3_MHz": 207.86707578949657,
+     "peak_dB": 0.001433124721058123,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 1044.6289121445452,
+     "pm_deg": 71.46796509212061,
+     "gm_dB": 4.0329881473468125,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 1015.4851417424428,
+     "pm_deg": 72.58847061158578,
+     "gm_dB": 4.019996735736343,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.3499999999999996,
+     "f_c_MHz": 1020.0960349312924,
+     "pm_deg": 69.60436149730883,
+     "gm_dB": 5.083372015380487,
+     "f3_MHz": 202.62155298845002,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.3499999999999996,
+     "f_c_MHz": 1004.0635339653446,
+     "pm_deg": 73.42116198096923,
+     "gm_dB": 9.058010037641667,
+     "f3_MHz": 209.99181409060373,
+     "peak_dB": 0.0014331250390042134,
+     "stable": true
+    }
+   }
+  },
+  "spice_worst_pm": 60.438963885022886,
+  "second_crossings": []
+ },
+ "OPA855|A, 1 pF, 1.5 kOhm": {
+  "part": "OPA855",
+  "R_F": 1500.0,
+  "C_D_pF": 1.0,
+  "C_F_pF": 0.27,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 842.2693070017964,
+     "pm_deg": 50.183166953070895,
+     "gm_dB": 7.155185242080774,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 838.5447799914883,
+     "pm_deg": 50.490457613113165,
+     "gm_dB": 7.176203557977213,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 1.95,
+     "f_c_MHz": 837.2687248004112,
+     "pm_deg": 48.37626762467383,
+     "gm_dB": 8.424455175730289,
+     "f3_MHz": 855.136459562449,
+     "peak_dB": 0.7241773449962248,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 1.95,
+     "f_c_MHz": 829.8107797916654,
+     "pm_deg": 49.987364347499266,
+     "gm_dB": 11.389003147246896,
+     "f3_MHz": 832.8240324503035,
+     "peak_dB": 0.9299976219805812,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 785.5348559352676,
+     "pm_deg": 48.689596500498254,
+     "gm_dB": 7.934898052940026,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 782.5260792046594,
+     "pm_deg": 48.98257520283627,
+     "gm_dB": 7.970724689352862,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.15,
+     "f_c_MHz": 782.1224628738779,
+     "pm_deg": 47.54908642051143,
+     "gm_dB": 9.207345011797614,
+     "f3_MHz": 829.8484485598947,
+     "peak_dB": 0.9646827009713601,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.15,
+     "f_c_MHz": 776.1227909087123,
+     "pm_deg": 48.44682907345114,
+     "gm_dB": 12.171923892589248,
+     "f3_MHz": 811.8479605346691,
+     "peak_dB": 1.20200617135944,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 738.3519360929058,
+     "pm_deg": 47.29293937727135,
+     "gm_dB": 8.650373218823791,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 735.8451514047439,
+     "pm_deg": 47.57428000756795,
+     "gm_dB": 8.701812850839536,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.35,
+     "f_c_MHz": 735.7814226198703,
+     "pm_deg": 46.77814321042146,
+     "gm_dB": 9.926932258251654,
+     "f3_MHz": 805.5680339717468,
+     "peak_dB": 1.1971009846870526,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.35,
+     "f_c_MHz": 731.0648584303796,
+     "pm_deg": 47.01961091111383,
+     "gm_dB": 12.890081090992837,
+     "f3_MHz": 791.3565420614323,
+     "peak_dB": 1.4667511567073135,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 1128.2757071448364,
+     "pm_deg": 63.14865203879113,
+     "gm_dB": 3.716414720369881,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 1110.455003381169,
+     "pm_deg": 63.79179498335462,
+     "gm_dB": 3.7056252011598323,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 1.95,
+     "f_c_MHz": 1109.0168291663217,
+     "pm_deg": 59.38395979706212,
+     "gm_dB": 4.8526768155264355,
+     "f3_MHz": 531.2681800952761,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 1.95,
+     "f_c_MHz": 1084.3044710074412,
+     "pm_deg": 64.24064694930676,
+     "gm_dB": 8.298504029763418,
+     "f3_MHz": 544.3076257156421,
+     "peak_dB": 0.0014331331056070408,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 1032.2519132224836,
+     "pm_deg": 62.49662592063203,
+     "gm_dB": 4.462604239984548,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 1018.4262089703561,
+     "pm_deg": 63.07094012721282,
+     "gm_dB": 4.451940540816343,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.15,
+     "f_c_MHz": 1013.881248027166,
+     "pm_deg": 59.68735554779015,
+     "gm_dB": 5.607691992742635,
+     "f3_MHz": 539.0447791855771,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.15,
+     "f_c_MHz": 1000.0287298900618,
+     "pm_deg": 63.301688773309564,
+     "gm_dB": 9.04764847406939,
+     "f3_MHz": 552.0843815070225,
+     "peak_dB": 0.0014331333432244073,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 954.4306293044418,
+     "pm_deg": 61.73010944564879,
+     "gm_dB": 5.149766119313095,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 943.315849567586,
+     "pm_deg": 62.257371907431846,
+     "gm_dB": 5.140384324123179,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.35,
+     "f_c_MHz": 941.2614868462808,
+     "pm_deg": 59.51127132879965,
+     "gm_dB": 6.297311964353973,
+     "f3_MHz": 544.467298006117,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.35,
+     "f_c_MHz": 930.037125232817,
+     "pm_deg": 62.3395386563237,
+     "gm_dB": 9.737286352449786,
+     "f3_MHz": 557.3718872181187,
+     "peak_dB": 0.0014331335808475585,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 1529.2643879319637,
+     "pm_deg": 65.8425266696621,
+     "gm_dB": 1.4180665083897201,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 1466.285055623015,
+     "pm_deg": 67.40478962922153,
+     "gm_dB": 1.41075134204373,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 1.95,
+     "f_c_MHz": 1490.2370367856258,
+     "pm_deg": 59.36253360726053,
+     "gm_dB": 2.4993027930884963,
+     "f3_MHz": 338.61154686048354,
+     "peak_dB": 0.0,
+     "stable": false
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 1.95,
+     "f_c_MHz": 1399.090207723849,
+     "pm_deg": 69.67826139343161,
+     "gm_dB": 6.19428109979845,
+     "f3_MHz": 349.43673906782885,
+     "peak_dB": 0.0014331306391737182,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 1369.7689795702802,
+     "pm_deg": 66.61670384087202,
+     "gm_dB": 2.133350078457336,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 1324.285109255847,
+     "pm_deg": 67.87817429614125,
+     "gm_dB": 2.123504608160072,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.15,
+     "f_c_MHz": 1340.010031885806,
+     "pm_deg": 61.42286229862172,
+     "gm_dB": 3.217445445733378,
+     "f3_MHz": 344.1992582523296,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.15,
+     "f_c_MHz": 1279.3355318722813,
+     "pm_deg": 69.4951490016376,
+     "gm_dB": 6.912442546082021,
+     "f3_MHz": 356.1283327360802,
+     "peak_dB": 0.0014331308770456253,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 1247.7544607177483,
+     "pm_deg": 66.92105037077528,
+     "gm_dB": 2.794237271239481,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 1212.7436691666978,
+     "pm_deg": 68.0016826914018,
+     "gm_dB": 2.7829697016282435,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.35,
+     "f_c_MHz": 1219.8780229106092,
+     "pm_deg": 62.9384317475599,
+     "gm_dB": 3.8867493934151582,
+     "f3_MHz": 349.6372796225648,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.35,
+     "f_c_MHz": 1181.258581766017,
+     "pm_deg": 69.19098586918119,
+     "gm_dB": 7.575739181546176,
+     "f3_MHz": 362.65396984654507,
+     "peak_dB": 0.0014331311149194605,
+     "stable": true
+    }
+   }
+  },
+  "spice_worst_pm": 47.29293937727135,
+  "second_crossings": []
+ },
+ "OPA855|A, 2 pF, 1.5 kOhm": {
+  "part": "OPA855",
+  "R_F": 1500.0,
+  "C_D_pF": 2.0,
+  "C_F_pF": 0.4,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 846.9559230965586,
+     "pm_deg": 62.124140866882385,
+     "gm_dB": 6.123766804058431,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 837.7083766309245,
+     "pm_deg": 62.644409119254206,
+     "gm_dB": 6.124448345580178,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.9499999999999997,
+     "f_c_MHz": 839.4855602816267,
+     "pm_deg": 60.99509783012432,
+     "gm_dB": 7.257789992702214,
+     "f3_MHz": 485.6612826196544,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.9499999999999997,
+     "f_c_MHz": 830.6079070849402,
+     "pm_deg": 62.66464054056047,
+     "gm_dB": 10.778459072722137,
+     "f3_MHz": 501.85512320777354,
+     "peak_dB": 0.0014331336351668762,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 801.0917398661327,
+     "pm_deg": 61.40109038526688,
+     "gm_dB": 6.6410815527304115,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 793.181706028987,
+     "pm_deg": 61.892961928367384,
+     "gm_dB": 6.654334493682921,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.15,
+     "f_c_MHz": 795.3966133118032,
+     "pm_deg": 60.75397674928601,
+     "gm_dB": 7.776463001327806,
+     "f3_MHz": 487.7415845192479,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.15,
+     "f_c_MHz": 787.8425608398178,
+     "pm_deg": 61.8525583125808,
+     "gm_dB": 11.297139655006516,
+     "f3_MHz": 503.93914583419746,
+     "peak_dB": 0.0014331338728613761,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 760.9605122560702,
+     "pm_deg": 60.66530667882604,
+     "gm_dB": 7.129320485865285,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 754.0952027349459,
+     "pm_deg": 61.1348265614986,
+     "gm_dB": 7.156029760468858,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.3499999999999996,
+     "f_c_MHz": 756.4114724570517,
+     "pm_deg": 60.49054089556766,
+     "gm_dB": 8.265903376269943,
+     "f3_MHz": 488.77727561351986,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.3499999999999996,
+     "f_c_MHz": 750.0925655057192,
+     "pm_deg": 61.04701120629697,
+     "gm_dB": 11.786586393173161,
+     "f3_MHz": 504.91274996640703,
+     "peak_dB": 0.001433134110561661,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 1071.437920342472,
+     "pm_deg": 67.63035107158545,
+     "gm_dB": 3.9297241207438023,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 1045.9624412550634,
+     "pm_deg": 68.58320482215647,
+     "gm_dB": 3.920439440843296,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.9499999999999997,
+     "f_c_MHz": 1049.8172435997838,
+     "pm_deg": 65.18032432257357,
+     "gm_dB": 5.016919255239857,
+     "f3_MHz": 326.2078903536387,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.9499999999999997,
+     "f_c_MHz": 1030.727504707105,
+     "pm_deg": 69.3522925501631,
+     "gm_dB": 8.795558284720656,
+     "f3_MHz": 340.40806310828833,
+     "peak_dB": 0.0014331309385441403,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 1006.2642037645505,
+     "pm_deg": 67.46522426219789,
+     "gm_dB": 4.432038554849958,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 984.6751940197935,
+     "pm_deg": 68.3434277391361,
+     "gm_dB": 4.425191467912223,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.15,
+     "f_c_MHz": 986.2597247452502,
+     "pm_deg": 65.61251582507658,
+     "gm_dB": 5.520552802581723,
+     "f3_MHz": 330.0665193240047,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.15,
+     "f_c_MHz": 973.3731525941993,
+     "pm_deg": 68.95246916717365,
+     "gm_dB": 9.29919846655217,
+     "f3_MHz": 345.1724616321664,
+     "peak_dB": 0.001433131176493181,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 949.7374455589122,
+     "pm_deg": 67.22088010318325,
+     "gm_dB": 4.906900508803772,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 931.1959155031918,
+     "pm_deg": 68.03783116886042,
+     "gm_dB": 4.908099051515316,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.3499999999999996,
+     "f_c_MHz": 934.6606335917618,
+     "pm_deg": 65.71522773126662,
+     "gm_dB": 5.99657954144551,
+     "f3_MHz": 333.72550660858735,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.3499999999999996,
+     "f_c_MHz": 922.7798028102303,
+     "pm_deg": 68.52313835835118,
+     "gm_dB": 9.77523080704893,
+     "f3_MHz": 349.68069725393104,
+     "peak_dB": 0.0014331314144422215,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 1334.1198416822012,
+     "pm_deg": 68.6646793880018,
+     "gm_dB": 2.2636964597787985,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 1275.4681916270458,
+     "pm_deg": 70.39456571112983,
+     "gm_dB": 2.2563791810352596,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.9499999999999997,
+     "f_c_MHz": 1300.6086109963649,
+     "pm_deg": 64.69061435759164,
+     "gm_dB": 3.330592504075719,
+     "f3_MHz": 242.14325168603924,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.9499999999999997,
+     "f_c_MHz": 1246.9666491337737,
+     "pm_deg": 72.23080361836176,
+     "gm_dB": 7.29990877126283,
+     "f3_MHz": 249.9564747526348,
+     "peak_dB": 0.0014331274703861608,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 1243.9346600442852,
+     "pm_deg": 69.10560816046863,
+     "gm_dB": 2.7518835050216506,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 1195.3007932910493,
+     "pm_deg": 70.6487054565301,
+     "gm_dB": 2.7455638643481888,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.15,
+     "f_c_MHz": 1213.2338862636998,
+     "pm_deg": 65.90688853029184,
+     "gm_dB": 3.8200339429274113,
+     "f3_MHz": 244.2863029194407,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.15,
+     "f_c_MHz": 1174.4579722050569,
+     "pm_deg": 72.16854332174445,
+     "gm_dB": 7.69934690666774,
+     "f3_MHz": 252.7108637534633,
+     "peak_dB": 0.00143312770859167,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 1167.3301744358291,
+     "pm_deg": 69.37640638998481,
+     "gm_dB": 3.214109580017089,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 1126.1424254844894,
+     "pm_deg": 70.77864393667735,
+     "gm_dB": 3.209875833154729,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.3499999999999996,
+     "f_c_MHz": 1141.2714340818743,
+     "pm_deg": 66.64836082699469,
+     "gm_dB": 4.28336244695984,
+     "f3_MHz": 246.41063116555972,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.3499999999999996,
+     "f_c_MHz": 1110.8322614868057,
+     "pm_deg": 72.05303274463307,
+     "gm_dB": 8.162680400693443,
+     "f3_MHz": 255.46151381222407,
+     "peak_dB": 0.001433127946795251,
+     "stable": true
+    }
+   }
+  },
+  "spice_worst_pm": 60.66530667882604,
+  "second_crossings": []
+ },
+ "OPA818|B, 1 pF, 2 kOhm": {
+  "part": "OPA818",
+  "R_F": 2000.0,
+  "C_D_pF": 1.0,
+  "C_F_pF": 0.5499999999999999,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 340.9222129672108,
+     "pm_deg": 45.52014098437277,
+     "gm_dB": 16.716577448545337,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 339.96861042636687,
+     "pm_deg": 45.62046406466399,
+     "gm_dB": 14.130453466325605,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.55,
+     "f_c_MHz": 318.248123576506,
+     "pm_deg": 29.862492867601247,
+     "gm_dB": 11.655993951425076,
+     "f3_MHz": 383.14425094015166,
+     "peak_dB": 0.6042518299647043,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.55,
+     "f_c_MHz": 338.3861768345757,
+     "pm_deg": 46.97147915892282,
+     "gm_dB": 22.81259044846776,
+     "f3_MHz": 286.8471185924312,
+     "peak_dB": 0.0465539939973041,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 327.02353011442125,
+     "pm_deg": 45.4998680752488,
+     "gm_dB": 17.116906587990037,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 326.1644489078307,
+     "pm_deg": 45.59608897172612,
+     "gm_dB": 14.435611888687387,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.75,
+     "f_c_MHz": 307.06878088436383,
+     "pm_deg": 30.243455623925797,
+     "gm_dB": 12.04188840332835,
+     "f3_MHz": 371.86453330801436,
+     "peak_dB": 0.8094988957587692,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.75,
+     "f_c_MHz": 324.78277833768425,
+     "pm_deg": 46.87790483718115,
+     "gm_dB": 23.18590573614003,
+     "f3_MHz": 284.8637494083798,
+     "peak_dB": 0.11182936613277972,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 314.4479258101397,
+     "pm_deg": 45.40289559705204,
+     "gm_dB": 17.499705204406318,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 313.66670637476506,
+     "pm_deg": 45.497681471632006,
+     "gm_dB": 14.724754383318587,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.9499999999999997,
+     "f_c_MHz": 296.7744039929323,
+     "pm_deg": 30.483203192825243,
+     "gm_dB": 12.445735213462001,
+     "f3_MHz": 361.52432276324936,
+     "peak_dB": 1.002457572156468,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.9499999999999997,
+     "f_c_MHz": 312.44976497189697,
+     "pm_deg": 46.71504196521161,
+     "gm_dB": 23.53950867142197,
+     "f3_MHz": 282.4937010549145,
+     "peak_dB": 0.1939353063865873,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 387.1203924497968,
+     "pm_deg": 48.505014009838874,
+     "gm_dB": 15.744326571200702,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 385.4065137591314,
+     "pm_deg": 48.65759584757629,
+     "gm_dB": 13.030792588615785,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.55,
+     "f_c_MHz": 353.95124286262035,
+     "pm_deg": 32.36918295673087,
+     "gm_dB": 10.86700073566975,
+     "f3_MHz": 336.0365982822195,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.55,
+     "f_c_MHz": 383.6599907619321,
+     "pm_deg": 50.2975285627528,
+     "gm_dB": 22.75654773227815,
+     "f3_MHz": 219.66165187346397,
+     "peak_dB": 0.00019312134995299942,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 370.57371659859547,
+     "pm_deg": 48.90277127777594,
+     "gm_dB": 16.133664303081886,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 369.0124630193244,
+     "pm_deg": 49.046793862630295,
+     "gm_dB": 13.320037248396819,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.75,
+     "f_c_MHz": 340.91511242529316,
+     "pm_deg": 32.94418041499378,
+     "gm_dB": 11.28047658907293,
+     "f3_MHz": 330.68273063316394,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.75,
+     "f_c_MHz": 367.49967066000255,
+     "pm_deg": 50.5947693680306,
+     "gm_dB": 23.17019349591138,
+     "f3_MHz": 221.94694111453796,
+     "peak_dB": 0.00019312418245344726,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 355.51507085218185,
+     "pm_deg": 49.18545719931285,
+     "gm_dB": 16.506424364291917,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 354.09237236672186,
+     "pm_deg": 49.32155358682269,
+     "gm_dB": 13.595891918325382,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.9499999999999997,
+     "f_c_MHz": 329.0069594438165,
+     "pm_deg": 33.469648255753384,
+     "gm_dB": 11.635217418291784,
+     "f3_MHz": 324.8979416003257,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.9499999999999997,
+     "f_c_MHz": 352.7766554711538,
+     "pm_deg": 50.78968274167809,
+     "gm_dB": 23.514882725361947,
+     "f3_MHz": 223.7293793321063,
+     "peak_dB": 0.00019312701495775137,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 435.6415175798508,
+     "pm_deg": 49.076332106817034,
+     "gm_dB": 14.823567741628574,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 432.9594979176569,
+     "pm_deg": 49.29728884757199,
+     "gm_dB": 12.068715432598125,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.55,
+     "f_c_MHz": 391.40164683169473,
+     "pm_deg": 33.19533077532387,
+     "gm_dB": 10.099074800830047,
+     "f3_MHz": 199.09245602985914,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.55,
+     "f_c_MHz": 431.12493376598917,
+     "pm_deg": 51.27191974300902,
+     "gm_dB": 22.66894232575421,
+     "f3_MHz": 167.3588736706854,
+     "peak_dB": 0.00019311312130981375,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 416.94532223569047,
+     "pm_deg": 49.88348127134378,
+     "gm_dB": 15.202130566729636,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 414.46180457414647,
+     "pm_deg": 50.0922839452312,
+     "gm_dB": 12.344338325186024,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.75,
+     "f_c_MHz": 376.67919165420943,
+     "pm_deg": 33.93635999475089,
+     "gm_dB": 10.502952207145544,
+     "f3_MHz": 207.03157853499297,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.75,
+     "f_c_MHz": 412.8900487832218,
+     "pm_deg": 51.949422486703014,
+     "gm_dB": 23.023357740360673,
+     "f3_MHz": 169.86362492198762,
+     "peak_dB": 0.00019311595387197988,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 399.77962182693216,
+     "pm_deg": 50.55065864881837,
+     "gm_dB": 15.565031140775096,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 397.4848748977352,
+     "pm_deg": 50.74742741506341,
+     "gm_dB": 12.605784742518951,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.9499999999999997,
+     "f_c_MHz": 363.19944823146386,
+     "pm_deg": 34.62167038263675,
+     "gm_dB": 10.849145606629465,
+     "f3_MHz": 215.24249111666114,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.9499999999999997,
+     "f_c_MHz": 396.1351354344847,
+     "pm_deg": 52.4995486025674,
+     "gm_dB": 23.359812608870158,
+     "f3_MHz": 172.25396350750626,
+     "peak_dB": 0.00019311878643607367,
+     "stable": true
+    }
+   }
+  },
+  "spice_worst_pm": 45.40289559705204,
+  "second_crossings": []
+ },
+ "OPA818|B, 2 pF, 2 kOhm": {
+  "part": "OPA818",
+  "R_F": 2000.0,
+  "C_D_pF": 2.0,
+  "C_F_pF": 0.5499999999999999,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 282.99833682556925,
+     "pm_deg": 44.82204818758052,
+     "gm_dB": 18.556686189415846,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 282.4081840509489,
+     "pm_deg": 44.909172596681515,
+     "gm_dB": 15.518656856755825,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.55,
+     "f_c_MHz": 270.16848920436354,
+     "pm_deg": 30.42855366238362,
+     "gm_dB": 13.517923713343038,
+     "f3_MHz": 335.004712900403,
+     "peak_dB": 1.5177788575924214,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.55,
+     "f_c_MHz": 281.5572744271354,
+     "pm_deg": 45.98143469977654,
+     "gm_dB": 24.548904275614312,
+     "f3_MHz": 274.14242343329175,
+     "peak_dB": 0.49300276086361894,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 274.1985670307712,
+     "pm_deg": 44.56209980484678,
+     "gm_dB": 18.88236114509378,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 273.6553315508453,
+     "pm_deg": 44.64813347211009,
+     "gm_dB": 15.762310151956925,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.75,
+     "f_c_MHz": 262.63169268361804,
+     "pm_deg": 30.39167655091211,
+     "gm_dB": 13.820804676803087,
+     "f3_MHz": 327.3784686841833,
+     "peak_dB": 1.6768927889325658,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.75,
+     "f_c_MHz": 272.8957952543998,
+     "pm_deg": 45.679200109085656,
+     "gm_dB": 24.889540486333026,
+     "f3_MHz": 271.1324626963219,
+     "peak_dB": 0.6009992370940662,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 266.07268463971485,
+     "pm_deg": 44.282655334645995,
+     "gm_dB": 19.19631119505741,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 265.5727076268998,
+     "pm_deg": 44.367247772741905,
+     "gm_dB": 15.994711391994569,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.949999999999999,
+     "f_c_MHz": 255.63709479103483,
+     "pm_deg": 30.3483464233731,
+     "gm_dB": 14.148493826209103,
+     "f3_MHz": 320.248701662836,
+     "peak_dB": 1.8544520806284241,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.949999999999999,
+     "f_c_MHz": 264.8964711618026,
+     "pm_deg": 45.359972823595314,
+     "gm_dB": 25.1669023001441,
+     "f3_MHz": 268.11428210762756,
+     "peak_dB": 0.7104366226474744,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 317.6448203616268,
+     "pm_deg": 49.51423215865174,
+     "gm_dB": 17.537915251611558,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 316.555947439046,
+     "pm_deg": 49.63422504655381,
+     "gm_dB": 14.351289848209374,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.55,
+     "f_c_MHz": 298.70232295552063,
+     "pm_deg": 34.759904116596516,
+     "gm_dB": 12.681973186051895,
+     "f3_MHz": 307.4202534935886,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.55,
+     "f_c_MHz": 315.66779898795494,
+     "pm_deg": 50.90369274055968,
+     "gm_dB": 24.50163532909269,
+     "f3_MHz": 226.44328634162426,
+     "peak_dB": 0.00019313551246101518,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 307.0134247526654,
+     "pm_deg": 49.49542152491392,
+     "gm_dB": 17.856350717881682,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 306.01018315776093,
+     "pm_deg": 49.613047301447864,
+     "gm_dB": 14.584873188691423,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.75,
+     "f_c_MHz": 289.8215707610962,
+     "pm_deg": 34.846976980050584,
+     "gm_dB": 13.015972025325663,
+     "f3_MHz": 301.87441611011593,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.75,
+     "f_c_MHz": 305.2291750090245,
+     "pm_deg": 50.82883024465664,
+     "gm_dB": 24.785569914314102,
+     "f3_MHz": 226.60683917918837,
+     "peak_dB": 0.00019313834496531562,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 297.1964717479524,
+     "pm_deg": 49.4304470619565,
+     "gm_dB": 18.16357855530828,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 296.275522149966,
+     "pm_deg": 49.54285174237481,
+     "gm_dB": 14.806688480322542,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.949999999999999,
+     "f_c_MHz": 281.5795113860948,
+     "pm_deg": 34.91789273301413,
+     "gm_dB": 13.297643403540283,
+     "f3_MHz": 297.1055816863436,
+     "peak_dB": 0.018559793992681803,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.949999999999999,
+     "f_c_MHz": 295.5824618528834,
+     "pm_deg": 50.71739392296112,
+     "gm_dB": 25.107284125373926,
+     "f3_MHz": 226.4758530395112,
+     "peak_dB": 0.001602870921373348,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 356.06478509305015,
+     "pm_deg": 51.874693281023866,
+     "gm_dB": 16.571402770074645,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 354.26014456257354,
+     "pm_deg": 52.044748441739245,
+     "gm_dB": 13.331602636154493,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.55,
+     "f_c_MHz": 328.8145376898694,
+     "pm_deg": 36.395620828567814,
+     "gm_dB": 11.873917559280505,
+     "f3_MHz": 234.74916541642716,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.55,
+     "f_c_MHz": 353.4037835541851,
+     "pm_deg": 53.55047880566897,
+     "gm_dB": 24.325412384283194,
+     "f3_MHz": 178.4734289358055,
+     "peak_dB": 0.00019312728412449224,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 343.6755683296646,
+     "pm_deg": 52.13951892289191,
+     "gm_dB": 16.882682545504743,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 342.0066609791289,
+     "pm_deg": 52.30390189217985,
+     "gm_dB": 13.553109930697623,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.75,
+     "f_c_MHz": 319.0052351937056,
+     "pm_deg": 36.907326575241115,
+     "gm_dB": 12.201623216901405,
+     "f3_MHz": 238.59021731201346,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.75,
+     "f_c_MHz": 341.27072627194184,
+     "pm_deg": 53.743719366006374,
+     "gm_dB": 24.603544443900955,
+     "f3_MHz": 180.19202799783614,
+     "peak_dB": 0.00019313011668858234,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 332.2036104546477,
+     "pm_deg": 52.332942812182324,
+     "gm_dB": 17.18325697649824,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 330.6603174378198,
+     "pm_deg": 52.48935078014699,
+     "gm_dB": 13.7673475798603,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.949999999999999,
+     "f_c_MHz": 309.8776002367311,
+     "pm_deg": 37.38517888651023,
+     "gm_dB": 12.517416694646995,
+     "f3_MHz": 241.16808755604004,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.949999999999999,
+     "f_c_MHz": 330.01911691496747,
+     "pm_deg": 53.86569428401215,
+     "gm_dB": 24.91941103589474,
+     "f3_MHz": 181.71441516868728,
+     "peak_dB": 0.00019313294924881428,
+     "stable": true
+    }
+   }
+  },
+  "spice_worst_pm": 44.282655334645995,
+  "second_crossings": []
+ },
+ "OPA818|B, 1 pF, 1.5 kOhm": {
+  "part": "OPA818",
+  "R_F": 1500.0,
+  "C_D_pF": 1.0,
+  "C_F_pF": 0.5499999999999999,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 361.50586456458433,
+     "pm_deg": 39.1674423091369,
+     "gm_dB": 15.497552077375158,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 360.5805214354467,
+     "pm_deg": 39.26952896677864,
+     "gm_dB": 13.35297838821708,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.55,
+     "f_c_MHz": 336.85893652645274,
+     "pm_deg": 22.782738097489812,
+     "gm_dB": 10.307252268655557,
+     "f3_MHz": 454.4776443823295,
+     "peak_dB": 3.4610549843505476,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.55,
+     "f_c_MHz": 359.06741340024814,
+     "pm_deg": 40.72334798116435,
+     "gm_dB": 20.543875724006636,
+     "f3_MHz": 388.8882811969324,
+     "peak_dB": 0.7062324407887879,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 347.810711595303,
+     "pm_deg": 39.10351686144941,
+     "gm_dB": 15.890100174432384,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 346.9715741500599,
+     "pm_deg": 39.20203152340082,
+     "gm_dB": 13.662457957248508,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.75,
+     "f_c_MHz": 325.7848474972825,
+     "pm_deg": 23.029644395031312,
+     "gm_dB": 10.691844617876962,
+     "f3_MHz": 441.3137789665888,
+     "peak_dB": 3.602938945167094,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.75,
+     "f_c_MHz": 345.6510802607431,
+     "pm_deg": 40.58418223370526,
+     "gm_dB": 20.91683982304229,
+     "f3_MHz": 380.9741758415125,
+     "peak_dB": 0.8673760439531003,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 335.37038370152214,
+     "pm_deg": 38.98047658960715,
+     "gm_dB": 16.26584258166702,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 334.6030607664165,
+     "pm_deg": 39.07795258771014,
+     "gm_dB": 13.957863448046883,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.9499999999999997,
+     "f_c_MHz": 315.66525354979325,
+     "pm_deg": 23.25292358825132,
+     "gm_dB": 11.056774649401937,
+     "f3_MHz": 429.21564611914516,
+     "peak_dB": 3.804020903727225,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.9499999999999997,
+     "f_c_MHz": 333.45505629411986,
+     "pm_deg": 40.39594354929088,
+     "gm_dB": 21.27009890375497,
+     "f3_MHz": 373.354515706338,
+     "peak_dB": 1.02739229900341,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 402.01684516245643,
+     "pm_deg": 43.02306074660669,
+     "gm_dB": 14.80608188257062,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 400.39820917065276,
+     "pm_deg": 43.164390625721154,
+     "gm_dB": 12.458742713533724,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.55,
+     "f_c_MHz": 367.8780176205243,
+     "pm_deg": 26.406832291021914,
+     "gm_dB": 9.863491718795977,
+     "f3_MHz": 456.47783894379273,
+     "peak_dB": 0.5882021055542112,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.55,
+     "f_c_MHz": 398.72183961649466,
+     "pm_deg": 44.87880278844551,
+     "gm_dB": 20.820926719955388,
+     "f3_MHz": 323.83117927162226,
+     "peak_dB": 0.00019311785588075822,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 385.86915457631335,
+     "pm_deg": 43.3037102561799,
+     "gm_dB": 15.188725176753046,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 384.38510753210073,
+     "pm_deg": 43.44284538659704,
+     "gm_dB": 12.749112151191923,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.75,
+     "f_c_MHz": 355.0694899529142,
+     "pm_deg": 26.808203265103174,
+     "gm_dB": 10.276751452909048,
+     "f3_MHz": 442.2994813200891,
+     "peak_dB": 0.7913805529007146,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.75,
+     "f_c_MHz": 382.94498558812273,
+     "pm_deg": 45.063783912652326,
+     "gm_dB": 21.183962927516127,
+     "f3_MHz": 322.7068329731176,
+     "peak_dB": 0.007833152112780666,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 371.15494676670886,
+     "pm_deg": 43.48273804155059,
+     "gm_dB": 15.555404208261459,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 369.79721853695656,
+     "pm_deg": 43.61485707598345,
+     "gm_dB": 13.027337435511088,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.9499999999999997,
+     "f_c_MHz": 343.3635445272862,
+     "pm_deg": 27.171722209119537,
+     "gm_dB": 10.633399357704231,
+     "f3_MHz": 429.3489183810533,
+     "peak_dB": 0.9951427840614758,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.9499999999999997,
+     "f_c_MHz": 368.55297186170407,
+     "pm_deg": 45.160466856816214,
+     "gm_dB": 21.52819888773218,
+     "f3_MHz": 320.91574036675655,
+     "peak_dB": 0.04466027498104022,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 446.0527248811624,
+     "pm_deg": 44.5713106647319,
+     "gm_dB": 14.073237511355327,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 443.5295412264163,
+     "pm_deg": 44.77506229006795,
+     "gm_dB": 11.621302505136317,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.55,
+     "f_c_MHz": 401.5075038226008,
+     "pm_deg": 28.30545465086567,
+     "gm_dB": 9.351314757040672,
+     "f3_MHz": 441.0011980757081,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.55,
+     "f_c_MHz": 441.73588441491563,
+     "pm_deg": 46.79726862658137,
+     "gm_dB": 20.90521439585404,
+     "f3_MHz": 250.7830943686543,
+     "peak_dB": 0.00019311322727161724,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 427.7993424301083,
+     "pm_deg": 45.23177498600083,
+     "gm_dB": 14.445587866703269,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 425.45764624308987,
+     "pm_deg": 45.4245635475049,
+     "gm_dB": 11.897587602455468,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.75,
+     "f_c_MHz": 387.1791100578874,
+     "pm_deg": 28.892494396127262,
+     "gm_dB": 9.714871371119894,
+     "f3_MHz": 426.1519978097747,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.75,
+     "f_c_MHz": 423.9409451666454,
+     "pm_deg": 47.33651064417512,
+     "gm_dB": 21.259000282265582,
+     "f3_MHz": 253.96406157358106,
+     "peak_dB": 0.00019311535161657954,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 411.0344846682527,
+     "pm_deg": 45.76430071399355,
+     "gm_dB": 14.802835939439662,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 408.866683523114,
+     "pm_deg": 45.94634195701241,
+     "gm_dB": 12.162554286116807,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.9499999999999997,
+     "f_c_MHz": 373.93416530244843,
+     "pm_deg": 29.406215544917586,
+     "gm_dB": 10.060502936342974,
+     "f3_MHz": 412.84094635128184,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.9499999999999997,
+     "f_c_MHz": 407.58581391920603,
+     "pm_deg": 47.76120160632789,
+     "gm_dB": 21.594830224975063,
+     "f3_MHz": 256.5350038438869,
+     "peak_dB": 0.00019311747596539855,
+     "stable": true
+    }
+   }
+  },
+  "spice_worst_pm": 38.98047658960715,
+  "second_crossings": []
+ },
+ "OPA818|B, 2 pF, 1.5 kOhm": {
+  "part": "OPA818",
+  "R_F": 1500.0,
+  "C_D_pF": 2.0,
+  "C_F_pF": 0.6499999999999999,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 334.03899380133265,
+     "pm_deg": 43.576327456438094,
+     "gm_dB": 16.57158947023634,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 332.9890418169262,
+     "pm_deg": 43.69492357629454,
+     "gm_dB": 13.795441335165645,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.55,
+     "f_c_MHz": 313.5764509524349,
+     "pm_deg": 28.080122653864805,
+     "gm_dB": 11.643931162321831,
+     "f3_MHz": 396.43067736658884,
+     "peak_dB": 1.541421149069204,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.55,
+     "f_c_MHz": 332.17430544897144,
+     "pm_deg": 45.04639432532781,
+     "gm_dB": 22.514025356517955,
+     "f3_MHz": 313.0812168638276,
+     "peak_dB": 0.2595075553153171,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 323.59248042640485,
+     "pm_deg": 43.495968958513004,
+     "gm_dB": 16.88571294631365,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 322.6213689609388,
+     "pm_deg": 43.612728122112486,
+     "gm_dB": 14.030594225391926,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.75,
+     "f_c_MHz": 305.0921082495809,
+     "pm_deg": 28.334037853134816,
+     "gm_dB": 11.977813746446024,
+     "f3_MHz": 387.1329856725759,
+     "peak_dB": 1.704758429557129,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.75,
+     "f_c_MHz": 321.9101849262398,
+     "pm_deg": 44.91666017281932,
+     "gm_dB": 22.797521574344604,
+     "f3_MHz": 310.01044621302134,
+     "peak_dB": 0.3497215269214846,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 313.92683915979035,
+     "pm_deg": 43.37954296169724,
+     "gm_dB": 17.188950216252103,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 313.02699321868334,
+     "pm_deg": 43.494583534364494,
+     "gm_dB": 14.25779274927698,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.949999999999999,
+     "f_c_MHz": 297.1153925122448,
+     "pm_deg": 28.474532896261906,
+     "gm_dB": 12.26146094892047,
+     "f3_MHz": 378.45510599899904,
+     "peak_dB": 1.859967230845902,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.949999999999999,
+     "f_c_MHz": 312.40924784365154,
+     "pm_deg": 44.75164578036902,
+     "gm_dB": 23.06864398138704,
+     "f3_MHz": 306.8792003498528,
+     "peak_dB": 0.4444966140900569,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 368.3062246670419,
+     "pm_deg": 46.73658969915894,
+     "gm_dB": 15.794941611469842,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 366.5878063969114,
+     "pm_deg": 46.899834587284204,
+     "gm_dB": 12.896079996695317,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.55,
+     "f_c_MHz": 340.1561280405815,
+     "pm_deg": 30.712109890363763,
+     "gm_dB": 11.084496154612228,
+     "f3_MHz": 381.8030616434695,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.55,
+     "f_c_MHz": 365.79503443653994,
+     "pm_deg": 48.46340049029496,
+     "gm_dB": 22.55916438785697,
+     "f3_MHz": 260.9438337433565,
+     "peak_dB": 0.00019312384900799524,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 356.18652608569283,
+     "pm_deg": 46.89970863094763,
+     "gm_dB": 16.10219246663533,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 354.5963323268917,
+     "pm_deg": 47.05514494612794,
+     "gm_dB": 13.121124457806776,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.75,
+     "f_c_MHz": 330.51995681578643,
+     "pm_deg": 31.08229964782504,
+     "gm_dB": 11.371943082735285,
+     "f3_MHz": 373.28747665233226,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.75,
+     "f_c_MHz": 353.922985771142,
+     "pm_deg": 48.56100275548323,
+     "gm_dB": 22.83672250674848,
+     "f3_MHz": 261.45050277878073,
+     "peak_dB": 0.0001931259733568122,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 344.95434749183363,
+     "pm_deg": 47.0021550318817,
+     "gm_dB": 16.39903431095131,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 343.4770073032472,
+     "pm_deg": 47.15429370185086,
+     "gm_dB": 13.338848560163221,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.949999999999999,
+     "f_c_MHz": 321.5523823837457,
+     "pm_deg": 31.425369619237586,
+     "gm_dB": 11.687648393870715,
+     "f3_MHz": 365.31273566548674,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.949999999999999,
+     "f_c_MHz": 342.9066204567532,
+     "pm_deg": 48.59916956420008,
+     "gm_dB": 23.10232401767195,
+     "f3_MHz": 261.56571735253544,
+     "peak_dB": 0.0001931280977037,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 405.09529074917396,
+     "pm_deg": 48.18961220710082,
+     "gm_dB": 15.033638493025443,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 402.5213625804985,
+     "pm_deg": 48.412977003139304,
+     "gm_dB": 12.081944952306191,
+     "second_crossing_MHz": 26733.5209
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.55,
+     "f_c_MHz": 368.4436992176044,
+     "pm_deg": 32.10419355148875,
+     "gm_dB": 10.488499115175994,
+     "f3_MHz": 319.7444472364159,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.55,
+     "f_c_MHz": 401.78968926988676,
+     "pm_deg": 50.21780428612547,
+     "gm_dB": 22.493426639624367,
+     "f3_MHz": 209.99593909231064,
+     "peak_dB": 0.00019311844903310949,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 391.4666351288622,
+     "pm_deg": 48.614954996901275,
+     "gm_dB": 15.33410476304627,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 389.0638539524955,
+     "pm_deg": 48.82474515751838,
+     "gm_dB": 12.299409796016167,
+     "second_crossing_MHz": 26124.2086
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.75,
+     "f_c_MHz": 357.71228533202293,
+     "pm_deg": 32.586952425949335,
+     "gm_dB": 10.810056670784281,
+     "f3_MHz": 320.00274296023713,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.75,
+     "f_c_MHz": 388.4774484805213,
+     "pm_deg": 50.55899913427734,
+     "gm_dB": 22.815125186130537,
+     "f3_MHz": 212.12841792007484,
+     "peak_dB": 0.00019312057341471417,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 378.7817405251964,
+     "pm_deg": 48.95951593991293,
+     "gm_dB": 15.62462532942038,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 376.537400588645,
+     "pm_deg": 49.164128154809106,
+     "gm_dB": 12.510065795320301,
+     "second_crossing_MHz": 25528.7837
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.949999999999999,
+     "f_c_MHz": 347.7136794157853,
+     "pm_deg": 33.037798077689644,
+     "gm_dB": 11.080222810701697,
+     "f3_MHz": 318.5497902596411,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.949999999999999,
+     "f_c_MHz": 376.06561330968685,
+     "pm_deg": 50.8234037445763,
+     "gm_dB": 23.07540978647687,
+     "f3_MHz": 214.00748063273613,
+     "peak_dB": 0.00019312269779631828,
+     "stable": true
+    }
+   }
+  },
+  "spice_worst_pm": 43.37954296169724,
+  "second_crossings": []
+ },
+ "OPA856|Table 8.1, 2 kOhm": {
+  "part": "OPA856",
+  "R_F": 2000.0,
+  "C_D_pF": 1.0,
+  "C_F_pF": 0.5499999999999999,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 204.3860417391377,
+     "pm_deg": 52.53327380203655,
+     "gm_dB": 44.962389767237035,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 204.04574236435428,
+     "pm_deg": 52.67796073141895,
+     "gm_dB": 24.82535258399071,
+     "second_crossing_MHz": 11928.9029
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.2500000000000004,
+     "f_c_MHz": 228.3135470634125,
+     "pm_deg": 48.29014139815854,
+     "gm_dB": 24.542781232478205,
+     "f3_MHz": 236.3810783435477,
+     "peak_dB": 0.7416137087052894,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.2500000000000004,
+     "f_c_MHz": 205.2499962384298,
+     "pm_deg": 49.608184149436624,
+     "gm_dB": NaN,
+     "f3_MHz": 217.4279607612503,
+     "peak_dB": 0.9324593286030571,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 194.88456607486006,
+     "pm_deg": 51.23969021263892,
+     "gm_dB": 45.423638333692864,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 194.58271226832466,
+     "pm_deg": 51.38079137881613,
+     "gm_dB": 25.179541825233063,
+     "second_crossing_MHz": 11928.9029
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.45,
+     "f_c_MHz": 217.89697617676913,
+     "pm_deg": 47.27039432783974,
+     "gm_dB": 25.163396607188258,
+     "f3_MHz": 231.91514102417023,
+     "peak_dB": 0.9606165419533507,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.45,
+     "f_c_MHz": 195.7066662156396,
+     "pm_deg": 48.3601766288547,
+     "gm_dB": NaN,
+     "f3_MHz": 213.15967613200516,
+     "peak_dB": 1.1519989686678633,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 186.52135158498876,
+     "pm_deg": 50.02555078770487,
+     "gm_dB": 45.866567504577745,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 186.25165358340863,
+     "pm_deg": 50.16338354877047,
+     "gm_dB": 25.511645284948145,
+     "second_crossing_MHz": 11657.0185
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.6500000000000004,
+     "f_c_MHz": 208.72989315328428,
+     "pm_deg": 46.31797536386995,
+     "gm_dB": 25.742614200085384,
+     "f3_MHz": 227.4892980453779,
+     "peak_dB": 1.17588441583696,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.6500000000000004,
+     "f_c_MHz": 187.3030136344091,
+     "pm_deg": 47.19115876697876,
+     "gm_dB": NaN,
+     "f3_MHz": 208.9690042007843,
+     "peak_dB": 1.3670657589280653,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 218.6573958129341,
+     "pm_deg": 58.24492328440664,
+     "gm_dB": 41.72967199085996,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 218.11986068536814,
+     "pm_deg": 58.4155953836774,
+     "gm_dB": 23.364167949043203,
+     "second_crossing_MHz": 10630.0525
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.2500000000000004,
+     "f_c_MHz": 245.06790601256924,
+     "pm_deg": 54.05295853441507,
+     "gm_dB": 23.23623256729304,
+     "f3_MHz": 206.21846795595732,
+     "peak_dB": 0.02897935750252127,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.2500000000000004,
+     "f_c_MHz": 219.16336051033414,
+     "pm_deg": 55.71470518030647,
+     "gm_dB": NaN,
+     "f3_MHz": 192.93127629399578,
+     "peak_dB": 0.15317514576987,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 207.94578983441335,
+     "pm_deg": 57.08533483562218,
+     "gm_dB": 42.156400952649236,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 207.46895398750124,
+     "pm_deg": 57.251196072520855,
+     "gm_dB": 23.69916300786681,
+     "second_crossing_MHz": 10630.0525
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.45,
+     "f_c_MHz": 233.35780279680978,
+     "pm_deg": 53.16351620185864,
+     "gm_dB": 23.835435624489016,
+     "f3_MHz": 204.9336693248847,
+     "peak_dB": 0.10953144410279061,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.45,
+     "f_c_MHz": 208.4718968099282,
+     "pm_deg": 54.57338040393198,
+     "gm_dB": NaN,
+     "f3_MHz": 191.09098737840304,
+     "peak_dB": 0.2772219453504148,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 198.51972419065808,
+     "pm_deg": 55.97384498874382,
+     "gm_dB": 42.5692985683057,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 198.09397159256872,
+     "pm_deg": 56.13529986389905,
+     "gm_dB": 24.015346648485874,
+     "second_crossing_MHz": 10387.7716
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.6500000000000004,
+     "f_c_MHz": 223.04597112552446,
+     "pm_deg": 52.31504679647411,
+     "gm_dB": 24.395959835973777,
+     "f3_MHz": 203.2000406848342,
+     "peak_dB": 0.216383188829697,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.6500000000000004,
+     "f_c_MHz": 199.05467032227182,
+     "pm_deg": 53.48324991577134,
+     "gm_dB": NaN,
+     "f3_MHz": 188.97787677406768,
+     "peak_dB": 0.41593068561073687,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 234.64854078863328,
+     "pm_deg": 62.550900219768394,
+     "gm_dB": 39.23010383109223,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 233.84877256494786,
+     "pm_deg": 62.75296571509321,
+     "gm_dB": 22.19387879180744,
+     "second_crossing_MHz": 9693.56074
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.2500000000000004,
+     "f_c_MHz": 263.31700400626363,
+     "pm_deg": 58.30038018988259,
+     "gm_dB": 22.16973822531915,
+     "f3_MHz": 173.11492002194285,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.2500000000000004,
+     "f_c_MHz": 234.7103145129693,
+     "pm_deg": 60.4133134037117,
+     "gm_dB": NaN,
+     "f3_MHz": 166.57052860551175,
+     "peak_dB": 0.0010010282963401817,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 222.75611551074076,
+     "pm_deg": 61.5824440840949,
+     "gm_dB": 39.62394485405773,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 222.04414818739525,
+     "pm_deg": 61.77817798209939,
+     "gm_dB": 22.505698609120014,
+     "second_crossing_MHz": 9693.56074
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.45,
+     "f_c_MHz": 250.3864629912841,
+     "pm_deg": 57.58063126587791,
+     "gm_dB": 22.748957248115907,
+     "f3_MHz": 174.40042727384179,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.45,
+     "f_c_MHz": 222.9045810078629,
+     "pm_deg": 59.43743943178929,
+     "gm_dB": NaN,
+     "f3_MHz": 166.88263926275232,
+     "peak_dB": 0.0010010309973357665,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 212.26402250666234,
+     "pm_deg": 60.632747863785355,
+     "gm_dB": 40.008161869893335,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 211.6267570694867,
+     "pm_deg": 60.82259252277946,
+     "gm_dB": 22.807175290201087,
+     "second_crossing_MHz": 9472.6244
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.6500000000000004,
+     "f_c_MHz": 238.96922694284342,
+     "pm_deg": 56.879404064319786,
+     "gm_dB": 23.291956947814427,
+     "f3_MHz": 175.08268622347995,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.6500000000000004,
+     "f_c_MHz": 212.47812516438785,
+     "pm_deg": 58.48662424091536,
+     "gm_dB": NaN,
+     "f3_MHz": 166.73318402564942,
+     "peak_dB": 0.006946325999823659,
+     "stable": true
+    }
+   }
+  },
+  "spice_worst_pm": 50.02555078770487,
+  "second_crossings": []
+ },
+ "LMH6629|Table 8.1, 2 kOhm": {
+  "part": "LMH6629",
+  "R_F": 2000.0,
+  "C_D_pF": 1.0,
+  "C_F_pF": 0.5499999999999999,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 739.5907747216932,
+     "pm_deg": 45.453681225283134,
+     "gm_dB": 12.498537935811411,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 729.0193268666035,
+     "pm_deg": 46.42537856186013,
+     "gm_dB": 10.610453840107494,
+     "second_crossing_MHz": 15022.1015
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 6.8500000000000005,
+     "f_c_MHz": 283.67956164098143,
+     "pm_deg": 46.5244397054914,
+     "gm_dB": 15.09525002678769,
+     "f3_MHz": 273.89710157060875,
+     "peak_dB": 0.5914662905252565,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 6.8500000000000005,
+     "f_c_MHz": 341.72384678642,
+     "pm_deg": 51.34234750391707,
+     "gm_dB": 25.65118178432934,
+     "f3_MHz": 276.1585053640609,
+     "peak_dB": 0.03492819093724267,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 699.133978606225,
+     "pm_deg": 46.43000924090208,
+     "gm_dB": 13.032388394614982,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 689.4435114798057,
+     "pm_deg": 47.366265948059976,
+     "gm_dB": 11.031824220366488,
+     "second_crossing_MHz": 15022.1015
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 7.05,
+     "f_c_MHz": 277.7446023929323,
+     "pm_deg": 46.215490977475696,
+     "gm_dB": 15.330004470044383,
+     "f3_MHz": 271.9822236947453,
+     "peak_dB": 0.6698693146009407,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 7.05,
+     "f_c_MHz": 334.3814263934139,
+     "pm_deg": 51.101804376744894,
+     "gm_dB": 25.8859469229879,
+     "f3_MHz": 275.4140026238914,
+     "peak_dB": 0.06383712697250271,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 663.036045390976,
+     "pm_deg": 47.24181534538968,
+     "gm_dB": 13.535885027304905,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 654.1603931392364,
+     "pm_deg": 48.14817489118556,
+     "gm_dB": 11.424048469573334,
+     "second_crossing_MHz": 14679.7167
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 7.25,
+     "f_c_MHz": 272.1223135403265,
+     "pm_deg": 45.91169352703304,
+     "gm_dB": 15.55858113107416,
+     "f3_MHz": 270.04423104298667,
+     "peak_dB": 0.7488369847658805,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 7.25,
+     "f_c_MHz": 327.4216637155234,
+     "pm_deg": 50.86050472808202,
+     "gm_dB": 26.114533456920018,
+     "f3_MHz": 274.5576753879542,
+     "peak_dB": 0.09858103710111671,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 845.3670007804578,
+     "pm_deg": 43.72090633984294,
+     "gm_dB": 11.05206399877157,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 829.3084301582236,
+     "pm_deg": 45.02933318474976,
+     "gm_dB": 9.293706183091203,
+     "second_crossing_MHz": 13698.6767
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 6.8500000000000005,
+     "f_c_MHz": 319.03810455582607,
+     "pm_deg": 52.075895554318464,
+     "gm_dB": 13.60529804831063,
+     "f3_MHz": 228.41555518904028,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 6.8500000000000005,
+     "f_c_MHz": 388.76258850062516,
+     "pm_deg": 56.24620162523516,
+     "gm_dB": 24.193474519815425,
+     "f3_MHz": 215.43183438125354,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 800.8392163096182,
+     "pm_deg": 45.06455005177642,
+     "gm_dB": 11.565945050219916,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 785.8414766318233,
+     "pm_deg": 46.347701790532966,
+     "gm_dB": 9.693079213369817,
+     "second_crossing_MHz": 13698.6767
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 7.05,
+     "f_c_MHz": 311.82222661758004,
+     "pm_deg": 51.96595374969425,
+     "gm_dB": 13.836922812492585,
+     "f3_MHz": 228.52625030217732,
+     "peak_dB": 0.0002391625917406538,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 7.05,
+     "f_c_MHz": 379.94132669989114,
+     "pm_deg": 56.14137643270847,
+     "gm_dB": 24.4251092168326,
+     "f3_MHz": 216.58383321947588,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 760.7780317356226,
+     "pm_deg": 46.243009166829864,
+     "gm_dB": 12.051744053574394,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 746.781308034034,
+     "pm_deg": 47.4949380279717,
+     "gm_dB": 10.07275020073384,
+     "second_crossing_MHz": 13386.4555
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 7.25,
+     "f_c_MHz": 304.9887897293847,
+     "pm_deg": 51.85217088421973,
+     "gm_dB": 14.0625312971806,
+     "f3_MHz": 228.49654997165803,
+     "peak_dB": 0.003193244749373522,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 7.25,
+     "f_c_MHz": 371.5724409571119,
+     "pm_deg": 56.029459680979556,
+     "gm_dB": 24.650726880162217,
+     "f3_MHz": 217.60943489494096,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 942.0661374612407,
+     "pm_deg": 41.13916969821361,
+     "gm_dB": 9.839943760280871,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 920.4363409804611,
+     "pm_deg": 42.75880597222704,
+     "gm_dB": 8.209628125570674,
+     "second_crossing_MHz": 12491.8437
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 6.8500000000000005,
+     "f_c_MHz": 358.4183411456344,
+     "pm_deg": 55.371732929320316,
+     "gm_dB": 12.339440946142965,
+     "f3_MHz": 180.79868162221052,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 6.8500000000000005,
+     "f_c_MHz": 438.77749861210094,
+     "pm_deg": 58.96980719927855,
+     "gm_dB": 22.983449162298385,
+     "f3_MHz": 165.72749541211792,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 894.7597160334037,
+     "pm_deg": 42.70906368902254,
+     "gm_dB": 10.334582211333487,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 874.2033568948966,
+     "pm_deg": 44.31671431260375,
+     "gm_dB": 8.594099942624213,
+     "second_crossing_MHz": 12491.8437
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 7.05,
+     "f_c_MHz": 349.9336535064876,
+     "pm_deg": 55.35658114564971,
+     "gm_dB": 12.568018175949852,
+     "f3_MHz": 181.96338951391658,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 7.05,
+     "f_c_MHz": 428.6132685281692,
+     "pm_deg": 59.00279136426619,
+     "gm_dB": 23.21203579176818,
+     "f3_MHz": 166.99263691489318,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 851.9198057928114,
+     "pm_deg": 44.12181770674701,
+     "gm_dB": 10.803272999852032,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 832.4378539056802,
+     "pm_deg": 45.710026881567785,
+     "gm_dB": 8.956091152911688,
+     "second_crossing_MHz": 12491.8437
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 7.25,
+     "f_c_MHz": 341.89295047804495,
+     "pm_deg": 55.33405349596477,
+     "gm_dB": 12.7907343927115,
+     "f3_MHz": 183.03650626761393,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 7.25,
+     "f_c_MHz": 418.9302635262734,
+     "pm_deg": 59.01324795567504,
+     "gm_dB": 23.43476070339877,
+     "f3_MHz": 168.22704904041888,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   }
+  },
+  "spice_worst_pm": 41.13916969821361,
+  "second_crossings": []
+ },
+ "OPA858|as OPA855, 2 kOhm": {
+  "part": "OPA858",
+  "R_F": 2000.0,
+  "C_D_pF": 1.0,
+  "C_F_pF": 0.25,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 524.2976434709984,
+     "pm_deg": 34.534084985207755,
+     "gm_dB": 29.97511637288529,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 523.7148624815369,
+     "pm_deg": 34.6404124248734,
+     "gm_dB": 20.968532709606365,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 1.9700000000000002,
+     "f_c_MHz": 766.2151427371247,
+     "pm_deg": 50.910028016823844,
+     "gm_dB": 17.053697118462274,
+     "f3_MHz": 731.0167169999181,
+     "peak_dB": 0.4522318622514668,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 1.9700000000000002,
+     "f_c_MHz": 525.4399955171581,
+     "pm_deg": 34.77106240944758,
+     "gm_dB": 32.52021219277183,
+     "f3_MHz": 669.1091047444073,
+     "peak_dB": 3.0403649956051897,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 495.00389411167777,
+     "pm_deg": 33.53795824902045,
+     "gm_dB": 30.720369059475672,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 494.5099745547174,
+     "pm_deg": 33.641628823816234,
+     "gm_dB": 21.446971560564158,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.17,
+     "f_c_MHz": 716.3779241755183,
+     "pm_deg": 50.210815101964954,
+     "gm_dB": 17.83666486112875,
+     "f3_MHz": 712.3249786006883,
+     "peak_dB": 0.6609466169054363,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.17,
+     "f_c_MHz": 496.07914871984354,
+     "pm_deg": 33.76739562673333,
+     "gm_dB": 33.303222186003715,
+     "f3_MHz": 642.3472546082874,
+     "peak_dB": 3.412367225697607,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 469.94101575675325,
+     "pm_deg": 32.607363818574754,
+     "gm_dB": 31.40631357548999,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 469.5141203115993,
+     "pm_deg": 32.70857205471438,
+     "gm_dB": 21.888585095960412,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.3699999999999997,
+     "f_c_MHz": 673.6070391252732,
+     "pm_deg": 49.32924531068244,
+     "gm_dB": 18.512114770670124,
+     "f3_MHz": 694.1656379046366,
+     "peak_dB": 0.8683185268991535,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.3699999999999997,
+     "f_c_MHz": 470.9458510007783,
+     "pm_deg": 32.8303214402965,
+     "gm_dB": 33.97364030584538,
+     "f3_MHz": 618.4642637956945,
+     "peak_dB": 3.7553593884141834,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 646.9553945478938,
+     "pm_deg": 49.39869120496516,
+     "gm_dB": 26.036819629454673,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 644.5748227370965,
+     "pm_deg": 49.59365830494795,
+     "gm_dB": 17.428560834537944,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 1.9700000000000002,
+     "f_c_MHz": 1050.029854721649,
+     "pm_deg": 61.58502894703578,
+     "gm_dB": 13.58350165877436,
+     "f3_MHz": 409.40281706563377,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 1.9700000000000002,
+     "f_c_MHz": 648.2076685238359,
+     "pm_deg": 49.79479265324389,
+     "gm_dB": 30.047978638951758,
+     "f3_MHz": 508.2602105357897,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 604.5294319077409,
+     "pm_deg": 48.88142031197174,
+     "gm_dB": 26.7358982839718,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 602.5092855321317,
+     "pm_deg": 49.06830053457733,
+     "gm_dB": 17.866848774897225,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.17,
+     "f_c_MHz": 968.61657941619,
+     "pm_deg": 62.415850906045605,
+     "gm_dB": 14.332687946101945,
+     "f3_MHz": 416.63679540559633,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.17,
+     "f_c_MHz": 605.7303978928786,
+     "pm_deg": 49.257385125706236,
+     "gm_dB": 30.748638850662196,
+     "f3_MHz": 505.7803264934786,
+     "peak_dB": 0.010528523578696516,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 568.3345254984725,
+     "pm_deg": 48.30077893487217,
+     "gm_dB": 27.383394581031055,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 566.6046247276523,
+     "pm_deg": 48.48029683209293,
+     "gm_dB": 18.27319335517948,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.3699999999999997,
+     "f_c_MHz": 901.4404449002328,
+     "pm_deg": 62.41376810290794,
+     "gm_dB": 15.022358457229693,
+     "f3_MHz": 422.74405072391215,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.3699999999999997,
+     "f_c_MHz": 569.5050873757988,
+     "pm_deg": 48.66276699931652,
+     "gm_dB": 31.43833843751585,
+     "f3_MHz": 500.8571542179825,
+     "peak_dB": 0.09896816531580702,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 796.031701031327,
+     "pm_deg": 54.963913691348324,
+     "gm_dB": 23.021818506696054,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 790.0437251640092,
+     "pm_deg": 55.298063358482665,
+     "gm_dB": 15.056961718914778,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 1.9700000000000002,
+     "f_c_MHz": 1378.420450476452,
+     "pm_deg": 59.602341054172285,
+     "gm_dB": 11.270357474710067,
+     "f3_MHz": 258.186873873466,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 1.9700000000000002,
+     "f_c_MHz": 796.6823100071928,
+     "pm_deg": 55.579900054780325,
+     "gm_dB": 28.096372703178226,
+     "f3_MHz": 305.5510088373071,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 741.8926844338756,
+     "pm_deg": 55.21888584802845,
+     "gm_dB": 23.674673574231555,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 736.6988777305304,
+     "pm_deg": 55.53810585995083,
+     "gm_dB": 15.461163492893299,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.17,
+     "f_c_MHz": 1268.187437733974,
+     "pm_deg": 61.547111101328525,
+     "gm_dB": 11.98855575982588,
+     "f3_MHz": 261.52559941692965,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.17,
+     "f_c_MHz": 742.7016905475422,
+     "pm_deg": 55.80348365611995,
+     "gm_dB": 28.81460383377417,
+     "f3_MHz": 313.7519558754586,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 695.1637595859386,
+     "pm_deg": 55.32706768155998,
+     "gm_dB": 24.28283322064813,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 690.6307230254882,
+     "pm_deg": 55.63131189248274,
+     "gm_dB": 15.840582089632635,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.3699999999999997,
+     "f_c_MHz": 1174.6615894721856,
+     "pm_deg": 63.276982004052314,
+     "gm_dB": 12.65188141163324,
+     "f3_MHz": 264.8334864847852,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.3699999999999997,
+     "f_c_MHz": 696.0467908156385,
+     "pm_deg": 55.87983809273369,
+     "gm_dB": 29.477955356164216,
+     "f3_MHz": 321.34054684782524,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   }
+  },
+  "spice_worst_pm": 32.607363818574754,
+  "second_crossings": []
+ },
+ "OPA859|flat design, 2 kOhm": {
+  "part": "OPA859",
+  "R_F": 2000.0,
+  "C_D_pF": 1.0,
+  "C_F_pF": 0.54,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 229.08909943175266,
+     "pm_deg": 52.313994823333076,
+     "gm_dB": 20.534253077620676,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 228.68303134546923,
+     "pm_deg": 52.442226119513705,
+     "gm_dB": 20.118902426276705,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 1.9700000000000002,
+     "f_c_MHz": 207.97433853314405,
+     "pm_deg": 57.753915785522636,
+     "gm_dB": 25.766736058029043,
+     "f3_MHz": 202.27290328426076,
+     "peak_dB": 0.3431928132103532,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 1.9700000000000002,
+     "f_c_MHz": 229.4560978550989,
+     "pm_deg": 52.578960026664845,
+     "gm_dB": 19.306813967953424,
+     "f3_MHz": 227.67990721879877,
+     "peak_dB": 0.553853951238117,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 216.60677809357384,
+     "pm_deg": 50.96738722907509,
+     "gm_dB": 21.24787945726981,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 216.25566527232525,
+     "pm_deg": 51.09359431823694,
+     "gm_dB": 20.63551713421059,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.17,
+     "f_c_MHz": 197.36447442167653,
+     "pm_deg": 56.46304456142174,
+     "gm_dB": 26.45919752885802,
+     "f3_MHz": 198.6609145253235,
+     "peak_dB": 0.4983791105484774,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.17,
+     "f_c_MHz": 216.9591139900862,
+     "pm_deg": 51.225271911351996,
+     "gm_dB": 19.999245510494205,
+     "f3_MHz": 223.42879770373602,
+     "peak_dB": 0.7625535010197351,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 205.83374798294366,
+     "pm_deg": 49.70413628854749,
+     "gm_dB": 21.90728405893759,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 205.52916065363138,
+     "pm_deg": 49.8283939920353,
+     "gm_dB": 21.112536582266465,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.3699999999999997,
+     "f_c_MHz": 187.94612437303533,
+     "pm_deg": 55.15545712883758,
+     "gm_dB": 27.1005075661984,
+     "f3_MHz": 195.0397552610576,
+     "peak_dB": 0.6589549080799959,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.3699999999999997,
+     "f_c_MHz": 206.17133888758894,
+     "pm_deg": 49.9555403007343,
+     "gm_dB": 20.640531779268592,
+     "f3_MHz": 219.1116701328771,
+     "peak_dB": 0.9720937015545482,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 246.9583458224444,
+     "pm_deg": 58.26989815461543,
+     "gm_dB": 19.20604537946746,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 246.2975005231851,
+     "pm_deg": 58.42232362159875,
+     "gm_dB": 18.634186861731237,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 1.9700000000000002,
+     "f_c_MHz": 221.51800962323102,
+     "pm_deg": 63.678519001318506,
+     "gm_dB": 24.349200207265234,
+     "f3_MHz": 175.68328574105044,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 1.9700000000000002,
+     "f_c_MHz": 247.32137533270242,
+     "pm_deg": 58.578632005978506,
+     "gm_dB": 17.815076850582628,
+     "f3_MHz": 196.46323122815167,
+     "peak_dB": 0.009757293717311282,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 232.80321088706495,
+     "pm_deg": 57.100280613201264,
+     "gm_dB": 19.89639195380984,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 232.23055739456,
+     "pm_deg": 57.249856467154345,
+     "gm_dB": 19.12900871721056,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.17,
+     "f_c_MHz": 209.75851681601148,
+     "pm_deg": 62.54446675744785,
+     "gm_dB": 25.01510470889358,
+     "f3_MHz": 174.50752834519193,
+     "peak_dB": 0.01942710933861502,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.17,
+     "f_c_MHz": 233.1543637141401,
+     "pm_deg": 57.39992628072447,
+     "gm_dB": 18.480954841070442,
+     "f3_MHz": 195.4455348959351,
+     "peak_dB": 0.07642868749454414,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 220.5749754618301,
+     "pm_deg": 55.9714478328207,
+     "gm_dB": 20.53558299773445,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 220.07764187083305,
+     "pm_deg": 56.11787901914535,
+     "gm_dB": 19.582277510366865,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.3699999999999997,
+     "f_c_MHz": 199.5446076910147,
+     "pm_deg": 61.471284520403955,
+     "gm_dB": 25.633573155304823,
+     "f3_MHz": 172.98997127480456,
+     "peak_dB": 0.09184009839881822,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.3699999999999997,
+     "f_c_MHz": 220.9166964035719,
+     "pm_deg": 56.26241652703847,
+     "gm_dB": 19.099402052136888,
+     "f3_MHz": 193.91184666430752,
+     "peak_dB": 0.1771250369871337,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 266.7410677878123,
+     "pm_deg": 62.625012992611374,
+     "gm_dB": 18.15594738646294,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 265.7344493984685,
+     "pm_deg": 62.808195686782184,
+     "gm_dB": 17.457352145461627,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 1.9700000000000002,
+     "f_c_MHz": 236.67221103881818,
+     "pm_deg": 68.18844224250994,
+     "gm_dB": 23.216918523009525,
+     "f3_MHz": 150.00136435029438,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 1.9700000000000002,
+     "f_c_MHz": 267.0688818560174,
+     "pm_deg": 62.97964587339246,
+     "gm_dB": 16.600884157347558,
+     "f3_MHz": 165.20386292342423,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 250.99033551813176,
+     "pm_deg": 61.693972076158275,
+     "gm_dB": 18.824672726398898,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 250.1167924947289,
+     "pm_deg": 61.871942712653706,
+     "gm_dB": 17.924067934520554,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.17,
+     "f_c_MHz": 223.7020905786787,
+     "pm_deg": 67.22639828079973,
+     "gm_dB": 23.858228655494354,
+     "f3_MHz": 150.5066861340936,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.17,
+     "f_c_MHz": 251.31759263427548,
+     "pm_deg": 62.03830702716981,
+     "gm_dB": 17.321417947591893,
+     "f3_MHz": 166.479855351237,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 237.33339433849406,
+     "pm_deg": 60.76636631526239,
+     "gm_dB": 19.4452800320788,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 236.56829732061848,
+     "pm_deg": 60.94018168594339,
+     "gm_dB": 18.360364579420377,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.3699999999999997,
+     "f_c_MHz": 212.42828130570007,
+     "pm_deg": 66.30255943088208,
+     "gm_dB": 24.455427229096557,
+     "f3_MHz": 150.60883277920584,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.3699999999999997,
+     "f_c_MHz": 237.6618390732275,
+     "pm_deg": 61.10132315936008,
+     "gm_dB": 17.918597378424572,
+     "f3_MHz": 167.15989120847638,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   }
+  },
+  "spice_worst_pm": 49.70413628854749,
+  "second_crossings": []
+ },
+ "OPA846|flat design, 2 kOhm": {
+  "part": "OPA846",
+  "R_F": 2000.0,
+  "C_D_pF": 1.0,
+  "C_F_pF": 0.75,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 290.83488612662853,
+     "pm_deg": 43.377088342711346,
+     "gm_dB": 12.36305391728157,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 287.18706345453666,
+     "pm_deg": 44.437389273760886,
+     "gm_dB": 11.281084122394864,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.949999999999999,
+     "f_c_MHz": 223.3717643988598,
+     "pm_deg": 32.11589351563822,
+     "gm_dB": 6.345738444613447,
+     "f3_MHz": 268.5668324549559,
+     "peak_dB": 0.6099567557860884,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.949999999999999,
+     "f_c_MHz": 263.65953836154716,
+     "pm_deg": 40.663576639875004,
+     "gm_dB": 11.62801065562583,
+     "f3_MHz": 228.16924775180607,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 281.41752219191324,
+     "pm_deg": 43.40691338848609,
+     "gm_dB": 12.580784276993866,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 278.00442879449486,
+     "pm_deg": 44.4401392641862,
+     "gm_dB": 11.482901652965325,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 5.1499999999999995,
+     "f_c_MHz": 216.28864589315805,
+     "pm_deg": 32.54453154093977,
+     "gm_dB": 6.6502859619496615,
+     "f3_MHz": 261.6753845673485,
+     "peak_dB": 0.7549013189905979,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 5.1499999999999995,
+     "f_c_MHz": 256.1675737753682,
+     "pm_deg": 40.78581448587258,
+     "gm_dB": 11.932720840528454,
+     "f3_MHz": 227.20561153393365,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 272.6736933144881,
+     "pm_deg": 43.411828984618126,
+     "gm_dB": 12.798651407215207,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 269.4806149259045,
+     "pm_deg": 44.412673069531934,
+     "gm_dB": 11.683016473916584,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 5.35,
+     "f_c_MHz": 209.72794248629148,
+     "pm_deg": 32.940738251655375,
+     "gm_dB": 6.944524031282536,
+     "f3_MHz": 255.26621496660402,
+     "peak_dB": 0.8970499981119827,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 5.35,
+     "f_c_MHz": 249.16771070970162,
+     "pm_deg": 40.86703174126143,
+     "gm_dB": 12.19947173527331,
+     "f3_MHz": 225.9561815410192,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 318.0975873606355,
+     "pm_deg": 44.425251595496974,
+     "gm_dB": 11.345099606441227,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 312.79299152572247,
+     "pm_deg": 45.78684626767193,
+     "gm_dB": 10.329042958049424,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.949999999999999,
+     "f_c_MHz": 245.4107587730722,
+     "pm_deg": 33.50316333494905,
+     "gm_dB": 5.485841245186202,
+     "f3_MHz": 236.33752935809284,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.949999999999999,
+     "f_c_MHz": 287.98981033500377,
+     "pm_deg": 42.524073418821644,
+     "gm_dB": 10.72888149253224,
+     "f3_MHz": 178.4553875669714,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 307.6418813924686,
+     "pm_deg": 44.65684429763479,
+     "gm_dB": 11.561976955181454,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 302.6504825813231,
+     "pm_deg": 45.97847591686755,
+     "gm_dB": 10.52927391778718,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 5.1499999999999995,
+     "f_c_MHz": 237.20424511573052,
+     "pm_deg": 34.075323216089856,
+     "gm_dB": 5.7851561541006244,
+     "f3_MHz": 232.6082870349725,
+     "peak_dB": 0.0022762903898917524,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 5.1499999999999995,
+     "f_c_MHz": 279.58417689542875,
+     "pm_deg": 42.822297988602884,
+     "gm_dB": 11.02834256916192,
+     "f3_MHz": 180.64560199013044,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 297.90871079285984,
+     "pm_deg": 44.85386876854176,
+     "gm_dB": 11.77839774358026,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 293.2097875405461,
+     "pm_deg": 46.137150054349775,
+     "gm_dB": 10.725472769719428,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 5.35,
+     "f_c_MHz": 229.6007047909328,
+     "pm_deg": 34.60697482959205,
+     "gm_dB": 6.0745064775210675,
+     "f3_MHz": 228.8114043403389,
+     "peak_dB": 0.02982860973328724,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 5.35,
+     "f_c_MHz": 271.72078490117974,
+     "pm_deg": 43.07544170544759,
+     "gm_dB": 11.290071739780965,
+     "f3_MHz": 182.46328855137543,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 345.5623040992702,
+     "pm_deg": 44.4022124613721,
+     "gm_dB": 10.441209241332785,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 338.3754629897005,
+     "pm_deg": 46.08879356449333,
+     "gm_dB": 9.491147968518288,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.949999999999999,
+     "f_c_MHz": 269.391409987379,
+     "pm_deg": 33.839319411746686,
+     "gm_dB": 4.6985806733293725,
+     "f3_MHz": 177.68760628902925,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.949999999999999,
+     "f_c_MHz": 313.03265609684894,
+     "pm_deg": 43.25728913046774,
+     "gm_dB": 9.91895393269433,
+     "f3_MHz": 138.0371249208286,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 334.21636381466095,
+     "pm_deg": 44.81276467892863,
+     "gm_dB": 10.65679254406794,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 327.411365038352,
+     "pm_deg": 46.455618252430895,
+     "gm_dB": 9.685537003898737,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 5.1499999999999995,
+     "f_c_MHz": 260.0721744919259,
+     "pm_deg": 34.546145473038735,
+     "gm_dB": 4.9928355900160355,
+     "f3_MHz": 179.91063043140292,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 5.1499999999999995,
+     "f_c_MHz": 303.7988230003385,
+     "pm_deg": 43.717148031390536,
+     "gm_dB": 10.2133427152362,
+     "f3_MHz": 140.1573200233444,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 323.624150441514,
+     "pm_deg": 45.17693063663731,
+     "gm_dB": 10.871826153184525,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 317.1764574572935,
+     "pm_deg": 46.7771553620172,
+     "gm_dB": 9.881993778919085,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 5.35,
+     "f_c_MHz": 251.42731999805645,
+     "pm_deg": 35.20775364172687,
+     "gm_dB": 5.27745415767601,
+     "f3_MHz": 181.5735201895285,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 5.35,
+     "f_c_MHz": 295.149122939027,
+     "pm_deg": 44.132009569163046,
+     "gm_dB": 10.498082411731666,
+     "f3_MHz": 142.21946399953617,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   }
+  },
+  "spice_worst_pm": 43.377088342711346,
+  "second_crossings": []
+ },
+ "OPA657|flat design, 2 kOhm": {
+  "part": "OPA657",
+  "R_F": 2000.0,
+  "C_D_pF": 1.0,
+  "C_F_pF": 0.99,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 196.60690490954602,
+     "pm_deg": 34.708379338691316,
+     "gm_dB": 12.80294612193176,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 195.31351835627353,
+     "pm_deg": 34.60376939313326,
+     "gm_dB": 9.690775649531675,
+     "second_crossing_MHz": 2375.13988
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 6.35,
+     "f_c_MHz": 262.71036756693456,
+     "pm_deg": 15.985049139682417,
+     "gm_dB": 5.282976813824503,
+     "f3_MHz": 318.3479177881989,
+     "peak_dB": 1.306954982088835,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 6.35,
+     "f_c_MHz": 195.11369269706455,
+     "pm_deg": 37.50692181857488,
+     "gm_dB": 17.248279961164062,
+     "f3_MHz": 180.12025561779734,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 192.60710914837713,
+     "pm_deg": 34.88455768194103,
+     "gm_dB": 13.023606117416096,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 191.36629891659078,
+     "pm_deg": 34.784596955909564,
+     "gm_dB": 9.839402492094404,
+     "second_crossing_MHz": 2375.13988
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 6.549999999999999,
+     "f_c_MHz": 257.7887661324438,
+     "pm_deg": 16.527714791273326,
+     "gm_dB": 5.519474956715871,
+     "f3_MHz": 313.19004410464294,
+     "peak_dB": 1.1566317004495317,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 6.549999999999999,
+     "f_c_MHz": 191.2017149051207,
+     "pm_deg": 37.61469923385394,
+     "gm_dB": 17.44217295530891,
+     "f3_MHz": 179.16740580724223,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 188.7937775922474,
+     "pm_deg": 35.03919180461119,
+     "gm_dB": 13.238855271384475,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 187.60251325249297,
+     "pm_deg": 34.945448362226074,
+     "gm_dB": 9.98463721275969,
+     "second_crossing_MHz": 2375.13988
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 6.749999999999999,
+     "f_c_MHz": 253.09780029717555,
+     "pm_deg": 17.04992019825238,
+     "gm_dB": 5.74970883260333,
+     "f3_MHz": 308.2079713446785,
+     "peak_dB": 1.0232440981577364,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 6.749999999999999,
+     "f_c_MHz": 187.4849158293334,
+     "pm_deg": 37.71343305303918,
+     "gm_dB": 17.672528719291616,
+     "f3_MHz": 178.1044458132457,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 208.75969021458806,
+     "pm_deg": 35.886082870070254,
+     "gm_dB": 12.078863867993672,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 207.0672800685895,
+     "pm_deg": 35.75744084534227,
+     "gm_dB": 9.030741927392977,
+     "second_crossing_MHz": 2216.41018
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 6.35,
+     "f_c_MHz": 278.53888745371785,
+     "pm_deg": 15.746588814145753,
+     "gm_dB": 4.896837378020428,
+     "f3_MHz": 149.43507663969658,
+     "peak_dB": 0.1575164997211969,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 6.35,
+     "f_c_MHz": 206.67031055110687,
+     "pm_deg": 38.96141403896911,
+     "gm_dB": 16.711888500831474,
+     "f3_MHz": 148.70061940181589,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 204.4752183247404,
+     "pm_deg": 36.14865796616749,
+     "gm_dB": 12.296038392824578,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 202.84716635668488,
+     "pm_deg": 36.0241743793685,
+     "gm_dB": 9.176146855860855,
+     "second_crossing_MHz": 2216.41018
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 6.549999999999999,
+     "f_c_MHz": 273.29105140891244,
+     "pm_deg": 16.33715582961196,
+     "gm_dB": 5.130170482883062,
+     "f3_MHz": 321.4989494575849,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 6.549999999999999,
+     "f_c_MHz": 202.51266925228862,
+     "pm_deg": 39.14964342829319,
+     "gm_dB": 16.94534130877367,
+     "f3_MHz": 150.14901050947813,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 200.38454226667005,
+     "pm_deg": 36.388744748122434,
+     "gm_dB": 12.507976774263463,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 198.81810599080976,
+     "pm_deg": 36.26811893610957,
+     "gm_dB": 9.31827754864808,
+     "second_crossing_MHz": 2216.41018
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 6.749999999999999,
+     "f_c_MHz": 268.2852566612195,
+     "pm_deg": 16.906654075194325,
+     "gm_dB": 5.357403366132004,
+     "f3_MHz": 316.05022208927693,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 6.749999999999999,
+     "f_c_MHz": 198.5389139531207,
+     "pm_deg": 39.3188513319393,
+     "gm_dB": 17.172684741739598,
+     "f3_MHz": 151.27537791449998,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 221.05010402173122,
+     "pm_deg": 36.47385290607616,
+     "gm_dB": 11.390682213151866,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 218.91046293026565,
+     "pm_deg": 36.31406168893085,
+     "gm_dB": 8.42381401685769,
+     "second_crossing_MHz": 2068.28832
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 6.35,
+     "f_c_MHz": 294.1309343525167,
+     "pm_deg": 15.178394808354795,
+     "gm_dB": 4.50876085016451,
+     "f3_MHz": 101.12153195368069,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 6.35,
+     "f_c_MHz": 218.2447976234078,
+     "pm_deg": 39.852247906011485,
+     "gm_dB": 16.219204659562482,
+     "f3_MHz": 117.04412244305063,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 216.5111537332783,
+     "pm_deg": 36.814276883460735,
+     "gm_dB": 11.603724880092688,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 214.44755969570863,
+     "pm_deg": 36.66143634750924,
+     "gm_dB": 8.563652168942115,
+     "second_crossing_MHz": 2068.28832
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 6.549999999999999,
+     "f_c_MHz": 288.58732479038287,
+     "pm_deg": 15.806795845177078,
+     "gm_dB": 4.739010152711631,
+     "f3_MHz": 102.86936820449378,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 6.549999999999999,
+     "f_c_MHz": 213.8805783780781,
+     "pm_deg": 40.11331804427823,
+     "gm_dB": 16.449563576943703,
+     "f3_MHz": 118.88623233125263,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 212.1714979785606,
+     "pm_deg": 37.130422732812264,
+     "gm_dB": 11.811738551017362,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 210.18104170278062,
+     "pm_deg": 36.984638534573406,
+     "gm_dB": 8.700434372761897,
+     "second_crossing_MHz": 2068.28832
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 6.749999999999999,
+     "f_c_MHz": 283.29540542839334,
+     "pm_deg": 16.41390702417084,
+     "gm_dB": 4.925864265676749,
+     "f3_MHz": 104.7631518161552,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 6.749999999999999,
+     "f_c_MHz": 209.6821567691767,
+     "pm_deg": 40.34729435848362,
+     "gm_dB": 16.6739718583978,
+     "f3_MHz": 120.66688223472724,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   }
+  },
+  "spice_worst_pm": 34.708379338691316,
+  "second_crossings": []
+ },
+ "OPA847|largest-PM design, 2 kOhm": {
+  "part": "OPA847",
+  "R_F": 2000.0,
+  "C_D_pF": 1.0,
+  "C_F_pF": 0.35000000000000003,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 162.0916440506577,
+     "pm_deg": 23.237283593586795,
+     "gm_dB": 9.706773513452388,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 162.03457362542414,
+     "pm_deg": 23.26309347510363,
+     "gm_dB": 9.559121900965021,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.85,
+     "f_c_MHz": 316.39839999732504,
+     "pm_deg": 4.6210535360319795,
+     "gm_dB": 1.3965361582303557,
+     "f3_MHz": 508.50128528544474,
+     "peak_dB": 19.60997469665521,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.85,
+     "f_c_MHz": 224.75819964063604,
+     "pm_deg": -14.711009325923527,
+     "gm_dB": -12.388297549869822,
+     "f3_MHz": 308.24843332679853,
+     "peak_dB": 10.7855148820667,
+     "stable": false
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 160.20535844739422,
+     "pm_deg": 22.640249307292805,
+     "gm_dB": 9.686746513050387,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 160.1511160069538,
+     "pm_deg": 22.66549904968531,
+     "gm_dB": 9.544174010111195,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 5.05,
+     "f_c_MHz": 306.67674959657455,
+     "pm_deg": 5.600758203267702,
+     "gm_dB": 1.704236213667059,
+     "f3_MHz": 496.896436608036,
+     "peak_dB": 18.013999591339978,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 5.05,
+     "f_c_MHz": 220.24083813086116,
+     "pm_deg": -14.322352266466709,
+     "gm_dB": -12.366782872665478,
+     "f3_MHz": 303.52211309822843,
+     "peak_dB": 11.035358631500841,
+     "stable": false
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 158.3844258294678,
+     "pm_deg": 22.065033754557902,
+     "gm_dB": 9.67158517645172,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 158.3331300973335,
+     "pm_deg": 22.08940367993702,
+     "gm_dB": 9.531793543858914,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 5.25,
+     "f_c_MHz": 297.87927440737457,
+     "pm_deg": 6.33021693289038,
+     "gm_dB": 1.999588958201697,
+     "f3_MHz": 484.7010338463161,
+     "peak_dB": 16.74635590802292,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 5.25,
+     "f_c_MHz": 215.99398150325823,
+     "pm_deg": -13.947086964223303,
+     "gm_dB": -12.401583948900042,
+     "f3_MHz": 299.02875924028194,
+     "peak_dB": 11.281738753427007,
+     "stable": false
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 172.64484169438816,
+     "pm_deg": 31.07290864231615,
+     "gm_dB": 9.773204755269262,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 172.53008261754516,
+     "pm_deg": 31.105777923928542,
+     "gm_dB": 9.554982506627974,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.85,
+     "f_c_MHz": 375.69208173080966,
+     "pm_deg": 7.697170467390237,
+     "gm_dB": 1.6533191952499386,
+     "f3_MHz": 561.520955199141,
+     "peak_dB": 12.734794227415449,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.85,
+     "f_c_MHz": 240.81397073700384,
+     "pm_deg": -7.241741432350096,
+     "gm_dB": -4.874131582820157,
+     "f3_MHz": 325.6615358695783,
+     "peak_dB": 15.32662963275117,
+     "stable": false
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 170.34458873611953,
+     "pm_deg": 30.457765550181193,
+     "gm_dB": 9.804318529107599,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 170.23654367763547,
+     "pm_deg": 30.489481220103215,
+     "gm_dB": 9.59127409129604,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 5.05,
+     "f_c_MHz": 361.73367896387987,
+     "pm_deg": 9.025914032987345,
+     "gm_dB": 1.9602789394541362,
+     "f3_MHz": 550.5769024649403,
+     "peak_dB": 11.450410326536796,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 5.05,
+     "f_c_MHz": 235.6413497251943,
+     "pm_deg": -6.750731574611052,
+     "gm_dB": -4.707169983956996,
+     "f3_MHz": 320.59088362688726,
+     "peak_dB": 15.958982520499479,
+     "stable": false
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 168.12931468099592,
+     "pm_deg": 29.86795036708216,
+     "gm_dB": 9.841416121058423,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 168.02658008177445,
+     "pm_deg": 29.89927739193959,
+     "gm_dB": 9.62992424957905,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 5.25,
+     "f_c_MHz": 348.9624682480675,
+     "pm_deg": 10.27124685986061,
+     "gm_dB": 2.2758488291186767,
+     "f3_MHz": 539.4458456883295,
+     "peak_dB": 10.429155216574085,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 5.25,
+     "f_c_MHz": 230.7364271486769,
+     "pm_deg": -6.317254213925025,
+     "gm_dB": -4.552382183812109,
+     "f3_MHz": 315.7411915129361,
+     "peak_dB": 16.597320992807838,
+     "stable": false
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 188.20355503857922,
+     "pm_deg": 37.12986105654372,
+     "gm_dB": 9.119027443066589,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 187.98185517378639,
+     "pm_deg": 37.171367596417724,
+     "gm_dB": 8.859400877581852,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.85,
+     "f_c_MHz": 459.69196402481106,
+     "pm_deg": 5.13026703450376,
+     "gm_dB": 0.7314302285687636,
+     "f3_MHz": 602.4109955571529,
+     "peak_dB": 14.080966267102626,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.85,
+     "f_c_MHz": 260.9773267176531,
+     "pm_deg": -2.845318525706432,
+     "gm_dB": -1.2036874701066085,
+     "f3_MHz": 342.2126446804068,
+     "peak_dB": 21.77623170629648,
+     "stable": false
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 185.25476726980645,
+     "pm_deg": 36.565810770681,
+     "gm_dB": 9.173693171683672,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 185.04652748745568,
+     "pm_deg": 36.605819409222704,
+     "gm_dB": 8.918271276814048,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 5.05,
+     "f_c_MHz": 440.20046543205564,
+     "pm_deg": 6.926109473750785,
+     "gm_dB": 1.0528966405993898,
+     "f3_MHz": 594.074632930113,
+     "peak_dB": 11.543850920107172,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 5.05,
+     "f_c_MHz": 255.06935909584416,
+     "pm_deg": -2.1896726512007945,
+     "gm_dB": -0.9550475051979443,
+     "f3_MHz": 336.9415466327293,
+     "peak_dB": 24.07016936777678,
+     "stable": false
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 182.43138432964955,
+     "pm_deg": 36.02385915100743,
+     "gm_dB": 9.233922577351946,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 182.2359431833807,
+     "pm_deg": 36.062095079459255,
+     "gm_dB": 8.979096708554565,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 5.25,
+     "f_c_MHz": 422.39488259425906,
+     "pm_deg": 8.611811542055193,
+     "gm_dB": 1.345214515563109,
+     "f3_MHz": 585.2763897026111,
+     "peak_dB": 9.727196300266524,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 5.25,
+     "f_c_MHz": 249.4868992527053,
+     "pm_deg": -1.5857104230696848,
+     "gm_dB": -0.7179014267625373,
+     "f3_MHz": 331.84638883253734,
+     "peak_dB": 26.966589886977467,
+     "stable": false
+    }
+   }
+  },
+  "spice_worst_pm": 22.065033754557902,
+  "second_crossings": []
+ },
+ "LMH6624|largest-PM design, 2 kOhm": {
+  "part": "LMH6624",
+  "R_F": 2000.0,
+  "C_D_pF": 1.0,
+  "C_F_pF": 1.1700000000000002,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 198.0538991355553,
+     "pm_deg": 29.16889884693248,
+     "gm_dB": 8.2176555572241,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 196.4259273013283,
+     "pm_deg": 29.70130436515518,
+     "gm_dB": 7.401619615591124,
+     "second_crossing_MHz": 3680.75193
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.05,
+     "f_c_MHz": 187.8691386854969,
+     "pm_deg": 1.2917873969483082,
+     "gm_dB": 0.44849633763757213,
+     "f3_MHz": 231.13185318448888,
+     "peak_dB": 24.951314369792282,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.05,
+     "f_c_MHz": 223.60620469163382,
+     "pm_deg": 26.043478119476134,
+     "gm_dB": 7.519059555169505,
+     "f3_MHz": 215.79628292847977,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 193.27037133955753,
+     "pm_deg": 29.684882066422375,
+     "gm_dB": 8.473663960851956,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 191.687246699277,
+     "pm_deg": 30.21559408512445,
+     "gm_dB": 7.620317311201469,
+     "second_crossing_MHz": 3596.85997
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.25,
+     "f_c_MHz": 182.86882010619823,
+     "pm_deg": 2.06667257492677,
+     "gm_dB": 0.7167288326552472,
+     "f3_MHz": 227.38465793588463,
+     "peak_dB": 20.99538050240313,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.25,
+     "f_c_MHz": 217.4236555758022,
+     "pm_deg": 26.77096515737361,
+     "gm_dB": 7.851406056281055,
+     "f3_MHz": 210.5914202191837,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 188.73718550883473,
+     "pm_deg": 30.15939706275219,
+     "gm_dB": 8.722472061261382,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 187.19944218530253,
+     "pm_deg": 30.688145556229102,
+     "gm_dB": 7.831105053053204,
+     "second_crossing_MHz": 3596.85997
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.45,
+     "f_c_MHz": 178.19971488211075,
+     "pm_deg": 2.7996110779870094,
+     "gm_dB": 1.0041338802669042,
+     "f3_MHz": 223.75114391821722,
+     "peak_dB": 18.495733845433367,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.45,
+     "f_c_MHz": 211.6105891772623,
+     "pm_deg": 27.44316369305048,
+     "gm_dB": 8.133880325018945,
+     "f3_MHz": 206.07973280421115,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 207.80398809903554,
+     "pm_deg": 29.080930658210036,
+     "gm_dB": 7.760223963334676,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 205.85754720478295,
+     "pm_deg": 29.68211679046692,
+     "gm_dB": 6.958406147934484,
+     "second_crossing_MHz": 3434.76867
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.05,
+     "f_c_MHz": 196.03837338064733,
+     "pm_deg": 1.3227652296971826,
+     "gm_dB": 0.38174113878454574,
+     "f3_MHz": 235.5244221391488,
+     "peak_dB": 23.807176687039696,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.05,
+     "f_c_MHz": 234.02611049394596,
+     "pm_deg": 25.882714593960458,
+     "gm_dB": 7.159810916034385,
+     "f3_MHz": 103.45598974263451,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 202.82772474336474,
+     "pm_deg": 29.684411896449205,
+     "gm_dB": 8.013099677612114,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 200.9252735233812,
+     "pm_deg": 30.286028114572503,
+     "gm_dB": 7.172846610172807,
+     "second_crossing_MHz": 3434.76867
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.25,
+     "f_c_MHz": 190.8117274508411,
+     "pm_deg": 2.156123728431993,
+     "gm_dB": 0.6707595822730448,
+     "f3_MHz": 231.83324858815087,
+     "peak_dB": 19.706480121934266,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.25,
+     "f_c_MHz": 227.66935841903432,
+     "pm_deg": 26.693977450759377,
+     "gm_dB": 7.448439719439297,
+     "f3_MHz": 106.77970910344186,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 198.10270768364512,
+     "pm_deg": 30.245412512101666,
+     "gm_dB": 8.258329190944968,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 196.24593414301827,
+     "pm_deg": 30.846808673985294,
+     "gm_dB": 7.381386379195307,
+     "second_crossing_MHz": 3434.76867
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.45,
+     "f_c_MHz": 185.92470684752115,
+     "pm_deg": 2.946463451692864,
+     "gm_dB": 0.9481027133147253,
+     "f3_MHz": 228.23190798146396,
+     "peak_dB": 17.132560189310638,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.45,
+     "f_c_MHz": 221.67810265508456,
+     "pm_deg": 27.449793965159046,
+     "gm_dB": 7.762778938224254,
+     "f3_MHz": 110.48690841257016,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 217.3482189486477,
+     "pm_deg": 28.67177952813043,
+     "gm_dB": 7.320379011105942,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 215.08458017738795,
+     "pm_deg": 29.335931365647923,
+     "gm_dB": 6.540545137837006,
+     "second_crossing_MHz": 3279.98196
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.05,
+     "f_c_MHz": 203.5154907664457,
+     "pm_deg": 0.715594266791868,
+     "gm_dB": 0.1486429354227477,
+     "f3_MHz": 239.60984724531167,
+     "peak_dB": 29.20700507647409,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.05,
+     "f_c_MHz": 244.04688521997772,
+     "pm_deg": 25.466187188713008,
+     "gm_dB": 6.817482209902323,
+     "f3_MHz": 85.48492184176025,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 212.2132060149811,
+     "pm_deg": 29.34929934173428,
+     "gm_dB": 7.568966642877754,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 209.98993534564406,
+     "pm_deg": 30.016786968160716,
+     "gm_dB": 6.751594966745086,
+     "second_crossing_MHz": 3279.98196
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.25,
+     "f_c_MHz": 198.67762293601143,
+     "pm_deg": 1.9807607192257422,
+     "gm_dB": 0.46756650993248494,
+     "f3_MHz": 236.00687259858594,
+     "peak_dB": 19.952675196742746,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.25,
+     "f_c_MHz": 237.56624020291332,
+     "pm_deg": 26.346530253354956,
+     "gm_dB": 7.099887577306023,
+     "f3_MHz": 87.15144756185636,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 207.32843770574647,
+     "pm_deg": 29.984175006820635,
+     "gm_dB": 7.810767879057478,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 205.1485253099035,
+     "pm_deg": 30.653948833171484,
+     "gm_dB": 6.954767784922414,
+     "second_crossing_MHz": 3205.22437
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 4.45,
+     "f_c_MHz": 193.59553702733476,
+     "pm_deg": 2.818940176905386,
+     "gm_dB": 0.73983331199227,
+     "f3_MHz": 232.47089183799653,
+     "peak_dB": 16.65281280638959,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 4.45,
+     "f_c_MHz": 231.43087776739816,
+     "pm_deg": 27.1685183694309,
+     "gm_dB": 7.408655918799982,
+     "f3_MHz": 88.9037985244719,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   }
+  },
+  "spice_worst_pm": 28.67177952813043,
+  "second_crossings": []
+ },
+ "THS4021|largest-PM design, 2 kOhm": {
+  "part": "THS4021",
+  "R_F": 2000.0,
+  "C_D_pF": 1.0,
+  "C_F_pF": 0.66,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 218.06658610713933,
+     "pm_deg": 20.649983067422767,
+     "gm_dB": 0.8491949941622934,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 215.35725603046293,
+     "pm_deg": 21.47290030866779,
+     "gm_dB": 0.850393764939617,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.6500000000000004,
+     "f_c_MHz": 259.1333223220585,
+     "pm_deg": 1.3098108594256246,
+     "gm_dB": 0.4388282989629856,
+     "f3_MHz": 348.05626811033807,
+     "peak_dB": 27.231823797424937,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.6500000000000004,
+     "f_c_MHz": 329.01518602122684,
+     "pm_deg": -31.970054224322183,
+     "gm_dB": -1.8027913749846731,
+     "f3_MHz": 329.74887522274565,
+     "peak_dB": 7.856740492485745,
+     "stable": false
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 201.94197975450956,
+     "pm_deg": 23.794336469399752,
+     "gm_dB": 1.2282196872057012,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 199.91279626777086,
+     "pm_deg": 24.36092437744398,
+     "gm_dB": 1.2301206180796445,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.85,
+     "f_c_MHz": 246.76591451523865,
+     "pm_deg": 2.583676207455113,
+     "gm_dB": 0.8520431423914965,
+     "f3_MHz": 338.53520470700437,
+     "peak_dB": 21.55138034625186,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.85,
+     "f_c_MHz": 318.7002183583071,
+     "pm_deg": -25.879755932758968,
+     "gm_dB": -1.2818099487531474,
+     "f3_MHz": 328.0250157367597,
+     "peak_dB": 10.545332330813919,
+     "stable": false
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 189.96496115802123,
+     "pm_deg": 25.534101479246175,
+     "gm_dB": 1.5916153404290212,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 188.3037572514192,
+     "pm_deg": 25.999943639532233,
+     "gm_dB": 1.5942772116039614,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.0500000000000003,
+     "f_c_MHz": 235.79854511308238,
+     "pm_deg": 3.737590341654908,
+     "gm_dB": 1.2625781935411684,
+     "f3_MHz": 329.358635082927,
+     "peak_dB": 18.535526653271614,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.0500000000000003,
+     "f_c_MHz": 306.95276574385775,
+     "pm_deg": -18.853514446477277,
+     "gm_dB": -0.8017151206862322,
+     "f3_MHz": 326.15535347327085,
+     "peak_dB": 14.4166723392471,
+     "stable": false
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 283.18475175292275,
+     "pm_deg": -0.7932334761784716,
+     "gm_dB": -0.025600794083908987,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 283.4447708595598,
+     "pm_deg": -0.9362939371207801,
+     "gm_dB": -0.025725109202752235,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.6500000000000004,
+     "f_c_MHz": 282.7444016418748,
+     "pm_deg": 1.8331885054361408,
+     "gm_dB": 0.5153461486194165,
+     "f3_MHz": 360.73733675683445,
+     "peak_dB": 22.7817218085245,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.6500000000000004,
+     "f_c_MHz": 344.8284518330689,
+     "pm_deg": -38.337160748205434,
+     "gm_dB": -2.596551827713764,
+     "f3_MHz": 329.32506323720787,
+     "peak_dB": 3.687070224374263,
+     "stable": false
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 254.1042430330009,
+     "pm_deg": 12.579184453853003,
+     "gm_dB": 0.34562035038118677,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 249.02189695314783,
+     "pm_deg": 14.658074952449567,
+     "gm_dB": 0.3455686033705823,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.85,
+     "f_c_MHz": 268.7475348545068,
+     "pm_deg": 3.3566609859553864,
+     "gm_dB": 0.9461162064780086,
+     "f3_MHz": 351.61201415042564,
+     "peak_dB": 17.731126299775447,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.85,
+     "f_c_MHz": 336.96937510069324,
+     "pm_deg": -33.96794933569802,
+     "gm_dB": -2.1007870923992296,
+     "f3_MHz": 328.5723964897223,
+     "peak_dB": 5.318813855601326,
+     "stable": false
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 225.06494400932505,
+     "pm_deg": 22.033069661143855,
+     "gm_dB": 0.7018345419107714,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 220.6204038236545,
+     "pm_deg": 23.423988478712175,
+     "gm_dB": 0.7019047724366296,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.0500000000000003,
+     "f_c_MHz": 256.3080481600132,
+     "pm_deg": 4.742819975701394,
+     "gm_dB": 1.348925316703557,
+     "f3_MHz": 342.64048460119676,
+     "peak_dB": 14.931281550143849,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.0500000000000003,
+     "f_c_MHz": 328.67961040302487,
+     "pm_deg": -29.107913697582006,
+     "gm_dB": -1.62240275299327,
+     "f3_MHz": 327.52101055887175,
+     "peak_dB": 7.310995816072814,
+     "stable": false
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 314.3728562376757,
+     "pm_deg": -17.051414300460436,
+     "gm_dB": null,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 316.992487563001,
+     "pm_deg": -18.764170355315457,
+     "gm_dB": null,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.6500000000000004,
+     "f_c_MHz": 306.6980276898218,
+     "pm_deg": 0.5055881389493209,
+     "gm_dB": 0.07402443476324987,
+     "f3_MHz": 371.4909892900508,
+     "peak_dB": 34.41667283873095,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.6500000000000004,
+     "f_c_MHz": 357.17906500662565,
+     "pm_deg": -43.01087934083097,
+     "gm_dB": -3.3165293666492413,
+     "f3_MHz": 326.0908317639662,
+     "peak_dB": 0.7212923640444477,
+     "stable": false
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 304.20723584401026,
+     "pm_deg": -10.983030074299108,
+     "gm_dB": null,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 306.34775069061055,
+     "pm_deg": -12.362682007862674,
+     "gm_dB": null,
+     "second_crossing_MHz": 28648.06
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.85,
+     "f_c_MHz": 292.00307967662496,
+     "pm_deg": 2.9895121771390905,
+     "gm_dB": 0.5391997489131433,
+     "f3_MHz": 363.10467735340853,
+     "peak_dB": 17.309026474160767,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.85,
+     "f_c_MHz": 350.010313815687,
+     "pm_deg": -39.23643883654921,
+     "gm_dB": -2.824570287906098,
+     "f3_MHz": 326.7572922320309,
+     "peak_dB": 1.8893773433490093,
+     "stable": false
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 290.6867668918833,
+     "pm_deg": -3.150821804151377,
+     "gm_dB": -0.10985716177658074,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 291.65372551521284,
+     "pm_deg": -3.723728102752773,
+     "gm_dB": null,
+     "second_crossing_MHz": 27357.0447
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.0500000000000003,
+     "f_c_MHz": 278.19833514543615,
+     "pm_deg": 4.576072588640216,
+     "gm_dB": 0.9780468859977393,
+     "f3_MHz": 354.67229576121406,
+     "peak_dB": 13.810985332587169,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.0500000000000003,
+     "f_c_MHz": 343.2596126205436,
+     "pm_deg": -35.57680631425126,
+     "gm_dB": -2.374061076032813,
+     "f3_MHz": 326.80522068451904,
+     "peak_dB": 3.2325789310889217,
+     "stable": false
+    }
+   }
+  },
+  "spice_worst_pm": -17.051414300460436,
+  "second_crossings": []
+ },
+ "ADA4817-1|robust design, 2 kOhm": {
+  "part": "ADA4817-1",
+  "R_F": 2000.0,
+  "C_D_pF": 1.0,
+  "C_F_pF": 0.8200000000000001,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 110.04385346723042,
+     "pm_deg": 45.73143189248623,
+     "gm_dB": 20.09485073058378,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 109.82345086256358,
+     "pm_deg": 45.82860930437329,
+     "gm_dB": 16.196349437210394,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.5500000000000003,
+     "f_c_MHz": 105.17393674632015,
+     "pm_deg": 46.171725427453396,
+     "gm_dB": 18.702566328092622,
+     "f3_MHz": 123.20672676076019,
+     "peak_dB": 1.445141831821505,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.5500000000000003,
+     "f_c_MHz": 114.49821515047431,
+     "pm_deg": 46.90815051288641,
+     "gm_dB": 20.685894276557597,
+     "f3_MHz": 130.9046329435221,
+     "peak_dB": 1.109044166495983,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 106.08987984867784,
+     "pm_deg": 44.85273393489683,
+     "gm_dB": 20.558185871839708,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 105.88895825857897,
+     "pm_deg": 44.95087301386556,
+     "gm_dB": 16.519330817096836,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.75,
+     "f_c_MHz": 101.37842532682822,
+     "pm_deg": 45.15689614850257,
+     "gm_dB": 19.217865243208,
+     "f3_MHz": 120.88025046508466,
+     "peak_dB": 1.6553352976729863,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.75,
+     "f_c_MHz": 110.10302659209935,
+     "pm_deg": 45.98216677672656,
+     "gm_dB": 21.176067976982583,
+     "f3_MHz": 128.39442285300737,
+     "peak_dB": 1.3033830238102184,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 102.5178651788258,
+     "pm_deg": 44.01618466699756,
+     "gm_dB": 20.99821884131893,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 102.3349866217119,
+     "pm_deg": 44.115119964437696,
+     "gm_dB": 16.826470968798887,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.95,
+     "f_c_MHz": 97.89052327094672,
+     "pm_deg": 44.140271512358055,
+     "gm_dB": 19.689660834657793,
+     "f3_MHz": 118.62918321437064,
+     "peak_dB": 1.8595830711982289,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.95,
+     "f_c_MHz": 106.15681863060395,
+     "pm_deg": 45.10110660204825,
+     "gm_dB": 21.662473880427427,
+     "f3_MHz": 125.96460194595963,
+     "peak_dB": 1.4928159668283203,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 113.40994059628764,
+     "pm_deg": 49.30124233512413,
+     "gm_dB": 19.204555781391825,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 113.12688319821825,
+     "pm_deg": 49.40245016447281,
+     "gm_dB": 15.33396749228512,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.5500000000000003,
+     "f_c_MHz": 107.90751955890998,
+     "pm_deg": 49.720214972788256,
+     "gm_dB": 17.906708677208808,
+     "f3_MHz": 116.41025093647544,
+     "peak_dB": 0.8262674585516636,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.5500000000000003,
+     "f_c_MHz": 118.11010993389587,
+     "pm_deg": 50.44467081765319,
+     "gm_dB": 19.933712619596704,
+     "f3_MHz": 122.4826546739972,
+     "peak_dB": 0.5319170545898456,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 109.21766619210383,
+     "pm_deg": 48.46417715641911,
+     "gm_dB": 19.653053479466852,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 108.96065205515819,
+     "pm_deg": 48.56648880520055,
+     "gm_dB": 15.642370029794819,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.75,
+     "f_c_MHz": 103.91931169184251,
+     "pm_deg": 48.73352850188289,
+     "gm_dB": 18.40717390845422,
+     "f3_MHz": 114.66346448344395,
+     "peak_dB": 1.0043853253610449,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.75,
+     "f_c_MHz": 113.44885391747732,
+     "pm_deg": 49.57230447490858,
+     "gm_dB": 20.409143755333652,
+     "f3_MHz": 120.73334599370428,
+     "peak_dB": 0.68763804701856,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 105.42905135186537,
+     "pm_deg": 47.65842158027135,
+     "gm_dB": 20.079359069476293,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 105.19540018705386,
+     "pm_deg": 47.76171375567796,
+     "gm_dB": 15.935854301734073,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.95,
+     "f_c_MHz": 100.32574933947531,
+     "pm_deg": 47.80550389410877,
+     "gm_dB": 18.865803404040825,
+     "f3_MHz": 112.91681766989517,
+     "peak_dB": 1.1808015364887876,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.95,
+     "f_c_MHz": 109.26533552462057,
+     "pm_deg": 48.731077930030494,
+     "gm_dB": 20.882312589928485,
+     "f3_MHz": 118.95358941297623,
+     "peak_dB": 0.8448804593331967,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 117.17073015962633,
+     "pm_deg": 52.395150108218886,
+     "gm_dB": 18.414864642572,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 116.8129649330505,
+     "pm_deg": 52.50076328883834,
+     "gm_dB": 14.585192985698232,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.5500000000000003,
+     "f_c_MHz": 110.96425515189173,
+     "pm_deg": 52.8422501741521,
+     "gm_dB": 17.211905134630715,
+     "f3_MHz": 109.17172839014982,
+     "peak_dB": 0.3656667847394014,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.5500000000000003,
+     "f_c_MHz": 122.11639319475385,
+     "pm_deg": 53.48089125458178,
+     "gm_dB": 19.273750905270816,
+     "f3_MHz": 113.52642457953488,
+     "peak_dB": 0.1586750780930021,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 112.72465009935513,
+     "pm_deg": 51.622499458044985,
+     "gm_dB": 18.84812112094846,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 112.40062943704466,
+     "pm_deg": 51.729176934962084,
+     "gm_dB": 14.87854091673494,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.75,
+     "f_c_MHz": 106.7747941352191,
+     "pm_deg": 51.90275964221041,
+     "gm_dB": 17.69836469530546,
+     "f3_MHz": 108.01341434099398,
+     "peak_dB": 0.5052478197563346,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.75,
+     "f_c_MHz": 117.18108078760994,
+     "pm_deg": 52.68806131310973,
+     "gm_dB": 19.735238630683824,
+     "f3_MHz": 112.5253571273595,
+     "peak_dB": 0.26281033608669685,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 108.71056047364758,
+     "pm_deg": 50.86881536163071,
+     "gm_dB": 19.261031358355666,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 108.41392691462853,
+     "pm_deg": 50.9768109333082,
+     "gm_dB": 15.158914938821056,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.95,
+     "f_c_MHz": 102.99919067456501,
+     "pm_deg": 51.011895884609515,
+     "gm_dB": 18.14638681653242,
+     "f3_MHz": 106.78478075902733,
+     "peak_dB": 0.6490190011299213,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.95,
+     "f_c_MHz": 112.75003984592487,
+     "pm_deg": 51.91145775570291,
+     "gm_dB": 20.19586972733193,
+     "f3_MHz": 111.41205099733664,
+     "peak_dB": 0.37765524773002596,
+     "stable": true
+    }
+   }
+  },
+  "spice_worst_pm": 44.01618466699756,
+  "second_crossings": []
+ },
+ "ADA4899-1|robust design, 2 kOhm": {
+  "part": "ADA4899-1",
+  "R_F": 2000.0,
+  "C_D_pF": 1.0,
+  "C_F_pF": 1.28,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 120.10578752362449,
+     "pm_deg": 61.08763764017506,
+     "gm_dB": 20.295661751248986,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 119.49156579609175,
+     "pm_deg": 61.61415391155447,
+     "gm_dB": 18.377759384424262,
+     "second_crossing_MHz": 10387.7716
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 5.55,
+     "f_c_MHz": 71.78269170607066,
+     "pm_deg": 47.95133125949519,
+     "gm_dB": 18.142943294528614,
+     "f3_MHz": 79.66844562971691,
+     "peak_dB": 1.1897169475715865,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 5.55,
+     "f_c_MHz": 66.99132873412071,
+     "pm_deg": 43.20438030197266,
+     "gm_dB": 28.34971509208774,
+     "f3_MHz": 79.61972715502405,
+     "peak_dB": 1.648401197996706,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 114.2821823402081,
+     "pm_deg": 60.19388918193522,
+     "gm_dB": 20.860807508059583,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 113.71017171270843,
+     "pm_deg": 60.71548997783347,
+     "gm_dB": 18.818916072883457,
+     "second_crossing_MHz": 10151.0128
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 5.749999999999999,
+     "f_c_MHz": 70.38620058547177,
+     "pm_deg": 47.42025117821635,
+     "gm_dB": 18.397238659583607,
+     "f3_MHz": 78.97370729901893,
+     "peak_dB": 1.2837150591278734,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 5.749999999999999,
+     "f_c_MHz": 65.76408716698907,
+     "pm_deg": 42.76296240810399,
+     "gm_dB": 28.604035222783295,
+     "f3_MHz": 78.79631205870322,
+     "peak_dB": 1.7542036458311618,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 109.13797031559852,
+     "pm_deg": 59.32407846609409,
+     "gm_dB": 21.39220962719871,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 108.60620469664936,
+     "pm_deg": 59.839603708311046,
+     "gm_dB": 19.237449433237717,
+     "second_crossing_MHz": 9693.56074
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 5.949999999999999,
+     "f_c_MHz": 69.06396843998513,
+     "pm_deg": 46.906273075925185,
+     "gm_dB": 18.644302165940655,
+     "f3_MHz": 78.28572810712237,
+     "peak_dB": 1.3765286031876032,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 5.949999999999999,
+     "f_c_MHz": 64.59975929630518,
+     "pm_deg": 42.336044815214564,
+     "gm_dB": 28.851121440645958,
+     "f3_MHz": 77.99118601673622,
+     "peak_dB": 1.858050268914364,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 123.1845192864152,
+     "pm_deg": 62.10776915457555,
+     "gm_dB": 19.91288951757109,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 122.48121291155368,
+     "pm_deg": 62.669154639096035,
+     "gm_dB": 18.006624818454227,
+     "second_crossing_MHz": 10151.0128
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 5.55,
+     "f_c_MHz": 73.36028994236356,
+     "pm_deg": 50.42279383022185,
+     "gm_dB": 17.616802491087526,
+     "f3_MHz": 76.69378160534536,
+     "peak_dB": 0.7893086416828549,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 5.55,
+     "f_c_MHz": 68.25046701152844,
+     "pm_deg": 45.54400202809515,
+     "gm_dB": 27.80282965298685,
+     "f3_MHz": 77.1865521852887,
+     "peak_dB": 1.1748414829931138,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 117.23283560290888,
+     "pm_deg": 61.3475630724252,
+     "gm_dB": 20.45674709661819,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 116.57391644922272,
+     "pm_deg": 61.90458931181087,
+     "gm_dB": 18.427457443082933,
+     "second_crossing_MHz": 9693.56074
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 5.749999999999999,
+     "f_c_MHz": 71.90218436129942,
+     "pm_deg": 49.89861694342102,
+     "gm_dB": 17.867430445177476,
+     "f3_MHz": 76.12803481699498,
+     "peak_dB": 0.8727353909089663,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 5.749999999999999,
+     "f_c_MHz": 66.97818977216335,
+     "pm_deg": 45.11200969425866,
+     "gm_dB": 28.053480862066053,
+     "f3_MHz": 76.47555131611482,
+     "peak_dB": 1.2718269162783058,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 111.957669595142,
+     "pm_deg": 60.597982941809036,
+     "gm_dB": 20.96939863443008,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 111.34199754676858,
+     "pm_deg": 61.149079425031616,
+     "gm_dB": 18.828266298217642,
+     "second_crossing_MHz": 9472.6244
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 5.949999999999999,
+     "f_c_MHz": 70.52198757111276,
+     "pm_deg": 49.38996380595216,
+     "gm_dB": 18.11103069322329,
+     "f3_MHz": 75.56049529082138,
+     "peak_dB": 0.9558313297503647,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 5.949999999999999,
+     "f_c_MHz": 65.76970871109111,
+     "pm_deg": 44.689844515074924,
+     "gm_dB": 28.297102462545855,
+     "f3_MHz": 75.77447042579483,
+     "peak_dB": 1.3675670496613093,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 126.2319454028468,
+     "pm_deg": 62.91860632065905,
+     "gm_dB": 19.56792902486734,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 125.43714553178273,
+     "pm_deg": 63.51510512161714,
+     "gm_dB": 17.673379995564108,
+     "second_crossing_MHz": 9693.56074
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 5.55,
+     "f_c_MHz": 75.0531135999122,
+     "pm_deg": 52.702925384073964,
+     "gm_dB": 17.11742679768968,
+     "f3_MHz": 73.58212138898271,
+     "peak_dB": 0.4645940168193391,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 5.55,
+     "f_c_MHz": 69.60140068270475,
+     "pm_deg": 47.70153408652746,
+     "gm_dB": 27.335165936732032,
+     "f3_MHz": 74.57217141542645,
+     "peak_dB": 0.7784896490495776,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 120.1794119170043,
+     "pm_deg": 62.28130197660413,
+     "gm_dB": 20.09175811261651,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 119.43020411563741,
+     "pm_deg": 62.874353347997456,
+     "gm_dB": 18.075214294154264,
+     "second_crossing_MHz": 9472.6244
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 5.749999999999999,
+     "f_c_MHz": 73.5312722009133,
+     "pm_deg": 52.19064234877057,
+     "gm_dB": 17.36449125922046,
+     "f3_MHz": 73.14675883188593,
+     "peak_dB": 0.5355809770802317,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 5.749999999999999,
+     "f_c_MHz": 68.28274211490185,
+     "pm_deg": 47.28373195855903,
+     "gm_dB": 27.58225276216358,
+     "f3_MHz": 73.98016039367663,
+     "peak_dB": 0.8649303336700347,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 114.79584218583578,
+     "pm_deg": 61.64450101974762,
+     "gm_dB": 20.586695179464442,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 114.092100839055,
+     "pm_deg": 62.232069756155525,
+     "gm_dB": 18.459369038242276,
+     "second_crossing_MHz": 9045.74373
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 5.949999999999999,
+     "f_c_MHz": 72.09096784053912,
+     "pm_deg": 51.69219223680591,
+     "gm_dB": 17.604723671491126,
+     "f3_MHz": 72.70147560958107,
+     "peak_dB": 0.6073004415930235,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 5.949999999999999,
+     "f_c_MHz": 67.03030015129805,
+     "pm_deg": 46.87414698986956,
+     "gm_dB": 27.822505733278447,
+     "f3_MHz": 73.39020117798982,
+     "peak_dB": 0.9510464381280297,
+     "stable": true
+    }
+   }
+  },
+  "spice_worst_pm": 59.32407846609409,
+  "second_crossings": []
+ },
+ "ADA4895-1|flat design, 2 kOhm": {
+  "part": "ADA4895-1",
+  "R_F": 2000.0,
+  "C_D_pF": 1.0,
+  "C_F_pF": 1.31,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 115.52955861280189,
+     "pm_deg": 31.463878256095626,
+     "gm_dB": 15.210216810027116,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 114.22785232525658,
+     "pm_deg": 32.397011093423146,
+     "gm_dB": 13.554723678291818,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 15.15,
+     "f_c_MHz": 124.05406873161556,
+     "pm_deg": 32.619106974166726,
+     "gm_dB": 16.27809727646573,
+     "f3_MHz": 135.5613100183524,
+     "peak_dB": 0.8299114482872038,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 15.15,
+     "f_c_MHz": 117.60175093457194,
+     "pm_deg": 34.01370451247925,
+     "gm_dB": 16.52514165629524,
+     "f3_MHz": 128.14251952941447,
+     "peak_dB": 1.154018707913244,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 114.50448953083712,
+     "pm_deg": 31.345343939935276,
+     "gm_dB": 15.31366958810008,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 113.23003758493759,
+     "pm_deg": 32.27183121823998,
+     "gm_dB": 13.640231607208978,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 15.350000000000001,
+     "f_c_MHz": 122.93643152056269,
+     "pm_deg": 32.53543292305528,
+     "gm_dB": 16.383630177132474,
+     "f3_MHz": 134.93032394166738,
+     "peak_dB": 0.8971412061470142,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 15.350000000000001,
+     "f_c_MHz": 116.55022407731633,
+     "pm_deg": 33.87709533877057,
+     "gm_dB": 16.630673168497385,
+     "f3_MHz": 127.58223106009223,
+     "peak_dB": 1.2214943873390087,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 113.50073339974702,
+     "pm_deg": 31.22810265840542,
+     "gm_dB": 15.415906386877346,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 112.25771847978427,
+     "pm_deg": 32.140301380604086,
+     "gm_dB": 13.72543675764794,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 15.55,
+     "f_c_MHz": 121.84462866870568,
+     "pm_deg": 32.451850331853876,
+     "gm_dB": 16.487896328623357,
+     "f3_MHz": 134.30334518809974,
+     "peak_dB": 0.9640929975151897,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 15.55,
+     "f_c_MHz": 115.52308611472955,
+     "pm_deg": 33.74115393711202,
+     "gm_dB": 16.73493798092774,
+     "f3_MHz": 127.02468195074857,
+     "peak_dB": 1.2887235665781818,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 120.41521401843572,
+     "pm_deg": 33.4818771053788,
+     "gm_dB": 14.635894567311535,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 118.75301068198097,
+     "pm_deg": 34.57306156752466,
+     "gm_dB": 13.03608504675785,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 15.15,
+     "f_c_MHz": 129.58133620700968,
+     "pm_deg": 34.657161482110524,
+     "gm_dB": 15.735264861927769,
+     "f3_MHz": 130.1992173873396,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 15.15,
+     "f_c_MHz": 122.6793951427027,
+     "pm_deg": 36.30002917488116,
+     "gm_dB": 16.005357718768185,
+     "f3_MHz": 123.20061435555928,
+     "peak_dB": 0.3151407869863352,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 119.31784298214508,
+     "pm_deg": 33.38978415755625,
+     "gm_dB": 14.738676969145665,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 117.6931787382264,
+     "pm_deg": 34.466329013040564,
+     "gm_dB": 13.119640815675854,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 15.350000000000001,
+     "f_c_MHz": 128.38590943787307,
+     "pm_deg": 34.588213386788084,
+     "gm_dB": 15.840160680668355,
+     "f3_MHz": 129.74952029598657,
+     "peak_dB": 0.02214208240589958,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 15.350000000000001,
+     "f_c_MHz": 121.55369511734409,
+     "pm_deg": 36.18667863776366,
+     "gm_dB": 16.110252194917884,
+     "f3_MHz": 122.80257058111306,
+     "peak_dB": 0.3731686309409147,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 118.24538147778185,
+     "pm_deg": 33.296218125059596,
+     "gm_dB": 14.840259197757309,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 116.6569310036659,
+     "pm_deg": 34.35972237647877,
+     "gm_dB": 13.202922333616815,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 15.55,
+     "f_c_MHz": 127.21801959301577,
+     "pm_deg": 34.51901925599583,
+     "gm_dB": 15.94380490536523,
+     "f3_MHz": 129.29443567333547,
+     "peak_dB": 0.0797906033041826,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 15.55,
+     "f_c_MHz": 120.45398988587547,
+     "pm_deg": 36.07375474586593,
+     "gm_dB": 16.21389512451416,
+     "f3_MHz": 122.40046273791701,
+     "peak_dB": 0.4313422319815855,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 125.48827383691105,
+     "pm_deg": 35.12112709211149,
+     "gm_dB": 14.09514479087794,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 123.41888993893738,
+     "pm_deg": 36.38190981907829,
+     "gm_dB": 12.541023005171478,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 15.15,
+     "f_c_MHz": 135.30350779677616,
+     "pm_deg": 36.36829428545394,
+     "gm_dB": 15.240911489718453,
+     "f3_MHz": 122.42203069286663,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 15.15,
+     "f_c_MHz": 127.95833429116456,
+     "pm_deg": 38.21725575663433,
+     "gm_dB": 15.53370977066145,
+     "f3_MHz": 116.6697547973004,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 124.32045532428634,
+     "pm_deg": 35.057519563772956,
+     "gm_dB": 14.197261025044734,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 122.29652119019482,
+     "pm_deg": 36.30113589748956,
+     "gm_dB": 12.628001730377896,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 15.350000000000001,
+     "f_c_MHz": 134.03145431891244,
+     "pm_deg": 36.314612678421895,
+     "gm_dB": 15.345177868663953,
+     "f3_MHz": 122.25864363064046,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 15.350000000000001,
+     "f_c_MHz": 126.75983974256397,
+     "pm_deg": 38.129155606307876,
+     "gm_dB": 15.637974851232265,
+     "f3_MHz": 116.491994677698,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 123.18186903025926,
+     "pm_deg": 34.98713872532139,
+     "gm_dB": 14.298192678023124,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 121.19915503086526,
+     "pm_deg": 36.22049318098493,
+     "gm_dB": 12.7124952857249,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 15.55,
+     "f_c_MHz": 132.7885553871115,
+     "pm_deg": 36.260393207549754,
+     "gm_dB": 15.448207538469322,
+     "f3_MHz": 122.07377340243286,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 15.55,
+     "f_c_MHz": 125.58893855856466,
+     "pm_deg": 38.04100764260397,
+     "gm_dB": 15.741003268320167,
+     "f3_MHz": 116.29885025285719,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   }
+  },
+  "spice_worst_pm": 31.22810265840542,
+  "second_crossings": []
+ },
+ "AD8099|parasitic C_F only, 2 kOhm": {
+  "part": "AD8099",
+  "R_F": 2000.0,
+  "C_D_pF": 1.0,
+  "C_F_pF": 0.2,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 210.79439727322418,
+     "pm_deg": 3.6157642496492883,
+     "gm_dB": 8.786472319285432,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 210.7915185210582,
+     "pm_deg": 3.6470341791304293,
+     "gm_dB": 8.801422460024183,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.15,
+     "f_c_MHz": 337.24879529201206,
+     "pm_deg": -33.45786285128008,
+     "gm_dB": -13.221277068634825,
+     "f3_MHz": 448.5279479580457,
+     "peak_dB": 7.069784433452659,
+     "stable": false
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.15,
+     "f_c_MHz": 298.92023260849913,
+     "pm_deg": 2.4347769634258043,
+     "gm_dB": 4.53946928670473,
+     "f3_MHz": 455.944717292167,
+     "peak_dB": 26.86863452433517,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 207.4973208030693,
+     "pm_deg": 3.561547869729054,
+     "gm_dB": 8.867618879919455,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 207.4944208585603,
+     "pm_deg": 3.59235620506405,
+     "gm_dB": 8.882756304872032,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.35,
+     "f_c_MHz": 325.30399464689503,
+     "pm_deg": -31.028530628341684,
+     "gm_dB": -13.189088166884417,
+     "f3_MHz": 437.28033828450907,
+     "peak_dB": 7.414115175884754,
+     "stable": false
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.35,
+     "f_c_MHz": 289.8301998133577,
+     "pm_deg": 2.4022192555016773,
+     "gm_dB": 4.718722116235781,
+     "f3_MHz": 442.6197093664543,
+     "peak_dB": 27.012707198821264,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 204.34996831462777,
+     "pm_deg": 3.509094514311556,
+     "gm_dB": 8.944178541112745,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 204.34715131859846,
+     "pm_deg": 3.539458089815838,
+     "gm_dB": 8.956739786508422,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.55,
+     "f_c_MHz": 314.47521476531836,
+     "pm_deg": -28.729964524606146,
+     "gm_dB": -13.142320777679855,
+     "f3_MHz": 426.8710222777571,
+     "peak_dB": 7.7572199560322685,
+     "stable": false
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.55,
+     "f_c_MHz": 281.52244577129966,
+     "pm_deg": 2.3733328749243583,
+     "gm_dB": 4.868232916311725,
+     "f3_MHz": 430.3970192554191,
+     "peak_dB": 27.14481697615362,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 219.6795318178363,
+     "pm_deg": 16.620143785400842,
+     "gm_dB": 20.168329726556316,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 219.62476351156255,
+     "pm_deg": 16.772443209044837,
+     "gm_dB": 20.354489700705834,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.15,
+     "f_c_MHz": 379.14006418028345,
+     "pm_deg": -23.956485649161294,
+     "gm_dB": -5.858205789167936,
+     "f3_MHz": 504.0645149605476,
+     "peak_dB": 8.7274856621208,
+     "stable": false
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.15,
+     "f_c_MHz": 322.66898880513895,
+     "pm_deg": 18.64402900786962,
+     "gm_dB": 14.594224834808873,
+     "f3_MHz": 469.81042092754336,
+     "peak_dB": 7.848438865967634,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 215.9857602845512,
+     "pm_deg": 16.422184173074527,
+     "gm_dB": 20.421709429338474,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 215.9335762322946,
+     "pm_deg": 16.572432963213714,
+     "gm_dB": 20.612454123867536,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.35,
+     "f_c_MHz": 363.04311642432896,
+     "pm_deg": -21.327110724243255,
+     "gm_dB": -5.461597569199789,
+     "f3_MHz": 491.6490256162066,
+     "peak_dB": 9.652278832411298,
+     "stable": false
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.35,
+     "f_c_MHz": 311.6685751293368,
+     "pm_deg": 18.40056926065958,
+     "gm_dB": 15.060551212266287,
+     "f3_MHz": 455.20777494524316,
+     "peak_dB": 8.077270866963417,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 212.47365979441096,
+     "pm_deg": 16.230245161856686,
+     "gm_dB": 20.66792077476339,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 212.42356317191036,
+     "pm_deg": 16.378503482254587,
+     "gm_dB": 20.8636299008757,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.55,
+     "f_c_MHz": 348.67648847782147,
+     "pm_deg": -18.87787155968286,
+     "gm_dB": -5.0921788612718055,
+     "f3_MHz": 479.5536701192013,
+     "peak_dB": 10.637421008713982,
+     "stable": false
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.55,
+     "f_c_MHz": 301.6822018537696,
+     "pm_deg": 18.149408754849134,
+     "gm_dB": 15.499294376771854,
+     "f3_MHz": 441.88284002369926,
+     "peak_dB": 8.299220428812909,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 235.67758974147273,
+     "pm_deg": 27.61958568251879,
+     "gm_dB": 19.189778664202763,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 235.47704709089336,
+     "pm_deg": 27.89807806050331,
+     "gm_dB": 19.4448511061179,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.15,
+     "f_c_MHz": 453.33385735740876,
+     "pm_deg": -21.27315137706691,
+     "gm_dB": -3.6964127605266883,
+     "f3_MHz": 544.4550425196838,
+     "peak_dB": 6.817178556699661,
+     "stable": false
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.15,
+     "f_c_MHz": 363.7217222920865,
+     "pm_deg": 29.854668106679952,
+     "gm_dB": 13.696771140762877,
+     "f3_MHz": 464.48955178957976,
+     "peak_dB": 2.2614251726059997,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 231.28231515856433,
+     "pm_deg": 27.366535718302174,
+     "gm_dB": 19.443201657952592,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 231.0917666221566,
+     "pm_deg": 27.641025120006702,
+     "gm_dB": 19.707728105778184,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.35,
+     "f_c_MHz": 431.5074358919367,
+     "pm_deg": -19.444589466647244,
+     "gm_dB": -3.2365269110314108,
+     "f3_MHz": 534.0930541409697,
+     "peak_dB": 7.9547129841827005,
+     "stable": false
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.35,
+     "f_c_MHz": 349.6680315963429,
+     "pm_deg": 29.760374457447682,
+     "gm_dB": 14.148265126595117,
+     "f3_MHz": 449.9412626412994,
+     "peak_dB": 2.5065417171233424,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 227.1184296941829,
+     "pm_deg": 27.116739130738864,
+     "gm_dB": 19.689447174197497,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 226.93575904969836,
+     "pm_deg": 27.38750506056971,
+     "gm_dB": 19.96338722593539,
+     "second_crossing_MHz": null
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 3.55,
+     "f_c_MHz": 412.12956011997886,
+     "pm_deg": -17.76958309400672,
+     "gm_dB": -2.8024314480021024,
+     "f3_MHz": 523.8440396382733,
+     "peak_dB": 9.198308615803313,
+     "stable": false
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 3.55,
+     "f_c_MHz": 336.97320514744143,
+     "pm_deg": 29.626121287592014,
+     "gm_dB": 14.611445415139752,
+     "f3_MHz": 436.7465024775039,
+     "peak_dB": 2.7392096543363054,
+     "stable": true
+    }
+   }
+  },
+  "spice_worst_pm": 3.509094514311556,
+  "second_crossings": []
+ },
+ "OPA955|largest-PM design, 2 kOhm": {
+  "part": "OPA955",
+  "R_F": 2000.0,
+  "C_D_pF": 1.0,
+  "C_F_pF": 0.25,
+  "corners": {
+   "dCF-0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 757.3138566302777,
+     "pm_deg": 43.763096968403886,
+     "gm_dB": null,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 753.5387771181026,
+     "pm_deg": 43.86321363868052,
+     "gm_dB": 18.333198717788118,
+     "second_crossing_MHz": 30000.0
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.2500000000000004,
+     "f_c_MHz": 788.511229168528,
+     "pm_deg": 29.70359939961162,
+     "gm_dB": 12.48228173227534,
+     "f3_MHz": 984.2434845165499,
+     "peak_dB": 2.015073172765278,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.2500000000000004,
+     "f_c_MHz": 724.2561987785497,
+     "pm_deg": 49.05128343986405,
+     "gm_dB": NaN,
+     "f3_MHz": 726.8617408290293,
+     "peak_dB": 0.8929629846253637,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 715.4402271225974,
+     "pm_deg": 42.88550423606998,
+     "gm_dB": null,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 712.2394218130996,
+     "pm_deg": 42.98655597887935,
+     "gm_dB": 18.629131851811838,
+     "second_crossing_MHz": 29316.2378
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.45,
+     "f_c_MHz": 744.0892200219432,
+     "pm_deg": 29.64065740748788,
+     "gm_dB": 13.152126099073058,
+     "f3_MHz": 941.9367816915116,
+     "peak_dB": 2.3776224362831115,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.45,
+     "f_c_MHz": 685.5501209379752,
+     "pm_deg": 47.51963017897384,
+     "gm_dB": NaN,
+     "f3_MHz": 711.8660937195517,
+     "peak_dB": 1.1468503728416264,
+     "stable": true
+    }
+   },
+   "dCF-0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 679.2171689677375,
+     "pm_deg": 42.02900558451668,
+     "gm_dB": null,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 676.4581979366582,
+     "pm_deg": 42.13197081469073,
+     "gm_dB": 18.909028440433676,
+     "second_crossing_MHz": 29316.2378
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.6500000000000004,
+     "f_c_MHz": 705.8616805549395,
+     "pm_deg": 29.555528417752754,
+     "gm_dB": 13.79572910300637,
+     "f3_MHz": 904.4442901689073,
+     "peak_dB": 2.70814652551802,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.6500000000000004,
+     "f_c_MHz": 652.1812268499823,
+     "pm_deg": 46.12809372538376,
+     "gm_dB": NaN,
+     "f3_MHz": 697.0786498044833,
+     "peak_dB": 1.393859614372761,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 1017.680916720057,
+     "pm_deg": 55.97799627329141,
+     "gm_dB": null,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 1000.912945248714,
+     "pm_deg": 56.1674800339123,
+     "gm_dB": 14.492941403962124,
+     "second_crossing_MHz": 18917.3753
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.2500000000000004,
+     "f_c_MHz": 1075.6976443669287,
+     "pm_deg": 37.331360573005895,
+     "gm_dB": 9.131395146064218,
+     "f3_MHz": 504.0419159211506,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.2500000000000004,
+     "f_c_MHz": 965.3095625685696,
+     "pm_deg": 66.3407728975644,
+     "gm_dB": NaN,
+     "f3_MHz": 441.1692497252614,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 954.3722368783679,
+     "pm_deg": 55.936719414614956,
+     "gm_dB": null,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 939.9809279359642,
+     "pm_deg": 56.11631438731747,
+     "gm_dB": 14.76190984595055,
+     "second_crossing_MHz": 18917.3753
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.45,
+     "f_c_MHz": 1003.8081468365843,
+     "pm_deg": 38.843061546881216,
+     "gm_dB": 9.799782321660185,
+     "f3_MHz": 529.60058626036,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.45,
+     "f_c_MHz": 902.8711769498924,
+     "pm_deg": 65.11445288861808,
+     "gm_dB": NaN,
+     "f3_MHz": 449.8451420615561,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.0_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 899.1182896315416,
+     "pm_deg": 55.8041717832309,
+     "gm_dB": null,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 886.6708856373062,
+     "pm_deg": 55.97419398489484,
+     "gm_dB": 15.018856998189872,
+     "second_crossing_MHz": 18486.2091
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.6500000000000004,
+     "f_c_MHz": 943.3609106795103,
+     "pm_deg": 39.47364765488038,
+     "gm_dB": 10.397940681557394,
+     "f3_MHz": 552.918883517556,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.6500000000000004,
+     "f_c_MHz": 849.7912809986551,
+     "pm_deg": 63.952335900918484,
+     "gm_dB": NaN,
+     "f3_MHz": 457.10148009740146,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD-0.2": {
+    "spice": {
+     "f_c_MHz": 1294.120674141691,
+     "pm_deg": 57.99636489176373,
+     "gm_dB": 41.219007425872846,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 1252.1115116345572,
+     "pm_deg": 58.4391081704006,
+     "gm_dB": 11.991017713304226,
+     "second_crossing_MHz": 14345.1355
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.2500000000000004,
+     "f_c_MHz": 1380.3777275042187,
+     "pm_deg": 33.57078945208008,
+     "gm_dB": 6.80231480345677,
+     "f3_MHz": 272.40164505109215,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.2500000000000004,
+     "f_c_MHz": 1254.1580596283347,
+     "pm_deg": 73.70818497419141,
+     "gm_dB": NaN,
+     "f3_MHz": 268.1698103392191,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.0": {
+    "spice": {
+     "f_c_MHz": 1215.3847956317434,
+     "pm_deg": 58.61562834713723,
+     "gm_dB": 41.57990017686007,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 1178.4562339788397,
+     "pm_deg": 59.02225596626832,
+     "gm_dB": 12.235613412914322,
+     "second_crossing_MHz": 14018.1801
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.45,
+     "f_c_MHz": 1296.6245069873353,
+     "pm_deg": 35.958067703093235,
+     "gm_dB": 7.445933901163235,
+     "f3_MHz": 277.24896232415927,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.45,
+     "f_c_MHz": 1165.3248264483148,
+     "pm_deg": 73.0565271921714,
+     "gm_dB": NaN,
+     "f3_MHz": 272.2414624441994,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   },
+   "dCF+0.1_dCD+0.2": {
+    "spice": {
+     "f_c_MHz": 1145.7260236840823,
+     "pm_deg": 59.115619090060605,
+     "gm_dB": 41.93166351646866,
+     "second_crossing_MHz": null
+    },
+    "spice_voltage_injection_only": {
+     "f_c_MHz": 1113.142104007404,
+     "pm_deg": 59.494817166648204,
+     "gm_dB": 12.469590231181797,
+     "second_crossing_MHz": 14018.1801
+    },
+    "errors": [],
+    "analytical_datasheet": {
+     "C_T_pF": 2.6500000000000004,
+     "f_c_MHz": 1220.2390385564674,
+     "pm_deg": 38.00845388104199,
+     "gm_dB": 8.045138208732787,
+     "f3_MHz": 282.2624342430653,
+     "peak_dB": 0.0,
+     "stable": true
+    },
+    "analytical_spice_aol": {
+     "C_T_pF": 2.6500000000000004,
+     "f_c_MHz": 1090.0086536142521,
+     "pm_deg": 72.34710480951031,
+     "gm_dB": NaN,
+     "f3_MHz": 276.3527767324612,
+     "peak_dB": 0.0,
+     "stable": true
+    }
+   }
+  },
+  "spice_worst_pm": 42.02900558451668,
+  "second_crossings": []
+ }
+}

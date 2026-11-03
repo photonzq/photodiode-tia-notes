@@ -1,0 +1,322 @@
+voice rules (count, pattern)
+1	\bthe highest dynamic range of the survey\b
+1	\bHighest dynamic range of the survey\b
+1	\bIts survey entries\b
+1	\bThe parts this survey ranked\b
+1	\bso this survey reports both views\b
+1	\bThe survey reports a range\b
+1	\bThis survey uses\b
+1	\bare this survey's estimates\b
+1	\bThe designs are those of the survey:
+1	\bthe difference between the survey's and SPICE's phase margins\b
+1	\ban asterisk marks the survey's second crossing\b
+1	\bThe 1-pF photodiode of the survey\b
+1	\bthe survey's 1-pF photodiode on this board\b
+1	\bis the survey's part that fits\b
+1	\bThe survey method differs\b
+1	\bfor the baseline of this survey\b
+1	\bThe survey chose\b
+1	\bthe survey's(?=[.,;:)])
+13	\bthe survey's model\b
+4	\bThe survey's model\b
+0	\bthe survey model's\b
+2	\bThe survey model's\b
+1	\bthe survey model\b
+2	\bThe survey model\b
+2	\bsurvey's model\b
+2	\bsurvey model\b
+3	\bSurvey model\b
+2	\bsurvey central\b
+2	\bSurvey method\b
+1	\bSurvey noise\b
+1	\bSurvey:
+1	\bSurvey \$
+3	\bthe survey's equations\b
+1	\bThe survey's equations\b
+1	\bthis survey's\b
+18	\bthis survey\b
+0	\bThis survey\b
+31	\bthe survey's\b
+13	\bThe survey's\b
+23	\bthe survey\b
+2	\bThe survey\b
+
+partial reference lists (left part renumbered, rest kept)
+
+
+problems
+
+
+rewritten references (kind, original, new, count)
+APP	Appendix 1	Appendix C	9
+APP	Appendix 4	Appendix F	1
+E	Eq. (1)	Eq. (7)	4
+E	Eq. (11)	Eq. (17)	2
+E	Eq. (12)	Eq. (18)	6
+E	Eq. (13)	Eq. (19)	3
+E	Eq. (14)	Eq. (20)	4
+E	Eq. (15)	Eq. (21)	2
+E	Eq. (17)	Eq. (23)	28
+E	Eq. (18)	Eq. (24)	7
+E	Eq. (19)	Eq. (25)	3
+E	Eq. (2)	Eq. (8)	5
+E	Eq. (20)	Eq. (26)	1
+E	Eq. (21)	Eq. (27)	2
+E	Eq. (23)	Eq. (29)	1
+E	Eq. (24)	Eq. (30)	11
+E	Eq. (25)	Eq. (31)	11
+E	Eq. (26)	Eq. (33)	10
+E	Eq. (27)	Eq. (34)	7
+E	Eq. (3)	Eq. (9)	9
+E	Eq. (32)	Eq. (71)	1
+E	Eq. (36)	Eq. (74)	2
+E	Eq. (37)	Eq. (75)	4
+E	Eq. (38)	Eq. (76)	1
+E	Eq. (39)	Eq. (77)	4
+E	Eq. (4)	Eq. (10)	3
+E	Eq. (40)	Eq. (78)	2
+E	Eq. (41)	Eq. (79)	3
+E	Eq. (42)	Eq. (80)	1
+E	Eq. (43)	Eq. (81)	1
+E	Eq. (44)	Eq. (37)	3
+E	Eq. (46)	Eq. (39)	6
+E	Eq. (47)	Eq. (40)	1
+E	Eq. (48)	Eq. (41)	1
+E	Eq. (49)	Eq. (42)	1
+E	Eq. (5)	Eq. (11)	2
+E	Eq. (52)	Eq. (45)	2
+E	Eq. (53)	Eq. (46)	3
+E	Eq. (54)	Eq. (47)	8
+E	Eq. (56)	Eq. (49)	15
+E	Eq. (57)	Eq. (50)	9
+E	Eq. (58)	Eq. (51)	2
+E	Eq. (59)	Eq. (52)	2
+E	Eq. (6)	Eq. (12)	1
+E	Eq. (60)	Eq. (53)	12
+E	Eq. (61)	Eq. (54)	3
+E	Eq. (62)	Eq. (55)	4
+E	Eq. (63)	Eq. (56)	4
+E	Eq. (64)	Eq. (57)	2
+E	Eq. (65)	Eq. (58)	3
+E	Eq. (66)	Eq. (59)	1
+E	Eq. (69)	Eq. (62)	1
+E	Eq. (7)	Eq. (13)	8
+E	Eq. (71)	Eq. (64)	9
+E	Eq. (72)	Eq. (65)	2
+E	Eq. (74)	Eq. (67)	2
+E	Eq. (75)	Eq. (68)	1
+E	Eq. (8)	Eq. (14)	5
+E	Eq. (9)	Eq. (15)	5
+E	Eqs. (1)–(4)	Eqs. (7)–(10)	1
+E	Eqs. (13) and (14)	Eqs. (19) and (20)	1
+E	Eqs. (2) and (20)	Eqs. (8) and (26)	1
+E	Eqs. (37) and (38)	Eqs. (75) and (76)	1
+E	Eqs. (56)–(57)	Eqs. (49)–(50)	1
+E	Eqs. (67)–(68)	Eqs. (60)–(61)	4
+E	Eqs. (7) and (17)	Eqs. (13) and (23)	1
+E	Eqs. (7), (17) and (52)	Eqs. (13), (23) and (45)	1
+E	Eqs. (7)–(8)	Eqs. (13)–(14)	2
+E	Eqs. (72)–(73)	Eqs. (65)–(66)	1
+F	Figure 1	Figure 1	6
+F	Figure 10	Figure 6	3
+F	Figure 11	Figure 7	2
+F	Figure 11a	Figure 7a	1
+F	Figure 11b	Figure 7b	1
+F	Figure 12	Figure 8	3
+F	Figure 13	Figure 9	2
+F	Figure 13b	Figure 9b	1
+F	Figure 14	Figure 17	4
+F	Figure 15	Figure 18	2
+F	Figure 15(a)	Figure 18(a)	1
+F	Figure 15(a)–(b)	Figure 18(a)–(b)	2
+F	Figure 15(b)	Figure 18(b)	2
+F	Figure 15(c)–(d)	Figure 18(c)–(d)	2
+F	Figure 16	Figure 19	7
+F	Figure 16(a)	Figure 19(a)	1
+F	Figure 16(b)	Figure 19(b)	1
+F	Figure 2	Figure 14	3
+F	Figure 3	Figure 11	3
+F	Figure 4	Figure 2	3
+F	Figure 5	Figure 12	5
+F	Figure 6	Figure 16	2
+F	Figure 7	Figure 3	2
+F	Figure 7a	Figure 3a	1
+F	Figure 7d	Figure 3d	1
+F	Figure 8	Figure 4	2
+F	Figure 8a	Figure 4a	2
+F	Figure 8d	Figure 4d	1
+F	Figure 9	Figure 5	2
+F	Figure 9a	Figure 5a	1
+F	Figure 9b	Figure 5b	1
+F	Figure 9d	Figure 5d	1
+S	Section 0.1	Section 9.1	1
+S	Section 0.5	Section 9.12	1
+S	Section 1.4	Section 1.5	1
+S	Section 1.5	Section 1.2	13
+S	Section 10.1	Section 5.1	1
+S	Section 10.10	Section 6.5	18
+S	Section 10.11	Section 5.9	3
+S	Section 10.12	Appendix B.2	2
+S	Section 10.2	Appendix B.1	6
+S	Section 10.3	Section 5.2	7
+S	Section 10.4	Section 5.3	9
+S	Section 10.5	Section 5.4	15
+S	Section 10.6	Section 5.5	12
+S	Section 10.7	Section 5.6	5
+S	Section 10.8	Section 5.7	3
+S	Section 10.9	Section 5.8	1
+S	Section 11.1	Section 6.6.1	1
+S	Section 11.2	Section 6.6.2	5
+S	Section 11.3	Section 6.6.3	6
+S	Section 11.4	Section 6.7	12
+S	Section 11.5	Section 7.1	7
+S	Section 11.6	Section 7.2	10
+S	Section 11.7	Section 7.3	5
+S	Section 2.3	Section 4.3	2
+S	Section 2.5	Section 4.5	2
+S	Section 2.6	Section 4.6	4
+S	Section 2.7	Section 4.7	10
+S	Section 2.8	Section 4.8	1
+S	Section 3.2	Section 6.1.1	2
+S	Section 3.5	Section 2.5	3
+S	Section 4.1	Section 4.9	2
+S	Section 4.2	Section 6.2.1	1
+S	Section 4.4	Section 6.2.3	5
+S	Section 4.5	Section 6.2.4	9
+S	Section 4.6	Section 6.2.5	1
+S	Section 4.7	Section 6.2.6	7
+S	Section 4.9	Section 6.2.8	17
+S	Section 5.3	Section 6.3.3	3
+S	Section 5.5	Section 4.10	14
+S	Section 6.1	Section 6.4.1	4
+S	Section 6.2	Section 6.4.2	1
+S	Section 6.3	Section 6.4.3	1
+S	Section 7.10	Section 8.8	9
+S	Section 7.10 (a)	Section 8.8 (a)	1
+S	Section 7.10 (b)	Section 8.8 (b)	2
+S	Section 7.10 (c)	Section 8.8 (c)	2
+S	Section 7.10 (d)	Section 8.8 (d)	1
+S	Section 7.11	Section 8.9	12
+S	Section 7.2	Section 8.2	1
+S	Section 7.5	Section 8.5	3
+S	Section 7.6	Section 2.1	1
+S	Section 7.7	Section 2.5	2
+S	Section 8.3	Section 8.10	2
+S	Sections 1.5 and 7.8–7.10	Sections 1.2 and 8.6–8.8	1
+S	Sections 1.5, 6.2 and 7.8–7.11	Sections 1.2, 6.4.2 and 8.6–8.9	1
+S	Sections 10.2, 10.4 and 10.10	Appendix B.1, Section 5.3 and Section 6.5	1
+S	Sections 10.5 and 10.6	Sections 5.4 and 5.5	1
+S	Sections 10.5–10.9	Sections 5.4–5.8	1
+S	Sections 10.6–10.8	Sections 5.5–5.7	1
+S	Sections 11.2–11.3	Sections 6.6.2–6.6.3	1
+S	Sections 11.5–11.6	Sections 7.1–7.2	4
+S	Sections 11.5–11.7	Sections 7.1–7.3	4
+S	Sections 3.3 and 3.5	Sections 2.3 and 2.5	1
+S	Sections 4.5, 4.7 and 8.3	Sections 6.2.4, 6.2.6 and 8.10	1
+S	Sections 7.2 and 7.10	Sections 8.2 and 8.8	2
+S	Sections 7.2–7.5	Sections 8.2–8.5	1
+S	Sections 7.2–7.5 and 7.6	Sections 8.2–8.5 and 2.1	1
+S	Sections 7.8 and 7.9	Sections 8.6 and 8.7	2
+S	Sections 7.8–7.10	Sections 8.6–8.8	2
+T	Table 0.1	Table A9.1	1
+T	Table 0.2	Table 3.1	3
+T	Table 0.3	Table A9.2	3
+T	Table 1.1	Table 1.1	2
+T	Table 1.3	Table A1.2	6
+T	Table 1.4	Table A1.3	1
+T	Table 10.1	Table B.1	11
+T	Table 10.10	Table A5.11	4
+T	Table 10.11	Table A5.12	2
+T	Table 10.12	Table A5.13	2
+T	Table 10.13	Table A6.32	7
+T	Table 10.2	Table B.2	2
+T	Table 10.4	Table A5.2	7
+T	Table 10.5	Table A5.3	10
+T	Table 10.6	Table A5.4	3
+T	Table 10.7	Table A5.5	7
+T	Table 10.8	Table A5.6	5
+T	Table 10.9a	Table A5.7	2
+T	Table 10.9b	Table A5.8	6
+T	Table 10.9c	Table A5.9	2
+T	Table 10.9d	Table A5.10	5
+T	Table 11.1	Table A6.33	16
+T	Table 11.10	Table A7.8	1
+T	Table 11.12	Table A7.10	2
+T	Table 11.13	Table A7.11	3
+T	Table 11.2	Table A6.34	5
+T	Table 11.3	Table A7.1	5
+T	Table 11.4	Table A7.2	5
+T	Table 11.5	Table A7.3	1
+T	Table 11.6	Table A7.4	7
+T	Table 11.7	Table A7.5	4
+T	Table 11.8	Table A7.6	1
+T	Table 11.9	Table A7.7	4
+T	Table 2.1	Table A4.1	1
+T	Table 2.2	Table A4.2	1
+T	Table 2.4	Table A4.4	2
+T	Table 3.0	Table A2.3	1
+T	Table 3a	Table A6.1	4
+T	Table 3b	Table A6.2	1
+T	Table 3c	Table A6.3	3
+T	Table 3d	Table A6.4	2
+T	Table 3e	Table A2.4	9
+T	Table 3f	Table A2.5	1
+T	Table 4.1	Table A4.5	13
+T	Table 4.10	Table A6.13	3
+T	Table 4.11	Table A6.14	3
+T	Table 4.2	Table A6.5	9
+T	Table 4.4	Table A6.7	3
+T	Table 4.6	Table A6.9	1
+T	Table 4.8	Table A6.11	2
+T	Table 4.9	Table A6.12	5
+T	Table 5.1	Table A6.15	7
+T	Table 5.10	Table A4.7	2
+T	Table 5.2	Table A6.16	2
+T	Table 5.5	Table A6.19	2
+T	Table 5.5a	Table A6.20	2
+T	Table 5.6	Table A6.21	3
+T	Table 5.8a	Table A6.24	1
+T	Table 6.1	Table A6.25	7
+T	Table 6.2	Table A6.26	2
+T	Table 6.2a	Table A6.27	1
+T	Table 6.2b	Table A6.28	23
+T	Table 6.3	Table A6.29	10
+T	Table 6.4	Table A6.30	1
+T	Table 6.5	Table A6.31	5
+T	Table 7.10	Table A8.9	4
+T	Table 7.11	Table A8.10	1
+T	Table 7.12	Table A8.11	12
+T	Table 7.2	Table A8.2	1
+T	Table 7.3	Table A8.3	1
+T	Table 7.4	Table A2.1	1
+T	Table 7.6	Table A8.5	2
+T	Table 7.7	Table A8.6	1
+T	Table 7.8	Table A8.7	1
+T	Table 8.0	Table 9.1	2
+T	Table 8.1	Table A8.13	7
+T	Table 8.2	Table A9.3	1
+T	Table A2.1	Table D.1	1
+T	Table A2.2	Table D.2	3
+T	Table A2.3	Table D.3	5
+T	Table A2.4	Table D.4	3
+T	Table A3.1	Table E.1	1
+T	Tables 0.1 and 0.3	Tables A9.1 and A9.2	1
+T	Tables 0.4, 5.6 and 5.7	Tables A9.4, A6.21 and A6.22	1
+T	Tables 1.2–1.5, 6.2b and 7.5–7.13	Tables A1.1–A1.4, A6.28 and A8.4–A8.12	1
+T	Tables 1.4 and 1.5	Tables A1.3 and A1.4	1
+T	Tables 10.1–10.2, A2.1–A2.4 and A3.1	Tables B.1–B.2, D.1–D.4 and E.1	1
+T	Tables 10.6, 10.8 and 10.10	Tables A5.4, A5.6 and A5.11	1
+T	Tables 10.9b and 10.9c	Tables A5.8 and A5.9	3
+T	Tables 11.4 and 11.5	Tables A7.2 and A7.3	1
+T	Tables 11.4–11.6	Tables A7.2–A7.4	1
+T	Tables 11.5–11.6	Tables A7.3–A7.4	1
+T	Tables 11.6 and 11.9	Tables A7.4 and A7.7	1
+T	Tables 11.9–11.10	Tables A7.7–A7.8	1
+T	Tables 3a, 3c and 3d	Tables A6.1, A6.3 and A6.4	1
+T	Tables 3a–3d	Tables A6.1–A6.4	2
+T	Tables 3c–3d	Tables A6.3–A6.4	1
+T	Tables 4.2 and 4.3	Tables A6.5 and A6.6	2
+T	Tables 5.1 and 5.3	Tables A6.15 and A6.17	2
+T	Tables 6.3 and 6.4	Tables A6.29 and A6.30	2
+T	Tables 7.12 and 7.13	Tables A8.11 and A8.12	1
+T	Tables 7.12 and 8.1	Tables A8.11 and A8.13	1

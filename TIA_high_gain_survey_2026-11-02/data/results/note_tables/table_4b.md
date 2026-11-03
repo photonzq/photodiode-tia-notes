@@ -1,0 +1,7 @@
+| Photodiode | 100 kΩ | 1 MΩ | 10 MΩ | 100 MΩ | 1 GΩ |
+|---|---|---|---|---|---|
+| S1336-18BK (Si, 20 pF, 2 GΩ) | $e_n\,\omega C$ 64%, $R_F$ 32%; 322 kHz | $e_n\,\omega C$ 64%, $R_F$ 36%; 109 kHz | $e_n\,\omega C$ 63%, $R_F$ 37%; 35.3 kHz | $e_n\,\omega C$ 63%, $R_F$ 36%; 11.3 kHz | $R_F$ 45%, $e_n\,\omega C$ 32%; 2.03 kHz R |
+| G12180-010A (InGaAs, 55 pF, 125 MΩ) | $e_n\,\omega C$ 79%, $R_F$ 19%; 226 kHz | $e_n\,\omega C$ 79%, $R_F$ 21%; 73.8 kHz | $e_n\,\omega C$ 77%, $R_F$ 21%; 23.6 kHz | $e_n\,\omega C$ 69%, $R_F$ 17%; 7.55 kHz | diode $R_{sh}$ 61%, $e_n\,\omega C$ 31%; 2.25 kHz R |
+| S1336-8BK (Si, 380 pF, 0.4 GΩ) | $e_n\,\omega C$ 96%, $R_F$ 4%; 95.1 kHz | $e_n\,\omega C$ 96%, $R_F$ 4%; 30.8 kHz | $e_n\,\omega C$ 96%, $R_F$ 4%; 9.61 kHz | $e_n\,\omega C$ 95%, $R_F$ 4%; 3.04 kHz | $e_n\,\omega C$ 92%, diode $R_{sh}$ 6%; 960 Hz |
+| G12180-050A (InGaAs, 1 nF, 6.5 MΩ) | $e_n\,\omega C$ 98%, $R_F$ 2%; 59.3 kHz | $e_n\,\omega C$ 98%, $R_F$ 2%; 19 kHz | $e_n\,\omega C$ 96%, diode $R_{sh}$ 2%; 5.99 kHz | $e_n\,\omega C$ 82%, diode $R_{sh}$ 17%; 1.89 kHz | diode $R_{sh}$ 52%, $e_n\,\omega C$ 48%; 606 Hz |
+| G12183-010K (InGaAs to 2.6 µm, 500 pF, 14 kΩ) | $e_n\,\omega C$ 65%, $e_n/(R_F\parallel R_{sh})$ 17%; 83.8 kHz | diode $R_{sh}$ 41%, $e_n/(R_F\parallel R_{sh})$ 41%; 27.1 kHz | $e_n/(R_F\parallel R_{sh})$ 63%, diode $R_{sh}$ 36%; 3.14 kHz R | $e_n/(R_F\parallel R_{sh})$ 88%, diode $R_{sh}$ 12%; 280 Hz R | $e_n/(R_F\parallel R_{sh})$ 97%, diode $R_{sh}$ 3%; 28 Hz R |

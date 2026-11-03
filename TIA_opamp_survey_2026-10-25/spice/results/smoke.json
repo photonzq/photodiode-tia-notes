@@ -1,0 +1,614 @@
+{
+ "OPA855": {
+  "Rs0.001": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 1.34676207,
+    "1MHz": 0.972245094,
+    "10MHz": 0.9681743749999999,
+    "100MHz": 0.967917503
+   }
+  },
+  "op": [
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * opa855 buffer noise, rs = 0.001 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 1stdout v(out) = -5.23812e-04stdout i(vcc) = -1.75205e-02stdout i(vee) = 1.751111e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 61stdout No. of Data Rows : 1",
+   "stdout No. of Data Rows : 1stdout v(out) = -1.26210e-02stdout i(vcc) = -1.75111e-02stdout i(vee) = 1.756223e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 61stdout No. of Data Rows : 1"
+  ],
+  "Rs1000": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 11.3144033,
+    "1MHz": 2.9401997300000002,
+    "10MHz": 2.74797158,
+    "100MHz": 2.59535033
+   }
+  },
+  "e_n_nV": [
+   0.972245094,
+   0.9681743749999999,
+   0.967917503
+  ],
+  "i_n_pA_from_1k": [
+   2.774799799892779,
+   2.5717671325532288,
+   2.408106941731898
+  ]
+ },
+ "OPA818": {
+  "Rs0.001": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 3.33672387,
+    "1MHz": 2.18824429,
+    "10MHz": 2.17509042,
+    "100MHz": 2.18039149
+   }
+  },
+  "op": [
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * opa818 buffer noise, rs = 0.001 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 1stdout v(out) = 3.105081e-04stdout i(vcc) = -2.77031e-02stdout i(vee) = 2.770000e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 61stdout No. of Data Rows : 1",
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * opa818 buffer noise, rs = 1000.0 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 1stdout v(out) = 3.105041e-04stdout i(vcc) = -2.77031e-02stdout i(vee) = 2.770000e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 61stdout No. of Data Rows : 1"
+  ],
+  "Rs1000": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 3.3367223200000002,
+    "1MHz": 2.20142007,
+    "10MHz": 2.46562035,
+    "100MHz": 3.75430157
+   }
+  },
+  "e_n_nV": [
+   2.18824429,
+   2.17509042,
+   2.18039149
+  ],
+  "i_n_pA_from_1k": [
+   0.24049376682401016,
+   1.16114830024349,
+   3.056251499605365
+  ]
+ },
+ "OPA856": {
+  "Rs0.001": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 1.24554399,
+    "1MHz": 0.915427807,
+    "10MHz": 0.911998003,
+    "100MHz": 0.914614065
+   }
+  },
+  "op": [
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * opa856 buffer noise, rs = 0.001 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 1stdout v(out) = 2.136374e-04stdout i(vcc) = -1.72130e-02stdout i(vee) = 1.720000e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 61stdout No. of Data Rows : 1",
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * opa856 buffer noise, rs = 1000.0 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 1stdout v(out) = -1.17320e-02stdout i(vcc) = -1.72000e-02stdout i(vee) = 1.724672e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 61stdout No. of Data Rows : 1"
+  ],
+  "Rs1000": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 7.34060728,
+    "1MHz": 2.85527162,
+    "10MHz": 2.7803270799999997,
+    "100MHz": 2.63933764
+   }
+  },
+  "e_n_nV": [
+   0.915427807,
+   0.911998003,
+   0.914614065
+  ],
+  "i_n_pA_from_1k": [
+   2.704545794426228,
+   2.6264954434198695,
+   2.475799727365876
+  ]
+ },
+ "OPA858": {
+  "Rs0.001": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 2.43942568,
+    "1MHz": 2.43930649,
+    "10MHz": 2.4393244,
+    "100MHz": 2.44121566
+   }
+  },
+  "op": [
+   "stdout No. of Data Rows : 1stdout v(out) = 7.636597e-05stdout i(vcc) = -2.02181e-02stdout i(vee) = 2.021770e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: v.xu1.xi0.vprobe1: has no value, DC 0 assumedstderr Note: v.xu1.xi0.vprobe2: has no value, DC 0 assumedstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 61stdout No. of Data Rows : 1",
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * opa858 buffer noise, rs = 1000.0 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: v.xu1.xi0.vprobe1: has no value, DC 0 assumedstderr Note: v.xu1.xi0.vprobe2: has no value, DC 0 assumedstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 1stdout v(out) = 7.636504e-05stdout i(vcc) = -2.02181e-02stdout i(vee) = 2.021770e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: v.xu1.xi0.vprobe1: has no value, DC 0 assumedstderr Note: v.xu1.xi0.vprobe2: has no value, DC 0 assumedstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 61stdout No. of Data Rows : 1"
+  ],
+  "Rs1000": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 2.4394260599999997,
+    "1MHz": 2.43932113,
+    "10MHz": 2.4407491599999998,
+    "100MHz": 2.56254099
+   }
+  },
+  "e_n_nV": [
+   2.43930649,
+   2.4393244,
+   2.44121566
+  ],
+  "i_n_pA_from_1k": [
+   0.008451219341508165,
+   0.08338425274202019,
+   0.7791549440265036
+  ]
+ },
+ "LMH6629": {
+  "Rs0.001": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 0.7037422040000001,
+    "1MHz": 0.687052986,
+    "10MHz": 0.686912403,
+    "100MHz": 0.688199355
+   }
+  },
+  "op": [
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * lmh6629 buffer noise, rs = 0.001 ohmstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 1stdout v(out) = 5.076888e-05stdout i(vcc) = -1.59908e-02stdout i(vee) = 1.601844e-02stdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1",
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * lmh6629 buffer noise, rs = 1000.0 ohmstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 1stdout v(out) = 1.475897e-02stdout i(vcc) = -1.60669e-02stdout i(vee) = 1.594788e-02stdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1"
+  ],
+  "Rs1000": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 3.15804602,
+    "1MHz": 2.71330225,
+    "10MHz": 2.70598223,
+    "100MHz": 2.4623338500000003
+   }
+  },
+  "e_n_nV": [
+   0.687052986,
+   0.686912403,
+   0.688199355
+  ],
+  "i_n_pA_from_1k": [
+   2.6248747197311237,
+   2.6173442990329985,
+   2.364205920945426
+  ]
+ },
+ "OPA859": {
+  "Rs0.001": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 12.3113809,
+    "1MHz": 3.23511814,
+    "10MHz": 3.0306471,
+    "100MHz": 3.03799298
+   }
+  },
+  "op": [
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * opa859 buffer noise, rs = 0.001 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: v.xu1.xu1.xi30.vcursourcedetect_in: has no value, DC 0 assumedstderr Note: v.xu1.xu1.xi30.vcursinkdetect_in: has no value, DC 0 assumedstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 1stdout v(out) = 7.633416e-05stdout i(vcc) = -2.02104e-02stdout i(vee) = 2.021000e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: v.xu1.xu1.xi30.vcursourcedetect_in: has no value, DC 0 assumedstderr Note: v.xu1.xu1.xi30.vcursinkdetect_in: has no value, DC 0 assumedstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 61stdout No. of Data Rows : 1",
+   "stdout No. of Data Rows : 1stdout v(out) = 7.633623e-05stdout i(vcc) = -2.02104e-02stdout i(vee) = 2.021000e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: v.xu1.xu1.xi30.vcursourcedetect_in: has no value, DC 0 assumedstderr Note: v.xu1.xu1.xi30.vcursinkdetect_in: has no value, DC 0 assumedstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 61stdout No. of Data Rows : 1"
+  ],
+  "Rs1000": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 12.311380999999999,
+    "1MHz": 3.23514065,
+    "10MHz": 3.0327229,
+    "100MHz": 3.2166440300000003
+   }
+  },
+  "e_n_nV": [
+   3.23511814,
+   3.0306471,
+   3.03799298
+  ],
+  "i_n_pA_from_1k": [
+   0.01206836879461267,
+   0.11218887398489837,
+   1.0570702290791105
+  ]
+ },
+ "OPA846": {
+  "Rs0.001": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 1.13447987,
+    "1MHz": 1.1318695200000002,
+    "10MHz": 1.1320260100000001,
+    "100MHz": 1.15023097
+   }
+  },
+  "op": [
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * opa846 buffer noise, rs = 0.001 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 1stdout v(out) = -1.32013e-04stdout i(vcc) = -4.78808e-03stdout i(vee) = 4.800237e-03stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1",
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * opa846 buffer noise, rs = 1000.0 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 1stdout v(out) = -1.09611e-02stdout i(vcc) = -4.73422e-03stdout i(vee) = 4.854657e-03stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1"
+  ],
+  "Rs1000": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 6.02128138,
+    "1MHz": 3.11088867,
+    "10MHz": 3.08100815,
+    "100MHz": 4.01800641
+   }
+  },
+  "e_n_nV": [
+   1.1318695200000002,
+   1.1320260100000001,
+   1.15023097
+  ],
+  "i_n_pA_from_1k": [
+   2.897671428376471,
+   2.86550664508912,
+   3.849849896613366
+  ]
+ },
+ "OPA657": {
+  "Rs0.001": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 4.88990299,
+    "1MHz": 4.7454005,
+    "10MHz": 4.74493647,
+    "100MHz": 4.83231184
+   }
+  },
+  "op": [
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * opa657 buffer noise, rs = 0.001 ohmstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: v.xu1.xi0.vprobe1: has no value, DC 0 assumedstderr Note: v.xu1.xi0.vprobe2: has no value, DC 0 assumedstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 1stdout v(out) = 2.499527e-04stdout i(vcc) = -1.40025e-02stdout i(vee) = 1.400001e-02stdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: v.xu1.xi0.vprobe1: has no value, DC 0 assumedstderr Note: v.xu1.xi0.vprobe2: has no value, DC 0 assumedstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 61stdout No. of Data Rows : 1",
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * opa657 buffer noise, rs = 1000.0 ohmstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: v.xu1.xi0.vprobe1: has no value, DC 0 assumedstderr Note: v.xu1.xi0.vprobe2: has no value, DC 0 assumedstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 1stdout v(out) = 2.499502e-04stdout i(vcc) = -1.40025e-02stdout i(vee) = 1.400001e-02stdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: v.xu1.xi0.vprobe1: has no value, DC 0 assumedstderr Note: v.xu1.xi0.vprobe2: has no value, DC 0 assumedstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 61stdout No. of Data Rows : 1"
+  ],
+  "Rs1000": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 4.8899013799999995,
+    "1MHz": 4.74604103,
+    "10MHz": 4.8041062000000005,
+    "100MHz": 5.5270046399999995
+   }
+  },
+  "e_n_nV": [
+   4.7454005,
+   4.74493647,
+   4.83231184
+  ],
+  "i_n_pA_from_1k": [
+   0.07797148865586029,
+   0.7516743154733871,
+   2.682637241890401
+  ]
+ },
+ "OPA847": {
+  "Rs0.001": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 0.85777479,
+    "1MHz": 0.856556913,
+    "10MHz": 0.8568616920000001,
+    "100MHz": 0.886496696
+   }
+  },
+  "op": [
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * opa847 buffer noise, rs = 0.001 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 1stdout v(out) = -3.57700e-04stdout i(vcc) = -1.81948e-02stdout i(vee) = 1.822813e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1",
+   "stdout No. of Data Rows : 1stdout v(out) = -3.01103e-02stdout i(vcc) = -1.80394e-02stdout i(vee) = 1.837021e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1"
+  ],
+  "Rs1000": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 3.5874387199999997,
+    "1MHz": 3.4405573400000002,
+    "10MHz": 3.63123186,
+    "100MHz": 10.8330435
+   }
+  },
+  "e_n_nV": [
+   0.856556913,
+   0.8568616920000001,
+   0.886496696
+  ],
+  "i_n_pA_from_1k": [
+   3.3322282431759964,
+   3.528687130061541,
+   10.796710382374501
+  ]
+ },
+ "LMH6624": {
+  "Rs0.001": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 0.946835695,
+    "1MHz": 0.889919858,
+    "10MHz": 0.889715041,
+    "100MHz": 0.923835301
+   }
+  },
+  "op": [
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * lmh6624 buffer noise, rs = 0.001 ohmstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 1stdout v(out) = -5.02558e-06stdout i(vcc) = -1.20024e-02stdout i(vee) = 1.199005e-02stdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1",
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * lmh6624 buffer noise, rs = 1000.0 ohmstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 1stdout v(out) = -1.24662e-02stdout i(vcc) = -1.19429e-02stdout i(vee) = 1.205462e-02stdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1"
+  ],
+  "Rs1000": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 3.02197944,
+    "1MHz": 2.2984272800000003,
+    "10MHz": 2.28810731,
+    "100MHz": 2.23281753
+   }
+  },
+  "e_n_nV": [
+   0.889919858,
+   0.889715041,
+   0.923835301
+  ],
+  "i_n_pA_from_1k": [
+   2.1191532761424927,
+   2.1080422690007437,
+   2.032732756390161
+  ]
+ },
+ "THS4021": {
+  "Rs0.001": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 1.29947126,
+    "1MHz": 1.26486883,
+    "10MHz": 1.26495474,
+    "100MHz": 1.30527725
+   }
+  },
+  "op": [
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * ths4021 buffer noise, rs = 0.001 ohmstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 1stdout v(out) = -8.41166e-05stdout i(vcc) = -7.92853e-03stdout i(vee) = 7.929554e-03stdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1",
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * ths4021 buffer noise, rs = 1000.0 ohmstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 1stdout v(out) = -3.08927e-03stdout i(vcc) = -7.91862e-03stdout i(vee) = 7.939428e-03stdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1"
+  ],
+  "Rs1000": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 9.01610448,
+    "1MHz": 1.8668181300000002,
+    "10MHz": 1.67659207,
+    "100MHz": 2.25614301
+   }
+  },
+  "e_n_nV": [
+   1.26486883,
+   1.26495474,
+   1.30527725
+  ],
+  "i_n_pA_from_1k": [
+   1.372995547476804,
+   1.1003865116123595,
+   1.8402262312564448
+  ]
+ },
+ "ADA4817-1": {
+  "Rs0.001": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 6.0511896,
+    "1MHz": 3.4178221900000003,
+    "10MHz": 3.38521055,
+    "100MHz": 3.4229027999999997
+   }
+  },
+  "op": [
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * ada4817-1 buffer noise, rs = 0.001 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 1stdout v(out) = -3.99731e-04stdout i(vcc) = -1.90005e-02stdout i(vee) = 1.900450e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1",
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * ada4817-1 buffer noise, rs = 1000.0 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 1stdout v(out) = -3.99728e-04stdout i(vcc) = -1.90005e-02stdout i(vee) = 1.900450e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1"
+  ],
+  "Rs1000": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 6.05239813,
+    "1MHz": 3.41857867,
+    "10MHz": 3.3933038800000004,
+    "100MHz": 3.86443749
+   }
+  },
+  "e_n_nV": [
+   3.4178221900000003,
+   3.38521055,
+   3.4229027999999997
+  ],
+  "i_n_pA_from_1k": [
+   0.07191384096659881,
+   0.23422372679076317,
+   1.7937707590073098
+  ]
+ },
+ "AD8099": {
+  "Rs0.001": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 0.969008038,
+    "1MHz": 0.87627418,
+    "10MHz": 0.875606408,
+    "100MHz": 0.8799941250000001
+   }
+  },
+  "op": [
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * ad8099 buffer noise, rs = 0.001 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 1stdout v(out) = -1.00058e-07stdout i(vcc) = -1.50007e-02stdout i(vee) = 1.500050e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1",
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * ad8099 buffer noise, rs = 1000.0 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 1stdout v(out) = -4.00937e-05stdout i(vcc) = -1.50006e-02stdout i(vee) = 1.500050e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1"
+  ],
+  "Rs1000": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 3.30118614,
+    "1MHz": 2.59723485,
+    "10MHz": 2.52801603,
+    "100MHz": 1.42088619
+   }
+  },
+  "e_n_nV": [
+   0.87627418,
+   0.875606408,
+   0.8799941250000001
+  ],
+  "i_n_pA_from_1k": [
+   2.444948348640488,
+   2.371535044271178,
+   1.1155841092890308
+  ]
+ },
+ "ADA4899-1": {
+  "Rs0.001": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 0.971557499,
+    "1MHz": 0.926479615,
+    "10MHz": 0.926574005,
+    "100MHz": 0.9673597420000001
+   }
+  },
+  "op": [
+   "stdout No. of Data Rows : 1stdout v(out) = -3.50144e-05stdout i(vcc) = -1.47063e-02stdout i(vee) = 1.470050e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1",
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * ada4899-1 buffer noise, rs = 1000.0 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 1stdout v(out) = -5.93342e-03stdout i(vcc) = -1.47005e-02stdout i(vee) = 1.475374e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1"
+  ],
+  "Rs1000": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 2.99128605,
+    "1MHz": 2.6595871499999997,
+    "10MHz": 2.65919854,
+    "100MHz": 2.91312675
+   }
+  },
+  "e_n_nV": [
+   0.926479615,
+   0.926574005,
+   0.9673597420000001
+  ],
+  "i_n_pA_from_1k": [
+   2.4929980608565607,
+   2.4925483923880782,
+   2.747821426352749
+  ]
+ },
+ "ADA4895-1": {
+  "Rs0.001": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 0.9275187189999999,
+    "1MHz": 0.926131237,
+    "10MHz": 0.9271409700000001,
+    "100MHz": 0.984497523
+   }
+  },
+  "op": [
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * ada4895-1 buffer noise, rs = 0.001 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 1stdout v(out) = -5.29880e-05stdout i(vcc) = -2.90025e-03stdout i(vee) = 2.911325e-03stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1",
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * ada4895-1 buffer noise, rs = 1000.0 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 1stdout v(out) = 1.092588e-02stdout i(vcc) = -2.90025e-03stdout i(vee) = 2.900345e-03stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1"
+  ],
+  "Rs1000": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 1.8507753500000002,
+    "1MHz": 1.80578498,
+    "10MHz": 1.9506745899999998,
+    "100MHz": 5.10353912
+   }
+  },
+  "e_n_nV": [
+   0.926131237,
+   0.9271409700000001,
+   0.984497523
+  ],
+  "i_n_pA_from_1k": [
+   1.5502065429633727,
+   1.7162578412986569,
+   5.007681716780454
+  ]
+ },
+ "OPA955": {
+  "Rs0.001": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 0.9054917539999999,
+    "1MHz": 0.797874373,
+    "10MHz": 0.796832733,
+    "100MHz": 0.796977231
+   }
+  },
+  "op": [
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * opa955 buffer noise, rs = 0.001 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 1stdout v(out) = 1.997564e-04stdout i(vcc) = -2.02022e-02stdout i(vee) = 2.020000e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1",
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * opa955 buffer noise, rs = 1000.0 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 1stdout v(out) = -9.00144e-04stdout i(vcc) = -2.02000e-02stdout i(vee) = 2.020330e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1"
+  ],
+  "Rs1000": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 1.07022295,
+    "1MHz": 0.9691262770000001,
+    "10MHz": 0.968184257,
+    "100MHz": 0.9698593729999999
+   }
+  },
+  "e_n_nV": [
+   0.797874373,
+   0.796832733,
+   0.796977231
+  ],
+  "i_n_pA_from_1k": [
+   0.5500929245879624,
+   0.5499439527100854,
+   0.5526793796257697
+  ]
+ },
+ "OPA817": {
+  "Rs0.001": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 4.95127117,
+    "1MHz": 4.44831591,
+    "10MHz": 4.443641759999999,
+    "100MHz": 4.45882558
+   }
+  },
+  "op": [
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * opa817 buffer noise, rs = 0.001 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 1stdout v(out) = 4.799706e-05stdout i(vcc) = -2.35005e-02stdout i(vee) = 2.350000e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1",
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * opa817 buffer noise, rs = 1000.0 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 1stdout v(out) = 4.799506e-05stdout i(vcc) = -2.35005e-02stdout i(vee) = 2.350000e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstdout No. of Data Rows : 61stdout No. of Data Rows : 1"
+  ],
+  "Rs1000": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 4.95130141,
+    "1MHz": 4.44840838,
+    "10MHz": 4.44936056,
+    "100MHz": 4.5905117
+   }
+  },
+  "e_n_nV": [
+   4.44831591,
+   4.443641759999999,
+   4.45882558
+  ],
+  "i_n_pA_from_1k": [
+   0.02868240044169759,
+   0.22551563508461997,
+   1.0916373550655722
+  ]
+ },
+ "OPA814": {
+  "Rs0.001": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 5.84229188,
+    "1MHz": 5.33655998,
+    "10MHz": 5.33105209,
+    "100MHz": 5.26020267
+   }
+  },
+  "op": [
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * opa814 buffer noise, rs = 0.001 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 1stdout v(out) = 5.004457e-05stdout i(vcc) = -1.60005e-02stdout i(vee) = 1.600000e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 61stdout No. of Data Rows : 1",
+   "stdout Note: gnd in a subcircuit is not set to 0 automaticallystdout Note: Compatibility modes selected: ps astdout Circuit: * opa814 buffer noise, rs = 1000.0 ohmstdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 1stdout v(out) = 5.004257e-05stdout i(vcc) = -1.60005e-02stdout i(vee) = 1.600000e-02stdout Reducing trtol to 1 for xspice 'A' devicesstdout Doing analysis at TEMP = 25.000000 and TNOM = 27.000000stdout Using SPARSE 1.3 as Direct Linear Solverstderr Note: Starting dynamic gmin steppingstderr Note: Dynamic gmin stepping completedstdout No. of Data Rows : 61stdout No. of Data Rows : 1"
+  ],
+  "Rs1000": {
+   "errors": [],
+   "onoise_nV": {
+    "0.01MHz": 5.84230058,
+    "1MHz": 5.33670398,
+    "10MHz": 5.3441632100000005,
+    "100MHz": 5.60866244
+   }
+  },
+  "e_n_nV": [
+   5.33655998,
+   5.33105209,
+   5.26020267
+  ],
+  "i_n_pA_from_1k": [
+   0.03920395401293097,
+   0.37411766708368926,
+   1.9461146513994552
+  ]
+ }
+}

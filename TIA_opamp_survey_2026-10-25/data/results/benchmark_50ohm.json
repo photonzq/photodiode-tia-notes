@@ -1,0 +1,359 @@
+{
+ "assumptions": {
+  "R0_ohm": 50.0,
+  "B_Hz": 150000000.0,
+  "T_K": 298.15,
+  "NF_dB": 2.0,
+  "P_max_dBm": [
+   -20.0,
+   -10.0,
+   0.0
+  ],
+  "termination": "R_0 at the photodiodes in parallel with the amplifier's R_0 input"
+ },
+ "benchmark": {
+  "asd_R0_pA": 18.146966674350843,
+  "asd_with_F_pA": 22.845677493322164,
+  "band_nA": 279.8012634341257,
+  "i_cross_mA": 1.6287997498311002,
+  "penalty_vs_RF_dB": {
+   "2000": 18.020599913279625,
+   "1500": 16.771212547196626
+  },
+  "per_pmax": {
+   "-20 dBm": {
+    "i_max_mA_rms": 0.8944271909999159,
+    "full_modulation_up_to_mA": 1.2649110640673518,
+    "dr_electronic_dB": {
+     "0 mA": 70.09390644584327,
+     "0.1 mA": 69.83513647507425,
+     "1 mA": 68.01500833775805,
+     "10 mA": 61.55723446588296,
+     "20 mA": 58.86225918797151
+    },
+    "dr_usable_dB": {
+     "0.1 mA": 47.79393664851501,
+     "1 mA": 65.9738085111988,
+     "10 mA": 61.55723446588296,
+     "20 mA": 58.86225918797151
+    }
+   },
+   "-10 dBm": {
+    "i_max_mA_rms": 2.82842712474619,
+    "full_modulation_up_to_mA": 4.0,
+    "dr_electronic_dB": {
+     "0 mA": 80.09390644584327,
+     "0.1 mA": 79.83513647507425,
+     "1 mA": 78.01500833775805,
+     "10 mA": 71.55723446588296,
+     "20 mA": 68.8622591879715
+    },
+    "dr_usable_dB": {
+     "0.1 mA": 47.79393664851501,
+     "1 mA": 65.9738085111988,
+     "10 mA": 71.55723446588296,
+     "20 mA": 68.8622591879715
+    }
+   },
+   "0 dBm": {
+    "i_max_mA_rms": 8.94427190999916,
+    "full_modulation_up_to_mA": 12.64911064067352,
+    "dr_electronic_dB": {
+     "0 mA": 90.09390644584327,
+     "0.1 mA": 89.83513647507425,
+     "1 mA": 88.01500833775805,
+     "10 mA": 81.55723446588296,
+     "20 mA": 78.8622591879715
+    },
+    "dr_usable_dB": {
+     "0.1 mA": 47.79393664851501,
+     "1 mA": 65.9738085111988,
+     "10 mA": 79.5160346393237,
+     "20 mA": 78.8622591879715
+    }
+   }
+  }
+ },
+ "designs": {
+  "OPA955": {
+   "source": "Table A6.33 (SPICE best design)",
+   "v_pk_V": 1.525,
+   "z_t_ohm": 1983.468226547834,
+   "i_max_mA_rms": 0.5436627755748319,
+   "dark_noise_nA": 38.7929364733194,
+   "full_modulation_up_to_mA": 0.7688552705753275,
+   "p_eq_dBm": -24.324307909752164,
+   "per_idc": {
+    "0 mA": {
+     "noise_nA": 38.7929364733194,
+     "bench_noise_nA": 279.8012634341257,
+     "dr_electronic_dB": 82.9315388554617,
+     "small_signal_advantage_dB": 17.161940319370593,
+     "p_x_dBm": -7.162367590381573,
+     "dr_usable_dB": null
+    },
+    "0.1 mA": {
+     "noise_nA": 79.44445746698126,
+     "bench_noise_nA": 288.2625139024029,
+     "dr_electronic_dB": 76.70531988914087,
+     "small_signal_advantage_dB": 11.194491323818774,
+     "p_x_dBm": -13.129816585933389,
+     "dr_usable_dB": 58.98842797233378
+    },
+    "1 mA": {
+     "noise_nA": 222.64364114032762,
+     "bench_noise_nA": 355.4631430111046,
+     "dr_electronic_dB": 67.75438604242392,
+     "small_signal_advantage_dB": 4.063685614418031,
+     "p_x_dBm": -20.26062229533413,
+     "dr_usable_dB": 67.75438604242392
+    },
+    "10 mA": {
+     "noise_nA": 694.3758939653817,
+     "bench_noise_nA": 747.6240614234757,
+     "dr_electronic_dB": 57.87469925192347,
+     "small_signal_advantage_dB": 0.6417726957926713,
+     "p_x_dBm": -23.682535213959493,
+     "dr_usable_dB": 57.87469925192347
+    },
+    "20 mA": {
+     "noise_nA": 981.2292659313739,
+     "bench_noise_nA": 1019.6051821265587,
+     "dr_electronic_dB": 54.87118210215543,
+     "small_signal_advantage_dB": 0.3332308239360926,
+     "p_x_dBm": -23.99107708581607,
+     "dr_usable_dB": 54.87118210215543
+    }
+   },
+   "crossover_mA": {
+    "-20 dBm": 1.1748975549395304,
+    "-10 dBm": 1.1748975549395304,
+    "0 dBm": 1.1748975549395304
+   }
+  },
+  "OPA855": {
+   "source": "Table A6.33 (SPICE best design)",
+   "v_pk_V": 1.525,
+   "z_t_ohm": 1994.07675552018,
+   "i_max_mA_rms": 0.5407704785306455,
+   "dark_noise_nA": 49.5900299195589,
+   "full_modulation_up_to_mA": 0.7647649448690276,
+   "p_eq_dBm": -24.37064037401379,
+   "per_idc": {
+    "0 mA": {
+     "noise_nA": 49.5900299195589,
+     "bench_noise_nA": 279.8012634341257,
+     "dr_electronic_dB": 80.75237208955294,
+     "small_signal_advantage_dB": 15.02910601772345,
+     "p_x_dBm": -9.341534356290339,
+     "dr_usable_dB": null
+    },
+    "0.1 mA": {
+     "noise_nA": 85.23908123286375,
+     "bench_noise_nA": 288.2625139024029,
+     "dr_electronic_dB": 76.04748429722281,
+     "small_signal_advantage_dB": 10.582988196162349,
+     "p_x_dBm": -13.78765217785144,
+     "dr_usable_dB": 58.37692484467736
+    },
+    "1 mA": {
+     "noise_nA": 224.77648917852318,
+     "bench_noise_nA": 355.4631430111046,
+     "dr_electronic_dB": 67.62524182362452,
+     "small_signal_advantage_dB": 3.980873859880269,
+     "p_x_dBm": -20.389766514133516,
+     "dr_usable_dB": 67.62524182362452
+    },
+    "10 mA": {
+     "noise_nA": 695.0627031192386,
+     "bench_noise_nA": 747.6240614234757,
+     "dr_electronic_dB": 57.81977979574841,
+     "small_signal_advantage_dB": 0.6331857038792423,
+     "p_x_dBm": -23.737454670134547,
+     "dr_usable_dB": 57.81977979574841
+    },
+    "20 mA": {
+     "noise_nA": 981.7154126667376,
+     "bench_noise_nA": 1019.6051821265587,
+     "dr_electronic_dB": 54.82054730882296,
+     "small_signal_advantage_dB": 0.3289284948652368,
+     "p_x_dBm": -24.04171187914855,
+     "dr_usable_dB": 54.82054730882296
+    }
+   },
+   "crossover_mA": {
+    "-20 dBm": 1.1614486138403426,
+    "-10 dBm": 1.1614486138403426,
+    "0 dBm": 1.1614486138403426
+   }
+  },
+  "OPA818": {
+   "source": "Table A6.33 (SPICE best design)",
+   "v_pk_V": 2.228169203286535,
+   "z_t_ohm": 1961.0469085229047,
+   "i_max_mA_rms": 0.8034247148435988,
+   "dark_noise_nA": 84.76726105769679,
+   "full_modulation_up_to_mA": 1.136214128077554,
+   "p_eq_dBm": -20.931996123721525,
+   "per_idc": {
+    "0 mA": {
+     "noise_nA": 84.76726105769679,
+     "bench_noise_nA": 279.8012634341257,
+     "dr_electronic_dB": 79.53434073109835,
+     "small_signal_advantage_dB": 10.372430408976605,
+     "p_x_dBm": -10.55956571474492,
+     "dr_usable_dB": null
+    },
+    "0.1 mA": {
+     "noise_nA": 109.5080748128818,
+     "bench_noise_nA": 288.2625139024029,
+     "dr_electronic_dB": 77.3099808663498,
+     "small_signal_advantage_dB": 8.406840514997077,
+     "p_x_dBm": -12.525155608724447,
+     "dr_usable_dB": 56.20077716351208
+    },
+    "1 mA": {
+     "noise_nA": 235.05486076068223,
+     "bench_noise_nA": 355.4631430111046,
+     "dr_electronic_dB": 70.67551901608134,
+     "small_signal_advantage_dB": 3.592506802044821,
+     "p_x_dBm": -17.339489321676705,
+     "dr_usable_dB": 69.5663153132436
+    },
+    "10 mA": {
+     "noise_nA": 698.4543497947619,
+     "bench_noise_nA": 747.6240614234757,
+     "dr_electronic_dB": 61.21614321880046,
+     "small_signal_advantage_dB": 0.5909048766390249,
+     "p_x_dBm": -20.3410912470825,
+     "dr_usable_dB": 61.21614321880046
+    },
+    "20 mA": {
+     "noise_nA": 984.1196415818677,
+     "bench_noise_nA": 1019.6051821265587,
+     "dr_electronic_dB": 58.237945750736586,
+     "small_signal_advantage_dB": 0.30768268648659997,
+     "p_x_dBm": -20.624313437234925,
+     "dr_usable_dB": 58.237945750736586
+    }
+   },
+   "crossover_mA": {
+    "-20 dBm": 6.0394862937638,
+    "-10 dBm": 1.555965631605075,
+    "0 dBm": 1.555965631605075
+   }
+  },
+  "CE3512K2 composite": {
+   "source": "Table A7.4 (pHEMT composite)",
+   "v_pk_V": 1.4999999999999998,
+   "z_t_ohm": 1800.5788925205663,
+   "i_max_mA_rms": 0.5890662032003722,
+   "dark_noise_nA": 36.48900632624213,
+   "full_modulation_up_to_mA": 0.8330654137015919,
+   "p_eq_dBm": -23.62761774093828,
+   "per_idc": {
+    "0 mA": {
+     "noise_nA": 36.48900632624213,
+     "bench_noise_nA": 279.8012634341257,
+     "dr_electronic_dB": 84.16004139383715,
+     "small_signal_advantage_dB": 17.693752688932157,
+     "p_x_dBm": -5.933865052006125,
+     "dr_usable_dB": null
+    },
+    "0.1 mA": {
+     "noise_nA": 78.34524545035607,
+     "bench_noise_nA": 288.2625139024029,
+     "dr_electronic_dB": 77.52302921878015,
+     "small_signal_advantage_dB": 11.315510484644184,
+     "p_x_dBm": -12.312107256294096,
+     "dr_usable_dB": 59.10944713315919
+    },
+    "1 mA": {
+     "noise_nA": 222.2537887251341,
+     "bench_noise_nA": 355.4631430111046,
+     "dr_electronic_dB": 68.46629866788915,
+     "small_signal_advantage_dB": 4.078908071069394,
+     "p_x_dBm": -19.548709669868888,
+     "dr_usable_dB": 68.46629866788915
+    },
+    "10 mA": {
+     "noise_nA": 694.2509904801552,
+     "bench_noise_nA": 747.6240614234757,
+     "dr_electronic_dB": 58.57295196846441,
+     "small_signal_advantage_dB": 0.6433352435197328,
+     "p_x_dBm": -22.98428249741855,
+     "dr_usable_dB": 58.57295196846441
+    },
+    "20 mA": {
+     "noise_nA": 981.1408808028929,
+     "bench_noise_nA": 1019.6051821265587,
+     "dr_electronic_dB": 55.568654695705476,
+     "small_signal_advantage_dB": 0.3340132486722518,
+     "p_x_dBm": -23.293604492266027,
+     "dr_usable_dB": 55.568654695705476
+    }
+   },
+   "crossover_mA": {
+    "-20 dBm": 1.2531411749414156,
+    "-10 dBm": 1.2531411749414156,
+    "0 dBm": 1.2531411749414156
+   }
+  },
+  "HV composite (G2 = 5.5)": {
+   "source": "Table A7.7 (OPA859 + THS3491)",
+   "v_pk_V": 8.299147564425606,
+   "z_t_ohm": 1844.5182331163562,
+   "i_max_mA_rms": 3.181526436287049,
+   "dark_noise_nA": 136.5175699662924,
+   "full_modulation_up_to_mA": 4.499357835245686,
+   "p_eq_dBm": -8.978189144431594,
+   "per_idc": {
+    "0 mA": {
+     "noise_nA": 136.5175699662924,
+     "bench_noise_nA": 279.8012634341257,
+     "dr_electronic_dB": 87.34893974214906,
+     "small_signal_advantage_dB": 6.233222440737382,
+     "p_x_dBm": -2.744966703694211,
+     "dr_usable_dB": null
+    },
+    "0.1 mA": {
+     "noise_nA": 153.11295442091614,
+     "bench_noise_nA": 288.2625139024029,
+     "dr_electronic_dB": 86.35247199375482,
+     "small_signal_advantage_dB": 5.495524663112144,
+     "p_x_dBm": -3.482664481319449,
+     "dr_usable_dB": 53.28946131162716
+    },
+    "1 mA": {
+     "noise_nA": 258.267973100618,
+     "bench_noise_nA": 355.4631430111046,
+     "dr_electronic_dB": 81.81129964174646,
+     "small_signal_advantage_dB": 2.774480448420017,
+     "p_x_dBm": -6.203708696011577,
+     "dr_usable_dB": 68.74828895961882
+    },
+    "10 mA": {
+     "noise_nA": 706.604583278018,
+     "bench_noise_nA": 747.6240614234757,
+     "dr_electronic_dB": 73.06918172368972,
+     "small_signal_advantage_dB": 0.49013640223835137,
+     "p_x_dBm": -8.488052742193242,
+     "dr_usable_dB": 73.06918172368972
+    },
+    "20 mA": {
+     "noise_nA": 989.9207176887963,
+     "bench_noise_nA": 1019.6051821265587,
+     "dr_electronic_dB": 70.14070245472973,
+     "small_signal_advantage_dB": 0.25663241118981966,
+     "p_x_dBm": -8.721556733241774,
+     "dr_usable_dB": 70.14070245472973
+    }
+   },
+   "crossover_mA": {
+    "-20 dBm": null,
+    "-10 dBm": null,
+    "0 dBm": 5.0003453497697885
+   }
+  }
+ }
+}

@@ -1,0 +1,44 @@
+Old/new text pairs that prepare the high-gain note for the public repository it shares with the companion note
+(3 November 2026): Appendix E says which files the repository holds and adds the PDF and the web page, and two
+sentences no longer call the companion's folder a separate repository. Applied with plain_wording_pass.py: a line
+"=== FILE <part> <hash>" names the chapter file in parts/ and its hash before the edit; each pair runs from
+"=== OLD" through "=== NEW" to "=== END". Usage:
+python plain_wording_pass.py publication_pairs.txt
+
+=== FILE 09_checks.md 4e1e2aa0d7d6
+
+=== OLD
+LSBF862 card, the second-source BF862 from the companion repository.
+=== NEW
+LSBF862 card, the second-source BF862, as typed into the companion note's scripts.
+=== END
+
+=== FILE 12_appendix_b_e.md a43f9d5361d7
+
+=== OLD
+the ADA4817-1 model, Rev. 2.1, through the companion note's repository,
+=== NEW
+the ADA4817-1 model, Rev. 2.1, which the companion note's folder of this repository includes,
+=== END
+
+=== OLD
+| `TIA_high_gain_survey.md` | This note, assembled from `parts/` by `scripts_archive/assemble_note.py` |
+=== NEW
+| `TIA_high_gain_survey.md` | This note, assembled from `parts/` by `scripts_archive/assemble_note.py` |
+| `TIA_high_gain_survey.pdf`, `index.html` | This note as a PDF and as a web page, built by `build/build_pdf.py` and `build/make_web_html.py` at the root of the repository |
+=== END
+
+=== OLD
+| `spice/models/` | The vendors' SPICE models, one folder per part; not for redistribution (`spice/models/README.md`) |
+| `spice/runs/`, `spice/results/` | The decks, logs and arrays of each SPICE run, and the summaries of Chapter 9 |
+=== NEW
+| `spice/models/` | The vendors' SPICE models, one folder per part. They are not part of the public repository, which holds only `spice/models/README.md` with the source of each |
+| `spice/results/` | The summaries of the SPICE checks of Chapter 9 |
+| `spice/runs/` | The decks, logs and arrays of each SPICE run, written when the checks are run; not part of the public repository |
+=== END
+
+=== OLD
+| `datasheets/`, `appnotes/`, `papers/` | The datasheets, application notes and papers read for this note; not for publication |
+=== NEW
+| `datasheets/`, `appnotes/`, `papers/` | The datasheets, application notes and papers read for this note; not part of the public repository (Appendix D gives each document's source) |
+=== END

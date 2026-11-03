@@ -1,0 +1,183 @@
+Old/new text pairs for consistency_sweep_text.py (balanced-photodiode note, 3 November 2026).
+Each pair runs from a line "=== OLD" through "=== NEW" to "=== END"; the text between the markers
+is used exactly, line breaks included.
+
+=== OLD
+specified range 0.1–0.3 pF; TI quotes up to 0.2 pF for the resistor alone [A2] |
+=== NEW
+specified range 0.1–0.3 pF; Texas Instruments (TI) quotes up to 0.2 pF for the resistor alone [A2] |
+=== END
+
+=== OLD
+Unless a section says otherwise, the numbers in this note use these values.
+=== NEW
+Unless a section says otherwise, the numbers in this note use the values of Table 1.1.
+=== END
+
+=== OLD
+which gives each document's literature number and source; the documents themselves are available from their manufacturers.
+=== NEW
+which gives each document's literature number and source, and "EC" marks a datasheet's table of electrical characteristics. The documents themselves are available from their manufacturers.
+=== END
+
+=== OLD
+a bias tee carries the DC, and an RF low-noise amplifier, or a 50-Ω instrument, follows.
+=== NEW
+a bias tee carries the DC, and an RF low-noise amplifier (LNA), or a 50-Ω instrument, follows.
+=== END
+
+=== OLD
+- Analog Devices, including Linear Technology and Maxim;
+=== NEW
+- Analog Devices (ADI), including Linear Technology and Maxim;
+=== END
+
+=== OLD
+- A low-noise part qualified with a GBW of at least about 800 MHz
+=== NEW
+- A low-noise part qualified with a gain–bandwidth product (GBW) of at least about 800 MHz
+=== END
+
+=== OLD
+LMH6629 appears twice (COMP HI and COMP LO).
+=== NEW
+LMH6629 appears twice, with its compensation pin high (COMP HI) and low (COMP LO).
+=== END
+
+=== OLD
+in lidar and APD receivers
+=== NEW
+in lidar and avalanche-photodiode (APD) receivers
+=== END
+
+=== OLD
+a silicon JFET, a GaAs pHEMT or a SiGe bipolar transistor, can take over that role
+=== NEW
+a silicon JFET, a GaAs pHEMT (pseudomorphic high-electron-mobility transistor) or a SiGe bipolar transistor, can take over that role
+=== END
+
+=== OLD
+Part-to-part spread therefore cannot account for 7 pA/√Hz.
+=== NEW
+Part-to-part spread therefore cannot account for 7 pA/√Hz. Table A4.6 gives the noise of Eq. (24) at 50 MHz for node capacitances from 5.35 to 20 pF.
+=== END
+
+=== OLD
+*Figure 7. Input-referred noise in SPICE against our analysis, without photocurrent.
+=== NEW
+*Figure 7. Input-referred noise in SPICE against our analytical model, without photocurrent.
+=== END
+
+=== OLD
+Open circles are our analysis with the datasheet curves and its central noise estimate, with a bar up to the high estimate for the FET inputs.
+=== NEW
+Open circles are our analytical model with the datasheet curves and its central noise estimate, with a bar up to the high estimate for the FET inputs.
+=== END
+
+=== OLD
+slew rate only 350 V/µs TYP and LSBW 110 MHz at 2 Vpp
+=== NEW
+slew rate only 350 V/µs TYP and large-signal bandwidth 110 MHz at 2 Vpp
+=== END
+
+=== OLD
+LO or open gives minimum gain 4, GBWP 1.7 GHz, 530 V/µs; HI gives minimum gain 10, GBWP 4 GHz,
+=== NEW
+LO or open gives minimum gain 4, GBW 1.7 GHz, 530 V/µs; HI gives minimum gain 10, GBW 4 GHz,
+=== END
+
+=== OLD
+- The tables show ten amplifiers: the nine parts
+=== NEW
+- Tables A6.15 (2 kΩ) and A6.17 (1.5 kΩ) give the noise of the flat designs, and Table A6.18 that of the robust designs at 2 kΩ, with the capacitance that OPA858, OPA955, OPA846 and OPA818 need added to reach 45°. They show ten amplifiers: the nine parts
+=== END
+
+=== OLD
+so that one can see which property of each amplifier puts it where it is.
+=== NEW
+so that one can see which property of each amplifier puts it where it is, and Figure 14 shows the spectra of eight of the designs.
+=== END
+
+=== OLD
+in 150 MHz for a 100-MHz tone, at $R_F$ = 2 kΩ and 1.5 kΩ, in the dark and at 0.1, 1 and 10 mA.
+=== NEW
+in 150 MHz for a 100-MHz tone, at $R_F$ = 2 kΩ and 1.5 kΩ, in the dark and at 0.1, 1 and 10 mA. Figure 16 draws it against the photocurrent for four of the amplifiers at 2 kΩ, with the imbalance servoed to zero and, for comparison, for a single-ended detector whose DC flows through $R_F$.
+=== END
+
+=== OLD
+Their datasheet HD is therefore a conservative proxy for the TIA.
+=== NEW
+Their datasheet distortion is therefore a conservative proxy for the TIA.
+=== END
+
+=== OLD
+the CE3512K2 pHEMT composite (Table A7.4) and the OPA859–THS3491 composite at a gain of 5.5 (Table A7.7); their band noise
+=== NEW
+the pHEMT composite of Section 7.1, a cascoded CE3512K2 GaAs pHEMT at the summing node followed by an OPA859 buffer (Table A7.4), and the high-voltage composite of Section 7.2, in which OPA859 at the summing node drives a THS3491 stage of gain 5.5 inside the $R_F$ loop (Table A7.7); their band noise
+=== END
+
+=== OLD
+the CE3512K2 pHEMT composite (Table A7.4); OPA859 with THS3491 at $G_2$ = 5.5 (Table A7.7). Values in Tables A6.35 and A6.36.*
+=== NEW
+the pHEMT composite of Section 7.1, a cascoded CE3512K2 at the summing node followed by an OPA859 buffer (Table A7.4); and the high-voltage composite of Section 7.2, in which OPA859 drives a THS3491 stage of gain $G_2$ = 5.5 inside the $R_F$ loop (Table A7.7). Values in Tables A6.35 and A6.36.*
+=== END
+
+=== OLD
+CE3512K2 pHEMT composite (Table A7.4); OPA859 with THS3491 at $G_2$ = 5.5 (Table A7.7); one per row.*
+=== NEW
+the pHEMT composite of Section 7.1 (CE3512K2, Table A7.4); the high-voltage composite of Section 7.2 (OPA859 driving a THS3491 stage of gain $G_2$ = 5.5, Table A7.7); one per row.*
+=== END
+
+=== OLD
+| CE3512K2 pHEMT composite | 36.5 |
+=== NEW
+| pHEMT composite (CE3512K2) | 36.5 |
+=== END
+
+=== OLD
+| OPA859 + THS3491, $G_2$ = 5.5 | 136.5 |
+=== NEW
+| high-voltage composite (OPA859 + THS3491, $G_2$ = 5.5) | 136.5 |
+=== END
+
+=== OLD
+| CE3512K2 pHEMT composite | 59.1 /
+=== NEW
+| pHEMT composite (CE3512K2) | 59.1 /
+=== END
+
+=== OLD
+| OPA859 + THS3491, $G_2$ = 5.5 | 53.3 /
+=== NEW
+| high-voltage composite (OPA859 + THS3491, $G_2$ = 5.5) | 53.3 /
+=== END
+
+=== OLD
+limits the SNR above
+=== NEW
+limits the signal-to-noise ratio above
+=== END
+
+=== OLD
+Only (b) and (c) null the RIN with the DC;
+=== NEW
+Only (b) and (c) null the laser's relative intensity noise (RIN) along with the DC;
+=== END
+
+=== OLD
+but not the relative intensity noise (RIN) that the imbalance current carries
+=== NEW
+but not the RIN that the imbalance current carries
+=== END
+
+=== OLD
+and the OPA859–THS3491 composite adds 7.8–11.9 dB to OPA818
+=== NEW
+and the high-voltage composite adds 7.8–11.9 dB to OPA818
+=== END
+
+=== OLD
+Measure it with an impedance analyser or a VNA on a test coupon
+=== NEW
+Measure it with an impedance analyser or a vector network analyser on a test coupon
+=== END

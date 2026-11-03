@@ -1,0 +1,158 @@
+{
+  "part": "OPA843",
+  "manufacturer": "Texas Instruments",
+  "datasheet_file": "datasheets/opa843.pdf",
+  "datasheet_id_and_revision": "SBOS268C, December 2002, revised December 2008 (PDF pp. 1-20); Package Option Addendum 11-Nov-2025 (PDF pp. 21-22); package materials and drawings DBV0005A, D0008A (PDF pp. 23-31); notice PDF p32.",
+  "datasheet_status": "PRODUCTION DATA (footer, PDF p1). Addendum (text-located, PDF p21): all orderable versions Active.",
+  "scope_note": "Headline extraction only (survey priority lower than OPA846/OPA847): spec table, front pages, open-loop and noise curves, TIA example. Typical-characteristic pages other than the open-loop and noise plots, and the applications pages other than PDF p11, were not digitized.",
+  "conventions": {
+    "type_codes": "TYP = typical; MIN_25C / MAX_25C = guaranteed at 25 C (level A = 100% tested at 25 C; B = characterization and simulation); MIN_0_70C / MAX_0_70C / MIN_m40_85C / MAX_m40_85C = over-temperature limits (characterization and simulation). CURVE = PDF vector path with tick-label calibration, checked on a 120 dpi render. DERIVED = computed here.",
+    "table_default_conditions": "TA = 25 C, VS = +/-5 V, RF = 402 ohm, RL = 100 ohm, G = +5 unless noted; AC per Figure 1 (PDF p3). Typical characteristics: G = +5, RF = 402, RG = 100, RL = 100 (PDF pp. 4-8)."
+  },
+  "input_type": "bipolar ('classic' differential input, PDF p1; 'very high-speed complementary bipolar process', PDF p19, located by text)",
+  "compensation": "decompensated voltage feedback ('two gain-stage design', medium gain); flat at G = +5, peaking 3.5 dB at G = +3",
+  "min_stable_gain": {
+    "value": 3,
+    "unit": "V/V (noise gain)",
+    "datasheet_statements": [
+      "'Operating at a noise gain less than +3 runs the risk of sustained oscillation (loop instability)' (PDF p14).",
+      "Table: small-signal bandwidth at G = +3 500 MHz typ, peaking at a gain of +3 3.5 dB typ (PDF p3).",
+      "'unity-gain stability is not required for transimpedance applications' (PDF p11).",
+      "External compensation below the minimum gain: noninverting resistor across the inputs and inverting low-gain compensation with NG2 = 1 + CS/CF > minimum stable gain (example target NG2 = 7.5) (PDF p14)."
+    ],
+    "src": "PDF pp. 3, 11, 14"
+  },
+  "supply": {"total_min_V": 8, "total_max_V": 12, "abs_max_V": 13, "dual_or_single": "dual (table specifies +/-4 V minimum to +/-6 V maximum operating)", "recommended": "+/-5 V specified (TYP); maximum operating +/-6 V, minimum operating +/-4 V (both level A). Absolute maximum +/-6.5 VDC.", "src": "PDF pp. 2-3"},
+  "quiescent_current": [
+    {"param": "Maximum quiescent current", "cond": "VS = +/-5 V", "unit": "mA", "typ": 20.2, "max_25C": 20.8, "max_0_70C": 22.2, "max_m40_85C": 22.5, "test_level": "A", "src": "PDF p3"},
+    {"param": "Minimum quiescent current", "cond": "VS = +/-5 V", "unit": "mA", "typ": 20.2, "min_25C": 19.6, "min_0_70C": 19.1, "min_m40_85C": 18.3, "test_level": "A", "src": "PDF p3"}
+  ],
+  "gbw": [
+    {"param": "Gain-bandwidth product", "unit": "MHz", "typ": 800, "min_25C": 562, "min_0_70C": 560, "min_m40_85C": 558, "test_level": "B", "src": "PDF p3"},
+    {"type": "DERIVED", "param": "GBW implied by open-loop plot (f x |AOL|)", "unit": "MHz", "values": [{"f_Hz": 1e6, "value": 667}, {"f_Hz": 1e7, "value": 677}, {"f_Hz": 1e8, "value": 665}], "src": "PDF p7"}
+  ],
+  "open_loop_dc_gain": [
+    {"param": "Open-loop voltage gain AOL", "cond": "VO = 0 V", "unit": "dB", "typ": 110, "min_25C": 100, "min_0_70C": 96, "min_m40_85C": 92, "test_level": "A", "src": "PDF p3"},
+    {"type": "CURVE", "value": "about 116 dB at 10-100 Hz on the typical plot", "src": "PDF p7"}
+  ],
+  "phase_margin_or_crossover": [
+    {"param": "Phase margin", "type": "not specified", "value": null},
+    {"type": "DERIVED", "param": "|AOL| = 14 dB (NG = 5)", "f_Hz": 1.33e8, "phase_deg": -106, "phase_margin_deg": 74, "src": "PDF p7"},
+    {"type": "DERIVED", "param": "|AOL| = 9.5 dB (NG = 3)", "f_Hz": 2.27e8, "phase_deg": -116, "phase_margin_deg": 64, "note": "inconsistent with the 3.5 dB peaking tabulated at G = +3, so the plot does not include all loop phase (e.g. input/feedback capacitance)", "src": "PDF p7"},
+    {"type": "DERIVED", "param": "Phase = -180 deg", "f_Hz": 7.8e8, "gain_dB": 1.4, "src": "PDF p7"}
+  ],
+  "open_loop_curve": {
+    "figure": "Open-Loop Gain and Phase (PDF p7, top right)",
+    "conditions": "VS = +/-5 V, TA = 25 C; page default RL = 100 ohm (not stated on the plot)",
+    "phase_convention": "phase of AOL, 0 deg at DC, plotted to -210 deg (right axis); phase margin = 180 deg + phase at crossover",
+    "axes": "gain -20 to 120 dB, phase 0 to -210 deg, 10 Hz to 1 GHz",
+    "uncertainty": "+/-0.5 dB, +/-2 deg",
+    "points": [
+      {"f_Hz": 1e2, "gain_dB": 115.5, "phase_deg": -5.7},
+      {"f_Hz": 1e3, "gain_dB": 113.0, "phase_deg": -42.8},
+      {"f_Hz": 1e4, "gain_dB": 96.3, "phase_deg": -83.9},
+      {"f_Hz": 1e5, "gain_dB": 76.7, "phase_deg": -89.9},
+      {"f_Hz": 1e6, "gain_dB": 56.5, "phase_deg": -90.1},
+      {"f_Hz": 1e7, "gain_dB": 36.6, "phase_deg": -91.3},
+      {"f_Hz": 3e7, "gain_dB": 27.0, "phase_deg": -94.2},
+      {"f_Hz": 1e8, "gain_dB": 16.5, "phase_deg": -101.5},
+      {"f_Hz": 2e8, "gain_dB": 10.5, "phase_deg": -112.7},
+      {"f_Hz": 3e8, "gain_dB": 7.3, "phase_deg": -124.3},
+      {"f_Hz": 5e8, "gain_dB": 3.6, "phase_deg": -147.1},
+      {"f_Hz": 7e8, "gain_dB": 1.7, "phase_deg": -170.0},
+      {"f_Hz": 1e9, "gain_dB": 0.6, "phase_deg": null, "note": "phase trace reaches -210 deg at about 0.98 GHz"}
+    ]
+  },
+  "open_loop_output_impedance": {"figure": null, "note": "not given; closed-loop output impedance 0.0001 ohm typ at G = +5, 1 kHz (PDF p3) and a closed-loop plot on PDF p7 (not digitized)", "points": []},
+  "closed_loop_small_signal_bw": [
+    {"param": "Small-signal bandwidth", "cond": "G = +3, VO = 200 mVpp", "unit": "MHz", "typ": 500, "test_level": "C", "src": "PDF p3"},
+    {"param": "Small-signal bandwidth", "cond": "G = +5", "unit": "MHz", "typ": 260, "min_25C": 185, "min_0_70C": 180, "min_m40_85C": 175, "test_level": "B", "src": "PDF p3"},
+    {"param": "Small-signal bandwidth", "cond": "G = +10", "unit": "MHz", "typ": 85, "min_25C": 66, "min_0_70C": 65, "min_m40_85C": 64, "test_level": "B", "src": "PDF p3"},
+    {"param": "Small-signal bandwidth", "cond": "G = +20", "unit": "MHz", "typ": 40, "min_25C": 30, "min_0_70C": 30, "min_m40_85C": 30, "test_level": "B", "src": "PDF p3"},
+    {"param": "0.1 dB flatness bandwidth", "cond": "G = +5, RL = 100, VO = 200 mVpp", "unit": "MHz", "typ": 65, "min_25C": 34, "min_0_70C": 33, "min_m40_85C": 32, "test_level": "B", "src": "PDF p3"},
+    {"param": "Peaking at a gain of +3", "unit": "dB", "typ": 3.5, "test_level": "C", "src": "PDF p3"}
+  ],
+  "large_signal_bw": [{"note": "not tabulated; large-signal response plots on PDF p4 not digitized"}],
+  "slew_rate": [{"param": "Slew rate", "cond": "2 V step", "unit": "V/us", "typ": 1000, "min_25C": 650, "min_0_70C": 600, "min_m40_85C": 525, "test_level": "B", "src": "PDF p3"}],
+  "rise_fall_settling": [
+    {"param": "Rise and fall time", "cond": "0.2 V step", "unit": "ns", "typ": 1.2, "max_25C": 1.95, "max_0_70C": 2.0, "max_m40_85C": 2.1, "test_level": "B", "src": "PDF p3"},
+    {"param": "Settling to 0.01%", "cond": "2 V step", "unit": "ns", "typ": 10.5, "test_level": "C", "src": "PDF p3"},
+    {"param": "Settling to 0.1%", "cond": "2 V step", "unit": "ns", "typ": 7.5, "max_25C": 10, "max_0_70C": 10.3, "max_m40_85C": 10.6, "test_level": "B", "src": "PDF p3"},
+    {"param": "Settling to 1.0%", "cond": "2 V step", "unit": "ns", "typ": 3.2, "max_25C": 5.4, "max_0_70C": 5.8, "max_m40_85C": 6.4, "test_level": "B", "src": "PDF p3"}
+  ],
+  "overdrive_recovery": [{"note": "plots on PDF p7 not digitized (headline scope)"}],
+  "voltage_noise": {
+    "spot": [{"param": "Input voltage noise", "cond": "f > 1 MHz", "unit": "nV/rtHz", "typ": 2.0, "max_25C": 2.2, "max_0_70C": 2.31, "max_m40_85C": 2.36, "test_level": "B", "src": "PDF p3"}],
+    "curve_points": [{"f_Hz": 1e2, "nV_rtHz": 9.2}, {"f_Hz": 1e3, "nV_rtHz": 3.50}, {"f_Hz": 1e4, "nV_rtHz": 2.24}, {"f_Hz": 1e5, "nV_rtHz": 2.06}, {"f_Hz": 1e6, "nV_rtHz": 2.05}, {"f_Hz": 9.9e6, "nV_rtHz": 2.05}],
+    "curve_src": "PDF p6 Input Voltage and Current Noise Density, 100 Hz-10 MHz (CURVE +/-3%)",
+    "one_over_f_corner_Hz": 2100,
+    "highest_frequency_plotted_Hz": 1e7
+  },
+  "current_noise": {
+    "spot": [{"param": "Input current noise", "cond": "f > 1 MHz", "unit": "pA/rtHz", "typ": 2.8, "max_25C": 3.35, "max_0_70C": 3.4, "max_m40_85C": 3.45, "test_level": "B", "src": "PDF p3"}],
+    "curve_points": [{"f_Hz": 1e2, "pA_rtHz": 7.1}, {"f_Hz": 1e3, "pA_rtHz": 3.53}, {"f_Hz": 1e4, "pA_rtHz": 2.93}, {"f_Hz": 1e5, "pA_rtHz": 2.84}, {"f_Hz": 1e6, "pA_rtHz": 2.85}, {"f_Hz": 9.9e6, "pA_rtHz": 2.84}],
+    "values_at": {"1MHz": 2.85, "10MHz": 2.84, "100MHz": "not plotted"},
+    "one_over_f_corner_Hz": 580,
+    "hf_behavior": "flat to 10 MHz (end of plot); not shown above 10 MHz",
+    "how_measured_or_defined": "single table value 'Input Current Noise, f > 1 MHz'; input not specified"
+  },
+  "input_capacitance": {"common_mode_pF": 1.2, "differential_pF": 1.0, "common_mode_R": "3.2 Mohm", "differential_R": "12 kohm", "type": "TYP (C), VCM = 0 V", "definition_notes": "Table: Differential-Mode 12 kohm || 1 pF, Common-Mode 3.2 Mohm || 1.2 pF (PDF p3). TIA text: 'common-mode and differential mode input capacitances CI = (1.0 + 1.2)pF' added to the diode capacitance, CS = CD + CI (PDF p11).", "src": "PDF pp. 3, 11"},
+  "input_bias_current": [
+    {"param": "Input bias current", "cond": "VCM = 0 V", "unit": "uA", "typ": -20, "max_25C": -35, "max_0_70C": -36, "max_m40_85C": -37, "test_level": "A", "src": "PDF p3"},
+    {"param": "Input bias current drift", "unit": "nA/C", "max_0_70C": 25, "max_m40_85C": 25, "test_level": "B", "src": "PDF p3"},
+    {"param": "Input offset current", "unit": "uA", "typ": "+/-0.25", "max_25C": "+/-1.0", "max_0_70C": "+/-1.15", "max_m40_85C": "+/-1.17", "test_level": "A", "src": "PDF p3"},
+    {"param": "Input offset current drift", "unit": "nA/C", "max_0_70C": "+/-2", "max_m40_85C": "+/-2", "test_level": "B", "src": "PDF p3"}
+  ],
+  "input_offset_voltage": [
+    {"param": "Input offset voltage", "unit": "mV", "typ": "+/-0.30", "max_25C": "+/-1.20", "max_0_70C": "+/-1.4", "max_m40_85C": "+/-1.5", "test_level": "A", "src": "PDF p3"},
+    {"param": "Average offset voltage drift", "unit": "uV/C", "max_0_70C": "+/-4", "max_m40_85C": "+/-4", "test_level": "B", "src": "PDF p3"}
+  ],
+  "input_common_mode_range": [{"param": "CMIR", "unit": "V", "typ": "+/-3.2", "min_25C": "+/-3.0", "min_0_70C": "+/-2.9", "min_m40_85C": "+/-2.8", "test_level": "A", "src": "PDF p3"}],
+  "cmrr_psrr": [
+    {"param": "CMRR", "cond": "VCM = +/-1 V, input referred", "unit": "dB", "typ": 95, "min_25C": 85, "min_0_70C": 84, "min_m40_85C": 82, "test_level": "A", "src": "PDF p3"},
+    {"param": "+PSRR, -PSRR", "cond": "|VS| = 4.5 to 5.5 V, input referred", "unit": "dB", "typ": 100, "min_25C": 90, "min_0_70C": 88, "min_m40_85C": 85, "test_level": "A", "src": "PDF p3"}
+  ],
+  "output_swing": [
+    {"supply": "+/-5 V", "load_ohm": "> 1000", "V_low": -3.7, "V_high": 3.2, "type": "TYP", "src": "PDF p3"},
+    {"supply": "+/-5 V", "load_ohm": "> 1000", "V_low": -3.5, "V_high": 3.0, "type": "MIN_25C (A)", "src": "PDF p3"},
+    {"supply": "+/-5 V", "load_ohm": "> 1000", "V_low": -3.4, "V_high": 2.9, "type": "MIN_0_70C", "src": "PDF p3"},
+    {"supply": "+/-5 V", "load_ohm": "> 1000", "V_low": -3.3, "V_high": 2.8, "type": "MIN_m40_85C", "src": "PDF p3"},
+    {"supply": "+/-5 V", "load_ohm": 100, "V_low": -3.5, "V_high": 3.0, "type": "TYP", "src": "PDF p3"},
+    {"supply": "+/-5 V", "load_ohm": 100, "V_low": -3.3, "V_high": 2.8, "type": "MIN_25C (A)", "src": "PDF p3"},
+    {"supply": "+/-5 V", "load_ohm": 100, "V_low": -3.2, "V_high": 2.7, "type": "MIN_0_70C", "src": "PDF p3"},
+    {"supply": "+/-5 V", "load_ohm": 100, "V_low": -3.1, "V_high": 2.6, "type": "MIN_m40_85C", "src": "PDF p3"}
+  ],
+  "output_swing_vs_load_curve": [{"note": "plot on PDF p7 not digitized"}],
+  "output_current": [{"param": "Current output", "cond": "VO = 0 V", "unit": "mA", "typ": "+/-100", "min_25C": "+/-90", "min_0_70C": "+/-85", "min_m40_85C": "+/-80", "test_level": "A", "src": "PDF p3"}],
+  "short_circuit_current": [{"value": null, "note": "not specified"}],
+  "distortion": [
+    {"f_Hz": 5e6, "Vout_pp": 2, "R_L_ohm": 100, "gain": "+5", "HD2_dBc": -76, "HD3_dBc": -102, "type": "TYP", "src": "PDF p3"},
+    {"f_Hz": 5e6, "Vout_pp": 2, "R_L_ohm": 100, "gain": "+5", "HD2_dBc": -74, "HD3_dBc": -100, "type": "MAX_25C (B)", "src": "PDF p3"},
+    {"f_Hz": 5e6, "Vout_pp": 2, "R_L_ohm": 100, "gain": "+5", "HD2_dBc": -70, "HD3_dBc": -95, "type": "MAX_m40_85C", "src": "PDF p3"},
+    {"f_Hz": 5e6, "Vout_pp": 2, "R_L_ohm": 500, "gain": "+5", "HD2_dBc": -96, "HD3_dBc": -110, "type": "TYP", "src": "PDF p3"},
+    {"f_Hz": 5e6, "Vout_pp": 2, "R_L_ohm": 500, "gain": "+5", "HD2_dBc": -94, "HD3_dBc": -105, "type": "MAX_25C (B)", "src": "PDF p3"},
+    {"f_Hz": 5e6, "Vout_pp": 2, "R_L_ohm": 500, "gain": "+5", "HD2_dBc": -90, "HD3_dBc": -100, "type": "MAX_m40_85C", "src": "PDF p3"}
+  ],
+  "imd_or_oip3": [
+    {"param": "2-tone 3rd-order intercept", "cond": "G = +5, f = 25 MHz", "unit": "dBm", "typ": 40, "test_level": "C", "src": "PDF p3"},
+    {"type": "TEXT", "value": "> 30 dBm up to 50 MHz, > 50 dBm below 10 MHz; 44 MHz IF example 33 dBm at 200 mW dissipation", "src": "PDF p11"}
+  ],
+  "packages": [
+    {"name": "SO-8 (D, D0008A)", "pins": 8, "body_mm": "4.81-5.00 x 3.81-3.98, max height 1.75 (same drawing as OPA846)", "pitch_mm": 1.27, "exposed_pad": false, "ep_connection": null, "theta_JA_C_per_W": 125, "notes": "OPA843ID (rails 100 on p2; tube 75 in addendum), OPA843IDR (2500); marking OPA843", "src": "PDF pp. 2-3, 21, 29-31"},
+    {"name": "SOT23-5 (DBV, DBV0005A)", "pins": 5, "body_mm": "2.75-3.05 x 1.45-1.75, max height 1.45", "pitch_mm": 0.95, "exposed_pad": false, "ep_connection": null, "theta_JA_C_per_W": 150, "notes": "OPA843IDBVT (250), OPA843IDBVR (3000); marking OARI", "src": "PDF pp. 2-3, 21, 26-28"}
+  ],
+  "pinout_notes": "Same pinout as OPA846. SO-8: 1 NC, 2 -IN, 3 +IN, 4 -VS, 5 NC, 6 OUT, 7 +VS, 8 NC. SOT23-5: 1 OUT, 2 -VS, 3 +IN, 4 -IN, 5 +VS. No shutdown pin.",
+  "tia_content": [
+    {"what": "Photodiode transimpedance amplifier example (schematic captioned 'FIGURE 3. High Dynamic Range IF Amplifier' by mistake; text calls it Figure 4)", "R_F": "10 kohm", "C_F": "0.75 pF external (0.94 pF total incl. 0.2 pF resistor parasitic)", "C_D_or_source_C": "20 pF diode; CS = CD + CI with CI = (1.0 + 1.2) pF", "bandwidth": "feedback pole 16.9 MHz (Eq. 1); about 24 MHz -3 dB (Eq. 2)", "measured_or_simulated": "calculated", "other": "+IN 10 kohm || 0.01 uF", "figure_or_section": "PDF p11"},
+    {"what": "Equations", "equations": "Eq. 1: 1/(2 pi RF CF) = sqrt(GBP/(4 pi RF CS)), CS = CD + CI. Eq. 2: F-3dB ~ sqrt(GBP/(2 pi RF CS)) Hz. 'ideal wideband transimpedance amplifier for low to moderate gains'.", "figure_or_section": "PDF p11"}
+  ],
+  "application_guidance": "Not extracted beyond the TIA section and compensation statements (headline scope).",
+  "abs_max_and_input_protection": {"supply": "+/-6.5 VDC", "differential_input": "+/-1.2 V", "input_voltage_range": "+/-VS", "junction_temperature": "+150 C", "storage": "-65 to +125 C", "lead_temperature": "+300 C", "ESD": "HBM 2000 V, CDM 1500 V, MM 200 V", "src": "PDF p2"},
+  "other_notes": [
+    "Front-page feature list: 260 MHz (G = +5), 800 MHz GBP, 2.0 nV/rtHz, -96 dBc (5 MHz), 110 dB AOL, 10.5 ns 0.01% settling, 300 uV VOS, +/-100 mA (PDF p1).",
+    "Open-loop plot implies about 670 MHz GBW versus the 800 MHz typical.",
+    "Minimum operating supply +/-4 V (table) - unlike OPA846/OPA847 no +5 V single-supply statement was located (not searched exhaustively).",
+    "TIA schematic caption duplicates 'FIGURE 3. High Dynamic Range IF Amplifier' (PDF p11)."
+  ],
+  "pages_read": "Rendered and read: PDF p1-p2 (115 dpi), p3 spec table (140 dpi), p11 (110 dpi), p6 noise plot and p7 open-loop plot clips (120 dpi, digitized from vector paths). Located by text only, not rendered: PDF pp. 4-10, 12-20 (typical characteristics and applications, headline scope), p21-25 (addendum, tape and reel), p26-31 (mechanical drawings), p32 (legal notice)."
+}

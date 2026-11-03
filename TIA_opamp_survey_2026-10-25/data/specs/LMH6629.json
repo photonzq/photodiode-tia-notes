@@ -1,0 +1,302 @@
+{
+  "part": "LMH6629",
+  "manufacturer": "Texas Instruments",
+  "datasheet_file": "datasheets/lmh6629.pdf",
+  "datasheet_id_and_revision": "SNOSB18I (revision I), April 2010, revised December 2014. Package option addendum dated 10-Nov-2025; package materials information dated 5-Sep-2025; legal notice last updated 10/2025.",
+  "datasheet_status": "PRODUCTION DATA (p1 footer). All orderables 'Active', material type 'Production' (p38).",
+  "citation_convention": "pN = PDF page index N (1-based). Printed page number = N for N = 1..36; PDF p37 is printed page 38 (printed page 37 is absent); PDF p38-p48 are the unnumbered package addendum, packaging, mechanical and legal pages. Types: TYP = typical table value at 25 C; MIN/MAX = guaranteed limit at 25 C ('ensured by testing or statistical analysis', p5 note 2) unless marked 'over temp' (-40 C <= TJ <= +125 C); CURVE = read from a typical-characteristic plot by sampling the vector paths of the PDF drawing (pdf_vector_paths_sampler.py), axis calibration checked on the rendered figure; SIM = stated as a simulation result; TEXT = value stated in prose or application text, not in a specification table; DERIVED = computed here from datasheet data (formula given).",
+  "input_type": "bipolar (TI SiGe process, p1; input bias current about -15 uA, p6). The datasheet does not name the input-stage device type explicitly.",
+  "compensation": "selectable (WSON-8 only): COMP pin LO or open (internal pull-down, default) = maximum internal compensation, minimum stable gain 4 V/V, GBWP 1.7 GHz (TEXT p33); COMP pin HI = reduced compensation, minimum stable gain 10 V/V, GBWP 4 GHz (TEXT p29, p31, p34). SOT-23-5 has no COMP pin and is internally fixed at a minimum stable gain of 10 V/V (p1, p20). Decompensated in both settings.",
+  "min_stable_gain": {
+    "value": [
+      {"setting": "WSON-8, COMP LO/open (default)", "value": 4, "unit": "V/V", "type": "TEXT", "src": "p1 Features ('Selectable Min. Gain >=4 or >=10 V/V'); p20 7.3.2"},
+      {"setting": "WSON-8, COMP HI", "value": 10, "unit": "V/V", "type": "TEXT", "src": "p1; p20 7.3.2"},
+      {"setting": "SOT-23-5 (no COMP pin)", "value": 10, "unit": "V/V", "type": "TEXT", "src": "p1 Description; p20 7.3.1 item 2 and NOTE"}
+    ],
+    "conditions": "COMP LO: 'on-chip compensation is set to the maximum and bandwidth is reduced to enable stability at gains as low as 4V/V'. COMP HI: 'minimum stable gain is 10V/V. Due to the reduced compensation, slew rate and large signal bandwidth are significantly enhanced for the higher gains' (p20). p31: choose SOT23-5 'if Power Down is not needed and closed loop gain is >= 20dB'.",
+    "below_minimum": "External compensation (p20-p22, Fig 50): a series Rc-Cc network between the two inputs raises the noise gain at high frequency. Constraint 1: (1 + Rf/Rg)(1 + (Rp + REQ)/Rc) >= 10 V/V (may be changed to >= 4 V/V for WSON-8 with COMP LO); Constraint 2: 1/(2 pi Cc Rc) <= 90 MHz; Rp = Rs||RT (non-inverting) and REQ = Rf||Rg. Reasons listed: SOT-23-5 at closed-loop gain < 10 V/V; WSON-8 below 4 V/V with COMP LO; either package at low gain when maximum slew rate (COMP HI) is wanted. Worked example (SOT-23-5, +3.7 V/V): Rf = 249 ohm, Rg = 91 ohm, REQ = 66.6 ohm, Rs = RT = 50 ohm (Rp = 25 ohm), Rc ~ 56 ohm, Cc ~ 33 pF; measured response Fig 51 '-3 dB response of about 1 GHz' (with Cf' = 1.5 pF across Rf through a T network RA = 33 ohm, RB = 91 ohm, needed for the SOT-23-5 summing-node capacitance; 'The WSON-8 package does not need this compensation across Rf due to its lower parasitics'). The Rc-Cc network lowers the input impedance (-3 dB at 490 MHz) and raises the noise gain (Eq 1: noise-gain zero 1/(2 pi (Rc + Rp + REQ) Cc), 3 dB increase at 32.8 MHz for these values). TIA (p28-p29): no explicit minimum-gain statement; Fig 61 shows the high-frequency noise gain 1 + C_IN/C_F, and the text recommends COMP HI (or SOT-23) for maximum speed in the TIA."
+  },
+  "supply": {
+    "total_min_V": 2.7,
+    "total_max_V": 5.5,
+    "abs_max_V": 6.0,
+    "dual_or_single": "single or dual (V+ - V- = 2.7 V to 5.5 V); specified at single 5 V and 3.3 V (p5-p10); typical curves at +-2.5 V and +-1.5 V (p11-p18)",
+    "recommended": "Recommended operating conditions 2.7 V min, 5.5 V max (p4 6.3); absolute maximum positive supply voltage -0.5 V to 6.0 V (p4 6.1)",
+    "src": "p1, p4"
+  },
+  "quiescent_current": [
+    {"value": 15.5, "unit": "mA", "type": "TYP", "conditions": "VS = 5 V, no load, normal operation (PD HI or open)", "src": "p7 EC 5V"},
+    {"value": 16.7, "unit": "mA", "type": "MAX", "conditions": "VS = 5 V, no load, 25 C", "src": "p7 EC 5V"},
+    {"value": 18.2, "unit": "mA", "type": "MAX over temp", "conditions": "VS = 5 V, no load", "src": "p7 EC 5V"},
+    {"value": 1.1, "unit": "mA", "type": "TYP", "conditions": "VS = 5 V, shutdown (PD LO, WSON-8)", "src": "p7 EC 5V"},
+    {"value": 1.85, "unit": "mA", "type": "MAX", "conditions": "VS = 5 V, shutdown, 25 C (2.0 mA max over temp)", "src": "p7 EC 5V"},
+    {"value": 13.7, "unit": "mA", "type": "TYP", "conditions": "VS = 3.3 V, no load (14.9 MAX at 25 C, 16.0 MAX over temp)", "src": "p10 EC 3.3V"},
+    {"value": 0.89, "unit": "mA", "type": "TYP", "conditions": "VS = 3.3 V, shutdown (1.4 MAX at 25 C, 1.5 MAX over temp)", "src": "p10 EC 3.3V"},
+    {"value": "14 to 17", "unit": "mA", "type": "CURVE", "conditions": "Fig 44 supply current vs VS = 2.7-5.5 V at -40, 25, 125 C; rises with VS and temperature (not digitized, read by eye +-0.3 mA)", "src": "p18 Fig 44"}
+  ],
+  "gbw": [
+    {"value": 4, "unit": "GHz", "type": "TEXT", "conditions": "COMP pin HI (WSON-8); 'GBWP= 4GHz with COMP pin = HI for WSON-8 package' used in the TIA design equations", "src": "p29 7.3.7; also p31 7.4 'With a GBWP of 4GHz', p34 'Gain Bandwidth (4 GHz)'"},
+    {"value": 1.7, "unit": "GHz", "type": "TEXT", "conditions": "COMP pin LO (WSON-8); 'using 1.7 GHz as the GBWP with COMP pin LO'", "src": "p33 8.2.2"},
+    {"value": 3.8, "unit": "GHz", "type": "DERIVED from CURVE", "conditions": "COMP HI: |A_OL| x f in the -20 dB/dec region of Fig 31: 51.6 dB (381 V/V) at 10 MHz -> 3.81 GHz; 31.7 dB (38.4 V/V) at 100 MHz -> 3.84 GHz", "src": "p16 Fig 31"},
+    {"value": 1.7, "unit": "GHz", "type": "DERIVED from CURVE", "conditions": "COMP LO: 44.8 dB (174 V/V) at 10 MHz -> 1.74 GHz; 24.7 dB (17.1 V/V) at 100 MHz -> 1.71 GHz", "src": "p16 Fig 31"}
+  ],
+  "open_loop_dc_gain": [
+    {"value": 78, "unit": "dB", "type": "TYP", "conditions": "VS = 5 V, RL = 100 ohm to 2.5 V, WSON-8 (COMP HI per table header)", "src": "p6 EC 5V A_VOL"},
+    {"value": 74, "unit": "dB", "type": "MIN", "conditions": "VS = 5 V, WSON-8, 25 C (72 dB MIN over temp)", "src": "p6"},
+    {"value": 78, "unit": "dB", "type": "TYP", "conditions": "VS = 5 V, SOT-23-5", "src": "p6"},
+    {"value": 79, "unit": "dB", "type": "TYP", "conditions": "VS = 3.3 V, RL = 100 ohm to 1.65 V, WSON-8 (78 MIN at 25 C, 73 MIN over temp); SOT-23-5 79 TYP", "src": "p9 EC 3.3V"},
+    {"value": 79, "unit": "dB", "type": "CURVE", "conditions": "Fig 31 at 100 kHz (both COMP settings; +-1 dB, low-frequency trace is ragged, COMP HI trace bulges to 81.7 dB at 350 kHz)", "src": "p16 Fig 31"}
+  ],
+  "phase_margin_or_crossover": [
+    {"what": "Unity-gain crossover and phase margin", "value": null, "note": "not stated; Fig 31 ends at 1 GHz where |A_OL| is still 11.6 dB (COMP HI) and about 7.5 dB (COMP LO at 0.97 GHz)", "src": "p16 Fig 31"},
+    {"what": "COMP HI: frequency where |A_OL| = 20 dB (minimum stable gain 10 V/V) and plotted phase there", "f_Hz": 4.0e8, "phase_deg": 71, "type": "CURVE", "uncertainty": "+-15 MHz, +-2 deg", "src": "p16 Fig 31"},
+    {"what": "COMP LO: frequency where |A_OL| = 12 dB (minimum stable gain 4 V/V) and plotted phase there", "f_Hz": 4.2e8, "phase_deg": 75, "type": "CURVE", "uncertainty": "+-15 MHz, +-2 deg", "src": "p16 Fig 31"},
+    {"what": "Plotted phase at 1 GHz", "value": "COMP HI 35.6 deg; COMP LO 49 deg (at 0.99 GHz)", "type": "CURVE", "src": "p16 Fig 31"}
+  ],
+  "open_loop_curve": [
+    {
+      "figure": "Fig 31 'Open Loop Gain/Phase Response' (p16), traces 'Gain, COMP HI' (grey), 'Phase, COMP HI' (black)",
+      "setting": "COMP HI (WSON-8; minimum stable gain 10 V/V)",
+      "conditions": "Typical-characteristics header: VS = +-2.5 V, RL = 100 ohm (load not restated on the figure). Plotted range 100 kHz to 1 GHz.",
+      "phase_convention": "Right axis 'Phase (deg)' 0-180: about 180 deg at low frequency, falling to about 90 deg above the dominant pole, i.e. plotted value = 180 deg + arg(A_OL) = phase margin a loop with frequency-flat feedback would have if it crossed over at that frequency.",
+      "reading_method": "vector-path sampling of the PDF drawing; uncertainty of the readout +-0.3 dB, +-1 deg relative to the drawn trace",
+      "points": [
+        {"f_Hz": 1.0e5, "gain_dB": 78.9, "phase_deg": null, "note": "gain at 101 kHz; phase trace starts at 180 kHz at the 180 deg frame edge"},
+        {"f_Hz": 1.0e6, "gain_dB": 72.4, "phase_deg": 95.3},
+        {"f_Hz": 1.0e7, "gain_dB": 51.6, "phase_deg": 88.1},
+        {"f_Hz": 3.0e7, "gain_dB": 42.1, "phase_deg": 86.8},
+        {"f_Hz": 1.0e8, "gain_dB": 31.7, "phase_deg": 84.3},
+        {"f_Hz": 2.0e8, "gain_dB": 25.8, "phase_deg": 80.4},
+        {"f_Hz": 3.0e8, "gain_dB": 22.3, "phase_deg": 75.6},
+        {"f_Hz": 5.0e8, "gain_dB": 17.9, "phase_deg": 66.8},
+        {"f_Hz": 7.0e8, "gain_dB": 14.1, "phase_deg": 55.5},
+        {"f_Hz": 9.9e8, "gain_dB": 11.6, "phase_deg": 35.6, "note": "end of plotted range (1 GHz)"},
+        {"f_Hz": 2.0e9, "gain_dB": null, "phase_deg": null, "note": "not plotted (likewise 3e9, 5e9, 1e10)"}
+      ]
+    },
+    {
+      "figure": "Fig 31 'Open Loop Gain/Phase Response' (p16), traces 'Gain, COMP LO' (teal), 'Phase, COMP LO' (red)",
+      "setting": "COMP LO (WSON-8; minimum stable gain 4 V/V)",
+      "conditions": "as above",
+      "phase_convention": "as above",
+      "reading_method": "as above",
+      "points": [
+        {"f_Hz": 1.0e5, "gain_dB": 79.2, "phase_deg": null, "note": "gain at 101 kHz; phase trace starts at 180 kHz (155.8 deg there)"},
+        {"f_Hz": 1.0e6, "gain_dB": 65.1, "phase_deg": 90.7},
+        {"f_Hz": 1.0e7, "gain_dB": 44.8, "phase_deg": 87.9},
+        {"f_Hz": 3.0e7, "gain_dB": 35.3, "phase_deg": 86.9},
+        {"f_Hz": 1.0e8, "gain_dB": 24.7, "phase_deg": 84.7},
+        {"f_Hz": 2.0e8, "gain_dB": 18.2, "phase_deg": 82.2},
+        {"f_Hz": 3.0e8, "gain_dB": 14.5, "phase_deg": 79.0},
+        {"f_Hz": 5.0e8, "gain_dB": 10.7, "phase_deg": 72.1},
+        {"f_Hz": 7.0e8, "gain_dB": 8.7, "phase_deg": 64.9},
+        {"f_Hz": 9.7e8, "gain_dB": 7.5, "phase_deg": 50.2, "note": "gain trace ends at 0.97 GHz and flattens above 600 MHz; phase 49.0 deg at 0.99 GHz"},
+        {"f_Hz": 2.0e9, "gain_dB": null, "phase_deg": null, "note": "not plotted (likewise 3e9, 5e9, 1e10)"}
+      ]
+    }
+  ],
+  "open_loop_output_impedance": {"figure": null, "points": [], "note": "not given in this datasheet"},
+  "closed_loop_small_signal_bw": [
+    {"value": 900, "unit": "MHz", "type": "TYP", "conditions": "VS = 5 V, Av = +10, RL = 100 ohm, VO = 200 mVpp, WSON-8, COMP HI", "src": "p5 EC 5V SSBW"},
+    {"value": 1000, "unit": "MHz", "type": "TYP", "conditions": "as above, SOT-23-5 (2 dB peaking)", "src": "p5"},
+    {"value": 800, "unit": "MHz", "type": "TYP", "conditions": "Av = 4, VO = 200 mVpp, COMP LO", "src": "p5"},
+    {"value": 820, "unit": "MHz", "type": "TYP", "conditions": "VS = 3.3 V, WSON-8 (SOT-23-5 950 MHz; COMP LO Av = 4: 730 MHz)", "src": "p8 EC 3.3V"},
+    {"value": 330, "unit": "MHz", "type": "TYP", "conditions": "0.1 dB bandwidth, Av = 10, 200 mVpp, WSON-8 (SOT-23-5 190 MHz; COMP LO Av = 4: 95 MHz at 5 V, 85 MHz at 3.3 V)", "src": "p5, p8"},
+    {"value": 0, "unit": "dB", "type": "TYP", "conditions": "peaking, 200 mVpp, WSON-8 (SOT-23-5: 2 dB at 5 V, 1.8 dB at 3.3 V)", "src": "p5, p8"},
+    {"value": "38 / 143 / 884 / 798", "unit": "MHz", "type": "CURVE", "conditions": "Fig 5, WSON-8, VO = 0.2 Vpp, +-2.5 V: -3 dB at Av = 100 / 30 / 10 / 4 (COMP LO, 2.1 dB peak at 0.40-0.48 GHz). Av = 100 and 30 imply GBW 3.8 and 4.3 GHz. +-2%", "src": "p11 Fig 5"},
+    {"value": "904 / 1001", "unit": "MHz", "type": "CURVE", "conditions": "Av = 10, 0.2 Vpp, +-2.5 V: WSON-8 (Fig 7, no peaking) / SOT-23-5 (Fig 8, 2.0 dB peak at 520 MHz)", "src": "p12 Figs 7, 8"},
+    {"value": "835 / 952", "unit": "MHz", "type": "CURVE", "conditions": "Av = 10, 0.2 Vpp, +-1.5 V: WSON-8 (Fig 9) / SOT-23-5 (Fig 10, 1.9 dB peak at 523 MHz)", "src": "p12 Figs 9, 10"},
+    {"value": "778 / 729", "unit": "MHz", "type": "CURVE", "conditions": "Av = 4, COMP LO, WSON-8, VO = 80 mVpp: +-2.5 V (Fig 11, 2.0 dB peak at 419 MHz) / +-1.5 V (Fig 12, about 2.3 dB peak near 400 MHz)", "src": "p12 Figs 11, 12"},
+    {"value": "360 to 420", "unit": "MHz", "type": "CURVE", "conditions": "Fig 13, Av = 10, RL = 100 ohm || CL with series Riso (4.7 pF/72 ohm, 10 pF/40 ohm, 33 pF/17 ohm), measured at CL; -3 dB 364-418 MHz (trace-to-label assignment not resolved). Fig 14 (Av = 4, COMP LO): 424-480 MHz", "src": "p13 Figs 13, 14"},
+    {"value": "390 to 410 (peaking 0.04 to 0.95 dB)", "unit": "MHz", "type": "CURVE", "conditions": "Fig 15, WSON-8, Av = 10, 2 Vpp, Rf = 240 / 750 / 1 k / 1.5 k ohm; highest peaking (0.95 dB at 211 MHz) on the trace drawn in teal, presumably 1.5 k", "src": "p13 Fig 15"},
+    {"value": "370 to 394 (peaking 0.03 to 1.5 dB)", "unit": "MHz", "type": "CURVE", "conditions": "Fig 16, SOT-23-5, same Rf sweep", "src": "p13 Fig 16"},
+    {"value": "390 to 550 (peaking 0.04 to 1.7 dB)", "unit": "MHz", "type": "CURVE", "conditions": "Fig 17, WSON-8, +-1.5 V, 1 Vpp, Rf = 240 / 511 / 750 / 1.5 k ohm", "src": "p13 Fig 17"},
+    {"value": "509 to 656 (peaking 0.2 to 3.0 dB)", "unit": "MHz", "type": "CURVE", "conditions": "Fig 18, SOT-23-5, +-1.5 V, 1 Vpp, Rf = 240 / 750 / 1 k / 1.5 k ohm", "src": "p13 Fig 18"},
+    {"value": 1220, "unit": "MHz", "type": "CURVE", "conditions": "Fig 51, SOT-23-5 externally compensated to +3.7 V/V (measured): 2.9 dB peak near 0.53 GHz, returns through 0 dB at 1.02 GHz, -3 dB at 1.22 GHz; text says 'about 1 GHz'", "src": "p22 Fig 51"}
+  ],
+  "large_signal_bw": [
+    {"value": 380, "unit": "MHz", "type": "TYP", "conditions": "VS = 5 V, Av = 10, VO = 2 Vpp (COMP HI)", "src": "p5 EC 5V LSBW"},
+    {"value": 190, "unit": "MHz", "type": "TYP", "conditions": "VS = 5 V, COMP LO, Av = 4, VO = 2 Vpp", "src": "p5"},
+    {"value": 540, "unit": "MHz", "type": "TYP", "conditions": "VS = 3.3 V, Av = 10, VO = 1 Vpp (COMP LO, Av = 4: 320 MHz)", "src": "p8"},
+    {"value": "19 / 38 / 138 / 187 / 380", "unit": "MHz", "type": "CURVE", "conditions": "Fig 3, 2 Vpp, +-2.5 V: -3 dB at Av = 200 / 100 / 30 / 4 (COMP LO) / 10", "src": "p11 Fig 3"},
+    {"value": "380 / 372", "unit": "MHz", "type": "CURVE", "conditions": "Av = 10, 2 Vpp: WSON-8 Fig 7 / SOT-23-5 Fig 8", "src": "p12"},
+    {"value": "548 / 640", "unit": "MHz", "type": "CURVE", "conditions": "Av = 10, 1 Vpp, +-1.5 V: WSON-8 Fig 9 / SOT-23-5 Fig 10", "src": "p12"},
+    {"value": "424 / 389", "unit": "MHz", "type": "CURVE", "conditions": "Av = 4, COMP LO, 0.8 Vpp: +-2.5 V Fig 11 / +-1.5 V Fig 12", "src": "p12"}
+  ],
+  "slew_rate": [
+    {"value": 1600, "unit": "V/us", "type": "TYP", "conditions": "VS = 5 V, Av = 10, 2 V step, COMP HI", "src": "p5"},
+    {"value": 530, "unit": "V/us", "type": "TYP", "conditions": "VS = 5 V, Av = 4, 2 V step, COMP LO", "src": "p5"},
+    {"value": 1100, "unit": "V/us", "type": "TYP", "conditions": "VS = 3.3 V, Av = 10, 1.3 V step", "src": "p8"},
+    {"value": 500, "unit": "V/us", "type": "TYP", "conditions": "VS = 3.3 V, COMP LO, Av = 4, 1.3 V step", "src": "p8"}
+  ],
+  "rise_fall_settling": [
+    {"value": 0.90, "unit": "ns", "type": "TYP", "conditions": "tr/tf 10-90 %, Av = 10, 2 V step, WSON-8, VS = 5 V (SOT-23-5 0.95 ns)", "src": "p5"},
+    {"value": 2.8, "unit": "ns", "type": "TYP", "conditions": "Av = 4, 2 V step, COMP LO, slew-rate limited, VS = 5 V", "src": "p5"},
+    {"value": 0.7, "unit": "ns", "type": "TYP", "conditions": "VS = 3.3 V, Av = 10, 1 V step, WSON-8 (SOT-23-5 0.55 ns; COMP LO Av = 4: 1.3 ns)", "src": "p8"},
+    {"value": 42, "unit": "ns", "type": "TYP", "conditions": "settling to +-0.1 %, Av = 10, 1 V step, VS = 5 V", "src": "p5"},
+    {"value": 70, "unit": "ns", "type": "TYP", "conditions": "settling to +-0.1 %, Av = 10, 1 V step, VS = 3.3 V", "src": "p8"},
+    {"value": null, "unit": null, "type": "CURVE", "conditions": "step responses Figs 36-41 (large signal 0.5 V/div and 0.2 V/div; small signal 0.05 V/div; 2-10 ns/div); small overshoot and ringing on the falling edge, not digitized", "src": "p16-p17"}
+  ],
+  "overdrive_recovery": [
+    {"value": 2, "unit": "ns", "type": "TYP", "conditions": "'Overload recovery', VIN = 1 Vpp (Av = 10, i.e. about 3x overdrive of the output swing), VS = 5 V and 3.3 V", "src": "p5, p8"}
+  ],
+  "voltage_noise": {
+    "spot": [
+      {"value": 0.69, "unit": "nV/rtHz", "type": "TYP", "conditions": "input referred, f > 1 MHz, VS = 5 V and 3.3 V", "src": "p5, p8"}
+    ],
+    "curve_points": [
+      {"f_Hz": 200, "nV_rtHz": 1.29}, {"f_Hz": 500, "nV_rtHz": 1.06}, {"f_Hz": 1.0e3, "nV_rtHz": 0.89},
+      {"f_Hz": 3.0e3, "nV_rtHz": 0.75}, {"f_Hz": 1.0e4, "nV_rtHz": 0.70}, {"f_Hz": 1.0e5, "nV_rtHz": 0.69},
+      {"f_Hz": 1.0e6, "nV_rtHz": 0.69}, {"f_Hz": 1.0e7, "nV_rtHz": 0.69}
+    ],
+    "curve_source": "Fig 28 'Input Noise Voltage vs. Frequency' (p15), x axis 0.1 kHz to 10,000 kHz, y axis 0.6-1.3 nV/rtHz; vector readout +-0.01 nV/rtHz. Trace begins at 200 Hz (above the top of the frame at lower frequency).",
+    "one_over_f_corner_Hz": 700,
+    "one_over_f_corner_note": "DERIVED: frequency where the Fig 28 trace equals sqrt(2) x 0.69 = 0.98 nV/rtHz, log-interpolated between 500 Hz (1.06) and 1 kHz (0.89).",
+    "highest_frequency_plotted_Hz": 1.0e7
+  },
+  "current_noise": {
+    "spot": [
+      {"value": 2.6, "unit": "pA/rtHz", "type": "TYP", "conditions": "input referred, f > 1 MHz, VS = 5 V and 3.3 V", "src": "p5, p8"}
+    ],
+    "curve_points": [
+      {"f_Hz": 200, "pA_rtHz": 11.7}, {"f_Hz": 1.0e3, "pA_rtHz": 6.4}, {"f_Hz": 1.0e4, "pA_rtHz": 3.67},
+      {"f_Hz": 1.0e5, "pA_rtHz": 2.86}, {"f_Hz": 2.0e5, "pA_rtHz": 2.69}, {"f_Hz": 1.0e6, "pA_rtHz": 2.57},
+      {"f_Hz": 2.0e6, "pA_rtHz": 2.55}, {"f_Hz": 1.0e7, "pA_rtHz": 2.55}
+    ],
+    "curve_source": "Fig 29 'Input Noise Current vs. Frequency' (p15), x axis 0.1 kHz to 10,000 kHz, y 2-12 pA/rtHz; vector readout +-0.03 pA/rtHz.",
+    "values_at_1_10_100_MHz": "1 MHz: 2.57 pA/rtHz (CURVE); 10 MHz: 2.55 pA/rtHz (CURVE, highest plotted point); 100 MHz: not plotted or specified",
+    "hf_behavior": "flat from about 1 MHz to 10 MHz (highest plotted frequency); not specified above 10 MHz. 1/f-type rise below about 10 kHz (DERIVED corner where trace = sqrt(2) x 2.55 = 3.6 pA/rtHz: about 11 kHz).",
+    "how_measured_or_defined": "Table: 'Input referred f > 1MHz' (single value). Noise model p24: in = in+ = in- (same density assumed at both inputs; correlation not stated). The TIA noise equation (Eq 10, p29) uses in directly."
+  },
+  "input_capacitance": {
+    "common_mode_pF": 1.7,
+    "common_mode_type": "TYP (VS = 5 V and 3.3 V tables)",
+    "differential_pF": 4,
+    "differential_type": "SIM (table footnote 7 'Simulation results' attached to 'Differential Mode')",
+    "input_resistance_common_mode": "450 kohm TYP at 5 V; 1 Mohm TYP at 3.3 V",
+    "definition_notes": "Table rows 'CCM Input capacitance Common Mode' and 'CDIFF Differential Mode' (p6, p9). The TIA section (p28) defines the total capacitance looking into RF as C_IN = C_D (diode) + C_CM (LMH6629 CM input capacitance) + C_DIFF (LMH6629 DIFF input capacitance); with the datasheet values the amplifier adds 1.7 + 4 = 5.7 pF.",
+    "src": "p6 EC 5V, p9 EC 3.3V, p28 7.3.7"
+  },
+  "input_bias_current": [
+    {"value": -15, "unit": "uA", "type": "TYP", "conditions": "VS = 5 V; negative = current flows out of the device (note 6)", "src": "p6"},
+    {"value": -23, "unit": "uA", "type": "MAX (magnitude limit)", "conditions": "VS = 5 V, 25 C; -37 uA over temp", "src": "p6"},
+    {"value": -15, "unit": "uA", "type": "TYP", "conditions": "VS = 3.3 V (-23 MAX at 25 C, -35 over temp)", "src": "p9"},
+    {"value": "+-0.1 TYP, +-1.8 MAX (+-3.0 over temp)", "unit": "uA", "type": "TYP/MAX", "conditions": "input offset current, VS = 5 V (3.3 V: +-0.13 TYP); drift +-2.8 nA/C (5 V), +-3.2 nA/C (3.3 V)", "src": "p6, p9"},
+    {"value": "about 12 (25 C), 21 (125 C), 7 (-40 C)", "unit": "uA", "type": "CURVE", "conditions": "Fig 46 input bias current vs VS 2.7-5.5 V, typical unit, plotted as positive magnitude; nearly independent of VS; +-0.5 uA reading", "src": "p18 Fig 46"}
+  ],
+  "input_offset_voltage": [
+    {"value": "+-150 TYP, +-780 MAX (+-800 over temp)", "unit": "uV", "type": "TYP/MAX", "conditions": "VS = 5 V", "src": "p6"},
+    {"value": "+-150 TYP, +-680 MAX (+-700 over temp)", "unit": "uV", "type": "TYP/MAX", "conditions": "VS = 3.3 V", "src": "p9"},
+    {"value": "+-0.45 (5 V), +-1 (3.3 V)", "unit": "uV/C", "type": "TYP", "conditions": "TcVOS, drift = change at the temperature extremes / total temperature change (note 5)", "src": "p6, p9"}
+  ],
+  "input_common_mode_range": [
+    {"value": "-0.30 to 3.8", "unit": "V", "type": "MIN/MAX (WSON-8); TYP (SOT-23-5)", "conditions": "VS = 5 V single supply, CMRR > 70 dB", "src": "p6 CMVR"},
+    {"value": "-0.30 to 2.1", "unit": "V", "type": "MIN/MAX (WSON-8); TYP (SOT-23-5)", "conditions": "VS = 3.3 V, CMRR > 70 dB", "src": "p9"},
+    {"value": "includes V- (extends 0.3 V below V-); upper limit about V+ - 1.2 V", "unit": null, "type": "TEXT", "conditions": "p1, p31, p33, p34 ('extends all the way down to the V- rail')", "src": "p1, p31, p34"}
+  ],
+  "cmrr_psrr": [
+    {"what": "CMRR", "value": 87, "unit": "dB", "type": "TYP", "conditions": "VS = 5 V, VCM 0 to 3.7 V, WSON-8 (82 MIN at 25 C, 70 MIN over temp; SOT-23-5 87 TYP)", "src": "p6"},
+    {"what": "CMRR", "value": 87, "unit": "dB", "type": "TYP", "conditions": "VS = 3.3 V, VCM 0 to 2.0 V (84 MIN, 81 MIN over temp)", "src": "p9"},
+    {"what": "PSRR", "value": 83, "unit": "dB", "type": "TYP", "conditions": "VS = 5 V (81 MIN, 78 MIN over temp); 3.3 V: 84 TYP, 82 MIN, 79 over temp", "src": "p6, p9"},
+    {"what": "+PSRR vs f", "value": "80.7 (300 kHz), 75 (1 MHz), 55 (10 MHz), 33 (100 MHz)", "unit": "dB", "type": "CURVE", "conditions": "Fig 30, +-2.5 V", "src": "p15 Fig 30"},
+    {"what": "-PSRR vs f", "value": "86.5 (100 kHz), 69 (1 MHz), 50 (10 MHz), 31 (100 MHz)", "unit": "dB", "type": "CURVE", "conditions": "Fig 30", "src": "p15 Fig 30"}
+  ],
+  "output_swing": [
+    {"supply": "5 V single", "load_ohm": 100, "load_ref": "VS/2", "V_low": 0.82, "V_high": 4.19, "type": "TYP 25 C", "src": "p6 VO"},
+    {"supply": "5 V single", "load_ohm": 100, "load_ref": "VS/2", "V_low": 0.89, "V_high": 4.0, "type": "guaranteed 25 C: V_low <= 0.89 V (printed in MIN column), V_high >= 4.0 V (printed in MAX column)", "src": "p6"},
+    {"supply": "5 V single", "load_ohm": 100, "load_ref": "VS/2", "V_low": 0.95, "V_high": 3.9, "type": "guaranteed over temp", "src": "p6"},
+    {"supply": "5 V single", "load_ohm": null, "load_ref": "no load", "V_low": 0.72, "V_high": 4.28, "type": "TYP 25 C", "src": "p6"},
+    {"supply": "5 V single", "load_ohm": null, "load_ref": "no load", "V_low": 0.76, "V_high": 4.1, "type": "guaranteed 25 C (0.85 / 4.0 over temp)", "src": "p6"},
+    {"supply": "3.3 V single", "load_ohm": 100, "load_ref": "VS/2", "V_low": 0.79, "V_high": 2.50, "type": "TYP 25 C", "src": "p9"},
+    {"supply": "3.3 V single", "load_ohm": 100, "load_ref": "VS/2", "V_low": 0.90, "V_high": 2.4, "type": "guaranteed 25 C (0.95 / 2.3 over temp)", "src": "p9"},
+    {"supply": "3.3 V single", "load_ohm": null, "load_ref": "no load", "V_low": 0.70, "V_high": 2.60, "type": "TYP 25 C (guaranteed 0.76 / 2.5; 0.80 / 2.4 over temp)", "src": "p9"},
+    {"supply": "general", "load_ohm": null, "load_ref": null, "V_low": null, "V_high": null, "type": "TEXT", "note": "'outputs that swing to within 0.8 V of the rails' (p1); 'output swing capability which requires ~0.85 V of headroom from either rail' -> 6.6 Vpp differential from two amplifiers on 5 V (p33). Typical single-amplifier swing on 5 V into 100 ohm: 4.19 - 0.82 = 3.37 V range (DERIVED).", "src": "p1, p33"}
+  ],
+  "output_swing_vs_load_curve": [
+    {"figure": "Figs 32-35 (p16): output voltage headroom 'Vo from V+' (sourcing) and 'Vo from V-' (sinking) vs output current, x axis 100-400 mA, at -40, 25, 125 C; VS = +-2.5 V per the typical-characteristics header", "type": "CURVE (vector readout +-0.05 V, +-3 mA; temperature assignment from the label leader lines)",
+     "points_25C": {
+       "WSON-8 source (Fig 32)": [{"I_mA": 214, "headroom_V": 1.0, "note": "start of trace"}, {"I_mA": 250, "headroom_V": 1.13}, {"I_mA": 300, "headroom_V": 1.68}, {"I_mA": 350, "headroom_V": 2.91}],
+       "WSON-8 sink (Fig 33)": [{"I_mA": 200, "headroom_V": 1.16}, {"I_mA": 250, "headroom_V": 2.62}, {"I_mA": 300, "headroom_V": 3.81}],
+       "SOT-23-5 source (Fig 34)": [{"I_mA": 120, "headroom_V": 1.06}, {"I_mA": 200, "headroom_V": 1.24}, {"I_mA": 250, "headroom_V": 1.46}, {"I_mA": 300, "headroom_V": 2.26}, {"I_mA": 350, "headroom_V": 3.45}],
+       "SOT-23-5 sink (Fig 35)": [{"I_mA": 120, "headroom_V": 1.07}, {"I_mA": 200, "headroom_V": 1.29}, {"I_mA": 250, "headroom_V": 1.63}, {"I_mA": 270, "headroom_V": 2.9, "note": "steep current-limit knee 255-280 mA"}]
+     },
+     "temperature_trend": "-40 C traces reach the highest current before the knee (WSON-8 source: 1.29 V at 300 mA; SOT-23-5 sink: 1.54 V at 300 mA), 125 C the lowest (WSON-8 sink: 2.2 V already at 200 mA; SOT-23-5 sink: 2.3 V at 200 mA). No swing-vs-load curve below 100 mA is given.",
+     "src": "p16"}
+  ],
+  "output_current": [
+    {"value": 250, "unit": "mA", "type": "TYP", "conditions": "'Linear output current', VO = 2.5 V, VS = 5 V (note 4: maximum continuous output current set by device power dissipation)", "src": "p6"},
+    {"value": 230, "unit": "mA", "type": "TYP", "conditions": "VO = 1.65 V, VS = 3.3 V", "src": "p9"},
+    {"value": "+-250", "unit": "mA", "type": "TEXT", "conditions": "Features 'Output Current +-250 mA'; 'Heavy loads up to +-250 mA can be driven'", "src": "p1"}
+  ],
+  "short_circuit_current": [
+    {"value": null, "note": "not specified; note 4 (p6): 'Continuous short circuit operation at elevated ambient temperature can result in exceeding the maximum allowed junction temperature of 150 C'", "src": "p6"}
+  ],
+  "distortion": [
+    {"f_Hz": 1.0e6, "Vout_pp": 2, "R_L_ohm": 100, "gain": 10, "HD2_dBc": -90, "HD3_dBc": -94, "type": "TYP", "conditions": "VS = 5 V, COMP HI, WSON-8", "src": "p5"},
+    {"f_Hz": 1.0e7, "Vout_pp": 2, "R_L_ohm": 100, "gain": 10, "HD2_dBc": -70, "HD3_dBc": -82, "type": "TYP", "conditions": "VS = 5 V, COMP HI", "src": "p5"},
+    {"f_Hz": 1.0e6, "Vout_pp": 2, "R_L_ohm": 100, "gain": 4, "HD2_dBc": -88, "HD3_dBc": -87, "type": "TYP", "conditions": "VS = 5 V, COMP LO", "src": "p5"},
+    {"f_Hz": 1.0e7, "Vout_pp": 2, "R_L_ohm": 100, "gain": 4, "HD2_dBc": -65, "HD3_dBc": -75, "type": "TYP", "conditions": "VS = 5 V, COMP LO", "src": "p5"},
+    {"f_Hz": 1.0e6, "Vout_pp": 1, "R_L_ohm": 100, "gain": 10, "HD2_dBc": -82, "HD3_dBc": -94, "type": "TYP", "conditions": "VS = 3.3 V, COMP HI", "src": "p8"},
+    {"f_Hz": 1.0e7, "Vout_pp": 1, "R_L_ohm": 100, "gain": 10, "HD2_dBc": -67, "HD3_dBc": -79, "type": "TYP", "conditions": "VS = 3.3 V", "src": "p8"},
+    {"f_Hz": 1.0e6, "Vout_pp": 1, "R_L_ohm": 100, "gain": 4, "HD2_dBc": -88, "HD3_dBc": -112, "type": "TYP", "conditions": "VS = 3.3 V, COMP LO", "src": "p8"},
+    {"f_Hz": 1.0e7, "Vout_pp": 1, "R_L_ohm": 100, "gain": 4, "HD2_dBc": -74, "HD3_dBc": -96, "type": "TYP", "conditions": "VS = 3.3 V, COMP LO", "src": "p8"},
+    {"f_Hz": 2.0e6, "Vout_pp": 2, "R_L_ohm": 100, "gain": 10, "HD2_dBc": -84.9, "HD3_dBc": -91.2, "type": "CURVE", "conditions": "Fig 25 WSON-8, +-2.5 V; +-0.5 dB", "src": "p15 Fig 25"},
+    {"f_Hz": 5.0e6, "Vout_pp": 2, "R_L_ohm": 100, "gain": 10, "HD2_dBc": -76.3, "HD3_dBc": -87.2, "type": "CURVE", "conditions": "Fig 25 WSON-8", "src": "p15"},
+    {"f_Hz": 1.0e7, "Vout_pp": 2, "R_L_ohm": 100, "gain": 10, "HD2_dBc": -70.5, "HD3_dBc": -82.9, "type": "CURVE", "conditions": "Fig 25 WSON-8", "src": "p15"},
+    {"f_Hz": 2.0e7, "Vout_pp": 2, "R_L_ohm": 100, "gain": 10, "HD2_dBc": -64.0, "HD3_dBc": -81.5, "type": "CURVE", "conditions": "Fig 25 WSON-8", "src": "p15"},
+    {"f_Hz": 3.0e7, "Vout_pp": 2, "R_L_ohm": 100, "gain": 10, "HD2_dBc": -60.2, "HD3_dBc": -80.2, "type": "CURVE", "conditions": "Fig 25 WSON-8", "src": "p15"},
+    {"f_Hz": 5.0e7, "Vout_pp": 2, "R_L_ohm": 100, "gain": 10, "HD2_dBc": -54.0, "HD3_dBc": -77.6, "type": "CURVE", "conditions": "Fig 25 WSON-8 (highest plotted frequency 50 MHz)", "src": "p15"},
+    {"f_Hz": 1.0e7, "Vout_pp": 2, "R_L_ohm": 100, "gain": 10, "HD2_dBc": -65.6, "HD3_dBc": -82.8, "type": "CURVE", "conditions": "Fig 26 SOT-23-5", "src": "p15 Fig 26"},
+    {"f_Hz": 2.0e7, "Vout_pp": 2, "R_L_ohm": 100, "gain": 10, "HD2_dBc": -56.2, "HD3_dBc": -76.6, "type": "CURVE", "conditions": "Fig 26 SOT-23-5", "src": "p15"},
+    {"f_Hz": 5.0e7, "Vout_pp": 2, "R_L_ohm": 100, "gain": 10, "HD2_dBc": -48.0, "HD3_dBc": -68.0, "type": "CURVE", "conditions": "Fig 26 SOT-23-5", "src": "p15"},
+    {"f_Hz": 2.0e7, "Vout_pp": 0.5, "R_L_ohm": 100, "gain": 10, "HD2_dBc": -72.4, "HD3_dBc": -96.3, "type": "CURVE", "conditions": "Fig 19 WSON-8, distortion vs swing at 20 MHz", "src": "p14 Fig 19"},
+    {"f_Hz": 2.0e7, "Vout_pp": 1, "R_L_ohm": 100, "gain": 10, "HD2_dBc": -67.3, "HD3_dBc": -91.2, "type": "CURVE", "conditions": "Fig 19 WSON-8", "src": "p14"},
+    {"f_Hz": 2.0e7, "Vout_pp": 2, "R_L_ohm": 100, "gain": 10, "HD2_dBc": -63.4, "HD3_dBc": -81.2, "type": "CURVE", "conditions": "Fig 19 WSON-8", "src": "p14"},
+    {"f_Hz": 2.0e7, "Vout_pp": 2.5, "R_L_ohm": 100, "gain": 10, "HD2_dBc": -62.4, "HD3_dBc": -76.1, "type": "CURVE", "conditions": "Fig 19 WSON-8 (3 Vpp: about -61 / -71 by eye)", "src": "p14"},
+    {"f_Hz": 2.0e7, "Vout_pp": 1, "R_L_ohm": 100, "gain": 10, "HD2_dBc": -55.5, "HD3_dBc": -84.8, "type": "CURVE", "conditions": "Fig 20 SOT-23-5", "src": "p14 Fig 20"},
+    {"f_Hz": 2.0e7, "Vout_pp": 2, "R_L_ohm": 100, "gain": 10, "HD2_dBc": -52.1, "HD3_dBc": -76.5, "type": "CURVE", "conditions": "Fig 20 SOT-23-5", "src": "p14"},
+    {"f_Hz": 1.0e6, "Vout_pp": 3, "R_L_ohm": 100, "gain": 10, "HD2_dBc": -88.0, "HD3_dBc": -87.6, "type": "CURVE", "conditions": "Fig 21 WSON-8 (1.5 Vpp: -92.1 / -95.9)", "src": "p14 Fig 21"},
+    {"f_Hz": 1.0e6, "Vout_pp": 3, "R_L_ohm": 100, "gain": 10, "HD2_dBc": -86.1, "HD3_dBc": -82.0, "type": "CURVE", "conditions": "Fig 22 SOT-23-5 (1.5 Vpp: -89.0 / -97.7)", "src": "p14 Fig 22"},
+    {"f_Hz": 1.0e6, "Vout_pp": 2, "R_L_ohm": 100, "gain": "20 / 40 / 100", "HD2_dBc": "-89.4 / -78.5 / -68.0", "HD3_dBc": "-90.2 / -81.0 / -72.4", "type": "CURVE", "conditions": "Fig 23 WSON-8 distortion vs gain (Av = 5: -88.0 / -87.6)", "src": "p14 Fig 23"},
+    {"f_Hz": 1.0e6, "Vout_pp": 2, "R_L_ohm": 100, "gain": "20 / 40 / 100", "HD2_dBc": "-81.1 / -74.0 / -64.2", "HD3_dBc": "-88.0 / -80.4 / -72.5", "type": "CURVE", "conditions": "Fig 24 SOT-23-5 distortion vs gain", "src": "p14 Fig 24"}
+  ],
+  "imd_or_oip3": [
+    {"value": 31, "unit": "dBm", "type": "TYP", "conditions": "OIP3, fc = 25 MHz, VO = 2 Vpp composite, VS = 5 V, RL = 100 ohm, Av = 10", "src": "p5"},
+    {"value": 27, "unit": "dBm", "type": "TYP", "conditions": "OIP3, fc = 75 MHz, 2 Vpp composite, VS = 5 V", "src": "p5"},
+    {"value": "30 / 26", "unit": "dBm", "type": "TYP", "conditions": "OIP3 at 25 / 75 MHz, 1 Vpp composite, VS = 3.3 V", "src": "p8"},
+    {"value": "25 MHz: -69.7 (1 Vpp), -59.0 (2 Vpp), -53.1 (3 Vpp); 75 MHz: -63.6 (1 Vpp), -52.7 (2 Vpp), -45.2 (3 Vpp)", "unit": "dBc IMD3", "type": "CURVE", "conditions": "Fig 27 IMD3 vs output voltage (Vpp composite), +-2.5 V", "src": "p15 Fig 27"}
+  ],
+  "noise_figure": [
+    {"value": 8.0, "unit": "dB", "type": "TYP", "conditions": "RS = RT = 50 ohm, Av = 10 (table)", "src": "p5, p8"},
+    {"value": "terminated 8 dB / unterminated 3.2 dB at RS = 50 ohm; minimum 4.1 dB (terminated, ROPT = 750 ohm) / 1.1 dB (unterminated, ROPT = 350 ohm)", "unit": "dB", "type": "TEXT (Table 1)", "conditions": "Fig 52 circuit, Rf = 240 ohm, Av = +10, f > 1 MHz", "src": "p27 Table 1, Fig 58"}
+  ],
+  "packages": [
+    {"name": "WSON-8 (NGQ0008A)", "pins": 8, "body_mm": "3.00 x 3.00 nominal (2.9-3.1 each side)", "pitch_mm": 0.5, "height_mm": "0.7-0.8 (0.8 max)", "exposed_pad": "yes, 1.6 +-0.1 x 2.0 +-0.1 mm (pad 9)", "ep_connection": "DAP tied to V- inside the package; must be soldered to the board; board copper connected to it must be at V- (p19); 'thermal pad must be soldered to the printed circuit board for thermal and mechanical performance' (p45 note 3)", "theta_JA_C_per_W": 71, "notes": "Only package with PD, COMP and FB pins. Land pattern p46: pins 0.6 x 0.25 mm, 2.8 mm row pitch, thermal pad 1.6 x 2 mm with 0.2 mm vias; stencil 0.1 mm, 82 % paste coverage on pad 9 (p47). MSL 3 / 260 C. Orderables LMH6629SD/NOPB (1000), SDE (250), SDX (4500), marking L6629.", "src": "p1, p4, p19, p38, p45-p47"},
+    {"name": "SOT-23-5 (DBV0005A)", "pins": 5, "body_mm": "2.90 x 1.60 nominal (body 2.75-3.05 x 1.45-1.75; 2.6-3.0 across leads)", "pitch_mm": 0.95, "height_mm": "1.45 max", "exposed_pad": "no", "ep_connection": null, "theta_JA_C_per_W": 179, "notes": "No PD, COMP or FB pin; fixed minimum gain 10 V/V; higher SSBW with more peaking than WSON-8 (p20). MSL 1. Orderables LMH6629MF/NOPB (1000), MFE (250), MFX (3000), marking AE7A.", "src": "p1, p4, p20, p38, p42-p44"}
+  ],
+  "pinout_notes": "WSON-8 (NGQ): 1 PD (power down, active low, floats high = on), 2 FB (feedback, internally connected to OUT, lets RF sit next to IN-), 3 IN-, 4 IN+, 5 V-, 6 COMP (internal pull-down; LO = min gain 4, HI = min gain 10), 7 OUT, 8 V+, DAP = V-. SOT-23-5 (DBV): 1 OUT, 2 V-, 3 +IN, 4 -IN, 5 V+. Logic thresholds (PD and COMP, single-supply tables, i.e. relative to V- = ground): VIL 0.8 V max, VIH 2.5 V min (5 V) / 2.0 V min (3.3 V); logic input current about -28 uA (LO) and -22 uA (HI) TYP (flows out). Enable 75 ns, disable 80 ns; in shutdown the output stage is high impedance (feedback network sets output impedance). (p3, p7, p10, p19, p20)",
+  "tia_content": [
+    {"what": "Front-page TIA schematic (same circuit as Fig 60)", "R_F": "1.2 kohm", "C_F": "0.6 pF (two 1.2 pF in series)", "C_D_or_source_C": "C_D = 10 pF", "bandwidth": null, "measured_or_simulated": "schematic only", "figure_or_section": "p1 'Transimpedance Amplifier'", "other": "+5 V single supply; IN+ biased at 3 V by 2 k (to +5 V) / 3 k || 0.1 uF (to ground); RL = 500 ohm; Vout = 3 VDC - 1200 x I_D"},
+    {"what": "Fig 60 '200 MHz Transimpedance Amplifier Configuration' and design text", "R_F": "1.2 kohm", "C_F": "0.6 pF", "C_D_or_source_C": "C_D = 10 pF; C_IN = C_D + C_CM + C_DIFF", "bandwidth": "'around 200 MHz in this case (assuming GBWP = 4GHz with COMP pin = HI for WSON-8 package)'", "measured_or_simulated": "calculated from Eq 9; no measured TIA response is shown", "figure_or_section": "p28-p29 section 7.3.7, Fig 60, Eq 8, Eq 9", "other": "Eq 8: C_F = sqrt(C_IN / (2 pi GBWP R_F)); Eq 9: f_-3dB ~ sqrt(GBWP / (2 pi R_F C_IN)). 'This C_F value is a starting point and C_F needs to be tuned for the particular application as it is often less than 1 pF and thus is easily affected by board parasitics. For maximum speed, the LMH6629 COMP pin should be HI (or use the SOT-23 package).' DERIVED check: C_IN = 10 + 1.7 + 4 = 15.7 pF gives f_-3dB = sqrt(4e9 / (2 pi x 1200 x 15.7e-12)) = 184 MHz and C_F = sqrt(15.7e-12 / (2 pi x 4e9 x 1200)) = 0.72 pF, consistent with 'around 200 MHz' and 0.6 pF."},
+    {"what": "Fig 61 noise gain and I-V transfer function sketch", "R_F": null, "C_F": null, "C_D_or_source_C": null, "bandwidth": null, "measured_or_simulated": "conceptual", "figure_or_section": "p28 Fig 61", "other": "NG = (1 + s R_F (C_IN + C_F)) / (1 + s R_F C_F); zero f_Z ~ 1/(2 pi R_F C_IN); pole f_P = 1/(2 pi R_F C_F); high-frequency NG = 1 + C_IN/C_F, meeting the open-loop curve at the GBWP-limited crossover."},
+    {"what": "TIA input-referred current noise vs R_F (Eq 10, Figs 62, 63)", "R_F": "100 ohm to 10 kohm", "C_F": null, "C_D_or_source_C": "C_D = 10 pF drawn in Fig 63 but not included in the noise plot", "bandwidth": null, "measured_or_simulated": "calculated", "figure_or_section": "p29 Eq 10, Fig 62, Fig 63; p30 text", "other": "Eq 10: i_ni = sqrt(i_n^2 + (e_n/R_F)^2 + 4kT/R_F); e_no = i_ni x R_F. CURVE readings of Fig 62 total i_ni: 4.95 pA/rtHz at 1 kohm, 4.30 at 1.5 kohm, 3.95 at 2 kohm, 3.73 at 2.5 kohm, 2.90 at 10 kohm; components at 1.5 kohm: thermal 3.37, e_n/R_F 0.49, i_n 2.6 (flat line drawn at 2.6). Text: 'for R_F < 2.5 kohm, the noise performance is entirely dominated by R_F thermal noise ... at no R_F setting does the LMH6629 input noise voltage play a significant role. This noise analysis has ignored the possible noise gain increase, due to photo-diode capacitance, at higher frequencies.'"}
+  ],
+  "application_guidance": [
+    "Compensation selection and external compensation below the minimum gain: see min_stable_gain (p20-p22, Figs 50, 51, Eq 1).",
+    "Bias-current cancellation: Rf || Rg = Rseq (non-inverting, Eq 2); for the inverting configuration a resistor Rb = Rf || (Rg + Rs) on IN+, 'no less than 25 ohm for optimum LMH6629 performance', with an optional shunt capacitor to minimise its noise. When IN+ is driven from a 0-ohm source (e.g. an op-amp output) isolate it with at least a 25-ohm series resistor (p23).",
+    "Noise model: e_ni = sqrt(e_n^2 + (i_n+ Rseq)^2 + 4kT Rseq + (i_n- (Rf||Rg))^2 + 4kT (Rf||Rg)) (Eq 3); e_ni dominated by e_n below Rseq = 15 ohm, by resistor thermal noise from 15 ohm to 2.5 kohm, by i_n above 2.5 kohm; e_n and i_n contributions equal at Rseq = 190 ohm. Example: Av = +10, -3 dB 825 MHz, Rseq = 20 ohm -> e_ni = 1.07 nV/rtHz, output noise 385 uVrms (p24-p25, Fig 57).",
+    "Capacitive load: series Riso measured at CL: 72 ohm for 4.7 pF, 40 ohm for 10 pF, 17 ohm for 33 pF (Figs 13, 14, p13).",
+    "Supply decoupling: low-inductance ceramic capacitors less than 0.5 inch from the pins, ground plane, ground plane removed near sensitive pins such as the inputs (p34). Layout: chip capacitors 1000 pF to 0.1 uF at each supply pin plus 4.7-10 uF tantalum; HD2 is strongly influenced by layout, in particular by decoupling capacitors placed between V+ and V- as close to the leads as possible; keep feedback and gain resistor traces short; terminate traces longer than 1 inch; keep resistor values low because large resistors interact with parasitic capacitance and add thermal noise (p35). Evaluation-board layers shown in Figs 69-72 (p36).",
+    "Single-supply operation with capacitive coupling (Fig 59, p27); SE-to-differential ADC driver example with COMP LO at noise gain 6 (280 MHz = 1.7 GHz / 6) and 23.4 nV/rtHz output noise (p32-p33); deBoo integrator, Sallen-Key filter and magnetic-media equalizer examples (p30, p33-p34)."
+  ],
+  "abs_max_and_input_protection": "Positive supply voltage -0.5 to 6.0 V; differential input voltage 3 V; input current +-10 mA; analog input voltage -0.5 V to VS; digital input voltage -0.5 V to VS; junction temperature +150 C; storage -65 to +150 C (p4 6.1). ESD: HBM +-2000 V, machine model +-200 V, CDM +-750 V (p4 6.2). No description of internal input clamp diodes; the 3 V differential limit and +-10 mA input current limit are the only input-protection data. Operating temperature -40 to +125 C.",
+  "other_notes": [
+    "GBW is not a table parameter; the only values are the text figures 4 GHz (COMP HI) and 1.7 GHz (COMP LO). Fig 31 is consistent with them (DERIVED 3.8 GHz and 1.7 GHz). The COMP LO open-loop gain trace flattens above about 600 MHz (8.7 dB at 700 MHz, 7.5 dB at 970 MHz) instead of continuing at -20 dB/dec.",
+    "Output swing headroom: p1 says within 0.8 V of the rails, p33 says about 0.85 V; table TYP 0.82 V (low) and 0.81 V (high, 5 V - 4.19 V) into 100 ohm at 5 V.",
+    "Input bias current: table gives -15 uA TYP (negative = out of the device) whereas Fig 46 plots about +12 uA at 25 C; the figure plots magnitude and its typical unit differs from the table typical.",
+    "Fig 17 (+-1.5 V, 1 Vpp) red 240-ohm trace samples identically to the Fig 15 (+-2.5 V, 2 Vpp) red trace (same 390 MHz -3 dB point and same small features), suggesting reused data in the datasheet figure.",
+    "Input capacitance: only C_DIFF is marked as a simulation result; C_CM 1.7 pF is a plain typical value. The amplifier's 5.7 pF (C_CM + C_DIFF) would exceed a 1 pF photodiode capacitance in the C_IN of the datasheet TIA equations.",
+    "Typical-characteristics header (p11-p18): VS = +-2.5 V, Rf = 240 ohm, RL = 100 ohm, VO = 2 Vpp, COMP HI, Av = +10, WSON-8 and SOT-23-5 unless noted."
+  ],
+  "pages_read": "All 48 PDF pages rendered at 160 dpi and read as images (p1-p48), including the package addendum, tape-and-reel, mechanical drawings (DBV0005A, NGQ0008A) and the legal notice. Curves sampled from the PDF vector paths (axis calibration from frame and grid lines, checked against the renders): Figs 3, 5, 7-18 (p11-p13), 19-30 (p14-p15), 31 (p16; also re-rendered at 500 dpi), 51 (p22), 62 (p29); Figs 28, 29 also re-rendered at 500 dpi; Figs 32-35 (p16) sampled the same way. Not digitized (read by eye only): Figs 1, 2, 4, 6 (inverting and SOT-23-5 gain sweeps), 36-43 (step and enable waveforms), 44-47 (supply current, VOS, IB, IOS vs VS), 57-58 (noise vs source resistance)."
+}

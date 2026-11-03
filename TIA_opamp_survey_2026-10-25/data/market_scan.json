@@ -1,0 +1,1349 @@
+{
+ "title": "Market and literature scan: high-speed op-amps and integrated TIAs for a discrete photodiode TIA",
+ "date_seen": "2026-10-25",
+ "state": "complete for the priority items; remaining gaps are listed under 'Open items'",
+ "preamble": [
+  "Application: photodiode about 1 pF, R_f 1.5-2 kOhm, closed-loop bandwidth at least 150-200 MHz, DC photocurrent 0.1-10 mA plus a small RF modulation; output swing, dynamic range and noise over 10-200 MHz matter.",
+  "Selection rule for section A: voltage feedback; GBW at least about 800 MHz (or decompensated with GBW at least 1 GHz); e_n at most about 3 nV/rtHz (bipolar) or 6 nV/rtHz (FET/CMOS), or unusually low input capacitance, or output swing at least +/-5 V with GBW at least 500 MHz. All numbers are typical unless marked min/max.",
+  "Source conventions: 'DS pN' = page N of the datasheet PDF (Appendix D of the note lists the revisions); 'TI page' = parametric or orderable data embedded in https://www.ti.com/product/<PART>; 'ADI search listing' = figures shown by a search engine for the named analog.com page, which was not read directly. All status and price figures were seen on 2026-10-25."
+ ],
+ "candidates": [
+  {
+   "part": "TPH2861 (also TPH2861Q automotive)",
+   "maker": "3PEAK",
+   "input_type": "bipolar (BJT)",
+   "gbw_MHz": "8000",
+   "min_gain": "7 (stable for G > 7)",
+   "en": "1.1 at 1 MHz",
+   "in": "3.1 at 1 MHz",
+   "cin_pF": "0.5 diff, 0.6 CM",
+   "supply": "3.3-5.25 V",
+   "swing": "0.9 V from V+ and 1.05 V from V- at 10 mA (about 3 Vpp on 5 V)",
+   "slew": "2700",
+   "packages": "DFN2x2-8 with FB pin",
+   "status": "not checked on maker site; listed by distributors",
+   "price_1ku": "not checked",
+   "verdict": "candidate: OPA855-class part (8 GHz, G>7, FB pin); I_B -23 uA typ; SSBW 2.3 GHz, LSBW 866 MHz; Iq 19 mA",
+   "datasheet_url": "www.3peak.com (download URL not recorded); local datasheets/market_scan_candidates/tph2861.pdf (AA20231203A3)",
+   "sources": "DS p1 (features), p6 (C_IN, I_B, supply), p7 (GBW, SR, e_N, i_N, swing)"
+  },
+  {
+   "part": "TPH2865Q",
+   "maker": "3PEAK",
+   "input_type": "bipolar (BJT)",
+   "gbw_MHz": "4000",
+   "min_gain": "7 (stable for G > 7)",
+   "en": "1.25",
+   "in": "not checked",
+   "cin_pF": "not checked",
+   "supply": "3.3-5.25 V",
+   "swing": "not checked",
+   "slew": "1000",
+   "packages": "DFN2x2-8, wettable flank; AEC-Q100 grade 1",
+   "status": "not checked on maker site",
+   "price_1ku": "not checked",
+   "verdict": "candidate: lower-power (9.8 mA) 4 GHz, G>7 part",
+   "datasheet_url": "local datasheets/market_scan_candidates/tph2865q.pdf (AA20240603A2)",
+   "sources": "DS p1 only"
+  },
+  {
+   "part": "OPA2846",
+   "maker": "Texas Instruments",
+   "input_type": "bipolar",
+   "gbw_MHz": "1750",
+   "min_gain": "7",
+   "en": "1.2",
+   "in": "not checked",
+   "cin_pF": "not checked",
+   "supply": "10-12 V total (+/-5 V)",
+   "swing": "not checked",
+   "slew": "625",
+   "packages": "SOIC-8",
+   "status": "ACTIVE",
+   "price_1ku": "5.90-7.08",
+   "verdict": "candidate: dual version of the covered OPA846",
+   "datasheet_url": "https://www.ti.com/product/OPA2846",
+   "sources": "TI page"
+  },
+  {
+   "part": "LMH6626",
+   "maker": "Texas Instruments",
+   "input_type": "bipolar",
+   "gbw_MHz": "1600 (TI parametric)",
+   "min_gain": "10",
+   "en": "1.0",
+   "in": "not checked",
+   "cin_pF": "not checked",
+   "supply": "5-12 V total",
+   "swing": "not checked",
+   "slew": "360",
+   "packages": "SOIC-8; VSSOP-8",
+   "status": "ACTIVE",
+   "price_1ku": "3.55-4.62",
+   "verdict": "candidate: dual version of the covered LMH6624",
+   "datasheet_url": "https://www.ti.com/product/LMH6626",
+   "sources": "TI page"
+  },
+  {
+   "part": "MAX4304",
+   "maker": "Analog Devices (legacy Maxim)",
+   "input_type": "bipolar",
+   "gbw_MHz": "not stated as GBW; -3 dB BW 730 MHz at G = +2",
+   "min_gain": "2",
+   "en": "2.1",
+   "in": "not checked",
+   "cin_pF": "not checked",
+   "supply": "+/-5 V",
+   "swing": "not checked",
+   "slew": "1000",
+   "packages": "SOT23-5; SO-8",
+   "status": "PRODUCTION",
+   "price_1ku": "from 5.82 (ADI search listing)",
+   "verdict": "candidate: low-noise, G >= 2; datasheet not downloaded",
+   "datasheet_url": "https://www.analog.com/media/en/technical-documentation/data-sheets/max4104-max4305.pdf (not read)",
+   "sources": "ADI search listing: product page max4304.html and datasheet text"
+  },
+  {
+   "part": "MAX4104",
+   "maker": "Analog Devices (legacy Maxim)",
+   "input_type": "bipolar",
+   "gbw_MHz": "not stated as GBW; -3 dB BW 880 MHz at G = +1 (product page quotes 625 MHz)",
+   "min_gain": "1",
+   "en": "2.1",
+   "in": "not checked",
+   "cin_pF": "not checked",
+   "supply": "+/-5 V",
+   "swing": "not checked",
+   "slew": "400",
+   "packages": "SOT23-5; SO-8",
+   "status": "PRODUCTION",
+   "price_1ku": "3.88 (product page) / 4.27 (MAX4104ESA+, sample-buy) (ADI search listing)",
+   "verdict": "borderline: GBW around 600-900 MHz, unconfirmed",
+   "datasheet_url": "as MAX4304",
+   "sources": "ADI search listing"
+  },
+  {
+   "part": "LT6200-5",
+   "maker": "Analog Devices (Linear Technology)",
+   "input_type": "bipolar",
+   "gbw_MHz": "800",
+   "min_gain": "5",
+   "en": "0.95 at 100 kHz",
+   "in": "not checked",
+   "cin_pF": "not checked",
+   "supply": "2.5-12.6 V total",
+   "swing": "rail-to-rail output; 60 mA min output current",
+   "slew": "not checked",
+   "packages": "TSOT-23-6; SO-8",
+   "status": "PRODUCTION (family)",
+   "price_1ku": "not checked (LT6200-10: 2.27-2.32)",
+   "verdict": "borderline: decompensated 800 MHz, but meets the +/-5 V swing route on +/-6 V supplies",
+   "datasheet_url": "local datasheets/lt6200_family_distributor_copy.pdf",
+   "sources": "DS p1"
+  },
+  {
+   "part": "LT1226",
+   "maker": "Analog Devices (Linear Technology)",
+   "input_type": "bipolar",
+   "gbw_MHz": "1000",
+   "min_gain": "25",
+   "en": "2.6",
+   "in": "not checked",
+   "cin_pF": "not checked",
+   "supply": "+/-2.5 to +/-15 V",
+   "swing": "+/-12 V min into 500 Ohm on +/-15 V",
+   "slew": "400",
+   "packages": "PDIP-8; SO-8 (not re-checked)",
+   "status": "PRODUCTION",
+   "price_1ku": "from 5.33 (ADI search listing)",
+   "verdict": "borderline: only >=1 GHz part with +/-12 V swing found, but G >= 25 needs (C_pd + C_in)/C_f >= 24 at crossover",
+   "datasheet_url": "local datasheets/market_scan_candidates/lt1226_distributor_copy.pdf",
+   "sources": "DS p1; status/price ADI search listing"
+  },
+  {
+   "part": "LT1222",
+   "maker": "Analog Devices (Linear Technology)",
+   "input_type": "bipolar",
+   "gbw_MHz": "500",
+   "min_gain": "10 uncompensated (external compensation pin for lower gain)",
+   "en": "3",
+   "in": "not checked",
+   "cin_pF": "not checked",
+   "supply": "+/-15 V class",
+   "swing": "+/-12 V min into 500 Ohm",
+   "slew": "200",
+   "packages": "PDIP-8; SO-8",
+   "status": "PRODUCTION",
+   "price_1ku": "from 5.23 (ADI search listing)",
+   "verdict": "borderline: large swing at exactly 500 MHz GBW",
+   "datasheet_url": "local datasheets/market_scan_candidates/lt1222_distributor_copy.pdf",
+   "sources": "DS p1; status/price ADI search listing"
+  },
+  {
+   "part": "AD829",
+   "maker": "Analog Devices",
+   "input_type": "bipolar",
+   "gbw_MHz": "750 (uncompensated)",
+   "min_gain": "1-20 with external compensation",
+   "en": "1.7",
+   "in": "1.5",
+   "cin_pF": "not checked",
+   "supply": "+/-5 to +/-15 V",
+   "swing": "+/-3 V into 150 Ohm (at +/-5 V); larger on +/-15 V (not checked)",
+   "slew": "230",
+   "packages": "PDIP-8; CERDIP-8; SOIC-8; LCC-20",
+   "status": "PRODUCTION",
+   "price_1ku": "from 4.50 (another listing 3.91) (ADI search listing)",
+   "verdict": "borderline: high-voltage, low-noise, compensation pin",
+   "datasheet_url": "local datasheets/market_scan_candidates/ad829_distributor_copy.pdf (Rev. I)",
+   "sources": "DS p1; status/price ADI search listing"
+  },
+  {
+   "part": "LTC6268 (unity-gain)",
+   "maker": "Analog Devices (Linear Technology)",
+   "input_type": "CMOS (fA bias)",
+   "gbw_MHz": "500",
+   "min_gain": "1",
+   "en": "not checked",
+   "in": "fA-level (not verified)",
+   "cin_pF": "not checked",
+   "supply": "not checked",
+   "swing": "not checked",
+   "slew": "not checked",
+   "packages": "SO-8; TSOT-23-6",
+   "status": "RECOMMENDED FOR NEW DESIGNS",
+   "price_1ku": "from 5.09; 4.62 (IS8#TRPBF) (ADI search listing)",
+   "verdict": "borderline: qualifies only through the low-C_in route; numbers to be read from its datasheet",
+   "datasheet_url": "not checked",
+   "sources": "ADI search listing"
+  },
+  {
+   "part": "ISL55190 (dual)",
+   "maker": "Renesas (Intersil)",
+   "input_type": "bipolar",
+   "gbw_MHz": "800 (distributor listing; sibling ISL55191 DS gives 800 MHz at A_V = 10)",
+   "min_gain": "not checked",
+   "en": "1.2",
+   "in": "not checked",
+   "cin_pF": "not checked",
+   "supply": "not checked",
+   "swing": "not checked",
+   "slew": "268",
+   "packages": "SOIC (others not checked)",
+   "status": "unconfirmed: Renesas product URL returned HTTP 404; sibling ISL55191 is obsolete",
+   "price_1ku": "not checked",
+   "verdict": "borderline, probably discontinued",
+   "datasheet_url": "not checked",
+   "sources": "search-engine listings (GlobalSpec listing, ISL55191 datasheet on Digi-Key CDN)"
+  }
+ ],
+ "rejected": [
+  {
+   "part": "OPA686, OPA687, OPA643, OPA642, OPA655",
+   "maker": "Texas Instruments",
+   "reason": "no TI product page (HTTP 404): no longer offered",
+   "source": "https://www.ti.com/product/<PART>"
+  },
+  {
+   "part": "LMH32403, OPA2855, OPA2858, OPA2818, OPA2817, OPA2955, LMH6629-Q1",
+   "maker": "Texas Instruments",
+   "reason": "no TI product page (HTTP 404): not a TI product",
+   "source": "https://www.ti.com/product/<PART>"
+  },
+  {
+   "part": "OPA656",
+   "maker": "Texas Instruments",
+   "reason": "GBW 230 MHz, e_n 7 nV/rtHz",
+   "source": "TI page"
+  },
+  {
+   "part": "OPA659",
+   "maker": "Texas Instruments",
+   "reason": "GBW 350 MHz, e_n 8.9 nV/rtHz",
+   "source": "TI page"
+  },
+  {
+   "part": "THS4631",
+   "maker": "Texas Instruments",
+   "reason": "FET, +/-15 V, but GBW 210 MHz",
+   "source": "TI page"
+  },
+  {
+   "part": "THS4031, OPA842, LMH6628",
+   "maker": "Texas Instruments",
+   "reason": "GBW 120 / 200 / 200 MHz",
+   "source": "TI page"
+  },
+  {
+   "part": "THS4022",
+   "maker": "Texas Instruments",
+   "reason": "dual THS4021; TI parametric shows GBW 350 MHz (looks like BW at G = 10; check datasheet); several orderables obsolete. Kept out pending datasheet check",
+   "source": "TI page"
+  },
+  {
+   "part": "MAX4106 / MAX4107",
+   "maker": "Analog Devices (legacy Maxim)",
+   "reason": "OBSOLETE (0.75 nV/rtHz, G >= 5 / >= 10)",
+   "source": "ADI search listing: max4106.html, max4107.html"
+  },
+  {
+   "part": "MAX4105 / MAX4305",
+   "maker": "Analog Devices (legacy Maxim)",
+   "reason": "LAST TIME BUY (G >= 5, 430 MHz; G >= 10, 350 MHz; 2.1 nV/rtHz)",
+   "source": "ADI search listing: max4105, max4305 pages"
+  },
+  {
+   "part": "MAX4108/MAX4109/MAX4308/MAX4309",
+   "maker": "Analog Devices (legacy Maxim)",
+   "reason": "MAX4109 page shows obsolete; family not pursued",
+   "source": "ADI search listing"
+  },
+  {
+   "part": "LTC6252 / LTC6253 / LTC6254",
+   "maker": "Analog Devices (Linear Technology)",
+   "reason": "GBW 720 MHz, 2.75 nV/rtHz, 5.25 V max supply; LTC6252 LAST TIME BUY (PDN 23_0089, notice 20 Mar 2024, replacement ADA4891); LTC6253 from 3.67 at 1ku",
+   "source": "DS p1 (ltc6252_distributor_copy.pdf); ADI search listing"
+  },
+  {
+   "part": "LTC6226 / LTC6227",
+   "maker": "Analog Devices (Linear Technology)",
+   "reason": "GBW 420 MHz (1 nV/rtHz, 2.8-11.75 V)",
+   "source": "DS p1 (ltc6226_distributor_copy.pdf)"
+  },
+  {
+   "part": "ISL28191 / ISL28291",
+   "maker": "Renesas",
+   "reason": "61 MHz -3 dB BW (1.7 nV/rtHz)",
+   "source": "search-engine listing of renesas.com/en/products/isl28191"
+  },
+  {
+   "part": "EL5130 family",
+   "maker": "Renesas (Elantec/Intersil)",
+   "reason": "obsolete (LTB 2010), 300 MHz class",
+   "source": "Octopart listing"
+  },
+  {
+   "part": "TSH300",
+   "maker": "STMicroelectronics",
+   "reason": "VFB, about 1 GHz GBW, 0.65 nV/rtHz, but listed as discontinued by a distributor; the st.com page gave no response",
+   "source": "search-engine listings (cytechsystems listing; Electronic Design news item)"
+  },
+  {
+   "part": "TSH330",
+   "maker": "STMicroelectronics",
+   "reason": "current feedback",
+   "source": "search-engine listings"
+  },
+  {
+   "part": "NCS2551",
+   "maker": "onsemi",
+   "reason": "500 MHz VFB but 6 nV/rtHz (2006 datasheet); other onsemi high-speed parts are current feedback",
+   "source": "https://www.onsemi.com/pdf/datasheet/ncs2551-d.pdf (search listing)"
+  },
+  {
+   "part": "MCP6xxx (fastest about 30 MHz)",
+   "maker": "Microchip",
+   "reason": "GBW far too low",
+   "source": "search-engine listings (RS listings)"
+  },
+  {
+   "part": "NJM2725 (fastest found)",
+   "maker": "Nisshinbo",
+   "reason": "GBW 160 MHz (1.4 nV/rtHz, G >= 2)",
+   "source": "search-engine listings (Mouser, RS listings)"
+  },
+  {
+   "part": "LMR1701 (fastest found)",
+   "maker": "ROHM",
+   "reason": "GBW 150 MHz CMOS",
+   "source": "search-engine listings (RS listing)"
+  },
+  {
+   "part": "SGM80581/2/4 (fastest found)",
+   "maker": "SGMICRO",
+   "reason": "220 MHz unity-gain BW, 7 nV/rtHz",
+   "source": "search-engine listings (sg-micro.com, LCSC)"
+  },
+  {
+   "part": "RS876X / RS875X (fastest found)",
+   "maker": "Runic",
+   "reason": "at most 250 MHz",
+   "source": "search-engine listings (LCSC)"
+  },
+  {
+   "part": "NSOPA series",
+   "maker": "Novosense",
+   "reason": "1-10 MHz class",
+   "source": "search-engine listings (press items)"
+  }
+ ],
+ "makers_checked": [
+  {
+   "maker": "Texas Instruments (beyond covered list)",
+   "checked": "47 product pages read",
+   "result": "OPA2846, LMH6626 (duals of covered parts); OPA855-Q1, OPA858-Q1 automotive grades"
+  },
+  {
+   "maker": "Analog Devices / LT / Maxim",
+   "checked": "front pages of LTC6252, LTC6226, LT1222, LT1226, AD829, LT6200 family; search-engine listing of status/price",
+   "result": "MAX4304, MAX4104, LT6200-5, LT1226, LT1222, AD829, LTC6268"
+  },
+  {
+   "maker": "3PEAK",
+   "checked": "TPH2861, TPH2861Q, TPH2865Q datasheets",
+   "result": "TPH2861, TPH2865Q"
+  },
+  {
+   "maker": "Renesas / Intersil / Elantec",
+   "checked": "ISL28190/1, ISL55190/1, EL5130 family",
+   "result": "ISL55190 borderline (status unconfirmed)"
+  },
+  {
+   "maker": "STMicroelectronics",
+   "checked": "TSH300, TSH330, TSH310",
+   "result": "none current"
+  },
+  {
+   "maker": "onsemi, Microchip, Nisshinbo, ROHM, SGMICRO, Runic, Novosense",
+   "checked": "web search of each maker's fastest parts",
+   "result": "none above 500 MHz except onsemi NCS2551 (6 nV/rtHz)"
+  }
+ ],
+ "status_price": [
+  {
+   "part": "OPA846",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "2.95 (OPA846IDBVR) to 3.54 (OPA846ID)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "SOIC (D)-8; SOT-23 (DBV)-5",
+   "source": "https://www.ti.com/product/OPA846 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "OPA847",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "6.35 (OPA847IDBVR)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "SOIC (D)-8; SOT-23 (DBV)-6",
+   "source": "https://www.ti.com/product/OPA847 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": "non-active orderables: OPA847ID LAST TIME BUY, OPA847IDBVT LAST TIME BUY"
+  },
+  {
+   "part": "OPA843",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "2.77 (OPA843IDBVR) to 3.74 (OPA843ID)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "SOIC (D)-8; SOT-23 (DBV)-5",
+   "source": "https://www.ti.com/product/OPA843 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "OPA818",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "7.08 (OPA818DBVR) to 8.50 (OPA818DBVT)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "SOT-23 (DBV)-5; WSON (DRG)-8",
+   "source": "https://www.ti.com/product/OPA818 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "OPA817",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "3.61 (OPA817DTKR)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "WSON (DTK)-8",
+   "source": "https://www.ti.com/product/OPA817 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "OPA814",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "4.55 (OPA814DBVR)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "SOIC (D)-8; SOT-23 (DBV)-5",
+   "source": "https://www.ti.com/product/OPA814 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "OPA855",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "3.05 (OPA855IDSGR) to 3.67 (OPA855IDSGT)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "WSON (DSG)-8; bare die (Y)",
+   "source": "https://www.ti.com/product/OPA855 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "OPA856",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "2.91 (OPA856IDSGR)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "WSON (DSG)-8",
+   "source": "https://www.ti.com/product/OPA856 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "OPA858",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "2.92 (OPA858IDSGR) to 3.51 (OPA858IDSGT)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "WSON (DSG)-8; bare die (Y)",
+   "source": "https://www.ti.com/product/OPA858 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "OPA859",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "2.55 (OPA859IDSGR) to 3.06 (OPA859IDSGT)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "WSON (DSG)-8; bare die (Y)",
+   "source": "https://www.ti.com/product/OPA859 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "OPA657",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "9.00 (OPA657U/2K5) to 11.88 (OPA657N/250)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "SOIC (D)-8; SOT-23 (DBV)-5",
+   "source": "https://www.ti.com/product/OPA657 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "OPA955",
+   "maker": "Texas Instruments",
+   "status": "PREVIEW",
+   "price_1ku_usd": "6.99 (XOPA955DSGR)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "WSON (DSG)-8",
+   "source": "https://www.ti.com/product/OPA955 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": "product page status PREVIEW (pre-production); only orderable is the X-prefixed pre-production part."
+  },
+  {
+   "part": "LMH6629",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "2.75 (LMH6629MFX/NOPB) to 3.30 (LMH6629MF/NOPB)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "SOT-23 (DBV)-5; WSON (NGQ)-8",
+   "source": "https://www.ti.com/product/LMH6629 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "LMH6624",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "2.61 (LMH6624MAX/NOPB) to 3.13 (LMH6624MA/NOPB)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "SOIC (D)-8; SOT-23 (DBV)-5",
+   "source": "https://www.ti.com/product/LMH6624 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "THS4021",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "4.49 (THS4021IDR) to 6.51 (THS4021CDGN)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "HVSSOP (DGN)-8; SOIC (D)-8",
+   "source": "https://www.ti.com/product/THS4021 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": "non-active orderables: THS4021CD OBSOLETE"
+  },
+  {
+   "part": "THS4304",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "7.49 (THS4304D) to 8.99 (THS4304DBVT)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "SOIC (D)-8; SOT-23 (DBV)-5; VSSOP (DGK)-8",
+   "source": "https://www.ti.com/product/THS4304 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "THS4271",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "4.36 (THS4271DGNR) to 5.62 (THS4271DGN)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "HVSSOP (DGN)-8; SOIC (D)-8; VSON (DRB)-8; VSSOP (DGK)-8",
+   "source": "https://www.ti.com/product/THS4271 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "LMH6609",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "1.44 (LMH6609MAX/NOPB) to 1.73 (LMH6609MA/NOPB)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "SOIC (D)-8; SOT-23 (DBV)-5",
+   "source": "https://www.ti.com/product/LMH6609 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "OPA699",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "3.44 (OPA699IDR) to 4.12 (OPA699ID)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "SOIC (D)-8",
+   "source": "https://www.ti.com/product/OPA699 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "LMH32401",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "5.26 (LMH32401IRGTR) to 6.31 (LMH32401IRGTT)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "VQFN (RGT)-16; bare die (Y)",
+   "source": "https://www.ti.com/product/LMH32401 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "OPA857",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "2.59 (OPA857IRGTR) to 3.42 (OPA857IRGTT)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "VQFN (RGT)-16",
+   "source": "https://www.ti.com/product/OPA857 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "OPA2846",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "5.90 (OPA2846IDR) to 7.08 (OPA2846ID)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "SOIC (D)-8",
+   "source": "https://www.ti.com/product/OPA2846 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "LMH6626",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "3.55 (LMH6626MM/NOPB) to 4.62 (LMH6626MA/NOPB)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "SOIC (D)-8; VSSOP (DGK)-8",
+   "source": "https://www.ti.com/product/LMH6626 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "OPA855-Q1",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "3.60 (OPA855QDSGRQ1)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "WSON (DSG)-8",
+   "source": "https://www.ti.com/product/OPA855-Q1 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "OPA858-Q1",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "3.45 (OPA858QDSGRQ1)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "WSON (DSG)-8",
+   "source": "https://www.ti.com/product/OPA858-Q1 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "THS4022",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "7.29 (THS4022IDGNR) to 18.87 (THS4022ID)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "HVSSOP (DGN)-8; SOIC (D)-8",
+   "source": "https://www.ti.com/product/THS4022 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": "non-active orderables: THS4022CDGN OBSOLETE, THS4022CDGNR OBSOLETE, THS4022IDGN OBSOLETE"
+  },
+  {
+   "part": "LMH32404",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "10.71 (LMH32404IRHFR)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "VQFN (RHF)-28; bare die (Y)",
+   "source": "https://www.ti.com/product/LMH32404 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "LMH34400",
+   "maker": "Texas Instruments",
+   "status": "ACTIVE",
+   "price_1ku_usd": "1.44 (LMH34400IDRLR)",
+   "price_basis": "TI list price at 1ku break, per orderable",
+   "packages": "SOT-5X3 (DRL)-6",
+   "source": "https://www.ti.com/product/LMH34400 (orderable data embedded in page)",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "ADA4899-1",
+   "maker": "Analog Devices",
+   "status": "PRODUCTION (all four models); PCN 26_0028 (16 Feb 2026) qualifies an extra wafer-fab site",
+   "price_1ku_usd": "from 2.85 (all four models)",
+   "price_basis": "ADI list 1ku, from a search-engine listing (which may be old)",
+   "packages": "8-lead LFCSP 3 x 3 mm (CP-8-13); 8-lead SOIC_EP",
+   "source": "search-engine listing of https://www.analog.com/en/products/ada4899-1.html",
+   "date_seen": "2026-10-25",
+   "notes": "ADI lists ADA4899-1 as the replacement for the discontinued LTC6228 (PDN 23_0089)"
+  },
+  {
+   "part": "ADA4817-1",
+   "maker": "Analog Devices",
+   "status": "PRODUCTION (5 models)",
+   "price_1ku_usd": "4.00 (LFCSP-8 reels ACPZ-R7/-RL); 4.52 (SOIC-8 ARDZ variants)",
+   "price_basis": "ADI list 1ku, from a search-engine listing",
+   "packages": "8-lead LFCSP 3 x 3 mm; 8-lead SOIC",
+   "source": "search-engine listing of https://www.analog.com/en/products/ada4817-1/sample-buy.html",
+   "date_seen": "2026-10-25",
+   "notes": "the product overview page listing shows 4.40 (LFCSP) / 4.98 (SOIC): the two ADI pages disagree"
+  },
+  {
+   "part": "AD8099",
+   "maker": "Analog Devices",
+   "status": "PRODUCTION",
+   "price_1ku_usd": "from 3.28 (all listed models)",
+   "price_basis": "ADI list 1ku, from a search-engine listing (which may be old)",
+   "packages": "8-lead LFCSP 3 x 3 mm (CP-8-13); 8-lead SOIC",
+   "source": "search-engine listing of https://www.analog.com/en/products/ad8099.html",
+   "date_seen": "2026-10-25",
+   "notes": "older ACPZ-R2 and non-Z variants discontinued (PDN 17_0009, PDN 14_0014)"
+  },
+  {
+   "part": "ADA4895-1",
+   "maker": "Analog Devices",
+   "status": "RECOMMENDED FOR NEW DESIGNS",
+   "price_1ku_usd": "from 2.56; 3.23 (ADA4895-1ARJZ-R2, SOT-23)",
+   "price_basis": "ADI list 1ku, from a search-engine listing",
+   "packages": "8-lead SOIC; 6-lead SOT-23",
+   "source": "search-engine listing of https://www.analog.com/en/products/ada4895-1.html",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "LTC6268-10",
+   "maker": "Analog Devices (Linear Technology)",
+   "status": "Production",
+   "price_1ku_usd": "4.68 (LTC6268IS8-10#PBF, SO-8) to 5.44 (H-grade TSOT-23 reel)",
+   "price_basis": "ADI list 1ku, from a search-engine listing",
+   "packages": "SO-8; TSOT-23-6",
+   "source": "search-engine listing of https://www.analog.com/en/products/ltc6268-10/sample-buy.html",
+   "date_seen": "2026-10-25",
+   "notes": "the overview page listing says 'from $5.15', so the two ADI pages disagree"
+  },
+  {
+   "part": "LTC6228",
+   "maker": "Analog Devices (Linear Technology)",
+   "status": "LAST TIME BUY (discontinued): ADI PDN 23_0089 Rev A, Tower Fab3 process retirement; last-time-buy date 17 Jan 2025, last-time-ship date 28 Feb 2030",
+   "price_1ku_usd": "one ADI page listing 'from 2.03'; another shows price unavailable",
+   "price_basis": "ADI list 1ku, from a search-engine listing (unconfirmed)",
+   "packages": "SO-8; TSOT-23-6",
+   "source": "search-engine listing of https://www.analog.com/en/products/ltc6228.html and https://www.analog.com/media/en/PCN/ADI_PDN_23_0089_Rev_A_Form.pdf",
+   "date_seen": "2026-10-25",
+   "notes": "PDN lists ADA4899-1 as replacement; LTC6229 (dual) presumably shares the notice (not checked)"
+  },
+  {
+   "part": "LT6200-10",
+   "maker": "Analog Devices (Linear Technology)",
+   "status": "PRODUCTION (family page and sample-buy page)",
+   "price_1ku_usd": "2.27 (LT6200CS6-10, TSOT-23-6); 2.32 (LT6200CS8-10#PBF, SO-8)",
+   "price_basis": "ADI list 1ku, from a search-engine listing",
+   "packages": "TSOT-23-6; SO-8",
+   "source": "search-engine listing of https://www.analog.com/en/products/lt6200/sample-buy.html",
+   "date_seen": "2026-10-25",
+   "notes": "overview page listing shows 2.50 (CS6-10) / 2.56 (CS8-10)"
+  },
+  {
+   "part": "LT6230-10",
+   "maker": "Analog Devices (Linear Technology)",
+   "status": "PRODUCTION (family level; model-level status not shown)",
+   "price_1ku_usd": "2.50 (C-grade CS6-10 reel); 2.93 (I-grade IS6-10 reel); family from 2.09",
+   "price_basis": "ADI list 1ku, from a search-engine listing",
+   "packages": "TSOT-23-6",
+   "source": "search-engine listing of https://www.analog.com/en/products/lt6230.html",
+   "date_seen": "2026-10-25",
+   "notes": "ADI names LT6236/LT6237/LT6238 as upgrades of LT6230/LT6231/LT6232 (lower wideband noise above 100 kHz); no -10 version found"
+  },
+  {
+   "part": "LTC6409",
+   "maker": "Analog Devices (Linear Technology)",
+   "status": "RECOMMENDED FOR NEW DESIGNS (as shown on related ADI pages)",
+   "price_1ku_usd": "product page 'from 6.78'; sample-buy snippet inconsistent (6.78-9.48 vs 15.23-18.64 by grade)",
+   "price_basis": "ADI list, from a search-engine listing (unresolved)",
+   "packages": "10-lead 3 x 2 mm QFN (datasheet front page; not re-checked)",
+   "source": "search-engine listing of https://www.analog.com/en/products/ltc6409.html and .../ltc6409/sample-buy.html",
+   "date_seen": "2026-10-25",
+   "notes": "fully differential amplifier; PDN 23_0089 names LTC6409 as replacement for LTC6400/6401/6410/6416/6417"
+  },
+  {
+   "part": "AD8021",
+   "maker": "Analog Devices",
+   "status": "PRODUCTION; PCN 26_0028 (16 Feb 2026) fab-site qualification",
+   "price_1ku_usd": "'from 1.95' (one listing) or 'from 1.54' (another)",
+   "price_basis": "ADI list 1ku, from search-engine listings (they disagree)",
+   "packages": "8-lead SOIC; 8-lead MSOP",
+   "source": "search-engine listing of https://www.analog.com/en/products/ad8021.html",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "AD8045",
+   "maker": "Analog Devices",
+   "status": "PRODUCTION",
+   "price_1ku_usd": "from 2.42 (AD8045ARDZ-REEL7); 4.12 (AD8045ACPZ-R2)",
+   "price_basis": "ADI list 1ku, from a search-engine listing",
+   "packages": "8-lead SOIC_N_EP; 8-lead LFCSP 3 x 3 mm",
+   "source": "search-engine listing of https://www.analog.com/en/products/ad8045.html",
+   "date_seen": "2026-10-25",
+   "notes": ""
+  },
+  {
+   "part": "LT1226",
+   "maker": "Analog Devices (Linear Technology)",
+   "status": "PRODUCTION (PCN 2026-0038, Aug 2026, assembly change)",
+   "price_1ku_usd": "from 5.33 (some models 5.47)",
+   "price_basis": "ADI list 1ku, from a search-engine listing",
+   "packages": "PDIP-8; SO-8",
+   "source": "search-engine listing of https://www.analog.com/en/products/lt1226.html",
+   "date_seen": "2026-10-25",
+   "notes": "new candidate"
+  },
+  {
+   "part": "LT1222",
+   "maker": "Analog Devices (Linear Technology)",
+   "status": "PRODUCTION (PCN 24_0234, Oct 2024, marking)",
+   "price_1ku_usd": "from 5.23",
+   "price_basis": "ADI list 1ku, from a search-engine listing",
+   "packages": "PDIP-8; SO-8",
+   "source": "search-engine listing of https://www.analog.com/en/products/lt1222.html",
+   "date_seen": "2026-10-25",
+   "notes": "new candidate"
+  },
+  {
+   "part": "AD829",
+   "maker": "Analog Devices",
+   "status": "PRODUCTION",
+   "price_1ku_usd": "from 4.50 (another listing: from 3.91)",
+   "price_basis": "ADI list 1ku, from a search-engine listing",
+   "packages": "PDIP-8; CERDIP-8; SOIC-8; LCC-20",
+   "source": "search-engine listing of https://www.analog.com/en/products/ad829.html",
+   "date_seen": "2026-10-25",
+   "notes": "new candidate"
+  },
+  {
+   "part": "MAX4304",
+   "maker": "Analog Devices (legacy Maxim)",
+   "status": "PRODUCTION",
+   "price_1ku_usd": "from 5.82",
+   "price_basis": "ADI list 1ku, from a search-engine listing",
+   "packages": "SOT23-5; SO-8",
+   "source": "search-engine listing of https://www.analog.com/en/products/max4304.html",
+   "date_seen": "2026-10-25",
+   "notes": "new candidate"
+  },
+  {
+   "part": "MAX4104",
+   "maker": "Analog Devices (legacy Maxim)",
+   "status": "PRODUCTION",
+   "price_1ku_usd": "3.88 (product page); 4.27 (MAX4104ESA+, sample-buy)",
+   "price_basis": "ADI list 1ku, from a search-engine listing",
+   "packages": "SOT23-5; SO-8",
+   "source": "search-engine listing of https://www.analog.com/en/products/max4104.html",
+   "date_seen": "2026-10-25",
+   "notes": "new candidate"
+  },
+  {
+   "part": "LTC6268",
+   "maker": "Analog Devices (Linear Technology)",
+   "status": "RECOMMENDED FOR NEW DESIGNS",
+   "price_1ku_usd": "from 5.09; 4.62 (LTC6268IS8#TRPBF)",
+   "price_basis": "ADI list 1ku, from a search-engine listing",
+   "packages": "SO-8; TSOT-23-6",
+   "source": "search-engine listing of https://www.analog.com/en/products/ltc6268.html and /sample-buy.html; Digi-Key LTC6268IS8#PBF: Active, 7.16 at 1,000 pcs",
+   "date_seen": "2026-10-25",
+   "notes": "new candidate"
+  },
+  {
+   "part": "LTC6252",
+   "maker": "Analog Devices (Linear Technology)",
+   "status": "LAST TIME BUY (PDN 23_0089, notice 20 Mar 2024; replacement ADA4891-1/-2, not pin compatible)",
+   "price_1ku_usd": "price unavailable (LTC6253: from 3.67)",
+   "price_basis": "ADI list 1ku, from a search-engine listing",
+   "packages": "TSOT-23-6 (LTC6252)",
+   "source": "search-engine listing of https://www.analog.com/en/products/ltc6252.html and PDN 23_0089",
+   "date_seen": "2026-10-25",
+   "notes": "rejected near-miss"
+  },
+  {
+   "part": "MAX4105 / MAX4305",
+   "maker": "Analog Devices (legacy Maxim)",
+   "status": "LAST TIME BUY",
+   "price_1ku_usd": "n/a",
+   "price_basis": "",
+   "packages": "",
+   "source": "search-engine listing of analog.com max4105 and max4305 pages",
+   "date_seen": "2026-10-25",
+   "notes": "rejected"
+  },
+  {
+   "part": "MAX4106 / MAX4107",
+   "maker": "Analog Devices (legacy Maxim)",
+   "status": "OBSOLETE",
+   "price_1ku_usd": "n/a",
+   "price_basis": "",
+   "packages": "",
+   "source": "search-engine listing of analog.com max4106 and max4107 pages",
+   "date_seen": "2026-10-25",
+   "notes": "rejected"
+  },
+  {
+   "part": "HMC799",
+   "maker": "Analog Devices (Hittite)",
+   "status": "LAST TIME BUY",
+   "price_1ku_usd": "not checked",
+   "price_basis": "",
+   "packages": "16-lead 3 x 3 mm SMT",
+   "source": "search-engine listing of https://www.analog.com/en/products/hmc799",
+   "date_seen": "2026-10-25",
+   "notes": "integrated TIA"
+  }
+ ],
+ "tias": [
+  {
+   "part": "LMH32401",
+   "maker": "Texas Instruments",
+   "function": "1-ch, single-ended in, differential out; output mux via EN",
+   "transimpedance": "2 kOhm or 20 kOhm",
+   "bandwidth": "450 MHz (2 kOhm) / 275 MHz (20 kOhm), C_pd = 1 pF",
+   "noise": "250 nA rms (2 kOhm) / 49 nA rms (20 kOhm)",
+   "max_input": "100 mA protection clamp",
+   "dc_cancel": "ambient-light cancellation range 2 mA min, 3 mA typ; settles in 18 us (0 to 100 uA, 2 kOhm); adds noise; can be disabled",
+   "status": "ACTIVE",
+   "price_1ku": "5.26-6.31",
+   "sources": "TI page; DS p9 (lmh32401.pdf, SBOS965D)"
+  },
+  {
+   "part": "LMH32404",
+   "maker": "Texas Instruments",
+   "function": "4-ch, single-ended in, differential out",
+   "transimpedance": "20 kOhm",
+   "bandwidth": "350 MHz, C_pd = 1 pF",
+   "noise": "56 nA rms",
+   "max_input": "100 mA protection clamp",
+   "dc_cancel": "ambient-light cancellation (range not checked); disable for DC and low-frequency content",
+   "status": "ACTIVE",
+   "price_1ku": "10.72",
+   "sources": "TI page"
+  },
+  {
+   "part": "LMH34400",
+   "maker": "Texas Instruments",
+   "function": "1-ch, single-ended out, 1.0 Vpp",
+   "transimpedance": "40 kOhm",
+   "bandwidth": "240 MHz, C_pd = 1 pF",
+   "noise": "50 nA rms",
+   "max_input": "100 mA protection clamp",
+   "dc_cancel": "ambient-light cancellation (range not checked); disable for content below 400 kHz",
+   "status": "ACTIVE",
+   "price_1ku": "1.44",
+   "sources": "TI page"
+  },
+  {
+   "part": "OPA857",
+   "maker": "Texas Instruments",
+   "function": "1-ch TIA (covered; datasheet in hand)",
+   "transimpedance": "see covered extraction",
+   "bandwidth": "TI parametric: 130 MHz",
+   "noise": "see covered extraction",
+   "max_input": "see covered extraction",
+   "dc_cancel": "see covered extraction",
+   "status": "ACTIVE",
+   "price_1ku": "2.59-3.42",
+   "sources": "TI page"
+  },
+  {
+   "part": "MAX40660 / MAX40661",
+   "maker": "Analog Devices (legacy Maxim)",
+   "function": "1-ch lidar TIA",
+   "transimpedance": "25 kOhm or 50 kOhm",
+   "bandwidth": "490 MHz (MAX40660, C_in 0.25-5 pF); 160 MHz typ, 100 MHz min (MAX40661, C_in 10 pF)",
+   "noise": "2.1 pA/rtHz (distributor text: 2.38)",
+   "max_input": "clamp: 2 A for 10 ns; 2 ns overload recovery",
+   "dc_cancel": "not stated in the sources read",
+   "status": "not checked",
+   "price_1ku": "not checked",
+   "sources": "search-engine listings (ADI pages, Mouser, Farnell datasheet copy)"
+  },
+  {
+   "part": "MAX40658 / MAX40659",
+   "maker": "Analog Devices (legacy Maxim)",
+   "function": "1-ch lidar TIA, differential out",
+   "transimpedance": "18 kOhm / 36 kOhm",
+   "bandwidth": "360 MHz min",
+   "noise": "45 nA rms",
+   "max_input": "clamp up to 100 mA",
+   "dc_cancel": "offset input adjusts input offset current (range not checked)",
+   "status": "PRODUCTION",
+   "price_1ku": "not checked",
+   "sources": "search-engine listings (ADI datasheet text, RS, Mouser)"
+  },
+  {
+   "part": "MAX40662",
+   "maker": "Analog Devices (legacy Maxim)",
+   "function": "4-ch lidar TIA",
+   "transimpedance": "25 kOhm or 50 kOhm",
+   "bandwidth": "440 MHz typ, 300 MHz min (C_pd 0.5-5 pF)",
+   "noise": "2.1 pA/rtHz",
+   "max_input": "clamp: 2 A for 10 ns",
+   "dc_cancel": "not stated in the sources read",
+   "status": "RECOMMENDED FOR NEW DESIGNS",
+   "price_1ku": "not checked",
+   "sources": "ADI search listing; Mouser"
+  },
+  {
+   "part": "LTC6560 / LTC6561 (quad)",
+   "maker": "Analog Devices (Linear Technology)",
+   "function": "APD TIA, DC-coupled",
+   "transimpedance": "74 kOhm",
+   "bandwidth": "220 MHz",
+   "noise": "4.8 pA/rtHz at 200 MHz, 64 nA rms over 200 MHz (C_in 2 pF); LTC6561 4.5 pA/rtHz, 56 nA rms",
+   "max_input": "linear input 0-30 uA",
+   "dc_cancel": "none (DC-coupled)",
+   "status": "not checked",
+   "price_1ku": "not checked",
+   "sources": "ADI search listing; Digi-Key product highlight"
+  },
+  {
+   "part": "ADA4355",
+   "maker": "Analog Devices",
+   "function": "uModule receiver: TIA + 1 MHz/100 MHz filter + 14-bit 125 MSPS ADC, LVDS out",
+   "transimpedance": "2 / 20 / 200 kOhm",
+   "bandwidth": "set by 100 MHz (or 1 MHz) filter; 10 ns pulses",
+   "noise": "not checked",
+   "max_input": "800 uA full scale at 2 kOhm",
+   "dc_cancel": "not checked",
+   "status": "RECOMMENDED FOR NEW DESIGNS",
+   "price_1ku": "not checked",
+   "sources": "ADI search listing; Digi-Key product highlight"
+  },
+  {
+   "part": "HMC799",
+   "maker": "Analog Devices (Hittite)",
+   "function": "DC-700 MHz TIA, 50 Ohm output",
+   "transimpedance": "10 kOhm",
+   "bandwidth": "700 MHz",
+   "noise": "150 nA rms over 700 MHz; 4.6-5.6 pA/rtHz depending on C_pd",
+   "max_input": "absolute max 30 mA p-p",
+   "dc_cancel": "none stated",
+   "status": "LAST TIME BUY",
+   "price_1ku": "not checked",
+   "sources": "ADI search listing"
+  }
+ ],
+ "appnotes": [
+  {
+   "target": "TIA design",
+   "title": "Transimpedance Considerations for High-Speed Amplifiers",
+   "authors": "Xavier Ramus",
+   "publisher": "TI SBOA122",
+   "year": "2009",
+   "url": "https://www.ti.com/lit/pdf/sboa122",
+   "local_file": "TI_SBOA122_transimpedance_considerations_high_speed_amps.pdf",
+   "note": "decompensated VFB in TIAs, noise and bandwidth design"
+  },
+  {
+   "target": "TIA design",
+   "title": "What You Need to Know about Transimpedance Amplifiers - Part 1",
+   "authors": "Samir Cherian",
+   "publisher": "TI SSZTBC4",
+   "year": "2023 (PDF date)",
+   "url": "https://www.ti.com/lit/pdf/ssztbc4",
+   "local_file": "TI_SSZTBC4_what_you_need_to_know_about_TIAs_part1.pdf",
+   "note": "loop gain, Butterworth compensation"
+  },
+  {
+   "target": "TIA design",
+   "title": "What You Need to Know about Transimpedance Amplifiers - Part 2",
+   "authors": "Samir Cherian",
+   "publisher": "TI SSZTAY1",
+   "year": "2023 (PDF date)",
+   "url": "https://www.ti.com/lit/pdf/ssztay1",
+   "local_file": "TI_SSZTAY1_what_you_need_to_know_about_TIAs_part2.pdf",
+   "note": "arbitrary phase margin; says part 3 covers higher-order poles and decompensated amplifiers"
+  },
+  {
+   "target": "TIA design",
+   "title": "What You Need to Know about Transimpedance Amplifiers - Part 3",
+   "authors": "Samir Cherian (expected)",
+   "publisher": "TI",
+   "year": "",
+   "url": "not located after three searches",
+   "local_file": "not downloaded",
+   "note": "topic per part 2: higher-order open-loop poles, decompensated amplifiers"
+  },
+  {
+   "target": "Decompensated amps",
+   "title": "AN-1604 Decompensated Operational Amplifiers (Rev. B)",
+   "authors": "TI (National Semiconductor)",
+   "publisher": "TI SNOA486B",
+   "year": "2007, rev. 2013",
+   "url": "https://www.ti.com/lit/an/snoa486/snoa486.pdf",
+   "local_file": "TI_SNOA486_AN-1604_decompensated_operational_amplifiers.pdf",
+   "note": "what/why of decompensation; external and input lead-lag compensation"
+  },
+  {
+   "target": "Decompensated amps",
+   "title": "Easily improve the performance of analog circuits with decompensated amplifiers",
+   "authors": "TI Analog Design Journal",
+   "publisher": "TI SLYT767A",
+   "year": "2019",
+   "url": "https://www.ti.com/lit/pdf/slyt767",
+   "local_file": "TI_SLYT767_decompensated_amplifiers_improve_analog_circuits.pdf",
+   "note": "decompensated parts in TIAs"
+  },
+  {
+   "target": "Decompensated amps",
+   "title": "3 Common Questions When Designing with High-speed Amplifiers",
+   "authors": "Peggy Liska",
+   "publisher": "TI SSZT273",
+   "year": "2023 (PDF date)",
+   "url": "https://www.ti.com/lit/pdf/sszt273",
+   "local_file": "TI_SSZT273_3_common_questions_high_speed_amplifiers.pdf",
+   "note": "OPA858 vs OPA859 decompensation trade-off"
+  },
+  {
+   "target": "TIA design",
+   "title": "Transimpedance Amplifier Circuit (Analog Engineer's Circuit, Rev. B)",
+   "authors": "Paul Semig",
+   "publisher": "TI SBOA268B",
+   "year": "2024",
+   "url": "https://www.ti.com/lit/pdf/sboa268",
+   "local_file": "TI_SBOA268_transimpedance_amplifier_circuit.pdf",
+   "note": "basic TIA design recipe (low speed)"
+  },
+  {
+   "target": "TIA design",
+   "title": "AN-1803 Design Considerations for a Transimpedance Amplifier",
+   "authors": "TI (National Semiconductor)",
+   "publisher": "TI SNOA515A",
+   "year": "2008, rev. 2013",
+   "url": "https://www.ti.com/lit/pdf/snoa515",
+   "local_file": "TI_SNOA515_AN-1803_design_considerations_transimpedance_amplifier.pdf",
+   "note": "TIA stability and bandwidth"
+  },
+  {
+   "target": "TIA design",
+   "title": "Compensate Transimpedance Amplifiers Intuitively",
+   "authors": "Tony Wang, Barry Ehrman",
+   "publisher": "TI SBOA055A",
+   "year": "1993, rev. 2005",
+   "url": "https://www.ti.com/lit/pdf/sboa055",
+   "local_file": "TI_SBOA055_compensate_transimpedance_amplifiers_intuitively.pdf",
+   "note": "feedback-capacitor choice"
+  },
+  {
+   "target": "TIA design",
+   "title": "TI Precision Labs: Transimpedance Amplifier-1 (slides)",
+   "authors": "Sima Jalaleddine",
+   "publisher": "TI Precision Labs, High-Speed Op Amps",
+   "year": "2021 (PDF date)",
+   "url": "not recorded",
+   "local_file": "TI_TIPL_transimpedance_amps_introduction_slides.pdf",
+   "note": "TIA introduction"
+  },
+  {
+   "target": "Dynamic range",
+   "title": "Maximizing the dynamic range of analog front ends having a transimpedance amplifier",
+   "authors": "TI Analog Design Journal",
+   "publisher": "TI SLYT773",
+   "year": "2019",
+   "url": "https://www.ti.com/lit/pdf/slyt773",
+   "local_file": "TI_SLYT773_maximizing_dynamic_range_AFE_with_TIA.pdf",
+   "note": "overload, clamps, dynamic range"
+  },
+  {
+   "target": "Lidar reference design",
+   "title": "TIDA-060025: Maximizing Transimpedance Bandwidth for LIDAR and ToF Applications (Rev. A)",
+   "authors": "TI",
+   "publisher": "TI TIDUEL3A",
+   "year": "2022",
+   "url": "https://www.ti.com/lit/pdf/tiduel3",
+   "local_file": "TI_TIDUEL3_TIDA-060025_maximizing_transimpedance_bandwidth_LIDAR_ToF.pdf",
+   "note": "high-speed optical front end with decompensated op amp"
+  },
+  {
+   "target": "Lidar front end",
+   "title": "Time of Flight and LIDAR - Optical Front End Design (Rev. A)",
+   "authors": "TI",
+   "publisher": "TI SBOA337A",
+   "year": "2022",
+   "url": "https://www.ti.com/lit/pdf/sboa337",
+   "local_file": "TI_SBOA337_ToF_LIDAR_optical_front_end_design.pdf",
+   "note": "application brief"
+  },
+  {
+   "target": "Noise",
+   "title": "Noise Analysis for High-Speed Op Amps (Rev. A)",
+   "authors": "Michael Steffes",
+   "publisher": "TI SBOA066A",
+   "year": "1996, rev. 2005",
+   "url": "https://www.ti.com/lit/pdf/sboa066",
+   "local_file": "TI_SBOA066_noise_analysis_high_speed_op_amps.pdf",
+   "note": "e_n, i_n, noise-gain treatment"
+  },
+  {
+   "target": "Noise",
+   "title": "Noise Analysis of FET Transimpedance Amplifiers (AB-076)",
+   "authors": "Burr-Brown / TI",
+   "publisher": "TI SBOA060",
+   "year": "1994 (PDF 1999)",
+   "url": "https://www.ti.com/lit/pdf/sboa060",
+   "local_file": "TI_SBOA060_noise_analysis_FET_transimpedance_amplifiers.pdf",
+   "note": "e_n times input capacitance noise gain"
+  },
+  {
+   "target": "Noise",
+   "title": "Designing Photodiode Amplifier Circuits with OPA128 (AB-077)",
+   "authors": "Burr-Brown / TI",
+   "publisher": "TI SBOA061",
+   "year": "1994 (PDF 1999)",
+   "url": "https://www.ti.com/lit/pdf/sboa061",
+   "local_file": "TI_SBOA061_designing_photodiode_amplifier_circuits_OPA128.pdf",
+   "note": "photodiode amplifier noise basics"
+  },
+  {
+   "target": "Noise",
+   "title": "Comparison of Noise Performance Between a FET Transimpedance Amplifier and a Switched Integrator",
+   "authors": "Burr-Brown / TI",
+   "publisher": "TI SBOA034",
+   "year": "1996",
+   "url": "https://www.ti.com/lit/pdf/sboa034",
+   "local_file": "TI_SBOA034_noise_FET_TIA_vs_switched_integrator.pdf",
+   "note": "low-speed comparison"
+  },
+  {
+   "target": "Noise",
+   "title": "Analysis and Measurement of Intrinsic Noise in Op Amp Circuits, Part XI: Photodiode Amplifier Noise",
+   "authors": "Art Kay, Bryan Zhao",
+   "publisher": "TI TechNote, published on EN-Genius.net",
+   "year": "2011",
+   "url": "not recorded",
+   "local_file": "TI_KayZhao_PartXI_photodiode_amplifier_noise.pdf",
+   "note": "photodiode TIA noise analysis and simulation"
+  },
+  {
+   "target": "Input capacitance",
+   "title": "SPICE It Up: How to Extract the Input Capacitance of an Op Amp (Part 3)",
+   "authors": "Samir Cherian",
+   "publisher": "TI SSZTBI1",
+   "year": "2023 (PDF date)",
+   "url": "https://www.ti.com/lit/pdf/ssztbi1",
+   "local_file": "TI_SSZTBI1_SPICE_it_up_extract_op_amp_input_capacitance_part3.pdf",
+   "note": "measuring C_in, which sets the noise-gain zero"
+  },
+  {
+   "target": "Input capacitance",
+   "title": "Input Impedance Extraction and Application for High Speed Amplifiers (Insight #9)",
+   "authors": "Michael Steffes",
+   "publisher": "author's note",
+   "year": "2019",
+   "url": "not recorded",
+   "local_file": "Steffes_Insight9_input_impedance_extraction_high_speed_amps.pdf",
+   "note": "input impedance of high-speed amps"
+  },
+  {
+   "target": "Front ends",
+   "title": "Photodiode Front Ends: The REAL Story",
+   "authors": "Philip C. D. Hobbs",
+   "publisher": "Optics & Photonics News 12(4), 42-45",
+   "year": "2001",
+   "url": "https://electrooptical.net/static/oldsite/www/frontends/frontends.pdf (author's site)",
+   "local_file": "Hobbs_OPN2001_photodiode_front_ends_real_story.pdf",
+   "note": "TIA noise-peak myths, bootstrapping, shot-noise-limited design"
+  },
+  {
+   "target": "ADI notes",
+   "title": "LTC6268-10 TIA design notes; Analog Dialogue photodiode TIA articles; FET current-noise rise with frequency",
+   "authors": "",
+   "publisher": "Analog Devices",
+   "year": "",
+   "url": "not read: analog.com pages were not read directly",
+   "local_file": "not downloaded",
+   "note": "not checked"
+  }
+ ],
+ "not_accessible": [
+  {
+   "url": "https://www.mouser.com/ProductDetail/Analog-Devices/LTC6268IS8PBF",
+   "reason": "no response"
+  },
+  {
+   "url": "https://www.digikey.com/en/products/result?keywords=<PART>",
+   "reason": "search pages returned no data; one returned HTTP 403"
+  },
+  {
+   "url": "https://www.st.com/en/amplifiers-and-comparators/tsh300.html",
+   "reason": "no response"
+  },
+  {
+   "url": "https://www.renesas.com/en/products/isl55190",
+   "reason": "HTTP 404"
+  },
+  {
+   "url": "analog.com (all pages)",
+   "reason": "not read directly; only search-engine listings used"
+  }
+ ],
+ "open_items": [
+  "3PEAK TPH2861/TPH2865Q: lifecycle and price; TPH2865Q i_n and C_in",
+  "LT6200-5 i_n, C_in, slew and price; LTC6268 e_n and C_in from its datasheet; MAX4104/MAX4304 GBW and output swing (datasheet not downloaded)",
+  "ISL55190 and TSH300: maker-confirmed status",
+  "THS4022: GBW from datasheet",
+  "Integrated TIAs: ALC range of LMH32404 and LMH34400; status and price of MAX40660/61, LTC6560/61; MAX40658 offset-current range; ADA4355 noise",
+  "TI 'What you need to know about TIAs' part 3: not located",
+  "ADI app notes (LTC6268-10 TIA, Analog Dialogue, FET current-noise rise): not read; they need a download from analog.com",
+  "Source URLs of three downloaded notes (TIPL slides, Kay/Zhao Part XI, Steffes Insight #9) were not recorded"
+ ]
+}

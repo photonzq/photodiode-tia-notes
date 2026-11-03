@@ -1,0 +1,10 @@
+Old/new text pair that prepares the balanced-photodiode note for the public repository it shares with the high-gain
+note (3 November 2026): the build of the PDF and the web page now sits at the root of the repository. Applied with
+apply_pairs.py. Usage:
+python apply_pairs.py publication_pairs.txt 0a01b9205bb8
+
+=== OLD
+built by `build/build_pdf.py` and `build/make_web_html.py` |
+=== NEW
+built by `build/build_pdf.py` and `build/make_web_html.py` at the root of the repository |
+=== END

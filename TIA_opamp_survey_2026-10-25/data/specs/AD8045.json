@@ -1,0 +1,260 @@
+{
+  "part": "AD8045",
+  "manufacturer": "Analog Devices",
+  "datasheet_file": "datasheets/ad8045_distributor_copy.pdf",
+  "datasheet_id_and_revision": "Data Sheet AD8045, Rev. C (revision history: 12/2018 Rev. B to Rev. C); document code D04814-0-12/18(C)",
+  "datasheet_status": "Data Sheet (production; no preliminary marking)",
+  "citation_convention": "pN = PDF page index N; for this file the printed page number equals the PDF index (footer 'Rev. C | Page N of 24'). Types: TYP; MIN/MAX (guaranteed at TA = 25 C; this datasheet gives no over-temperature limits); CURVE = read from a typical-characteristic plot (vector path of the plot sampled after calibrating against the gridlines, cross-checked on 160/300/600 dpi renders); DERIVED = computed here from datasheet numbers, not printed in the datasheet.",
+  "input_type": "bipolar: XFCB (extra fast complementary bipolar) process, H-bridge input stage (p17 Theory of Operation)",
+  "compensation": "unity-gain stable voltage-feedback amplifier, internally compensated (p1, p17)",
+  "min_stable_gain": {
+    "value": "+1 (unity-gain stable)",
+    "conditions": "Tables 1-2 and Fig. 7/8 characterize G = +1 with RS = 100 ohm in series with +IN; p16: 'In unity-gain (G = +1) applications, RS helps to reduce high frequency peaking. It is not needed for any other configurations.'",
+    "below_minimum": "not applicable. No guidance on capacitive (transimpedance) feedback or noise-gain shaping anywhere in the datasheet. p22 (Grounding): 'Stray capacitance on the inverting input and the feedback resistor form a pole, which degrades the phase margin, leading to instability.'",
+    "source": "p1, p16, p17, p22"
+  },
+  "supply": {
+    "total_min_V": 3.3,
+    "total_max_V": 12,
+    "abs_max_V": 12.6,
+    "dual_or_single": "both; dual +/-1.65 V to +/-6 V (Table 1 operating range), single 3.3 V to 12 V (Table 2)",
+    "recommended": "specified at +/-5 V (Table 1, p3) and +5 V (Table 2, p4)",
+    "source": "p3 Table 1, p4 Table 2, p5 Table 3"
+  },
+  "quiescent_current": [
+    {"value": 16, "unit": "mA", "type": "TYP", "conditions": "+/-5 V, 25 C", "source": "p3 Table 1"},
+    {"value": 19, "unit": "mA", "type": "MAX (25 C)", "conditions": "+/-5 V", "source": "p3 Table 1"},
+    {"value": 15, "unit": "mA", "type": "TYP", "conditions": "+5 V", "source": "p4 Table 2"},
+    {"value": 18, "unit": "mA", "type": "MAX (25 C)", "conditions": "+5 V", "source": "p4 Table 2"},
+    {"value": "15.8 (-40 C), 16.35 (25 C), 16.9 (125 C)", "unit": "mA", "type": "CURVE (+/-0.05 mA, by eye)", "conditions": "+/-5 V", "source": "p15 Fig. 57"},
+    {"value": "14.85 (-40 C), 15.3 (25 C), 15.75 (125 C)", "unit": "mA", "type": "CURVE (+/-0.05 mA, by eye)", "conditions": "+5 V", "source": "p15 Fig. 57"},
+    {"value": 15, "unit": "mA", "type": "front-page feature value (no condition)", "source": "p1 Features"}
+  ],
+  "gbw": [
+    {"value": 400, "unit": "MHz", "type": "TYP (stated in text)", "conditions": "f_CROSSOVER of the integrator approximation of the open-loop response", "source": "p17 Fig. 63; p20 text '400 MHz gain bandwidth product'"},
+    {"value": 425, "unit": "MHz", "type": "CURVE", "conditions": "0 dB crossing of the open-loop gain curve, +/-5 V, RL = 1 kohm; uncertainty +/-15 MHz", "source": "p8 Fig. 16"},
+    {"value": 372, "unit": "MHz", "type": "DERIVED", "conditions": "10 x (G = +10 small-signal -3 dB frequency 37.2 MHz, Fig. 7, +/-5 V, RL = 1 kohm)", "source": "p7 Fig. 7"}
+  ],
+  "open_loop_dc_gain": [
+    {"value": 64, "unit": "dB", "type": "TYP", "conditions": "+/-5 V, VOUT = -3 V to +3 V, RL = 1 kohm", "source": "p3 Table 1"},
+    {"value": 62, "unit": "dB", "type": "MIN (25 C)", "conditions": "+/-5 V, VOUT = -3 V to +3 V", "source": "p3 Table 1"},
+    {"value": 63, "unit": "dB", "type": "TYP", "conditions": "+5 V, VOUT = 2 V to 3 V, RL = 1 kohm to midsupply", "source": "p4 Table 2"},
+    {"value": 61, "unit": "dB", "type": "MIN (25 C)", "conditions": "+5 V", "source": "p4 Table 2"},
+    {"value": 63.3, "unit": "dB", "type": "CURVE", "conditions": "low-frequency plateau 10-100 kHz of Fig. 16, +/-5 V, RL = 1 kohm", "source": "p8 Fig. 16"}
+  ],
+  "phase_margin_or_crossover": [
+    {"value": "unity-gain crossover ~425 MHz; phase there ~-147 deg, i.e. phase margin ~33 deg", "type": "DERIVED from CURVE (Fig. 16), +/-3 deg", "conditions": "+/-5 V, RL = 1 kohm; phase margin is not printed in the datasheet", "source": "p8 Fig. 16"},
+    {"value": "G = +1 small-signal response peaks +3.1 dB at ~650 MHz (RL = 1 kohm, RS = 100 ohm), consistent with the low phase margin at unity feedback", "type": "CURVE", "source": "p7 Fig. 8"}
+  ],
+  "open_loop_curve": {
+    "figure": "Fig. 16 'Open-Loop Gain and Phase vs. Frequency' (p8)",
+    "conditions": "VS = +/-5 V, RL = 1 kohm; temperature not stated (assumed 25 C); plotted 10 kHz to ~3.0 GHz",
+    "phase_convention": "right axis 0 deg to -360 deg; phase starts at 0 deg at low frequency and falls to ~-90 deg in the integrator region; phase margin = 180 deg + phase at the 0 dB crossing",
+    "reading_uncertainty": "gain +/-0.3 dB, phase +/-2 deg (vector path sampled; dominated by gridline calibration); above 700 MHz the phase curve is steep, so a 2 % frequency error moves the phase by up to ~10 deg",
+    "points": [
+      {"f_Hz": 1e4, "gain_dB": 63.3, "phase_deg": null, "note": "phase trace starts at the 0 deg frame edge near 15 kHz"},
+      {"f_Hz": 1e5, "gain_dB": 63.3, "phase_deg": -15.9},
+      {"f_Hz": 2e5, "gain_dB": 62.1, "phase_deg": -37.7},
+      {"f_Hz": 5e5, "gain_dB": 56.8, "phase_deg": -66.0},
+      {"f_Hz": 1e6, "gain_dB": 51.3, "phase_deg": -77.8},
+      {"f_Hz": 3e6, "gain_dB": 41.8, "phase_deg": -86.1},
+      {"f_Hz": 1e7, "gain_dB": 31.4, "phase_deg": -90.1},
+      {"f_Hz": 3e7, "gain_dB": 22.0, "phase_deg": -92.9},
+      {"f_Hz": 1e8, "gain_dB": 11.7, "phase_deg": -102.7},
+      {"f_Hz": 2e8, "gain_dB": 5.7, "phase_deg": -116.4},
+      {"f_Hz": 3e8, "gain_dB": 2.4, "phase_deg": -130.2},
+      {"f_Hz": 4e8, "gain_dB": 0.4, "phase_deg": -143.7},
+      {"f_Hz": 5e8, "gain_dB": -1.1, "phase_deg": -157.5},
+      {"f_Hz": 7e8, "gain_dB": -2.9, "phase_deg": -190.3},
+      {"f_Hz": 1e9, "gain_dB": -4.0, "phase_deg": -245.7},
+      {"f_Hz": 1.2e9, "gain_dB": -3.8, "phase_deg": -284.7},
+      {"f_Hz": 1.5e9, "gain_dB": -3.7, "phase_deg": -360, "note": "phase trace reaches the -360 deg frame edge at ~1.50 GHz and leaves the plot"},
+      {"f_Hz": 2e9, "gain_dB": -5.6, "phase_deg": null},
+      {"f_Hz": 2.24e9, "gain_dB": -10, "phase_deg": null, "note": "gain trace leaves the -10 dB frame edge"},
+      {"f_Hz": 3e9, "gain_dB": null, "phase_deg": null, "note": "below -10 dB, off scale"},
+      {"f_Hz": 5e9, "gain_dB": null, "phase_deg": null, "note": "not plotted"},
+      {"f_Hz": 1e10, "gain_dB": null, "phase_deg": null, "note": "not plotted"}
+    ],
+    "observation": "between 0.8 and 1.5 GHz the magnitude flattens at about -4 dB while the phase keeps falling steeply; the datasheet gives no comment"
+  },
+  "open_loop_output_impedance": {
+    "figure": null,
+    "note": "Not given. Only the closed-loop output impedance at G = +1 is plotted (see closed_loop_output_impedance).",
+    "derived_estimate": {"value": "14-19 ohm (roughly resistive, 1-100 MHz)", "type": "DERIVED", "method": "Zo_OL ~ Zcl x |1 + A|, with Zcl from Fig. 49 and complex A from Fig. 16: 1 MHz 0.053 ohm x 365 = 19 ohm; 10 MHz 0.376 x 37.0 = 14 ohm; 100 MHz 3.83 x 3.73 = 14 ohm. Assumes Fig. 49 is a plain G = +1 follower; its source/load conditions are not stated."}
+  },
+  "closed_loop_output_impedance": {
+    "figure": "Fig. 49 'Output Impedance vs. Frequency' (p14)",
+    "conditions": "G = +1, VS = +/-5 V",
+    "type": "CURVE (+/-3 %)",
+    "points": [
+      {"f_Hz": 1e6, "ohm": 0.053}, {"f_Hz": 1e7, "ohm": 0.38}, {"f_Hz": 3e7, "ohm": 1.11}, {"f_Hz": 1e8, "ohm": 3.8},
+      {"f_Hz": 2e8, "ohm": 8.5}, {"f_Hz": 3e8, "ohm": 15.3}, {"f_Hz": 5e8, "ohm": 44.5}, {"f_Hz": 7e8, "ohm": 178, "note": "peak"},
+      {"f_Hz": 8e8, "ohm": 94}, {"f_Hz": 9e8, "ohm": 15}
+    ]
+  },
+  "closed_loop_small_signal_bw": [
+    {"value": 1000, "unit": "MHz", "type": "TYP", "conditions": "-3 dB, G = +1, VOUT = 0.2 V p-p, +/-5 V, RS = 100 ohm, RL = 1 kohm", "source": "p3 Table 1"},
+    {"value": 900, "unit": "MHz", "type": "TYP", "conditions": "same, +5 V", "source": "p4 Table 2"},
+    {"value": "400 typ / 320 min", "unit": "MHz", "type": "TYP / MIN (25 C)", "conditions": "-3 dB, G = +2, VOUT = 0.2 V p-p, +/-5 V", "source": "p3 Table 1"},
+    {"value": "395 typ / 320 min", "unit": "MHz", "type": "TYP / MIN (25 C)", "conditions": "-3 dB, G = +2, 0.2 V p-p, +5 V", "source": "p4 Table 2"},
+    {"value": "55 (+/-5 V), 60 (+5 V)", "unit": "MHz", "type": "TYP", "conditions": "0.1 dB flatness, G = +2, VOUT = 2 V p-p, RL = 150 ohm", "source": "p3-p4 Tables 1-2"},
+    {"value": "G=+1: 1 GHz; G=+2: 400 MHz; G=+5: 90 MHz; G=+10: 40 MHz; G=-1: 300 MHz", "type": "TYP", "conditions": "RF = 0/499/499/499/499 ohm, RG = -/499/124/56/499 ohm, RS = 100 ohm (G=+1 only), RL = 1 kohm", "source": "p18 Table 6"},
+    {"value": "G=+10: 37 MHz; G=-1: 290 MHz; G=+2: 397 MHz", "type": "CURVE (+/-3 %)", "conditions": "small signal, +/-5 V, RL = 1 kohm", "source": "p7 Fig. 7"},
+    {"value": "G=+1: peak +3.1 dB at ~650 MHz, -3 dB at ~1.04 GHz (RL = 1 kohm); peak +1.9 dB, -3 dB ~0.95 GHz (RL = 500 ohm); peak +1.2 dB at ~600 MHz, -3 dB ~0.91 GHz (RL = 100 ohm)", "type": "CURVE", "conditions": "G = +1, RS = 100 ohm, +/-5 V", "source": "p7 Fig. 8"},
+    {"value": "closed-loop -3 dB = f_CROSSOVER x RG/(RG + RF); 'can be used to predict the -3 dB bandwidth for noise gains above +2'", "type": "design equation", "source": "p17"}
+  ],
+  "large_signal_bw": [
+    {"value": "350 typ / 300 min", "unit": "MHz", "type": "TYP / MIN (25 C)", "conditions": "G = +1, VOUT = 2 V p-p, +/-5 V", "source": "p3 Table 1"},
+    {"value": "200 typ / 160 min", "unit": "MHz", "type": "TYP / MIN (25 C)", "conditions": "G = +1, VOUT = 2 V p-p, +5 V", "source": "p4 Table 2"},
+    {"value": "+/-5 V: -3 dB ~356 MHz, +1.1 dB peak at ~230 MHz; +/-2.5 V: -3 dB ~205 MHz", "type": "CURVE", "conditions": "G = +1, RL = 1 kohm, RS = 100 ohm, 2 V p-p", "source": "p8 Fig. 13"},
+    {"value": "G=+10: 38 MHz; G=-1: 298 MHz; G=+2: 320 MHz (+1.1 dB peak at ~190 MHz)", "type": "CURVE", "conditions": "+/-5 V, RF = 499 ohm, RL = 1 kohm, 2 V p-p", "source": "p8 Fig. 15"}
+  ],
+  "slew_rate": [
+    {"value": 1350, "unit": "V/us", "type": "TYP", "conditions": "G = +1, VOUT = 4 V step, +/-5 V", "source": "p3 Table 1"},
+    {"value": 1000, "unit": "V/us", "type": "MIN (25 C)", "conditions": "same", "source": "p3 Table 1"},
+    {"value": "1060 typ / 480 min", "unit": "V/us", "type": "TYP / MIN (25 C)", "conditions": "G = +1, VOUT = 2 V step, +5 V", "source": "p4 Table 2"},
+    {"value": 1400, "unit": "V/us", "type": "text value", "source": "p17 Theory of Operation"},
+    {"value": "rising: 1275 (2 V step), 1430 (4 V), 1449 (5 V); falling: 1215, 1285, 1293", "unit": "V/us", "type": "CURVE (+/-10 V/us)", "conditions": "RL = 1 kohm, +/-5 V", "source": "p11 Fig. 33"}
+  ],
+  "rise_fall_settling": [
+    {"value": 7.5, "unit": "ns", "type": "TYP", "conditions": "settling to 0.1 %, G = +2, 2 V step, +/-5 V", "source": "p3 Table 1; p15 Fig. 60"},
+    {"value": 10, "unit": "ns", "type": "TYP", "conditions": "settling to 0.1 %, G = +2, 2 V step, +5 V", "source": "p4 Table 2"}
+  ],
+  "overdrive_recovery": [
+    {"value": 8, "unit": "ns", "type": "TYP", "conditions": "VIN = +/-3 V, G = +2, +/-5 V", "source": "p3 Table 1; Fig. 43 p13"},
+    {"value": 10, "unit": "ns", "type": "TYP", "conditions": "VIN = -0.5 V to +3 V, G = +2, +5 V", "source": "p4 Table 2"},
+    {"value": "input overdrive, G = +1, 5 MHz: output clips at about +/-3.7 V", "type": "CURVE", "source": "p12 Fig. 42"}
+  ],
+  "voltage_noise": {
+    "spot": [{"value": 3, "unit": "nV/rtHz", "type": "TYP", "conditions": "f = 100 kHz, +/-5 V and +5 V", "source": "p3 Table 1, p4 Table 2"}],
+    "curve_points": [
+      {"f_Hz": 10, "nV_rtHz": 50.2}, {"f_Hz": 100, "nV_rtHz": 16.4}, {"f_Hz": 1e3, "nV_rtHz": 6.3}, {"f_Hz": 1e4, "nV_rtHz": 3.7},
+      {"f_Hz": 1e5, "nV_rtHz": 3.03}, {"f_Hz": 1e6, "nV_rtHz": 2.94}, {"f_Hz": 1e7, "nV_rtHz": 3.03}, {"f_Hz": 3e7, "nV_rtHz": 3.09},
+      {"f_Hz": 1e8, "nV_rtHz": 3.08}, {"f_Hz": 2e8, "nV_rtHz": 3.08}, {"f_Hz": 3e8, "nV_rtHz": 3.6}, {"f_Hz": 5e8, "nV_rtHz": 4.4},
+      {"f_Hz": 7e8, "nV_rtHz": 4.75, "note": "maximum of the high-frequency bump"}, {"f_Hz": 9e8, "nV_rtHz": 3.5}, {"f_Hz": 9.5e8, "nV_rtHz": 2.9}
+    ],
+    "curve_source": "p13 Fig. 44 'Voltage Noise vs. Frequency' (conditions not printed on the plot); CURVE, +/-3 %",
+    "one_over_f_corner_Hz": "3e3 to 5e3 (DERIVED by fitting en^2 = ew^2 (1 + fc/f) to the plotted 0.1-10 kHz points; not stated)",
+    "highest_frequency_plotted_Hz": 1e9,
+    "hf_behavior": "flat 2.9-3.1 nV/rtHz from 50 kHz to 200 MHz; rises above 200 MHz to ~4.7 nV/rtHz at 700 MHz, then falls toward 1 GHz"
+  },
+  "current_noise": {
+    "spot": [{"value": 3, "unit": "pA/rtHz", "type": "TYP", "conditions": "f = 100 kHz", "source": "p3 Table 1, p4 Table 2"}],
+    "curve_points": [
+      {"f_Hz": 100, "pA_rtHz": 24.0}, {"f_Hz": 1e3, "pA_rtHz": 7.8}, {"f_Hz": 1e4, "pA_rtHz": 3.9}, {"f_Hz": 1e5, "pA_rtHz": 3.33},
+      {"f_Hz": 1e6, "pA_rtHz": 3.23}, {"f_Hz": 1e7, "pA_rtHz": 3.23}, {"f_Hz": 2e7, "pA_rtHz": 3.10}, {"f_Hz": 3e7, "pA_rtHz": 2.88},
+      {"f_Hz": 5e7, "pA_rtHz": 2.75}, {"f_Hz": 7e7, "pA_rtHz": 2.65}, {"f_Hz": 1e8, "pA_rtHz": 2.62}
+    ],
+    "curve_source": "p13 Fig. 45 'Current Noise vs. Frequency' (no conditions printed; 24-segment polyline); CURVE, +/-3 %",
+    "hf_behavior": "flat ~3.2 pA/rtHz from 0.2 to 10 MHz, then falling gently to ~2.6 pA/rtHz at 100 MHz (end of plot); no rise shown; not specified above 100 MHz. Values at 1 MHz 3.2, 10 MHz 3.2, 100 MHz 2.6 pA/rtHz.",
+    "how_measured_or_defined": "not stated; which input (+IN or -IN) is not stated; noise model p18 Fig. 66 uses separate IN+ and IN- sources of equal value"
+  },
+  "input_capacitance": {
+    "common_mode_pF": 1.3,
+    "common_mode_type": "TYP (Tables 1 and 2, 'Common-mode')",
+    "differential_pF": null,
+    "definition_notes": "Only common-mode input capacitance is specified; differential input capacitance is not given. Input resistance 3.6 Mohm common-mode / 1.0 Mohm differential (+/-5 V), 3 / 0.9 Mohm (+5 V). Fig. 48 (p13) 'closed-loop input impedance', G = +1, +/-5 V, falls as ~1/f: 25 kohm at 1 MHz, 3.65 kohm at 10 MHz, 370 ohm at 100 MHz, 56 ohm at 500 MHz, i.e. ~4.3 pF equivalent (DERIVED), larger than the 1.3 pF table value; fixture contribution not described.",
+    "source": "p3 Table 1, p4 Table 2, p13 Fig. 48"
+  },
+  "input_bias_current": [
+    {"value": "2 typ / 6.3 max", "unit": "uA", "type": "TYP / MAX (25 C)", "conditions": "+/-5 V", "source": "p3 Table 1"},
+    {"value": "2 typ / 6.6 max", "unit": "uA", "type": "TYP / MAX (25 C)", "conditions": "+5 V", "source": "p4 Table 2"},
+    {"value": "8 (+/-5 V), 7 (+5 V)", "unit": "nA/C", "type": "TYP", "conditions": "bias current drift", "source": "p3-p4"},
+    {"value": "0.2 typ / 1.3 max", "unit": "uA", "type": "TYP / MAX (25 C)", "conditions": "input bias offset current, both supplies", "source": "p3-p4"},
+    {"value": "plotted as -1.4 to -2.8 uA over -40 to 125 C (about -1.9 to -2.2 uA at 25 C); sign convention not defined", "type": "CURVE", "source": "p15 Fig. 55"}
+  ],
+  "input_offset_voltage": [
+    {"value": "0.2 typ / 1.0 max", "unit": "mV", "type": "TYP / MAX (25 C)", "conditions": "+/-5 V", "source": "p3 Table 1"},
+    {"value": "0.5 typ / 1.4 max", "unit": "mV", "type": "TYP / MAX (25 C)", "conditions": "+5 V", "source": "p4 Table 2"},
+    {"value": "8 (+/-5 V), 7 (+5 V)", "unit": "uV/C", "type": "TYP", "source": "p3-p4, Fig. 54"},
+    {"value": "+/-5 V: mean 50 uV, sigma 180 uV (N = 450); +5 V: mean 540 uV, sigma 195 uV", "type": "distribution", "source": "p14 Figs. 52-53"}
+  ],
+  "input_common_mode_range": [
+    {"value": "+/-3.8", "unit": "V", "type": "TYP", "conditions": "+/-5 V (i.e. 1.2 V from each rail)", "source": "p3 Table 1"},
+    {"value": "1.2 to 3.8", "unit": "V", "type": "TYP", "conditions": "+5 V", "source": "p4 Table 2"}
+  ],
+  "cmrr_psrr": [
+    {"value": "CMR -91 typ / -83 min", "unit": "dB", "type": "TYP / MIN (25 C)", "conditions": "+/-5 V, VCM = +/-1 V", "source": "p3"},
+    {"value": "CMR -94 typ / -78 min", "unit": "dB", "type": "TYP / MIN (25 C)", "conditions": "+5 V, VCM = 2 V to 3 V", "source": "p4"},
+    {"value": "+PSR -68 typ / -61 min; -PSR -73 typ / -66 min", "unit": "dB", "type": "TYP / MIN (25 C)", "conditions": "+/-5 V, 1 V step on one supply", "source": "p3"},
+    {"value": "+PSR -67 / -65; -PSR -73 / -70", "unit": "dB", "type": "TYP / MIN (25 C)", "conditions": "+5 V", "source": "p4"},
+    {"value": "CMR: -86.5 (1 MHz), -72.5 (10 MHz), -51.7 (100 MHz), -42.8 (200 MHz)", "unit": "dB", "type": "CURVE", "conditions": "+/-5 V, RF = 499 ohm", "source": "p13 Fig. 47"},
+    {"value": "+PSR: -68.5 (100 kHz), -56 (1 MHz), -36 (10 MHz), -16.4 (100 MHz); -PSR: -73.4, -54.4, -34.5, -16.2", "unit": "dB", "type": "CURVE", "conditions": "+/-5 V", "source": "p13 Fig. 46"}
+  ],
+  "output_swing": [
+    {"supply": "+/-5 V", "load_ohm": 1000, "V_low": -3.9, "V_high": 3.9, "type": "TYP"},
+    {"supply": "+/-5 V", "load_ohm": 1000, "V_low": -3.8, "V_high": 3.8, "type": "MIN (25 C)"},
+    {"supply": "+/-5 V", "load_ohm": 100, "V_low": -3.6, "V_high": 3.6, "type": "TYP"},
+    {"supply": "+/-5 V", "load_ohm": 100, "V_low": -3.4, "V_high": 3.5, "type": "MIN (25 C)"},
+    {"supply": "+5 V (RL to midsupply)", "load_ohm": 1000, "V_low": 1.1, "V_high": 4.0, "type": "TYP"},
+    {"supply": "+5 V (RL to midsupply)", "load_ohm": 1000, "V_low": 1.2, "V_high": 3.8, "type": "MIN (25 C)"},
+    {"supply": "+5 V (RL to midsupply)", "load_ohm": 100, "V_low": 1.2, "V_high": 3.8, "type": "TYP"},
+    {"supply": "+5 V (RL to midsupply)", "load_ohm": 100, "V_low": 1.3, "V_high": 3.7, "type": "MIN (25 C)"}
+  ],
+  "output_swing_source": "p3 Table 1, p4 Table 2",
+  "output_swing_vs_load_curve": [
+    {"figure": "p15 Fig. 58 'Output Saturation Voltage vs. Load'", "type": "CURVE (+/-0.02 V)", "quantity": "headroom +VS - VOUT and -VS - VOUT",
+     "curve_labelled_+/-5V": "100 ohm +1.14/-1.17 V; 200 ohm +1.08/-1.11; 500 ohm +1.04/-1.06; 1 kohm +1.02/-1.04; 10 kohm +1.00/-1.02",
+     "curve_labelled_+5V": "100 ohm +1.34/-1.37 V; 200 ohm +1.20/-1.21; 500 ohm +1.11/-1.11; 1 kohm +1.07/-1.07; 10 kohm +1.01/-1.01",
+     "caveat": "load reference not stated. The labels look swapped relative to Tables 1-2 (Table 1 implies 1.4 V headroom at 100 ohm on +/-5 V, Table 2 implies 1.2 V on +5 V)."},
+    {"figure": "p15 Fig. 56 'Output Saturation Voltage vs. Temperature'", "type": "CURVE (by eye, +/-0.01 V)", "conditions": "RL = 1 kohm", "values": "at 25 C: +/-5 V about 1.09-1.11 V headroom; +5 V about 1.00-1.05 V; headroom falls by ~0.1 V from -40 C to 125 C"}
+  ],
+  "output_current": [
+    {"value": 70, "unit": "mA", "type": "TYP", "conditions": "+/-5 V; definition (e.g. at which swing) not stated", "source": "p3 Table 1"},
+    {"value": 55, "unit": "mA", "type": "TYP", "conditions": "+5 V", "source": "p4 Table 2"}
+  ],
+  "short_circuit_current": [
+    {"value": "90 sinking / 170 sourcing", "unit": "mA", "type": "TYP", "conditions": "+/-5 V", "source": "p3 Table 1"},
+    {"value": "70 sinking / 140 sourcing", "unit": "mA", "type": "TYP", "conditions": "+5 V", "source": "p4 Table 2"}
+  ],
+  "capacitive_load": [
+    {"value": "18 pF (+/-5 V), 15 pF (+5 V)", "type": "TYP", "conditions": "30 % overshoot, G = +2", "source": "p3-p4; p23 text"},
+    {"value": "RSNUB typically 25-50 ohm for larger loads, found empirically", "source": "p23"}
+  ],
+  "distortion": [
+    {"f_Hz": 5e6, "Vout_pp": 2, "R_L_ohm": 1000, "gain": "+1", "HD2_dBc": -102, "HD3_dBc": -101, "type": "TYP", "notes": "LFCSP, +/-5 V, RS = 100 ohm; p3 Table 1"},
+    {"f_Hz": 5e6, "Vout_pp": 2, "R_L_ohm": 1000, "gain": "+1", "HD2_dBc": -106, "HD3_dBc": -101, "type": "TYP", "notes": "SOIC, +/-5 V; p3"},
+    {"f_Hz": 2e7, "Vout_pp": 2, "R_L_ohm": 1000, "gain": "+1", "HD2_dBc": -98, "HD3_dBc": -90, "type": "TYP", "notes": "LFCSP, +/-5 V; p3"},
+    {"f_Hz": 2e7, "Vout_pp": 2, "R_L_ohm": 1000, "gain": "+1", "HD2_dBc": -97, "HD3_dBc": -90, "type": "TYP", "notes": "SOIC, +/-5 V; p3"},
+    {"f_Hz": 7e7, "Vout_pp": 2, "R_L_ohm": 1000, "gain": "+1", "HD2_dBc": -71, "HD3_dBc": -71, "type": "TYP", "notes": "LFCSP, +/-5 V; p3"},
+    {"f_Hz": 7e7, "Vout_pp": 2, "R_L_ohm": 1000, "gain": "+1", "HD2_dBc": -60, "HD3_dBc": -71, "type": "TYP", "notes": "SOIC, +/-5 V; p3"},
+    {"f_Hz": "5e6 / 2e7 / 7e7", "Vout_pp": 2, "R_L_ohm": 1000, "gain": "+1", "HD2_dBc": "LFCSP -89/-81/-57; SOIC -92/-83/-57", "HD3_dBc": "-83/-70/-46 (both)", "type": "TYP", "notes": "+5 V single supply; p4 Table 2"},
+    {"f_Hz": "1e7 / 5e7 / 1e8", "Vout_pp": 2, "R_L_ohm": 1000, "gain": "+1", "HD2_dBc": "LFCSP -99.2/-81.1/-60.4; SOIC -103.8/-69.5/-50.8", "HD3_dBc": "-96.4/-82.1/-62.0", "type": "CURVE", "notes": "+/-5 V, RS = 100 ohm; p8 Fig. 17"},
+    {"f_Hz": "1e7 / 2e7 / 5e7 / 1e8", "Vout_pp": 4, "R_L_ohm": 1000, "gain": "+1", "HD2_dBc": "SOIC -97.4/-92.3/-64.7/-58.7; LFCSP -93.9/-92.1/-71.5/-65.9", "HD3_dBc": "-83.9/-76.8/-68.6/-63.9", "type": "CURVE", "notes": "+/-5 V; p8 Fig. 18"},
+    {"f_Hz": "1e7 / 2e7 / 5e7 / 1e8", "Vout_pp": 2, "R_L_ohm": 100, "gain": "+1", "HD2_dBc": "SOIC -87.6/-77.7/-70.4/-54.2; LFCSP -94.6/-90.4/-75.2/-57.3", "HD3_dBc": "~-110/-89.2/-75.0/-58.2", "type": "CURVE", "notes": "+/-5 V, RS = 100 ohm; p9 Fig. 19"},
+    {"f_Hz": "1e7 / 2e7 / 5e7 / 1e8", "Vout_pp": 2, "R_L_ohm": 1000, "gain": "-1", "HD2_dBc": "-86.8/-84.1/-67.2/-46.4", "HD3_dBc": "-98.2/-92.8/-75.6/-51.8", "type": "CURVE", "notes": "+/-5 V, SOIC and LFCSP identical; p9 Fig. 20"},
+    {"f_Hz": "1e7 / 2e7 / 5e7 / 1e8", "Vout_pp": 2, "R_L_ohm": 150, "gain": "-1", "HD2_dBc": "SOIC -73.1/-66.7/-60.2/-47.7; LFCSP -75.7/-69.7/-63.6/-51.0", "HD3_dBc": "-102.9/-92.1/-80.5/-50.6", "type": "CURVE", "notes": "+/-5 V; p9 Fig. 21 (HD2 package labels assigned by line weight)"},
+    {"f_Hz": "1e7 / 2e7 / 5e7 / 1e8", "Vout_pp": 2, "R_L_ohm": 150, "gain": "+2", "HD2_dBc": "SOIC -73.4/-68.1/-62.1/-47.8; LFCSP -80.1/-76.0/-67.3/-50.4", "HD3_dBc": "-106.8/-91.2/-78.3/-53.7", "type": "CURVE", "notes": "+/-5 V, RF = 499 ohm; p9 Fig. 22"},
+    {"f_Hz": "1e7 / 2e7 / 5e7 / 1e8", "Vout_pp": 2, "R_L_ohm": 1000, "gain": "+10", "HD2_dBc": "LFCSP -76.2/-76.1/-66.4/-52.0; SOIC -76.6/-78.9/-63.3/-47.1", "HD3_dBc": "-87.6/-83.4/-78.7/-52.0", "type": "CURVE", "notes": "+/-5 V; p9 Fig. 23"},
+    {"f_Hz": 1e7, "Vout_pp": "2 / 4 / 6 / 7 / 7.5", "R_L_ohm": 1000, "gain": "+1", "HD2_dBc": "SOIC -100.4/-95.7/-98.0/-97.8/-84.6; LFCSP -103.3/-97.6/-95.9/-97.9/-87.9", "HD3_dBc": "-96.0/-83.5/-75.0/-70.9/-67.7", "type": "CURVE", "notes": "+/-5 V, RS = 100 ohm; p9 Fig. 24"},
+    {"f_Hz": 1e7, "Vout_pp": "2 / 4 / 6 / 7", "R_L_ohm": 150, "gain": "+1", "HD2_dBc": "SOIC -79.8/-74.5/-71.7/-70.9; LFCSP -86.8/-81.5/-78.2/-76.7", "HD3_dBc": "-99.7/-85.1/-74.4/-67.7", "type": "CURVE", "notes": "+/-5 V; p10 Fig. 25"},
+    {"f_Hz": 1e7, "Vout_pp": "2 / 4 / 6 / 7 / 7.5", "R_L_ohm": 1000, "gain": "-1", "HD2_dBc": "-86.7/-81.5/-78.2/-77.6/-79.2", "HD3_dBc": "-100.3/-85.9/-75.8/-70.3/-56.7", "type": "CURVE", "notes": "+/-5 V; p10 Fig. 26"}
+  ],
+  "distortion_reading_uncertainty": "CURVE values +/-1 dB",
+  "imd_or_oip3": [
+    {"value": 43, "unit": "dBm", "type": "front-page value", "conditions": "third-order intercept at 10 MHz", "source": "p1"},
+    {"value": "47.5 (5 MHz), 43.5 (10 MHz), 39.5 (20 MHz), 37.0 (30 MHz), 34.5 (40 MHz)", "unit": "dBm", "type": "CURVE (+/-0.3 dB)", "conditions": "G = +10, +/-5 V, RL = 1 kohm; dBm reference impedance not stated", "source": "p14 Fig. 50"}
+  ],
+  "packages": [
+    {"name": "SOIC_N_EP, 8-lead, narrow body (RD-8-1), JEDEC MS-012-AA", "pins": 8, "body_mm": "4.90 x 3.90 (4.80-5.00 x 3.80-4.00); 6.00 (5.80-6.20) across leads; height 1.35-1.75", "pitch_mm": 1.27, "exposed_pad": "yes, 2.29 x 2.29 mm (bottom view)", "ep_connection": "internally connected to -VS; must be connected to -VS or left electrically floating; soldering it to ground shorts -VS to ground and can damage the part", "theta_JA_C_per_W": 80, "theta_JC_C_per_W": 30, "notes": "theta_JA on a JEDEC 4-layer board; isolated pad: theta_JA approaches 125 C/W; ordering AD8045ARDZ, AD8045ARDZ-REEL7"},
+    {"name": "LFCSP 3 mm x 3 mm (CP-8-13), JEDEC MO-229-WEED-4", "pins": 8, "body_mm": "3.00 x 3.00 (2.90-3.10), height 0.75 (0.70-0.80)", "pitch_mm": 0.5, "exposed_pad": "yes, 1.74 x 1.45 mm nominal (1.64-1.84 x 1.35-1.55)", "ep_connection": "-VS or floating (same rule as SOIC)", "theta_JA_C_per_W": 93, "theta_JC_C_per_W": 35, "notes": "low-distortion pinout; ordering AD8045ACPZ-R2, AD8045ACPZ-REEL7, marking H8B; all grades -40 C to +125 C"}
+  ],
+  "packages_source": "p5 Table 4, p6 Table 5, p23, p24",
+  "pinout_notes": "SOIC: 1 FEEDBACK, 2 -IN, 3 +IN, 4 -VS, 5 NIC, 6 OUTPUT, 7 +VS, 8 NIC, EPAD. LFCSP: 1 NIC, 2 FEEDBACK, 3 -IN, 4 +IN, 5 -VS, 6 NIC, 7 OUTPUT, 8 +VS, EPAD. FEEDBACK is a dedicated pin tied to the output (connection diagrams p1); it sits next to -IN for a short feedback path; using it is optional, the OUTPUT pin can also be used for feedback. The LFCSP pinout separates +IN from -VS to improve HD2 (p19). NIC = no internal connection.",
+  "tia_content": [],
+  "tia_notes": "No transimpedance example, figure, table or equation. Only related statements: stray capacitance at the inverting input with RF forms a pole that degrades phase margin (p22); remove ground/power planes under the input and output pins (p22); at unity gain use a short, wide trace from FEEDBACK to -IN (p22).",
+  "application_guidance": "Fig. 61/62 recommended noninverting/inverting circuits with 0.1 uF + 10 uF bypass on each supply (p16); RS = 100 ohm only at G = +1; RSNUB only for large capacitive loads; 0.1 uF 0508 ceramic plus 10 uF electrolytic bypass, optional bypass between the supplies, minimise vias in supply paths (p22); output noise model and Table 6 output noise: G = +1 3.3, G = +2 7.4, G = +5 16.4, G = +10 31, G = -1 7.4 nV/rtHz (RL = 1 kohm, p18); ADC driver example (AD9244, noise gain 2, p19-p20: SFDR 65.3 dBc, SNR 69.9 dB at 50 MHz); 90 MHz 4-pole Sallen-Key low-pass (p20-p21).",
+  "abs_max_and_input_protection": "Supply 12.6 V; common-mode input -VS - 0.7 V to +VS + 0.7 V; differential input +/-VS; exposed paddle voltage -VS; power dissipation per Fig. 4; storage -65 to +125 C; operating -40 to +125 C; lead temperature 300 C (10 s); junction 150 C (p5 Table 3). No input clamp or protection diodes are described.",
+  "other_notes": [
+    "Supply current: front page 15 mA vs Table 1 16 mA typ (+/-5 V); Table 2 15 mA (+5 V).",
+    "Slew rate: Table 1 1350 V/us vs Theory of Operation 1400 V/us.",
+    "Offset: front page '1.0 mV max', description '200 uV', Table 1 0.2 typ / 1.0 max mV.",
+    "Fig. 66 (p18) is captioned 'Amplifier DC Errors' but shows the noise sources (duplicated caption of Fig. 65).",
+    "Fig. 36 legend reads 'RC = 1k ohm OR RC = 150k ohm', probably meaning RL = 1 kohm or 150 ohm (not confirmed).",
+    "Fig. 58 curve labels appear swapped relative to the Tables 1-2 swing limits (see output_swing_vs_load_curve).",
+    "Input bias current is positive in the tables and negative in Fig. 55; direction not defined.",
+    "Fig. 48 closed-loop input impedance implies ~4.3 pF, versus 1.3 pF common-mode input capacitance in the tables.",
+    "Differential gain / phase 0.01 % / 0.01 deg (NTSC, G = +2, RL = 150 ohm)."
+  ],
+  "pages_read": "All 24 pages rendered at 160 dpi and read. 300/600 dpi zooms: p8 (Figs. 15-18), p9 (Figs. 21, 23), p15 (Fig. 58). Plot values from the vector paths of Figs. 7, 8, 13, 15-26, 33, 44-50, 58, each matched to a render. Pages skipped: none."
+}
