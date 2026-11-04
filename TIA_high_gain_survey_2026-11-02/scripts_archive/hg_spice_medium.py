@@ -14,7 +14,8 @@ are compared with the analytic models at the same feedback capacitance.
 2. The companion's node, a 1-pF photodiode pair with 0.35 pF of board capacitance, with the companion's supplies
    and loads (its spice_tia_checks.py), at R_F = 10 kOhm for OPA855, OPA955 and OPA818: this note's design for 0.1 pF
    of parasitic (0.10 pF for OPA855 and OPA955, which is also the companion model's design; OPA818 0.195 pF, against
-   0.193 pF in the companion's Table A6.39), and the companion's Table A6.38 design for its nominal 0.2 pF (read from
+   0.193 pF in the companion's Table A6.39), and the companion's Table A6.38 design for 0.2 pF, the minimum total of
+   its 2-kOhm designs (read from
    its data/results/medium_gain.json). OPA955's model is TI's TINA-TI netlist as the companion extracted it.
    Transimpedance, the loop gain by Middlebrook's double injection, and noise, against this note's single-pole
    model and the companion's open-loop model (its tia_model.py, parts_db.py and run_analysis.py, imported read

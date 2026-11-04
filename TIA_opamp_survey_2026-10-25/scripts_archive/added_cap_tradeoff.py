@@ -6,7 +6,7 @@ Decompensated amplifiers on a 1-pF photodiode reach a low noise gain at
 crossover.  Adding capacitance C_add from the inverting node to ground raises
 the noise gain and the phase margin, at the cost of e_n * w * C noise.  For each
 C_add this script reports
-  - the largest phase margin over stable C_F >= the 0.2 pF parasitic floor,
+  - the largest phase margin over stable C_F >= 0.2 pF, the minimum total of Table 1.1,
   - the widest design with PM >= 40 deg and peaking <= 1 dB,
   - the widest design with PM >= 45 deg and peaking <= 1 dB,
   - for the last one, the input-referred noise at 100 MHz and the
