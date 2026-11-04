@@ -1,6 +1,7 @@
 """Design sweep of the high-gain TIA note: every amplifier of
 data/amplifiers.json on the example photodiodes of data/photodiodes.json at
-R_F = 100 kOhm ... 1 GOhm.
+R_F = 10 kOhm ... 1 GOhm. A part with max_rf (the companion note's fast parts)
+is evaluated only up to that R_F.
 
 For each design the feedback capacitance is the smallest value >= C_par
 (the resistor's own capacitance, 0.1 pF baseline) that keeps the response
@@ -21,7 +22,7 @@ import numpy as np
 import hg_model as m
 
 OUT = m.DATA / "results"
-RFS = [1e5, 1e6, 1e7, 1e8, 1e9]
+RFS = [1e4, 1e5, 1e6, 1e7, 1e8, 1e9]
 C_PAR = 0.1e-12
 C_STRAY = 1e-12
 F = np.logspace(-2, 9, 2200)
@@ -144,6 +145,8 @@ def main() -> None:
     for src in SOURCES:
         for rf in RFS:
             for a in amps.values():
+                if a.max_rf is not None and rf > a.max_rf * 1.0001:
+                    continue
                 rows.append(design_row(a, rf, src))
     (OUT / "designs.json").write_text(json.dumps(rows, indent=1))
     print(f"{len(rows)} designs written to {OUT}")

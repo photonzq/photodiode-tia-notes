@@ -228,7 +228,7 @@ REF_RE = re.compile(
     r"|\b(?P<kw>Sections?|Chapters?|Appendix|Appendices|Tables?|Figures?)\s+(?P<list>" + NUM + r"(?:" + SEP + NUM + r")*)")
 # a reference to another document: after a possessive or "its", after a page number, or inside an open citation
 # bracket ("[A22, Appendix A, ..."); pandoc turns ' into ’
-EXTERNAL_BEFORE = re.compile(r"(?:\w['’]s?|\b(?:its|their|his|her)|canceller as|\bp\.\s*\d+,?|\[[A-Z]\d+,[^\[\]]*)\s*$")
+EXTERNAL_BEFORE = re.compile(r"(?:\w['’]s?|\b(?:[Ii]ts|[Tt]heir|[Hh]is|[Hh]er)|canceller as|\bp\.\s*\d+,?|\[[A-Z]\d+,[^\[\]]*)\s*$")
 EXTERNAL_AFTER = re.compile(r"^\s*(?:in SBOA|\[A\d|of the companion|in the companion)")
 SKIP = {"a", "math", "code", "pre", "h1", "h2", "h3", "h4", "h5", "nav", "script", "style", "annotation", "title"}
 n_ref = n_eqref = n_external = 0

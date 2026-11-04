@@ -1,0 +1,19 @@
+The study's own dates dropped from the note at the user's request (4 November 2026): the notes are not time-sensitive.
+Dates that qualify data, such as datasheet revisions, stay. Applied with plain_wording_pass.py, then assemble_note.py.
+Usage: python plain_wording_pass.py undated_pairs.txt
+
+=== FILE 00_front.md f721df720a85
+
+=== OLD
+Design study and amplifier survey for weak light, November 2026.
+=== NEW
+Design study and amplifier survey for weak light.
+=== END
+
+=== FILE 12_appendix_b_e.md 4403f76b14b8
+
+=== OLD
+, design study and amplifier survey, October–November 2026.
+=== NEW
+, design study and amplifier survey.
+=== END

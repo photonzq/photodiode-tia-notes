@@ -509,7 +509,7 @@ def fig_noise(spice, stem):
     cols = (COLORS["neutral"], COLORS["grey_accent"], COLORS["warm_accent"], COLORS["cool_accent"])
     ax.plot(n[:, 0], n[:, 1] * 1e12, color=COLORS["primary"], lw=LW, label="SPICE, total")
     ax.plot(f, np.sqrt(sum(S.values())) * 1e12, color=COLORS["text"], lw=LW, ls=DASH,
-            label="Eq. (23) with the fitted terms")
+            label="Eq. (19) with the fitted terms")
     for (lab, v), c in zip(S.items(), cols):
         ax.plot(f, np.sqrt(v) * 1e12, color=c, lw=LW, ls=DOT if "Johnson" in lab or "e_n/R_F" in lab else "-", label=lab)
     pts = np.array(PARTS["OPA818"]["in_pts"])

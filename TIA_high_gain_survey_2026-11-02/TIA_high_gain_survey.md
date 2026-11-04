@@ -1,42 +1,43 @@
-# Operational amplifiers for high-gain photodiode transimpedance amplifiers: 100 kΩ to 1 GΩ, from DC to a few megahertz
+# Operational amplifiers for high-gain photodiode transimpedance amplifiers: 10 kΩ to 1 GΩ, from DC to tens of megahertz
 
-Design study and amplifier survey for weak light, November 2026.
+Design study and amplifier survey for weak light.
 
 > This note was created with significant AI assistance. It may contain errors, so check the cited datasheet pages, tables and scripts before relying on a figure. The note itself is dedicated to the public domain under CC0 1.0; no copyright is reserved. The manufacturers' SPICE model files are not covered: each remains under its vendor's terms (`spice/models/README.md`).
 
-> **Which note to read.** This note covers transimpedance amplifiers (TIAs) whose feedback resistor $R_F$ lies between 100 kΩ and 1 GΩ. That range serves signal photocurrents from about a picoampere to a few tens of microamperes, bandwidths from below a kilohertz to a few megahertz, and photodiodes of any material with capacitances from a few picofarads to several nanofarads. Its companion note, [*Operational amplifiers for a balanced-photodiode transimpedance amplifier: 1 pF, 1.5–2 kΩ, ≥ 150 MHz, 0.1–10 mA of DC photocurrent*](../TIA_opamp_survey_2026-10-25/TIA_opamp_survey.md), covers the opposite corner, where the photocurrent is large and the bandwidth is high. The photocurrent decides which note applies. Its shot noise equals the Johnson noise of the feedback resistor at $I = 2k_BT/(qR_F)$, which is 51.4 mV divided by $R_F$ at 25 °C (Eq. (2)). If the current you must handle is above about 10 µA and the bandwidth above about 10 MHz, the feedback resistor can only be a few kilohms, the light sets the noise floor, and the amplifier's stability and output swing decide the design; read the companion. If the signal is below about 10 µA, and certainly below 1 µA, the feedback resistor has to be 100 kΩ or more to keep its own noise below the signal's. Then the amplifier's input current, its voltage noise acting on the photodiode's capacitance, the photodiode's shunt resistance and the feedback resistor's own capacitance decide the design, and this note applies. Table 0 compares the two regimes.
+> **Which note to read.** This note covers transimpedance amplifiers (TIAs) whose feedback resistor $R_F$ lies between 10 kΩ and 1 GΩ. That range serves signal photocurrents from about a picoampere to a few hundred microamperes, bandwidths from below a kilohertz to about 100 MHz, and photodiodes of any material with capacitances from a few picofarads to several nanofarads. Its companion note, [*Operational amplifiers for a balanced-photodiode transimpedance amplifier: 1 pF, 1.5–2 kΩ, ≥ 150 MHz, 0.1–10 mA of DC photocurrent*](../TIA_opamp_survey_2026-10-25/TIA_opamp_survey.md), covers the corner of large photocurrent and high bandwidth, from 1.5 kΩ up to 10 kΩ, where the two notes meet. The photocurrent and the bandwidth decide which note applies. The photocurrent's shot noise equals the Johnson noise of the feedback resistor at $I = 2k_BT/(qR_F)$, which is 51.4 mV divided by $R_F$ at 25 °C (Eq. (2)). The bandwidth $B$ limits the resistor to at most $1/(2\pi BC_{par})$, which with 0.1 pF of parasitic capacitance is 10.6 kΩ at 150 MHz and 159 kΩ at 10 MHz (Eq. (4)). With tens of microamperes or more and a bandwidth above about 50 MHz, the feedback resistor is a few kilohms, the light sets the noise floor, and the amplifier's stability and output swing decide the design; read the companion. With a few microamperes or less, the feedback resistor must be 10 kΩ or more to keep its own noise below the signal's. Then the amplifier's voltage noise acting on the node capacitance and, as the gain rises, its input current, the photodiode's shunt resistance and the feedback resistor's own capacitance decide the design, and this note applies. At 10 kΩ both notes' analyses are evaluated, and they agree on the bandwidth of the fast parts they share within 2–15% (Section 6.9). Table 0 compares the two regimes.
 
 *Table 0. The two regimes. The entries for this note are derived in Chapters 1–6; those for the companion are its own conclusions.*
 
 | | This note | Companion note |
 |---|---|---|
-| Feedback resistor $R_F$ | 100 kΩ – 1 GΩ | 1.5–2 kΩ |
-| Photocurrent | about 1 pA to 50 µA, single diode | 0.1–10 mA DC in a balanced pair, small RF signal |
-| Bandwidth | below 1 kHz to a few MHz | at least 150 MHz |
+| Feedback resistor $R_F$ | 10 kΩ – 1 GΩ | 1.5–2 kΩ, extended to 10 kΩ |
+| Photocurrent | about 1 pA to a few hundred µA, single diode | 0.1–10 mA DC in a balanced pair, small RF signal; down to about 5 µA at 10 kΩ |
+| Bandwidth | below 1 kHz to about 100 MHz | at least 150 MHz; at 5–10 kΩ the resistor's own capacitance limits it to 80–160 MHz |
 | Photodiode | 1 pF to 4 nF; shunt resistance from about 1 kΩ to tens of GΩ | 1 pF for the pair |
 | What sets the noise floor | the Johnson noise of $R_F$, the diode's own shunt noise, and the amplifier's $e_n$ acting on the node capacitance | the shot noise of the DC photocurrent |
-| What limits the bandwidth | the amplifier's gain–bandwidth product on the node capacitance, and above a crossover gain the capacitance of $R_F$ itself | loop stability at a noise gain of only 7–12 |
+| What limits the bandwidth | the amplifier's gain–bandwidth product on the node capacitance, and above a crossover gain the capacitance of $R_F$ itself | loop stability at a noise gain of only 7–12 at 2 kΩ; from about 5 kΩ up the resistor's own capacitance |
 | What limits accuracy | the input bias current and leakage, and the offset multiplied by $1+R_F/R_{sh}$ | the output swing (the largest undistorted signal) |
-| Amplifier classes | precision JFET and CMOS op amps, electrometers, wideband FET op amps, discrete-JFET composites | fast decompensated bipolar and FET op amps |
+| Amplifier classes | precision JFET and CMOS op amps, electrometers, wideband FET op amps, discrete-JFET composites; at 10–100 kΩ also fast bipolar op amps | fast decompensated bipolar and FET op amps |
 
 Three facts organize the design of a high-gain TIA, and this note is built around them.
 
-The first is that the feedback resistor sets a noise floor that no amplifier can beat. Its Johnson noise current, $\sqrt{4k_BT/R_F}$, falls from 406 fA/√Hz at 100 kΩ to 4.06 fA/√Hz at 1 GΩ. Raising $R_F$ therefore lowers the floor, but it also lowers the largest current the output can carry and, through the resistor's own capacitance, the bandwidth. The right $R_F$ is the largest that keeps the output in range and leaves the bandwidth needed; any signal above $2k_BT/(qR_F)$ carries more shot noise than the resistor adds in any case.
+The first is that the feedback resistor sets a noise floor that no amplifier can beat. Its Johnson noise current, $\sqrt{4k_BT/R_F}$, falls from 1.28 pA/√Hz at 10 kΩ to 4.06 fA/√Hz at 1 GΩ. Raising $R_F$ therefore lowers the floor, but it also lowers the largest current the output can carry and, through the resistor's own capacitance, the bandwidth. The right $R_F$ is the largest that keeps the output in range and leaves the bandwidth needed; any signal above $2k_BT/(qR_F)$ carries more shot noise than the resistor adds in any case.
 
 The second is that the amplifier enters through three terms, and their weights change from one gain decade to the next. Its current noise matters once its power exceeds the resistor's, which happens above $R_{F,\mathrm{crit}} = 4k_BT/i_n^2$. Its voltage noise matters through the admittance of the summing node: at low frequency through the parallel resistance of $R_F$ and the photodiode's shunt resistance $R_{sh}$, and at high frequency through the total capacitance $C_T$ at the node. Its DC input current and offset voltage cause errors that grow with $R_F$ and with the low-frequency noise gain $1+R_F/R_{sh}$. The photodiode's material enters only through its capacitance, its shunt resistance and their temperature dependence.
 
 The third is that the bandwidth has two ceilings. The amplifier's is $\sqrt{GBW/(2\pi R_F C_T)}$, set by its gain–bandwidth product and the node capacitance. The resistor's is $1/(2\pi R_F C_{par})$, set by the resistor's own parasitic capacitance $C_{par}$, typically 0.05–0.2 pF. The second takes over above a crossover gain $R_F^* = C_T/(\pi\,GBW\,C_{par}^2)$, which is 16 MΩ for 10 pF and 20 MHz and 160 MΩ for 100 pF. In that regime the resistor does not behave as a lumped $R\parallel C$. It is a distributed RC line whose capacitance to the ground plane beneath it can cancel its end-to-end capacitance, or overturn it and make the response peak. This note therefore models the feedback resistor as a distributed line, and Section 3.4 explains how and why.
 
-The chapters follow these facts. Chapter 1 describes the circuit, the photodiode as the amplifier sees it, with examples from datasheets, and what each gain decade fixes before any amplifier is chosen. Chapter 2 derives the noise of the circuit exactly, term by term, and Chapter 3 its bandwidth, its stability and the behaviour of the feedback resistor. Chapter 4 maps which term dominates at each gain and frequency. Chapter 5 surveys 21 op amps and three discrete-JFET front ends by class, and Chapter 6 turns the results into a selection for each gain decade. Chapter 7 covers what lies beyond a single linear TIA: gain ranging, logarithmic amplifiers, switched integrators, and the point at which a detector with internal gain is the better answer. Chapter 8 deals with the DC errors, leakage and guarding that decide the accuracy at the highest gains. Chapter 9 checks the analysis against the manufacturers' SPICE models in ngspice and LTspice, and checks the approximate formulas of Chapter 3 against the full model. Chapter 10 gives the conclusions. The tables are collected in Appendix A, and Appendices B–E hold the methods, the open questions, the references and the files.
+The chapters follow these facts. Chapter 1 describes the circuit, the photodiode as the amplifier sees it, with examples from datasheets, and what each gain decade fixes before any amplifier is chosen. Chapter 2 derives the noise of the circuit exactly, term by term, and Chapter 3 its bandwidth, its stability and the behaviour of the feedback resistor. Chapter 4 maps which term dominates at each gain and frequency. Chapter 5 surveys 25 op amps and three discrete-JFET front ends by class, four of the op amps taken from the companion note for the lowest decades, and Chapter 6 turns the results into a selection for each gain decade, with Section 6.9 on 10 kΩ, where the two notes meet. Chapter 7 covers what lies beyond a single linear TIA: gain ranging, logarithmic amplifiers, switched integrators, and the point at which a detector with internal gain is the better answer. Chapter 8 deals with the DC errors, leakage and guarding that decide the accuracy at the highest gains. Chapter 9 checks the analysis against the manufacturers' SPICE models in ngspice and LTspice, and checks the approximate formulas of Chapter 3 against the full model. Chapter 10 gives the conclusions. The tables are collected in Appendix A, and Appendices B–E hold the methods, the open questions, the references and the files.
 
 The result, briefly, depends on the gain and on the photodiode's capacitance.
 
+- **At 10 kΩ**, where this note meets the companion, the floor is 1.28 pA/√Hz, and on a 20-pF photodiode the wideband parts reach 13–94 MHz, with the voltage noise on the node capacitance dominating the band (Section 6.9). Held to a common bandwidth, the wideband FET parts OPA818 and OPA858 are the quietest production parts up to about 10 MHz, 1.2–5.9 dB above the floor. At 30 MHz the low-noise bipolar LMH6629 and OPA855 overtake them, with 8.8–9.5 dB against 13.0–13.8 dB, at the cost of 0.24–0.37 V of DC output error at 85 °C from their bias current. OPA955 is quieter still, 0.9–5.6 dB, but exists only as a preproduction part.
 - **From 100 kΩ to 1 MΩ** the amplifier sets the bandwidth, and the voltage noise acting on the node capacitance dominates the upper part of the band. With a small photodiode, low-noise FET-input op amps such as OPA1656, OPA2156 and ADA4625-1 come within 2.5–3.6 dB of the resistor-and-diode floor at 0.3–1 MHz. OPA1656 and OPA2156, whose gain–bandwidths at high noise gain are 53 and 25 MHz, can instead reach wider bands with their smallest stable feedback capacitors: OPA1656 0.65–1.9 MHz at 5.8–6.0 dB, and OPA2156 0.39–1.26 MHz at 3.4–3.6 dB. Wideband FET parts such as OPA818, OPA657 and LTC6268-10 reach 1.3–18 MHz, but at 9.5–23 dB of excess noise. Bipolar inputs are out above a few kilohms and zero-drift parts above about 1 MΩ, because their current noise exceeds the resistor's above $R_{F,\mathrm{crit}}$: 5.7 kΩ for OPA211 and 1.65 MΩ for OPA388.
 - **At 10 MΩ** the two ceilings meet. The wideband FET parts reach the resistor's own limit, 150–180 kHz with 0.1 pF, at 2.3–8.0 dB of excess noise. The precision parts with 5–22 MHz of gain–bandwidth stop at 58–110 kHz.
 - **From 100 MΩ to 1 GΩ** the resistor's capacitance sets the bandwidth, at 16 kHz and 1.6 kHz with 0.1 pF. With a small photodiode the better FET-input parts come within 0.6–2.5 dB of the floor at 100 MΩ and within 0.3–1.7 dB at 1 GΩ. What separates the candidates is DC accuracy over temperature. At 1 GΩ and 85 °C the bias current and offset of a JFET part cost 0.3–1 V at the output, those of an electrometer (ADA4530-1, OPA928) 60–80 µV.
 - **With a large photodiode**, a few hundred picofarads to nanofarads, the voltage noise on the capacitance dominates at every gain up to 100 MΩ. Even the best monolithic parts sit 10–17 dB above the floor. A discrete low-noise JFET in front of an op amp removes about 11–18 dB of that term.
 - **When the photodiode's shunt resistance is below $R_F$**, as for extended-InGaAs or germanium diodes, the diode's own Johnson noise sets the floor, and the offset and the loss of bandwidth grow as $R_F/R_{sh}$. There $R_F$ should be no more than about ten times $R_{sh}$, and the amplifier should have low voltage noise rather than low current noise.
-- **For a signal at low frequency** the noise density at that frequency counts, not the band (Section 6.8). The capacitive term then fades: a large photodiode needs no composite, and from 10 MΩ up the electrometers come within 0.1 dB of the floor at 100 Hz, so their DC accuracy costs no noise. The 1/f corners decide only where the critical voltage noise of Eq. (30a) is small. On photodiodes with low shunt resistance ADA4625-1, OPA827 and OPA828 stay within 0.5 dB at 100 Hz while OPA1656 and OPA2156 do not, and at 100 kΩ the wideband parts lose up to 7.6 dB.
+- **For a signal at low frequency** the noise density at that frequency counts, not the band (Section 6.8). The capacitive term then fades: a large photodiode needs no composite, and from 10 MΩ up the electrometers come within 0.1 dB of the floor at 100 Hz, so their DC accuracy costs no noise. The 1/f corners decide only where the critical voltage noise of Eq. (30a) is small. On photodiodes with low shunt resistance ADA4625-1, OPA827 and OPA828 stay within 0.5 dB at 100 Hz while OPA1656 and OPA2156 do not, and at 100 kΩ the wideband parts lose up to 7.6 dB, at 10 kΩ up to 17 dB, while the fast bipolar parts lose up to 29 dB at 10 kΩ.
 - **The manufacturers' SPICE models confirm these results** (Chapter 9). For the precision parts they agree with the analytic model within 7% in bandwidth and 0.7 dB in excess noise. They also show one further rule: the amplifier's DC open-loop gain must exceed ten times the mid-band noise gain $(C_T + C_F)/C_F$. On large photodiodes at high gain that noise gain reaches thousands, and four of the wideband parts, with only 65–92 dB of open-loop gain, fail it.
 
 ---
@@ -116,7 +117,7 @@ I_x = \frac{2k_BT}{qR_F} = \frac{51.4\ \mathrm{mV}}{R_F}.
 \tag{2}
 $$
 
-At 25 °C, $2k_BT/q = 2\times25.69$ mV = 51.4 mV, so $I_x$ is 514 nA at 100 kΩ and 51.4 pA at 1 GΩ. Above $I_x$ the measurement is limited by the light, and a larger $R_F$ gains nothing in noise. Below $I_x$ the resistor dominates, and a larger $R_F$ helps as $\sqrt{R_F}$ in signal-to-noise ratio, because the signal grows as $R_F$ and the resistor's noise voltage as $\sqrt{R_F}$.
+At 25 °C, $2k_BT/q = 2\times25.69$ mV = 51.4 mV, so $I_x$ is 5.14 µA at 10 kΩ, 514 nA at 100 kΩ and 51.4 pA at 1 GΩ. Above $I_x$ the measurement is limited by the light, and a larger $R_F$ gains nothing in noise. Below $I_x$ the resistor dominates, and a larger $R_F$ helps as $\sqrt{R_F}$ in signal-to-noise ratio, because the signal grows as $R_F$ and the resistor's noise voltage as $\sqrt{R_F}$.
 
 **The full-scale current.** An output that can swing $V_{sw}$ carries at most
 
@@ -125,7 +126,7 @@ I_{\max} = \frac{V_{sw}}{R_F}.
 \tag{3}
 $$
 
-For a ±15-V part with 10 V of usable swing this is 100 µA at 100 kΩ and 10 nA at 1 GΩ. For a 5-V rail-to-rail part with about 2.4 V it is 24 µA and 2.4 nA. Any DC current, dark current or background light included, uses part of this range.
+For a ±15-V part with 10 V of usable swing this is 1 mA at 10 kΩ, 100 µA at 100 kΩ and 10 nA at 1 GΩ. For a 5-V rail-to-rail part with about 2.4 V it is 240 µA, 24 µA and 2.4 nA. Any DC current, dark current or background light included, uses part of this range.
 
 **The resistor's own bandwidth.** A resistor with parasitic capacitance $C_{par}$ across it has the pole
 
@@ -134,7 +135,7 @@ f_R = \frac{1}{2\pi R_FC_{par}}.
 \tag{4}
 $$
 
-A TIA cannot be faster than this unless its response is equalized afterwards (Section 3.5). The parasitic capacitance of a surface-mount resistor and its pads is of the order of 0.1 pF. Analog Devices uses 100 fF as "a practical minimum stray capacitance value" for resistors up to 1 TΩ (ADA4530-1 data sheet Rev. C, p. 39, Table 9) [D1]. Texas Instruments (TI) writes that the feedback resistor "has a parasitic shunt capacitance that may be as large as 0.2 pF" (SSZTBC4, p. 1) [A3], and older TI application notes, written for leaded resistors, use 0.4–0.5 pF (SBOA061, p. 2, Fig. 3; SBOA034, pp. 4 and 7) [A2, A1]. With 0.1 pF, $f_R$ is 15.9 MHz at 100 kΩ, 159 kHz at 10 MΩ and 1.59 kHz at 1 GΩ.
+A TIA cannot be faster than this unless its response is equalized afterwards (Section 3.5). The parasitic capacitance of a surface-mount resistor and its pads is of the order of 0.1 pF. Analog Devices uses 100 fF as "a practical minimum stray capacitance value" for resistors up to 1 TΩ (ADA4530-1 data sheet Rev. C, p. 39, Table 9) [D1]. Texas Instruments (TI) writes that the feedback resistor "has a parasitic shunt capacitance that may be as large as 0.2 pF" (SSZTBC4, p. 1) [A3], and older TI application notes, written for leaded resistors, use 0.4–0.5 pF (SBOA061, p. 2, Fig. 3; SBOA034, pp. 4 and 7) [A2, A1]. With 0.1 pF, $f_R$ is 159 MHz at 10 kΩ, 15.9 MHz at 100 kΩ, 159 kHz at 10 MΩ and 1.59 kHz at 1 GΩ.
 
 The four quantities combine into a result that holds at every gain. Over the bandwidth of the resistor's own pole, the Johnson noise of $R_F$ integrates to an output voltage of $\sqrt{k_BT/C_{par}}$, independent of $R_F$. The single-pole noise bandwidth is $(\pi/2)f_R = 1/(4R_FC_{par})$, so the output noise power is $(4k_BT/R_F)\,R_F^2/(4R_FC_{par}) = k_BT/C_{par}$. The DC dynamic range of a resistor-limited TIA over its full band is therefore
 
@@ -145,12 +146,13 @@ $$
 
 the same for every $R_F$. With $C_{par}$ = 0.1 pF, $\sqrt{k_BT/C_{par}} = \sqrt{4.116\times10^{-21}\ \mathrm{J}/10^{-13}\ \mathrm{F}}$ = 203 µV rms, so a 10-V swing gives $10\ \mathrm{V}/203\ \mu\mathrm{V} = 4.9\times10^{4}$, or 93.8 dB. Choosing $R_F$ moves this window of about five decades along the current axis, together with the bandwidth, but does not widen it. A wider window needs gain ranging or a logarithmic amplifier (Chapter 7).
 
-Table 2 evaluates Eqs. (1)–(4) for the five decades of this note, and Figure 2 plots the currents over a wider range of $R_F$, with the companion note's regime marked for comparison.
+Table 2 evaluates Eqs. (1)–(4) for the six decades of this note, and Figure 2 plots the currents over a wider range of $R_F$, with the companion note's regime marked for comparison.
 
 *Table 2. What each gain decade fixes: the resistor's noise floor, Eq. (1); the shot-noise crossover, Eq. (2); the full-scale current for 10 V and 2.4 V of swing, Eq. (3); and the resistor's own pole for 0.05, 0.1 and 0.2 pF, Eq. (4). 25 °C.*
 
 | $R_F$ | $\sqrt{4k_BT/R_F}$ | $I_x = 2k_BT/(qR_F)$ | $I_{\max}$ at 10 V | $I_{\max}$ at 2.4 V | $f_R$ at 0.05 / 0.1 / 0.2 pF |
 |---|---|---|---|---|---|
+| 10 kΩ | 1.28 pA/√Hz | 5.14 µA | 1 mA | 240 µA | 318 / 159 / 79.6 MHz |
 | 100 kΩ | 406 fA/√Hz | 514 nA | 100 µA | 24 µA | 31.8 / 15.9 / 7.96 MHz |
 | 1 MΩ | 128 fA/√Hz | 51.4 nA | 10 µA | 2.4 µA | 3.18 / 1.59 / 0.796 MHz |
 | 10 MΩ | 40.6 fA/√Hz | 5.14 nA | 1 µA | 240 nA | 318 / 159 / 79.6 kHz |
@@ -159,7 +161,7 @@ Table 2 evaluates Eqs. (1)–(4) for the five decades of this note, and Figure 2
 
 ![Figure 2](figures/fig1_current_window.png)
 
-*Figure 2. The current window of a TIA against its feedback resistance: the full-scale current for 10 V and 2.4 V of swing, Eq. (3); the current whose shot noise equals the resistor's Johnson noise, Eq. (2); and the resistor's Johnson noise in a 1-Hz band, Eq. (1). Above the red line the light's own noise dominates; between the red and green lines the resistor's noise does. The shaded band is the range of this note; the grey band at 1.5–2 kΩ is the companion note's.*
+*Figure 2. The current window of a TIA against its feedback resistance: the full-scale current for 10 V and 2.4 V of swing, Eq. (3); the current whose shot noise equals the resistor's Johnson noise, Eq. (2); and the resistor's Johnson noise in a 1-Hz band, Eq. (1). Above the red line the light's own noise dominates; between the red and green lines the resistor's noise does. The shaded band is the range of this note, 10 kΩ to 1 GΩ; the grey band is the companion note's, 1.5–10 kΩ, which meets it at 10 kΩ.*
 
 ### 1.4 Conventions of the analysis
 
@@ -214,7 +216,7 @@ e_n^2\,|Y_n|^2 = e_n^2\left[\left(\frac{1}{R_F} + \frac{1}{R_{sh}}\right)^2 + \b
 \tag{9}
 $$
 
-With $R_{sh}\to\infty$ and $I_D$ = 0 this is the companion note's Eq. (23), derived there for its own circuit. The rest of this chapter takes Eq. (8) term by term.
+With $R_{sh}\to\infty$ and $I_D$ = 0 this is the companion note's Eq. (19), derived there for its own circuit. The rest of this chapter takes Eq. (8) term by term.
 
 ### 2.2 The floor set by the feedback resistor and the photodiode
 
@@ -246,7 +248,7 @@ The second form is Eq. (2) with the bias current in place of the photocurrent: t
 - **A general-purpose CMOS part.** LMC662's data sheet gives 4 fA/√Hz at 1 kHz (Rev. D, p. 6) [D5]. Its revision history, however, states that this value replaced the earlier 0.0002 pA/√Hz, that is 0.2 fA/√Hz, "to align with modern noise test setup" (p. 23). The 4 fA/√Hz therefore describes the test setup rather than the part, and the model uses the earlier 0.2 fA/√Hz. Even that is conservative. A CMOS input without bias-current cancellation draws only the leakage currents $I_1$ and $I_2$ of its two input-protection diodes. They flow in opposite directions, so the bias current is their difference. Each, however, is a stream of independent charges with its own shot noise, and the noise powers add: $i_n = \sqrt{2q(|I_1| + |I_2|)}$. For LMC662's typical bias current of 2 fA (p. 6) this is $\sqrt{2\times1.602\times10^{-19}\ \mathrm{C}\times2\ \mathrm{fA}}$ = 0.025 fA/√Hz if one diode dominates, and 0.057 fA/√Hz if the two leak 10 fA together. With 0.2 fA/√Hz, $R_{F,\mathrm{crit}}$ is 412 GΩ, so LMC662's current noise is negligible at every gain of this note.
 - **Low-noise CMOS audio-class parts.** OPA1656 specifies 6 fA/√Hz and OPA2156 19 fA/√Hz at 1 kHz [D11, D12], giving 457 MΩ and 46 MΩ.
 - **Zero-drift and auto-zero parts.** OPA388 specifies 100 fA/√Hz at 1 kHz and OPA381 20 fA/√Hz at 10 kHz [D15, D14], giving 1.65 MΩ and 41 MΩ. A plausible mechanism is the charge that the input switches inject at every clock cycle, but the datasheets give only the values.
-- **Bipolar parts.** OPA211 specifies 1.7 pA/√Hz at 1 kHz [D17], so $R_{F,\mathrm{crit}}$ = 5.7 kΩ: a bipolar input is unsuitable for any gain of this note, except where the photodiode's own shunt resistance is a few kilohms (Section 6.6).
+- **Bipolar parts.** OPA211 specifies 1.7 pA/√Hz at 1 kHz [D17], so $R_{F,\mathrm{crit}}$ = 5.7 kΩ: a bipolar input is unsuitable from 100 kΩ up, except where the photodiode's own shunt resistance is a few kilohms (Section 6.6). At 10 kΩ OPA211's current noise adds $10\log_{10}(1 + R_F/R_{F,\mathrm{crit}})$ = $10\log_{10}(1 + 1.75)$ = 4.4 dB to the resistor's noise, and the low voltage noise of bipolar parts can outweigh their current noise in wide bands (Section 6.9).
 
 *Frequency dependence.* The datasheet current noise of FET-input parts rises at high frequency. For LTC6268-10 it is 7 fA/√Hz at 100 kHz and about 0.18 pA/√Hz at 1 MHz and 0.89 pA/√Hz at 10 MHz; for OPA818 it is 3 fA/√Hz at 10 kHz and 145 fA/√Hz at 1 MHz, from a curve its datasheet labels as simulated. These values are taken from the companion note's records of the two datasheets (its data/specs files) [D18, D20]. Part of this rise is the input transistors' channel noise coupled through their gate capacitance, which Eq. (8) already counts in $e_n\,\omega C_T$, since $C_T$ includes $C_{CM}$ and $C_{DIFF}$. The model adds the datasheet curve as well, which may count that part twice and therefore errs on the pessimistic side. For parts without a curve, $i_n$ is held at its specified value. Below the first point of a curve that starts above 1 kHz and rises, as for the wideband parts, the model continues the rise downwards with the slope from the first point to the first point at least a decade above it. It adds in quadrature the shot noise of the typical bias current, $\sqrt{2qI_{B,\mathrm{typ}}}$, because the shot noise of the gate current is the floor below which the current noise of a FET input cannot fall. Holding the first point flat down to DC instead would overstate the noise at high gain. For OPA818 the floor is 1.1 fA/√Hz, against the 3 fA/√Hz specified at 10 kHz, and at 1 GΩ it lowers the excess noise from 1.5 to 0.5 dB (Section 9.8). The rise matters only at 100 kΩ to 10 MΩ with megahertz bandwidths. OPA818's 145 fA/√Hz at 1 MHz, for example, exceeds the 128 fA/√Hz of a 1-MΩ resistor.
 
@@ -311,7 +313,7 @@ $$
 \tag{16}
 $$
 
-with $f_1$ = 1 Hz and $f_{-3\,\mathrm{dB}}$ the −3 dB bandwidth of the design. $\Delta N$ = 0 dB means that the amplifier adds nothing, and 3 dB that it doubles the noise power. The companion note uses the same form with only $R_F$ in the denominator (its Section 4.6). Here the photodiode's shunt noise is included because, at the highest gains, it is part of the floor, and an amplifier should not be blamed for it.
+with $f_1$ = 1 Hz and $f_{-3\,\mathrm{dB}}$ the −3 dB bandwidth of the design. $\Delta N$ = 0 dB means that the amplifier adds nothing, and 3 dB that it doubles the noise power. The companion note uses the same form with only $R_F$ in the denominator (its Section 3.6). Here the photodiode's shunt noise is included because, at the highest gains, it is part of the floor, and an amplifier should not be blamed for it.
 
 ---
 
@@ -639,13 +641,13 @@ Five regions appear, and each has a boundary given by an equation of Chapters 2�
 
 The fifth term, the voltage noise on the conductance (purple), appears only in the bottom-left corner of both maps. There the flicker noise of ADA4625-1 below 1 Hz meets the small conductance of a 10-kΩ resistor. For this amplifier it never matters within the band. It does matter for a CMOS amplifier on a low-shunt-resistance photodiode (Table 4b).
 
-### 4.2 Noise spectra of the five gain decades
+### 4.2 Noise spectra of the six gain decades
 
-Figure 11 shows the input-referred noise density itself, for the five gain decades, with ADA4625-1 on the 380-pF silicon photodiode. Each curve is flat at the floor of Eq. (10) at low frequency (dashed), turns up at $f_e$, and rises as $f$ above it, along a single asymptote $e_n\,2\pi f\,C_T$ that is the same for every gain. The circles mark the bandwidth of each design. Raising $R_F$ by a decade lowers the floor by $\sqrt{10}$ but moves $f_e$ down by $\sqrt{10}$ as well, and the bandwidth down by $\sqrt{10}$ while the amplifier limits it. The band of every design up to 100 MΩ therefore ends in the same position relative to the asymptote, about 5.5 times above $f_e$ (Eq. (21) gives $f_e/f_{-3\,\mathrm{dB}}$ = 0.18), so the voltage noise dominates every one of them.
+Figure 11 shows the input-referred noise density itself, for the six gain decades, with ADA4625-1 on the 380-pF silicon photodiode. Each curve is flat at the floor of Eq. (10) at low frequency (dashed), turns up at $f_e$, and rises as $f$ above it, along a single asymptote $e_n\,2\pi f\,C_T$ that is the same for every gain. Only the 10-kΩ curve rises again below about 10 Hz, where the amplifier's flicker noise acts on the conductance $1/R_F$ (Section 6.8). The circles mark the bandwidth of each design. Raising $R_F$ by a decade lowers the floor by $\sqrt{10}$ but moves $f_e$ down by $\sqrt{10}$ as well, and the bandwidth down by $\sqrt{10}$ while the amplifier limits it. The band of every design up to 100 MΩ therefore ends in the same position relative to the asymptote, about 5.5 times above $f_e$ (Eq. (21) gives $f_e/f_{-3\,\mathrm{dB}}$ = 0.18), so the voltage noise dominates every one of them.
 
 ![Figure 11](figures/fig5_noise_spectra.png)
 
-*Figure 11. Input-referred noise density of a TIA with ADA4625-1 on a 380-pF, 0.4-GΩ silicon photodiode (S1336-8BK) at $R_F$ = 100 kΩ to 1 GΩ. Solid: total, Eq. (8). Dashed: the floor of Eq. (10). Circles: the −3 dB bandwidth of each design.*
+*Figure 11. Input-referred noise density of a TIA with ADA4625-1 on a 380-pF, 0.4-GΩ silicon photodiode (S1336-8BK) at $R_F$ = 10 kΩ to 1 GΩ. Solid: total, Eq. (8). Dashed: the floor of Eq. (10). Circles: the −3 dB bandwidth of each design.*
 
 ### 4.3 How much each term contributes
 
@@ -653,23 +655,23 @@ Table 4a gives the two largest terms in the band of each design, and their share
 
 *Table 4a. The two largest terms of Eq. (8) in the band [1 Hz, $f_{-3\,\mathrm{dB}}$] and their shares of the noise power, with the bandwidth of the design; "R" marks a resistor-limited design. ADA4625-1, $C_{par}$ = 0.1 pF. `hg_analysis.py`, `hg_tables.py`.*
 
-| Photodiode | 100 kΩ | 1 MΩ | 10 MΩ | 100 MΩ | 1 GΩ |
-|---|---|---|---|---|---|
-| S1336-18BK (Si, 20 pF, 2 GΩ) | $e_n\,\omega C$ 56%, $R_F$ 44%; 878 kHz | $e_n\,\omega C$ 55%, $R_F$ 45%; 284 kHz | $e_n\,\omega C$ 54%, $R_F$ 45%; 90.8 kHz | $R_F$ 53%, $e_n\,\omega C$ 38%; 22 kHz R | $i_n$ 44%, $R_F$ 36%; 1.67 kHz R |
-| G12180-010A (InGaAs, 55 pF, 125 MΩ) | $e_n\,\omega C$ 69%, $R_F$ 31%; 644 kHz | $e_n\,\omega C$ 68%, $R_F$ 31%; 206 kHz | $e_n\,\omega C$ 67%, $R_F$ 30%; 65.8 kHz | $e_n\,\omega C$ 53%, $R_F$ 24%; 20.8 kHz | diode $R_{sh}$ 77%, $i_n$ 12%; 1.71 kHz R |
-| S1336-8BK (Si, 380 pF, 0.4 GΩ) | $e_n\,\omega C$ 92%, $R_F$ 8%; 284 kHz | $e_n\,\omega C$ 92%, $R_F$ 8%; 90.8 kHz | $e_n\,\omega C$ 92%, $R_F$ 8%; 28.7 kHz | $e_n\,\omega C$ 89%, $R_F$ 8%; 9.07 kHz | $e_n\,\omega C$ 59%, diode $R_{sh}$ 22%; 2.2 kHz R |
-| G12180-050A (InGaAs, 1 nF, 6.5 MΩ) | $e_n\,\omega C$ 97%, $R_F$ 3%; 179 kHz | $e_n\,\omega C$ 96%, $R_F$ 3%; 56.6 kHz | $e_n\,\omega C$ 92%, diode $R_{sh}$ 5%; 17.9 kHz | $e_n\,\omega C$ 64%, diode $R_{sh}$ 34%; 5.66 kHz | diode $R_{sh}$ 83%, $e_n\,\omega C$ 16%; 1.79 kHz |
-| G12183-010K (InGaAs to 2.6 µm, 500 pF, 14 kΩ) | $e_n\,\omega C$ 64%, diode $R_{sh}$ 30%; 250 kHz | diode $R_{sh}$ 79%, $e_n\,\omega C$ 16%; 79.1 kHz | diode $R_{sh}$ 93%, $e_n/(R_F\parallel R_{sh})$ 4%; 25.3 kHz | diode $R_{sh}$ 95%, $e_n/(R_F\parallel R_{sh})$ 5%; 2.38 kHz R | diode $R_{sh}$ 94%, $e_n/(R_F\parallel R_{sh})$ 6%; 222 Hz R |
+| Photodiode | 10 kΩ | 100 kΩ | 1 MΩ | 10 MΩ | 100 MΩ | 1 GΩ |
+|---|---|---|---|---|---|---|
+| S1336-18BK (Si, 20 pF, 2 GΩ) | $e_n\,\omega C$ 57%, $R_F$ 40%; 2.62 MHz | $e_n\,\omega C$ 56%, $R_F$ 44%; 878 kHz | $e_n\,\omega C$ 55%, $R_F$ 45%; 284 kHz | $e_n\,\omega C$ 54%, $R_F$ 45%; 90.8 kHz | $R_F$ 53%, $e_n\,\omega C$ 38%; 22 kHz R | $i_n$ 44%, $R_F$ 36%; 1.67 kHz R |
+| G12180-010A (InGaAs, 55 pF, 125 MΩ) | $e_n\,\omega C$ 70%, $R_F$ 28%; 1.97 MHz | $e_n\,\omega C$ 69%, $R_F$ 31%; 644 kHz | $e_n\,\omega C$ 68%, $R_F$ 31%; 206 kHz | $e_n\,\omega C$ 67%, $R_F$ 30%; 65.8 kHz | $e_n\,\omega C$ 53%, $R_F$ 24%; 20.8 kHz | diode $R_{sh}$ 77%, $i_n$ 12%; 1.71 kHz R |
+| S1336-8BK (Si, 380 pF, 0.4 GΩ) | $e_n\,\omega C$ 92%, $R_F$ 8%; 878 kHz | $e_n\,\omega C$ 92%, $R_F$ 8%; 284 kHz | $e_n\,\omega C$ 92%, $R_F$ 8%; 90.8 kHz | $e_n\,\omega C$ 92%, $R_F$ 8%; 28.7 kHz | $e_n\,\omega C$ 89%, $R_F$ 8%; 9.07 kHz | $e_n\,\omega C$ 59%, diode $R_{sh}$ 22%; 2.2 kHz R |
+| G12180-050A (InGaAs, 1 nF, 6.5 MΩ) | $e_n\,\omega C$ 97%, $R_F$ 3%; 560 kHz | $e_n\,\omega C$ 97%, $R_F$ 3%; 179 kHz | $e_n\,\omega C$ 96%, $R_F$ 3%; 56.6 kHz | $e_n\,\omega C$ 92%, diode $R_{sh}$ 5%; 17.9 kHz | $e_n\,\omega C$ 64%, diode $R_{sh}$ 34%; 5.66 kHz | diode $R_{sh}$ 83%, $e_n\,\omega C$ 16%; 1.79 kHz |
+| G12183-010K (InGaAs to 2.6 µm, 500 pF, 14 kΩ) | $e_n\,\omega C$ 89%, $R_F$ 6%; 774 kHz | $e_n\,\omega C$ 64%, diode $R_{sh}$ 30%; 250 kHz | diode $R_{sh}$ 79%, $e_n\,\omega C$ 16%; 79.1 kHz | diode $R_{sh}$ 93%, $e_n/(R_F\parallel R_{sh})$ 4%; 25.3 kHz | diode $R_{sh}$ 95%, $e_n/(R_F\parallel R_{sh})$ 5%; 2.38 kHz R | diode $R_{sh}$ 94%, $e_n/(R_F\parallel R_{sh})$ 6%; 222 Hz R |
 
 *Table 4b. As Table 4a, for the electrometer ADA4530-1.*
 
-| Photodiode | 100 kΩ | 1 MΩ | 10 MΩ | 100 MΩ | 1 GΩ |
-|---|---|---|---|---|---|
-| S1336-18BK (Si, 20 pF, 2 GΩ) | $e_n\,\omega C$ 64%, $R_F$ 32%; 322 kHz | $e_n\,\omega C$ 64%, $R_F$ 36%; 109 kHz | $e_n\,\omega C$ 63%, $R_F$ 37%; 35.3 kHz | $e_n\,\omega C$ 63%, $R_F$ 36%; 11.3 kHz | $R_F$ 45%, $e_n\,\omega C$ 32%; 2.03 kHz R |
-| G12180-010A (InGaAs, 55 pF, 125 MΩ) | $e_n\,\omega C$ 79%, $R_F$ 19%; 226 kHz | $e_n\,\omega C$ 79%, $R_F$ 21%; 73.8 kHz | $e_n\,\omega C$ 77%, $R_F$ 21%; 23.6 kHz | $e_n\,\omega C$ 69%, $R_F$ 17%; 7.55 kHz | diode $R_{sh}$ 61%, $e_n\,\omega C$ 31%; 2.25 kHz R |
-| S1336-8BK (Si, 380 pF, 0.4 GΩ) | $e_n\,\omega C$ 96%, $R_F$ 4%; 95.1 kHz | $e_n\,\omega C$ 96%, $R_F$ 4%; 30.8 kHz | $e_n\,\omega C$ 96%, $R_F$ 4%; 9.61 kHz | $e_n\,\omega C$ 95%, $R_F$ 4%; 3.04 kHz | $e_n\,\omega C$ 92%, diode $R_{sh}$ 6%; 960 Hz |
-| G12180-050A (InGaAs, 1 nF, 6.5 MΩ) | $e_n\,\omega C$ 98%, $R_F$ 2%; 59.3 kHz | $e_n\,\omega C$ 98%, $R_F$ 2%; 19 kHz | $e_n\,\omega C$ 96%, diode $R_{sh}$ 2%; 5.99 kHz | $e_n\,\omega C$ 82%, diode $R_{sh}$ 17%; 1.89 kHz | diode $R_{sh}$ 52%, $e_n\,\omega C$ 48%; 606 Hz |
-| G12183-010K (InGaAs to 2.6 µm, 500 pF, 14 kΩ) | $e_n\,\omega C$ 65%, $e_n/(R_F\parallel R_{sh})$ 17%; 83.8 kHz | diode $R_{sh}$ 41%, $e_n/(R_F\parallel R_{sh})$ 41%; 27.1 kHz | $e_n/(R_F\parallel R_{sh})$ 63%, diode $R_{sh}$ 36%; 3.14 kHz R | $e_n/(R_F\parallel R_{sh})$ 88%, diode $R_{sh}$ 12%; 280 Hz R | $e_n/(R_F\parallel R_{sh})$ 97%, diode $R_{sh}$ 3%; 28 Hz R |
+| Photodiode | 10 kΩ | 100 kΩ | 1 MΩ | 10 MΩ | 100 MΩ | 1 GΩ |
+|---|---|---|---|---|---|---|
+| S1336-18BK (Si, 20 pF, 2 GΩ) | $e_n\,\omega C$ 55%, $e_n/(R_F\parallel R_{sh})$ 25%; 888 kHz | $e_n\,\omega C$ 64%, $R_F$ 32%; 322 kHz | $e_n\,\omega C$ 64%, $R_F$ 36%; 109 kHz | $e_n\,\omega C$ 63%, $R_F$ 37%; 35.3 kHz | $e_n\,\omega C$ 63%, $R_F$ 36%; 11.3 kHz | $R_F$ 45%, $e_n\,\omega C$ 32%; 2.03 kHz R |
+| G12180-010A (InGaAs, 55 pF, 125 MΩ) | $e_n\,\omega C$ 71%, $e_n/(R_F\parallel R_{sh})$ 16%; 636 kHz | $e_n\,\omega C$ 79%, $R_F$ 19%; 226 kHz | $e_n\,\omega C$ 79%, $R_F$ 21%; 73.8 kHz | $e_n\,\omega C$ 77%, $R_F$ 21%; 23.6 kHz | $e_n\,\omega C$ 69%, $R_F$ 17%; 7.55 kHz | diode $R_{sh}$ 61%, $e_n\,\omega C$ 31%; 2.25 kHz R |
+| S1336-8BK (Si, 380 pF, 0.4 GΩ) | $e_n\,\omega C$ 92%, $e_n/(R_F\parallel R_{sh})$ 4%; 284 kHz | $e_n\,\omega C$ 96%, $R_F$ 4%; 95.1 kHz | $e_n\,\omega C$ 96%, $R_F$ 4%; 30.8 kHz | $e_n\,\omega C$ 96%, $R_F$ 4%; 9.61 kHz | $e_n\,\omega C$ 95%, $R_F$ 4%; 3.04 kHz | $e_n\,\omega C$ 92%, diode $R_{sh}$ 6%; 960 Hz |
+| G12180-050A (InGaAs, 1 nF, 6.5 MΩ) | $e_n\,\omega C$ 97%, $e_n/(R_F\parallel R_{sh})$ 2%; 179 kHz | $e_n\,\omega C$ 98%, $R_F$ 2%; 59.3 kHz | $e_n\,\omega C$ 98%, $R_F$ 2%; 19 kHz | $e_n\,\omega C$ 96%, diode $R_{sh}$ 2%; 5.99 kHz | $e_n\,\omega C$ 82%, diode $R_{sh}$ 17%; 1.89 kHz | diode $R_{sh}$ 52%, $e_n\,\omega C$ 48%; 606 Hz |
+| G12183-010K (InGaAs to 2.6 µm, 500 pF, 14 kΩ) | $e_n\,\omega C$ 87%, $e_n/(R_F\parallel R_{sh})$ 9%; 253 kHz | $e_n\,\omega C$ 65%, $e_n/(R_F\parallel R_{sh})$ 17%; 83.8 kHz | diode $R_{sh}$ 41%, $e_n/(R_F\parallel R_{sh})$ 41%; 27.1 kHz | $e_n/(R_F\parallel R_{sh})$ 63%, diode $R_{sh}$ 36%; 3.14 kHz R | $e_n/(R_F\parallel R_{sh})$ 88%, diode $R_{sh}$ 12%; 280 Hz R | $e_n/(R_F\parallel R_{sh})$ 97%, diode $R_{sh}$ 3%; 28 Hz R |
 
 Four observations summarize the tables.
 
@@ -682,9 +684,9 @@ Four observations summarize the tables.
 
 ## 5. The amplifier classes
 
-The 21 op amps of this survey fall into six classes, and three discrete JFETs stand for a seventh, the composite front end. Table 5 summarizes them by the quantities of Chapters 2 and 3, and Table A.1 gives every value with its datasheet page. The parts are examples of their classes, chosen from what was available as a datasheet, not an exhaustive market scan.
+The 25 op amps of this survey fall into seven classes, and three discrete JFETs stand for an eighth, the composite front end. Four of the op amps, OPA858, OPA855, OPA955 and LMH6629, are taken from the companion note's records for the 10-kΩ and 100-kΩ decades (Section 6.9). Table 5 summarizes them by the quantities of Chapters 2 and 3, and Table A.1 gives every value with its datasheet page. The parts are examples of their classes, chosen from what was available as a datasheet, not an exhaustive market scan.
 
-*Table 5. The amplifier classes by the quantities that matter for a high-gain TIA (typical values at 25 °C from Table A.1). $R_{F,\mathrm{crit}}$ is Eq. (11) and $R_{opt}$ Eq. (14), the latter with $e_n$ at 1 kHz or the nearest specified frequency. $A_0$ is the DC open-loop gain, which must exceed ten times the mid-band noise gain (Section 3.1).*
+*Table 5. The amplifier classes by the quantities that matter for a high-gain TIA (typical values at 25 °C from Table A.1). $R_{F,\mathrm{crit}}$ is Eq. (11) and $R_{opt}$ Eq. (14), the latter with $e_n$ at 1 kHz or the nearest specified frequency. $A_0$ is the DC open-loop gain, which must exceed ten times the mid-band noise gain (Section 3.1). For the wideband bipolar parts, whose current noise rises below about 100 kHz, $i_n$, $R_{F,\mathrm{crit}}$ and $R_{opt}$ are given at the white level above 1 MHz.*
 
 | Class | Examples | $e_n$, white (nV/√Hz) | $i_n$ (fA/√Hz) | $C_{CM}+C_{DIFF}$ (pF) | $I_B$ max, 25 °C / 85 °C | $GBW$ (MHz) | $A_0$ (dB) | $R_{F,\mathrm{crit}}$ | $R_{opt}$ |
 |---|---|---|---|---|---|---|---|---|---|
@@ -692,9 +694,10 @@ The 21 op amps of this survey fall into six classes, and three discrete JFETs st
 | Cancelled-bias CMOS | LMP7721 | 6.5 | 10 | not given | 20 fA / 0.9 pA | 17 | 111 | 165 MΩ | 0.65 MΩ |
 | Precision JFET | ADA4625-1, OPA828, OPA827, OPA140, OPA145 | 3.3–7 | 0.8–4.5 | 9–20 | 8–75 pA / 0.3–1 nA | 5.5–45 | 123–150 | 0.8–26 GΩ | 0.7–9 MΩ |
 | Low-noise CMOS | OPA1656, OPA2156, OPA320 | 2.9–7 at 10 kHz | 0.6–19 | 9–11 | 0.9–40 pA / 0.05–1.5 nA | 20–53 | 132–154 | 0.05–46 GΩ | 0.2–14 MΩ |
-| Wideband FET | OPA656, OPA657, OPA818, ADA4817-1, LTC6268-10 | 2.2–6 | 1.3–16 at 0.1 MHz, rising | 0.55–5.2 | 20 fA–25 pA / 0.9 pA–5 nA | 230–4000 | 65–108 | 0.3–10 GΩ | 0.6–3.7 MΩ |
+| Wideband FET | OPA656, OPA657, OPA818, ADA4817-1, LTC6268-10, OPA858 | 2.2–6 | 1.3–16 at 0.1 MHz, rising | 0.55–5.2 | 20 fA–25 pA / 0.9 pA–5 nA | 230–5500 | 65–108 | 0.3–63 GΩ | 0.6–49 MΩ |
 | Zero-drift and auto-zero CMOS | OPA388, OPA381 | 7; 70 at 10 kHz for OPA381 | 20–100 | 3.5–6.5 | 50–350 pA / 0.4–3 nA | 10–18 | 135–148 | 1.65–41 MΩ | 70 kΩ–3.5 MΩ |
 | Bipolar | OPA211 | 1.1 | 1700 | 10 | 175 nA / 190 nA | 45 | 110 | 5.7 kΩ | 650 Ω |
+| Wideband bipolar | OPA855, OPA955, LMH6629 | 0.69–0.99 | 550–2600 above 1 MHz | 0.8–5.7 | 5–23 µA / 10–37 µA | 4000–11000 | 76–78 | 2.4–54 kΩ | 0.27–1.4 kΩ |
 | Discrete-JFET composite | IF3601, LSK170, BF862 + op amp | 0.35–0.9 | from gate current, ≤ 6–18 | 12–710 | 0.1–1 nA (maxima) | set by the design | set by the design | ≥ 51 MΩ at the maxima | – |
 
 ### 5.1 CMOS electrometers
@@ -720,7 +723,7 @@ The low-noise CMOS op amps match the voltage noise of the best JFET parts at 10 
 
 ### 5.5 Wideband FET op amps
 
-The wideband FET op amps are built for speed: they give the widest bandwidth at the lowest gains, and as the gain rises they are the first to reach the resistor's own pole (Section 3.2). OPA656, OPA657, OPA818, ADA4817-1 and LTC6268-10 offer 230 MHz to 4 GHz of gain–bandwidth with 0.55–5.2 pF of input capacitance [D16, D19, D20, D21, D18]. OPA657, OPA818 and LTC6268-10 are decompensated, stable only above a noise gain of 7 or 10, which every design of this note exceeds (Section 3.1). Their white voltage noise is 2.2–6 nV/√Hz, but their flicker corners lie at 1–50 kHz. OPA818 has 8.4 nV/√Hz at 1 kHz. For LTC6268-10, its 0.1–10 Hz noise of 12.6 µV peak to peak implies about 28 nV/√Hz at 1 kHz, an estimate explained in Appendix B.1. Their current noise rises with frequency (Section 2.3). Their bias currents are picoamperes at 25 °C, nanoamperes at 85 °C, except LTC6268-10, a CMOS part, with 20 fA and 0.9 pA. They give the widest bandwidth at 100 kΩ to 1 MΩ, at a high noise cost (Section 6.1). At 10 MΩ and above they reach the resistor's ceiling, and with a small photodiode they come close to the floor there (Sections 6.3–6.4). Their DC open-loop gains are low: 65–92 dB for OPA656, OPA657, OPA818 and ADA4817-1, and 108 dB for LTC6268-10 (Table A.1). On large photodiodes at high gain, where the mid-band noise gain reaches thousands, the first four fail the condition of Section 3.1 and lose bandwidth, and Tables 6.1–6.5 leave those designs out. ADA4817-1 fails it on every photodiode from 1 MΩ up.
+The wideband FET op amps are built for speed: they give the widest bandwidth at the lowest gains, and as the gain rises they are the first to reach the resistor's own pole (Section 3.2). OPA656, OPA657, OPA818, ADA4817-1 and LTC6268-10 offer 230 MHz to 4 GHz of gain–bandwidth with 0.55–5.2 pF of input capacitance [D16, D19, D20, D21, D18]. OPA858, a CMOS part taken from the companion note for the 10-kΩ and 100-kΩ decades, offers 5.5 GHz with 0.82 pF and 5 pA of maximum bias current [D32]. OPA657, OPA818 and LTC6268-10 are decompensated, stable only above a noise gain of 7 or 10, which every design of this note exceeds (Section 3.1). Their white voltage noise is 2.2–6 nV/√Hz, but their flicker corners lie at 1–50 kHz. OPA818 has 8.4 nV/√Hz at 1 kHz. For LTC6268-10, its 0.1–10 Hz noise of 12.6 µV peak to peak implies about 28 nV/√Hz at 1 kHz, an estimate explained in Appendix B.1. Their current noise rises with frequency (Section 2.3). Their bias currents are picoamperes at 25 °C, nanoamperes at 85 °C, except LTC6268-10, a CMOS part, with 20 fA and 0.9 pA. They give the widest bandwidth at 100 kΩ to 1 MΩ, at a high noise cost (Section 6.1). At 10 MΩ and above they reach the resistor's ceiling, and with a small photodiode they come close to the floor there (Sections 6.3–6.4). Their DC open-loop gains are low: 65–92 dB for OPA656, OPA657, OPA818 and ADA4817-1, and 108 dB for LTC6268-10 (Table A.1). On large photodiodes at high gain, where the mid-band noise gain reaches thousands, the first four fail the condition of Section 3.1 and lose bandwidth, and Tables 6.1–6.5 leave those designs out. ADA4817-1 fails it on every photodiode from 1 MΩ up.
 
 ### 5.6 Zero-drift and auto-zero op amps
 
@@ -729,6 +732,8 @@ Zero-drift and auto-zero op amps are built for the smallest offset, which matter
 ### 5.7 Bipolar op amps
 
 A bipolar input has the lowest voltage noise of the op amps in this survey, but the shot noise of its base current gives it by far the largest current noise. OPA211 has 1.1 nV/√Hz at 1 kHz but 1.7 pA/√Hz and 175 nA of maximum bias current (p. 8) [D17]. Its optimum source resistance of 650 Ω is two to six orders of magnitude below the node impedances of this note. It has a place only on photodiodes with a shunt resistance of a few kilohms at the lowest gain, where its voltage noise competes with the diode's own noise. Even there the low-noise FET parts are as good (Section 6.6).
+
+Three wideband bipolar parts of the companion note, OPA855, OPA955 and LMH6629, serve the 10-kΩ and 100-kΩ decades [D33, D34, D35]. They combine 0.69–0.99 nV/√Hz of voltage noise with 4–11 GHz of gain–bandwidth and 0.8–5.7 pF of input capacitance, and they are decompensated, stable above a noise gain of 7 or 10, which every design at these gains exceeds. Above 1 MHz the current noise of OPA855 and LMH6629 is 2.5–2.6 pA/√Hz, so that $R_{F,\mathrm{crit}}$ = 2.4–2.6 kΩ, and that of OPA955 is 0.55 pA/√Hz, so that $R_{F,\mathrm{crit}}$ = 54 kΩ; below about 100 kHz it rises as $1/f$. Their maximum bias currents are 5–23 µA at 25 °C. At 10 kΩ their low voltage noise wins in bands of tens of megahertz despite their current noise, while at 100 kΩ only OPA955 remains competitive (Section 6.9). OPA955's data sheet is Advance Information, for a preproduction part.
 
 ### 5.8 Discrete-JFET composites
 
@@ -770,12 +775,13 @@ OPT101 integrates a 2.29 × 2.29 mm photodiode with a TIA and a 1-MΩ feedback r
 
 ## 6. Selection by gain range
 
-This chapter turns Chapters 2–5 into a choice for each gain decade. Table 6 is the summary. Sections 6.1–6.5 give the reasons and the numbers for each decade, and Sections 6.6 and 6.7 treat the two kinds of photodiode that change the rules: those with low shunt resistance and those with large capacitance. Section 6.8 asks what changes when the signal sits at low frequency, where the band integral no longer describes the measurement. Every number comes from the sweep of Appendix B: 21 op amps and three composites, five photodiodes and five gains, each design with the smallest feedback capacitance that keeps it within 0.1 dB of maximally flat, $C_{par}$ = 0.1 pF and 1 pF of board capacitance. The excess noise $\Delta N$ of Eq. (16) is measured against the resistor-plus-diode floor over each design's own band. DC errors are output errors from the maximum bias current and offset, at 25 °C and 85 °C. The room-temperature part of a DC error can be removed by subtracting a dark reading; its change with temperature cannot, unless the dark reading is repeated in operation. Tables 6.1–6.5 leave out the designs whose DC open-loop gain is less than ten times their mid-band noise gain (Section 3.1). Their narrow bandwidth, not low noise, would otherwise rank them among the quietest. Table A.3 marks them with "A".
+This chapter turns Chapters 2–5 into a choice for each gain decade. Table 6 is the summary. Sections 6.1–6.5 give the reasons and the numbers for each decade from 100 kΩ up, and Sections 6.6 and 6.7 treat the two kinds of photodiode that change the rules: those with low shunt resistance and those with large capacitance. Section 6.8 asks what changes when the signal sits at low frequency, where the band integral no longer describes the measurement, and Section 6.9 treats 10 kΩ, where this note meets the companion. Every number comes from the sweep of Appendix B: 25 op amps, four of them from the companion note at 10 kΩ and 100 kΩ only, and three composites, five photodiodes and six gains, each design with the smallest feedback capacitance that keeps it within 0.1 dB of maximally flat, $C_{par}$ = 0.1 pF and 1 pF of board capacitance. The excess noise $\Delta N$ of Eq. (16) is measured against the resistor-plus-diode floor over each design's own band. DC errors are output errors from the maximum bias current and offset, at 25 °C and 85 °C. The room-temperature part of a DC error can be removed by subtracting a dark reading; its change with temperature cannot, unless the dark reading is repeated in operation. Tables 6.1–6.5 and 6.7 leave out the designs whose DC open-loop gain is less than ten times their mid-band noise gain (Section 3.1). Their narrow bandwidth, not low noise, would otherwise rank them among the quietest. Table A.3 marks them with "A".
 
-*Table 6. What dominates and what to choose, by gain decade. "Small" photodiodes are those of tens of picofarads with gigaohm shunt resistance (S1336-18BK); "large" are those of hundreds of picofarads or more (S1336-8BK, G12180-050A). $\Delta N$ and bandwidths from Tables 6.1–6.5 and A.3; DC errors at 85 °C on the small photodiode.*
+*Table 6. What dominates and what to choose, by gain decade. "Small" photodiodes are those of tens of picofarads with gigaohm shunt resistance (S1336-18BK); "large" are those of hundreds of picofarads or more (S1336-8BK, G12180-050A). $\Delta N$ and bandwidths from Tables 6.1–6.5, 6.7, 6.8 and A.3; DC errors at 85 °C on the small photodiode.*
 
 | $R_F$ | What dominates the noise in band | What sets the bandwidth | What sets the DC error | Choice for a small photodiode | Choice for a large photodiode |
 |---|---|---|---|---|---|
+| 10 kΩ | $R_F$ up to $f_e$ ≈ 1–12 MHz, $e_n\,\omega C$ above it; the current noise of bipolar parts throughout | the amplifier: 2.6–4.8 MHz for precision parts, 13–94 MHz for wideband parts; the resistor's pole, 159 MHz, only on a node of a few picofarads | offset for FET parts; bias current for bipolar parts, 0.1–0.37 V | at equal bandwidth OPA818 or OPA858 up to about 10 MHz (1.2–5.9 dB), LMH6629 or OPA855 at 30 MHz (8.8–9.5 dB, with the bias current cancelled or the DC blocked); OPA955 0.9–5.6 dB, preproduction (Section 6.9) | OPA211 (7.8–10.5 dB, 0.9–1.4 MHz); wideband parts reach 4.4–23 MHz at 21–36 dB |
 | 100 kΩ | $R_F$ up to $f_e$ ≈ 0.6–0.7 of the band, $e_n\,\omega C$ above it; $e_n\,\omega C$ almost throughout for a large diode | the amplifier: 0.5–1.5 MHz for precision parts, 4–18 MHz for wideband parts | offset | ADA4625-1 (3.6 dB, 0.88 MHz) or OPA2156 (3.6 dB, 1.26 MHz); OPA1656 or OPA2156 held to 1 MHz by a larger $C_F$ (2.6–2.7 dB), or OPA1656 at 1.9 MHz (5.9 dB); BF862 or LSK170 composite (0.7–1.1 dB, 1.4–1.6 MHz); wideband FET parts beyond 2 MHz at 13.6–23 dB | IF3601 composite (3–4 dB); otherwise ADA4625-1 or OPA2156 (11–16 dB) |
 | 1 MΩ | as at 100 kΩ, everything $\sqrt{10}$ lower in frequency | the amplifier: 0.2–0.5 MHz; wideband parts reach 1.3–1.9 MHz, near the resistor's pole | offset | as at 100 kΩ (3.4–3.5 dB at 0.28–0.39 MHz, or 2.5–2.7 dB held to 0.33 MHz; OPA1656 also at 0.65 MHz with 6.0 dB); OPA818 at the resistor's 1.84 MHz with 9.5 dB | as at 100 kΩ |
 | 10 MΩ | $R_F$ and $e_n\,\omega C$ about equal (small); $e_n\,\omega C$ (large) | the resistor (150–180 kHz) for wideband parts; the amplifier (58–150 kHz) for precision parts | offset, plus bias current at 85 °C (3–15 mV for precision parts, 52 mV for OPA656 and OPA657) | OPA818 (2.3 dB, 162 kHz, resistor-limited); OPA2156 (3.6 dB, 121 kHz) or OPA1656 (5.2 dB, 183 kHz); BF862 or LSK170 composite (1.3–1.4 dB, 141–165 kHz) | composite; otherwise ADA4625-1 or OPA2156 (10.9–11.6 dB) |
@@ -790,13 +796,13 @@ The table follows three rules from Chapters 2–3. Below the crossover gain $R_F
 
 | Photodiode | Four quietest ($\Delta N$; bandwidth) | Fastest (bandwidth; $\Delta N$) |
 |---|---|---|
-| S1336-18BK (Si, 20 pF) | ADA4625-1 3.6 dB, 878 kHz; OPA2156 3.6 dB, 1.26 MHz; OPA145 3.7 dB, 541 kHz; OPA140 4.4 dB, 706 kHz | LTC6268-10 18.4 MHz, 23.1 dB |
-| G12180-010A (InGaAs, 55 pF) | ADA4625-1 5.1 dB, 644 kHz; OPA2156 5.5 dB, 858 kHz; OPA145 5.9 dB, 379 kHz; OPA140 6.3 dB, 511 kHz | LTC6268-10 11.3 MHz, 27.2 dB |
+| S1336-18BK (Si, 20 pF) | ADA4625-1 3.6 dB, 878 kHz; OPA2156 3.6 dB, 1.26 MHz; OPA145 3.7 dB, 541 kHz; OPA140 4.4 dB, 706 kHz | OPA855 21.6 MHz, 18.0 dB |
+| G12180-010A (InGaAs, 55 pF) | ADA4625-1 5.1 dB, 644 kHz; OPA2156 5.5 dB, 858 kHz; OPA145 5.9 dB, 379 kHz; OPA140 6.3 dB, 511 kHz | OPA955 18.8 MHz, 18.0 dB |
 | S1336-8BK (Si, 380 pF) | ADA4625-1 11.1 dB, 284 kHz; OPA2156 11.8 dB, 349 kHz; OPA145 12.4 dB, 160 kHz; OPA140 12.6 dB, 223 kHz | LTC6268-10 4.35 MHz, 35.3 dB |
 | G12180-050A (InGaAs, 1 nF) | OPA211 14.2 dB, 284 kHz; ADA4625-1 14.8 dB, 179 kHz; OPA2156 15.6 dB, 218 kHz; OPA145 16.2 dB, 99.6 kHz | LTC6268-10 2.68 MHz, 39.4 dB |
 | G12183-010K (InGaAs to 2.6 µm, 500 pF, 14 kΩ) | ADA4625-1 4.7 dB, 250 kHz; OPA2156 5.2 dB, 308 kHz; OPA211 5.7 dB, 401 kHz; OPA145 5.8 dB, 139 kHz | LTC6268-10 3.84 MHz, 27.5 dB |
 
-At 100 kΩ the floor is 406 fA/√Hz, high enough that every FET input's current noise is negligible (all $R_{F,\mathrm{crit}}$ exceed 1.6 MΩ, Table A.2), and even the bipolar OPA211 competes on the largest photodiode. The amplifier sets the bandwidth, and the voltage noise on the node capacitance decides the excess, as Eq. (22) predicts. The quietest parts are therefore those with the lowest $e_n$ at 0.1–1 MHz and modest input capacitance: OPA1656 and OPA2156 (2.9–3.0 nV/√Hz at 10 kHz), then ADA4625-1 (3.3 nV/√Hz, but 19.9 pF). OPA1656 is missing from Table 6.1, which ranks each part at its own widest flat bandwidth. With 53 MHz of gain–bandwidth at high noise gain, its smallest stable $C_F$ gives 1.94 MHz at 5.9 dB (Table A.3a). OPA2156, with 25 MHz, reaches 1.26 MHz at 3.6 dB. Held to OPA2156's bandwidth by a larger $C_F$, OPA1656 is slightly quieter than OPA2156: 3.56 against 3.64 dB at 100 kΩ, 3.22 against 3.37 dB at 1 MΩ and 3.14 against 3.63 dB at 10 MΩ. Held to 1 MHz, 330 kHz and 100 kHz, the two come within 2.4–3.0 dB of the floor (`hg_equal_bandwidth_check.py`). The fastest is always LTC6268-10, which reaches 2.7–18 MHz by Eq. (19) with its 4-GHz gain–bandwidth product, at 23–39 dB of excess. Between these extremes OPA818, ADA4817-1 and OPA656 trade noise for bandwidth along the line that Eq. (22) describes: at 4.1–15 MHz on the small diode they have 13.6–16.5 dB of excess (Table A.3a). The DC error is that of the offset, 0.1–2 mV, since even 20 pA of bias current makes only 2 µV at 100 kΩ. At this gain, then, the choice is between a low-noise precision part at up to about 1 MHz and a wideband part beyond it, with a discrete-JFET composite (Section 6.7) when both noise and bandwidth matter.
+At 100 kΩ the floor is 406 fA/√Hz, high enough that every FET input's current noise is negligible (all $R_{F,\mathrm{crit}}$ exceed 1.6 MΩ, Table A.2), and even the bipolar OPA211 competes on the largest photodiode. The amplifier sets the bandwidth, and the voltage noise on the node capacitance decides the excess, as Eq. (22) predicts. The quietest parts are therefore those with the lowest $e_n$ at 0.1–1 MHz and modest input capacitance: OPA1656 and OPA2156 (2.9–3.0 nV/√Hz at 10 kHz), then ADA4625-1 (3.3 nV/√Hz, but 19.9 pF). OPA1656 is missing from Table 6.1, which ranks each part at its own widest flat bandwidth. With 53 MHz of gain–bandwidth at high noise gain, its smallest stable $C_F$ gives 1.94 MHz at 5.9 dB (Table A.3a). OPA2156, with 25 MHz, reaches 1.26 MHz at 3.6 dB. Held to OPA2156's bandwidth by a larger $C_F$, OPA1656 is slightly quieter than OPA2156: 3.56 against 3.64 dB at 100 kΩ, 3.22 against 3.37 dB at 1 MΩ and 3.14 against 3.63 dB at 10 MΩ. Held to 1 MHz, 330 kHz and 100 kHz, the two come within 2.4–3.0 dB of the floor (`hg_equal_bandwidth_check.py`). Among the parts of the original sweep the fastest is LTC6268-10, which reaches 2.7–18 MHz by Eq. (19) with its 4-GHz gain–bandwidth product, at 23–39 dB of excess. The companion note's bipolar parts are faster still on the 20-pF and 55-pF photodiodes, OPA855 with 21.6 MHz and OPA955 with 18.8 MHz, both at 18.0 dB, but their current noise and their bias currents, which give 2.3 V and 1.0 V of output error at 85 °C, leave them little place at this gain (Section 6.9). Held to a common bandwidth (Table 6.8), OPA818 and OPA858 are the quietest parts at 1–3 MHz (1.0–5.3 dB), and only at 10 MHz does OPA955 lead, with 7.5 dB against 13.5 dB for OPA818. Between these extremes OPA818, ADA4817-1 and OPA656 trade noise for bandwidth along the line that Eq. (22) describes: at 4.1–15 MHz on the small diode they have 13.6–16.5 dB of excess (Table A.3a). The DC error is that of the offset, 0.1–2 mV, since even 20 pA of bias current makes only 2 µV at 100 kΩ. At this gain, then, the choice is between a low-noise precision part at up to about 1 MHz and a wideband part beyond it, with a discrete-JFET composite (Section 6.7) when both noise and bandwidth matter.
 
 ### 6.2 1 MΩ
 
@@ -890,20 +896,21 @@ e_{n,\mathrm{crit}}(f) = \frac{\sqrt{4k_BT\,G}}{|Y_n(f)|},
 \tag{30a}
 $$
 
-which is Eq. (12) where the conductance dominates $|Y_n|$, and $\sqrt{4k_BT\,G}/[2\pi f\,(C_T + C_F)]$ where the capacitance does. Table 6.6 evaluates it at 100 Hz, with 10 pF of amplifier input capacitance and 1 pF of board capacitance. On the small and medium photodiodes it is 41 nV/√Hz at 100 kΩ and hundreds of nanovolts per root hertz above that. On the 14-kΩ photodiode it is about 15 nV/√Hz at every gain, the Johnson voltage noise of $R_{sh}$. On the 380-pF photodiode it falls to 58 and 31 nV/√Hz at 100 MΩ and 1 GΩ, because there the capacitance still dominates $|Y_n|$ at 100 Hz: $2\pi\times100\ \mathrm{Hz}\times391\ \mathrm{pF}$ = 0.25 µS, against $G$ = 3.5 nS at 1 GΩ.
+which is Eq. (12) where the conductance dominates $|Y_n|$, and $\sqrt{4k_BT\,G}/[2\pi f\,(C_T + C_F)]$ where the capacitance does. Table 6.6 evaluates it at 100 Hz, with 10 pF of amplifier input capacitance and 1 pF of board capacitance. On the small and medium photodiodes it is 13 nV/√Hz at 10 kΩ, 41 nV/√Hz at 100 kΩ and hundreds of nanovolts per root hertz above that. On the 14-kΩ photodiode it is about 14–15 nV/√Hz from 100 kΩ up, the Johnson voltage noise of $R_{sh}$, and 9.8 nV/√Hz at 10 kΩ, where $R_F$ lies in parallel with $R_{sh}$. On the 380-pF photodiode it falls to 58 and 31 nV/√Hz at 100 MΩ and 1 GΩ, because there the capacitance still dominates $|Y_n|$ at 100 Hz: $2\pi\times100\ \mathrm{Hz}\times391\ \mathrm{pF}$ = 0.25 µS, against $G$ = 3.5 nS at 1 GΩ.
 
 *Table 6.6. The voltage noise $e_{n,\mathrm{crit}}$ of Eq. (30a) at 100 Hz, in nV/√Hz, which alone would double the floor of the resistor and the photodiode, with 10 pF of amplifier input capacitance and 1 pF of board capacitance. `hg_low_frequency_noise.py`.*
 
-| Photodiode | 100 kΩ | 1 MΩ | 10 MΩ | 100 MΩ | 1 GΩ |
-|---|---|---|---|---|---|
-| S1336-18BK (Si, 20 pF, 2 GΩ) | 40.6 | 128.3 | 397.4 | 594.2 | 254.4 |
-| G12180-010A (InGaAs, 55 pF, 125 MΩ) | 40.6 | 127.7 | 364.5 | 380.8 | 286.9 |
-| S1336-8BK (Si, 380 pF, 0.4 GΩ) | 40.6 | 124.5 | 154.3 | 58.3 | 30.9 |
-| G12180-050A (InGaAs, 1 nF, 6.5 MΩ) | 40.2 | 104.6 | 94.5 | 79.2 | 77.2 |
-| G12183-010K (InGaAs to 2.6 µm, 500 pF, 14 kΩ) | 14.2 | 15.1 | 15.2 | 15.2 | 15.2 |
+| Photodiode | 10 kΩ | 100 kΩ | 1 MΩ | 10 MΩ | 100 MΩ | 1 GΩ |
+|---|---|---|---|---|---|---|
+| S1336-18BK (Si, 20 pF, 2 GΩ) | 12.8 | 40.6 | 128.3 | 397.4 | 594.2 | 254.4 |
+| G12180-010A (InGaAs, 55 pF, 125 MΩ) | 12.8 | 40.6 | 127.7 | 364.5 | 380.8 | 286.9 |
+| S1336-8BK (Si, 380 pF, 0.4 GΩ) | 12.8 | 40.6 | 124.5 | 154.3 | 58.3 | 30.9 |
+| G12180-050A (InGaAs, 1 nF, 6.5 MΩ) | 12.8 | 40.2 | 104.6 | 94.5 | 79.2 | 77.2 |
+| G12183-010K (InGaAs to 2.6 µm, 500 pF, 14 kΩ) | 9.8 | 14.2 | 15.1 | 15.2 | 15.2 | 15.2 |
 
 **What Tables A.8a–b show.**
 - **On a photodiode with low shunt resistance the 1/f corner decides.** On the 14-kΩ photodiode at 100 Hz, ADA4625-1 adds 0.2–0.3 dB to the floor, OPA827 0.3–0.4 dB, OPA828 0.4–0.5 dB and OPA140 0.6–0.7 dB. The zero-drift OPA388, which has no 1/f noise, adds 0.9–1.0 dB at 10 Hz and at 100 Hz alike. OPA1656 and OPA2156 add 2.1–2.3 dB at 100 Hz and 7.4–8.7 dB at 10 Hz, so on this photodiode they suit only a band that stays above about 1 kHz. The electrometers add 3.8–8.7 dB, OPA818 5.9–6.3 dB and LTC6268-10 15.5–16.0 dB, while the discrete-JFET composites stay within 0.1 dB.
+- **At 10 kΩ only parts with low $1/f$ noise stay near the floor.** With 13 nV/√Hz of critical voltage noise on every photodiode but the 14-kΩ one, ADA4625-1, OPA827 and OPA828 add 0.3–0.6 dB at 100 Hz, and OPA1656 and OPA2156 add 2.7 dB. The wideband FET parts add 3.1–16.9 dB (OPA818 7.0 dB, LTC6268-10 16.9 dB). The companion's bipolar parts, whose current noise rises as $1/f$ below about 100 kHz, add the most: OPA955 4.1 dB, LMH6629 21.5 dB and OPA855 28.8 dB, and 12–39 dB at 100 kΩ. A 10-kΩ receiver that must also resolve slow signals therefore needs a precision part, or a separate slow path for the low frequencies.
 - **At 100 kΩ the wideband parts and the electrometers lose.** On the small photodiode at 100 Hz, LTC6268-10 adds 7.6 dB, ADA4817-1 4.4 dB, ADA4530-1 2.5 dB and OPA818 1.5 dB; at 10 Hz OPA1656 and OPA2156 add 2.1–2.5 dB. From 10 MΩ up the voltage noise no longer matters on the small and medium photodiodes.
 - **From 10 MΩ up the electrometers lose their noise penalty.** At 100 Hz ADA4530-1 and OPA928 come within 0.1 dB of the floor at 100 MΩ and 1 GΩ on the small photodiode, against 4.3–5.2 dB and 1.5–1.7 dB over the band (Table A.3a). A slow measurement at these gains therefore gives up nothing for the electrometers' DC accuracy and guard buffers (Section 6.5).
 - **A large photodiode no longer needs a composite.** At 100 Hz the precision JFET-input parts stay within 0.4 dB of the floor up to 100 MΩ on the 380-pF and 1-nF photodiodes, against 10–20 dB over the band at 100 kΩ–10 MΩ (Tables A.3c–d). At 1 GΩ on the 380-pF photodiode, where $e_{n,\mathrm{crit}}$ is 31 nV/√Hz, ADA4530-1 adds 3.7 dB, OPA818 2.3 dB and ADA4625-1 1.4 dB, the last from its current noise, while OPA828, OPA827 and OPA140 add 0.2–0.4 dB.
@@ -923,6 +930,67 @@ It stays below the resistor's Johnson noise $\sqrt{4k_BTR_F}$ if $\mathrm{NI} < 
 *Zero bias.* A reverse-biased photodiode adds the shot noise of its dark current (Section 2.2), and possibly low-frequency excess noise that the model does not include, so a slow measurement favours zero bias wherever the capacitance allows it.
 
 *The gaps in the data.* Below their first datasheet point the model holds the voltage noise of LMC662 and LMC6001A flat from 1 kHz, that of OPA381 from 10 kHz, and that of OPA656 and the BF862 composite from 100 kHz, so their entries in Tables A.8a–b are lower bounds (Appendix C, item 22). The 100-Hz values of OPA320 and LMP7721 continue their datasheet slopes, and that of ADA4530-1 is interpolated between its 10-Hz and 1-kHz values.
+
+### 6.9 10 kΩ, where this note meets the companion
+
+Between the companion note's 1.5–2 kΩ and the 100 kΩ at which this note's sweep began lies the range of most fast photoreceivers that work with microamperes of photocurrent and tens of megahertz of bandwidth. Both notes extend into it and meet at 10 kΩ. The companion carries its open-loop model up to 10 kΩ on its 1-pF node, and this section adds 10 kΩ to the sweep, together with four fast parts from the companion's records: OPA858, a CMOS part, and the bipolar OPA855, OPA955 and LMH6629 (Section 5.7, Table A.1). The four are evaluated at 10 kΩ and 100 kΩ only. Above 100 kΩ every design on the five photodiodes is limited by the resistor or held to a few megahertz, where their gain–bandwidth buys nothing, and at 1 MΩ the bipolar parts' current noise already exceeds the resistor's by 13–26 dB.
+
+**What 10 kΩ fixes.** The resistor's floor is 1.28 pA/√Hz, a photocurrent above 5.14 µA is shot-noise-limited, and 10 V of swing carries 1 mA (Table 2). The resistor's own pole lies at 159 MHz for 0.1 pF, above the bandwidth that the amplifiers reach on the photodiodes of the sweep: 2.6–4.8 MHz for the precision parts and 13–94 MHz for the wideband ones on the 20-pF photodiode, and 0.9–23 MHz on the 380-pF one (Table A.3). The crossover gain of Eq. (20) for a 2-GHz amplifier is 159 kΩ on 10 pF but 15.9 kΩ on 1 pF (Table A.4). On photodiodes of tens of picofarads the amplifier therefore sets the bandwidth at 10 kΩ, while on a node of a few picofarads, such as the companion's, the resistor already does.
+
+**What dominates the noise.** In every wideband design the voltage noise on the node capacitance dominates the band, as Eq. (22) predicts, and on the 20-pF photodiode those designs end 11–23 dB above the floor at their own bandwidths (Table A.3a). The reason is the size of $e_n\,\omega C_T$ against the floor. For OPA818, with 2.2 nV/√Hz on $C_T$ = 23.4 pF (20 pF of photodiode, 2.4 pF of input capacitance and 1 pF of board), the term reaches the floor at $f_e = \sqrt{4k_BT/R_F}\,/\,(2\pi e_nC_T)$ = 1.28 pA/√Hz / (2π × 2.2 nV/√Hz × 23.4 pF) = 4.0 MHz (Eq. (13)). At the design's bandwidth of 46 MHz it is 46/4.0 = 11.5 times the floor.
+
+**Ranked at their own bandwidths.** Table 6.7 ranks each design at its own widest flat bandwidth, as Tables 6.1–6.5 do. The narrow-band precision parts then come out quietest: OPA2156 at 3.6 dB and 3.4 MHz on the 20-pF photodiode, and on the larger ones the bipolar OPA211, at 5.2–10.5 dB. OPA211's low voltage noise, 1.1 nV/√Hz, now counts for more than its high current noise, 1.7 pA/√Hz, because at 10 kΩ the resistor's own noise is of the same order as that current noise: 10 kΩ is only 1.75 times its $R_{F,\mathrm{crit}}$ of 5.7 kΩ. The fastest design is OPA955's on four photodiodes, with 94 MHz on 20 pF, and OPA855's on the 1-nF photodiode.
+
+*Table 6.7. The four quietest designs and the fastest one for each photodiode at 10 kΩ (excess noise $\Delta N$, Eq. (16); −3 dB bandwidth), as Table 6.1. Composites are excluded here.*
+
+| Photodiode | Four quietest ($\Delta N$; bandwidth) | Fastest (bandwidth; $\Delta N$) |
+|---|---|---|
+| S1336-18BK (Si, 20 pF) | OPA2156 3.6 dB, 3.42 MHz; ADA4625-1 3.9 dB, 2.62 MHz; OPA145 4.7 dB, 1.56 MHz; OPA211 4.8 dB, 4.83 MHz | OPA955 94.3 MHz, 13.9 dB |
+| G12180-010A (InGaAs, 55 pF) | OPA211 5.2 dB, 3.38 MHz; ADA4625-1 5.5 dB, 1.97 MHz; OPA2156 5.7 dB, 2.53 MHz; OPA145 6.7 dB, 1.12 MHz | OPA955 58.8 MHz, 17.8 dB |
+| S1336-8BK (Si, 380 pF) | OPA211 7.8 dB, 1.44 MHz; ADA4625-1 11.2 dB, 878 kHz; OPA2156 12.3 dB, 1.13 MHz; OPA145 12.7 dB, 482 kHz | OPA955 22.9 MHz, 26.0 dB |
+| G12180-050A (InGaAs, 1 nF) | OPA211 10.5 dB, 899 kHz; ADA4625-1 15.0 dB, 560 kHz; OPA2156 16.1 dB, 714 kHz; OPA145 16.4 dB, 304 kHz | OPA855 12.1 MHz, 30.7 dB |
+| G12183-010K (InGaAs to 2.6 µm, 500 pF, 14 kΩ) | OPA211 6.5 dB, 1.26 MHz; ADA4625-1 10.1 dB, 774 kHz; OPA2156 11.2 dB, 997 kHz; OPA145 11.6 dB, 425 kHz | OPA955 20.1 MHz, 25.0 dB |
+
+**Held to a common bandwidth.** Neither column of Table 6.7 answers the question a designer at 10 kΩ asks, which part is quietest for the bandwidth needed. Table 6.8 answers it by holding every part to a common bandwidth with a larger $C_F$, as Section 6.1 did for OPA1656 and OPA2156. Three results follow.
+
+- **Up to about 10 MHz the wideband FET parts are the quietest production parts.** At 10 kΩ OPA818 and OPA858 come within 1.2–1.5 dB of the floor at 3 MHz and 5.3–5.9 dB at 10 MHz. That puts them ahead of the precision parts OPA1656 and OPA2156, at 3.2 dB for 3 MHz, whose input capacitance of 9–11 pF raises $e_nC_T$.
+- **At 30 MHz the low voltage noise of the bipolar parts wins.** LMH6629, with 0.69 nV/√Hz, and OPA855, with 0.99 nV/√Hz, come within 8.8 and 9.5 dB, against 13.0 and 13.8 dB for OPA818 and OPA858. Their current noise, 2.6 and 2.5 pA/√Hz, is twice the floor and costs about 7 dB at any bandwidth, but the capacitive term grows as $f$ and overtakes it.
+- **At 100 kΩ the bipolar parts lose.** There their current noise is six times the floor of 0.406 pA/√Hz and costs 16–20 dB, while OPA818 and OPA858 lead at 1–3 MHz with 1.0–5.3 dB.
+
+OPA955 is the quietest part in every column at 10 kΩ, with 0.9–5.6 dB, and at 100 kΩ for 10 MHz, with 7.5 dB, because it combines 0.79 nV/√Hz with 0.55 pA/√Hz. Its data sheet is Advance Information for a preproduction part, so these values may change (Appendix C, item 23).
+
+*Table 6.8. Excess noise $\Delta N$ (dB, Eq. (16)) at equal bandwidth on the 20-pF photodiode (S1336-18BK), with each part's $C_F$ raised until its −3 dB bandwidth equals the column's. A dash marks a part that cannot reach that bandwidth, and "A" one whose DC open-loop gain is less than ten times its mid-band noise gain (Section 3.1). `hg_medium_gain.py`.*
+
+| Part | 10 kΩ, 3 MHz | 10 kΩ, 10 MHz | 10 kΩ, 30 MHz | 100 kΩ, 1 MHz | 100 kΩ, 3 MHz | 100 kΩ, 10 MHz |
+|---|---|---|---|---|---|---|
+| LMP7721 | – | – | – | 6.3 | – | – |
+| OPA828 | 5.1 | – | – | 4.6 | – | – |
+| OPA1656 | 3.2 | – | – | 2.6 | – | – |
+| OPA2156 | 3.2 | – | – | 2.7 | – | – |
+| OPA320 | 7.8 | – | – | 7.1 | – | – |
+| OPA381 | 9.7 | – | – | 9.6 | – | – |
+| OPA656 | 5.4 | 13.3 | – | 4.7 | 12.2 | – |
+| OPA657 | 4.5 | 11.9 | 20.7 | 3.9 | 11.1 | 21.2 |
+| OPA818 | 1.2 | 5.3 | 13.0 | 1.0 | 4.9 | 13.5 |
+| ADA4817-1 | 3.0 | 9.4 | – | 2.5 | 8.5 | – |
+| LTC6268-10 | 2.9 | 9.1 | 17.6 | 2.4 | 8.3 | 18.0 |
+| OPA858 | 1.5 | 5.9 | 13.8 | 1.3 | 5.3 | 14.2 |
+| OPA211 | 4.6 | – | – | 12.7 | – | – |
+| OPA855 | 8.8 | 8.0 | 9.5 | 20.2 | 18.3 | 17.3 |
+| OPA955 | 0.9 | 1.8 | 5.6 | 4.7 | 5.0 | 7.5 |
+| LMH6629 | 7.1 | 7.3 | 8.8 | 16.6 | 16.3 | 16.4 |
+
+**The bias current of the bipolar parts.** Their maximum bias currents of 5–23 µA at 25 °C, and about 10–37 µA at 85 °C, give 0.1–0.37 V of output error at 10 kΩ and 1–3.7 V at 100 kΩ (Table A.3a), as much as the whole swing of a 5-V part. Above about 10 kΩ such a part therefore needs either a resistor equal to $R_F$ at its non-inverting input, which cancels the matched part of the bias current but adds its own noise unless it is bypassed (the companion's Section 3.10), or a front end that keeps the DC out of $R_F$. The errors of the FET parts stay at millivolts.
+
+**The two models at 10 kΩ.** On the companion's node, a 1-pF photodiode pair with 0.35 pF of board capacitance, this note's model and the companion's, which interpolates the datasheets' open-loop gain and phase, were run with the same rule (0.1 pF; the smallest $C_F$ within 0.1 dB of maximally flat) for OPA855, OPA955, OPA858, OPA818 and LMH6629 (`hg_cross_check_companion.py`). At 10 kΩ the bandwidths agree within 2–6% for OPA858, LMH6629 and OPA855 (210 against 207 MHz, 100 against 104 MHz and 219 against 207 MHz), within 11% for OPA955 (217 against 244 MHz) and within 15% for OPA818 (112 against 131 MHz). This note's single-pole model gives 7–18° more phase margin for LMH6629, OPA818 and OPA955, whose datasheet curves carry extra phase lag near the crossover, and 7° less for OPA858. At 2 kΩ its bandwidths fall short of the companion's by up to a third (OPA818: 245 against 365 MHz). The companion's analysis therefore needs the full open-loop curves at its own gain, while from about 10 kΩ up the single-pole model suffices for bandwidth and noise.
+
+**How to choose between 10 kΩ and 100 kΩ.** The results combine into a short procedure, which continues the companion's below 10 kΩ.
+
+1. Take $R_F$ as large as the swing and the band allow: $R_F \leq V_{sw}/I_{\max}$ (Eq. (3)) and $R_F \leq 1/(2\pi BC_{par})$ (Eq. (4)). A photocurrent above $4\pi k_BTBC_{par}/q$ (Eq. (36)), 1.6 µA for 50 MHz and 0.1 pF, can then be shot-noise-limited.
+2. Keep the node capacitance small, because $e_nC_T$ sets the excess over most of the band. A smaller photodiode, and an amplifier with little input capacitance, help more than a quieter resistor.
+3. Choose the amplifier by the band. Up to about 10 MHz a wideband FET part (OPA818, OPA858) is quietest. For tens of megahertz at 10 kΩ a low-noise bipolar part (LMH6629, OPA855) is quieter, with its bias current cancelled or the DC kept out of $R_F$. OPA955 leads both if it reaches production.
+4. From the crossover gain $R_F^*$ up, the resistor's own capacitance sets the band (Eq. (20)), and more bandwidth needs a smaller $C_{par}$, a T-network, a second stage or equalization (Section 3.5).
+5. Below 10 kΩ, continue with the companion note, where the loop's stability at a low noise gain and the output swing decide.
 
 ---
 
@@ -1128,7 +1196,7 @@ $$
 
 Analog Devices gives the same terms for a photodiode TIA (ADA4530-1 data sheet, p. 44, Eqs. 17–20) [D1]. Table A.3 evaluates Eq. (38) without leakage, with the maximum $V_{OS}$ and the maximum $I_B$ at 25 °C and 85 °C, for every design. On the small, high-shunt-resistance photodiode the offset dominates up to about 10 MΩ and the bias current above, as Section 6.4 described. On the 14-kΩ photodiode the offset term dominates at every gain, because $R_F/R_{sh}$ reaches 71 at 1 MΩ.
 
-A resistor in series with the non-inverting input, equal to $R_F\parallel R_{sh}$, cancels the bias-current error when the two input currents match, as in bipolar parts. TI's OPA128 photodiode circuit uses 400 MΩ there, bypassed by 1000 pF so that its Johnson noise does not reach the amplifier (SBOA061, p. 2, Fig. 3) [A2]. For FET-input parts the two bias currents do not match. The OPA656 data sheet therefore recommends no resistor at the non-inverting input, because the bias currents "do not match but are so low to begin with (< 20 pA) that dc errors due to input bias currents are negligible" (OPA656 data sheet, p. 14) [D16]. Unbypassed, any resistance $R$ there adds $\sqrt{4k_BTR}$ to $e_n$, which the node capacitance then turns into current noise (the companion's Section 4.10).
+A resistor in series with the non-inverting input, equal to $R_F\parallel R_{sh}$, cancels the bias-current error when the two input currents match, as in bipolar parts. TI's OPA128 photodiode circuit uses 400 MΩ there, bypassed by 1000 pF so that its Johnson noise does not reach the amplifier (SBOA061, p. 2, Fig. 3) [A2]. For FET-input parts the two bias currents do not match. The OPA656 data sheet therefore recommends no resistor at the non-inverting input, because the bias currents "do not match but are so low to begin with (< 20 pA) that dc errors due to input bias currents are negligible" (OPA656 data sheet, p. 14) [D16]. Unbypassed, any resistance $R$ there adds $\sqrt{4k_BTR}$ to $e_n$, which the node capacitance then turns into current noise (the companion's Section 3.10).
 
 ### 8.2 Leakage and guarding
 
@@ -1170,7 +1238,7 @@ Each TIA deck holds the macromodel, $R_F$ and the $C_F$ of the analytic design, 
 
 ### 9.2 The TIA designs
 
-The most direct check builds the designs of the sweep in SPICE, with each vendor's macromodel in place of the single-pole amplifier and the datasheet noise, and compares their bandwidth and excess noise with the analytic model. Twelve amplifiers were run at the five gains on the 20-pF and 380-pF silicon photodiodes. Figure 17 compares the bandwidth and the excess noise of all 120 designs with the analytic model, and Table 9.1 summarizes the deviations for each amplifier.
+The most direct check builds the designs of the sweep in SPICE, with each vendor's macromodel in place of the single-pole amplifier and the datasheet noise, and compares their bandwidth and excess noise with the analytic model. Twelve amplifiers were run at the five gains from 100 kΩ to 1 GΩ on the 20-pF and 380-pF silicon photodiodes. Figure 17 compares the bandwidth and the excess noise of all 120 designs with the analytic model, and Table 9.1 summarizes the deviations for each amplifier.
 
 ![Figure 17](figures/fig6_spice_parity.png)
 
@@ -1358,17 +1426,17 @@ The other results hold: the precision parts' bandwidths and noise (Table 9.1), t
 
 The design of a high-gain photodiode amplifier follows from a few quantities that can be written down before any amplifier is chosen. The steps below put them in order.
 
-1. **Choose $R_F$ from the signal.** The largest photocurrent must fit the output swing, $R_F \leq V_{sw}/I_{\max}$ (Eq. (3)). Above $I_x = 51.4\ \mathrm{mV}/R_F$ the light's own shot noise dominates (Eq. (2)), so a larger $R_F$ gains nothing there. Over the resistor's own bandwidth a TIA spans about five decades, $V_{sw}/\sqrt{k_BT/C_{par}}$ = 94 dB for 10 V and 0.1 pF, at every gain (Eq. (5)). More needs gain ranging, a logarithmic amplifier or an integrator (Chapter 7).
+1. **Choose $R_F$ from the signal.** The largest photocurrent must fit the output swing, $R_F \leq V_{sw}/I_{\max}$ (Eq. (3)), and the resistor's own pole must pass the band $B$, $R_F \leq 1/(2\pi BC_{par})$: 159 kΩ for 10 MHz and 10.6 kΩ for 150 MHz with 0.1 pF (Eq. (4)). Above $I_x = 51.4\ \mathrm{mV}/R_F$ the light's own shot noise dominates (Eq. (2)), so a larger $R_F$ gains nothing there. Over the resistor's own bandwidth a TIA spans about five decades, $V_{sw}/\sqrt{k_BT/C_{par}}$ = 94 dB for 10 V and 0.1 pF, at every gain (Eq. (5)). More needs gain ranging, a logarithmic amplifier or an integrator (Chapter 7).
 2. **Know the photodiode at its operating temperature.** Its capacitance and shunt resistance are all the amplifier sees. Hamamatsu's silicon diodes have gigaohms, its InGaAs diodes megaohms, and the extended InGaAs diodes kilohms. The shunt resistance halves every 5–10 °C (Table 1, Section 1.2). If $R_{sh}$ is below about $10R_F$, the diode's own noise sets the floor (Eq. (10)). $R_F$ should then not exceed about $10R_{sh}$, any further gain belongs in a voltage stage, and cooling helps more than any amplifier (Section 6.6).
 3. **Find the crossover gain.** $R_F^* = C_T/(\pi\,GBW\,C_{par}^2)$ (Eq. (20)) separates two regimes. Below it the amplifier sets the bandwidth, $\sqrt{GBW/(2\pi R_FC_T)}$, and the excess noise is fixed by $e_n$, $C_T$ and $GBW$, whatever the gain (Eqs. (21)–(22)). Above it the resistor's own capacitance sets the bandwidth, $1/(2\pi R_FC_{par})$, and the voltage noise fades from the band (Eq. (23)).
-4. **Below $R_F^*$, minimize $e_n\,C_T$.** With small photodiodes the low-noise FET-input op amps (OPA1656, OPA2156, ADA4625-1) come within 2.5–3.6 dB of the floor at 100 kΩ–1 MΩ with their bandwidth held to 0.3–1 MHz. OPA1656 and OPA2156, with 53 and 25 MHz of gain–bandwidth at high noise gain, can instead reach wider bands: about twice that bandwidth at 5.8–6.0 dB for OPA1656, and about 1.2 times at 3.4–3.6 dB for OPA2156. Wideband FET parts (OPA818, OPA657, LTC6268-10) buy four to twenty times the bandwidth at 9.5–23 dB of excess, but only while their DC open-loop gain exceeds ten times the mid-band noise gain $(C_T + C_F)/C_F$ (Section 3.1). On large photodiodes at high gain, OPA656, OPA657, OPA818 and ADA4817-1, with 65–92 dB, fall short of that; LTC6268-10, with 108 dB, does not. With photodiodes of hundreds of picofarads and more, no monolithic op amp comes within 10 dB. A discrete-JFET composite, with the JFET's input capacitance matched to the photodiode's (Eq. (30)), recovers 11–18 dB, and bootstrapping recovers the bandwidth (Sections 5.8, 6.7).
+4. **Below $R_F^*$, minimize $e_n\,C_T$.** With small photodiodes the low-noise FET-input op amps (OPA1656, OPA2156, ADA4625-1) come within 2.5–3.6 dB of the floor at 100 kΩ–1 MΩ with their bandwidth held to 0.3–1 MHz. OPA1656 and OPA2156, with 53 and 25 MHz of gain–bandwidth at high noise gain, can instead reach wider bands: about twice that bandwidth at 5.8–6.0 dB for OPA1656, and about 1.2 times at 3.4–3.6 dB for OPA2156. Wideband FET parts (OPA818, OPA657, LTC6268-10) buy four to twenty times the bandwidth at 9.5–23 dB of excess, but only while their DC open-loop gain exceeds ten times the mid-band noise gain $(C_T + C_F)/C_F$ (Section 3.1). On large photodiodes at high gain, OPA656, OPA657, OPA818 and ADA4817-1, with 65–92 dB, fall short of that; LTC6268-10, with 108 dB, does not. With photodiodes of hundreds of picofarads and more, no monolithic op amp comes within 10 dB. A discrete-JFET composite, with the JFET's input capacitance matched to the photodiode's (Eq. (30)), recovers 11–18 dB, and bootstrapping recovers the bandwidth (Sections 5.8, 6.7). At 10 kΩ, held to a common bandwidth, OPA818 and OPA858 are the quietest production parts up to about 10 MHz, and the bipolar LMH6629 and OPA855 at 30 MHz, provided their bias current is cancelled or the DC kept out of $R_F$ (Section 6.9).
 5. **Above $R_F^*$, take care of the resistor.** Its capacitance to the ground plane beneath it subtracts from its end-to-end capacitance and can make the response peak by several decibels (Eq. (26), Table 3). Cut the plane away beneath it, or drive the copper there at one third of the output, or in graded strips, from a divider between the output and ground (Eq. (28), Table 9.4). Then measure the actual response, and equalize only up to $f_e$ (Eq. (13), Table A.5). A split resistor gains bandwidth only if its junctions are guarded at their own fractions of the output (Section 3.4).
-6. **Check the current noise against $R_{F,\mathrm{crit}} = 4k_BT/i_n^2$** (Eq. (11)). That rules out bipolar inputs at any gain of this note (5.7 kΩ for OPA211), zero-drift parts above about 1 MΩ (1.65 MΩ for OPA388), the bias-current-cancelled LMP7721 above about 100 MΩ (165 MΩ), and ADA4625-1 at 1 GΩ (813 MΩ). A femtoampere bias current does not imply a femtoampere-level current noise (Section 2.3).
+6. **Check the current noise against $R_{F,\mathrm{crit}} = 4k_BT/i_n^2$** (Eq. (11)). That rules out bipolar inputs from 100 kΩ up (5.7 kΩ for OPA211, 2.4–2.6 kΩ for OPA855 and LMH6629, 54 kΩ for OPA955; at 10 kΩ they serve only wide bands, Section 6.9), zero-drift parts above about 1 MΩ (1.65 MΩ for OPA388), the bias-current-cancelled LMP7721 above about 100 MΩ (165 MΩ), and ADA4625-1 at 1 GΩ (813 MΩ). A femtoampere bias current does not imply a femtoampere-level current noise (Section 2.3).
 7. **At 100 MΩ and above, decide by DC accuracy.** The noise of most FET-input parts is within 0.3–2.5 dB of the floor on a small photodiode, but their bias currents grow 64-fold to 85 °C. Where the temperature is controlled and the dark level subtracted, OPA818 or OPA1656 at 100 MΩ and OPA140, OPA145 or OPA828 at 1 GΩ give the lowest noise. Where the zero must hold unattended, OPA320 (50 mV at 1 GΩ and 85 °C) or an electrometer (ADA4530-1, OPA928: below 0.1 mV) is the answer, at 0.4–1.7 dB of excess at 1 GΩ (Section 6.5).
 8. **At the highest gains, the board is part of the amplifier.** Leakage, humidity and dielectric relaxation of the laminate produce errors as large as an electrometer's bias current. Guard the summing node at its own potential, keep the board clean and dry, and enclose the whole front end, photodiode included, in a grounded metal shield (Chapter 8).
 9. **Below $I_{\min,\mathrm{shot}} = 4\pi k_BT\,BC_{par}/q$**, 32 pA in 1 kHz for 0.1 pF (Eq. (36)), a TIA cannot reach the shot-noise limit in the bandwidth $B$. A switched integrator or a detector with internal gain is then the better answer (Sections 7.3–7.4).
 
-10. **For a signal at low frequency, judge the noise at that frequency, not over the band.** The capacitive term then fades, and the 1/f corners decide only where $e_{n,\mathrm{crit}}$ of Eq. (30a) is small: on photodiodes with low shunt resistance (15 nV/√Hz), at 100 kΩ (41 nV/√Hz), and on large photodiodes at 1 GΩ (31 nV/√Hz on 380 pF). Elsewhere the precision JFET parts reach the floor, and from 10 MΩ up on small photodiodes so do the electrometers; a large photodiode needs no composite (Section 6.8).
+10. **For a signal at low frequency, judge the noise at that frequency, not over the band.** The capacitive term then fades, and the 1/f corners decide only where $e_{n,\mathrm{crit}}$ of Eq. (30a) is small: on photodiodes with low shunt resistance (15 nV/√Hz), at 10–100 kΩ (13–41 nV/√Hz), and on large photodiodes at 1 GΩ (31 nV/√Hz on 380 pF). Elsewhere the precision JFET parts reach the floor, and from 10 MΩ up on small photodiodes so do the electrometers; a large photodiode needs no composite (Section 6.8).
 
 ### 10.2 What the model leaves open
 
@@ -1412,16 +1480,20 @@ The tables below are generated by `scripts_archive/hg_appendix_tables.py` from t
 | OPA818 | OPA818 data sheet SBOS940B, Dec. 2025 | FET, wideband, decompensated | 2700; 7 | curve, 9 points: 25.5 at 102 Hz to 2.12 at 976 kHz | curve, 17 points: 3 at 10 kHz to 2.56e+03 at 97.6 MHz | 1.9 / 0.5 | 4 pA; 25 pA; 700 pA at 85 °C | 1250 µV | companion record OPA818.json: p. 5 (EC), Figs. 6-19 and 6-20 p. 10 (current-noise curve labelled simulation) |
 | ADA4817-1 | ADA4817-1/ADA4817-2 data sheet Rev. A, Mar. 2009 (Chinese edition) | FET, wideband | 410; 1 | curve, 13 points: 166 at 11 Hz to 3.9 at 100 MHz | 2.5 at 100 kHz | 1.3 / 0.1 | 2 pA; 20 pA; – | 2000 µV | companion record ADA4817-1.json: p. 3 Table 1, voltage-noise curve digitized there |
 | LTC6268-10 | LTC6268-10/LTC6269-10 data sheet 626810f Rev. F, Apr. 2015 | CMOS, wideband, decompensated | 4000; 10 | curve, 18 points: 890 at 1 Hz to 4.2 at 100 MHz | curve, 13 points: 7 at 100 kHz to 7.06e+03 at 100 MHz | 0.45 / 0.1 | 3 fA; 20 fA; 900 fA at 85 °C, 4 pA at 125 °C | 700 µV | companion record LTC6268-10.json: pp. 3-6; current-noise curve digitized there |
+| OPA858 | OPA858 data sheet SBOS629B, May 2025 | CMOS, wideband, decompensated | 5500; 7 | curve, 9 points: 25.2 at 1.04 kHz to 2.45 at 96 MHz | curve, 13 points: 0.51 at 1 kHz to 2.55e+04 at 960 MHz | 0.62 / 0.2 | 400 fA; 5 pA; – | 5000 µV | companion record OPA858.json: p. 6 (EC), Fig. 6-11 p. 9 (voltage noise), Fig. 8-8 p. 19 (current noise, both inputs) |
 | OPA211 | OPA211 data sheet SBOS377L, Jan. 2020 | bipolar, low noise | 45; 1 | 2 at 10 Hz; 1.4 at 100 Hz; 1.1 at 1 kHz | 3.2e+03 at 10 Hz; 1.7e+03 at 1 kHz | 2 / 8 | 60 nA; 175 nA; 200 nA at 125 °C | 125 µV | pp. 8-9 (GBW 80 MHz at G = 100, 45 MHz at G = 1) |
+| OPA855 | OPA855 data sheet SBOS622D, May 2025 | bipolar, wideband, decompensated | 8000; 7 | curve, 12 points: 2.85 at 1.05 kHz to 0.986 at 97 MHz | curve, 12 points: 3.52e+04 at 1.05 kHz to 2.6e+03 at 97 MHz | 0.6 / 0.2 | 12 µA; 18.5 µA; 23.3 µA at 85 °C | 1500 µV | companion record OPA855.json: p. 6 (EC: GBW, A_OL, C_CM/C_DIFF, I_B, V_OS), Fig. 6-11 p. 9 (noise curves); I_B at 85 C estimated from the typical drift |
+| OPA955 | OPA955 data sheet SLOSEE6, July 2026, Advance Information | bipolar, wideband, decompensated; preproduction | 11000; 7 | curve, 12 points: 4.26 at 105 Hz to 0.797 at 900 MHz | curve, 19 points: 1.51e+03 at 105 Hz to 9.84e+03 at 948 MHz | 0.9 / 0.2 | 2 µA; 5 µA; 9.8 µA at 85 °C | 1500 µV | companion record OPA955.json: p. 5 (EC), Fig. 6-7 p. 8 (noise curves); Advance Information, values subject to change; I_B at 85 C estimated from the typical drift |
+| LMH6629 | LMH6629 data sheet SNOSB18I, Dec. 2014 | bipolar, wideband, decompensated | 4000; 10 | curve, 8 points: 1.29 at 200 Hz to 0.69 at 10 MHz | curve, 8 points: 1.17e+04 at 200 Hz to 2.55e+03 at 10 MHz | 1.7 / 4 | 15 µA; 23 µA; 37 µA at the temperature extremes | 780 µV | companion record LMH6629.json: pp. 5-6 and 9 (EC at 5 V; C_DIFF from simulation), Figs. 28-29 p. 15 (noise curves); WSON-8 with the COMP pin high (4 GHz, gain >= 10) |
 | IF3601 composite | IF3601 data sheet IF35076-R01, Apr. 2022 (companion folder) | discrete JFET + op amp (assumed composite GBW 50 MHz) | 50; 1 | 0.35 at 100 Hz | 5.66 at 1 Hz | 710 / 0 | –; 100 pA; – | – | en 0.35 nV/rtHz at 100 Hz, VDS 3 V, ID 5 mA; Ciss 650 pF (VGS -4 V, VDS 0, 1 MHz table); Crss about 60 pF read from the Crss-VGS curve; IGSS 0.1 nA max at VGS -10 V (pp. 1-3); in_ = sqrt(2 q IGSS) as an upper bound |
 | LSK170 composite | LSK170 data sheet Doc 201110 Rev. A22, Nov. 2019 (companion folder) | discrete JFET + op amp (assumed composite GBW 50 MHz) | 50; 1 | 1.4 at 10 Hz; 0.9 at 1 kHz | 12.7 at 1 Hz | 25 / 0 | –; 500 pA; – | – | en 0.9 at 1 kHz and 1.4 at 10 Hz, ID 2 mA; Ciss 20 pF; Crss 5 pF (companion table); IG 0.5 nA max operating (p. 2); in_ = sqrt(2 q IG) as an upper bound |
 | BF862 composite | BF862 product specification, Jan. 2000 (companion folder) | discrete JFET + op amp (assumed composite GBW 50 MHz) | 50; 1 | 0.8 at 100 kHz | 17.9 at 1 Hz | 11.9 / 0 | –; 1 nA; – | – | companion table: en 0.8 at 100 kHz, Ciss 10 pF, Crss 1.9 pF, IGSS 1 nA max (p. 4); in_ = sqrt(2 q IGSS) as an upper bound; 1/f noise not modelled |
 
-Notes to Table A.1. For LTC6268-10 the voltage-noise points at 1 Hz–1 kHz are estimated from its 0.1–10 Hz noise of 12.6 µV peak to peak, assuming a $1/f$ density and a peak-to-peak value of 6.6 times the rms (Appendix B.1). The composites' gain–bandwidth product of 50 MHz is an assumption, and their current noise is the shot noise of the maximum gate current, an upper bound. OPA381 and OPA388 are auto-zero and zero-drift parts; their bias currents at 85 °C are datasheet limits (OPA388) or the 25 °C limit doubled every 10 °C (OPA381), the latter an assumption.
+Notes to Table A.1. For LTC6268-10 the voltage-noise points at 1 Hz–1 kHz are estimated from its 0.1–10 Hz noise of 12.6 µV peak to peak, assuming a $1/f$ density and a peak-to-peak value of 6.6 times the rms (Appendix B.1). The composites' gain–bandwidth product of 50 MHz is an assumption, and their current noise is the shot noise of the maximum gate current, an upper bound. OPA381 and OPA388 are auto-zero and zero-drift parts; their bias currents at 85 °C are datasheet limits (OPA388) or the 25 °C limit doubled every 10 °C (OPA381), the latter an assumption. OPA858, OPA855, OPA955 and LMH6629 come from the companion note's records and are evaluated at 10 kΩ and 100 kΩ only (Section 6.9). OPA955's datasheet is Advance Information, for a preproduction part, so its values may change. The 85-°C bias currents of OPA855 and OPA955 are the 25-°C maximum plus the typical drift over 60 °C, an estimate, and LMH6629's $C_{DIFF}$ of 4 pF is a simulated value.
 
 ### A.2 Figures of merit
 
-*Table A.2. Derived figures of merit: the critical feedback resistance of Eq. (11), above which the amplifier's current noise exceeds the resistor's Johnson noise, and the optimum source resistance of Eq. (14) with $e_n$ at 1 kHz (or the nearest specified frequency). $i_n$ is the lowest-frequency specified value.*
+*Table A.2. Derived figures of merit: the critical feedback resistance of Eq. (11), above which the amplifier's current noise exceeds the resistor's Johnson noise, and the optimum source resistance of Eq. (14) with $e_n$ at 1 kHz (or the nearest specified frequency). $i_n$ is the lowest-frequency specified value. For the wideband bipolar parts that value lies on a $1/f$ rise; their white current noise above 1 MHz, 2.5 pA/√Hz for OPA855, 2.6 pA/√Hz for LMH6629 and 0.55 pA/√Hz for OPA955, gives $R_{F,\mathrm{crit}}$ = 2.6, 2.4 and 54 kΩ, the values that apply in a band of megahertz (Section 6.9).*
 
 | Part | $e_n$ at 1 kHz (nV/√Hz) | $i_n$ (fA/√Hz) | $R_{F,\mathrm{crit}}$ | $R_{opt}$ | $C_{CM}+C_{DIFF}$ (pF) | GBW (MHz) |
 |---|---|---|---|---|---|---|
@@ -1445,157 +1517,181 @@ Notes to Table A.1. For LTC6268-10 the voltage-noise points at 1 Hz–1 kHz are 
 | OPA818 | 8.4 | 3 | 1.83 GΩ | 2.8 MΩ | 2.4 | 2700 |
 | ADA4817-1 | 11.8 | 2.5 | 2.63 GΩ | 4.72 MΩ | 1.4 | 410 |
 | LTC6268-10 | 28.4 | 7 | 336 MΩ | 4.06 MΩ | 0.55 | 4000 |
+| OPA858 | 25.2 | 0.51 | 63.3 GΩ | 49.4 MΩ | 0.82 | 5500 |
 | OPA211 | 1.1 | 1.7e+03 | 5.7 kΩ | 647 Ω | 10 | 45 |
+| OPA855 | 2.85 | 3.52e+04 | 13.3 Ω | 81 Ω | 0.8 | 8000 |
+| OPA955 | 1.56 | 717 | 32 kΩ | 2.18 kΩ | 1.1 | 1.1e+04 |
+| LMH6629 | 0.89 | 6.4e+03 | 402 Ω | 139 Ω | 5.7 | 4000 |
 | IF3601 composite | 0.35 | 5.66 | 514 MΩ | 61.8 kΩ | 710 | 50 |
 | LSK170 composite | 0.9 | 12.7 | 103 MΩ | 71.1 kΩ | 25 | 50 |
 | BF862 composite | 0.8 | 17.9 | 51.4 MΩ | 44.7 kΩ | 11.9 | 50 |
 
 ### A.3 The design sweep
 
-*Table A.3a. Designs on the S1336-18BK: Si, 20 pF, 2 GΩ photodiode: −3 dB bandwidth ("R" = resistor-limited, $C_F = C_{par}$ = 0.1 pF; "A" = the amplifier's DC open-loop gain is less than ten times the mid-band noise gain $(C_T + C_F)/C_F$, Section 3.1); excess noise $\Delta N$ over the resistor-plus-diode floor in [1 Hz, $f_{-3\,\mathrm{dB}}$], Eq. (16); DC output error at 85 °C from the maximum $V_{OS}$ and $I_B$, Eq. (38) without leakage. `hg_analysis.py`.*
+*Table A.3a. Designs on the S1336-18BK: Si, 20 pF, 2 GΩ photodiode: −3 dB bandwidth ("R" = resistor-limited, $C_F = C_{par}$ = 0.1 pF; "A" = the amplifier's DC open-loop gain is less than ten times the mid-band noise gain $(C_T + C_F)/C_F$, Section 3.1); excess noise $\Delta N$ over the resistor-plus-diode floor in [1 Hz, $f_{-3\,\mathrm{dB}}$], Eq. (16); DC output error at 85 °C from the maximum $V_{OS}$ and $I_B$, Eq. (38) without leakage. A dash marks a gain at which a part is not evaluated: the companion note's fast parts OPA858, OPA855, OPA955 and LMH6629 are evaluated at 10 kΩ and 100 kΩ only (Section 6.9). `hg_analysis.py`.*
 
-| Part | 100 kΩ | 1 MΩ | 10 MΩ | 100 MΩ | 1 GΩ |
-|---|---|---|---|---|---|
-| ADA4530-1 | 322 kHz; 5.0 dB; 40 µV | 109 kHz; 4.5 dB; 40 µV | 35.3 kHz; 4.3 dB; 40 µV | 11.3 kHz; 4.3 dB; 44 µV | 2.03 kHz R; 1.7 dB; 80 µV |
-| OPA928 | 362 kHz; 6.1 dB; 25 µV | 121 kHz; 5.7 dB; 25 µV | 38.3 kHz; 5.4 dB; 25 µV | 12.2 kHz; 5.2 dB; 28 µV | 1.96 kHz R; 1.5 dB; 58 µV |
-| LMP7721 | 997 kHz; 6.3 dB; 1.5e+02 µV | 326 kHz; 6.2 dB; 1.5e+02 µV | 104 kHz; 6.2 dB; 1.6e+02 µV | 21 kHz R; 4.4 dB; 2.5e+02 µV | 1.65 kHz R; 7.1 dB; 1.1 mV |
-| LMC6001A | 256 kHz; 6.7 dB; n/a | 86.7 kHz; 5.9 dB; n/a | 28.4 kHz; 5.7 dB; n/a | 9.07 kHz; 5.6 dB; n/a | 2.2 kHz R; 3.1 dB; n/a |
-| LMC662 | 268 kHz; 6.9 dB; n/a | 89.8 kHz; 6.1 dB; n/a | 29.4 kHz; 6.0 dB; n/a | 9.39 kHz; 5.8 dB; n/a | 2.17 kHz R; 3.1 dB; n/a |
-| ADA4625-1 | 878 kHz; 3.6 dB; 1.8e+02 µV | 284 kHz; 3.5 dB; 1.1 mV | 90.8 kHz; 3.5 dB; 9.9 mV | 22 kHz R; 2.5 dB; 99 mV | 1.67 kHz R; 2.7 dB; 9.9e+02 mV |
-| OPA828 | 1.49 MHz; 7.0 dB; 3.4e+02 µV | 472 kHz; 6.8 dB; 7e+02 µV | 151 kHz; 6.8 dB; 4.3 mV | 18.3 kHz R; 1.9 dB; 40 mV | 1.61 kHz R; 0.4 dB; 4e+02 mV |
-| OPA827 | 997 kHz; 4.7 dB; 2e+02 µV | 319 kHz; 4.5 dB; 6.5e+02 µV | 102 kHz; 4.5 dB; 5.2 mV | 21 kHz R; 2.5 dB; 50 mV | 1.65 kHz R; 0.9 dB; 5e+02 mV |
-| OPA140 | 706 kHz; 4.4 dB; 1.5e+02 µV | 226 kHz; 4.2 dB; 4.3e+02 µV | 72.1 kHz; 4.1 dB; 3.2 mV | 22.5 kHz R; 3.9 dB; 31 mV | 1.69 kHz R; 0.3 dB; 3.1e+02 mV |
-| OPA145 | 541 kHz; 3.7 dB; 2.1e+02 µV | 179 kHz; 3.5 dB; 7.5e+02 µV | 58 kHz; 3.5 dB; 6.2 mV | 18.3 kHz; 3.3 dB; 60 mV | 1.75 kHz R; 0.4 dB; 6e+02 mV |
-| OPA1656 | 1.94 MHz; 5.9 dB; 1.1 mV | 651 kHz; 6.0 dB; 2.3 mV | 183 kHz; 5.2 dB; 14 mV | 17.7 kHz R; 1.5 dB; 1.3e+02 mV | 1.61 kHz R; 4.0 dB; 1.3 V |
-| OPA2156 | 1.26 MHz; 3.6 dB; 3.5e+02 µV | 388 kHz; 3.4 dB; 1.7 mV | 121 kHz; 3.6 dB; 15 mV | 19.9 kHz R; 5.3 dB; 1.5e+02 mV | 1.63 kHz R; 11.9 dB; 1.5 V |
-| OPA320 | 1.07 MHz; 7.5 dB; 1.6e+02 µV | 345 kHz; 7.3 dB; 2e+02 µV | 110 kHz; 7.3 dB; 6.5e+02 µV | 20.3 kHz R; 3.8 dB; 5.2 mV | 1.63 kHz R; 0.4 dB; 50 mV |
-| OPA381 | 1.13 MHz; 10.1 dB; 3.5e+02 µV | 362 kHz; 13.6 dB; 3.2 mV | 116 kHz; 17.6 dB; 32 mV | 20.1 kHz R; 18.4 dB; 3.2e+02 mV | 1.63 kHz R; 13.3 dB; 3.2 V |
-| OPA388 | 774 kHz; 5.1 dB; 45 µV | 256 kHz; 5.7 dB; 4.1e+02 µV | 81.9 kHz; 9.6 dB; 4 mV | 22.5 kHz R; 17.8 dB; 40 mV | 1.67 kHz R; 26.1 dB; 4e+02 mV |
-| OPA656 | 4.11 MHz; 14.8 dB; 2.3 mV | 1.31 MHz; 14.8 dB; 6.8 mV | 179 kHz R; 8.0 dB; 52 mV | 15.6 kHz R; 1.9 dB; 5e+02 mV | 1.54 kHz R; 3.1 dB; 5 V |
-| OPA657 | 10.6 MHz; 21.6 dB; 2.3 mV | 1.86 MHz R; 16.5 dB; 6.8 mV | 151 kHz R; 6.0 dB; 52 mV | 14.9 kHz R; 1.2 dB; 5e+02 mV | 1.49 kHz R; 0.4 dB; 5 V |
-| OPA818 | 14.6 MHz; 16.5 dB; 1.3 mV | 1.84 MHz R; 9.5 dB; 2 mV | 162 kHz R; 2.3 dB; 8.3 mV | 16 kHz R; 0.6 dB; 71 mV | 1.59 kHz R; 0.5 dB; 7e+02 mV |
-| ADA4817-1 | 5.81 MHz; 13.6 dB; 2.1 mV | 1.81 MHz A; 13.5 dB; 3.3 mV | 152 kHz R A; 4.3 dB; 15 mV | 14.4 kHz R A; 1.1 dB; 1.3e+02 mV | 1.42 kHz R A; 1.3 dB; 1.3 V |
-| LTC6268-10 | 18.4 MHz; 23.1 dB; 7e+02 µV | 1.75 MHz R; 13.0 dB; 7e+02 µV | 162 kHz R; 5.4 dB; 7.1e+02 µV | 16 kHz R; 3.5 dB; 8.2e+02 µV | 1.59 kHz R; 1.8 dB; 2 mV |
-| OPA211 | 1.6 MHz; 12.7 dB; 19 mV | 511 kHz; 22.5 dB; 1.9e+02 mV | 163 kHz; 32.4 dB; 1.9 V | 17.9 kHz R; 42.3 dB; 19 V | 1.61 kHz R; 51.6 dB; 1.9e+02 V |
-| IF3601 composite | 358 kHz; 2.3 dB; n/a | 113 kHz; 2.2 dB; n/a | 35.7 kHz; 2.3 dB; n/a | 11.3 kHz; 2.6 dB; n/a | 2.01 kHz R; 3.9 dB; n/a |
-| LSK170 composite | 1.39 MHz; 1.1 dB; n/a | 445 kHz; 1.1 dB; n/a | 141 kHz; 1.4 dB; n/a | 18.7 kHz R; 3.0 dB; n/a | 1.63 kHz R; 8.7 dB; n/a |
-| BF862 composite | 1.64 MHz; 0.7 dB; n/a | 523 kHz; 0.7 dB; n/a | 165 kHz; 1.3 dB; n/a | 17.9 kHz R; 4.6 dB; n/a | 1.61 kHz R; 11.5 dB; n/a |
+| Part | 10 kΩ | 100 kΩ | 1 MΩ | 10 MΩ | 100 MΩ | 1 GΩ |
+|---|---|---|---|---|---|---|
+| ADA4530-1 | 888 kHz; 6.8 dB; 40 µV | 322 kHz; 5.0 dB; 40 µV | 109 kHz; 4.5 dB; 40 µV | 35.3 kHz; 4.3 dB; 40 µV | 11.3 kHz; 4.3 dB; 44 µV | 2.03 kHz R; 1.7 dB; 80 µV |
+| OPA928 | 997 kHz; 7.9 dB; 25 µV | 362 kHz; 6.1 dB; 25 µV | 121 kHz; 5.7 dB; 25 µV | 38.3 kHz; 5.4 dB; 25 µV | 12.2 kHz; 5.2 dB; 28 µV | 1.96 kHz R; 1.5 dB; 58 µV |
+| LMP7721 | 2.94 MHz; 7.0 dB; 1.5e+02 µV | 997 kHz; 6.3 dB; 1.5e+02 µV | 326 kHz; 6.2 dB; 1.5e+02 µV | 104 kHz; 6.2 dB; 1.6e+02 µV | 21 kHz R; 4.4 dB; 2.5e+02 µV | 1.65 kHz R; 7.1 dB; 1.1 mV |
+| LMC6001A | 698 kHz; 9.3 dB; n/a | 256 kHz; 6.7 dB; n/a | 86.7 kHz; 5.9 dB; n/a | 28.4 kHz; 5.7 dB; n/a | 9.07 kHz; 5.6 dB; n/a | 2.2 kHz R; 3.1 dB; n/a |
+| LMC662 | 730 kHz; 9.4 dB; n/a | 268 kHz; 6.9 dB; n/a | 89.8 kHz; 6.1 dB; n/a | 29.4 kHz; 6.0 dB; n/a | 9.39 kHz; 5.8 dB; n/a | 2.17 kHz R; 3.1 dB; n/a |
+| ADA4625-1 | 2.62 MHz; 3.9 dB; 90 µV | 878 kHz; 3.6 dB; 1.8e+02 µV | 284 kHz; 3.5 dB; 1.1 mV | 90.8 kHz; 3.5 dB; 9.9 mV | 22 kHz R; 2.5 dB; 99 mV | 1.67 kHz R; 2.7 dB; 9.9e+02 mV |
+| OPA828 | 4.51 MHz; 7.3 dB; 3e+02 µV | 1.49 MHz; 7.0 dB; 3.4e+02 µV | 472 kHz; 6.8 dB; 7e+02 µV | 151 kHz; 6.8 dB; 4.3 mV | 18.3 kHz R; 1.9 dB; 40 mV | 1.61 kHz R; 0.4 dB; 4e+02 mV |
+| OPA827 | 2.98 MHz; 5.1 dB; 1.6e+02 µV | 997 kHz; 4.7 dB; 2e+02 µV | 319 kHz; 4.5 dB; 6.5e+02 µV | 102 kHz; 4.5 dB; 5.2 mV | 21 kHz R; 2.5 dB; 50 mV | 1.65 kHz R; 0.9 dB; 5e+02 mV |
+| OPA140 | 2.08 MHz; 5.0 dB; 1.2e+02 µV | 706 kHz; 4.4 dB; 1.5e+02 µV | 226 kHz; 4.2 dB; 4.3e+02 µV | 72.1 kHz; 4.1 dB; 3.2 mV | 22.5 kHz R; 3.9 dB; 31 mV | 1.69 kHz R; 0.3 dB; 3.1e+02 mV |
+| OPA145 | 1.56 MHz; 4.7 dB; 1.6e+02 µV | 541 kHz; 3.7 dB; 2.1e+02 µV | 179 kHz; 3.5 dB; 7.5e+02 µV | 58 kHz; 3.5 dB; 6.2 mV | 18.3 kHz; 3.3 dB; 60 mV | 1.75 kHz R; 0.4 dB; 6e+02 mV |
+| OPA1656 | 4.51 MHz; 4.9 dB; 1 mV | 1.94 MHz; 5.9 dB; 1.1 mV | 651 kHz; 6.0 dB; 2.3 mV | 183 kHz; 5.2 dB; 14 mV | 17.7 kHz R; 1.5 dB; 1.3e+02 mV | 1.61 kHz R; 4.0 dB; 1.3 V |
+| OPA2156 | 3.42 MHz; 3.6 dB; 2.2e+02 µV | 1.26 MHz; 3.6 dB; 3.5e+02 µV | 388 kHz; 3.4 dB; 1.7 mV | 121 kHz; 3.6 dB; 15 mV | 19.9 kHz R; 5.3 dB; 1.5e+02 mV | 1.63 kHz R; 11.9 dB; 1.5 V |
+| OPA320 | 3.19 MHz; 8.2 dB; 1.5e+02 µV | 1.07 MHz; 7.5 dB; 1.6e+02 µV | 345 kHz; 7.3 dB; 2e+02 µV | 110 kHz; 7.3 dB; 6.5e+02 µV | 20.3 kHz R; 3.8 dB; 5.2 mV | 1.63 kHz R; 0.4 dB; 50 mV |
+| OPA381 | 3.3 MHz; 10.1 dB; 57 µV | 1.13 MHz; 10.1 dB; 3.5e+02 µV | 362 kHz; 13.6 dB; 3.2 mV | 116 kHz; 17.6 dB; 32 mV | 20.1 kHz R; 18.4 dB; 3.2e+02 mV | 1.63 kHz R; 13.3 dB; 3.2 V |
+| OPA388 | 2.26 MHz; 5.9 dB; 9 µV | 774 kHz; 5.1 dB; 45 µV | 256 kHz; 5.7 dB; 4.1e+02 µV | 81.9 kHz; 9.6 dB; 4 mV | 22.5 kHz R; 17.8 dB; 40 mV | 1.67 kHz R; 26.1 dB; 4e+02 mV |
+| OPA656 | 12.7 MHz; 15.0 dB; 1.9 mV | 4.11 MHz; 14.8 dB; 2.3 mV | 1.31 MHz; 14.8 dB; 6.8 mV | 179 kHz R; 8.0 dB; 52 mV | 15.6 kHz R; 1.9 dB; 5e+02 mV | 1.54 kHz R; 3.1 dB; 5 V |
+| OPA657 | 33.1 MHz; 21.6 dB; 1.9 mV | 10.6 MHz; 21.6 dB; 2.3 mV | 1.86 MHz R; 16.5 dB; 6.8 mV | 151 kHz R; 6.0 dB; 52 mV | 14.9 kHz R; 1.2 dB; 5e+02 mV | 1.49 kHz R; 0.4 dB; 5 V |
+| OPA818 | 46.2 MHz; 16.6 dB; 1.3 mV | 14.6 MHz; 16.5 dB; 1.3 mV | 1.84 MHz R; 9.5 dB; 2 mV | 162 kHz R; 2.3 dB; 8.3 mV | 16 kHz R; 0.6 dB; 71 mV | 1.59 kHz R; 0.5 dB; 7e+02 mV |
+| ADA4817-1 | 18 MHz; 13.8 dB; 2 mV | 5.81 MHz; 13.6 dB; 2.1 mV | 1.81 MHz A; 13.5 dB; 3.3 mV | 152 kHz R A; 4.3 dB; 15 mV | 14.4 kHz R A; 1.1 dB; 1.3e+02 mV | 1.42 kHz R A; 1.3 dB; 1.3 V |
+| LTC6268-10 | 57.5 MHz; 23.3 dB; 7e+02 µV | 18.4 MHz; 23.1 dB; 7e+02 µV | 1.75 MHz R; 13.0 dB; 7e+02 µV | 162 kHz R; 5.4 dB; 7.1e+02 µV | 16 kHz R; 3.5 dB; 8.2e+02 µV | 1.59 kHz R; 1.8 dB; 2 mV |
+| OPA858 | 66.8 MHz; 20.4 dB; 5 mV | 21.6 MHz R; 20.6 dB; 5 mV | – | – | – | – |
+| OPA211 | 4.83 MHz; 4.8 dB; 2 mV | 1.6 MHz; 12.7 dB; 19 mV | 511 kHz; 22.5 dB; 1.9e+02 mV | 163 kHz; 32.4 dB; 1.9 V | 17.9 kHz R; 42.3 dB; 19 V | 1.61 kHz R; 51.6 dB; 1.9e+02 V |
+| OPA855 | 82.1 MHz; 14.9 dB; 2.3e+02 mV | 21.6 MHz R; 18.0 dB; 2.3 V | – | – | – | – |
+| OPA955 | 94.3 MHz; 13.9 dB; 1e+02 mV | 20.6 MHz R; 11.5 dB; 9.8e+02 mV | – | – | – | – |
+| LMH6629 | 51.8 MHz; 11.0 dB; 3.7e+02 mV | 16.6 MHz; 16.8 dB; 3.7 V | – | – | – | – |
+| IF3601 composite | 1.12 MHz; 2.3 dB; n/a | 358 kHz; 2.3 dB; n/a | 113 kHz; 2.2 dB; n/a | 35.7 kHz; 2.3 dB; n/a | 11.3 kHz; 2.6 dB; n/a | 2.01 kHz R; 3.9 dB; n/a |
+| LSK170 composite | 4.3 MHz; 1.2 dB; n/a | 1.39 MHz; 1.1 dB; n/a | 445 kHz; 1.1 dB; n/a | 141 kHz; 1.4 dB; n/a | 18.7 kHz R; 3.0 dB; n/a | 1.63 kHz R; 8.7 dB; n/a |
+| BF862 composite | 5 MHz; 0.7 dB; n/a | 1.64 MHz; 0.7 dB; n/a | 523 kHz; 0.7 dB; n/a | 165 kHz; 1.3 dB; n/a | 17.9 kHz R; 4.6 dB; n/a | 1.61 kHz R; 11.5 dB; n/a |
 
-*Table A.3b. Designs on the G12180-010A: InGaAs, 55 pF, 125 MΩ photodiode: −3 dB bandwidth ("R" = resistor-limited, $C_F = C_{par}$ = 0.1 pF; "A" = the amplifier's DC open-loop gain is less than ten times the mid-band noise gain $(C_T + C_F)/C_F$, Section 3.1); excess noise $\Delta N$ over the resistor-plus-diode floor in [1 Hz, $f_{-3\,\mathrm{dB}}$], Eq. (16); DC output error at 85 °C from the maximum $V_{OS}$ and $I_B$, Eq. (38) without leakage. `hg_analysis.py`.*
+*Table A.3b. Designs on the G12180-010A: InGaAs, 55 pF, 125 MΩ photodiode: −3 dB bandwidth ("R" = resistor-limited, $C_F = C_{par}$ = 0.1 pF; "A" = the amplifier's DC open-loop gain is less than ten times the mid-band noise gain $(C_T + C_F)/C_F$, Section 3.1); excess noise $\Delta N$ over the resistor-plus-diode floor in [1 Hz, $f_{-3\,\mathrm{dB}}$], Eq. (16); DC output error at 85 °C from the maximum $V_{OS}$ and $I_B$, Eq. (38) without leakage. A dash marks a gain at which a part is not evaluated: the companion note's fast parts OPA858, OPA855, OPA955 and LMH6629 are evaluated at 10 kΩ and 100 kΩ only (Section 6.9). `hg_analysis.py`.*
 
-| Part | 100 kΩ | 1 MΩ | 10 MΩ | 100 MΩ | 1 GΩ |
-|---|---|---|---|---|---|
-| ADA4530-1 | 226 kHz; 7.3 dB; 40 µV | 73.8 kHz; 6.8 dB; 40 µV | 23.6 kHz; 6.5 dB; 43 µV | 7.55 kHz; 5.1 dB; 74 µV | 2.25 kHz R; 1.6 dB; 3.8e+02 µV |
-| OPA928 | 250 kHz; 8.6 dB; 25 µV | 81.9 kHz; 8.1 dB; 25 µV | 26.2 kHz; 7.7 dB; 27 µV | 8.37 kHz; 6.0 dB; 47 µV | 2.23 kHz R; 1.5 dB; 2.4e+02 µV |
-| LMP7721 | 682 kHz; 9.1 dB; 1.5e+02 µV | 218 kHz; 8.9 dB; 1.5e+02 µV | 69.7 kHz; 8.7 dB; 1.7e+02 µV | 22 kHz; 7.1 dB; 3.6e+02 µV | 1.69 kHz R; 2.4 dB; 2.2 mV |
-| LMC6001A | 179 kHz; 9.2 dB; n/a | 60 kHz; 8.7 dB; n/a | 19.4 kHz; 8.3 dB; n/a | 6.13 kHz; 6.4 dB; n/a | 1.94 kHz; 2.2 dB; n/a |
-| LMC662 | 185 kHz; 9.4 dB; n/a | 62.1 kHz; 8.9 dB; n/a | 19.9 kHz; 8.4 dB; n/a | 6.28 kHz; 6.5 dB; n/a | 2.01 kHz; 2.3 dB; n/a |
-| ADA4625-1 | 644 kHz; 5.1 dB; 1.8e+02 µV | 206 kHz; 5.0 dB; 1.1 mV | 65.8 kHz; 4.8 dB; 10 mV | 20.8 kHz; 3.6 dB; 99 mV | 1.71 kHz R; 0.6 dB; 9.9e+02 mV |
-| OPA828 | 1.07 MHz; 9.4 dB; 3.4e+02 µV | 342 kHz; 9.3 dB; 7e+02 µV | 108 kHz; 9.0 dB; 4.3 mV | 20.6 kHz R; 4.0 dB; 41 mV | 1.65 kHz R; 0.1 dB; 4e+02 mV |
-| OPA827 | 722 kHz; 6.6 dB; 2e+02 µV | 234 kHz; 6.5 dB; 6.5e+02 µV | 73.8 kHz; 6.3 dB; 5.2 mV | 22.5 kHz R; 4.5 dB; 50 mV | 1.69 kHz R; 0.2 dB; 5e+02 mV |
-| OPA140 | 511 kHz; 6.3 dB; 1.5e+02 µV | 165 kHz; 6.1 dB; 4.3e+02 µV | 52.2 kHz; 5.8 dB; 3.2 mV | 16.5 kHz; 4.3 dB; 31 mV | 1.79 kHz R; 0.2 dB; 3.1e+02 mV |
-| OPA145 | 379 kHz; 5.9 dB; 2.1e+02 µV | 124 kHz; 5.7 dB; 7.5e+02 µV | 39.2 kHz; 5.3 dB; 6.2 mV | 12.5 kHz; 3.9 dB; 60 mV | 1.94 kHz R; 0.3 dB; 6e+02 mV |
-| OPA1656 | 1.42 MHz; 8.8 dB; 1.1 mV | 425 kHz; 8.1 dB; 2.3 mV | 125 kHz; 7.4 dB; 14 mV | 19.9 kHz R; 2.5 dB; 1.3e+02 mV | 1.63 kHz R; 1.0 dB; 1.3 V |
-| OPA2156 | 858 kHz; 5.5 dB; 3.5e+02 µV | 265 kHz; 5.2 dB; 1.7 mV | 82.8 kHz; 5.1 dB; 15 mV | 22.5 kHz R; 5.0 dB; 1.5e+02 mV | 1.67 kHz R; 5.4 dB; 1.5 V |
-| OPA320 | 739 kHz; 10.4 dB; 1.6e+02 µV | 236 kHz; 10.2 dB; 2e+02 µV | 75.5 kHz; 9.9 dB; 6.6e+02 µV | 22.5 kHz R; 7.6 dB; 5.3 mV | 1.69 kHz R; 0.3 dB; 51 mV |
-| OPA381 | 730 kHz; 15.0 dB; 3.5e+02 µV | 234 kHz; 18.8 dB; 3.2 mV | 73.8 kHz; 22.6 dB; 32 mV | 22.5 kHz R; 24.2 dB; 3.2e+02 mV | 1.69 kHz R; 9.1 dB; 3.2 V |
-| OPA388 | 529 kHz; 7.7 dB; 45 µV | 171 kHz; 7.9 dB; 4.1e+02 µV | 54.7 kHz; 10.4 dB; 4 mV | 17.3 kHz; 15.7 dB; 40 mV | 1.77 kHz R; 18.4 dB; 4e+02 mV |
-| OPA656 | 2.65 MHz; 18.7 dB; 2.3 mV | 848 kHz; 18.6 dB; 6.8 mV | 196 kHz R A; 15.7 dB; 52 mV | 15.1 kHz R A; 3.7 dB; 5e+02 mV | 1.45 kHz R A; 0.8 dB; 5 V |
-| OPA657 | 6.98 MHz; 25.3 dB; 2.3 mV | 1.88 MHz R A; 23.9 dB; 6.8 mV | 141 kHz R A; 11.5 dB; 52 mV | 13.4 kHz R A; 2.5 dB; 5e+02 mV | 1.34 kHz R A; 0.2 dB; 5 V |
-| OPA818 | 9.21 MHz; 20.3 dB; 1.3 mV | 2.16 MHz R; 17.7 dB; 2 mV | 163 kHz R; 6.6 dB; 8.4 mV | 15.8 kHz R; 1.6 dB; 72 mV | 1.58 kHz R; 0.3 dB; 7.1e+02 mV |
-| ADA4817-1 | 3.58 MHz; 17.4 dB; 2.1 mV | 1.16 MHz A; 17.6 dB; 3.3 mV | 137 kHz R A; 9.7 dB; 15 mV | 12.2 kHz R A; 2.4 dB; 1.3e+02 mV | 1.22 kHz R A; 0.5 dB; 1.3 V |
-| LTC6268-10 | 11.3 MHz; 27.2 dB; 7e+02 µV | 2.01 MHz R; 22.0 dB; 7.1e+02 µV | 163 kHz R; 12.2 dB; 7.7e+02 µV | 16 kHz R; 7.7 dB; 1.4 mV | 1.59 kHz R; 2.0 dB; 7.2 mV |
-| OPA211 | 1.11 MHz; 12.8 dB; 19 mV | 349 kHz; 22.5 dB; 1.9e+02 mV | 110 kHz; 32.1 dB; 1.9 V | 20.3 kHz R; 40.0 dB; 19 V | 1.63 kHz R; 43.8 dB; 1.9e+02 V |
-| IF3601 composite | 342 kHz; 2.3 dB; n/a | 109 kHz; 2.3 dB; n/a | 34.5 kHz; 2.2 dB; n/a | 11 kHz; 1.8 dB; n/a | 2.03 kHz R; 0.9 dB; n/a |
-| LSK170 composite | 1.06 MHz; 1.8 dB; n/a | 334 kHz; 1.7 dB; n/a | 107 kHz; 1.9 dB; n/a | 20.8 kHz R; 2.2 dB; n/a | 1.65 kHz R; 3.2 dB; n/a |
-| BF862 composite | 1.14 MHz; 1.2 dB; n/a | 366 kHz; 1.3 dB; n/a | 116 kHz; 1.7 dB; n/a | 20.1 kHz R; 3.3 dB; n/a | 1.63 kHz R; 5.0 dB; n/a |
+| Part | 10 kΩ | 100 kΩ | 1 MΩ | 10 MΩ | 100 MΩ | 1 GΩ |
+|---|---|---|---|---|---|---|
+| ADA4530-1 | 636 kHz; 8.7 dB; 40 µV | 226 kHz; 7.3 dB; 40 µV | 73.8 kHz; 6.8 dB; 40 µV | 23.6 kHz; 6.5 dB; 43 µV | 7.55 kHz; 5.1 dB; 74 µV | 2.25 kHz R; 1.6 dB; 3.8e+02 µV |
+| OPA928 | 722 kHz; 10.0 dB; 25 µV | 250 kHz; 8.6 dB; 25 µV | 81.9 kHz; 8.1 dB; 25 µV | 26.2 kHz; 7.7 dB; 27 µV | 8.37 kHz; 6.0 dB; 47 µV | 2.23 kHz R; 1.5 dB; 2.4e+02 µV |
+| LMP7721 | 2.06 MHz; 9.6 dB; 1.5e+02 µV | 682 kHz; 9.1 dB; 1.5e+02 µV | 218 kHz; 8.9 dB; 1.5e+02 µV | 69.7 kHz; 8.7 dB; 1.7e+02 µV | 22 kHz; 7.1 dB; 3.6e+02 µV | 1.69 kHz R; 2.4 dB; 2.2 mV |
+| LMC6001A | 499 kHz; 11.1 dB; n/a | 179 kHz; 9.2 dB; n/a | 60 kHz; 8.7 dB; n/a | 19.4 kHz; 8.3 dB; n/a | 6.13 kHz; 6.4 dB; n/a | 1.94 kHz; 2.2 dB; n/a |
+| LMC662 | 523 kHz; 11.3 dB; n/a | 185 kHz; 9.4 dB; n/a | 62.1 kHz; 8.9 dB; n/a | 19.9 kHz; 8.4 dB; n/a | 6.28 kHz; 6.5 dB; n/a | 2.01 kHz; 2.3 dB; n/a |
+| ADA4625-1 | 1.97 MHz; 5.5 dB; 90 µV | 644 kHz; 5.1 dB; 1.8e+02 µV | 206 kHz; 5.0 dB; 1.1 mV | 65.8 kHz; 4.8 dB; 10 mV | 20.8 kHz; 3.6 dB; 99 mV | 1.71 kHz R; 0.6 dB; 9.9e+02 mV |
+| OPA828 | 3.26 MHz; 9.7 dB; 3e+02 µV | 1.07 MHz; 9.4 dB; 3.4e+02 µV | 342 kHz; 9.3 dB; 7e+02 µV | 108 kHz; 9.0 dB; 4.3 mV | 20.6 kHz R; 4.0 dB; 41 mV | 1.65 kHz R; 0.1 dB; 4e+02 mV |
+| OPA827 | 2.21 MHz; 7.0 dB; 1.6e+02 µV | 722 kHz; 6.6 dB; 2e+02 µV | 234 kHz; 6.5 dB; 6.5e+02 µV | 73.8 kHz; 6.3 dB; 5.2 mV | 22.5 kHz R; 4.5 dB; 50 mV | 1.69 kHz R; 0.2 dB; 5e+02 mV |
+| OPA140 | 1.53 MHz; 6.8 dB; 1.2e+02 µV | 511 kHz; 6.3 dB; 1.5e+02 µV | 165 kHz; 6.1 dB; 4.3e+02 µV | 52.2 kHz; 5.8 dB; 3.2 mV | 16.5 kHz; 4.3 dB; 31 mV | 1.79 kHz R; 0.2 dB; 3.1e+02 mV |
+| OPA145 | 1.12 MHz; 6.7 dB; 1.6e+02 µV | 379 kHz; 5.9 dB; 2.1e+02 µV | 124 kHz; 5.7 dB; 7.5e+02 µV | 39.2 kHz; 5.3 dB; 6.2 mV | 12.5 kHz; 3.9 dB; 60 mV | 1.94 kHz R; 0.3 dB; 6e+02 mV |
+| OPA1656 | 3.5 MHz; 7.6 dB; 1 mV | 1.42 MHz; 8.8 dB; 1.1 mV | 425 kHz; 8.1 dB; 2.3 mV | 125 kHz; 7.4 dB; 14 mV | 19.9 kHz R; 2.5 dB; 1.3e+02 mV | 1.63 kHz R; 1.0 dB; 1.3 V |
+| OPA2156 | 2.53 MHz; 5.7 dB; 2.2e+02 µV | 858 kHz; 5.5 dB; 3.5e+02 µV | 265 kHz; 5.2 dB; 1.7 mV | 82.8 kHz; 5.1 dB; 15 mV | 22.5 kHz R; 5.0 dB; 1.5e+02 mV | 1.67 kHz R; 5.4 dB; 1.5 V |
+| OPA320 | 2.23 MHz; 10.8 dB; 1.5e+02 µV | 739 kHz; 10.4 dB; 1.6e+02 µV | 236 kHz; 10.2 dB; 2e+02 µV | 75.5 kHz; 9.9 dB; 6.6e+02 µV | 22.5 kHz R; 7.6 dB; 5.3 mV | 1.69 kHz R; 0.3 dB; 51 mV |
+| OPA381 | 2.18 MHz; 13.2 dB; 57 µV | 730 kHz; 15.0 dB; 3.5e+02 µV | 234 kHz; 18.8 dB; 3.2 mV | 73.8 kHz; 22.6 dB; 32 mV | 22.5 kHz R; 24.2 dB; 3.2e+02 mV | 1.69 kHz R; 9.1 dB; 3.2 V |
+| OPA388 | 1.56 MHz; 8.3 dB; 9 µV | 529 kHz; 7.7 dB; 45 µV | 171 kHz; 7.9 dB; 4.1e+02 µV | 54.7 kHz; 10.4 dB; 4 mV | 17.3 kHz; 15.7 dB; 40 mV | 1.77 kHz R; 18.4 dB; 4e+02 mV |
+| OPA656 | 8.3 MHz; 18.8 dB; 1.9 mV | 2.65 MHz; 18.7 dB; 2.3 mV | 848 kHz; 18.6 dB; 6.8 mV | 196 kHz R A; 15.7 dB; 52 mV | 15.1 kHz R A; 3.7 dB; 5e+02 mV | 1.45 kHz R A; 0.8 dB; 5 V |
+| OPA657 | 21.8 MHz; 25.3 dB; 1.9 mV | 6.98 MHz; 25.3 dB; 2.3 mV | 1.88 MHz R A; 23.9 dB; 6.8 mV | 141 kHz R A; 11.5 dB; 52 mV | 13.4 kHz R A; 2.5 dB; 5e+02 mV | 1.34 kHz R A; 0.2 dB; 5 V |
+| OPA818 | 29.1 MHz; 20.3 dB; 1.3 mV | 9.21 MHz; 20.3 dB; 1.3 mV | 2.16 MHz R; 17.7 dB; 2 mV | 163 kHz R; 6.6 dB; 8.4 mV | 15.8 kHz R; 1.6 dB; 72 mV | 1.58 kHz R; 0.3 dB; 7.1e+02 mV |
+| ADA4817-1 | 11.3 MHz; 17.7 dB; 2 mV | 3.58 MHz; 17.4 dB; 2.1 mV | 1.16 MHz A; 17.6 dB; 3.3 mV | 137 kHz R A; 9.7 dB; 15 mV | 12.2 kHz R A; 2.4 dB; 1.3e+02 mV | 1.22 kHz R A; 0.5 dB; 1.3 V |
+| LTC6268-10 | 35.8 MHz; 27.2 dB; 7e+02 µV | 11.3 MHz; 27.2 dB; 7e+02 µV | 2.01 MHz R; 22.0 dB; 7.1e+02 µV | 163 kHz R; 12.2 dB; 7.7e+02 µV | 16 kHz R; 7.7 dB; 1.4 mV | 1.59 kHz R; 2.0 dB; 7.2 mV |
+| OPA858 | 42.1 MHz; 24.6 dB; 5 mV | 13.3 MHz; 24.6 dB; 5 mV | – | – | – | – |
+| OPA211 | 3.38 MHz; 5.2 dB; 2 mV | 1.11 MHz; 12.8 dB; 19 mV | 349 kHz; 22.5 dB; 1.9e+02 mV | 110 kHz; 32.1 dB; 1.9 V | 20.3 kHz R; 40.0 dB; 19 V | 1.63 kHz R; 43.8 dB; 1.9e+02 V |
+| OPA855 | 50.6 MHz; 18.5 dB; 2.3e+02 mV | 16.2 MHz; 20.6 dB; 2.3 V | – | – | – | – |
+| OPA955 | 58.8 MHz; 17.8 dB; 1e+02 mV | 18.8 MHz; 18.0 dB; 9.8e+02 mV | – | – | – | – |
+| LMH6629 | 34.6 MHz; 13.6 dB; 3.7e+02 mV | 10.9 MHz; 17.7 dB; 3.7 V | – | – | – | – |
+| IF3601 composite | 1.07 MHz; 2.3 dB; n/a | 342 kHz; 2.3 dB; n/a | 109 kHz; 2.3 dB; n/a | 34.5 kHz; 2.2 dB; n/a | 11 kHz; 1.8 dB; n/a | 2.03 kHz R; 0.9 dB; n/a |
+| LSK170 composite | 3.23 MHz; 1.8 dB; n/a | 1.06 MHz; 1.8 dB; n/a | 334 kHz; 1.7 dB; n/a | 107 kHz; 1.9 dB; n/a | 20.8 kHz R; 2.2 dB; n/a | 1.65 kHz R; 3.2 dB; n/a |
+| BF862 composite | 3.54 MHz; 1.3 dB; n/a | 1.14 MHz; 1.2 dB; n/a | 366 kHz; 1.3 dB; n/a | 116 kHz; 1.7 dB; n/a | 20.1 kHz R; 3.3 dB; n/a | 1.63 kHz R; 5.0 dB; n/a |
 
-*Table A.3c. Designs on the S1336-8BK: Si, 380 pF, 0.4 GΩ photodiode: −3 dB bandwidth ("R" = resistor-limited, $C_F = C_{par}$ = 0.1 pF; "A" = the amplifier's DC open-loop gain is less than ten times the mid-band noise gain $(C_T + C_F)/C_F$, Section 3.1); excess noise $\Delta N$ over the resistor-plus-diode floor in [1 Hz, $f_{-3\,\mathrm{dB}}$], Eq. (16); DC output error at 85 °C from the maximum $V_{OS}$ and $I_B$, Eq. (38) without leakage. `hg_analysis.py`.*
+*Table A.3c. Designs on the S1336-8BK: Si, 380 pF, 0.4 GΩ photodiode: −3 dB bandwidth ("R" = resistor-limited, $C_F = C_{par}$ = 0.1 pF; "A" = the amplifier's DC open-loop gain is less than ten times the mid-band noise gain $(C_T + C_F)/C_F$, Section 3.1); excess noise $\Delta N$ over the resistor-plus-diode floor in [1 Hz, $f_{-3\,\mathrm{dB}}$], Eq. (16); DC output error at 85 °C from the maximum $V_{OS}$ and $I_B$, Eq. (38) without leakage. A dash marks a gain at which a part is not evaluated: the companion note's fast parts OPA858, OPA855, OPA955 and LMH6629 are evaluated at 10 kΩ and 100 kΩ only (Section 6.9). `hg_analysis.py`.*
 
-| Part | 100 kΩ | 1 MΩ | 10 MΩ | 100 MΩ | 1 GΩ |
-|---|---|---|---|---|---|
-| ADA4530-1 | 95.1 kHz; 14.0 dB; 40 µV | 30.8 kHz; 13.8 dB; 40 µV | 9.61 kHz; 13.7 dB; 41 µV | 3.04 kHz; 13.5 dB; 52 µV | 960 Hz; 10.8 dB; 1.6e+02 µV |
-| OPA928 | 105 kHz; 15.4 dB; 25 µV | 34.1 kHz; 15.3 dB; 25 µV | 10.9 kHz; 15.2 dB; 26 µV | 3.45 kHz; 14.3 dB; 33 µV | 1.09 kHz; 10.3 dB; 1.1e+02 µV |
-| LMP7721 | 278 kHz; 16.2 dB; 1.5e+02 µV | 88.7 kHz; 16.2 dB; 1.5e+02 µV | 28 kHz; 16.1 dB; 1.6e+02 µV | 9.07 kHz; 15.5 dB; 2.8e+02 µV | 2.17 kHz R; 9.9 dB; 1.4 mV |
-| LMC6001A | 75.5 kHz; 16.0 dB; n/a | 24.7 kHz; 15.8 dB; n/a | 7.81 kHz; 15.6 dB; n/a | 2.5 kHz; 14.8 dB; n/a | 789 Hz; 10.6 dB; n/a |
-| LMC662 | 79.1 kHz; 16.4 dB; n/a | 25.6 kHz; 16.1 dB; n/a | 8.18 kHz; 16.0 dB; n/a | 2.58 kHz; 15.1 dB; n/a | 817 Hz; 10.9 dB; n/a |
-| ADA4625-1 | 284 kHz; 11.1 dB; 1.8e+02 µV | 90.8 kHz; 11.0 dB; 1.1 mV | 28.7 kHz; 10.9 dB; 10 mV | 9.07 kHz; 10.1 dB; 99 mV | 2.2 kHz R; 5.2 dB; 9.9e+02 mV |
-| OPA828 | 455 kHz; 16.4 dB; 3.4e+02 µV | 144 kHz; 16.3 dB; 7e+02 µV | 45.5 kHz; 16.2 dB; 4.3 mV | 14.4 kHz; 15.3 dB; 40 mV | 1.85 kHz R; 4.8 dB; 4e+02 mV |
-| OPA827 | 315 kHz; 13.0 dB; 2e+02 µV | 99.6 kHz; 12.9 dB; 6.5e+02 µV | 31.8 kHz; 12.8 dB; 5.2 mV | 10.1 kHz; 12.1 dB; 50 mV | 2.13 kHz R; 5.6 dB; 5e+02 mV |
-| OPA140 | 223 kHz; 12.6 dB; 1.5e+02 µV | 71.3 kHz; 12.5 dB; 4.3e+02 µV | 22.5 kHz; 12.4 dB; 3.2 mV | 7.12 kHz; 11.6 dB; 31 mV | 2.25 kHz R; 7.6 dB; 3.1e+02 mV |
-| OPA145 | 160 kHz; 12.4 dB; 2.1e+02 µV | 50.5 kHz; 12.2 dB; 7.5e+02 µV | 16 kHz; 12.0 dB; 6.2 mV | 5.04 kHz; 11.2 dB; 60 mV | 1.63 kHz; 7.4 dB; 6e+02 mV |
-| OPA1656 | 573 kHz; 15.5 dB; 1.1 mV | 165 kHz; 14.7 dB; 2.3 mV | 50.5 kHz; 14.3 dB; 14 mV | 15.8 kHz; 13.5 dB; 1.3e+02 mV | 1.81 kHz R; 5.7 dB; 1.3 V |
-| OPA2156 | 349 kHz; 11.8 dB; 3.5e+02 µV | 110 kHz; 11.6 dB; 1.7 mV | 34.5 kHz; 11.5 dB; 15 mV | 10.9 kHz; 11.5 dB; 1.5e+02 mV | 2.05 kHz R; 9.8 dB; 1.5 V |
-| OPA320 | 301 kHz; 17.6 dB; 1.6e+02 µV | 96.2 kHz; 17.5 dB; 2e+02 µV | 30.4 kHz; 17.4 dB; 6.5e+02 µV | 9.61 kHz; 16.8 dB; 5.2 mV | 2.15 kHz R; 10.7 dB; 51 mV |
-| OPA381 | 291 kHz; 26.2 dB; 3.5e+02 µV | 91.9 kHz; 30.2 dB; 3.2 mV | 29.4 kHz; 34.3 dB; 32 mV | 9.28 kHz; 36.0 dB; 3.2e+02 mV | 2.17 kHz R; 29.0 dB; 3.2 V |
-| OPA388 | 213 kHz; 14.7 dB; 45 µV | 68.1 kHz; 14.7 dB; 4.1e+02 µV | 21.5 kHz; 15.3 dB; 4 mV | 6.88 kHz; 18.6 dB; 40 mV | 2.17 kHz; 22.6 dB; 4e+02 mV |
-| OPA656 | 1.04 MHz; 26.7 dB; 2.3 mV | 334 kHz A; 26.8 dB; 6.8 mV | 104 kHz A; 26.5 dB; 52 mV | 10.5 kHz R A; 15.9 dB; 5e+02 mV | 960 Hz R A; 4.1 dB; 5 V |
-| OPA657 | 2.75 MHz A; 33.2 dB; 2.3 mV | 878 kHz A; 33.3 dB; 6.8 mV | 78.2 kHz R A; 22.3 dB; 52 mV | 7.29 kHz R A; 11.8 dB; 5e+02 mV | 720 Hz R A; 3.1 dB; 5 V |
-| OPA818 | 3.58 MHz; 28.3 dB; 1.3 mV | 1.14 MHz; 28.4 dB; 2 mV | 177 kHz R; 22.6 dB; 8.3 mV | 14.9 kHz R; 13.9 dB; 72 mV | 1.47 kHz R; 8.0 dB; 7e+02 mV |
-| ADA4817-1 | 1.41 MHz A; 25.7 dB; 2.1 mV | 445 kHz A; 25.8 dB; 3.3 mV | 59.3 kHz R A; 19.2 dB; 15 mV | 5.16 kHz R A; 12.0 dB; 1.3e+02 mV | 509 Hz R A; 8.0 dB; 1.3 V |
-| LTC6268-10 | 4.35 MHz; 35.3 dB; 7e+02 µV | 1.39 MHz; 35.4 dB; 7e+02 µV | 183 kHz R; 29.5 dB; 7.3e+02 µV | 16 kHz R; 25.1 dB; 9.6e+02 µV | 1.58 kHz R; 18.3 dB; 3.4 mV |
-| OPA211 | 455 kHz; 13.4 dB; 19 mV | 144 kHz; 22.5 dB; 1.9e+02 mV | 45.5 kHz; 32.4 dB; 1.9 V | 14.5 kHz; 41.6 dB; 19 V | 1.83 kHz R; 47.8 dB; 1.9e+02 V |
-| IF3601 composite | 291 kHz; 3.0 dB; n/a | 91.9 kHz; 3.0 dB; n/a | 29 kHz; 3.0 dB; n/a | 9.18 kHz; 2.9 dB; n/a | 2.17 kHz R; 2.3 dB; n/a |
-| LSK170 composite | 472 kHz; 5.4 dB; n/a | 151 kHz; 5.4 dB; n/a | 47.6 kHz; 5.4 dB; n/a | 15.1 kHz; 5.7 dB; n/a | 1.83 kHz R; 5.9 dB; n/a |
-| BF862 composite | 482 kHz; 4.6 dB; n/a | 152 kHz; 4.6 dB; n/a | 48.2 kHz; 4.7 dB; n/a | 15.2 kHz; 6.0 dB; n/a | 1.81 kHz R; 8.2 dB; n/a |
+| Part | 10 kΩ | 100 kΩ | 1 MΩ | 10 MΩ | 100 MΩ | 1 GΩ |
+|---|---|---|---|---|---|---|
+| ADA4530-1 | 284 kHz; 14.6 dB; 40 µV | 95.1 kHz; 14.0 dB; 40 µV | 30.8 kHz; 13.8 dB; 40 µV | 9.61 kHz; 13.7 dB; 41 µV | 3.04 kHz; 13.5 dB; 52 µV | 960 Hz; 10.8 dB; 1.6e+02 µV |
+| OPA928 | 319 kHz; 16.0 dB; 25 µV | 105 kHz; 15.4 dB; 25 µV | 34.1 kHz; 15.3 dB; 25 µV | 10.9 kHz; 15.2 dB; 26 µV | 3.45 kHz; 14.3 dB; 33 µV | 1.09 kHz; 10.3 dB; 1.1e+02 µV |
+| LMP7721 | 878 kHz; 16.6 dB; 1.5e+02 µV | 278 kHz; 16.2 dB; 1.5e+02 µV | 88.7 kHz; 16.2 dB; 1.5e+02 µV | 28 kHz; 16.1 dB; 1.6e+02 µV | 9.07 kHz; 15.5 dB; 2.8e+02 µV | 2.17 kHz R; 9.9 dB; 1.4 mV |
+| LMC6001A | 223 kHz; 16.8 dB; n/a | 75.5 kHz; 16.0 dB; n/a | 24.7 kHz; 15.8 dB; n/a | 7.81 kHz; 15.6 dB; n/a | 2.5 kHz; 14.8 dB; n/a | 789 Hz; 10.6 dB; n/a |
+| LMC662 | 234 kHz; 17.1 dB; n/a | 79.1 kHz; 16.4 dB; n/a | 25.6 kHz; 16.1 dB; n/a | 8.18 kHz; 16.0 dB; n/a | 2.58 kHz; 15.1 dB; n/a | 817 Hz; 10.9 dB; n/a |
+| ADA4625-1 | 878 kHz; 11.2 dB; 90 µV | 284 kHz; 11.1 dB; 1.8e+02 µV | 90.8 kHz; 11.0 dB; 1.1 mV | 28.7 kHz; 10.9 dB; 10 mV | 9.07 kHz; 10.1 dB; 99 mV | 2.2 kHz R; 5.2 dB; 9.9e+02 mV |
+| OPA828 | 1.41 MHz; 16.4 dB; 3e+02 µV | 455 kHz; 16.4 dB; 3.4e+02 µV | 144 kHz; 16.3 dB; 7e+02 µV | 45.5 kHz; 16.2 dB; 4.3 mV | 14.4 kHz; 15.3 dB; 40 mV | 1.85 kHz R; 4.8 dB; 4e+02 mV |
+| OPA827 | 974 kHz; 13.1 dB; 1.6e+02 µV | 315 kHz; 13.0 dB; 2e+02 µV | 99.6 kHz; 12.9 dB; 6.5e+02 µV | 31.8 kHz; 12.8 dB; 5.2 mV | 10.1 kHz; 12.1 dB; 50 mV | 2.13 kHz R; 5.6 dB; 5e+02 mV |
+| OPA140 | 682 kHz; 12.8 dB; 1.2e+02 µV | 223 kHz; 12.6 dB; 1.5e+02 µV | 71.3 kHz; 12.5 dB; 4.3e+02 µV | 22.5 kHz; 12.4 dB; 3.2 mV | 7.12 kHz; 11.6 dB; 31 mV | 2.25 kHz R; 7.6 dB; 3.1e+02 mV |
+| OPA145 | 482 kHz; 12.7 dB; 1.6e+02 µV | 160 kHz; 12.4 dB; 2.1e+02 µV | 50.5 kHz; 12.2 dB; 7.5e+02 µV | 16 kHz; 12.0 dB; 6.2 mV | 5.04 kHz; 11.2 dB; 60 mV | 1.63 kHz; 7.4 dB; 6e+02 mV |
+| OPA1656 | 1.79 MHz; 15.7 dB; 1 mV | 573 kHz; 15.5 dB; 1.1 mV | 165 kHz; 14.7 dB; 2.3 mV | 50.5 kHz; 14.3 dB; 14 mV | 15.8 kHz; 13.5 dB; 1.3e+02 mV | 1.81 kHz R; 5.7 dB; 1.3 V |
+| OPA2156 | 1.13 MHz; 12.3 dB; 2.2e+02 µV | 349 kHz; 11.8 dB; 3.5e+02 µV | 110 kHz; 11.6 dB; 1.7 mV | 34.5 kHz; 11.5 dB; 15 mV | 10.9 kHz; 11.5 dB; 1.5e+02 mV | 2.05 kHz R; 9.8 dB; 1.5 V |
+| OPA320 | 952 kHz; 17.9 dB; 1.5e+02 µV | 301 kHz; 17.6 dB; 1.6e+02 µV | 96.2 kHz; 17.5 dB; 2e+02 µV | 30.4 kHz; 17.4 dB; 6.5e+02 µV | 9.61 kHz; 16.8 dB; 5.2 mV | 2.15 kHz R; 10.7 dB; 51 mV |
+| OPA381 | 899 kHz; 22.2 dB; 57 µV | 291 kHz; 26.2 dB; 3.5e+02 µV | 91.9 kHz; 30.2 dB; 3.2 mV | 29.4 kHz; 34.3 dB; 32 mV | 9.28 kHz; 36.0 dB; 3.2e+02 mV | 2.17 kHz R; 29.0 dB; 3.2 V |
+| OPA388 | 666 kHz; 15.0 dB; 9 µV | 213 kHz; 14.7 dB; 45 µV | 68.1 kHz; 14.7 dB; 4.1e+02 µV | 21.5 kHz; 15.3 dB; 4 mV | 6.88 kHz; 18.6 dB; 40 mV | 2.17 kHz; 22.6 dB; 4e+02 mV |
+| OPA656 | 3.3 MHz; 26.8 dB; 1.9 mV | 1.04 MHz; 26.7 dB; 2.3 mV | 334 kHz A; 26.8 dB; 6.8 mV | 104 kHz A; 26.5 dB; 52 mV | 10.5 kHz R A; 15.9 dB; 5e+02 mV | 960 Hz R A; 4.1 dB; 5 V |
+| OPA657 | 8.79 MHz; 33.3 dB; 1.9 mV | 2.75 MHz A; 33.2 dB; 2.3 mV | 878 kHz A; 33.3 dB; 6.8 mV | 78.2 kHz R A; 22.3 dB; 52 mV | 7.29 kHz R A; 11.8 dB; 5e+02 mV | 720 Hz R A; 3.1 dB; 5 V |
+| OPA818 | 11.2 MHz; 28.3 dB; 1.3 mV | 3.58 MHz; 28.3 dB; 1.3 mV | 1.14 MHz; 28.4 dB; 2 mV | 177 kHz R; 22.6 dB; 8.3 mV | 14.9 kHz R; 13.9 dB; 72 mV | 1.47 kHz R; 8.0 dB; 7e+02 mV |
+| ADA4817-1 | 4.4 MHz; 25.7 dB; 2 mV | 1.41 MHz A; 25.7 dB; 2.1 mV | 445 kHz A; 25.8 dB; 3.3 mV | 59.3 kHz R A; 19.2 dB; 15 mV | 5.16 kHz R A; 12.0 dB; 1.3e+02 mV | 509 Hz R A; 8.0 dB; 1.3 V |
+| LTC6268-10 | 13.8 MHz; 35.5 dB; 7e+02 µV | 4.35 MHz; 35.3 dB; 7e+02 µV | 1.39 MHz; 35.4 dB; 7e+02 µV | 183 kHz R; 29.5 dB; 7.3e+02 µV | 16 kHz R; 25.1 dB; 9.6e+02 µV | 1.58 kHz R; 18.3 dB; 3.4 mV |
+| OPA858 | 16.2 MHz; 32.8 dB; 5 mV | 5.12 MHz A; 33.0 dB; 5 mV | – | – | – | – |
+| OPA211 | 1.44 MHz; 7.8 dB; 2 mV | 455 kHz; 13.4 dB; 19 mV | 144 kHz; 22.5 dB; 1.9e+02 mV | 45.5 kHz; 32.4 dB; 1.9 V | 14.5 kHz; 41.6 dB; 19 V | 1.83 kHz R; 47.8 dB; 1.9e+02 V |
+| OPA855 | 19.7 MHz; 26.5 dB; 2.3e+02 mV | 6.15 MHz A; 26.9 dB; 2.3 V | – | – | – | – |
+| OPA955 | 22.9 MHz; 26.0 dB; 1e+02 mV | 7.31 MHz A; 26.1 dB; 9.8e+02 mV | – | – | – | – |
+| LMH6629 | 13.8 MHz; 20.6 dB; 3.7e+02 mV | 4.4 MHz A; 21.8 dB; 3.7 V | – | – | – | – |
+| IF3601 composite | 909 kHz; 3.0 dB; n/a | 291 kHz; 3.0 dB; n/a | 91.9 kHz; 3.0 dB; n/a | 29 kHz; 3.0 dB; n/a | 9.18 kHz; 2.9 dB; n/a | 2.17 kHz R; 2.3 dB; n/a |
+| LSK170 composite | 1.47 MHz; 5.4 dB; n/a | 472 kHz; 5.4 dB; n/a | 151 kHz; 5.4 dB; n/a | 47.6 kHz; 5.4 dB; n/a | 15.1 kHz; 5.7 dB; n/a | 1.83 kHz R; 5.9 dB; n/a |
+| BF862 composite | 1.51 MHz; 4.7 dB; n/a | 482 kHz; 4.6 dB; n/a | 152 kHz; 4.6 dB; n/a | 48.2 kHz; 4.7 dB; n/a | 15.2 kHz; 6.0 dB; n/a | 1.81 kHz R; 8.2 dB; n/a |
 
-*Table A.3d. Designs on the G12180-050A: InGaAs, 1 nF, 6.5 MΩ photodiode: −3 dB bandwidth ("R" = resistor-limited, $C_F = C_{par}$ = 0.1 pF; "A" = the amplifier's DC open-loop gain is less than ten times the mid-band noise gain $(C_T + C_F)/C_F$, Section 3.1); excess noise $\Delta N$ over the resistor-plus-diode floor in [1 Hz, $f_{-3\,\mathrm{dB}}$], Eq. (16); DC output error at 85 °C from the maximum $V_{OS}$ and $I_B$, Eq. (38) without leakage. `hg_analysis.py`.*
+*Table A.3d. Designs on the G12180-050A: InGaAs, 1 nF, 6.5 MΩ photodiode: −3 dB bandwidth ("R" = resistor-limited, $C_F = C_{par}$ = 0.1 pF; "A" = the amplifier's DC open-loop gain is less than ten times the mid-band noise gain $(C_T + C_F)/C_F$, Section 3.1); excess noise $\Delta N$ over the resistor-plus-diode floor in [1 Hz, $f_{-3\,\mathrm{dB}}$], Eq. (16); DC output error at 85 °C from the maximum $V_{OS}$ and $I_B$, Eq. (38) without leakage. A dash marks a gain at which a part is not evaluated: the companion note's fast parts OPA858, OPA855, OPA955 and LMH6629 are evaluated at 10 kΩ and 100 kΩ only (Section 6.9). `hg_analysis.py`.*
 
-| Part | 100 kΩ | 1 MΩ | 10 MΩ | 100 MΩ | 1 GΩ |
-|---|---|---|---|---|---|
-| ADA4530-1 | 59.3 kHz; 17.8 dB; 41 µV | 19 kHz; 17.2 dB; 46 µV | 5.99 kHz; 14.2 dB; 1e+02 µV | 1.89 kHz; 7.5 dB; 6.6e+02 µV | 606 Hz; 2.8 dB; 6.2 mV |
-| OPA928 | 65.8 kHz; 19.3 dB; 25 µV | 21 kHz; 18.6 dB; 29 µV | 6.65 kHz; 15.2 dB; 64 µV | 2.15 kHz; 7.9 dB; 4.1e+02 µV | 680 Hz; 2.1 dB; 3.9 mV |
-| LMP7721 | 175 kHz; 20.3 dB; 1.5e+02 µV | 56 kHz; 19.8 dB; 1.7e+02 µV | 17.7 kHz; 16.4 dB; 3.9e+02 µV | 5.53 kHz; 8.7 dB; 2.5 mV | 1.75 kHz; 2.4 dB; 24 mV |
-| LMC6001A | 47.1 kHz; 19.8 dB; n/a | 15.2 kHz; 19.2 dB; n/a | 4.81 kHz; 15.7 dB; n/a | 1.54 kHz; 8.3 dB; n/a | 487 Hz; 2.1 dB; n/a |
-| LMC662 | 49.3 kHz; 20.2 dB; n/a | 15.8 kHz; 19.5 dB; n/a | 5.04 kHz; 16.1 dB; n/a | 1.61 kHz; 8.6 dB; n/a | 504 Hz; 2.2 dB; n/a |
-| ADA4625-1 | 179 kHz; 14.8 dB; 1.8e+02 µV | 56.6 kHz; 14.2 dB; 1.1 mV | 17.9 kHz; 11.0 dB; 10 mV | 5.66 kHz; 4.4 dB; 1e+02 mV | 1.79 kHz; 0.8 dB; 1e+03 mV |
-| OPA828 | 284 kHz; 20.3 dB; 3.4e+02 µV | 90.8 kHz; 19.8 dB; 7.5e+02 µV | 28.7 kHz; 16.4 dB; 4.8 mV | 9.07 kHz; 8.8 dB; 45 mV | 2.17 kHz R; 1.5 dB; 4.5e+02 mV |
-| OPA827 | 199 kHz; 16.9 dB; 2e+02 µV | 62.8 kHz; 16.3 dB; 6.7e+02 µV | 19.9 kHz; 12.9 dB; 5.4 mV | 6.28 kHz; 6.0 dB; 52 mV | 2.01 kHz; 1.3 dB; 5.2e+02 mV |
-| OPA140 | 141 kHz; 16.5 dB; 1.5e+02 µV | 44.5 kHz; 15.8 dB; 4.4e+02 µV | 14.1 kHz; 12.5 dB; 3.4 mV | 4.44 kHz; 5.6 dB; 33 mV | 1.42 kHz; 1.1 dB; 3.2e+02 mV |
-| OPA145 | 99.6 kHz; 16.2 dB; 2.1e+02 µV | 31.5 kHz; 15.5 dB; 7.7e+02 µV | 9.95 kHz; 12.2 dB; 6.4 mV | 3.14 kHz; 5.3 dB; 62 mV | 1.01 kHz; 1.0 dB; 6.2e+02 mV |
-| OPA1656 | 342 kHz; 19.1 dB; 1.1 mV | 102 kHz; 18.0 dB; 2.4 mV | 31.5 kHz; 14.5 dB; 15 mV | 9.83 kHz; 7.5 dB; 1.4e+02 mV | 2.13 kHz R; 1.5 dB; 1.4 V |
-| OPA2156 | 218 kHz; 15.6 dB; 3.5e+02 µV | 67.3 kHz; 14.8 dB; 1.7 mV | 21.3 kHz; 11.6 dB; 16 mV | 6.72 kHz; 5.6 dB; 1.5e+02 mV | 2.15 kHz; 1.8 dB; 1.5 V |
-| OPA320 | 190 kHz; 21.6 dB; 1.6e+02 µV | 60.7 kHz; 21.1 dB; 2.2e+02 µV | 19.2 kHz; 17.7 dB; 8.8e+02 µV | 6.06 kHz; 10.5 dB; 7.5 mV | 1.89 kHz; 3.6 dB; 73 mV |
-| OPA381 | 179 kHz; 31.9 dB; 3.5e+02 µV | 56.6 kHz; 35.5 dB; 3.2 mV | 18.1 kHz; 36.0 dB; 32 mV | 5.79 kHz; 29.1 dB; 3.2e+02 mV | 1.81 kHz; 19.3 dB; 3.2 V |
-| OPA388 | 134 kHz; 18.7 dB; 45 µV | 43 kHz; 18.2 dB; 4.1e+02 µV | 13.6 kHz; 15.1 dB; 4 mV | 4.29 kHz; 9.6 dB; 40 mV | 1.34 kHz; 7.3 dB; 4e+02 mV |
-| OPA656 | 651 kHz; 30.9 dB; 2.3 mV | 203 kHz A; 30.2 dB; 7.1 mV | 65 kHz A; 26.9 dB; 55 mV | 6.35 kHz R A; 9.1 dB; 5.3e+02 mV | 599 Hz R A; 0.3 dB; 5.3 V |
-| OPA657 | 1.71 MHz A; 37.3 dB; 2.3 mV | 541 kHz R A; 36.8 dB; 7.1 mV | 40.6 kHz R A; 21.0 dB; 55 mV | 3.87 kHz R A; 5.3 dB; 5.3e+02 mV | 400 Hz R A; 0.3 dB; 5.3 V |
-| OPA818 | 2.23 MHz; 32.5 dB; 1.3 mV | 698 kHz; 31.9 dB; 2.1 mV | 177 kHz R A; 27.0 dB; 10 mV | 13.3 kHz R A; 10.6 dB; 90 mV | 1.3 kHz R A; 2.4 dB; 8.9e+02 mV |
-| ADA4817-1 | 868 kHz A; 29.9 dB; 2.2 mV | 274 kHz A; 29.5 dB; 3.6 mV | 26.5 kHz R A; 17.5 dB; 18 mV | 2.47 kHz R A; 6.1 dB; 1.6e+02 mV | 261 Hz R A; 1.9 dB; 1.6 V |
-| LTC6268-10 | 2.68 MHz; 39.4 dB; 7.1e+02 µV | 858 kHz; 39.1 dB; 8.1e+02 µV | 213 kHz R; 35.0 dB; 1.8 mV | 16 kHz R; 22.3 dB; 12 mV | 1.54 kHz R; 10.4 dB; 1.1e+02 mV |
-| OPA211 | 284 kHz; 14.2 dB; 19 mV | 90.8 kHz; 22.1 dB; 1.9e+02 mV | 28.7 kHz; 28.5 dB; 1.9 V | 9.07 kHz; 30.5 dB; 19 V | 2.1 kHz R; 31.3 dB; 1.9e+02 V |
-| IF3601 composite | 228 kHz; 4.0 dB; n/a | 73 kHz; 3.7 dB; n/a | 23.3 kHz; 2.1 dB; n/a | 7.37 kHz; 0.4 dB; n/a | 2.23 kHz R; 0.1 dB; n/a |
-| LSK170 composite | 297 kHz; 8.5 dB; n/a | 94 kHz; 8.0 dB; n/a | 29.7 kHz; 5.3 dB; n/a | 9.39 kHz; 1.5 dB; n/a | 2.13 kHz R; 0.3 dB; n/a |
-| BF862 composite | 297 kHz; 7.5 dB; n/a | 94 kHz; 7.0 dB; n/a | 30.4 kHz; 4.8 dB; n/a | 9.61 kHz; 1.5 dB; n/a | 2.13 kHz R; 0.6 dB; n/a |
+| Part | 10 kΩ | 100 kΩ | 1 MΩ | 10 MΩ | 100 MΩ | 1 GΩ |
+|---|---|---|---|---|---|---|
+| ADA4530-1 | 179 kHz; 18.2 dB; 40 µV | 59.3 kHz; 17.8 dB; 41 µV | 19 kHz; 17.2 dB; 46 µV | 5.99 kHz; 14.2 dB; 1e+02 µV | 1.89 kHz; 7.5 dB; 6.6e+02 µV | 606 Hz; 2.8 dB; 6.2 mV |
+| OPA928 | 203 kHz; 19.8 dB; 25 µV | 65.8 kHz; 19.3 dB; 25 µV | 21 kHz; 18.6 dB; 29 µV | 6.65 kHz; 15.2 dB; 64 µV | 2.15 kHz; 7.9 dB; 4.1e+02 µV | 680 Hz; 2.1 dB; 3.9 mV |
+| LMP7721 | 548 kHz; 20.5 dB; 1.5e+02 µV | 175 kHz; 20.3 dB; 1.5e+02 µV | 56 kHz; 19.8 dB; 1.7e+02 µV | 17.7 kHz; 16.4 dB; 3.9e+02 µV | 5.53 kHz; 8.7 dB; 2.5 mV | 1.75 kHz; 2.4 dB; 24 mV |
+| LMC6001A | 144 kHz; 20.4 dB; n/a | 47.1 kHz; 19.8 dB; n/a | 15.2 kHz; 19.2 dB; n/a | 4.81 kHz; 15.7 dB; n/a | 1.54 kHz; 8.3 dB; n/a | 487 Hz; 2.1 dB; n/a |
+| LMC662 | 151 kHz; 20.8 dB; n/a | 49.3 kHz; 20.2 dB; n/a | 15.8 kHz; 19.5 dB; n/a | 5.04 kHz; 16.1 dB; n/a | 1.61 kHz; 8.6 dB; n/a | 504 Hz; 2.2 dB; n/a |
+| ADA4625-1 | 560 kHz; 15.0 dB; 90 µV | 179 kHz; 14.8 dB; 1.8e+02 µV | 56.6 kHz; 14.2 dB; 1.1 mV | 17.9 kHz; 11.0 dB; 10 mV | 5.66 kHz; 4.4 dB; 1e+02 mV | 1.79 kHz; 0.8 dB; 1e+03 mV |
+| OPA828 | 899 kHz; 20.5 dB; 3e+02 µV | 284 kHz; 20.3 dB; 3.4e+02 µV | 90.8 kHz; 19.8 dB; 7.5e+02 µV | 28.7 kHz; 16.4 dB; 4.8 mV | 9.07 kHz; 8.8 dB; 45 mV | 2.17 kHz R; 1.5 dB; 4.5e+02 mV |
+| OPA827 | 622 kHz; 17.0 dB; 1.6e+02 µV | 199 kHz; 16.9 dB; 2e+02 µV | 62.8 kHz; 16.3 dB; 6.7e+02 µV | 19.9 kHz; 12.9 dB; 5.4 mV | 6.28 kHz; 6.0 dB; 52 mV | 2.01 kHz; 1.3 dB; 5.2e+02 mV |
+| OPA140 | 435 kHz; 16.6 dB; 1.2e+02 µV | 141 kHz; 16.5 dB; 1.5e+02 µV | 44.5 kHz; 15.8 dB; 4.4e+02 µV | 14.1 kHz; 12.5 dB; 3.4 mV | 4.44 kHz; 5.6 dB; 33 mV | 1.42 kHz; 1.1 dB; 3.2e+02 mV |
+| OPA145 | 304 kHz; 16.4 dB; 1.6e+02 µV | 99.6 kHz; 16.2 dB; 2.1e+02 µV | 31.5 kHz; 15.5 dB; 7.7e+02 µV | 9.95 kHz; 12.2 dB; 6.4 mV | 3.14 kHz; 5.3 dB; 62 mV | 1.01 kHz; 1.0 dB; 6.2e+02 mV |
+| OPA1656 | 1.17 MHz; 20.0 dB; 1 mV | 342 kHz; 19.1 dB; 1.1 mV | 102 kHz; 18.0 dB; 2.4 mV | 31.5 kHz; 14.5 dB; 15 mV | 9.83 kHz; 7.5 dB; 1.4e+02 mV | 2.13 kHz R; 1.5 dB; 1.4 V |
+| OPA2156 | 714 kHz; 16.1 dB; 2.2e+02 µV | 218 kHz; 15.6 dB; 3.5e+02 µV | 67.3 kHz; 14.8 dB; 1.7 mV | 21.3 kHz; 11.6 dB; 16 mV | 6.72 kHz; 5.6 dB; 1.5e+02 mV | 2.15 kHz; 1.8 dB; 1.5 V |
+| OPA320 | 594 kHz; 21.8 dB; 1.5e+02 µV | 190 kHz; 21.6 dB; 1.6e+02 µV | 60.7 kHz; 21.1 dB; 2.2e+02 µV | 19.2 kHz; 17.7 dB; 8.8e+02 µV | 6.06 kHz; 10.5 dB; 7.5 mV | 1.89 kHz; 3.6 dB; 73 mV |
+| OPA381 | 567 kHz; 28.0 dB; 57 µV | 179 kHz; 31.9 dB; 3.5e+02 µV | 56.6 kHz; 35.5 dB; 3.2 mV | 18.1 kHz; 36.0 dB; 32 mV | 5.79 kHz; 29.1 dB; 3.2e+02 mV | 1.81 kHz; 19.3 dB; 3.2 V |
+| OPA388 | 415 kHz; 18.9 dB; 9 µV | 134 kHz; 18.7 dB; 45 µV | 43 kHz; 18.2 dB; 4.1e+02 µV | 13.6 kHz; 15.1 dB; 4 mV | 4.29 kHz; 9.6 dB; 40 mV | 1.34 kHz; 7.3 dB; 4e+02 mV |
+| OPA656 | 2.04 MHz; 30.9 dB; 1.9 mV | 651 kHz; 30.9 dB; 2.3 mV | 203 kHz A; 30.2 dB; 7.1 mV | 65 kHz A; 26.9 dB; 55 mV | 6.35 kHz R A; 9.1 dB; 5.3e+02 mV | 599 Hz R A; 0.3 dB; 5.3 V |
+| OPA657 | 5.36 MHz; 37.3 dB; 1.9 mV | 1.71 MHz A; 37.3 dB; 2.3 mV | 541 kHz R A; 36.8 dB; 7.1 mV | 40.6 kHz R A; 21.0 dB; 55 mV | 3.87 kHz R A; 5.3 dB; 5.3e+02 mV | 400 Hz R A; 0.3 dB; 5.3 V |
+| OPA818 | 7.06 MHz; 32.6 dB; 1.3 mV | 2.23 MHz; 32.5 dB; 1.3 mV | 698 kHz; 31.9 dB; 2.1 mV | 177 kHz R A; 27.0 dB; 10 mV | 13.3 kHz R A; 10.6 dB; 90 mV | 1.3 kHz R A; 2.4 dB; 8.9e+02 mV |
+| ADA4817-1 | 2.72 MHz; 29.8 dB; 2 mV | 868 kHz A; 29.9 dB; 2.2 mV | 274 kHz A; 29.5 dB; 3.6 mV | 26.5 kHz R A; 17.5 dB; 18 mV | 2.47 kHz R A; 6.1 dB; 1.6e+02 mV | 261 Hz R A; 1.9 dB; 1.6 V |
+| LTC6268-10 | 8.49 MHz; 39.6 dB; 7e+02 µV | 2.68 MHz; 39.4 dB; 7.1e+02 µV | 858 kHz; 39.1 dB; 8.1e+02 µV | 213 kHz R; 35.0 dB; 1.8 mV | 16 kHz R; 22.3 dB; 12 mV | 1.54 kHz R; 10.4 dB; 1.1e+02 mV |
+| OPA858 | 9.98 MHz; 37.1 dB; 5 mV | 3.19 MHz A; 37.3 dB; 5.1 mV | – | – | – | – |
+| OPA211 | 899 kHz; 10.5 dB; 2 mV | 284 kHz; 14.2 dB; 19 mV | 90.8 kHz; 22.1 dB; 1.9e+02 mV | 28.7 kHz; 28.5 dB; 1.9 V | 9.07 kHz; 30.5 dB; 19 V | 2.1 kHz R; 31.3 dB; 1.9e+02 V |
+| OPA855 | 12.1 MHz; 30.7 dB; 2.3e+02 mV | 3.84 MHz A; 30.8 dB; 2.3 V | – | – | – | – |
+| OPA955 | 14.1 MHz A; 30.2 dB; 1e+02 mV | 4.51 MHz A; 30.2 dB; 9.8e+02 mV | – | – | – | – |
+| LMH6629 | 8.59 MHz; 24.6 dB; 3.7e+02 mV | 2.68 MHz A; 25.0 dB; 3.7 V | – | – | – | – |
+| IF3601 composite | 730 kHz; 4.1 dB; n/a | 228 kHz; 4.0 dB; n/a | 73 kHz; 3.7 dB; n/a | 23.3 kHz; 2.1 dB; n/a | 7.37 kHz; 0.4 dB; n/a | 2.23 kHz R; 0.1 dB; n/a |
+| LSK170 composite | 930 kHz; 8.6 dB; n/a | 297 kHz; 8.5 dB; n/a | 94 kHz; 8.0 dB; n/a | 29.7 kHz; 5.3 dB; n/a | 9.39 kHz; 1.5 dB; n/a | 2.13 kHz R; 0.3 dB; n/a |
+| BF862 composite | 952 kHz; 7.8 dB; n/a | 297 kHz; 7.5 dB; n/a | 94 kHz; 7.0 dB; n/a | 30.4 kHz; 4.8 dB; n/a | 9.61 kHz; 1.5 dB; n/a | 2.13 kHz R; 0.6 dB; n/a |
 
-*Table A.3e. Designs on the G12183-010K: InGaAs to 2.6 µm, 500 pF, 14 kΩ photodiode: −3 dB bandwidth ("R" = resistor-limited, $C_F = C_{par}$ = 0.1 pF; "A" = the amplifier's DC open-loop gain is less than ten times the mid-band noise gain $(C_T + C_F)/C_F$, Section 3.1); excess noise $\Delta N$ over the resistor-plus-diode floor in [1 Hz, $f_{-3\,\mathrm{dB}}$], Eq. (16); DC output error at 85 °C from the maximum $V_{OS}$ and $I_B$, Eq. (38) without leakage. `hg_analysis.py`.*
+*Table A.3e. Designs on the G12183-010K: InGaAs to 2.6 µm, 500 pF, 14 kΩ photodiode: −3 dB bandwidth ("R" = resistor-limited, $C_F = C_{par}$ = 0.1 pF; "A" = the amplifier's DC open-loop gain is less than ten times the mid-band noise gain $(C_T + C_F)/C_F$, Section 3.1); excess noise $\Delta N$ over the resistor-plus-diode floor in [1 Hz, $f_{-3\,\mathrm{dB}}$], Eq. (16); DC output error at 85 °C from the maximum $V_{OS}$ and $I_B$, Eq. (38) without leakage. A dash marks a gain at which a part is not evaluated: the companion note's fast parts OPA858, OPA855, OPA955 and LMH6629 are evaluated at 10 kΩ and 100 kΩ only (Section 6.9). `hg_analysis.py`.*
 
-| Part | 100 kΩ | 1 MΩ | 10 MΩ | 100 MΩ | 1 GΩ |
-|---|---|---|---|---|---|
-| ADA4530-1 | 83.8 kHz; 7.6 dB; 3.3e+02 µV | 27.1 kHz; 3.8 dB; 2.9 mV | 3.14 kHz R; 4.4 dB; 29 mV | 280 Hz R; 9.2 dB; 2.9e+02 mV | 28 Hz R; 14.8 dB; 2.9 V |
-| OPA928 | 92.9 kHz; 8.7 dB; 2e+02 µV | 30.1 kHz; 4.1 dB; 1.8 mV | 4 kHz R; 3.1 dB; 18 mV | 352 Hz R; 3.7 dB; 1.8e+02 mV | 35.6 Hz R; 4.7 dB; 1.8 V |
-| LMP7721 | 247 kHz; 9.0 dB; 1.2 mV | 78.2 kHz; 2.9 dB; 11 mV | 25 kHz; 1.0 dB; 1.1e+02 mV | 2.3 kHz R; 0.9 dB; 1.1 V | 252 Hz R; 1.5 dB; 11 V |
-| LMC6001A | 67.3 kHz; 9.8 dB; n/a | 21.8 kHz; 5.8 dB; n/a | 1.96 kHz R; 4.9 dB; n/a | 183 Hz R; 4.9 dB; n/a | 19.3 Hz R; 4.9 dB; n/a |
-| LMC662 | 69.7 kHz; 10.0 dB; n/a | 22.5 kHz; 5.8 dB; n/a | 2.13 kHz R; 4.9 dB; n/a | 198 Hz R; 4.9 dB; n/a | 20.3 Hz R; 4.9 dB; n/a |
-| ADA4625-1 | 250 kHz; 4.7 dB; 7.5e+02 µV | 79.1 kHz; 1.0 dB; 6.8 mV | 25.3 kHz; 0.3 dB; 67 mV | 2.38 kHz R; 0.2 dB; 6.7e+02 mV | 222 Hz R; 0.3 dB; 6.7 V |
-| OPA828 | 401 kHz; 9.0 dB; 2.5 mV | 127 kHz; 2.6 dB; 22 mV | 40.1 kHz; 0.6 dB; 2.2e+02 mV | 5.28 kHz R; 0.3 dB; 2.2 V | 470 Hz R; 0.4 dB; 22 V |
-| OPA827 | 278 kHz; 6.1 dB; 1.3 mV | 88.7 kHz; 1.5 dB; 11 mV | 28 kHz; 0.4 dB; 1.1e+02 mV | 2.9 kHz R; 0.3 dB; 1.1 V | 270 Hz R; 0.3 dB; 11 V |
-| OPA140 | 194 kHz; 5.8 dB; 1 mV | 62.8 kHz; 1.5 dB; 9 mV | 19.9 kHz R; 0.6 dB; 89 mV | 1.5 kHz R; 0.5 dB; 8.9e+02 mV | 147 Hz R; 0.7 dB; 8.9 V |
-| OPA145 | 139 kHz; 5.8 dB; 1.3 mV | 44.5 kHz; 1.8 dB; 11 mV | 9.95 kHz R; 0.9 dB; 1.1e+02 mV | 762 Hz R; 0.9 dB; 1.1 V | 77.9 Hz R; 1.1 dB; 11 V |
-| OPA1656 | 488 kHz; 8.0 dB; 8.3 mV | 142 kHz; 1.9 dB; 74 mV | 44 kHz; 0.4 dB; 7.3e+02 mV | 5.99 kHz R; 0.5 dB; 7.3 V | 515 Hz R; 2.1 dB; 73 V |
-| OPA2156 | 308 kHz; 5.2 dB; 1.8 mV | 96.2 kHz; 1.1 dB; 16 mV | 30.1 kHz; 0.3 dB; 1.6e+02 mV | 3.22 kHz R; 0.7 dB; 1.6 V | 293 Hz R; 3.3 dB; 16 V |
-| OPA320 | 265 kHz; 10.1 dB; 1.2 mV | 84.8 kHz; 3.5 dB; 11 mV | 27.1 kHz; 1.3 dB; 1.1e+02 mV | 2.65 kHz R; 1.2 dB; 1.1 V | 247 Hz R; 1.7 dB; 11 V |
-| OPA381 | 253 kHz; 19.0 dB; 5.2e+02 µV | 80.9 kHz; 15.0 dB; 5 mV | 25.9 kHz; 13.7 dB; 50 mV | 2.38 kHz R; 13.5 dB; 5e+02 mV | 222 Hz R; 13.5 dB; 5 V |
-| OPA388 | 190 kHz; 7.7 dB; 81 µV | 60 kHz; 2.4 dB; 7.6e+02 µV | 18.3 kHz R; 1.0 dB; 7.6 mV | 1.37 kHz R; 0.9 dB; 76 mV | 131 Hz R; 0.9 dB; 7.6e+02 mV |
-| OPA656 | 909 kHz; 18.8 dB; 15 mV | 291 kHz A; 9.9 dB; 1.4e+02 mV | 98.4 kHz A; 3.3 dB; 1.3 V | 17.5 kHz R A; 0.7 dB; 13 V | 9.95 kHz R A; 0.7 dB; 1.3e+02 V |
-| OPA657 | 2.42 MHz A; 25.3 dB; 15 mV | 774 kHz A; 16.1 dB; 1.4e+02 mV | 80 kHz R A; 1.9 dB; 1.3 V | 20.1 kHz R A; 0.7 dB; 13 V | 14.4 kHz R A; 0.7 dB; 1.3e+02 V |
-| OPA818 | 3.15 MHz; 20.5 dB; 10 mV | 985 kHz; 11.3 dB; 91 mV | 175 kHz R A; 1.7 dB; 9e+02 mV | 16.5 kHz R A; 0.8 dB; 9 V | 3.87 kHz R A; 2.1 dB; 90 V |
-| ADA4817-1 | 1.23 MHz A; 17.9 dB; 16 mV | 397 kHz A; 9.2 dB; 1.5e+02 mV | 65 kHz R A; 1.7 dB; 1.4 V | 20.8 kHz R A; 2.0 dB; 14 V | 16.9 kHz R A; 2.2 dB; 1.4e+02 V |
-| LTC6268-10 | 3.84 MHz; 27.5 dB; 5.7 mV | 1.23 MHz; 18.1 dB; 51 mV | 185 kHz R; 5.6 dB; 5e+02 mV | 16 kHz R; 5.4 dB; 5 V | 1.96 kHz R; 11.6 dB; 50 V |
-| OPA211 | 401 kHz; 5.7 dB; 20 mV | 128 kHz; 5.4 dB; 2e+02 mV | 40.6 kHz; 5.4 dB; 2 V | 5.4 kHz R; 5.6 dB; 20 V | 565 Hz R; 6.9 dB; 2e+02 V |
-| IF3601 composite | 271 kHz; 0.5 dB; n/a | 87.7 kHz; 0.1 dB; n/a | 27.4 kHz; 0.0 dB; n/a | 6.72 kHz R; 0.0 dB; n/a | 540 Hz R; 0.0 dB; n/a |
-| LSK170 composite | 415 kHz; 1.4 dB; n/a | 133 kHz; 0.2 dB; n/a | 42 kHz; 0.0 dB; n/a | 5.79 kHz R; 0.0 dB; n/a | 534 Hz R; 0.0 dB; n/a |
-| BF862 composite | 425 kHz; 1.2 dB; n/a | 134 kHz; 0.2 dB; n/a | 42.5 kHz; 0.0 dB; n/a | 5.79 kHz R; 0.0 dB; n/a | 534 Hz R; 0.0 dB; n/a |
+| Part | 10 kΩ | 100 kΩ | 1 MΩ | 10 MΩ | 100 MΩ | 1 GΩ |
+|---|---|---|---|---|---|---|
+| ADA4530-1 | 253 kHz; 13.6 dB; 69 µV | 83.8 kHz; 7.6 dB; 3.3e+02 µV | 27.1 kHz; 3.8 dB; 2.9 mV | 3.14 kHz R; 4.4 dB; 29 mV | 280 Hz R; 9.2 dB; 2.9e+02 mV | 28 Hz R; 14.8 dB; 2.9 V |
+| OPA928 | 281 kHz; 14.9 dB; 43 µV | 92.9 kHz; 8.7 dB; 2e+02 µV | 30.1 kHz; 4.1 dB; 1.8 mV | 4 kHz R; 3.1 dB; 18 mV | 352 Hz R; 3.7 dB; 1.8e+02 mV | 35.6 Hz R; 4.7 dB; 1.8 V |
+| LMP7721 | 765 kHz; 15.4 dB; 2.6e+02 µV | 247 kHz; 9.0 dB; 1.2 mV | 78.2 kHz; 2.9 dB; 11 mV | 25 kHz; 1.0 dB; 1.1e+02 mV | 2.3 kHz R; 0.9 dB; 1.1 V | 252 Hz R; 1.5 dB; 11 V |
+| LMC6001A | 199 kHz; 15.8 dB; n/a | 67.3 kHz; 9.8 dB; n/a | 21.8 kHz; 5.8 dB; n/a | 1.96 kHz R; 4.9 dB; n/a | 183 Hz R; 4.9 dB; n/a | 19.3 Hz R; 4.9 dB; n/a |
+| LMC662 | 208 kHz; 16.1 dB; n/a | 69.7 kHz; 10.0 dB; n/a | 22.5 kHz; 5.8 dB; n/a | 2.13 kHz R; 4.9 dB; n/a | 198 Hz R; 4.9 dB; n/a | 20.3 Hz R; 4.9 dB; n/a |
+| ADA4625-1 | 774 kHz; 10.1 dB; 1.5e+02 µV | 250 kHz; 4.7 dB; 7.5e+02 µV | 79.1 kHz; 1.0 dB; 6.8 mV | 25.3 kHz; 0.3 dB; 67 mV | 2.38 kHz R; 0.2 dB; 6.7e+02 mV | 222 Hz R; 0.3 dB; 6.7 V |
+| OPA828 | 1.24 MHz; 15.3 dB; 5.2e+02 µV | 401 kHz; 9.0 dB; 2.5 mV | 127 kHz; 2.6 dB; 22 mV | 40.1 kHz; 0.6 dB; 2.2e+02 mV | 5.28 kHz R; 0.3 dB; 2.2 V | 470 Hz R; 0.4 dB; 22 V |
+| OPA827 | 868 kHz; 12.1 dB; 2.6e+02 µV | 278 kHz; 6.1 dB; 1.3 mV | 88.7 kHz; 1.5 dB; 11 mV | 28 kHz; 0.4 dB; 1.1e+02 mV | 2.9 kHz R; 0.3 dB; 1.1 V | 270 Hz R; 0.3 dB; 11 V |
+| OPA140 | 601 kHz; 11.7 dB; 2.1e+02 µV | 194 kHz; 5.8 dB; 1 mV | 62.8 kHz; 1.5 dB; 9 mV | 19.9 kHz R; 0.6 dB; 89 mV | 1.5 kHz R; 0.5 dB; 8.9e+02 mV | 147 Hz R; 0.7 dB; 8.9 V |
+| OPA145 | 425 kHz; 11.6 dB; 2.6e+02 µV | 139 kHz; 5.8 dB; 1.3 mV | 44.5 kHz; 1.8 dB; 11 mV | 9.95 kHz R; 0.9 dB; 1.1e+02 mV | 762 Hz R; 0.9 dB; 1.1 V | 77.9 Hz R; 1.1 dB; 11 V |
+| OPA1656 | 1.62 MHz; 14.8 dB; 1.7 mV | 488 kHz; 8.0 dB; 8.3 mV | 142 kHz; 1.9 dB; 74 mV | 44 kHz; 0.4 dB; 7.3e+02 mV | 5.99 kHz R; 0.5 dB; 7.3 V | 515 Hz R; 2.1 dB; 73 V |
+| OPA2156 | 997 kHz; 11.2 dB; 3.6e+02 µV | 308 kHz; 5.2 dB; 1.8 mV | 96.2 kHz; 1.1 dB; 16 mV | 30.1 kHz; 0.3 dB; 1.6e+02 mV | 3.22 kHz R; 0.7 dB; 1.6 V | 293 Hz R; 3.3 dB; 16 V |
+| OPA320 | 829 kHz; 16.7 dB; 2.6e+02 µV | 265 kHz; 10.1 dB; 1.2 mV | 84.8 kHz; 3.5 dB; 11 mV | 27.1 kHz; 1.3 dB; 1.1e+02 mV | 2.65 kHz R; 1.2 dB; 1.1 V | 247 Hz R; 1.7 dB; 11 V |
+| OPA381 | 792 kHz; 21.6 dB; 75 µV | 253 kHz; 19.0 dB; 5.2e+02 µV | 80.9 kHz; 15.0 dB; 5 mV | 25.9 kHz; 13.7 dB; 50 mV | 2.38 kHz R; 13.5 dB; 5e+02 mV | 222 Hz R; 13.5 dB; 5 V |
+| OPA388 | 587 kHz; 13.9 dB; 13 µV | 190 kHz; 7.7 dB; 81 µV | 60 kHz; 2.4 dB; 7.6e+02 µV | 18.3 kHz R; 1.0 dB; 7.6 mV | 1.37 kHz R; 0.9 dB; 76 mV | 131 Hz R; 0.9 dB; 7.6e+02 mV |
+| OPA656 | 2.84 MHz; 25.5 dB; 3.1 mV | 909 kHz; 18.8 dB; 15 mV | 291 kHz A; 9.9 dB; 1.4e+02 mV | 98.4 kHz A; 3.3 dB; 1.3 V | 17.5 kHz R A; 0.7 dB; 13 V | 9.95 kHz R A; 0.7 dB; 1.3e+02 V |
+| OPA657 | 7.57 MHz; 32.0 dB; 3.1 mV | 2.42 MHz A; 25.3 dB; 15 mV | 774 kHz A; 16.1 dB; 1.4e+02 mV | 80 kHz R A; 1.9 dB; 1.3 V | 20.1 kHz R A; 0.7 dB; 13 V | 14.4 kHz R A; 0.7 dB; 1.3e+02 V |
+| OPA818 | 9.98 MHz; 27.3 dB; 2.1 mV | 3.15 MHz; 20.5 dB; 10 mV | 985 kHz; 11.3 dB; 91 mV | 175 kHz R A; 1.7 dB; 9e+02 mV | 16.5 kHz R A; 0.8 dB; 9 V | 3.87 kHz R A; 2.1 dB; 90 V |
+| ADA4817-1 | 3.88 MHz; 24.6 dB; 3.4 mV | 1.23 MHz A; 17.9 dB; 16 mV | 397 kHz A; 9.2 dB; 1.5e+02 mV | 65 kHz R A; 1.7 dB; 1.4 V | 20.8 kHz R A; 2.0 dB; 14 V | 16.9 kHz R A; 2.2 dB; 1.4e+02 V |
+| LTC6268-10 | 12 MHz; 34.3 dB; 1.2 mV | 3.84 MHz; 27.5 dB; 5.7 mV | 1.23 MHz; 18.1 dB; 51 mV | 185 kHz R; 5.6 dB; 5e+02 mV | 16 kHz R; 5.4 dB; 5 V | 1.96 kHz R; 11.6 dB; 50 V |
+| OPA858 | 14.1 MHz; 31.7 dB; 8.6 mV | 4.51 MHz A; 25.2 dB; 41 mV | – | – | – | – |
+| OPA211 | 1.26 MHz; 6.5 dB; 2.1 mV | 401 kHz; 5.7 dB; 20 mV | 128 kHz; 5.4 dB; 2e+02 mV | 40.6 kHz; 5.4 dB; 2 V | 5.4 kHz R; 5.6 dB; 20 V | 565 Hz R; 6.9 dB; 2e+02 V |
+| OPA855 | 17.1 MHz; 25.4 dB; 2.4e+02 mV | 5.42 MHz A; 19.0 dB; 2.3 V | – | – | – | – |
+| OPA955 | 20.1 MHz; 25.0 dB; 1e+02 mV | 6.37 MHz A; 18.2 dB; 9.9e+02 mV | – | – | – | – |
+| LMH6629 | 12 MHz; 19.3 dB; 3.7e+02 mV | 3.79 MHz A; 13.7 dB; 3.7 V | – | – | – | – |
+| IF3601 composite | 868 kHz; 2.2 dB; n/a | 271 kHz; 0.5 dB; n/a | 87.7 kHz; 0.1 dB; n/a | 27.4 kHz; 0.0 dB; n/a | 6.72 kHz R; 0.0 dB; n/a | 540 Hz R; 0.0 dB; n/a |
+| LSK170 composite | 1.3 MHz; 4.6 dB; n/a | 415 kHz; 1.4 dB; n/a | 133 kHz; 0.2 dB; n/a | 42 kHz; 0.0 dB; n/a | 5.79 kHz R; 0.0 dB; n/a | 534 Hz R; 0.0 dB; n/a |
+| BF862 composite | 1.31 MHz; 3.9 dB; n/a | 425 kHz; 1.2 dB; n/a | 134 kHz; 0.2 dB; n/a | 42.5 kHz; 0.0 dB; n/a | 5.79 kHz R; 0.0 dB; n/a | 534 Hz R; 0.0 dB; n/a |
 
 ### A.4 Crossover gains
 
@@ -1612,6 +1708,9 @@ Notes to Table A.1. For LTC6268-10 the voltage-noise points at 1 Hz–1 kHz are 
 | 200 MHz | 10 pF | 6.37 MΩ | 1.59 MΩ | 398 kΩ |
 | 200 MHz | 100 pF | 63.7 MΩ | 15.9 MΩ | 3.98 MΩ |
 | 200 MHz | 1000 pF | 637 MΩ | 159 MΩ | 39.8 MΩ |
+| 2000 MHz | 1 pF | 63.7 kΩ | 15.9 kΩ | 3.98 kΩ |
+| 2000 MHz | 10 pF | 637 kΩ | 159 kΩ | 39.8 kΩ |
+| 2000 MHz | 100 pF | 6.37 MΩ | 1.59 MΩ | 398 kΩ |
 
 ### A.5 Limits of equalization
 
@@ -1672,63 +1771,71 @@ Notes to Table A.1. For LTC6268-10 the voltage-noise points at 1 Hz–1 kHz are 
 
 ### A.8 Noise at low frequency
 
-*Table A.8a. Excess noise at 100 Hz over the floor of the resistor and the photodiode (dB), for $R_F$ = 100 kΩ / 1 MΩ / 10 MΩ / 100 MΩ / 1 GΩ, with each design's feedback capacitance from the sweep; the noise density does not depend on the loop gain (Eq. (7)), so the designs that Tables 6.1–6.5 leave out are included. The second column gives $e_n$ (nV/√Hz) and $i_n$ (fA/√Hz) at 100 Hz as the model takes them from Table A.1: read at that frequency, interpolated between datasheet points, extrapolated along the datasheet slope, or held at the nearest datasheet value, which makes the entry a lower bound. `hg_low_frequency_noise.py`.*
+*Table A.8a. Excess noise at 100 Hz over the floor of the resistor and the photodiode (dB), for $R_F$ = 10 kΩ / 100 kΩ / 1 MΩ / 10 MΩ / 100 MΩ / 1 GΩ, with each design's feedback capacitance from the sweep; the noise density does not depend on the loop gain (Eq. (7)), so the designs that Tables 6.1–6.5 and 6.7 leave out are included; a dash marks a gain at which a part is not evaluated (Section 6.9). The second column gives $e_n$ (nV/√Hz) and $i_n$ (fA/√Hz) at 100 Hz as the model takes them from Table A.1: read at that frequency, interpolated between datasheet points, extrapolated along the datasheet slope, or held at the nearest datasheet value, which makes the entry a lower bound. `hg_low_frequency_noise.py`.*
 
 | Amplifier | $e_n$; $i_n$ | S1336-18BK (Si, 20 pF, 2 GΩ) | G12180-010A (InGaAs, 55 pF, 125 MΩ) | S1336-8BK (Si, 380 pF, 0.4 GΩ) | G12180-050A (InGaAs, 1 nF, 6.5 MΩ) | G12183-010K (InGaAs to 2.6 µm, 500 pF, 14 kΩ) |
 |---|---|---|---|---|---|---|
-| ADA4530-1 | 35.8 (interp.); 0.07 (held) | 2.5 / 0.3 / 0.0 / 0.0 / 0.1 | 2.5 / 0.3 / 0.0 / 0.0 / 0.1 | 2.5 / 0.3 / 0.2 / 1.4 / 3.7 | 2.5 / 0.5 / 0.6 / 0.8 / 0.8 | 8.7 / 8.2 / 8.2 / 8.2 / 8.2 |
-| OPA928 | 18; 0.07 (held) | 0.8 / 0.1 / 0.0 / 0.0 / 0.0 | 0.8 / 0.1 / 0.0 / 0.0 / 0.0 | 0.8 / 0.1 / 0.1 / 0.4 / 1.3 | 0.8 / 0.1 / 0.2 / 0.2 / 0.2 | 4.2 / 3.8 / 3.8 / 3.8 / 3.8 |
-| LMP7721 | 9.31 (extrap.); 10 (held) | 0.2 / 0.0 / 0.3 / 2.0 / 7.0 | 0.2 / 0.0 / 0.2 / 1.3 / 2.2 | 0.2 / 0.1 / 0.3 / 1.8 / 4.5 | 0.2 / 0.1 / 0.1 / 0.2 / 0.2 | 1.6 / 1.4 / 1.4 / 1.4 / 1.4 |
-| LMC6001A | 22 (held); 0.13 (held) | 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 1.1 / 0.1 / 0.1 / 0.6 / 1.8 | 1.1 / 0.2 / 0.2 / 0.3 / 0.3 | 5.3 / 5.0 / 4.9 / 4.9 / 4.9 |
-| LMC662 | 22 (held); 0.2 (held) | 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 1.1 / 0.1 / 0.1 / 0.6 / 1.8 | 1.1 / 0.2 / 0.2 / 0.3 / 0.3 | 5.3 / 5.0 / 4.9 / 4.9 / 4.9 |
-| ADA4625-1 | 3.6; 4.5 (held) | 0.0 / 0.0 / 0.1 / 0.5 / 2.6 | 0.0 / 0.0 / 0.0 / 0.3 / 0.6 | 0.0 / 0.0 / 0.1 / 0.4 / 1.4 | 0.0 / 0.0 / 0.0 / 0.0 / 0.0 | 0.3 / 0.2 / 0.2 / 0.2 / 0.2 |
-| OPA828 | 4.8; 1.2 (held) | 0.1 / 0.0 / 0.0 / 0.0 / 0.2 | 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 0.1 / 0.0 / 0.0 / 0.1 / 0.2 | 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 0.5 / 0.4 / 0.4 / 0.4 / 0.4 |
-| OPA827 | 4.21 (extrap.); 2.2 (held) | 0.0 / 0.0 / 0.0 / 0.1 / 0.8 | 0.0 / 0.0 / 0.0 / 0.1 / 0.1 | 0.0 / 0.0 / 0.0 / 0.1 / 0.4 | 0.0 / 0.0 / 0.0 / 0.0 / 0.0 | 0.4 / 0.3 / 0.3 / 0.3 / 0.3 |
-| OPA140 | 5.8; 0.8 (held) | 0.1 / 0.0 / 0.0 / 0.0 / 0.1 | 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 0.1 / 0.0 / 0.0 / 0.1 / 0.2 | 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 0.7 / 0.6 / 0.6 / 0.6 / 0.6 |
-| OPA145 | 7.2; 0.8 (held) | 0.1 / 0.0 / 0.0 / 0.0 / 0.1 | 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 0.1 / 0.0 / 0.0 / 0.1 / 0.3 | 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 1.0 / 0.9 / 0.9 / 0.9 / 0.9 |
-| OPA1656 | 11.8; 6 (held) | 0.4 / 0.0 / 0.1 / 0.8 / 3.9 | 0.4 / 0.0 / 0.1 / 0.5 / 1.0 | 0.4 / 0.0 / 0.1 / 0.8 / 2.5 | 0.4 / 0.1 / 0.1 / 0.2 / 0.2 | 2.3 / 2.1 / 2.1 / 2.1 / 2.1 |
-| OPA2156 | 12; 19 (held) | 0.4 / 0.1 / 0.9 / 4.9 / 11.9 | 0.4 / 0.1 / 0.8 / 3.5 / 5.4 | 0.4 / 0.1 / 0.9 / 4.5 / 8.7 | 0.4 / 0.1 / 0.4 / 0.6 / 0.7 | 2.3 / 2.1 / 2.1 / 2.1 / 2.1 |
-| OPA320 | 10.3 (extrap.); 0.6 (held) | 0.3 / 0.0 / 0.0 / 0.0 / 0.1 | 0.3 / 0.0 / 0.0 / 0.0 / 0.0 | 0.3 / 0.0 / 0.0 / 0.1 / 0.5 | 0.3 / 0.0 / 0.1 / 0.1 / 0.1 | 1.8 / 1.7 / 1.7 / 1.7 / 1.6 |
-| OPA381 | 70 (held); 20 (held) | 6.0 / 1.2 / 1.0 / 5.2 / 12.4 | 6.0 / 1.2 / 1.0 / 3.8 / 5.7 | 6.0 / 1.3 / 1.6 / 6.4 / 11.1 | 6.1 / 1.7 / 2.1 / 2.8 / 2.9 | 14.0 / 13.5 / 13.5 / 13.5 / 13.5 |
-| OPA388 | 7; 100 (held) | 0.4 / 2.1 / 8.5 / 17.7 / 26.1 | 0.4 / 2.1 / 8.2 / 15.4 / 18.4 | 0.4 / 2.1 / 8.4 / 17.0 / 22.4 | 0.4 / 1.8 / 5.3 / 6.7 / 6.9 | 1.0 / 0.9 / 0.9 / 0.9 / 0.9 |
-| OPA656 | 6 (held); 5 (held) | 0.1 / 0.0 / 0.1 / 0.6 / 3.0 | 0.1 / 0.0 / 0.1 / 0.4 / 0.7 | 0.1 / 0.0 / 0.1 / 0.5 / 1.7 | 0.1 / 0.0 / 0.0 / 0.1 / 0.1 | 0.7 / 0.6 / 0.6 / 0.6 / 0.6 |
-| OPA657 | 13.1; 1.3 (held) | 0.4 / 0.0 / 0.0 / 0.0 / 0.3 | 0.4 / 0.0 / 0.0 / 0.0 / 0.1 | 0.4 / 0.0 / 0.0 / 0.2 / 0.8 | 0.4 / 0.1 / 0.1 / 0.1 / 0.1 | 2.7 / 2.5 / 2.4 / 2.4 / 2.4 |
-| OPA818 | 25.7; 1.14 (held) | 1.5 / 0.2 / 0.0 / 0.0 / 0.2 | 1.5 / 0.2 / 0.0 / 0.0 / 0.1 | 1.5 / 0.2 / 0.1 / 0.8 / 2.3 | 1.5 / 0.3 / 0.3 / 0.4 / 0.5 | 6.3 / 5.9 / 5.9 / 5.9 / 5.9 |
-| ADA4817-1 | 54; 2.5 (held) | 4.4 / 0.7 / 0.1 / 0.2 / 1.1 | 4.4 / 0.7 / 0.1 / 0.2 / 0.3 | 4.4 / 0.7 / 0.5 / 2.7 / 6.1 | 4.5 / 1.0 / 1.2 / 1.6 / 1.7 | 11.9 / 11.4 / 11.4 / 11.4 / 11.4 |
-| LTC6268-10 | 89; 0.031 (held) | 7.6 / 1.7 / 0.2 / 0.1 / 0.3 | 7.6 / 1.7 / 0.2 / 0.2 / 0.3 | 7.6 / 1.8 / 1.2 / 5.1 / 9.5 | 7.7 / 2.4 / 2.7 / 3.5 / 3.6 | 16.0 / 15.5 / 15.5 / 15.5 / 15.5 |
-| OPA211 | 1.4; 2.33e+03 (interp.) | 15.3 / 25.2 / 35.2 / 45.0 / 53.4 | 15.3 / 25.2 / 34.9 / 42.6 / 45.6 | 15.3 / 25.2 / 35.1 / 44.2 / 49.7 | 15.3 / 24.6 / 31.1 / 33.0 / 33.3 | 7.0 / 7.5 / 7.5 / 7.5 / 7.5 |
-| IF3601 composite | 0.35; 5.66 (held) | 0.0 / 0.0 / 0.1 / 0.7 / 3.6 | 0.0 / 0.0 / 0.1 / 0.4 / 0.9 | 0.0 / 0.0 / 0.1 / 0.6 / 1.9 | 0.0 / 0.0 / 0.0 / 0.1 / 0.1 | 0.0 / 0.0 / 0.0 / 0.0 / 0.0 |
-| LSK170 composite | 1.12 (interp.); 12.7 (held) | 0.0 / 0.0 / 0.4 / 2.8 / 8.7 | 0.0 / 0.0 / 0.4 / 1.9 / 3.2 | 0.0 / 0.0 / 0.4 / 2.5 / 5.8 | 0.0 / 0.0 / 0.2 / 0.3 / 0.3 | 0.0 / 0.0 / 0.0 / 0.0 / 0.0 |
-| BF862 composite | 0.8 (held); 17.9 (held) | 0.0 / 0.1 / 0.8 / 4.6 / 11.5 | 0.0 / 0.1 / 0.7 / 3.2 / 5.0 | 0.0 / 0.1 / 0.8 / 4.1 / 8.2 | 0.0 / 0.1 / 0.3 / 0.5 / 0.5 | 0.0 / 0.0 / 0.0 / 0.0 / 0.0 |
+| ADA4530-1 | 35.8 (interp.); 0.07 (held) | 9.4 / 2.5 / 0.3 / 0.0 / 0.0 / 0.1 | 9.4 / 2.5 / 0.3 / 0.0 / 0.0 / 0.1 | 9.4 / 2.5 / 0.3 / 0.2 / 1.4 / 3.7 | 9.4 / 2.5 / 0.5 / 0.6 / 0.8 / 0.8 | 11.6 / 8.7 / 8.2 / 8.2 / 8.2 / 8.2 |
+| OPA928 | 18; 0.07 (held) | 4.7 / 0.8 / 0.1 / 0.0 / 0.0 / 0.0 | 4.7 / 0.8 / 0.1 / 0.0 / 0.0 / 0.0 | 4.7 / 0.8 / 0.1 / 0.1 / 0.4 / 1.3 | 4.7 / 0.8 / 0.1 / 0.2 / 0.2 / 0.2 | 6.4 / 4.2 / 3.8 / 3.8 / 3.8 / 3.8 |
+| LMP7721 | 9.31 (extrap.); 10 (held) | 1.8 / 0.2 / 0.0 / 0.3 / 2.0 / 7.0 | 1.8 / 0.2 / 0.0 / 0.2 / 1.3 / 2.2 | 1.8 / 0.2 / 0.1 / 0.3 / 1.8 / 4.5 | 1.8 / 0.2 / 0.1 / 0.1 / 0.2 / 0.2 | 2.8 / 1.6 / 1.4 / 1.4 / 1.4 / 1.4 |
+| LMC6001A | 22 (held); 0.13 (held) | 6.0 / 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 6.0 / 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 6.0 / 1.1 / 0.1 / 0.1 / 0.6 / 1.8 | 6.0 / 1.1 / 0.2 / 0.2 / 0.3 / 0.3 | 7.8 / 5.3 / 5.0 / 4.9 / 4.9 / 4.9 |
+| LMC662 | 22 (held); 0.2 (held) | 6.0 / 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 6.0 / 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 6.0 / 1.1 / 0.1 / 0.1 / 0.6 / 1.8 | 6.0 / 1.1 / 0.2 / 0.2 / 0.3 / 0.3 | 7.8 / 5.3 / 5.0 / 4.9 / 4.9 / 4.9 |
+| ADA4625-1 | 3.6; 4.5 (held) | 0.3 / 0.0 / 0.0 / 0.1 / 0.5 / 2.6 | 0.3 / 0.0 / 0.0 / 0.0 / 0.3 / 0.6 | 0.3 / 0.0 / 0.0 / 0.1 / 0.4 / 1.4 | 0.3 / 0.0 / 0.0 / 0.0 / 0.0 / 0.0 | 0.5 / 0.3 / 0.2 / 0.2 / 0.2 / 0.2 |
+| OPA828 | 4.8; 1.2 (held) | 0.6 / 0.1 / 0.0 / 0.0 / 0.0 / 0.2 | 0.6 / 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 0.6 / 0.1 / 0.0 / 0.0 / 0.1 / 0.2 | 0.6 / 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 0.9 / 0.5 / 0.4 / 0.4 / 0.4 / 0.4 |
+| OPA827 | 4.21 (extrap.); 2.2 (held) | 0.4 / 0.0 / 0.0 / 0.0 / 0.1 / 0.8 | 0.4 / 0.0 / 0.0 / 0.0 / 0.1 / 0.1 | 0.4 / 0.0 / 0.0 / 0.0 / 0.1 / 0.4 | 0.4 / 0.0 / 0.0 / 0.0 / 0.0 / 0.0 | 0.7 / 0.4 / 0.3 / 0.3 / 0.3 / 0.3 |
+| OPA140 | 5.8; 0.8 (held) | 0.8 / 0.1 / 0.0 / 0.0 / 0.0 / 0.1 | 0.8 / 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 0.8 / 0.1 / 0.0 / 0.0 / 0.1 / 0.2 | 0.8 / 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 1.3 / 0.7 / 0.6 / 0.6 / 0.6 / 0.6 |
+| OPA145 | 7.2; 0.8 (held) | 1.2 / 0.1 / 0.0 / 0.0 / 0.0 / 0.1 | 1.2 / 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 1.2 / 0.1 / 0.0 / 0.0 / 0.1 / 0.3 | 1.2 / 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 1.9 / 1.0 / 0.9 / 0.9 / 0.9 / 0.9 |
+| OPA1656 | 11.8; 6 (held) | 2.7 / 0.4 / 0.0 / 0.1 / 0.8 / 3.9 | 2.7 / 0.4 / 0.0 / 0.1 / 0.5 / 1.0 | 2.7 / 0.4 / 0.0 / 0.1 / 0.8 / 2.5 | 2.7 / 0.4 / 0.1 / 0.1 / 0.2 / 0.2 | 3.9 / 2.3 / 2.1 / 2.1 / 2.1 / 2.1 |
+| OPA2156 | 12; 19 (held) | 2.7 / 0.4 / 0.1 / 0.9 / 4.9 / 11.9 | 2.7 / 0.4 / 0.1 / 0.8 / 3.5 / 5.4 | 2.7 / 0.4 / 0.1 / 0.9 / 4.5 / 8.7 | 2.7 / 0.4 / 0.1 / 0.4 / 0.6 / 0.7 | 4.0 / 2.3 / 2.1 / 2.1 / 2.1 / 2.1 |
+| OPA320 | 10.3 (extrap.); 0.6 (held) | 2.2 / 0.3 / 0.0 / 0.0 / 0.0 / 0.1 | 2.2 / 0.3 / 0.0 / 0.0 / 0.0 / 0.0 | 2.2 / 0.3 / 0.0 / 0.0 / 0.1 / 0.5 | 2.2 / 0.3 / 0.0 / 0.1 / 0.1 / 0.1 | 3.2 / 1.8 / 1.7 / 1.7 / 1.7 / 1.6 |
+| OPA381 | 70 (held); 20 (held) | 14.9 / 6.0 / 1.2 / 1.0 / 5.2 / 12.4 | 14.9 / 6.0 / 1.2 / 1.0 / 3.8 / 5.7 | 14.9 / 6.0 / 1.3 / 1.6 / 6.4 / 11.1 | 14.9 / 6.1 / 1.7 / 2.1 / 2.8 / 2.9 | 17.2 / 14.0 / 13.5 / 13.5 / 13.5 / 13.5 |
+| OPA388 | 7; 100 (held) | 1.2 / 0.4 / 2.1 / 8.5 / 17.7 / 26.1 | 1.2 / 0.4 / 2.1 / 8.2 / 15.4 / 18.4 | 1.2 / 0.4 / 2.1 / 8.4 / 17.0 / 22.4 | 1.2 / 0.4 / 1.8 / 5.3 / 6.7 / 6.9 | 1.8 / 1.0 / 0.9 / 0.9 / 0.9 / 0.9 |
+| OPA656 | 6 (held); 5 (held) | 0.9 / 0.1 / 0.0 / 0.1 / 0.6 / 3.0 | 0.9 / 0.1 / 0.0 / 0.1 / 0.4 / 0.7 | 0.9 / 0.1 / 0.0 / 0.1 / 0.5 / 1.7 | 0.9 / 0.1 / 0.0 / 0.0 / 0.1 / 0.1 | 1.4 / 0.7 / 0.6 / 0.6 / 0.6 / 0.6 |
+| OPA657 | 13.1; 1.3 (held) | 3.1 / 0.4 / 0.0 / 0.0 / 0.0 / 0.3 | 3.1 / 0.4 / 0.0 / 0.0 / 0.0 / 0.1 | 3.1 / 0.4 / 0.0 / 0.0 / 0.2 / 0.8 | 3.1 / 0.4 / 0.1 / 0.1 / 0.1 / 0.1 | 4.5 / 2.7 / 2.5 / 2.4 / 2.4 / 2.4 |
+| OPA818 | 25.7; 1.14 (held) | 7.0 / 1.5 / 0.2 / 0.0 / 0.0 / 0.2 | 7.0 / 1.5 / 0.2 / 0.0 / 0.0 / 0.1 | 7.0 / 1.5 / 0.2 / 0.1 / 0.8 / 2.3 | 7.0 / 1.5 / 0.3 / 0.3 / 0.4 / 0.5 | 9.0 / 6.3 / 5.9 / 5.9 / 5.9 / 5.9 |
+| ADA4817-1 | 54; 2.5 (held) | 12.7 / 4.4 / 0.7 / 0.1 / 0.2 / 1.1 | 12.7 / 4.4 / 0.7 / 0.1 / 0.2 / 0.3 | 12.7 / 4.4 / 0.7 / 0.5 / 2.7 / 6.1 | 12.7 / 4.5 / 1.0 / 1.2 / 1.6 / 1.7 | 15.0 / 11.9 / 11.4 / 11.4 / 11.4 / 11.4 |
+| LTC6268-10 | 89; 0.031 (held) | 16.9 / 7.6 / 1.7 / 0.2 / 0.1 / 0.3 | 16.9 / 7.6 / 1.7 / 0.2 / 0.2 / 0.3 | 16.9 / 7.6 / 1.8 / 1.2 / 5.1 / 9.5 | 16.9 / 7.7 / 2.4 / 2.7 / 3.5 / 3.6 | 19.2 / 16.0 / 15.5 / 15.5 / 15.5 / 15.5 |
+| OPA858 | 25.2 (held); 0.51 (held) | 6.9 / 1.4 / – / – / – / – | 6.9 / 1.4 / – / – / – / – | 6.9 / 1.4 / – / – / – / – | 6.9 / 1.4 / – / – / – / – | 8.8 / 6.2 / – / – / – / – |
+| OPA211 | 1.4; 2.33e+03 (interp.) | 6.4 / 15.3 / 25.2 / 35.2 / 45.0 / 53.4 | 6.4 / 15.3 / 25.2 / 34.9 / 42.6 / 45.6 | 6.4 / 15.3 / 25.2 / 35.1 / 44.2 / 49.7 | 6.3 / 15.3 / 24.6 / 31.1 / 33.0 / 33.3 | 4.7 / 7.0 / 7.5 / 7.5 / 7.5 / 7.5 |
+| OPA855 | 2.85 (held); 3.52e+04 (held) | 28.8 / 38.8 / – / – / – / – | 28.8 / 38.8 / – / – / – / – | 28.8 / 38.8 / – / – / – / – | 28.8 / 38.7 / – / – / – / – | 26.4 / 29.7 / – / – / – / – |
+| OPA955 | 4.35; 1.53e+03 | 4.1 / 11.9 / – / – / – / – | 4.1 / 11.8 / – / – / – / – | 4.1 / 11.8 / – / – / – / – | 4.1 / 11.8 / – / – / – / – | 3.1 / 4.5 / – / – / – / – |
+| LMH6629 | 1.5 (extrap.); 1.52e+04 (extrap.) | 21.5 / 31.5 / – / – / – / – | 21.5 / 31.5 / – / – / – / – | 21.5 / 31.5 / – / – / – / – | 21.5 / 31.4 / – / – / – / – | 19.2 / 22.4 / – / – / – / – |
+| IF3601 composite | 0.35; 5.66 (held) | 0.0 / 0.0 / 0.0 / 0.1 / 0.7 / 3.6 | 0.0 / 0.0 / 0.0 / 0.1 / 0.4 / 0.9 | 0.0 / 0.0 / 0.0 / 0.1 / 0.6 / 1.9 | 0.0 / 0.0 / 0.0 / 0.0 / 0.1 / 0.1 | 0.0 / 0.0 / 0.0 / 0.0 / 0.0 / 0.0 |
+| LSK170 composite | 1.12 (interp.); 12.7 (held) | 0.0 / 0.0 / 0.0 / 0.4 / 2.8 / 8.7 | 0.0 / 0.0 / 0.0 / 0.4 / 1.9 / 3.2 | 0.0 / 0.0 / 0.0 / 0.4 / 2.5 / 5.8 | 0.0 / 0.0 / 0.0 / 0.2 / 0.3 / 0.3 | 0.1 / 0.0 / 0.0 / 0.0 / 0.0 / 0.0 |
+| BF862 composite | 0.8 (held); 17.9 (held) | 0.0 / 0.0 / 0.1 / 0.8 / 4.6 / 11.5 | 0.0 / 0.0 / 0.1 / 0.7 / 3.2 / 5.0 | 0.0 / 0.0 / 0.1 / 0.8 / 4.1 / 8.2 | 0.0 / 0.0 / 0.1 / 0.3 / 0.5 / 0.5 | 0.0 / 0.0 / 0.0 / 0.0 / 0.0 / 0.0 |
 
-*Table A.8b. Excess noise at 10 Hz over the floor of the resistor and the photodiode (dB), for $R_F$ = 100 kΩ / 1 MΩ / 10 MΩ / 100 MΩ / 1 GΩ, with each design's feedback capacitance from the sweep; the noise density does not depend on the loop gain (Eq. (7)), so the designs that Tables 6.1–6.5 leave out are included. The second column gives $e_n$ (nV/√Hz) and $i_n$ (fA/√Hz) at 10 Hz as the model takes them from Table A.1: read at that frequency, interpolated between datasheet points, extrapolated along the datasheet slope, or held at the nearest datasheet value, which makes the entry a lower bound. `hg_low_frequency_noise.py`.*
+*Table A.8b. Excess noise at 10 Hz over the floor of the resistor and the photodiode (dB), for $R_F$ = 10 kΩ / 100 kΩ / 1 MΩ / 10 MΩ / 100 MΩ / 1 GΩ, with each design's feedback capacitance from the sweep; the noise density does not depend on the loop gain (Eq. (7)), so the designs that Tables 6.1–6.5 and 6.7 leave out are included; a dash marks a gain at which a part is not evaluated (Section 6.9). The second column gives $e_n$ (nV/√Hz) and $i_n$ (fA/√Hz) at 10 Hz as the model takes them from Table A.1: read at that frequency, interpolated between datasheet points, extrapolated along the datasheet slope, or held at the nearest datasheet value, which makes the entry a lower bound. `hg_low_frequency_noise.py`.*
 
 | Amplifier | $e_n$; $i_n$ | S1336-18BK (Si, 20 pF, 2 GΩ) | G12180-010A (InGaAs, 55 pF, 125 MΩ) | S1336-8BK (Si, 380 pF, 0.4 GΩ) | G12180-050A (InGaAs, 1 nF, 6.5 MΩ) | G12183-010K (InGaAs to 2.6 µm, 500 pF, 14 kΩ) |
 |---|---|---|---|---|---|---|
-| ADA4530-1 | 80; 0.07 (held) | 6.9 / 1.4 / 0.2 / 0.0 / 0.0 | 6.9 / 1.4 / 0.2 / 0.0 / 0.0 | 6.9 / 1.4 / 0.2 / 0.1 / 0.3 | 6.9 / 1.6 / 0.4 / 0.3 / 0.3 | 15.1 / 14.6 / 14.6 / 14.6 / 14.6 |
-| OPA928 | 21.6 (extrap.); 0.07 (held) | 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 5.2 / 4.8 / 4.8 / 4.8 / 4.8 |
-| LMP7721 | 13.3 (extrap.); 10 (held) | 0.4 / 0.1 / 0.3 / 2.0 / 7.0 | 0.4 / 0.1 / 0.2 / 1.3 / 2.2 | 0.4 / 0.1 / 0.3 / 1.7 / 4.4 | 0.5 / 0.1 / 0.1 / 0.2 / 0.2 | 2.7 / 2.5 / 2.5 / 2.5 / 2.5 |
-| LMC6001A | 22 (held); 0.13 (held) | 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 5.3 / 5.0 / 4.9 / 4.9 / 4.9 |
-| LMC662 | 22 (held); 0.2 (held) | 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 5.3 / 5.0 / 4.9 / 4.9 / 4.9 |
-| ADA4625-1 | 5.5; 4.5 (held) | 0.1 / 0.0 / 0.1 / 0.5 / 2.6 | 0.1 / 0.0 / 0.1 / 0.3 / 0.6 | 0.1 / 0.0 / 0.1 / 0.4 / 1.3 | 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 0.6 / 0.5 / 0.5 / 0.5 / 0.5 |
-| OPA828 | 7.5; 1.2 (held) | 0.1 / 0.0 / 0.0 / 0.0 / 0.2 | 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 0.1 / 0.0 / 0.0 / 0.0 / 0.1 | 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 1.1 / 1.0 / 0.9 / 0.9 / 0.9 |
-| OPA827 | 4.43 (extrap.); 2.2 (held) | 0.1 / 0.0 / 0.0 / 0.1 / 0.8 | 0.1 / 0.0 / 0.0 / 0.1 / 0.1 | 0.1 / 0.0 / 0.0 / 0.1 / 0.4 | 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 0.4 / 0.4 / 0.4 / 0.4 / 0.4 |
-| OPA140 | 8; 0.8 (held) | 0.2 / 0.0 / 0.0 / 0.0 / 0.1 | 0.2 / 0.0 / 0.0 / 0.0 / 0.0 | 0.2 / 0.0 / 0.0 / 0.0 / 0.1 | 0.2 / 0.0 / 0.0 / 0.0 / 0.0 | 1.2 / 1.1 / 1.1 / 1.1 / 1.1 |
-| OPA145 | 9; 0.8 (held) | 0.2 / 0.0 / 0.0 / 0.0 / 0.1 | 0.2 / 0.0 / 0.0 / 0.0 / 0.0 | 0.2 / 0.0 / 0.0 / 0.0 / 0.1 | 0.2 / 0.0 / 0.0 / 0.0 / 0.0 | 1.5 / 1.3 / 1.3 / 1.3 / 1.3 |
-| OPA1656 | 32.4 (extrap.); 6 (held) | 2.1 / 0.3 / 0.1 / 0.8 / 3.9 | 2.1 / 0.3 / 0.1 / 0.5 / 0.9 | 2.1 / 0.3 / 0.1 / 0.7 / 2.1 | 2.2 / 0.3 / 0.1 / 0.1 / 0.1 | 7.9 / 7.5 / 7.4 / 7.4 / 7.4 |
-| OPA2156 | 36 (extrap.); 19 (held) | 2.5 / 0.4 / 0.9 / 4.9 / 11.9 | 2.5 / 0.4 / 0.8 / 3.5 / 5.4 | 2.5 / 0.4 / 0.9 / 4.4 / 8.6 | 2.6 / 0.5 / 0.4 / 0.6 / 0.6 | 8.7 / 8.3 / 8.2 / 8.2 / 8.2 |
-| OPA320 | 12.5 (extrap.); 0.6 (held) | 0.4 / 0.0 / 0.0 / 0.0 / 0.1 | 0.4 / 0.0 / 0.0 / 0.0 / 0.0 | 0.4 / 0.0 / 0.0 / 0.0 / 0.0 | 0.4 / 0.0 / 0.0 / 0.0 / 0.0 | 2.5 / 2.3 / 2.3 / 2.3 / 2.3 |
-| OPA381 | 70 (held); 20 (held) | 6.0 / 1.2 / 1.0 / 5.2 / 12.4 | 6.0 / 1.2 / 1.0 / 3.7 / 5.7 | 6.0 / 1.2 / 1.0 / 4.7 / 9.0 | 6.0 / 1.4 / 0.7 / 0.8 / 0.8 | 14.0 / 13.5 / 13.5 / 13.5 / 13.5 |
-| OPA388 | 7; 100 (held) | 0.4 / 2.1 / 8.5 / 17.7 / 26.1 | 0.4 / 2.1 / 8.2 / 15.4 / 18.4 | 0.4 / 2.1 / 8.4 / 17.0 / 22.4 | 0.4 / 1.8 / 5.3 / 6.7 / 6.9 | 1.0 / 0.9 / 0.9 / 0.9 / 0.9 |
-| OPA656 | 6 (held); 5 (held) | 0.1 / 0.0 / 0.1 / 0.6 / 3.0 | 0.1 / 0.0 / 0.1 / 0.4 / 0.7 | 0.1 / 0.0 / 0.1 / 0.5 / 1.6 | 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 0.7 / 0.6 / 0.6 / 0.6 / 0.6 |
-| OPA657 | 38.7; 1.3 (held) | 2.8 / 0.4 / 0.0 / 0.0 / 0.3 | 2.8 / 0.4 / 0.0 / 0.0 / 0.1 | 2.8 / 0.4 / 0.0 / 0.1 / 0.2 | 2.8 / 0.4 / 0.1 / 0.1 / 0.1 | 9.2 / 8.8 / 8.8 / 8.7 / 8.7 |
-| OPA818 | 78.9 (extrap.); 1.13 (held) | 6.8 / 1.4 / 0.2 / 0.0 / 0.2 | 6.8 / 1.4 / 0.2 / 0.0 / 0.1 | 6.8 / 1.4 / 0.2 / 0.1 / 0.4 | 6.8 / 1.6 / 0.4 / 0.3 / 0.3 | 15.0 / 14.5 / 14.5 / 14.5 / 14.5 |
-| ADA4817-1 | 174; 2.5 (held) | 12.9 / 4.5 / 0.8 / 0.2 / 1.0 | 12.9 / 4.6 / 0.8 / 0.2 / 0.3 | 12.9 / 4.5 / 0.8 / 0.6 / 1.5 | 12.9 / 5.0 / 1.8 / 1.3 / 1.3 | 21.8 / 21.3 / 21.2 / 21.2 / 21.2 |
-| LTC6268-10 | 281; 0.031 (held) | 16.9 / 7.6 / 1.7 / 0.2 / 0.1 | 16.9 / 7.7 / 1.8 / 0.4 / 0.2 | 16.9 / 7.7 / 1.8 / 1.1 / 2.6 | 17.0 / 8.2 / 3.6 / 2.8 / 2.7 | 25.9 / 25.4 / 25.4 / 25.4 / 25.4 |
-| OPA211 | 2; 3.2e+03 | 18.0 / 27.9 / 37.9 / 47.7 / 56.2 | 18.0 / 27.9 / 37.6 / 45.4 / 48.4 | 18.0 / 27.9 / 37.8 / 47.0 / 52.5 | 17.9 / 27.3 / 33.9 / 35.8 / 36.0 | 9.4 / 9.8 / 9.9 / 9.9 / 9.9 |
-| IF3601 composite | 0.35 (held); 5.66 (held) | 0.0 / 0.0 / 0.1 / 0.7 / 3.6 | 0.0 / 0.0 / 0.1 / 0.4 / 0.8 | 0.0 / 0.0 / 0.1 / 0.6 / 1.9 | 0.0 / 0.0 / 0.0 / 0.1 / 0.1 | 0.0 / 0.0 / 0.0 / 0.0 / 0.0 |
-| LSK170 composite | 1.4; 12.7 (held) | 0.0 / 0.0 / 0.4 / 2.8 / 8.7 | 0.0 / 0.0 / 0.4 / 1.9 / 3.2 | 0.0 / 0.0 / 0.4 / 2.5 / 5.8 | 0.0 / 0.0 / 0.2 / 0.3 / 0.3 | 0.0 / 0.0 / 0.0 / 0.0 / 0.0 |
-| BF862 composite | 0.8 (held); 17.9 (held) | 0.0 / 0.1 / 0.8 / 4.6 / 11.5 | 0.0 / 0.1 / 0.7 / 3.2 / 5.0 | 0.0 / 0.1 / 0.8 / 4.1 / 8.2 | 0.0 / 0.1 / 0.3 / 0.5 / 0.5 | 0.0 / 0.0 / 0.0 / 0.0 / 0.0 |
+| ADA4530-1 | 80; 0.07 (held) | 16.0 / 6.9 / 1.4 / 0.2 / 0.0 / 0.0 | 16.0 / 6.9 / 1.4 / 0.2 / 0.0 / 0.0 | 16.0 / 6.9 / 1.4 / 0.2 / 0.1 / 0.3 | 16.0 / 6.9 / 1.6 / 0.4 / 0.3 / 0.3 | 18.3 / 15.1 / 14.6 / 14.6 / 14.6 / 14.6 |
+| OPA928 | 21.6 (extrap.); 0.07 (held) | 5.8 / 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 5.8 / 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 5.8 / 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 5.8 / 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 7.7 / 5.2 / 4.8 / 4.8 / 4.8 / 4.8 |
+| LMP7721 | 13.3 (extrap.); 10 (held) | 3.2 / 0.4 / 0.1 / 0.3 / 2.0 / 7.0 | 3.2 / 0.4 / 0.1 / 0.2 / 1.3 / 2.2 | 3.2 / 0.4 / 0.1 / 0.3 / 1.7 / 4.4 | 3.2 / 0.5 / 0.1 / 0.1 / 0.2 / 0.2 | 4.6 / 2.7 / 2.5 / 2.5 / 2.5 / 2.5 |
+| LMC6001A | 22 (held); 0.13 (held) | 6.0 / 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 6.0 / 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 6.0 / 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 6.0 / 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 7.8 / 5.3 / 5.0 / 4.9 / 4.9 / 4.9 |
+| LMC662 | 22 (held); 0.2 (held) | 6.0 / 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 6.0 / 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 6.0 / 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 6.0 / 1.1 / 0.1 / 0.0 / 0.0 / 0.0 | 7.8 / 5.3 / 5.0 / 4.9 / 4.9 / 4.9 |
+| ADA4625-1 | 5.5; 4.5 (held) | 0.7 / 0.1 / 0.0 / 0.1 / 0.5 / 2.6 | 0.7 / 0.1 / 0.0 / 0.1 / 0.3 / 0.6 | 0.7 / 0.1 / 0.0 / 0.1 / 0.4 / 1.3 | 0.7 / 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 1.2 / 0.6 / 0.5 / 0.5 / 0.5 / 0.5 |
+| OPA828 | 7.5; 1.2 (held) | 1.3 / 0.1 / 0.0 / 0.0 / 0.0 / 0.2 | 1.3 / 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 1.3 / 0.1 / 0.0 / 0.0 / 0.0 / 0.1 | 1.3 / 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 2.0 / 1.1 / 1.0 / 0.9 / 0.9 / 0.9 |
+| OPA827 | 4.43 (extrap.); 2.2 (held) | 0.5 / 0.1 / 0.0 / 0.0 / 0.1 / 0.8 | 0.5 / 0.1 / 0.0 / 0.0 / 0.1 / 0.1 | 0.5 / 0.1 / 0.0 / 0.0 / 0.1 / 0.4 | 0.5 / 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 0.8 / 0.4 / 0.4 / 0.4 / 0.4 / 0.4 |
+| OPA140 | 8; 0.8 (held) | 1.4 / 0.2 / 0.0 / 0.0 / 0.0 / 0.1 | 1.4 / 0.2 / 0.0 / 0.0 / 0.0 / 0.0 | 1.4 / 0.2 / 0.0 / 0.0 / 0.0 / 0.1 | 1.4 / 0.2 / 0.0 / 0.0 / 0.0 / 0.0 | 2.2 / 1.2 / 1.1 / 1.1 / 1.1 / 1.1 |
+| OPA145 | 9; 0.8 (held) | 1.7 / 0.2 / 0.0 / 0.0 / 0.0 / 0.1 | 1.7 / 0.2 / 0.0 / 0.0 / 0.0 / 0.0 | 1.7 / 0.2 / 0.0 / 0.0 / 0.0 / 0.1 | 1.7 / 0.2 / 0.0 / 0.0 / 0.0 / 0.0 | 2.7 / 1.5 / 1.3 / 1.3 / 1.3 / 1.3 |
+| OPA1656 | 32.4 (extrap.); 6 (held) | 8.7 / 2.1 / 0.3 / 0.1 / 0.8 / 3.9 | 8.7 / 2.1 / 0.3 / 0.1 / 0.5 / 0.9 | 8.7 / 2.1 / 0.3 / 0.1 / 0.7 / 2.1 | 8.7 / 2.2 / 0.3 / 0.1 / 0.1 / 0.1 | 10.8 / 7.9 / 7.5 / 7.4 / 7.4 / 7.4 |
+| OPA2156 | 36 (extrap.); 19 (held) | 9.5 / 2.5 / 0.4 / 0.9 / 4.9 / 11.9 | 9.5 / 2.5 / 0.4 / 0.8 / 3.5 / 5.4 | 9.5 / 2.5 / 0.4 / 0.9 / 4.4 / 8.6 | 9.5 / 2.6 / 0.5 / 0.4 / 0.6 / 0.6 | 11.6 / 8.7 / 8.3 / 8.2 / 8.2 / 8.2 |
+| OPA320 | 12.5 (extrap.); 0.6 (held) | 2.9 / 0.4 / 0.0 / 0.0 / 0.0 / 0.1 | 2.9 / 0.4 / 0.0 / 0.0 / 0.0 / 0.0 | 2.9 / 0.4 / 0.0 / 0.0 / 0.0 / 0.0 | 2.9 / 0.4 / 0.0 / 0.0 / 0.0 / 0.0 | 4.2 / 2.5 / 2.3 / 2.3 / 2.3 / 2.3 |
+| OPA381 | 70 (held); 20 (held) | 14.9 / 6.0 / 1.2 / 1.0 / 5.2 / 12.4 | 14.9 / 6.0 / 1.2 / 1.0 / 3.7 / 5.7 | 14.9 / 6.0 / 1.2 / 1.0 / 4.7 / 9.0 | 14.9 / 6.0 / 1.4 / 0.7 / 0.8 / 0.8 | 17.2 / 14.0 / 13.5 / 13.5 / 13.5 / 13.5 |
+| OPA388 | 7; 100 (held) | 1.2 / 0.4 / 2.1 / 8.5 / 17.7 / 26.1 | 1.2 / 0.4 / 2.1 / 8.2 / 15.4 / 18.4 | 1.2 / 0.4 / 2.1 / 8.4 / 17.0 / 22.4 | 1.2 / 0.4 / 1.8 / 5.3 / 6.7 / 6.9 | 1.8 / 1.0 / 0.9 / 0.9 / 0.9 / 0.9 |
+| OPA656 | 6 (held); 5 (held) | 0.9 / 0.1 / 0.0 / 0.1 / 0.6 / 3.0 | 0.9 / 0.1 / 0.0 / 0.1 / 0.4 / 0.7 | 0.9 / 0.1 / 0.0 / 0.1 / 0.5 / 1.6 | 0.9 / 0.1 / 0.0 / 0.0 / 0.0 / 0.0 | 1.4 / 0.7 / 0.6 / 0.6 / 0.6 / 0.6 |
+| OPA657 | 38.7; 1.3 (held) | 10.0 / 2.8 / 0.4 / 0.0 / 0.0 / 0.3 | 10.0 / 2.8 / 0.4 / 0.0 / 0.0 / 0.1 | 10.0 / 2.8 / 0.4 / 0.0 / 0.1 / 0.2 | 10.0 / 2.8 / 0.4 / 0.1 / 0.1 / 0.1 | 12.2 / 9.2 / 8.8 / 8.8 / 8.7 / 8.7 |
+| OPA818 | 78.9 (extrap.); 1.13 (held) | 15.9 / 6.8 / 1.4 / 0.2 / 0.0 / 0.2 | 15.9 / 6.8 / 1.4 / 0.2 / 0.0 / 0.1 | 15.9 / 6.8 / 1.4 / 0.2 / 0.1 / 0.4 | 15.9 / 6.8 / 1.6 / 0.4 / 0.3 / 0.3 | 18.2 / 15.0 / 14.5 / 14.5 / 14.5 / 14.5 |
+| ADA4817-1 | 174; 2.5 (held) | 22.7 / 12.9 / 4.5 / 0.8 / 0.2 / 1.0 | 22.7 / 12.9 / 4.6 / 0.8 / 0.2 / 0.3 | 22.7 / 12.9 / 4.5 / 0.8 / 0.6 / 1.5 | 22.7 / 12.9 / 5.0 / 1.8 / 1.3 / 1.3 | 25.0 / 21.8 / 21.3 / 21.2 / 21.2 / 21.2 |
+| LTC6268-10 | 281; 0.031 (held) | 26.8 / 16.9 / 7.6 / 1.7 / 0.2 / 0.1 | 26.8 / 16.9 / 7.7 / 1.8 / 0.4 / 0.2 | 26.8 / 16.9 / 7.7 / 1.8 / 1.1 / 2.6 | 26.8 / 17.0 / 8.2 / 3.6 / 2.8 / 2.7 | 29.2 / 25.9 / 25.4 / 25.4 / 25.4 / 25.4 |
+| OPA858 | 25.2 (held); 0.51 (held) | 6.9 / 1.4 / – / – / – / – | 6.9 / 1.4 / – / – / – / – | 6.9 / 1.4 / – / – / – / – | 6.9 / 1.4 / – / – / – / – | 8.8 / 6.2 / – / – / – / – |
+| OPA211 | 2; 3.2e+03 | 8.6 / 18.0 / 27.9 / 37.9 / 47.7 / 56.2 | 8.6 / 18.0 / 27.9 / 37.6 / 45.4 / 48.4 | 8.6 / 18.0 / 27.9 / 37.8 / 47.0 / 52.5 | 8.6 / 17.9 / 27.3 / 33.9 / 35.8 / 36.0 | 6.7 / 9.4 / 9.8 / 9.9 / 9.9 / 9.9 |
+| OPA855 | 2.85 (held); 3.52e+04 (held) | 28.8 / 38.8 / – / – / – / – | 28.8 / 38.8 / – / – / – / – | 28.8 / 38.8 / – / – / – / – | 28.8 / 38.7 / – / – / – / – | 26.4 / 29.7 / – / – / – / – |
+| OPA955 | 12.2 (extrap.); 3.28e+03 (extrap.) | 9.3 / 18.2 / – / – / – / – | 9.3 / 18.2 / – / – / – / – | 9.3 / 18.2 / – / – / – / – | 9.3 / 18.2 / – / – / – / – | 8.0 / 9.9 / – / – / – / – |
+| LMH6629 | 2.45 (extrap.); 3.6e+04 (extrap.) | 29.0 / 39.0 / – / – / – / – | 29.0 / 38.9 / – / – / – / – | 29.0 / 39.0 / – / – / – / – | 29.0 / 38.9 / – / – / – / – | 26.6 / 29.8 / – / – / – / – |
+| IF3601 composite | 0.35 (held); 5.66 (held) | 0.0 / 0.0 / 0.0 / 0.1 / 0.7 / 3.6 | 0.0 / 0.0 / 0.0 / 0.1 / 0.4 / 0.8 | 0.0 / 0.0 / 0.0 / 0.1 / 0.6 / 1.9 | 0.0 / 0.0 / 0.0 / 0.0 / 0.1 / 0.1 | 0.0 / 0.0 / 0.0 / 0.0 / 0.0 / 0.0 |
+| LSK170 composite | 1.4; 12.7 (held) | 0.1 / 0.0 / 0.0 / 0.4 / 2.8 / 8.7 | 0.1 / 0.0 / 0.0 / 0.4 / 1.9 / 3.2 | 0.1 / 0.0 / 0.0 / 0.4 / 2.5 / 5.8 | 0.1 / 0.0 / 0.0 / 0.2 / 0.3 / 0.3 | 0.1 / 0.0 / 0.0 / 0.0 / 0.0 / 0.0 |
+| BF862 composite | 0.8 (held); 17.9 (held) | 0.0 / 0.0 / 0.1 / 0.8 / 4.6 / 11.5 | 0.0 / 0.0 / 0.1 / 0.7 / 3.2 / 5.0 | 0.0 / 0.0 / 0.1 / 0.8 / 4.1 / 8.2 | 0.0 / 0.0 / 0.1 / 0.3 / 0.5 / 0.5 | 0.0 / 0.0 / 0.0 / 0.0 / 0.0 / 0.0 |
 
 ---
 
@@ -1741,17 +1848,18 @@ Every datasheet value was read from a rendered image of the page, not from extra
 - **Noise between datasheet points** is interpolated linearly in log-log. Below the first point it is held flat, except where the first point lies at or below 1 kHz and the two lowest points fall with frequency. That case is flicker noise, and it is continued downward with the slope of those two points, capped at the slope of a $1/f$ power density. Above the last point the density is held flat. Current noise given only as a curve that starts above 1 kHz and rises, as for the wideband parts, is continued below its first point with the slope from that point to the first point at least a decade above it, and the shot noise of the typical bias current is added in quadrature as its floor (Section 2.3). The tables of Appendix A show only datasheet values, not extrapolations.
 - **The gain–bandwidth product** is the value at a gain of 100 for OPA1656 and OPA2156, and the unity-gain bandwidth for OPA211, the one other part that gives two values. OPA1656 specifies 20 MHz at unity gain and 53 MHz at a gain of 100 (p. 6) [D11], and OPA2156 20 and 25 MHz (p. 6) [D12]. Their SPICE models showed open-loop gains that are single poles of 56 and 25 MHz up to about 300 kHz, with extra roll-off and phase lag above that (Section 9.2). The model therefore uses 53 and 25 MHz, each multiplied by the shape of its macromodel's open-loop gain beyond a single pole, which is tabulated in `data/amplifiers.json` (`add_aol_shape.py`). OPA211 specifies 45 and 80 MHz (p. 9) [D17]; the model keeps 45 MHz, which is conservative and has not been checked against its SPICE model (Appendix C, item 19).
 - **The flicker noise of LTC6268-10** below 20 kHz is not given as a curve. It is estimated from its 0.1–10 Hz noise of 12.6 µV peak to peak (companion record, p. 3). The estimate assumes a pure $1/f$ density $K/f$ and a peak-to-peak value of 6.6 times the rms, so that $K = (12.6\ \mu\mathrm{V}/6.6)^2/\ln100 = 7.9\times10^{-13}\ \mathrm{V^2}$. That gives 0.89 µV/√Hz at 1 Hz and 28 nV/√Hz at 1 kHz. The $1/f$ shape and the factor 6.6 are assumptions.
-- **The maximum bias current at 85 °C** is the datasheet limit at 85 °C, or "at the temperature extremes", where one is given. Otherwise it is the geometric interpolation between the limits at 25 °C and 125 °C, $I_{25}^{0.4}I_{125}^{0.6}$, which corresponds to a constant doubling interval between the two. Otherwise it is the 25 °C limit doubled every 10 °C (Eq. (15)). For the bipolar OPA211 the 125 °C limit of 200 nA is used, since bipolar bias currents fall with temperature.
+- **The maximum bias current at 85 °C** is the datasheet limit at 85 °C, or "at the temperature extremes", where one is given. Otherwise it is the geometric interpolation between the limits at 25 °C and 125 °C, $I_{25}^{0.4}I_{125}^{0.6}$, which corresponds to a constant doubling interval between the two. Otherwise it is the 25 °C limit doubled every 10 °C (Eq. (15)). For the bipolar OPA211 the 125 °C limit of 200 nA is used, since its bias current falls with temperature. OPA855 and OPA955 give no limit above 25 °C, only a typical drift of 0.08 µA/°C by which their bias current grows, so their 85-°C value is the 25-°C maximum plus that drift over 60 °C, an estimate. LMH6629 gives a limit over its temperature range.
 - **The discrete-JFET composites** use the JFET's noise and capacitance, an assumed composite gain–bandwidth product of 50 MHz, and the shot noise of the JFET's maximum gate current as their current noise.
 
 ### B.2 What is reused from the companion note, and what is new
 
-The companion note's analysis, and its SPICE method, were built for a different circuit: a 1-pF balanced pair at 1.5–2 kΩ and 150 MHz. Four parts of it are reused unchanged.
+The companion note's analysis, and its SPICE method, were built for a different circuit: a 1-pF balanced pair at 1.5–2 kΩ and 150 MHz. Five parts of it are reused unchanged.
 
-- **Its noise theory.** Section 2.1 generalizes its Eq. (23) to a two-port feedback network and a finite shunt resistance. With $R_{sh}\to\infty$ and a lumped network the two coincide.
+- **Its noise theory.** Section 2.1 generalizes its Eq. (19) to a two-port feedback network and a finite shunt resistance. With $R_{sh}\to\infty$ and a lumped network the two coincide.
 - **Its conventions:** 25 °C, typical values, $C_T$ including $C_{CM}$ and $C_{DIFF}$, and an excess-noise figure of merit of the same form.
-- **Its digitized curves** for LTC6268-10, OPA657, OPA818 and ADA4817-1, and its device data for BF862.
+- **Its digitized curves** for LTC6268-10, OPA657, OPA818 and ADA4817-1, its device data for BF862, and its records of OPA858, OPA855, OPA955 and LMH6629 for the 10-kΩ and 100-kΩ decades (`add_fast_parts.py`).
 - **The capacitive-matching rule** for discrete FETs (its Eq. (58), here Eq. (30)).
+- **Its open-loop model**, which interpolates the datasheets' open-loop gain and phase, run on its own 1-pF node for the cross-check at 10 kΩ (Section 6.9, `hg_cross_check_companion.py`).
 
 Its SPICE tools are reused in Chapter 9: the ngspice shared library driven from Python, the translation of TI's noiseless resistors, and the LSBF862 model card. Its SPICE check of the open-loop model is not repeated. That check tested fast amplifiers near a loop crossover of 0.5–1 GHz, where the macromodels' higher poles decide the phase margin. In the high-gain TIA the loop crosses over at noise gains of tens to thousands, far below those poles (Section 3.1). Chapter 9 instead checks the complete designs against the vendors' macromodels. That check found the one limit of the single-pole model that matters here, the finite DC open-loop gain.
 
@@ -1791,6 +1899,7 @@ All numbers of this note come from the scripts in `scripts_archive/`, which its 
 - `add_aol.py` adds the datasheet open-loop gains, with their pages, to `data/amplifiers.json`.
 - `hg_spice_gbw_check.py` measures the open-loop gain of OPA1656 or OPA2156 in SPICE and compares the part's designs with the model at both data-sheet values; `set_gbw_opa1656.py`, `set_gbw.py` and `add_aol_shape.py` then store their gain–bandwidths and open-loop shapes in `data/amplifiers.json`; `hg_equal_bandwidth_check.py` compares OPA1656 and OPA2156 at equal bandwidths.
 - `integrator_vs_tia.py` computes the noise charges of Section 7.3 and Table 7.1, `t_network_vs_second_stage.py` the T-networks and voltage stages of Table 3.1, and `set_in_lmc662.py` sets LMC662's current noise to the value of Section 2.3.
+- `add_fast_parts.py` adds the companion's four fast parts to `data/amplifiers.json` for the 10-kΩ and 100-kΩ decades. `hg_medium_gain.py` holds every part to common bandwidths at those gains (Table 6.8) and computes this note's designs on the companion's node, and `hg_cross_check_companion.py` runs the companion's own model on that node (Section 6.9).
 - `assemble_note.py` assembles this note from `parts/` and inserts the generated tables.
 
 The analytic scripts run in under a minute, and the SPICE checks in a few minutes.
@@ -1902,7 +2011,8 @@ which is Eq. (28). Its low-frequency form follows from Eq. (26): $\alpha(C_{ee} 
 19. **The gain–bandwidth of OPA211.** The model uses its unity-gain bandwidth, 45 MHz, although its data sheet also gives 80 MHz at a gain of 100 (Appendix B.1). For OPA1656 and OPA2156, which showed the same pattern, their SPICE models settled the question in favour of the value at a gain of 100 (Section 9.2). OPA211, a bipolar part, matters only at the lowest gains, so its value was not checked.
 20. **The current noise of CMOS inputs.** For LMC662 the data sheet's own revision history shows that its current-noise figure follows the test setup, and the model uses the earlier, lower value (Section 2.3). Other CMOS data sheets also give current noise well above the shot noise of the part's own typical bias current, $\sqrt{2qI_{B,\mathrm{typ}}}$: OPA1656 6 fA/√Hz against 1.8 fA/√Hz for 10 pA, OPA2156 19 fA/√Hz against 1.3 fA/√Hz for 5 pA, and OPA320 0.6 fA/√Hz against 0.25 fA/√Hz for 0.2 pA. Whether these figures are also limited by the test setup could only be settled by measurement. At the gains of this note it matters for OPA1656 and OPA2156 above about 100 MΩ, where their current noise sets their excess noise.
 21. **The first opto-electronic feedback preamplifier** of Goulding, Walton and Malone [A9] was not read. Section 7.3 describes the optical reset from two later reports of the same laboratory [A10], [A11].
-22. **Low-frequency noise (Section 6.8).** Below the first point of its datasheet data the model holds an amplifier's voltage noise flat: LMC662 and LMC6001A from 1 kHz, OPA381 from 10 kHz, and OPA656 and the BF862 composite from 100 kHz. Their entries in Tables A.8a–b are therefore lower bounds, which the noise curves of their datasheets, where they exist, would replace. The current noise of the CMOS parts below 1 kHz (item 20), the noise index of the feedback resistor chosen and the low-frequency noise of a biased photodiode are not known here.
+22. **Low-frequency noise (Section 6.8).** Below the first point of its datasheet data the model holds an amplifier's noise flat: the voltage noise of LMC662 and LMC6001A from 1 kHz, of OPA381 from 10 kHz, of OPA656 and the BF862 composite from 100 kHz and of OPA858 from 1 kHz, and the current noise of OPA855 from 1 kHz. Their entries in Tables A.8a–b are therefore lower bounds, which the noise curves of their datasheets, where they exist, would replace. The current noise of the CMOS parts below 1 kHz (item 20), the noise index of the feedback resistor chosen and the low-frequency noise of a biased photodiode are not known here.
+23. **The 10-kΩ decade (Section 6.9).** OPA955's data sheet is Advance Information for a preproduction part, and its values may change. The 85-°C bias currents of OPA855 and OPA955 are estimated from their typical drift (Appendix B.1), and LMH6629's differential input capacitance of 4 pF is a simulated value. This note's single-pole model leaves out the excess phase of the fast parts' open-loop curves. On the companion's 1-pF node at 10 kΩ it differs from the companion's model by 2–15% in bandwidth and by up to 18° in phase margin; on the larger photodiodes of the sweep the loop crosses over at lower frequencies, where that phase matters less. The rising current-noise curves of OPA818, OPA858 and LTC6268-10 may count part of the effect of $e_n$ on their own gate capacitance twice (the companion's Section 3.7), which would make their entries at 10 kΩ slightly pessimistic. No SPICE check has been run at 10 kΩ.
 
 ## Appendix D. References
 
@@ -1947,6 +2057,10 @@ which is Eq. (28). Its low-frequency form follows from Eq. (26): $\alpha(C_{ee} 
 - [D29] Analog Devices, AD8304 data sheet, Rev. A, Aug. 2002.
 - [D30] Analog Devices, ADL5303 data sheet, Rev. D, Oct. 2020.
 - [D31] Burr-Brown (Texas Instruments), IVC102 data sheet, PDS-1329A, Jun. 1996, TI literature number SBFS009.
+- [D32] Texas Instruments, OPA858 data sheet, SBOS629B, May 2025, through the companion note's record.
+- [D33] Texas Instruments, OPA855 data sheet, SBOS622D, May 2025, through the companion note's record.
+- [D34] Texas Instruments, OPA955 data sheet, SLOSEE6, Jul. 2026, Advance Information, through the companion note's record.
+- [D35] Texas Instruments, LMH6629 data sheet, SNOSB18I, Dec. 2014, through the companion note's record.
 
 **Application notes and articles**
 
@@ -1971,7 +2085,7 @@ which is Eq. (28). Its low-frequency form follows from Eq. (26): $\alpha(C_{ee} 
 
 **Companion note**
 
-- [C1] *Operational amplifiers for a balanced-photodiode transimpedance amplifier: 1 pF, 1.5–2 kΩ, ≥ 150 MHz, 0.1–10 mA of DC photocurrent*, design study and amplifier survey, October–November 2026.
+- [C1] *Operational amplifiers for a balanced-photodiode transimpedance amplifier: 1 pF, 1.5–2 kΩ, ≥ 150 MHz, 0.1–10 mA of DC photocurrent*, design study and amplifier survey.
 
 ## Appendix E. Files
 
@@ -1983,7 +2097,7 @@ which is Eq. (28). Its low-frequency form follows from Eq. (26): $\alpha(C_{ee} 
 | `figures/` | Figures 1–23 as PNG (600 dpi) and PDF. The plots keep the names under which they were first drawn: `fig1`–`fig5` are Figures 2, 3, 5, 10 and 11, and `fig6`–`fig12` are Figures 17–23. The schematics are the files `schem_*` |
 | `data/photodiodes.json` | The photodiode examples of Table 1 with their pages |
 | `data/amplifiers.json` | The amplifier data of Table A.1 with their pages, including the DC open-loop gains |
-| `data/results/` | The output of the analysis scripts: `designs.json`, `gain_table.json`, `amp_merits.json`, `numbers.json` and `tables.md` |
+| `data/results/` | The output of the analysis scripts: `designs.json`, `gain_table.json`, `amp_merits.json`, `numbers.json`, `medium_gain.json`, `cross_check_companion.json` and `tables.md` |
 | `data/results/note_tables/` | The table bodies that `assemble_note.py` inserts into the chapters |
 | `spice/models/` | The vendors' SPICE models, one folder per part. They are not part of the public repository, which holds only `spice/models/README.md` with the source of each |
 | `spice/results/` | The summaries of the SPICE checks of Chapter 9 |

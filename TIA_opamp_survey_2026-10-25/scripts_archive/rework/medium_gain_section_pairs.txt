@@ -1,0 +1,90 @@
+Old/new text pairs for Section 6.10 (larger feedback resistors, up to the 10 kΩ at which the companion note takes
+over) and Tables A6.38–A6.39, with the box, the chapter overview, the opening of Chapter 6, Section 9.2 and
+Appendices C and E, written against the reordered note of 4 November 2026; also the date dropped from the subtitle at
+the user's request. Applied with medium_gain_section.py, which replaces @@TABLE_A6_38@@ and @@TABLE_A6_39@@ by the
+files that medium_gain.py writes to data/results/.
+
+=== OLD
+Design study and amplifier survey, October–November 2026.
+=== NEW
+Design study and amplifier survey.
+=== END
+
+=== OLD
+where the light's own shot noise sets the floor and the loop's stability decides the design. Its companion, [*Operational amplifiers for high-gain photodiode transimpedance amplifiers: 100 kΩ to 1 GΩ, from DC to a few megahertz*](../TIA_high_gain_survey_2026-11-02/TIA_high_gain_survey.md), covers the opposite corner. There the signal photocurrent lies between about a picoampere and a few tens of microamperes, the feedback resistor must be 100 kΩ or more, and the amplifier's input current, its voltage noise on the photodiode's capacitance and the resistor's own capacitance decide the design. The photocurrent decides which note applies. Its shot noise equals the Johnson noise of the feedback resistor at $I = 2k_BT/(qR_F)$, which is 51.4 mV divided by $R_F$ at 25 °C. Above about 10 µA, with more than about 10 MHz of bandwidth, this note applies. Below about 10 µA, and certainly below 1 µA, the companion does.
+=== NEW
+where the light's own shot noise sets the floor and the loop's stability decides the design. Section 6.10 follows the design up to 10 kΩ, for a pair that carries less light. Its companion, [*Operational amplifiers for high-gain photodiode transimpedance amplifiers: 10 kΩ to 1 GΩ, from DC to tens of megahertz*](../TIA_high_gain_survey_2026-11-02/TIA_high_gain_survey.md), continues from there. In its range the signal photocurrent lies between about a picoampere and a few hundred microamperes, and the amplifier's voltage noise acting on the node capacitance, its input current and the resistor's own capacitance decide the design. The photocurrent and the bandwidth decide which note applies. The photocurrent's shot noise equals the Johnson noise of the feedback resistor at $I = 2k_BT/(qR_F)$, which is 51.4 mV divided by $R_F$ at 25 °C, and a bandwidth $B$ allows at most $R_F = 1/(2\pi BC_{F,\mathrm{par}})$: 5.3 kΩ at 150 MHz for our nominal 0.2 pF of feedback parasitic, and 10.6 kΩ for 0.1 pF. With tens of microamperes or more and more than about 50 MHz of bandwidth, this note applies; with a few microamperes or less, the companion does. The two notes meet at 10 kΩ, where both analyses are evaluated (Section 6.10).
+=== END
+
+=== OLD
+Chapter 6 compares the candidates in stability, noise and dynamic range, and against the benchmark.
+=== NEW
+Chapter 6 compares the candidates in stability, noise and dynamic range, and against the benchmark, and follows the leading ones to larger feedback resistors, up to the 10 kΩ at which the companion note takes over.
+=== END
+
+=== OLD
+Section 6.9 then asks what changes if the receiver must also resolve signals below about 100 kHz, where the amplifiers' 1/f noise decides.
+=== NEW
+Section 6.9 then asks what changes if the receiver must also resolve signals below about 100 kHz, where the amplifiers' 1/f noise decides, and Section 6.10 follows the leading parts to larger feedback resistors, up to 10 kΩ, for a pair that carries less light.
+=== END
+
+=== OLD
+and the photodiode bias moves by the imbalance times $R_s$. This arrangement has not been analysed (Appendix C, item 21).
+=== NEW
+and the photodiode bias moves by the imbalance times $R_s$. This arrangement has not been analysed (Appendix C, item 21).
+
+### 6.10 Larger feedback resistors, up to 10 kΩ
+
+So far the pair has carried 0.1–10 mA, enough for its shot noise to bury the Johnson noise of a 2-kΩ resistor. A receiver with less light gives up that margin. The shot noise of $I_{\mathrm{DC}}$ equals the resistor's Johnson noise at $I_{\mathrm{DC}} = 2k_BT/(qR_F)$ (Section 3.6), which is 25.7 µA at 2 kΩ, 17.1 µA at 3 kΩ, 10.3 µA at 5 kΩ and 5.1 µA at 10 kΩ. With tens of microamperes in the pair, a larger resistor restores the light's lead. We therefore follow the amplifiers carried forward up to 10 kΩ, where the companion note takes over.
+
+**The resistor's own capacitance now sets the bandwidth.** Its pole, $1/(2\pi R_FC_{F,\mathrm{par}})$, lies at 398 MHz for 2 kΩ with our nominal 0.2 pF, but at 159 MHz for 5 kΩ and 80 MHz for 10 kΩ. A band of 150 MHz therefore needs $R_F \le 1/(2\pi\times150\ \mathrm{MHz}\times0.2\ \mathrm{pF})$ = 5.3 kΩ, or 10.6 kΩ if the layout holds the parasitic to 0.1 pF. Table A6.38 runs the analysis of this chapter at 2, 3, 5 and 10 kΩ with 0.2 pF, and Table A6.39 with 0.1 pF. Each design is the robust one of Table A9.2, with a phase margin of at least 45° and at most 1 dB of peaking, but with no capacitance added at the input. With 0.2 pF, four parts still reach 150 MHz at 5 kΩ: OPA955 with 191 MHz, OPA855 with 182 MHz, OPA858 with 180 MHz and LMH6629 with 169 MHz, while OPA856 falls just short with 149 MHz. At 10 kΩ every design stays between 69 and 129 MHz. With 0.1 pF, OPA955, OPA855 and OPA858 keep 200–232 MHz even at 10 kΩ.
+
+**The loop becomes easy to stabilize.** The noise gain at crossover grows with $R_F$ (Section 3.2), so the minimum-gain trap of the 2-kΩ design disappears. OPA855's phase margin rises from 59° at 2 kΩ to 66°, 73° and 78° at 3, 5 and 10 kΩ, with the 0.2-pF parasitic as its only feedback capacitance. OPA955, OPA818 and OPA846, which need added input capacitance at 2–3 kΩ, are robust without it from 5 kΩ up. Added capacitance still buys bandwidth, because a loop with up to 1 dB of peaking carries the response past the resistor's pole, but it costs noise: 8 pF gives OPA855 99 MHz instead of 84 MHz at 10 kΩ, with a band penalty of 11.5 dB instead of 7.4 dB (`data/results/medium_gain.json`).
+
+**The bipolar parts keep their lead.** Their current noise, 2.1–2.8 pA/√Hz for all but OPA955, exceeds the resistor's Johnson noise from about 2–4 kΩ up, and at 5 kΩ that noise is only 1.82 pA/√Hz. Yet over a band of tens of megahertz the voltage noise acting on the node capacitance weighs more. At 5 kΩ OPA855 and OPA856 stay within 5.5 dB of the resistor's noise, against 6.4 dB for OPA858 and 9.0 dB for OPA818. At 10 kΩ, over the narrower band that each design then reaches, OPA855, OPA856 and OPA859 stay within 7.3–7.4 dB and OPA858 within 5.1 dB. OPA955, with 0.79 nV/√Hz and 0.55 pA/√Hz, stays within 1.7–1.9 dB at 5–10 kΩ. With its calibrated open-loop curve (Table A6.7), OPA858 keeps nearly the same bandwidth and noise at 3–10 kΩ, but with 46–64° of phase margin instead of 66–77°.
+
+**Less light is needed for the light to dominate.** The DC photocurrent of the pair whose shot noise equals the TIA's own noise in the band falls with $R_F$. For OPA855 it falls from 53 µA at 2 kΩ to 37 µA at 5 kΩ and 28 µA at 10 kΩ, for OPA858 to 16 µA at 10 kΩ, and for OPA955 to 16 and 8 µA at 5 and 10 kΩ (Table A6.38).
+
+**What it costs.** The largest RF current the output can carry falls as $1/R_F$. With 2 V of peak output it is 1 mA at 2 kΩ, 0.4 mA at 5 kΩ and 0.2 mA at 10 kΩ, so a larger resistor suits a pair whose signal is as small as its light. The imbalance must still stay out of $R_F$ (Section 8.1): at 10 kΩ, 0.1 mA of imbalance would take 1 V of the swing.
+
+**The choice for a weaker pair.** With 20–50 µA in the pair and 150 MHz to cover, 3–5 kΩ is the range. There OPA855 keeps 182–334 MHz with 66–73° of phase margin and needs no added capacitance, and the pair's shot noise exceeds its own noise from 37–44 µA. OPA955, once released, lowers that to 16 µA at 5 kΩ. 10 kΩ serves 150 MHz only if the parasitic is held to about 0.1 pF.
+
+**Where the companion note continues.** From 10 kΩ up the companion note takes over. Its Section 6.9 evaluates 10 kΩ on photodiodes of 20 pF to 1 nF, and it runs its single-pole model and our model on our node at 2 kΩ and 10 kΩ with a common design rule. At 10 kΩ the two agree on bandwidth within 2–6% for OPA855, OPA858 and LMH6629, within 11% for OPA955 and within 15% for OPA818. At 2 kΩ the single-pole model falls short by up to a third, which is why this note uses the full open-loop curves, and why the two notes meet at 10 kΩ.
+=== END
+
+=== OLD
+| OPA855 | 2.85 / 35.2 | 7† / 111† | 35.2 / 111† | 21.8 / 15.0 / 6.8 / 1.4 | 31.8 / 24.9 / 15.9 / 6.9 | Fig 6-11 (p9) |
+
+### A7. Tables of Chapter 7: Composite front ends
+=== NEW
+| OPA855 | 2.85 / 35.2 | 7† / 111† | 35.2 / 111† | 21.8 / 15.0 / 6.8 / 1.4 | 31.8 / 24.9 / 15.9 / 6.9 | Fig 6-11 (p9) |
+
+@@TABLE_A6_38@@
+
+@@TABLE_A6_39@@
+
+### A7. Tables of Chapter 7: Composite front ends
+=== END
+
+=== OLD
+from 1 mA up (Table A6.37).
+=== NEW
+from 1 mA up (Table A6.37).
+
+**If the pair carries only tens of microamperes, a larger feedback resistor restores the light's lead (Section 6.10).** The resistor's own capacitance then sets the band: 150 MHz needs $R_F \le$ 5.3 kΩ with 0.2 pF of parasitic, or 10.6 kΩ with 0.1 pF. Up to that limit OPA855 remains the choice. At 3–5 kΩ it keeps 182–334 MHz with 66–73° of phase margin and no added capacitance, and the pair's shot noise exceeds its own noise from 37–44 µA. Its current noise exceeds the resistor's from about 2.6 kΩ, but in this band it costs less than the voltage noise of the FET parts. Above about 10 kΩ, or with still less light, the companion note continues.
+=== END
+
+=== OLD
+need the treatment that Sections 8.2–8.5 give the other options.
+=== NEW
+need the treatment that Sections 8.2–8.5 give the other options.
+22. **Larger feedback resistors (Section 6.10).** The designs at 3–10 kΩ come from our analytical model with the datasheet open-loop curves as plotted; no SPICE check has been run above 2 kΩ in this note, although the companion note's Section 6.9 compares its single-pole model with ours there. With OPA858's calibrated curve (Table A6.7) its phase margins at 3–10 kΩ fall to 46–64°, and it needs added capacitance at 2 kΩ, as in Table A9.2. Above about 5 kΩ the bandwidth follows the feedback parasitic, so its actual value on the board, 0.1–0.3 pF, decides whether 150 MHz is reached. OPA955 is Advance Information.
+=== END
+
+=== OLD
+| `data/results/case_studies_tables.md`, `case_studies_note_tables.md` | the two design examples of Chapter 4: every result, with the comparisons against the 50-Ω benchmark, and Tables A4.1–A4.4 as printed here (`scripts_archive/case_studies.py`, actions `tables` and `notetables`) |
+=== NEW
+| `data/results/case_studies_tables.md`, `case_studies_note_tables.md` | the two design examples of Chapter 4: every result, with the comparisons against the 50-Ω benchmark, and Tables A4.1–A4.4 as printed here (`scripts_archive/case_studies.py`, actions `tables` and `notetables`) |
+| `data/results/table_a6_37.md` | Table A6.37 (Section 6.9), from `scripts_archive/low_frequency_noise.py` |
+| `data/results/medium_gain.json`, `table_a6_38.md`, `table_a6_39.md` | Section 6.10 (Tables A6.38–A6.39): the robust designs at 2–10 kΩ for both feedback parasitics, from `scripts_archive/medium_gain.py`; the JSON file also keeps the widest design with added input capacitance and the designs with the calibrated curves of OPA855, OPA858 and OPA859 |
+=== END

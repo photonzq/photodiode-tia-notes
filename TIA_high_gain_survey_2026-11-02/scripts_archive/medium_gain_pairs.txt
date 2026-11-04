@@ -1,0 +1,384 @@
+Old/new text pairs that extend the high-gain note to 10 kΩ, where it meets the companion note (4 November 2026):
+the title, the scope box and Table 0; Table 2 and the values of Section 1.3; the bipolar parts in Chapters 2 and 5;
+Figure 11; Section 6.1, Table 6 and the new Section 6.9 with Tables 6.7 and 6.8; the 10-kΩ values of Section 6.8;
+the conclusions; and Appendices B–E. Applied with plain_wording_pass.py: a line "=== FILE <part> <hash>" names the
+chapter file in parts/ and its hash before the edit; each pair runs from "=== OLD" through "=== NEW" to "=== END".
+Run add_fast_parts.py, hg_analysis.py, hg_numbers.py, hg_tables.py, hg_low_frequency_noise.py, hg_medium_gain.py,
+hg_cross_check_companion.py and hg_appendix_tables.py first, then assemble_note.py. Usage:
+python plain_wording_pass.py medium_gain_pairs.txt
+
+=== FILE 00_front.md 695567f29cf4
+
+=== OLD
+100 kΩ to 1 GΩ, from DC to a few megahertz
+=== NEW
+10 kΩ to 1 GΩ, from DC to tens of megahertz
+=== END
+
+=== OLD
+lies between 100 kΩ and 1 GΩ. That range serves signal photocurrents from about a picoampere to a few tens of microamperes, bandwidths from below a kilohertz to a few megahertz, and
+=== NEW
+lies between 10 kΩ and 1 GΩ. That range serves signal photocurrents from about a picoampere to a few hundred microamperes, bandwidths from below a kilohertz to about 100 MHz, and
+=== END
+
+=== OLD
+covers the opposite corner, where the photocurrent is large and the bandwidth is high. The photocurrent decides which note applies. Its shot noise equals the Johnson noise of the feedback resistor at $I = 2k_BT/(qR_F)$, which is 51.4 mV divided by $R_F$ at 25 °C (Eq. (2)). If the current you must handle is above about 10 µA and the bandwidth above about 10 MHz, the feedback resistor can only be a few kilohms, the light sets the noise floor, and the amplifier's stability and output swing decide the design; read the companion. If the signal is below about 10 µA, and certainly below 1 µA, the feedback resistor has to be 100 kΩ or more to keep its own noise below the signal's. Then the amplifier's input current, its voltage noise acting on the photodiode's capacitance, the photodiode's shunt resistance and the feedback resistor's own capacitance decide the design, and this note applies.
+=== NEW
+covers the corner of large photocurrent and high bandwidth, from 1.5 kΩ up to 10 kΩ, where the two notes meet. The photocurrent and the bandwidth decide which note applies. The photocurrent's shot noise equals the Johnson noise of the feedback resistor at $I = 2k_BT/(qR_F)$, which is 51.4 mV divided by $R_F$ at 25 °C (Eq. (2)). The bandwidth $B$ limits the resistor to at most $1/(2\pi BC_{par})$, which with 0.1 pF of parasitic capacitance is 10.6 kΩ at 150 MHz and 159 kΩ at 10 MHz (Eq. (4)). With tens of microamperes or more and a bandwidth above about 50 MHz, the feedback resistor is a few kilohms, the light sets the noise floor, and the amplifier's stability and output swing decide the design; read the companion. With a few microamperes or less, the feedback resistor must be 10 kΩ or more to keep its own noise below the signal's. Then the amplifier's voltage noise acting on the node capacitance and, as the gain rises, its input current, the photodiode's shunt resistance and the feedback resistor's own capacitance decide the design, and this note applies. At 10 kΩ both notes' analyses are evaluated, and they agree on the bandwidth of the fast parts they share within 2–15% (Section 6.9).
+=== END
+
+=== OLD
+| Feedback resistor $R_F$ | 100 kΩ – 1 GΩ | 1.5–2 kΩ |
+| Photocurrent | about 1 pA to 50 µA, single diode | 0.1–10 mA DC in a balanced pair, small RF signal |
+| Bandwidth | below 1 kHz to a few MHz | at least 150 MHz |
+=== NEW
+| Feedback resistor $R_F$ | 10 kΩ – 1 GΩ | 1.5–2 kΩ, extended to 10 kΩ |
+| Photocurrent | about 1 pA to a few hundred µA, single diode | 0.1–10 mA DC in a balanced pair, small RF signal; down to about 5 µA at 10 kΩ |
+| Bandwidth | below 1 kHz to about 100 MHz | at least 150 MHz; at 5–10 kΩ the resistor's own capacitance limits it to 80–160 MHz |
+=== END
+
+=== OLD
+| loop stability at a noise gain of only 7–12 |
+=== NEW
+| loop stability at a noise gain of only 7–12 at 2 kΩ; from about 5 kΩ up the resistor's own capacitance |
+=== END
+
+=== OLD
+| precision JFET and CMOS op amps, electrometers, wideband FET op amps, discrete-JFET composites |
+=== NEW
+| precision JFET and CMOS op amps, electrometers, wideband FET op amps, discrete-JFET composites; at 10–100 kΩ also fast bipolar op amps |
+=== END
+
+=== OLD
+falls from 406 fA/√Hz at 100 kΩ to 4.06 fA/√Hz at 1 GΩ
+=== NEW
+falls from 1.28 pA/√Hz at 10 kΩ to 4.06 fA/√Hz at 1 GΩ
+=== END
+
+=== OLD
+Chapter 5 surveys 21 op amps and three discrete-JFET front ends by class, and Chapter 6 turns the results into a selection for each gain decade.
+=== NEW
+Chapter 5 surveys 25 op amps and three discrete-JFET front ends by class, four of the op amps taken from the companion note for the lowest decades, and Chapter 6 turns the results into a selection for each gain decade, with Section 6.9 on 10 kΩ, where the two notes meet.
+=== END
+
+=== OLD
+- **From 100 kΩ to 1 MΩ** the amplifier sets the bandwidth
+=== NEW
+- **At 10 kΩ**, where this note meets the companion, the floor is 1.28 pA/√Hz, and on a 20-pF photodiode the wideband parts reach 13–94 MHz, with the voltage noise on the node capacitance dominating the band (Section 6.9). Held to a common bandwidth, the wideband FET parts OPA818 and OPA858 are the quietest production parts up to about 10 MHz, 1.2–5.9 dB above the floor. At 30 MHz the low-noise bipolar LMH6629 and OPA855 overtake them, with 8.8–9.5 dB against 13.0–13.8 dB, at the cost of 0.24–0.37 V of DC output error at 85 °C from their bias current. OPA955 is quieter still, 0.9–5.6 dB, but exists only as a preproduction part.
+- **From 100 kΩ to 1 MΩ** the amplifier sets the bandwidth
+=== END
+
+=== OLD
+and at 100 kΩ the wideband parts lose up to 7.6 dB.
+=== NEW
+and at 100 kΩ the wideband parts lose up to 7.6 dB, at 10 kΩ up to 17 dB, while the fast bipolar parts lose up to 29 dB at 10 kΩ.
+=== END
+
+=== FILE 01_problem.md 016ea326da7b
+
+=== OLD
+so $I_x$ is 514 nA at 100 kΩ and 51.4 pA at 1 GΩ.
+=== NEW
+so $I_x$ is 5.14 µA at 10 kΩ, 514 nA at 100 kΩ and 51.4 pA at 1 GΩ.
+=== END
+
+=== OLD
+For a ±15-V part with 10 V of usable swing this is 100 µA at 100 kΩ and 10 nA at 1 GΩ. For a 5-V rail-to-rail part with about 2.4 V it is 24 µA and 2.4 nA.
+=== NEW
+For a ±15-V part with 10 V of usable swing this is 1 mA at 10 kΩ, 100 µA at 100 kΩ and 10 nA at 1 GΩ. For a 5-V rail-to-rail part with about 2.4 V it is 240 µA, 24 µA and 2.4 nA.
+=== END
+
+=== OLD
+With 0.1 pF, $f_R$ is 15.9 MHz at 100 kΩ, 159 kHz at 10 MΩ and 1.59 kHz at 1 GΩ.
+=== NEW
+With 0.1 pF, $f_R$ is 159 MHz at 10 kΩ, 15.9 MHz at 100 kΩ, 159 kHz at 10 MΩ and 1.59 kHz at 1 GΩ.
+=== END
+
+=== OLD
+Table 2 evaluates Eqs. (1)–(4) for the five decades of this note,
+=== NEW
+Table 2 evaluates Eqs. (1)–(4) for the six decades of this note,
+=== END
+
+=== OLD
+| 100 kΩ | 406 fA/√Hz | 514 nA | 100 µA | 24 µA | 31.8 / 15.9 / 7.96 MHz |
+=== NEW
+| 10 kΩ | 1.28 pA/√Hz | 5.14 µA | 1 mA | 240 µA | 318 / 159 / 79.6 MHz |
+| 100 kΩ | 406 fA/√Hz | 514 nA | 100 µA | 24 µA | 31.8 / 15.9 / 7.96 MHz |
+=== END
+
+=== OLD
+The shaded band is the range of this note; the grey band at 1.5–2 kΩ is the companion note's.*
+=== NEW
+The shaded band is the range of this note, 10 kΩ to 1 GΩ; the grey band is the companion note's, 1.5–10 kΩ, which meets it at 10 kΩ.*
+=== END
+
+=== FILE 02_noise.md 5a15a25a3982
+
+=== OLD
+a bipolar input is unsuitable for any gain of this note, except where the photodiode's own shunt resistance is a few kilohms (Section 6.6).
+=== NEW
+a bipolar input is unsuitable from 100 kΩ up, except where the photodiode's own shunt resistance is a few kilohms (Section 6.6). At 10 kΩ OPA211's current noise adds $10\log_{10}(1 + R_F/R_{F,\mathrm{crit}})$ = $10\log_{10}(1 + 1.75)$ = 4.4 dB to the resistor's noise, and the low voltage noise of bipolar parts can outweigh their current noise in wide bands (Section 6.9).
+=== END
+
+=== FILE 04_maps.md 1fae7c6a59ff
+
+=== OLD
+### 4.2 Noise spectra of the five gain decades
+=== NEW
+### 4.2 Noise spectra of the six gain decades
+=== END
+
+=== OLD
+Figure 11 shows the input-referred noise density itself, for the five gain decades,
+=== NEW
+Figure 11 shows the input-referred noise density itself, for the six gain decades,
+=== END
+
+=== OLD
+(S1336-8BK) at $R_F$ = 100 kΩ to 1 GΩ.
+=== NEW
+(S1336-8BK) at $R_F$ = 10 kΩ to 1 GΩ.
+=== END
+
+=== FILE 05_amplifiers.md 32166c233d7b
+
+=== OLD
+The 21 op amps of this survey fall into six classes, and three discrete JFETs stand for a seventh, the composite front end.
+=== NEW
+The 25 op amps of this survey fall into seven classes, and three discrete JFETs stand for an eighth, the composite front end. Four of the op amps, OPA858, OPA855, OPA955 and LMH6629, are taken from the companion note's records for the 10-kΩ and 100-kΩ decades (Section 6.9).
+=== END
+
+=== OLD
+$A_0$ is the DC open-loop gain, which must exceed ten times the mid-band noise gain (Section 3.1).*
+=== NEW
+$A_0$ is the DC open-loop gain, which must exceed ten times the mid-band noise gain (Section 3.1). For the wideband bipolar parts, whose current noise rises below about 100 kHz, $i_n$, $R_{F,\mathrm{crit}}$ and $R_{opt}$ are given at the white level above 1 MHz.*
+=== END
+
+=== OLD
+| Wideband FET | OPA656, OPA657, OPA818, ADA4817-1, LTC6268-10 | 2.2–6 | 1.3–16 at 0.1 MHz, rising | 0.55–5.2 | 20 fA–25 pA / 0.9 pA–5 nA | 230–4000 | 65–108 | 0.3–10 GΩ | 0.6–3.7 MΩ |
+=== NEW
+| Wideband FET | OPA656, OPA657, OPA818, ADA4817-1, LTC6268-10, OPA858 | 2.2–6 | 1.3–16 at 0.1 MHz, rising | 0.55–5.2 | 20 fA–25 pA / 0.9 pA–5 nA | 230–5500 | 65–108 | 0.3–63 GΩ | 0.6–49 MΩ |
+=== END
+
+=== OLD
+| Bipolar | OPA211 | 1.1 | 1700 | 10 | 175 nA / 190 nA | 45 | 110 | 5.7 kΩ | 650 Ω |
+=== NEW
+| Bipolar | OPA211 | 1.1 | 1700 | 10 | 175 nA / 190 nA | 45 | 110 | 5.7 kΩ | 650 Ω |
+| Wideband bipolar | OPA855, OPA955, LMH6629 | 0.69–0.99 | 550–2600 above 1 MHz | 0.8–5.7 | 5–23 µA / 10–37 µA | 4000–11000 | 76–78 | 2.4–54 kΩ | 0.27–1.4 kΩ |
+=== END
+
+=== OLD
+OPA656, OPA657, OPA818, ADA4817-1 and LTC6268-10 offer 230 MHz to 4 GHz of gain–bandwidth with 0.55–5.2 pF of input capacitance [D16, D19, D20, D21, D18].
+=== NEW
+OPA656, OPA657, OPA818, ADA4817-1 and LTC6268-10 offer 230 MHz to 4 GHz of gain–bandwidth with 0.55–5.2 pF of input capacitance [D16, D19, D20, D21, D18]. OPA858, a CMOS part taken from the companion note for the 10-kΩ and 100-kΩ decades, offers 5.5 GHz with 0.82 pF and 5 pA of maximum bias current [D32].
+=== END
+
+=== OLD
+Even there the low-noise FET parts are as good (Section 6.6).
+=== NEW
+Even there the low-noise FET parts are as good (Section 6.6).
+
+Three wideband bipolar parts of the companion note, OPA855, OPA955 and LMH6629, serve the 10-kΩ and 100-kΩ decades [D33, D34, D35]. They combine 0.69–0.99 nV/√Hz of voltage noise with 4–11 GHz of gain–bandwidth and 0.8–5.7 pF of input capacitance, and they are decompensated, stable above a noise gain of 7 or 10, which every design at these gains exceeds. Above 1 MHz the current noise of OPA855 and LMH6629 is 2.5–2.6 pA/√Hz, so that $R_{F,\mathrm{crit}}$ = 2.4–2.6 kΩ, and that of OPA955 is 0.55 pA/√Hz, so that $R_{F,\mathrm{crit}}$ = 54 kΩ; below about 100 kHz it rises as $1/f$. Their maximum bias currents are 5–23 µA at 25 °C. At 10 kΩ their low voltage noise wins in bands of tens of megahertz despite their current noise, while at 100 kΩ only OPA955 remains competitive (Section 6.9). OPA955's data sheet is Advance Information, for a preproduction part.
+=== END
+
+=== FILE 06_selection.md 9f0baf7c121e
+
+=== OLD
+Sections 6.1–6.5 give the reasons and the numbers for each decade, and Sections 6.6 and 6.7 treat
+=== NEW
+Sections 6.1–6.5 give the reasons and the numbers for each decade from 100 kΩ up, and Sections 6.6 and 6.7 treat
+=== END
+
+=== OLD
+where the band integral no longer describes the measurement. Every number comes from the sweep of Appendix B: 21 op amps and three composites, five photodiodes and five gains, each design
+=== NEW
+where the band integral no longer describes the measurement, and Section 6.9 treats 10 kΩ, where this note meets the companion. Every number comes from the sweep of Appendix B: 25 op amps, four of them from the companion note at 10 kΩ and 100 kΩ only, and three composites, five photodiodes and six gains, each design
+=== END
+
+=== OLD
+Tables 6.1–6.5 leave out the designs whose DC open-loop gain
+=== NEW
+Tables 6.1–6.5 and 6.7 leave out the designs whose DC open-loop gain
+=== END
+
+=== OLD
+$\Delta N$ and bandwidths from Tables 6.1–6.5 and A.3; DC errors at 85 °C on the small photodiode.*
+=== NEW
+$\Delta N$ and bandwidths from Tables 6.1–6.5, 6.7, 6.8 and A.3; DC errors at 85 °C on the small photodiode.*
+=== END
+
+=== OLD
+|---|---|---|---|---|---|
+| 100 kΩ | $R_F$ up to
+=== NEW
+|---|---|---|---|---|---|
+| 10 kΩ | $R_F$ up to $f_e$ ≈ 1–12 MHz, $e_n\,\omega C$ above it; the current noise of bipolar parts throughout | the amplifier: 2.6–4.8 MHz for precision parts, 13–94 MHz for wideband parts; the resistor's pole, 159 MHz, only on a node of a few picofarads | offset for FET parts; bias current for bipolar parts, 0.1–0.37 V | at equal bandwidth OPA818 or OPA858 up to about 10 MHz (1.2–5.9 dB), LMH6629 or OPA855 at 30 MHz (8.8–9.5 dB, with the bias current cancelled or the DC blocked); OPA955 0.9–5.6 dB, preproduction (Section 6.9) | OPA211 (7.8–10.5 dB, 0.9–1.4 MHz); wideband parts reach 4.4–23 MHz at 21–36 dB |
+| 100 kΩ | $R_F$ up to
+=== END
+
+=== OLD
+The fastest is always LTC6268-10, which reaches 2.7–18 MHz by Eq. (19) with its 4-GHz gain–bandwidth product, at 23–39 dB of excess.
+=== NEW
+Among the parts of the original sweep the fastest is LTC6268-10, which reaches 2.7–18 MHz by Eq. (19) with its 4-GHz gain–bandwidth product, at 23–39 dB of excess. The companion note's bipolar parts are faster still on the 20-pF and 55-pF photodiodes, OPA855 with 21.6 MHz and OPA955 with 18.8 MHz, both at 18.0 dB, but their current noise and their bias currents, which give 2.3 V and 1.0 V of output error at 85 °C, leave them little place at this gain (Section 6.9). Held to a common bandwidth (Table 6.8), OPA818 and OPA858 are the quietest parts at 1–3 MHz (1.0–5.3 dB), and only at 10 MHz does OPA955 lead, with 7.5 dB against 13.5 dB for OPA818.
+=== END
+
+=== OLD
+On the small and medium photodiodes it is 41 nV/√Hz at 100 kΩ and hundreds of nanovolts per root hertz above that.
+=== NEW
+On the small and medium photodiodes it is 13 nV/√Hz at 10 kΩ, 41 nV/√Hz at 100 kΩ and hundreds of nanovolts per root hertz above that.
+=== END
+
+=== OLD
+On the 14-kΩ photodiode it is about 15 nV/√Hz at every gain, the Johnson voltage noise of $R_{sh}$.
+=== NEW
+On the 14-kΩ photodiode it is about 14–15 nV/√Hz from 100 kΩ up, the Johnson voltage noise of $R_{sh}$, and 9.8 nV/√Hz at 10 kΩ, where $R_F$ lies in parallel with $R_{sh}$.
+=== END
+
+=== OLD
+- **At 100 kΩ the wideband parts and the electrometers lose.**
+=== NEW
+- **At 10 kΩ only parts with low $1/f$ noise stay near the floor.** With 13 nV/√Hz of critical voltage noise on every photodiode but the 14-kΩ one, ADA4625-1, OPA827 and OPA828 add 0.3–0.6 dB at 100 Hz, and OPA1656 and OPA2156 add 2.7 dB. The wideband FET parts add 3.1–16.9 dB (OPA818 7.0 dB, LTC6268-10 16.9 dB). The companion's bipolar parts, whose current noise rises as $1/f$ below about 100 kHz, add the most: OPA955 4.1 dB, LMH6629 21.5 dB and OPA855 28.8 dB, and 12–39 dB at 100 kΩ. A 10-kΩ receiver that must also resolve slow signals therefore needs a precision part, or a separate slow path for the low frequencies.
+- **At 100 kΩ the wideband parts and the electrometers lose.**
+=== END
+
+=== OLD
+and that of ADA4530-1 is interpolated between its 10-Hz and 1-kHz values.
+=== NEW
+and that of ADA4530-1 is interpolated between its 10-Hz and 1-kHz values.
+
+### 6.9 10 kΩ, where this note meets the companion
+
+Between the companion note's 1.5–2 kΩ and the 100 kΩ at which this note's sweep began lies the range of most fast photoreceivers that work with microamperes of photocurrent and tens of megahertz of bandwidth. Both notes extend into it and meet at 10 kΩ. The companion carries its open-loop model up to 10 kΩ on its 1-pF node, and this section adds 10 kΩ to the sweep, together with four fast parts from the companion's records: OPA858, a CMOS part, and the bipolar OPA855, OPA955 and LMH6629 (Section 5.7, Table A.1). The four are evaluated at 10 kΩ and 100 kΩ only. Above 100 kΩ every design on the five photodiodes is limited by the resistor or held to a few megahertz, where their gain–bandwidth buys nothing, and at 1 MΩ the bipolar parts' current noise already exceeds the resistor's by 13–26 dB.
+
+**What 10 kΩ fixes.** The resistor's floor is 1.28 pA/√Hz, a photocurrent above 5.14 µA is shot-noise-limited, and 10 V of swing carries 1 mA (Table 2). The resistor's own pole lies at 159 MHz for 0.1 pF, above the bandwidth that the amplifiers reach on the photodiodes of the sweep: 2.6–4.8 MHz for the precision parts and 13–94 MHz for the wideband ones on the 20-pF photodiode, and 0.9–23 MHz on the 380-pF one (Table A.3). The crossover gain of Eq. (20) for a 2-GHz amplifier is 159 kΩ on 10 pF but 15.9 kΩ on 1 pF (Table A.4). On photodiodes of tens of picofarads the amplifier therefore sets the bandwidth at 10 kΩ, while on a node of a few picofarads, such as the companion's, the resistor already does.
+
+**What dominates the noise.** In every wideband design the voltage noise on the node capacitance dominates the band, as Eq. (22) predicts, and on the 20-pF photodiode those designs end 11–23 dB above the floor at their own bandwidths (Table A.3a). The reason is the size of $e_n\,\omega C_T$ against the floor. For OPA818, with 2.2 nV/√Hz on $C_T$ = 23.4 pF (20 pF of photodiode, 2.4 pF of input capacitance and 1 pF of board), the term reaches the floor at $f_e = \sqrt{4k_BT/R_F}\,/\,(2\pi e_nC_T)$ = 1.28 pA/√Hz / (2π × 2.2 nV/√Hz × 23.4 pF) = 4.0 MHz (Eq. (13)). At the design's bandwidth of 46 MHz it is 46/4.0 = 11.5 times the floor.
+
+**Ranked at their own bandwidths.** Table 6.7 ranks each design at its own widest flat bandwidth, as Tables 6.1–6.5 do. The narrow-band precision parts then come out quietest: OPA2156 at 3.6 dB and 3.4 MHz on the 20-pF photodiode, and on the larger ones the bipolar OPA211, at 5.2–10.5 dB. OPA211's voltage noise of 1.1 nV/√Hz now outweighs its current noise of 1.7 pA/√Hz, because 10 kΩ is only 1.75 times its $R_{F,\mathrm{crit}}$ of 5.7 kΩ. The fastest design is OPA955's on four photodiodes, with 94 MHz on 20 pF, and OPA855's on the 1-nF photodiode.
+
+*Table 6.7. The four quietest designs and the fastest one for each photodiode at 10 kΩ (excess noise $\Delta N$, Eq. (16); −3 dB bandwidth), as Table 6.1. Composites are excluded here.*
+
+<!-- table: table_6_7 -->
+
+**Held to a common bandwidth.** Neither column of Table 6.7 answers the question a designer at 10 kΩ asks, which part is quietest for the bandwidth needed. Table 6.8 answers it by holding every part to a common bandwidth with a larger $C_F$, as Section 6.1 did for OPA1656 and OPA2156. Three results follow.
+
+- **Up to about 10 MHz the wideband FET parts are the quietest production parts.** At 10 kΩ OPA818 and OPA858 come within 1.2–1.5 dB of the floor at 3 MHz and 5.3–5.9 dB at 10 MHz. That puts them ahead of the precision parts OPA1656 and OPA2156, at 3.2 dB for 3 MHz, whose input capacitance of 9–11 pF raises $e_nC_T$.
+- **At 30 MHz the low voltage noise of the bipolar parts wins.** LMH6629, with 0.69 nV/√Hz, and OPA855, with 0.99 nV/√Hz, come within 8.8 and 9.5 dB, against 13.0 and 13.8 dB for OPA818 and OPA858. Their current noise, 2.6 and 2.5 pA/√Hz, is twice the floor and costs about 7 dB at any bandwidth, but the capacitive term grows as $f$ and overtakes it.
+- **At 100 kΩ the bipolar parts lose.** There their current noise is six times the floor of 0.406 pA/√Hz and costs 16–20 dB, while OPA818 and OPA858 lead at 1–3 MHz with 1.0–5.3 dB.
+
+OPA955 is the quietest part in every column at 10 kΩ, with 0.9–5.6 dB, and at 100 kΩ for 10 MHz, with 7.5 dB, because it combines 0.79 nV/√Hz with 0.55 pA/√Hz. Its data sheet is Advance Information for a preproduction part, so these values may change (Appendix C, item 23).
+
+*Table 6.8. Excess noise $\Delta N$ (dB, Eq. (16)) at equal bandwidth on the 20-pF photodiode (S1336-18BK), with each part's $C_F$ raised until its −3 dB bandwidth equals the column's. A dash marks a part that cannot reach that bandwidth, and "A" one whose DC open-loop gain is less than ten times its mid-band noise gain (Section 3.1). `hg_medium_gain.py`.*
+
+<!-- table: table_6_8 -->
+
+**The bias current of the bipolar parts.** Their maximum bias currents of 5–23 µA at 25 °C, and about 10–37 µA at 85 °C, give 0.1–0.37 V of output error at 10 kΩ and 1–3.7 V at 100 kΩ (Table A.3a), as much as the whole swing of a 5-V part. Above about 10 kΩ such a part therefore needs either a resistor equal to $R_F$ at its non-inverting input, which cancels the matched part of the bias current but adds its own noise unless it is bypassed (the companion's Section 4.10), or a front end that keeps the DC out of $R_F$. The errors of the FET parts stay at millivolts.
+
+**The two models at 10 kΩ.** On the companion's node, a 1-pF photodiode pair with 0.35 pF of board capacitance, this note's model and the companion's, which interpolates the datasheets' open-loop gain and phase, were run with the same rule (0.1 pF; the smallest $C_F$ within 0.1 dB of maximally flat) for OPA855, OPA955, OPA858, OPA818 and LMH6629 (`hg_cross_check_companion.py`). At 10 kΩ the bandwidths agree within 2–6% for OPA858, LMH6629 and OPA855 (210 against 207 MHz, 100 against 104 MHz and 219 against 207 MHz), within 11% for OPA955 (217 against 244 MHz) and within 15% for OPA818 (112 against 131 MHz). This note's single-pole model gives 7–18° more phase margin for LMH6629, OPA818 and OPA955, whose datasheet curves carry extra phase lag near the crossover, and 7° less for OPA858. At 2 kΩ its bandwidths fall short of the companion's by up to a third (OPA818: 245 against 365 MHz). The companion's analysis therefore needs the full open-loop curves at its own gain, while from about 10 kΩ up the single-pole model suffices for bandwidth and noise.
+
+**How to choose between 10 kΩ and 100 kΩ.** The results combine into a short procedure, which continues the companion's below 10 kΩ.
+
+1. Take $R_F$ as large as the swing and the band allow: $R_F \leq V_{sw}/I_{\max}$ (Eq. (3)) and $R_F \leq 1/(2\pi BC_{par})$ (Eq. (4)). A photocurrent above $4\pi k_BTBC_{par}/q$ (Eq. (36)), 1.6 µA for 50 MHz and 0.1 pF, can then be shot-noise-limited.
+2. Keep the node capacitance small, because $e_nC_T$ sets the excess over most of the band. A smaller photodiode, and an amplifier with little input capacitance, help more than a quieter resistor.
+3. Choose the amplifier by the band. Up to about 10 MHz a wideband FET part (OPA818, OPA858) is quietest. For tens of megahertz at 10 kΩ a low-noise bipolar part (LMH6629, OPA855) is quieter, with its bias current cancelled or the DC kept out of $R_F$. OPA955 leads both if it reaches production.
+4. From the crossover gain $R_F^*$ up, the resistor's own capacitance sets the band (Eq. (20)), and more bandwidth needs a smaller $C_{par}$, a T-network, a second stage or equalization (Section 3.5).
+5. Below 10 kΩ, continue with the companion note, where the loop's stability at a low noise gain and the output swing decide.
+=== END
+
+=== FILE 09_checks.md 145870c79edb
+
+=== OLD
+Twelve amplifiers were run at the five gains on the 20-pF and 380-pF silicon photodiodes.
+=== NEW
+Twelve amplifiers were run at the five gains from 100 kΩ to 1 GΩ on the 20-pF and 380-pF silicon photodiodes.
+=== END
+
+=== FILE 10_conclusions.md fa567ed63b3d
+
+=== OLD
+The largest photocurrent must fit the output swing, $R_F \leq V_{sw}/I_{\max}$ (Eq. (3)).
+=== NEW
+The largest photocurrent must fit the output swing, $R_F \leq V_{sw}/I_{\max}$ (Eq. (3)), and the resistor's own pole must pass the band $B$, $R_F \leq 1/(2\pi BC_{par})$: 159 kΩ for 10 MHz and 10.6 kΩ for 150 MHz with 0.1 pF (Eq. (4)).
+=== END
+
+=== OLD
+and bootstrapping recovers the bandwidth (Sections 5.8, 6.7).
+=== NEW
+and bootstrapping recovers the bandwidth (Sections 5.8, 6.7). At 10 kΩ, held to a common bandwidth, OPA818 and OPA858 are the quietest production parts up to about 10 MHz, and the bipolar LMH6629 and OPA855 at 30 MHz, provided their bias current is cancelled or the DC kept out of $R_F$ (Section 6.9).
+=== END
+
+=== OLD
+That rules out bipolar inputs at any gain of this note (5.7 kΩ for OPA211),
+=== NEW
+That rules out bipolar inputs from 100 kΩ up (5.7 kΩ for OPA211, 2.4–2.6 kΩ for OPA855 and LMH6629, 54 kΩ for OPA955; at 10 kΩ they serve only wide bands, Section 6.9),
+=== END
+
+=== OLD
+on photodiodes with low shunt resistance (15 nV/√Hz), at 100 kΩ (41 nV/√Hz), and on large photodiodes at 1 GΩ (31 nV/√Hz on 380 pF).
+=== NEW
+on photodiodes with low shunt resistance (15 nV/√Hz), at 10–100 kΩ (13–41 nV/√Hz), and on large photodiodes at 1 GΩ (31 nV/√Hz on 380 pF).
+=== END
+
+=== FILE 12_appendix_b_e.md d74f4af4a160
+
+=== OLD
+For the bipolar OPA211 the 125 °C limit of 200 nA is used, since bipolar bias currents fall with temperature.
+=== NEW
+For the bipolar OPA211 the 125 °C limit of 200 nA is used, since its bias current falls with temperature. OPA855 and OPA955 give no limit above 25 °C, only a typical drift of 0.08 µA/°C by which their bias current grows, so their 85-°C value is the 25-°C maximum plus that drift over 60 °C, an estimate. LMH6629 gives a limit over its temperature range.
+=== END
+
+=== OLD
+Four parts of it are reused unchanged.
+=== NEW
+Five parts of it are reused unchanged.
+=== END
+
+=== OLD
+- **Its digitized curves** for LTC6268-10, OPA657, OPA818 and ADA4817-1, and its device data for BF862.
+=== NEW
+- **Its digitized curves** for LTC6268-10, OPA657, OPA818 and ADA4817-1, its device data for BF862, and its records of OPA858, OPA855, OPA955 and LMH6629 for the 10-kΩ and 100-kΩ decades (`add_fast_parts.py`).
+=== END
+
+=== OLD
+- **The capacitive-matching rule** for discrete FETs (its Eq. (58), here Eq. (30)).
+=== NEW
+- **The capacitive-matching rule** for discrete FETs (its Eq. (58), here Eq. (30)).
+- **Its open-loop model**, which interpolates the datasheets' open-loop gain and phase, run on its own 1-pF node for the cross-check at 10 kΩ (Section 6.9, `hg_cross_check_companion.py`).
+=== END
+
+=== OLD
+- `assemble_note.py` assembles this note from `parts/` and inserts the generated tables.
+=== NEW
+- `add_fast_parts.py` adds the companion's four fast parts to `data/amplifiers.json` for the 10-kΩ and 100-kΩ decades. `hg_medium_gain.py` holds every part to common bandwidths at those gains (Table 6.8) and computes this note's designs on the companion's node, and `hg_cross_check_companion.py` runs the companion's own model on that node (Section 6.9).
+- `assemble_note.py` assembles this note from `parts/` and inserts the generated tables.
+=== END
+
+=== OLD
+Below the first point of its datasheet data the model holds an amplifier's voltage noise flat: LMC662 and LMC6001A from 1 kHz, OPA381 from 10 kHz, and OPA656 and the BF862 composite from 100 kHz.
+=== NEW
+Below the first point of its datasheet data the model holds an amplifier's noise flat: the voltage noise of LMC662 and LMC6001A from 1 kHz, of OPA381 from 10 kHz, of OPA656 and the BF862 composite from 100 kHz and of OPA858 from 1 kHz, and the current noise of OPA855 from 1 kHz.
+=== END
+
+=== OLD
+the noise index of the feedback resistor chosen and the low-frequency noise of a biased photodiode are not known here.
+=== NEW
+the noise index of the feedback resistor chosen and the low-frequency noise of a biased photodiode are not known here.
+23. **The 10-kΩ decade (Section 6.9).** OPA955's data sheet is Advance Information for a preproduction part, and its values may change. The 85-°C bias currents of OPA855 and OPA955 are estimated from their typical drift (Appendix B.1), and LMH6629's differential input capacitance of 4 pF is a simulated value. This note's single-pole model leaves out the excess phase of the fast parts' open-loop curves. On the companion's 1-pF node at 10 kΩ it differs from the companion's model by 2–15% in bandwidth and by up to 18° in phase margin; on the larger photodiodes of the sweep the loop crosses over at lower frequencies, where that phase matters less. The rising current-noise curves of OPA818, OPA858 and LTC6268-10 may count part of the effect of $e_n$ on their own gate capacitance twice (the companion's Section 4.7), which would make their entries at 10 kΩ slightly pessimistic. No SPICE check has been run at 10 kΩ.
+=== END
+
+=== OLD
+- [D31] Burr-Brown (Texas Instruments), IVC102 data sheet, PDS-1329A, Jun. 1996, TI literature number SBFS009.
+=== NEW
+- [D31] Burr-Brown (Texas Instruments), IVC102 data sheet, PDS-1329A, Jun. 1996, TI literature number SBFS009.
+- [D32] Texas Instruments, OPA858 data sheet, SBOS629B, May 2025, through the companion note's record.
+- [D33] Texas Instruments, OPA855 data sheet, SBOS622D, May 2025, through the companion note's record.
+- [D34] Texas Instruments, OPA955 data sheet, SLOSEE6, Jul. 2026, Advance Information, through the companion note's record.
+- [D35] Texas Instruments, LMH6629 data sheet, SNOSB18I, Dec. 2014, through the companion note's record.
+=== END
+
+=== OLD
+`numbers.json` and `tables.md` |
+=== NEW
+`numbers.json`, `medium_gain.json`, `cross_check_companion.json` and `tables.md` |
+=== END

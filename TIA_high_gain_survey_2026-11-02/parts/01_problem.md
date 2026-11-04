@@ -73,7 +73,7 @@ I_x = \frac{2k_BT}{qR_F} = \frac{51.4\ \mathrm{mV}}{R_F}.
 \tag{2}
 $$
 
-At 25 °C, $2k_BT/q = 2\times25.69$ mV = 51.4 mV, so $I_x$ is 514 nA at 100 kΩ and 51.4 pA at 1 GΩ. Above $I_x$ the measurement is limited by the light, and a larger $R_F$ gains nothing in noise. Below $I_x$ the resistor dominates, and a larger $R_F$ helps as $\sqrt{R_F}$ in signal-to-noise ratio, because the signal grows as $R_F$ and the resistor's noise voltage as $\sqrt{R_F}$.
+At 25 °C, $2k_BT/q = 2\times25.69$ mV = 51.4 mV, so $I_x$ is 5.14 µA at 10 kΩ, 514 nA at 100 kΩ and 51.4 pA at 1 GΩ. Above $I_x$ the measurement is limited by the light, and a larger $R_F$ gains nothing in noise. Below $I_x$ the resistor dominates, and a larger $R_F$ helps as $\sqrt{R_F}$ in signal-to-noise ratio, because the signal grows as $R_F$ and the resistor's noise voltage as $\sqrt{R_F}$.
 
 **The full-scale current.** An output that can swing $V_{sw}$ carries at most
 
@@ -82,7 +82,7 @@ I_{\max} = \frac{V_{sw}}{R_F}.
 \tag{3}
 $$
 
-For a ±15-V part with 10 V of usable swing this is 100 µA at 100 kΩ and 10 nA at 1 GΩ. For a 5-V rail-to-rail part with about 2.4 V it is 24 µA and 2.4 nA. Any DC current, dark current or background light included, uses part of this range.
+For a ±15-V part with 10 V of usable swing this is 1 mA at 10 kΩ, 100 µA at 100 kΩ and 10 nA at 1 GΩ. For a 5-V rail-to-rail part with about 2.4 V it is 240 µA, 24 µA and 2.4 nA. Any DC current, dark current or background light included, uses part of this range.
 
 **The resistor's own bandwidth.** A resistor with parasitic capacitance $C_{par}$ across it has the pole
 
@@ -91,7 +91,7 @@ f_R = \frac{1}{2\pi R_FC_{par}}.
 \tag{4}
 $$
 
-A TIA cannot be faster than this unless its response is equalized afterwards (Section 3.5). The parasitic capacitance of a surface-mount resistor and its pads is of the order of 0.1 pF. Analog Devices uses 100 fF as "a practical minimum stray capacitance value" for resistors up to 1 TΩ (ADA4530-1 data sheet Rev. C, p. 39, Table 9) [D1]. Texas Instruments (TI) writes that the feedback resistor "has a parasitic shunt capacitance that may be as large as 0.2 pF" (SSZTBC4, p. 1) [A3], and older TI application notes, written for leaded resistors, use 0.4–0.5 pF (SBOA061, p. 2, Fig. 3; SBOA034, pp. 4 and 7) [A2, A1]. With 0.1 pF, $f_R$ is 15.9 MHz at 100 kΩ, 159 kHz at 10 MΩ and 1.59 kHz at 1 GΩ.
+A TIA cannot be faster than this unless its response is equalized afterwards (Section 3.5). The parasitic capacitance of a surface-mount resistor and its pads is of the order of 0.1 pF. Analog Devices uses 100 fF as "a practical minimum stray capacitance value" for resistors up to 1 TΩ (ADA4530-1 data sheet Rev. C, p. 39, Table 9) [D1]. Texas Instruments (TI) writes that the feedback resistor "has a parasitic shunt capacitance that may be as large as 0.2 pF" (SSZTBC4, p. 1) [A3], and older TI application notes, written for leaded resistors, use 0.4–0.5 pF (SBOA061, p. 2, Fig. 3; SBOA034, pp. 4 and 7) [A2, A1]. With 0.1 pF, $f_R$ is 159 MHz at 10 kΩ, 15.9 MHz at 100 kΩ, 159 kHz at 10 MΩ and 1.59 kHz at 1 GΩ.
 
 The four quantities combine into a result that holds at every gain. Over the bandwidth of the resistor's own pole, the Johnson noise of $R_F$ integrates to an output voltage of $\sqrt{k_BT/C_{par}}$, independent of $R_F$. The single-pole noise bandwidth is $(\pi/2)f_R = 1/(4R_FC_{par})$, so the output noise power is $(4k_BT/R_F)\,R_F^2/(4R_FC_{par}) = k_BT/C_{par}$. The DC dynamic range of a resistor-limited TIA over its full band is therefore
 
@@ -102,12 +102,13 @@ $$
 
 the same for every $R_F$. With $C_{par}$ = 0.1 pF, $\sqrt{k_BT/C_{par}} = \sqrt{4.116\times10^{-21}\ \mathrm{J}/10^{-13}\ \mathrm{F}}$ = 203 µV rms, so a 10-V swing gives $10\ \mathrm{V}/203\ \mu\mathrm{V} = 4.9\times10^{4}$, or 93.8 dB. Choosing $R_F$ moves this window of about five decades along the current axis, together with the bandwidth, but does not widen it. A wider window needs gain ranging or a logarithmic amplifier (Chapter 7).
 
-Table 2 evaluates Eqs. (1)–(4) for the five decades of this note, and Figure 2 plots the currents over a wider range of $R_F$, with the companion note's regime marked for comparison.
+Table 2 evaluates Eqs. (1)–(4) for the six decades of this note, and Figure 2 plots the currents over a wider range of $R_F$, with the companion note's regime marked for comparison.
 
 *Table 2. What each gain decade fixes: the resistor's noise floor, Eq. (1); the shot-noise crossover, Eq. (2); the full-scale current for 10 V and 2.4 V of swing, Eq. (3); and the resistor's own pole for 0.05, 0.1 and 0.2 pF, Eq. (4). 25 °C.*
 
 | $R_F$ | $\sqrt{4k_BT/R_F}$ | $I_x = 2k_BT/(qR_F)$ | $I_{\max}$ at 10 V | $I_{\max}$ at 2.4 V | $f_R$ at 0.05 / 0.1 / 0.2 pF |
 |---|---|---|---|---|---|
+| 10 kΩ | 1.28 pA/√Hz | 5.14 µA | 1 mA | 240 µA | 318 / 159 / 79.6 MHz |
 | 100 kΩ | 406 fA/√Hz | 514 nA | 100 µA | 24 µA | 31.8 / 15.9 / 7.96 MHz |
 | 1 MΩ | 128 fA/√Hz | 51.4 nA | 10 µA | 2.4 µA | 3.18 / 1.59 / 0.796 MHz |
 | 10 MΩ | 40.6 fA/√Hz | 5.14 nA | 1 µA | 240 nA | 318 / 159 / 79.6 kHz |
@@ -116,7 +117,7 @@ Table 2 evaluates Eqs. (1)–(4) for the five decades of this note, and Figure 2
 
 ![Figure 2](figures/fig1_current_window.png)
 
-*Figure 2. The current window of a TIA against its feedback resistance: the full-scale current for 10 V and 2.4 V of swing, Eq. (3); the current whose shot noise equals the resistor's Johnson noise, Eq. (2); and the resistor's Johnson noise in a 1-Hz band, Eq. (1). Above the red line the light's own noise dominates; between the red and green lines the resistor's noise does. The shaded band is the range of this note; the grey band at 1.5–2 kΩ is the companion note's.*
+*Figure 2. The current window of a TIA against its feedback resistance: the full-scale current for 10 V and 2.4 V of swing, Eq. (3); the current whose shot noise equals the resistor's Johnson noise, Eq. (2); and the resistor's Johnson noise in a 1-Hz band, Eq. (1). Above the red line the light's own noise dominates; between the red and green lines the resistor's noise does. The shaded band is the range of this note, 10 kΩ to 1 GΩ; the grey band is the companion note's, 1.5–10 kΩ, which meets it at 10 kΩ.*
 
 ### 1.4 Conventions of the analysis
 

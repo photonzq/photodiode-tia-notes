@@ -7,17 +7,18 @@ Every datasheet value was read from a rendered image of the page, not from extra
 - **Noise between datasheet points** is interpolated linearly in log-log. Below the first point it is held flat, except where the first point lies at or below 1 kHz and the two lowest points fall with frequency. That case is flicker noise, and it is continued downward with the slope of those two points, capped at the slope of a $1/f$ power density. Above the last point the density is held flat. Current noise given only as a curve that starts above 1 kHz and rises, as for the wideband parts, is continued below its first point with the slope from that point to the first point at least a decade above it, and the shot noise of the typical bias current is added in quadrature as its floor (Section 2.3). The tables of Appendix A show only datasheet values, not extrapolations.
 - **The gain–bandwidth product** is the value at a gain of 100 for OPA1656 and OPA2156, and the unity-gain bandwidth for OPA211, the one other part that gives two values. OPA1656 specifies 20 MHz at unity gain and 53 MHz at a gain of 100 (p. 6) [D11], and OPA2156 20 and 25 MHz (p. 6) [D12]. Their SPICE models showed open-loop gains that are single poles of 56 and 25 MHz up to about 300 kHz, with extra roll-off and phase lag above that (Section 9.2). The model therefore uses 53 and 25 MHz, each multiplied by the shape of its macromodel's open-loop gain beyond a single pole, which is tabulated in `data/amplifiers.json` (`add_aol_shape.py`). OPA211 specifies 45 and 80 MHz (p. 9) [D17]; the model keeps 45 MHz, which is conservative and has not been checked against its SPICE model (Appendix C, item 19).
 - **The flicker noise of LTC6268-10** below 20 kHz is not given as a curve. It is estimated from its 0.1–10 Hz noise of 12.6 µV peak to peak (companion record, p. 3). The estimate assumes a pure $1/f$ density $K/f$ and a peak-to-peak value of 6.6 times the rms, so that $K = (12.6\ \mu\mathrm{V}/6.6)^2/\ln100 = 7.9\times10^{-13}\ \mathrm{V^2}$. That gives 0.89 µV/√Hz at 1 Hz and 28 nV/√Hz at 1 kHz. The $1/f$ shape and the factor 6.6 are assumptions.
-- **The maximum bias current at 85 °C** is the datasheet limit at 85 °C, or "at the temperature extremes", where one is given. Otherwise it is the geometric interpolation between the limits at 25 °C and 125 °C, $I_{25}^{0.4}I_{125}^{0.6}$, which corresponds to a constant doubling interval between the two. Otherwise it is the 25 °C limit doubled every 10 °C (Eq. (15)). For the bipolar OPA211 the 125 °C limit of 200 nA is used, since bipolar bias currents fall with temperature.
+- **The maximum bias current at 85 °C** is the datasheet limit at 85 °C, or "at the temperature extremes", where one is given. Otherwise it is the geometric interpolation between the limits at 25 °C and 125 °C, $I_{25}^{0.4}I_{125}^{0.6}$, which corresponds to a constant doubling interval between the two. Otherwise it is the 25 °C limit doubled every 10 °C (Eq. (15)). For the bipolar OPA211 the 125 °C limit of 200 nA is used, since its bias current falls with temperature. OPA855 and OPA955 give no limit above 25 °C, only a typical drift of 0.08 µA/°C by which their bias current grows, so their 85-°C value is the 25-°C maximum plus that drift over 60 °C, an estimate. LMH6629 gives a limit over its temperature range.
 - **The discrete-JFET composites** use the JFET's noise and capacitance, an assumed composite gain–bandwidth product of 50 MHz, and the shot noise of the JFET's maximum gate current as their current noise.
 
 ### B.2 What is reused from the companion note, and what is new
 
-The companion note's analysis, and its SPICE method, were built for a different circuit: a 1-pF balanced pair at 1.5–2 kΩ and 150 MHz. Four parts of it are reused unchanged.
+The companion note's analysis, and its SPICE method, were built for a different circuit: a 1-pF balanced pair at 1.5–2 kΩ and 150 MHz. Five parts of it are reused unchanged.
 
-- **Its noise theory.** Section 2.1 generalizes its Eq. (23) to a two-port feedback network and a finite shunt resistance. With $R_{sh}\to\infty$ and a lumped network the two coincide.
+- **Its noise theory.** Section 2.1 generalizes its Eq. (19) to a two-port feedback network and a finite shunt resistance. With $R_{sh}\to\infty$ and a lumped network the two coincide.
 - **Its conventions:** 25 °C, typical values, $C_T$ including $C_{CM}$ and $C_{DIFF}$, and an excess-noise figure of merit of the same form.
-- **Its digitized curves** for LTC6268-10, OPA657, OPA818 and ADA4817-1, and its device data for BF862.
+- **Its digitized curves** for LTC6268-10, OPA657, OPA818 and ADA4817-1, its device data for BF862, and its records of OPA858, OPA855, OPA955 and LMH6629 for the 10-kΩ and 100-kΩ decades (`add_fast_parts.py`).
 - **The capacitive-matching rule** for discrete FETs (its Eq. (58), here Eq. (30)).
+- **Its open-loop model**, which interpolates the datasheets' open-loop gain and phase, run on its own 1-pF node for the cross-check at 10 kΩ (Section 6.9, `hg_cross_check_companion.py`).
 
 Its SPICE tools are reused in Chapter 9: the ngspice shared library driven from Python, the translation of TI's noiseless resistors, and the LSBF862 model card. Its SPICE check of the open-loop model is not repeated. That check tested fast amplifiers near a loop crossover of 0.5–1 GHz, where the macromodels' higher poles decide the phase margin. In the high-gain TIA the loop crosses over at noise gains of tens to thousands, far below those poles (Section 3.1). Chapter 9 instead checks the complete designs against the vendors' macromodels. That check found the one limit of the single-pole model that matters here, the finite DC open-loop gain.
 
@@ -57,6 +58,7 @@ All numbers of this note come from the scripts in `scripts_archive/`, which its 
 - `add_aol.py` adds the datasheet open-loop gains, with their pages, to `data/amplifiers.json`.
 - `hg_spice_gbw_check.py` measures the open-loop gain of OPA1656 or OPA2156 in SPICE and compares the part's designs with the model at both data-sheet values; `set_gbw_opa1656.py`, `set_gbw.py` and `add_aol_shape.py` then store their gain–bandwidths and open-loop shapes in `data/amplifiers.json`; `hg_equal_bandwidth_check.py` compares OPA1656 and OPA2156 at equal bandwidths.
 - `integrator_vs_tia.py` computes the noise charges of Section 7.3 and Table 7.1, `t_network_vs_second_stage.py` the T-networks and voltage stages of Table 3.1, and `set_in_lmc662.py` sets LMC662's current noise to the value of Section 2.3.
+- `add_fast_parts.py` adds the companion's four fast parts to `data/amplifiers.json` for the 10-kΩ and 100-kΩ decades. `hg_medium_gain.py` holds every part to common bandwidths at those gains (Table 6.8) and computes this note's designs on the companion's node, and `hg_cross_check_companion.py` runs the companion's own model on that node (Section 6.9).
 - `assemble_note.py` assembles this note from `parts/` and inserts the generated tables.
 
 The analytic scripts run in under a minute, and the SPICE checks in a few minutes.
@@ -168,7 +170,8 @@ which is Eq. (28). Its low-frequency form follows from Eq. (26): $\alpha(C_{ee} 
 19. **The gain–bandwidth of OPA211.** The model uses its unity-gain bandwidth, 45 MHz, although its data sheet also gives 80 MHz at a gain of 100 (Appendix B.1). For OPA1656 and OPA2156, which showed the same pattern, their SPICE models settled the question in favour of the value at a gain of 100 (Section 9.2). OPA211, a bipolar part, matters only at the lowest gains, so its value was not checked.
 20. **The current noise of CMOS inputs.** For LMC662 the data sheet's own revision history shows that its current-noise figure follows the test setup, and the model uses the earlier, lower value (Section 2.3). Other CMOS data sheets also give current noise well above the shot noise of the part's own typical bias current, $\sqrt{2qI_{B,\mathrm{typ}}}$: OPA1656 6 fA/√Hz against 1.8 fA/√Hz for 10 pA, OPA2156 19 fA/√Hz against 1.3 fA/√Hz for 5 pA, and OPA320 0.6 fA/√Hz against 0.25 fA/√Hz for 0.2 pA. Whether these figures are also limited by the test setup could only be settled by measurement. At the gains of this note it matters for OPA1656 and OPA2156 above about 100 MΩ, where their current noise sets their excess noise.
 21. **The first opto-electronic feedback preamplifier** of Goulding, Walton and Malone [A9] was not read. Section 7.3 describes the optical reset from two later reports of the same laboratory [A10], [A11].
-22. **Low-frequency noise (Section 6.8).** Below the first point of its datasheet data the model holds an amplifier's voltage noise flat: LMC662 and LMC6001A from 1 kHz, OPA381 from 10 kHz, and OPA656 and the BF862 composite from 100 kHz. Their entries in Tables A.8a–b are therefore lower bounds, which the noise curves of their datasheets, where they exist, would replace. The current noise of the CMOS parts below 1 kHz (item 20), the noise index of the feedback resistor chosen and the low-frequency noise of a biased photodiode are not known here.
+22. **Low-frequency noise (Section 6.8).** Below the first point of its datasheet data the model holds an amplifier's noise flat: the voltage noise of LMC662 and LMC6001A from 1 kHz, of OPA381 from 10 kHz, of OPA656 and the BF862 composite from 100 kHz and of OPA858 from 1 kHz, and the current noise of OPA855 from 1 kHz. Their entries in Tables A.8a–b are therefore lower bounds, which the noise curves of their datasheets, where they exist, would replace. The current noise of the CMOS parts below 1 kHz (item 20), the noise index of the feedback resistor chosen and the low-frequency noise of a biased photodiode are not known here.
+23. **The 10-kΩ decade (Section 6.9).** OPA955's data sheet is Advance Information for a preproduction part, and its values may change. The 85-°C bias currents of OPA855 and OPA955 are estimated from their typical drift (Appendix B.1), and LMH6629's differential input capacitance of 4 pF is a simulated value. This note's single-pole model leaves out the excess phase of the fast parts' open-loop curves. On the companion's 1-pF node at 10 kΩ it differs from the companion's model by 2–15% in bandwidth and by up to 18° in phase margin; on the larger photodiodes of the sweep the loop crosses over at lower frequencies, where that phase matters less. The rising current-noise curves of OPA818, OPA858 and LTC6268-10 may count part of the effect of $e_n$ on their own gate capacitance twice (the companion's Section 3.7), which would make their entries at 10 kΩ slightly pessimistic. No SPICE check has been run at 10 kΩ.
 
 ## Appendix D. References
 
@@ -213,6 +216,10 @@ which is Eq. (28). Its low-frequency form follows from Eq. (26): $\alpha(C_{ee} 
 - [D29] Analog Devices, AD8304 data sheet, Rev. A, Aug. 2002.
 - [D30] Analog Devices, ADL5303 data sheet, Rev. D, Oct. 2020.
 - [D31] Burr-Brown (Texas Instruments), IVC102 data sheet, PDS-1329A, Jun. 1996, TI literature number SBFS009.
+- [D32] Texas Instruments, OPA858 data sheet, SBOS629B, May 2025, through the companion note's record.
+- [D33] Texas Instruments, OPA855 data sheet, SBOS622D, May 2025, through the companion note's record.
+- [D34] Texas Instruments, OPA955 data sheet, SLOSEE6, Jul. 2026, Advance Information, through the companion note's record.
+- [D35] Texas Instruments, LMH6629 data sheet, SNOSB18I, Dec. 2014, through the companion note's record.
 
 **Application notes and articles**
 
@@ -237,7 +244,7 @@ which is Eq. (28). Its low-frequency form follows from Eq. (26): $\alpha(C_{ee} 
 
 **Companion note**
 
-- [C1] *Operational amplifiers for a balanced-photodiode transimpedance amplifier: 1 pF, 1.5–2 kΩ, ≥ 150 MHz, 0.1–10 mA of DC photocurrent*, design study and amplifier survey, October–November 2026.
+- [C1] *Operational amplifiers for a balanced-photodiode transimpedance amplifier: 1 pF, 1.5–2 kΩ, ≥ 150 MHz, 0.1–10 mA of DC photocurrent*, design study and amplifier survey.
 
 ## Appendix E. Files
 
@@ -249,7 +256,7 @@ which is Eq. (28). Its low-frequency form follows from Eq. (26): $\alpha(C_{ee} 
 | `figures/` | Figures 1–23 as PNG (600 dpi) and PDF. The plots keep the names under which they were first drawn: `fig1`–`fig5` are Figures 2, 3, 5, 10 and 11, and `fig6`–`fig12` are Figures 17–23. The schematics are the files `schem_*` |
 | `data/photodiodes.json` | The photodiode examples of Table 1 with their pages |
 | `data/amplifiers.json` | The amplifier data of Table A.1 with their pages, including the DC open-loop gains |
-| `data/results/` | The output of the analysis scripts: `designs.json`, `gain_table.json`, `amp_merits.json`, `numbers.json` and `tables.md` |
+| `data/results/` | The output of the analysis scripts: `designs.json`, `gain_table.json`, `amp_merits.json`, `numbers.json`, `medium_gain.json`, `cross_check_companion.json` and `tables.md` |
 | `data/results/note_tables/` | The table bodies that `assemble_note.py` inserts into the chapters |
 | `spice/models/` | The vendors' SPICE models, one folder per part. They are not part of the public repository, which holds only `spice/models/README.md` with the source of each |
 | `spice/results/` | The summaries of the SPICE checks of Chapter 9 |

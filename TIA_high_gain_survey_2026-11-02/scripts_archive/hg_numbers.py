@@ -175,8 +175,8 @@ def log_amp() -> list[dict]:
 
 def crossover_gains() -> list[dict]:
     rows = []
-    for gbw in (2e6, 20e6, 200e6):
-        for c_t in (10e-12, 100e-12, 1e-9):
+    for gbw in (2e6, 20e6, 200e6, 2e9):          # 2 GHz: the fast parts of the 10-kOhm decade
+        for c_t in (1e-12, 10e-12, 100e-12, 1e-9):
             for c_par in (0.05e-12, 0.1e-12, 0.2e-12):
                 rows.append({"gbw_MHz": gbw / 1e6, "c_t_pF": c_t * 1e12, "c_par_pF": c_par * 1e12,
                              "rf_star_Ohm": c_t / (math.pi * gbw * c_par ** 2)})

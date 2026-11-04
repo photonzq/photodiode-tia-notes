@@ -1,4 +1,4 @@
-"""Schematics of the balanced-photodiode TIA note (Figure 1 and Figures 21 onwards).
+"""Schematics of the balanced-photodiode TIA note (Figure 1, Figures 3 and 5 of Chapter 4, and Figures 27 onwards).
 
 Every schematic uses schematic_style.py: one scale, one canvas width, white background.
 Each function draws one figure and names the part values it shows; the values are those
@@ -587,10 +587,98 @@ def fig31_front_end(out: Path) -> None:
     s.save(out / "fig31_front_end")
 
 
+# ----------------------------------------------------- Chapter 4 design examples --
+def case_schematic(out: Path, stem: str, part: str, c_cm: str, c_diff: str, cf_ext: str | None,
+                   r_l: str, vs: str) -> None:
+    """One of the two designs of Chapter 4 (Table 4.1) as simulated: the balanced pair with
+    its bias pins decoupled by 10 nF, 1 pF of photodiode capacitance and 0.35 pF of board at
+    the summing node, the amplifier's input capacitances, R_F = 2 kOhm, the parasitic 0.20 pF
+    across it and, for OPA846, a 0.55-pF capacitor; split supplies with the non-inverting
+    input grounded; the load R_L of the small-signal runs.  Parasitics in grey."""
+    s = ss.Sheet()
+    # balanced pair at x = 0, summing node at y = 0; each bias pin decoupled to the left,
+    # clear of the light arrows
+    s.photodiode((0.0, 0.35), (0.0, 1.65))
+    s.photodiode((0.0, -1.65), (0.0, -0.35))
+    s.wire((0.0, 0.35), (0.0, -0.35))
+    s.dot((0.0, 0.0))
+    for sg, lab in ((1, "$+V_B$"), (-1, "$-V_B$")):
+        y = 2.15 * sg
+        s.wire((0.0, 1.65 * sg), (0.0, 2.75 * sg))
+        s.supply((0.0, 2.75 * sg), lab, up=sg > 0)
+        s.dot((0.0, y))
+        s.cap((0.0, y), (-1.5, y), "10 nF", side="top")
+        s.ground((-1.5, y))
+    # capacitances from the summing node to AC ground, labels in two lines to the right
+    x_in, x_cd = 11.8, 10.6
+    s.wire((0.0, 0.0), (x_in, 0.0))
+    for x, name, value in ((2.1, "$C_D$", "1 pF"), (4.6, "$C_{\\mathrm{PCB}}$", "0.35 pF"),
+                           (7.1, "$C_{\\mathrm{CM}}$", c_cm)):
+        s.dot((x, 0.0))
+        s.cap((x, 0.0), (x, -1.4), None, color=ss.PARASITIC)
+        s.text((x + 0.38, -0.7), f"{name}\n{value}", ha="left", va="center", color=ss.PARASITIC)
+        s.ground((x, -1.4), color=ss.PARASITIC)
+    op = s.opamp((x_in, 0.0))
+    s.dot((x_cd, 0.0))
+    s.cap((x_cd, 0.0), (x_cd, op.in2[1]), None, color=ss.PARASITIC)
+    s.text((x_cd - 0.65, -0.6), f"$C_{{\\mathrm{{DIFF}}}}$\n{c_diff}", ha="right", va="center", color=ss.PARASITIC)
+    s.wire(op.in2, (x_cd, op.in2[1]))
+    s.dot((x_cd, op.in2[1]))
+    s.wire((x_cd, op.in2[1]), (x_cd, -1.75))
+    s.ground((x_cd, -1.75))
+    # supplies, and the part's name below its inputs
+    s.wire(op.vd, (op.vd[0], op.vd[1] + 0.45))
+    s.supply((op.vd[0], op.vd[1] + 0.45), f"+{vs}", side="right")
+    s.wire(op.vs, (op.vs[0], op.vs[1] - 0.45))
+    s.supply((op.vs[0], op.vs[1] - 0.45), f"−{vs}", up=False, side="right")
+    s.text((op.vs[0] - 0.42, op.vs[1] - 0.45), part, ha="right", va="center")
+    # feedback: R_F, then the capacitors above it, 1.3 units apart
+    x_fl, x_fr = x_in - 0.6, op.out[0] + 0.8
+    y_r, dy = 1.75, 1.3
+    caps = [(None, cf_ext)] if cf_ext else []
+    caps.append((ss.PARASITIC, "$C_{F,\\mathrm{par}}$  0.20 pF" + ("" if cf_ext else "  (no capacitor fitted)")))
+    top = y_r + dy * len(caps)
+    s.dot((x_fl, 0.0))
+    s.wire((x_fl, 0.0), (x_fl, top))
+    s.dot((x_fl, y_r))
+    s.res((x_fl, y_r), (x_fr, y_r), "$R_F$  2 kΩ", side="top")
+    for k, (color, lab) in enumerate(caps):
+        y = y_r + dy * (k + 1)
+        if k < len(caps) - 1:
+            s.dot((x_fl, y))
+            s.dot((x_fr, y))
+        s.cap((x_fl, y), (x_fr, y), lab, side="top", color=color)
+    s.dot((x_fr, y_r))
+    s.wire((x_fr, top), (x_fr, op.out[1]))
+    s.wire(op.out, (x_fr, op.out[1]))
+    s.dot((x_fr, op.out[1]))
+    s.text((x_fr + 0.15, op.out[1] - 0.3), "$v_o$", va="top")
+    # load
+    x_l = x_fr + 1.6
+    s.wire((x_fr, op.out[1]), (x_l, op.out[1]))
+    s.res((x_l, op.out[1]), (x_l, op.out[1] - 2.0), f"$R_L$  {r_l}", side="right")
+    s.ground((x_l, op.out[1] - 2.0))
+    s.save(out / stem)
+
+
+def fig32_case_opa855(out: Path) -> None:
+    """Section 4.2, Table 4.1: OPA855, C_CM 0.6 pF, C_DIFF 0.2 pF; no feedback capacitor, the
+    0.20 pF of R_F and its pads alone; +-2.5 V (the 5-V supply); R_L 200 ohm."""
+    case_schematic(out, "fig32_case_opa855_schematic", "OPA855", "0.6 pF", "0.2 pF", None, "200 Ω", "2.5 V")
+
+
+def fig34_case_opa846(out: Path) -> None:
+    """Section 4.4, Table 4.1: OPA846, C_CM 1.8 pF, C_DIFF 2.0 pF; 0.55 pF fitted across R_F,
+    0.75 pF in total; +-5 V; R_L 100 ohm."""
+    case_schematic(out, "fig34_case_opa846_schematic", "OPA846", "1.8 pF", "2.0 pF",
+                   "$C_{F,\\mathrm{ext}}$  0.55 pF", "100 Ω", "5 V")
+
+
 FIGURES = {f.__name__: f for f in (
     fig01_tia_circuit, fig21_discrete_composite, fig22_hv_composite, fig23_option_a,
     fig24_option_b, fig25_option_c, fig26_option_d, fig27_bootstrap, fig28_cascode,
-    fig29_optical_servo, fig30_current_splitter, fig31_front_end)}
+    fig29_optical_servo, fig30_current_splitter, fig31_front_end, fig32_case_opa855,
+    fig34_case_opa846)}
 
 
 def main(argv: list[str]) -> None:

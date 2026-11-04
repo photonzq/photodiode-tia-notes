@@ -1,0 +1,50 @@
+The references of the high-gain note to the companion note's numbers, brought up to the companion's reordering of
+4 November 2026, in which its theory became Chapter 3 and its design examples Chapter 4
+(../../TIA_opamp_survey_2026-10-25/scripts_archive/rework/case_studies_reorder.map.txt): its Eq. (23) is now (19), its
+Sections 4.6, 4.7 and 4.10 are now 3.6, 3.7 and 3.10. Its Sections 1, 8.10 and B.1, Table A8.4 and Eq. (58) keep
+their numbers, and "Eq. (26)" in Section 3.4 is this note's own equation. Applied with plain_wording_pass.py, then
+assemble_note.py. Usage: python plain_wording_pass.py companion_renumbering_pairs.txt
+
+=== FILE 02_noise.md e57e882ca607
+
+=== OLD
+this is the companion note's Eq. (23), derived there for
+=== NEW
+this is the companion note's Eq. (19), derived there for
+=== END
+
+=== OLD
+(its Section 4.6)
+=== NEW
+(its Section 3.6)
+=== END
+
+=== FILE 06_selection.md cc3ffac0e9f4
+
+=== OLD
+(the companion's Section 4.10)
+=== NEW
+(the companion's Section 3.10)
+=== END
+
+=== FILE 08_dc_errors.md 624014ce4646
+
+=== OLD
+(the companion's Section 4.10)
+=== NEW
+(the companion's Section 3.10)
+=== END
+
+=== FILE 12_appendix_b_e.md 0441fa693172
+
+=== OLD
+Section 2.1 generalizes its Eq. (23)
+=== NEW
+Section 2.1 generalizes its Eq. (19)
+=== END
+
+=== OLD
+(the companion's Section 4.7)
+=== NEW
+(the companion's Section 3.7)
+=== END

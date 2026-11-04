@@ -13,7 +13,7 @@ Each TIA deck holds the macromodel, $R_F$ and the $C_F$ of the analytic design, 
 
 ### 9.2 The TIA designs
 
-The most direct check builds the designs of the sweep in SPICE, with each vendor's macromodel in place of the single-pole amplifier and the datasheet noise, and compares their bandwidth and excess noise with the analytic model. Twelve amplifiers were run at the five gains on the 20-pF and 380-pF silicon photodiodes. Figure 17 compares the bandwidth and the excess noise of all 120 designs with the analytic model, and Table 9.1 summarizes the deviations for each amplifier.
+The most direct check builds the designs of the sweep in SPICE, with each vendor's macromodel in place of the single-pole amplifier and the datasheet noise, and compares their bandwidth and excess noise with the analytic model. Twelve amplifiers were run at the five gains from 100 kΩ to 1 GΩ on the 20-pF and 380-pF silicon photodiodes. Figure 17 compares the bandwidth and the excess noise of all 120 designs with the analytic model, and Table 9.1 summarizes the deviations for each amplifier.
 
 ![Figure 17](figures/fig6_spice_parity.png)
 

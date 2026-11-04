@@ -23,7 +23,7 @@ import numpy as np
 
 import hg_model as m
 from hg_analysis import C_STRAY, RFS, SOURCES
-from hg_tables import ORDER
+from hg_tables import ORDER, eng
 
 FREQS = [10.0, 100.0, 1000.0]
 C_AMP_TYPICAL = 10e-12          # input capacitance assumed for Table 6.6, a precision part's order
@@ -78,7 +78,8 @@ def e_crit(src, rf, f=100.0):
 
 
 def table_6_6_body():
-    head = "| Photodiode | 100 kΩ | 1 MΩ | 10 MΩ | 100 MΩ | 1 GΩ |\n|---|---|---|---|---|---|"
+    head = ("| Photodiode | " + " | ".join(eng(rf, "Ω") for rf in RFS) + " |\n"
+            "|---|" + "---|" * len(RFS))
     rows = [f"| {LABELS[short(src)]} | " + " | ".join(f"{e_crit(src, rf) * 1e9:.1f}" for rf in RFS) + " |"
             for src in SOURCES]
     return head + "\n" + "\n".join(rows)
@@ -96,9 +97,10 @@ def tables_a8():
     out = []
     for letter, f, k in (("a", 100.0, 1), ("b", 10.0, 0)):
         out += [f"*Table A.8{letter}. Excess noise at {f:g} Hz over the floor of the resistor and the photodiode "
-                f"(dB), for $R_F$ = 100 kΩ / 1 MΩ / 10 MΩ / 100 MΩ / 1 GΩ, with each design's feedback "
+                f"(dB), for $R_F$ = {' / '.join(eng(rf, 'Ω') for rf in RFS)}, with each design's feedback "
                 f"capacitance from the sweep; the noise density does not depend on the loop gain (Eq. (7)), so the "
-                f"designs that Tables 6.1–6.5 leave out are included. The second column gives $e_n$ (nV/√Hz) and "
+                f"designs that Tables 6.1–6.5 and 6.7 leave out are included; a dash marks a gain at which a part "
+                f"is not evaluated (Section 6.9). The second column gives $e_n$ (nV/√Hz) and "
                 f"$i_n$ (fA/√Hz) at {f:g} Hz as the model takes them from Table A.1: read at that frequency, "
                 f"interpolated between datasheet points, extrapolated along the datasheet slope, or held at the "
                 f"nearest datasheet value, which makes the entry a lower bound. `hg_low_frequency_noise.py`.*", "",

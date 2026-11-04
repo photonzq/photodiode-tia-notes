@@ -20,13 +20,13 @@ Five regions appear, and each has a boundary given by an equation of Chapters 2�
 
 The fifth term, the voltage noise on the conductance (purple), appears only in the bottom-left corner of both maps. There the flicker noise of ADA4625-1 below 1 Hz meets the small conductance of a 10-kΩ resistor. For this amplifier it never matters within the band. It does matter for a CMOS amplifier on a low-shunt-resistance photodiode (Table 4b).
 
-### 4.2 Noise spectra of the five gain decades
+### 4.2 Noise spectra of the six gain decades
 
-Figure 11 shows the input-referred noise density itself, for the five gain decades, with ADA4625-1 on the 380-pF silicon photodiode. Each curve is flat at the floor of Eq. (10) at low frequency (dashed), turns up at $f_e$, and rises as $f$ above it, along a single asymptote $e_n\,2\pi f\,C_T$ that is the same for every gain. The circles mark the bandwidth of each design. Raising $R_F$ by a decade lowers the floor by $\sqrt{10}$ but moves $f_e$ down by $\sqrt{10}$ as well, and the bandwidth down by $\sqrt{10}$ while the amplifier limits it. The band of every design up to 100 MΩ therefore ends in the same position relative to the asymptote, about 5.5 times above $f_e$ (Eq. (21) gives $f_e/f_{-3\,\mathrm{dB}}$ = 0.18), so the voltage noise dominates every one of them.
+Figure 11 shows the input-referred noise density itself, for the six gain decades, with ADA4625-1 on the 380-pF silicon photodiode. Each curve is flat at the floor of Eq. (10) at low frequency (dashed), turns up at $f_e$, and rises as $f$ above it, along a single asymptote $e_n\,2\pi f\,C_T$ that is the same for every gain. Only the 10-kΩ curve rises again below about 10 Hz, where the amplifier's flicker noise acts on the conductance $1/R_F$ (Section 6.8). The circles mark the bandwidth of each design. Raising $R_F$ by a decade lowers the floor by $\sqrt{10}$ but moves $f_e$ down by $\sqrt{10}$ as well, and the bandwidth down by $\sqrt{10}$ while the amplifier limits it. The band of every design up to 100 MΩ therefore ends in the same position relative to the asymptote, about 5.5 times above $f_e$ (Eq. (21) gives $f_e/f_{-3\,\mathrm{dB}}$ = 0.18), so the voltage noise dominates every one of them.
 
 ![Figure 11](figures/fig5_noise_spectra.png)
 
-*Figure 11. Input-referred noise density of a TIA with ADA4625-1 on a 380-pF, 0.4-GΩ silicon photodiode (S1336-8BK) at $R_F$ = 100 kΩ to 1 GΩ. Solid: total, Eq. (8). Dashed: the floor of Eq. (10). Circles: the −3 dB bandwidth of each design.*
+*Figure 11. Input-referred noise density of a TIA with ADA4625-1 on a 380-pF, 0.4-GΩ silicon photodiode (S1336-8BK) at $R_F$ = 10 kΩ to 1 GΩ. Solid: total, Eq. (8). Dashed: the floor of Eq. (10). Circles: the −3 dB bandwidth of each design.*
 
 ### 4.3 How much each term contributes
 

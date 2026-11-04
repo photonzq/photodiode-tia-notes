@@ -15,7 +15,8 @@ RES = m.DATA / "results"
 ORDER = ["ADA4530-1", "OPA928", "LMP7721", "LMC6001A", "LMC662",
          "ADA4625-1", "OPA828", "OPA827", "OPA140", "OPA145",
          "OPA1656", "OPA2156", "OPA320", "OPA381", "OPA388",
-         "OPA656", "OPA657", "OPA818", "ADA4817-1", "LTC6268-10", "OPA211",
+         "OPA656", "OPA657", "OPA818", "ADA4817-1", "LTC6268-10", "OPA858", "OPA211",
+         "OPA855", "OPA955", "LMH6629",
          "IF3601 composite", "LSK170 composite", "BF862 composite"]
 
 
@@ -178,6 +179,8 @@ def write_note_tables() -> None:
         (out / f"{name}.md").write_text(text + "\n", encoding="utf-8")
     for k, rf in enumerate((1e5, 1e6, 1e7, 1e8, 1e9), start=1):
         (out / f"table_6_{k}.md").write_text(shortlist(rf, labels=LABEL_SHORT) + "\n", encoding="utf-8")
+    # 10 kOhm, where this note meets the companion (Section 6.9); Table 6.6 is the low-frequency table
+    (out / "table_6_7.md").write_text(shortlist(1e4, labels=LABEL_SHORT) + "\n", encoding="utf-8")
 
 
 def main() -> None:
@@ -186,7 +189,7 @@ def main() -> None:
             "", "## Designs (f_-3dB [R = resistor-limited]; excess over R_F + diode floor in [1 Hz, f_-3dB]; DC output error at 85 C)",
             design_tables(), "", "## Dominant noise terms in band, ADA4625-1", dominance_table(),
             "", "## Dominant noise terms in band, ADA4530-1", dominance_table("ADA4530-1")]
-    for rf in (1e5, 1e6, 1e7, 1e8, 1e9):
+    for rf in (1e4, 1e5, 1e6, 1e7, 1e8, 1e9):
         text += ["", f"## Shortlist at {eng(rf, 'Ω')}", shortlist(rf)]
     (RES / "tables.md").write_text("\n\n".join(text), encoding="utf-8")
     print("tables written:", RES / "tables.md")

@@ -1,0 +1,20 @@
+Follow-up to medium_gain_pairs.txt (4 November 2026): Section 4.2 notes the low-frequency rise of the 10-kΩ curve
+of Figure 11, and Section 6.9 states the reason OPA211 ranks high at 10 kΩ without ambiguity. Applied with
+plain_wording_pass.py, then assemble_note.py. Usage:
+python plain_wording_pass.py medium_gain_followup_pairs.txt
+
+=== FILE 04_maps.md 64402d5f0486
+
+=== OLD
+along a single asymptote $e_n\,2\pi f\,C_T$ that is the same for every gain.
+=== NEW
+along a single asymptote $e_n\,2\pi f\,C_T$ that is the same for every gain. Only the 10-kΩ curve rises again below about 10 Hz, where the amplifier's flicker noise acts on the conductance $1/R_F$ (Section 6.8).
+=== END
+
+=== FILE 06_selection.md 31a3030bd551
+
+=== OLD
+OPA211's voltage noise of 1.1 nV/√Hz now outweighs its current noise of 1.7 pA/√Hz, because 10 kΩ is only 1.75 times its $R_{F,\mathrm{crit}}$ of 5.7 kΩ.
+=== NEW
+OPA211's low voltage noise, 1.1 nV/√Hz, now counts for more than its high current noise, 1.7 pA/√Hz, because at 10 kΩ the resistor's own noise is of the same order as that current noise: 10 kΩ is only 1.75 times its $R_{F,\mathrm{crit}}$ of 5.7 kΩ.
+=== END

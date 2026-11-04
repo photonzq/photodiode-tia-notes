@@ -80,9 +80,10 @@ def fig_current_window() -> None:
             label=r"$2k_BT/(qR_F)$: shot = Johnson")
     ax.plot(rf, np.sqrt(m.FOUR_KT / rf), color=COLORS["cool_accent"], lw=LW,
             label=r"$\sqrt{4k_BT/R_F}$ in 1 Hz")
-    ax.axvspan(1e5, 1e9, color=COLORS["highlight"], alpha=0.24, lw=0, zorder=0)
-    ax.axvspan(1.5e3, 2e3, color=COLORS["grey_accent"], alpha=0.35, lw=0, zorder=0)
-    ax.text(2.3e3, 2e-15, "companion note", ha="left", va="bottom",
+    # this note covers 10 kOhm - 1 GOhm; the companion 1.5-10 kOhm, and the two meet at 10 kOhm
+    ax.axvspan(1e4, 1e9, color=COLORS["highlight"], alpha=0.24, lw=0, zorder=0)
+    ax.axvspan(1.5e3, 1e4, color=COLORS["grey_accent"], alpha=0.25, lw=0, zorder=0)
+    ax.text(3.9e3, 3e-9, "companion note", rotation=90, ha="center", va="center",
             color=COLORS["annotation"])
     ax.text(1e7, 2e-15, "this note", ha="center", va="bottom", color=COLORS["annotation"])
     ax.set_xscale("log"); ax.set_yscale("log")
@@ -208,7 +209,7 @@ def fig_spectra() -> None:
     src = m.Source("S1336-8BK", 380e-12, 0.4e9)
     f = np.logspace(-2, 8, 800)
     fig, ax = plt.subplots(figsize=(4.2, 3.24), constrained_layout=True)
-    for rf, col in zip([1e5, 1e6, 1e7, 1e8, 1e9], CYCLE):
+    for rf, col in zip([1e4, 1e5, 1e6, 1e7, 1e8, 1e9], CYCLE):
         d, met = m.choose_cf(amps["ADA4625-1"], rf, src, 0.1e-12)
         nz = d.noise(f)
         ax.plot(f, np.sqrt(nz["total"]), color=col, lw=LW,

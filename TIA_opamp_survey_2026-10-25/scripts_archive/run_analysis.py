@@ -22,8 +22,8 @@ from parts_db import PARTS
 # Common assumptions (Section 1 of the report)
 # ---------------------------------------------------------------------------
 C_D = 1.0e-12
-C_PCB_NOM, C_PCB_RANGE = 0.35e-12, (0.2e-12, 0.5e-12)
-C_FPAR_NOM, C_FPAR_RANGE = 0.20e-12, (0.1e-12, 0.3e-12)
+C_PCB_NOM, C_PCB_RANGE = 0.35e-12, (0.2e-12, 0.5e-12)      # pad and trace capacitance at the node (Table 1.1)
+C_FPAR_NOM, C_FPAR_RANGE = 0.20e-12, (0.1e-12, 0.3e-12)    # parasitic feedback capacitance of R_F (Table 1.1)
 R_F_LIST = (1500.0, 2000.0)
 SPOT_F = (1e6, 10e6, 50e6, 100e6, 150e6, 200e6)
 BANDS = ((10e6, 150e6), (10e6, 200e6))
@@ -41,6 +41,12 @@ def open_loop_model(p):
     Returns (primary, check, rms_g, rms_p): the primary model interpolates the
     digitized datasheet curve directly; the check model is the pole-delay fit
     of Eq. (15).  Parts without a digitized curve get a constructed model.
+
+    In the note's numbering of 4 November 2026 this is Section 3.5: the primary
+    model is what every "analytical model" curve and number uses (including the
+    figures of Chapter 4, through case_studies.Analytic), the check model is
+    Eq. (18), and the constructed model is the one of LTC6268-10.  p is a record
+    of parts_db.PARTS; its "ol" points are read from data/specs/<PART>.json.
     """
     ol = p["ol"]
     if ol.get("points"):
@@ -67,6 +73,11 @@ def open_loop_model(p):
 
 
 def noise_inputs(p):
+    """The noise inputs of Eq. (19) (numbering of 4 November 2026) for a record of
+    parts_db.PARTS: the datasheet's flat e_n and white i_n, the digitized e_n(f)
+    and i_n(f) curves where the record has them (data/specs/<PART>.json), the
+    amplifier's input capacitance C_CM + C_DIFF (part of C_T, Eq. (7)) and, for the
+    FET bound of Eq. (23), one input transistor's gate capacitance, about 2 C_DIFF."""
     return tm.NoiseInputs(en_flat=p["en"], in_flat=p["in_"],
                           en_pts=p.get("en_pts", []), in_pts=p.get("in_pts", []),
                           c_in_amp=p["c_cm"] + p["c_diff"],

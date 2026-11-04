@@ -65,6 +65,7 @@ class Amp:
     # optional shape of the open-loop gain beyond a single pole: [(f, |H|, phase in degrees)],
     # A(f) = single pole x H(f); H = 1 below the first point, the last point held above the last
     aol_shape: list = field(default_factory=list)
+    max_rf: float | None = None                  # the sweep evaluates the part only up to this R_F
 
     def en(self, f: np.ndarray) -> np.ndarray:
         return _loglog(self.en_pts, f)
@@ -153,6 +154,7 @@ def load_amps(path: pathlib.Path | None = None) -> dict[str, Amp]:
             c_known=c_known,
             a0=10 ** (p["aol_db"] / 20) if p.get("aol_db") else A0_DEFAULT,
             aol_shape=[(float(f), float(mg), float(ph)) for f, mg, ph in p.get("aol_shape", [])],
+            max_rf=p.get("max_rf"),
         )
     return amps
 

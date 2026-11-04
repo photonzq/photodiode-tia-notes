@@ -26,6 +26,46 @@ Input-referred current noise (power spectral density, A^2/Hz)
     S_i = 4kT/R_F + i_n^2 + e_n^2 |1/R_F + j w (C_T + C_F)|^2 + 2 q I_DC
 The e_n term is independent of the loop gain (the closed-loop factor cancels
 when output noise is referred back through Z_T).
+
+Where the note uses each function (numbering of 4 November 2026)
+-----------------------------------------------------------------
+This module is "our analytical model" of the note: every dashed curve labelled
+"analytical model" or "model" in its figures, and every number not labelled
+SPICE, comes from the functions below, fed with the datasheet values of
+parts_db.PARTS through run_analysis.open_loop_model() and noise_inputs().
+  InterpOpenLoop         the primary open-loop model of Section 3.5: the gain
+                         (dB) and phase (deg) digitized from the datasheet's
+                         open-loop plot, interpolated in log10(f)
+  OpenLoopModel,         the check model of Section 3.5, Eq. (18): a dominant
+  fit_open_loop          pole, two higher poles and a delay fitted to the same
+                         points
+  calibrated_interp      the calibrated variant of Section 3.5 (Table A3.2,
+                         Section 6.2.3): the curve scaled to the table GBW, with
+                         the delay that gives the text's phase margin
+  tia_tf                 Z_F, NG, T and Z_T: Eqs. (8), (9) and (10)
+  loop_metrics           crossover, phase margin, gain margin, second crossing,
+                         -3-dB bandwidth and peaking as Section 3.5 defines
+                         them; NG at the crossover and NG_inf (Eq. (11))
+  design_cf              the flat and 1-dB designs of Section 1.5 (the design
+                         search of Section 3.5)
+  cf_max_for_gmin        the minimum-gain rule of Section 6.2.4,
+                         C_F <= C_T/(G_min - 1)
+  butterworth_cf_single_pole, butterworth_f3_single_pole
+                         the single-pole Butterworth design, Eq. (14)
+  min_ct_for_gmin        the minimum source capacitance, Eq. (16)
+  loglog_interp          the datasheet noise curves, interpolated log-log
+  noise_components       Eq. (19) term by term ('central'); the long-channel
+                         lower bound of Eq. (23) ('low'); the datasheet's rising
+                         current-noise curve added as an upper bound
+                         ('high'); Eq. (24) names the three; the photodiode
+                         series-resistance term of Section 3.6
+  band_average_penalty_db  the band penalty of Eq. (21)
+  integrated_rms         the band noise in the denominator of Eq. (27)
+  johnson_current_asd, shot_current_asd
+                         the reference levels of Table A3.3
+The scripts written before 27 October 2026 cite older equation numbers in their
+own docstrings; rework/TIA_opamp_survey.map.txt and
+rework/case_studies_reorder.map.txt convert them.
 """
 from __future__ import annotations
 
@@ -72,12 +112,23 @@ class OpenLoopModel:
 
 @dataclass
 class InterpOpenLoop:
-    """Open-loop gain interpolated directly from digitized datasheet points.
+    """Open-loop gain interpolated directly from digitized datasheet points
+    (the primary model of Section 3.5).
+
+    The points are those of each part's extraction record, data/specs/<PART>.json,
+    read from the datasheet's open-loop gain and phase plot (from the PDF's vector
+    paths where the plot is vector graphics, about +/-0.2 dB and +/-1 deg; from the
+    raster otherwise, about +/-0.5-1 dB and +/-2-5 deg).  Phases plotted as
+    180 deg + angle(A) were shifted by -180 deg when the records were made.
 
     Magnitude (dB) and phase (deg) are interpolated linearly in log10(f).
     Below the first point the first values are held.  Above the last
     magnitude point the last log-log slope is extended; above the last phase
     point the phase is extended linearly in f (a pure-delay continuation).
+    Beyond the plotted range a gain margin or second crossing is therefore only
+    indicative (Section 3.5).  The curve is the gain from the non-inverting
+    input, as datasheets plot it; the TIA drives the inverting input, which
+    Section 5.3 compares (A_- against A_+).
     """
 
     f: np.ndarray
@@ -198,13 +249,24 @@ def fit_open_loop(points, A0=None, n_hi_poles=2, use_delay=True,
 # Closed-loop TIA
 # ---------------------------------------------------------------------------
 def tia_tf(f, ol: OpenLoopModel, R_F, C_T, C_F):
-    """Return Z_T (complex, ohm), NG (complex) and loop gain T at frequencies f."""
+    """Return Z_T (complex, ohm), NG (complex) and loop gain T at frequencies f.
+
+    The inverting TIA of Figure 1 with an amplifier of open-loop gain A(f) and an
+    ideal output (Section 3.2):
+        Z_F = R_F / (1 + s R_F C_F)                      Eq. (8)
+        NG  = 1 + s C_T Z_F,   T = A / NG                Eq. (10)
+        Z_T = -Z_F T / (1 + T)                           Eq. (9)
+    with s = j 2 pi f, C_T the total capacitance from the summing node to AC
+    ground (Eq. (7): photodiode, board and the amplifier's C_CM + C_DIFF) and C_F
+    the total feedback capacitance.  Z_T leaves out the photocurrent that reaches
+    the output directly through C_F, which matters only above a few GHz
+    (Section 5.2, Figure 9c)."""
     s = 2j * np.pi * np.asarray(f, dtype=float)
-    Z_F = R_F / (1 + s * R_F * C_F)
-    NG = 1 + s * C_T * Z_F
-    A = ol.A(f)
-    T = A / NG
-    Z_T = -Z_F * T / (1 + T)
+    Z_F = R_F / (1 + s * R_F * C_F)          # feedback network, Eq. (8)
+    NG = 1 + s * C_T * Z_F                   # noise gain, Eq. (10)
+    A = ol.A(f)                              # open-loop gain from the datasheet curve
+    T = A / NG                               # loop gain, Eq. (10)
+    Z_T = -Z_F * T / (1 + T)                 # transimpedance, Eq. (9)
     return Z_T, NG, T
 
 
@@ -222,30 +284,40 @@ def loop_metrics(ol, R_F, C_T, C_F, f=F_GRID):
     gm_dB        : gain margin at the first frequency where the loop phase
                    reaches -180 deg (NaN if it never does in the grid).
     f_3dB, peaking_dB : of |Z_T| / R_F.
+
+    These are the loop metrics of Section 3.5, read on F_GRID (6000 points
+    from 10 kHz to 50 GHz, logarithmically spaced), and the closed-loop
+    figures that every table of the note quotes for "our analytical model".
     """
     Z_T, NG, T = tia_tf(f, ol, R_F, C_T, C_F)
     magT = np.abs(T)
-    phT = np.degrees(np.unwrap(np.angle(T)))
+    phT = np.degrees(np.unwrap(np.angle(T)))  # continuous phase, so that -180 deg is found once
+    # crossover: the first grid interval in which |T| falls through 1
     idx = np.where((magT[:-1] >= 1) & (magT[1:] < 1))[0]
     second = False
     if len(idx) == 0:
         f_c, pm, ng_c = np.nan, np.nan, np.nan
     else:
         i = idx[0]
+        # interpolate log|T| linearly in log f to the exact crossing, and the phase with it
         x0, x1 = np.log10(f[i]), np.log10(f[i + 1])
         y0, y1 = np.log10(magT[i]), np.log10(magT[i + 1])
         xc = x0 + (0 - y0) * (x1 - x0) / (y1 - y0)
         f_c = 10 ** xc
-        pm = 180 + np.interp(xc, [x0, x1], [phT[i], phT[i + 1]])
+        pm = 180 + np.interp(xc, [x0, x1], [phT[i], phT[i + 1]])     # phase margin, 180 deg + angle(T)
+        # |NG| at the crossover, the gain at which a decompensated amplifier is used (Section 3.4)
         ng_c = np.abs(1 + 2j * np.pi * f_c * C_T * R_F / (1 + 2j * np.pi * f_c * R_F * C_F))
+        # a loop that regains |T| >= 1 above 1.2 f_c (e.g. on an open-loop bump at GHz) counts as unstable
         above = f > 1.2 * f_c
         second = bool(np.any(magT[above] >= 1.0))
+    # gain margin: -20 log|T| at the first grid point where the phase has reached -180 deg
     k = np.where(phT <= -180)[0]
     gm = -20 * np.log10(magT[k[0]]) if len(k) else np.nan
+    # closed loop: |Z_T| relative to R_F, its largest value (peaking) and its -3-dB point
     H = np.abs(Z_T) / R_F
     peak_db = 20 * np.log10(H.max())
     f_peak = f[np.argmax(H)]
-    below = np.where(H < 1 / np.sqrt(2))[0]
+    below = np.where(H < 1 / np.sqrt(2))[0]   # the first point below -3 dB, interpolated in log f
     f3 = np.nan
     if len(below):
         j = below[0]
@@ -373,14 +445,26 @@ def noise_components(f, R_F, C_T, C_F, nz: NoiseInputs, i_dc=0.0, T=T_ROOM,
                   an upper bound.
     R_s, C_D: optional photodiode series resistance and junction capacitance;
     the Johnson noise of R_s drives a current 4kT R_s (w C_D)^2 into the node.
+
+    The 'central' total is Eq. (19) of the note, term by term:
+        S_i = 4 k_B T / R_F                 'RF'   Johnson noise of R_F
+            + i_n^2                         'i_n'  amplifier current noise (white level)
+            + e_n(f)^2 [1/R_F^2 + (w C_tot)^2]   'e_n'  voltage noise through 1/R_F and
+                                                    C_tot = C_T + C_F (the e_n term of the
+                                                    note's figures)
+            + 2 q I_DC                      'shot' shot noise of the pair's I_1 + I_2
+    with e_n(f) the datasheet curve (en_pts, interpolated by loglog_interp, its
+    end values held outside it) or the flat value en_flat.  Eq. (23) is the 'low'
+    bound and Eq. (24) names the three estimates (Section 3.7).  The result is
+    input-referred, i.e. divided by |Z_T|: it does not depend on the loop gain.
     """
     f = np.asarray(f, dtype=float)
     w = 2 * np.pi * f
-    en = loglog_interp(f, nz.en_pts, nz.en_flat)
-    S_RF = np.full_like(f, 4 * K_B * T / R_F)
-    S_in = np.full_like(f, nz.in_flat ** 2)
-    C_tot = C_T + C_F
-    S_en = en ** 2 * ((1 / R_F) ** 2 + (w * C_tot) ** 2)
+    en = loglog_interp(f, nz.en_pts, nz.en_flat)       # e_n(f) from the datasheet curve, or flat
+    S_RF = np.full_like(f, 4 * K_B * T / R_F)            # Johnson noise of R_F (2.87 pA/rtHz at 2 kOhm)
+    S_in = np.full_like(f, nz.in_flat ** 2)              # white current noise of the inverting input
+    C_tot = C_T + C_F                                    # all capacitance that e_n drives (Eq. (19))
+    S_en = en ** 2 * ((1 / R_F) ** 2 + (w * C_tot) ** 2)  # e_n through 1/R_F and through C_tot
     S_extra = np.zeros_like(f)
     if fet_model == "low" and nz.fet:
         Cg = nz.c_gate

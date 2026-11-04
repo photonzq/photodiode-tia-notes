@@ -1,16 +1,16 @@
 # Operational amplifiers for a balanced-photodiode transimpedance amplifier: 1 pF, 1.5–2 kΩ, ≥ 150 MHz, 0.1–10 mA of DC photocurrent
 
-Design study and amplifier survey, October–November 2026.
+Design study and amplifier survey.
 
 > This note was created with significant AI assistance. It may contain errors, so check the cited datasheet pages, tables and scripts before relying on a figure. The note itself is dedicated to the public domain under CC0 1.0; no copyright is reserved. The manufacturers' SPICE model files are not covered: each remains under its vendor's terms (`spice/models/README.md`).
 
-> **Which note to read.** This note covers the corner of large photocurrent and high bandwidth: a balanced pair at 0.1–10 mA of DC photocurrent, a 1.5–2-kΩ feedback resistor and at least 150 MHz, where the light's own shot noise sets the floor and the loop's stability decides the design. Its companion, [*Operational amplifiers for high-gain photodiode transimpedance amplifiers: 100 kΩ to 1 GΩ, from DC to a few megahertz*](../TIA_high_gain_survey_2026-11-02/TIA_high_gain_survey.md), covers the opposite corner. There the signal photocurrent lies between about a picoampere and a few tens of microamperes, the feedback resistor must be 100 kΩ or more, and the amplifier's input current, its voltage noise on the photodiode's capacitance and the resistor's own capacitance decide the design. The photocurrent decides which note applies. Its shot noise equals the Johnson noise of the feedback resistor at $I = 2k_BT/(qR_F)$, which is 51.4 mV divided by $R_F$ at 25 °C. Above about 10 µA, with more than about 10 MHz of bandwidth, this note applies. Below about 10 µA, and certainly below 1 µA, the companion does.
+> **Which note to read.** This note covers the corner of large photocurrent and high bandwidth: a balanced pair at 0.1–10 mA of DC photocurrent, a 1.5–2-kΩ feedback resistor and at least 150 MHz, where the light's own shot noise sets the floor and the loop's stability decides the design. Section 6.10 follows the design up to 10 kΩ, for a pair that carries less light. Its companion, [*Operational amplifiers for high-gain photodiode transimpedance amplifiers: 10 kΩ to 1 GΩ, from DC to tens of megahertz*](../TIA_high_gain_survey_2026-11-02/TIA_high_gain_survey.md), continues from there. In its range the signal photocurrent lies between about a picoampere and a few hundred microamperes, and the amplifier's voltage noise acting on the node capacitance, its input current and the resistor's own capacitance decide the design. The photocurrent and the bandwidth decide which note applies. The photocurrent's shot noise equals the Johnson noise of the feedback resistor at $I = 2k_BT/(qR_F)$, which is 51.4 mV divided by $R_F$ at 25 °C, and a bandwidth $B$ allows at most $R_F = 1/(2\pi BC_{F,\mathrm{par}})$: 5.3 kΩ at 150 MHz for our nominal 0.2 pF of feedback parasitic, and 10.6 kΩ for 0.1 pF. With tens of microamperes or more and more than about 50 MHz of bandwidth, this note applies; with a few microamperes or less, the companion does. The two notes meet at 10 kΩ, where both analyses are evaluated (Section 6.10).
 
 We are designing the front end of a balanced optical receiver. A pair of photodiodes, with 1 pF in total at the amplifier's summing node, carries 0.1–10 mA of DC photocurrent with a small RF signal on top, and a transimpedance amplifier (TIA) with a 1.5–2 kΩ feedback resistor has to turn the RF difference current of the pair into a voltage over at least 150 MHz, with the widest possible dynamic range. Choosing the amplifier is the visible part of the task, but the choice follows from three properties of the problem, and this note is built around them.
 
 The first is that the light, not the amplifier, sets the noise floor over most of the range. The shot noise of the total photocurrent equals the Johnson noise of a 2-kΩ resistor at only 25.7 µA, so at 0.1–10 mA it lies 5.9–25.9 dB above the resistor's noise. From about 0.15 mA up the amplifier's own noise hardly matters, and what decides the dynamic range is the largest RF signal the electronics can pass undistorted, which we call the ceiling. The second is that the DC must be kept out of the feedback resistor: 10 mA through 2 kΩ would need 20 V of output swing. In a balanced pair the two DC currents cancel at the summing node, and only their imbalance remains, which a servo can hold at zero. The third is that the circuit is hard to stabilize. With 1 pF on a 2-kΩ resistor the feedback loop crosses over at a noise gain of only about 7–12, which is just where the fastest low-noise op amps, the decompensated ones, stop being stable. Stability, not noise, therefore removes most candidates.
 
-The chapters follow these properties through the design. Chapter 1 states the problem and the conventions. Chapter 2 sets the op-amp TIA among the alternatives: a plain 50-Ω termination followed by an RF amplifier, which has a higher ceiling but far more noise and serves as the benchmark every design must beat; single-chip TIAs; and composite front ends. Chapter 3 is a design example: we lay out one promising design, OPA855 at 2 kΩ, with four equations written in practical units, and Chapter 4 derives those equations and the open-loop model that gives the phase margins. Chapter 5 tests the model against the manufacturers' SPICE macromodels. Chapter 6 compares the candidates in stability, noise and dynamic range, and against the benchmark. Chapter 7 asks whether a discrete transistor at the input or a high-voltage stage inside the loop can do better, Chapter 8 completes the front end, and Chapter 9 draws the conclusions. The tables are collected in Appendix A, and Appendices B–F hold the SPICE how-to, the open questions, the references, the files and the datasheet inconsistencies.
+The chapters follow these properties through the design. Chapter 1 states the problem and the conventions. Chapter 2 sets the op-amp TIA among the alternatives: a plain 50-Ω termination followed by an RF amplifier, which has a higher ceiling but far more noise and serves as the benchmark every design must beat; single-chip TIAs; and composite front ends. Chapter 3 derives the theory: the feedback loop and its stability with a decompensated amplifier, the open-loop model that gives the phase margins, the noise and the definitions of dynamic range. Chapter 4 applies it to two designs, OPA855 and OPA846 at 2 kΩ: it lays each out with four equations written in practical units and checks it in simulation, with our analytical model and with the vendor's SPICE macromodel, against the photodiode and feedback capacitances, for large signals and against the benchmark. Chapter 5 tests the model against the manufacturers' SPICE macromodels. Chapter 6 compares the candidates in stability, noise and dynamic range, and against the benchmark, and follows the leading ones to larger feedback resistors, up to the 10 kΩ at which the companion note takes over. Chapter 7 asks whether a discrete transistor at the input or a high-voltage stage inside the loop can do better, Chapter 8 completes the front end, and Chapter 9 draws the conclusions. The tables are collected in Appendix A, and Appendices B–F hold the SPICE how-to, the open questions, the references, the files and the datasheet inconsistencies.
 
 The argument ends in a clear result. OPA855 is the robust choice: it is quiet, stable at 2 kΩ with margin to spare, and able to swing its full output at 100 MHz. OPA818 swings further and gives up to 11 dB more dynamic range for tones at 20–50 MHz, but only with a marginal loop whose peaking is equalized. Because the ceiling, not the noise, limits the dynamic range, a quieter input transistor does not help, while a high-voltage amplifier inside the feedback loop adds about 11 dB at 1 mA. Against a plain 50-Ω termination every TIA we carry forward wins for small signals at every photocurrent, and the termination wins for large signals above about 1.2 mA unless the TIA's output swing rises.
 
@@ -31,7 +31,7 @@ The front end must turn the RF difference current of a balanced photodiode pair 
 
 The DC photocurrent is that of the pair: the two DC currents cancel at the summing node, so only their imbalance reaches $R_F$, while the shot noise is that of their sum (Section 1.2).
 
-**Why the DC photocurrent matters first.** The shot noise of the total DC photocurrent of the pair, $i_{\mathrm{shot}}=\sqrt{2qI_{\mathrm{DC}}}$ with $I_{\mathrm{DC}} = I_1 + I_2$ ($q$ is the electron charge), equals the Johnson current noise of the feedback resistor, $\sqrt{4k_BT/R_F}$ ($k_B$ is Boltzmann's constant, $T$ the absolute temperature), at $I_{\mathrm{DC}}=2k_BT/(qR_F)$. At 25 °C this crossover is 25.7 µA for $R_F$ = 2 kΩ and 34.3 µA for 1.5 kΩ (derivation in Section 4.6).
+**Why the DC photocurrent matters first.** The shot noise of the total DC photocurrent of the pair, $i_{\mathrm{shot}}=\sqrt{2qI_{\mathrm{DC}}}$ with $I_{\mathrm{DC}} = I_1 + I_2$ ($q$ is the electron charge), equals the Johnson current noise of the feedback resistor, $\sqrt{4k_BT/R_F}$ ($k_B$ is Boltzmann's constant, $T$ the absolute temperature), at $I_{\mathrm{DC}}=2k_BT/(qR_F)$. At 25 °C this crossover is 25.7 µA for $R_F$ = 2 kΩ and 34.3 µA for 1.5 kΩ (derivation in Section 3.6).
 
 For 2 kΩ the planned 0.1–10 mA is therefore 4 to 390 times above the crossover (Table A1.1):
 - At 0.1 mA the shot noise (5.66 pA/√Hz) is already 5.9 dB above the 2-kΩ Johnson floor (2.87 pA/√Hz).
@@ -52,11 +52,11 @@ Ranking amplifiers only by how close they come to the 2-kΩ Johnson floor would 
 - **The DC current through $R_F$** is only the imbalance $\Delta I = I_1 - I_2$. It moves the output away from mid-swing and is removed by a servo (Section 8.8).
 - **The shot noise** is that of the total photocurrent, $2q(I_1 + I_2)$. The shot noise of each diode is independent of the other's, so the two add in power even though the mean currents subtract. In this note $I_{\mathrm{DC}}$ always means $I_1 + I_2$.
 - **The capacitance at the summing node** is $C_D = C_{D,A} + C_{D,B}$, because both diodes connect the node to AC-grounded bias nodes.
-- **The signal** is the RF difference current. The dynamic range is therefore the largest RF difference current against the noise of the total current (Eq. (31)).
+- **The signal** is the RF difference current. The dynamic range is therefore the largest RF difference current against the noise of the total current (Eq. (27)).
 
 The tables use $I_{\mathrm{DC}}$ = 0.1, 1 and 10 mA. If the 10 mA is the current in each diode, the 20-mA row applies, and the shot-limited dynamic range is 3.0 dB lower than at 10 mA (Section 6.4.3).
 
-**What an uncorrected imbalance costs.** The reference voltage $V_{\mathrm{REF}}$ on the non-inverting input (Figure 1) is set to centre the output at zero imbalance, with a swing $V_{\mathrm{sw}}$ available on either side (Eq. (30)). An imbalance shifts the output by $\Delta I\,R_F$ and leaves only $V_{\mathrm{sw}} - |\Delta I|R_F$ for the RF signal, so an imbalance of either sign costs headroom from the first microampere: the dynamic range falls by $20\log_{10}\left[V_{\mathrm{sw}}/(V_{\mathrm{sw}} - |\Delta I|R_F)\right]$. A few per cent of optical imbalance at 10 mA per diode is 0.2–0.5 mA, which costs OPA855 at 2 kΩ 2.6–9.3 dB of dynamic range (Table A1.2), so the imbalance is servoed to zero (Section 8.8). How it is nulled also matters when the laser's intensity noise is high. An electronic correction removes the DC of the imbalance but not the intensity noise that the imbalance current carries (Eq. (77)); a correction derived from the light removes both.
+**What an uncorrected imbalance costs.** The reference voltage $V_{\mathrm{REF}}$ on the non-inverting input (Figure 1) is set to centre the output at zero imbalance, with a swing $V_{\mathrm{sw}}$ available on either side (Eq. (26)). An imbalance shifts the output by $\Delta I\,R_F$ and leaves only $V_{\mathrm{sw}} - |\Delta I|R_F$ for the RF signal, so an imbalance of either sign costs headroom from the first microampere: the dynamic range falls by $20\log_{10}\left[V_{\mathrm{sw}}/(V_{\mathrm{sw}} - |\Delta I|R_F)\right]$. A few per cent of optical imbalance at 10 mA per diode is 0.2–0.5 mA, which costs OPA855 at 2 kΩ 2.6–9.3 dB of dynamic range (Table A1.2), so the imbalance is servoed to zero (Section 8.8). How it is nulled also matters when the laser's intensity noise is high. An electronic correction removes the DC of the imbalance but not the intensity noise that the imbalance current carries (Eq. (77)); a correction derived from the light removes both.
 
 **Capacitance: 1 pF at the node as the baseline, 2 pF as an option.** Unless it states otherwise, every table uses $C_D$ = 1 pF at the summing node, i.e. two diodes of about 0.5 pF. If each diode has 1 pF, the node carries 2 pF. Section 6.3.5 states what that option changes, once Sections 6.2–6.3 have introduced the parts and their designs, and Tables A1.3 and A1.4 give the leading amplifiers for it.
 
@@ -72,7 +72,7 @@ Figure 1 shows the circuit analysed throughout:
 
 ![Figure 1](figures/fig01_tia_circuit.png)
 
-*Figure 1. Inverting TIA for a balanced photodiode pair, with every capacitance that sets stability and noise; parasitic capacitances are drawn in grey. The upper photodiode delivers $i_1$ into the summing node and the lower one draws $i_2$ from it, so $R_F$ carries $i_1 - i_2$. $C_D = C_{D,A} + C_{D,B}$ is the capacitance of both diodes, $C_{\mathrm{PCB}}$ that of the pads and traces at the node, and $C_{\mathrm{CM}}$ and $C_{\mathrm{DIFF}}$ the amplifier's common-mode and differential input capacitances; together they make the total capacitance from the inverting node to AC ground, $C_T = C_D + C_{\mathrm{PCB}} + C_{\mathrm{CM}} + C_{\mathrm{DIFF}}$ (Section 4.1). $C_F$ is the total feedback capacitance, an optional external capacitor plus the parasitic capacitance of $R_F$ and its pads. The dashed current source is the optional DC servo of Chapter 8, and $R_S$ the optional 50-Ω back-termination into the instrument.*
+*Figure 1. Inverting TIA for a balanced photodiode pair, with every capacitance that sets stability and noise; parasitic capacitances are drawn in grey. The upper photodiode delivers $i_1$ into the summing node and the lower one draws $i_2$ from it, so $R_F$ carries $i_1 - i_2$. $C_D = C_{D,A} + C_{D,B}$ is the capacitance of both diodes, $C_{\mathrm{PCB}}$ that of the pads and traces at the node, and $C_{\mathrm{CM}}$ and $C_{\mathrm{DIFF}}$ the amplifier's common-mode and differential input capacitances; together they make the total capacitance from the inverting node to AC ground, $C_T = C_D + C_{\mathrm{PCB}} + C_{\mathrm{CM}} + C_{\mathrm{DIFF}}$ (Section 3.1). $C_F$ is the total feedback capacitance, an optional external capacitor plus the parasitic capacitance of $R_F$ and its pads. The dashed current source is the optional DC servo of Chapter 8, and $R_S$ the optional 50-Ω back-termination into the instrument.*
 
 **Orientation.** The upper diode (anode on the summing node, cathode on $+V_B$) drives its photocurrent into the node; on its own it would move the output below the reference voltage $V_{\mathrm{REF}}$ on the non-inverting input. The lower diode (cathode on the node, anode on $-V_B$) draws current out of the node and moves the output up. In the pair only the sign of the imbalance decides the direction. The two directions give different limits for an uncorrected imbalance whenever the input common-mode range is asymmetric (Section 6.4.1). A single-ended detector is the special case with one diode.
 
@@ -87,7 +87,7 @@ Unless a section says otherwise, the numbers in this note use the values of Tabl
 | $C_D$ | photodiode capacitance at the summing node, $C_{D,A}+C_{D,B}$ (both diodes of the pair) | 1.0 pF baseline; 2.0 pF option, i.e. 1 pF in each diode (Section 1.2) | design specification |
 | $C_{\mathrm{PCB}}$ | pad and trace capacitance at the inverting node | 0.35 pF nominal, 0.2–0.5 pF corners | specified range 0.2–0.5 pF |
 | $C_{\mathrm{CM}}$, $C_{\mathrm{DIFF}}$ | amplifier common-mode (inverting input to ground) and differential input capacitance | per datasheet | Table A6.1 |
-| $C_T$ | $C_D+C_{\mathrm{PCB}}+C_{\mathrm{CM}}+C_{\mathrm{DIFF}}$ | per amplifier | Eq. (11) |
+| $C_T$ | $C_D+C_{\mathrm{PCB}}+C_{\mathrm{CM}}+C_{\mathrm{DIFF}}$ | per amplifier | Eq. (7) |
 | $C_{F,\mathrm{par}}$ | parasitic feedback capacitance of $R_F$, its pads and the layout | 0.20 pF nominal, 0.1–0.3 pF corners | specified range 0.1–0.3 pF; Texas Instruments (TI) quotes up to 0.2 pF for the resistor alone [A2] |
 | $C_F$ | total feedback capacitance, $C_{F,\mathrm{ext}}+C_{F,\mathrm{par}}$ | designed per amplifier, never below $C_{F,\mathrm{par}}$ | Section 6.2 |
 | $R_F$ | feedback resistor | 1.5 kΩ and 2 kΩ | design specification |
@@ -101,26 +101,26 @@ Unless a section says otherwise, the numbers in this note use the values of Tabl
 **Noise and level units.**
 - All noise is referred to the photocurrent. Densities are amplitude spectral densities (ASD) in pA/√Hz; band-integrated values are in nA rms.
 - Output noise is put in the same units by dividing it by the in-band transimpedance $R_F$, written $v_o/R_F$. Unlike the input-referred density, it includes the roll-off and peaking of $|Z_T|$, so it is what a following stage sees.
-- Power densities in dBm/Hz (into 50 Ω) and noise figures appear only as translations for choosing an instrument (Eqs. (8) and (26)), and in the 50-Ω benchmark of Section 2.1, whose amplifier is specified by its noise figure and its input compression level.
-- The amplifiers' voltage-noise specifications $e_n$ remain in nV/√Hz; they enter the input-referred noise through Eq. (23).
+- Power densities in dBm/Hz (into 50 Ω) and noise figures appear only as translations for choosing an instrument (Eqs. (34) and (22)), and in the 50-Ω benchmark of Section 2.1, whose amplifier is specified by its noise figure and its input compression level.
+- The amplifiers' voltage-noise specifications $e_n$ remain in nV/√Hz; they enter the input-referred noise through Eq. (19).
 
 **Figures of merit.**
 - "Penalty" is the ratio of the total input-referred noise without photocurrent to the Johnson noise of $R_F$ alone, in dB: $20\log_{10}(i_{\mathrm{eq}}/i_{R_F})$ at a spot frequency, and $10\log_{10}$ of the ratio of band-integrated power densities over a band.
 - "Shot-noise clearance" at a DC photocurrent is the ratio, in dB, of the photocurrent shot-noise density to all other noise densities at the same frequency.
-- "Dynamic range" is the electronic dynamic range of Eq. (31) unless it is called usable. The electronic figure assumes that the light can supply any tone up to the TIA's ceiling; the usable figure of Eq. (32) also caps the tone at $I_{\mathrm{DC}}/\sqrt2$ rms, the most the light can supply (Section 4.8).
+- "Dynamic range" is the electronic dynamic range of Eq. (27) unless it is called usable. The electronic figure assumes that the light can supply any tone up to the TIA's ceiling; the usable figure of Eq. (28) also caps the tone at $I_{\mathrm{DC}}/\sqrt2$ rms, the most the light can supply (Section 3.8).
 
 **Design labels.** These are used in every table.
 - *Flat*: the smallest total $C_F$ that gives ≤ 0.01 dB of transimpedance peaking. If that is below 0.2 pF, the realised design uses $C_F$ = 0.2 pF, the parasitic floor.
 - *1-dB*: the smallest $C_F$ with ≤ 1 dB of peaking.
 - *Largest phase margin*: the maximum over stable $C_F \ge 0.2$ pF.
-- *Robust*: the widest bandwidth with phase margin ≥ 45° and ≤ 1 dB of peaking. Up to 8 pF of capacitance may be added deliberately at the inverting node if that is the only way to reach 45°. The robust design is read on the logarithmic grid of $C_F$ of Section 4.5, whose first point above the 0.2-pF floor is 0.206 pF, so it can come out slightly narrower than a flat design on the floor: OPA855 gives 539 MHz robust at 0.21 pF and 557 MHz flat at 0.20 pF with 58° (Table A6.5).
+- *Robust*: the widest bandwidth with phase margin ≥ 45° and ≤ 1 dB of peaking. Up to 8 pF of capacitance may be added deliberately at the inverting node if that is the only way to reach 45°. The robust design is read on the logarithmic grid of $C_F$ of Section 3.5, whose first point above the 0.2-pF floor is 0.206 pF, so it can come out slightly narrower than a flat design on the floor: OPA855 gives 539 MHz robust at 0.21 pF and 557 MHz flat at 0.20 pF with 58° (Table A6.5).
 - *$C_F$ window*: the range of total $C_F$ that keeps the phase margin ≥ 45°, the gain margin ≥ 3 dB and the peaking ≤ 1 dB, and, for a decompensated amplifier, keeps the high-frequency noise gain $1 + C_T/C_F$ at or above the minimum stable gain $G_{\min}$ (Section 6.2.4).
 
 **Datasheet value types.** Each datasheet value carries a label. TYP marks a typical value, which is not guaranteed. MIN and MAX mark limits guaranteed at 25 °C unless stated, by test or, where the datasheet says so, by design. CURVE marks a value read from a typical-characteristics plot, given with its reading uncertainty, and SCOPE and PHOTO mark values read from an oscilloscope trace or a raster photograph. SIM marks a value that the manufacturer labels as simulated, TEXT a value stated in prose, and DERIVED a value computed here from datasheet data. n.s. marks a value the datasheet does not specify.
 
 Datasheet citations such as "p9" or "Fig 6-11" refer to the PDF pages and figures of the revisions listed in Appendix D, which gives each document's literature number and source, and "EC" marks a datasheet's table of electrical characteristics. The documents themselves are available from their manufacturers.
 
-**Status of every number.** Every phase margin, bandwidth and noise value in this note is an **analytical estimate**, from the equations of Chapter 4 with each amplifier's datasheet open-loop curve, unless it is labelled SPICE. The SPICE numbers come from the manufacturers' macromodels: Chapter 5 checks the analytical estimates against them, and Sections 6.5–6.6, Section 6.8 and Chapter 7 use them directly. Section 9.7 lists the cases where only a simulation or a measurement can settle the answer.
+**Status of every number.** Every phase margin, bandwidth and noise value in this note is an **analytical estimate**, from the equations of Chapter 3 with each amplifier's datasheet open-loop curve, unless it is labelled SPICE. The SPICE numbers come from the manufacturers' macromodels: Chapter 4 sets the two side by side for its two designs, Chapter 5 checks the analytical estimates against them, and Sections 6.5–6.6, Section 6.8 and Chapter 7 use them directly. Section 9.7 lists the cases where only a simulation or a measurement can settle the answer.
 
 ---
 
@@ -178,9 +178,9 @@ where 173.9 dB is $-10\log_{10}[k_BT/(1\ \mathrm{mW}\cdot1\ \mathrm{s})]$ at 25 
 
 We do not tie the benchmark to one amplifier. We take NF = 2 dB, which good 50-Ω low-noise amplifiers reach at 100 MHz, and three input compression levels, $P_{\max}$ = −20, −10 and 0 dBm; Table A2.2 gives the family. At −10 dBm, for example, $I_{\max,50} = 2\sqrt{10^{-4}\ \mathrm{W}/50\ \Omega}$ = 2.83 mA rms, and Eq. (4) gives −10 − 2 + 92.1 = 80.1 dB in the dark. With 1 mA of photocurrent the shot noise adds $\sqrt{2qI_{\mathrm{DC}}B}$ = 219.2 nA rms to the 279.8 nA, in power, and the dynamic range falls to $20\log_{10}(2.83\ \mathrm{mA}/355.5\ \mathrm{nA})$ = 78.0 dB.
 
-**What the light can supply.** Eq. (3) gives an electronic dynamic range: it assumes that the light can drive a tone up to the amplifier's ceiling. In a balanced pair the light cannot drive a tone larger than $I_{\mathrm{DC}}/\sqrt2$ rms, because the tone's peak cannot exceed the total photocurrent $I_1 + I_2$, whether the light is intensity-modulated or a heterodyne beat (Eq. (32), Section 4.8). Below $I_{\mathrm{DC}} = \sqrt2\,I_{\max,50}$, which is 1.26, 4.0 and 12.6 mA for the three compression levels, no light can drive the chain into compression, and its usable dynamic range is the same whatever $P_{\max}$ is: 47.8 dB at 0.1 mA and 66.0 dB at 1 mA. A higher compression level helps only above that photocurrent.
+**What the light can supply.** Eq. (3) gives an electronic dynamic range: it assumes that the light can drive a tone up to the amplifier's ceiling. In a balanced pair the light cannot drive a tone larger than $I_{\mathrm{DC}}/\sqrt2$ rms, because the tone's peak cannot exceed the total photocurrent $I_1 + I_2$, whether the light is intensity-modulated or a heterodyne beat (Eq. (28), Section 3.8). Below $I_{\mathrm{DC}} = \sqrt2\,I_{\max,50}$, which is 1.26, 4.0 and 12.6 mA for the three compression levels, no light can drive the chain into compression, and its usable dynamic range is the same whatever $P_{\max}$ is: 47.8 dB at 0.1 mA and 66.0 dB at 1 mA. A higher compression level helps only above that photocurrent.
 
-**What a TIA must do to beat it.** For the same signal a TIA beats the chain where its band noise is lower, where its ceiling is higher, or both. Three comparisons settle where that is. For the TIA they use three quantities that Chapters 4 and 6 derive: its input-referred noise density without photocurrent, $S_{i,0}(f)$ (Eq. (23) with $I_{\mathrm{DC}} = 0$); its band noise with the shot noise included, $i_{n,B} = \sqrt{\int_0^B S_{i,0}\,df + 2qI_{\mathrm{DC}}B}$ (Eq. (49)); and its ceiling, the largest undistorted rms tone, $I_{\max} = V_{\mathrm{pk}}/(\sqrt2\,|Z_T|)$, with $V_{\mathrm{pk}}$ its largest output amplitude (Eq. (30)) and $|Z_T|$ its transimpedance at the tone (Eq. (13)).
+**What a TIA must do to beat it.** For the same signal a TIA beats the chain where its band noise is lower, where its ceiling is higher, or both. Three comparisons settle where that is. For the TIA they use three quantities that Chapters 3 and 6 derive: its input-referred noise density without photocurrent, $S_{i,0}(f)$ (Eq. (19) with $I_{\mathrm{DC}} = 0$); its band noise with the shot noise included, $i_{n,B} = \sqrt{\int_0^B S_{i,0}\,df + 2qI_{\mathrm{DC}}B}$ (Eq. (49)); and its ceiling, the largest undistorted rms tone, $I_{\max} = V_{\mathrm{pk}}/(\sqrt2\,|Z_T|)$, with $V_{\mathrm{pk}}$ its largest output amplitude (Eq. (26)) and $|Z_T|$ its transimpedance at the tone (Eq. (9)).
 
 *Small signal.* For the same small tone, the TIA's signal-to-noise ratio exceeds the chain's by the ratio of the band noises, $A = 20\log_{10}(i_{n,B,50}/i_{n,B})$, with $i_{n,B,50} = \sqrt{(S_{50} + 2qI_{\mathrm{DC}})B}$ for the chain and $i_{n,B}$ for the TIA. Both carry the same shot noise, so $A$ is positive whenever the TIA's own band noise is below the chain's, $\int_0^B S_{i,0}\,df < S_{50}B$, which for NF = 2 dB means less than 22.85 pA/√Hz on average over the band. $A$ shrinks toward zero as the photocurrent grows and the shared shot noise takes over; Section 6.8 shows that every design we carry forward keeps a positive $A$ at every photocurrent. The receiver of Section 1.1, a small RF signal on 0.1–10 mA, is in this regime.
 
@@ -204,11 +204,11 @@ $$
 
 which tends to $R_FI_{\mathrm{DC}}$ at high photocurrent, where $A \to 0$. At 2 kΩ and 10 mA that limit is $R_FI_{\mathrm{DC}}$ = 20 V; Section 6.8 evaluates Eq. (6) for each leading design and sets it against the design's output amplitude.
 
-Section 3.3 applies these three comparisons to the design example of Chapter 3, Section 6.8 to every leading design, and Section 9.4 collects the outcome; Chapter 7 asks what it takes to raise a TIA's ceiling.
+Section 4.8 applies these three comparisons to the two design examples of Chapter 4, Section 6.8 to every leading design, and Section 9.4 collects the outcome; Chapter 7 asks what it takes to raise a TIA's ceiling.
 
 ### 2.2 How the list of op-amp candidates was built
 
-The inverting op-amp TIA of Figure 1 is the front end this note designs, so the list of amplifiers we analyse decides what the comparisons of Chapter 6 can find. We built it in three steps, from six parts known at the start, through a search across manufacturers, to a selection rule aimed at the four equations of Section 3.1. This section gives each step with the parts it kept and removed.
+The inverting op-amp TIA of Figure 1 is the front end this note designs, so the list of amplifiers we analyse decides what the comparisons of Chapter 6 can find. We built it in three steps, from six parts known at the start, through a search across manufacturers, to a selection rule aimed at the four equations of Section 4.1. This section gives each step with the parts it kept and removed.
 
 **The starting list.** Six parts were on the list from the start of the study: OPA847, OPA846, OPA818, OPA855, OPA856 and ADA4899-1.
 
@@ -220,10 +220,10 @@ The inverting op-amp TIA of Figure 1 is the front end this note designs, so the 
 - STMicroelectronics;
 - onsemi, Microchip, Nisshinbo, ROHM, SGMICRO, Runic and Novosense.
 
-**Selection rule.** A voltage-feedback amplifier qualified by one of three routes, each aimed at a term of the four equations of Section 3.1.
-- A low-noise part qualified with a gain–bandwidth product (GBW) of at least about 800 MHz (at least 1 GHz if decompensated) and $e_n$ ≤ 3 nV/√Hz (bipolar) or ≤ 6 nV/√Hz (FET). By Eq. (9), 800 MHz gives $12.62\sqrt{800/(2\times2.35)}$ = 165 MHz at 2 kΩ on the 2.35 pF of the OPA855 design of Section 3.2, so a slower part misses 150 MHz even with an input capacitance as small as OPA855's.
-- A part with unusually low input capacitance qualified at a lower GBW, because a low capacitance lowers $C_{\mathrm{tot}}$ both in the bandwidth of Eq. (9) and in the $e_n$ term of Eq. (7).
-- A part with ±5 V of output swing qualified with a GBW of at least 500 MHz, because the dynamic range grows with the output amplitude (Eq. (10)).
+**Selection rule.** A voltage-feedback amplifier qualified by one of three routes, each aimed at a term of the four equations of Section 4.1.
+- A low-noise part qualified with a gain–bandwidth product (GBW) of at least about 800 MHz (at least 1 GHz if decompensated) and $e_n$ ≤ 3 nV/√Hz (bipolar) or ≤ 6 nV/√Hz (FET). By Eq. (35), 800 MHz gives $12.62\sqrt{800/(2\times2.35)}$ = 165 MHz at 2 kΩ on the 2.35 pF of the OPA855 design of Section 4.2, so a slower part misses 150 MHz even with an input capacitance as small as OPA855's.
+- A part with unusually low input capacitance qualified at a lower GBW, because a low capacitance lowers $C_{\mathrm{tot}}$ both in the bandwidth of Eq. (35) and in the $e_n$ term of Eq. (33).
+- A part with ±5 V of output swing qualified with a GBW of at least 500 MHz, because the dynamic range grows with the output amplitude (Eq. (36)).
 
 **Result.** 25 parts were analysed in full, with LMH6629 in two compensation settings, so 26 configurations; Table A2.3 groups them. Five of the analysed parts fall below the GBW floor of the first route: THS4271, AD8045 and ADA4817-1, with 400–410 MHz; ADA4899-1, one of the six starting parts, whose GBW is not specified (about 300–370 MHz derived); and OPA843, whose 800 MHz misses the 1-GHz floor for decompensated parts ($G_{\min}$ = 3). They were analysed all the same. The first four miss 150 MHz, as the floor predicts, and OPA843 reaches it only marginally (Section 6.2.1).
 
@@ -234,7 +234,7 @@ The inverting op-amp TIA of Figure 1 is the front end this note designs, so the 
 - too slow: OPA656, OPA659, THS4631, THS4031, OPA842, LMH6628, LTC6226/7, NJM2725, SGM8058x;
 - too noisy: NCS2551.
 
-**The landscape.** Figure 2 shows the analysed parts in the plane that matters first, input voltage noise against GBW. The marker size is proportional to input capacitance, which multiplies $e_n$ in the noise of Eq. (23).
+**The landscape.** Figure 2 shows the analysed parts in the plane that matters first, input voltage noise against GBW. The marker size is proportional to input capacitance, which multiplies $e_n$ in the noise of Eq. (19).
 
 ![Figure 2](figures/fig04_landscape_en_gbw.png)
 
@@ -242,7 +242,7 @@ The inverting op-amp TIA of Figure 1 is the front end this note designs, so the 
 
 ### 2.3 Parts with datasheets in hand that were not analysed
 
-Table A2.4 lists the parts whose datasheets we read but did not analyse in full, with the reason for each. OPA817, OPA814 and LMH6609 reach only 59–75 MHz at 2 kΩ, OPA699 about 140 MHz with 11 dB more noise than the 2-kΩ floor at 100 MHz, LTC6409 is a fully differential amplifier, and OPA857 and LMH32401 are integrated TIAs (Section 2.5). Where the datasheet gives no reason, we derive it with the bandwidth and noise equations of Section 3.1, Eqs. (9) and (7).
+Table A2.4 lists the parts whose datasheets we read but did not analyse in full, with the reason for each. OPA817, OPA814 and LMH6609 reach only 59–75 MHz at 2 kΩ, OPA699 about 140 MHz with 11 dB more noise than the 2-kΩ floor at 100 MHz, LTC6409 is a fully differential amplifier, and OPA857 and LMH32401 are integrated TIAs (Section 2.5). Where the datasheet gives no reason, we derive it with the bandwidth and noise equations of Section 4.1, Eqs. (35) and (33).
 
 ### 2.4 Candidates found in the market scan but not modelled
 
@@ -272,113 +272,28 @@ The DC photocurrent constrains every option. In the balanced pair only the imbal
 
 ---
 
-## 3. A design example: OPA855 at 2 kΩ
+## 3. TIA theory
 
-Before deriving anything, we lay out one design to see what the numbers look like. We take the most promising candidate, OPA855, a decompensated bipolar op amp with 8 GHz of gain–bandwidth product and about 1 nV/√Hz of input voltage noise, which Chapter 6 confirms as the best production part. The feedback resistor is 2 kΩ, and the photodiode pair puts 1 pF on the summing node. Four equations give the numbers: the input-referred noise, the noise of an instrument behind the TIA referred to the same photocurrent, the bandwidth of a maximally flat design together with the stability condition of a decompensated amplifier, and the shot-noise-limited dynamic range. Chapter 4 derives them. Here we write them in practical units, kΩ, pF, MHz, nV/√Hz and pA/√Hz, so that every number can be checked by hand. Section 3.2 puts this design's datasheet values into them, Section 3.3 compares the result with a plain 50-Ω termination, and Section 3.4 lists what the four equations cannot tell us.
+Before any design is laid out, this chapter derives the relations that every design in this note rests on, from the circuit of Figure 1: the transimpedance, the noise gain and the loop gain, the stability of a decompensated amplifier, the open-loop model that gives the phase margins, the noise and the definitions of dynamic range. It then checks the model where it can be checked without a simulator. Chapter 4 applies these relations to two designs and collects the four that give a first estimate in practical units. The derivation runs from the capacitance at the summing node (Section 3.1) through the feedback loop and its stability (Sections 3.2–3.5) to the noise (Sections 3.6–3.7) and the dynamic range (Section 3.8). The checks compare the model with the closed-loop and TIA data printed in the datasheets (Section 3.9) and with a bench measurement on an OPA846 board (Section 3.10). Symbols are defined where they first appear in each section.
 
-### 3.1 Four equations for a first estimate
-
-All four are derived in Chapter 4. Their symbols and units are these.
-- $R_F$ is the feedback resistor in kΩ.
-- $e_n$ (nV/√Hz) and $i_n$ (pA/√Hz) are the amplifier's input voltage and current noise densities.
-- $f$ is frequency in MHz.
-- $C_{\mathrm{tot}} = C_T + C_F$ in pF. $C_T$ is all capacitance from the inverting node to AC ground: the photodiodes, the board, and the amplifier's own input capacitance $C_{\mathrm{CM}} + C_{\mathrm{DIFF}}$. The datasheet gives these two separately. $C_{\mathrm{CM}}$ is the capacitance of the inverting input to ground, and $C_{\mathrm{DIFF}}$ the capacitance between the two inputs. Because the non-inverting input sits at a decoupled reference, an AC ground, $C_{\mathrm{DIFF}}$ also connects the inverting node to AC ground, so the two add (Eq. (11)). $C_F$ is the total feedback capacitance.
-- $I_{\mathrm{DC}}$ is the total DC photocurrent of the balanced pair, $I_1 + I_2$, in mA. It sets the shot noise; the DC that flows through $R_F$ is only the imbalance $I_1 - I_2$ (Section 1.2).
-
-**Input-referred noise current density** (Eq. (24)):
-
-$$
-i_{\mathrm{eq}}\,[\mathrm{pA}/\sqrt{\mathrm{Hz}}] = \sqrt{\frac{16.47}{R_F} + i_n^2 + \frac{e_n^2}{R_F^2} + \left(6.283\times10^{-3}\,e_n\,f\,C_{\mathrm{tot}}\right)^2 + 320.4\,I_{\mathrm{DC}}}
-\tag{7}
-$$
-
-**The instrument after the TIA, referred to the photocurrent** (Eq. (26)). An instrument of noise figure NF (in dB, referred to $k_BT$ at 25 °C) behind a 50-Ω series back-termination adds the input-referred noise current $i_{\mathrm{inst}}$, in power, to the TIA's $i_{\mathrm{eq}}$. The second form translates the TIA's own noise into the power density the instrument receives. Here $|Z_T|$ is the transimpedance magnitude in kΩ at the frequency considered; it equals $R_F$ in band.
-
-$$
-i_{\mathrm{inst}}\,[\mathrm{pA}/\sqrt{\mathrm{Hz}}] = \frac{0.907\times10^{\mathrm{NF}/20}}{|Z_T|[\mathrm{k\Omega}]},
-\qquad
-P_n\,[\mathrm{dBm/Hz}] = -173.0 + 20\log_{10}\!\left(i_{\mathrm{eq}}[\mathrm{pA}/\sqrt{\mathrm{Hz}}]\cdot|Z_T|[\mathrm{k\Omega}]\right)
-\tag{8}
-$$
-
-**Bandwidth of a maximally flat design and the minimum source capacitance of a decompensated amplifier** (Eqs. (19) and (20)). GBW is the gain–bandwidth product in MHz and $G_{\min}$ the manufacturer's minimum stable gain. The first form holds for an amplifier with one dominant pole. The second is a necessary condition only: OPA818 and OPA847 satisfy it and still have too little phase margin (Section 6.2.6).
-
-$$
-f_{-3\,\mathrm{dB}}\,[\mathrm{MHz}] = 12.62\sqrt{\frac{\mathrm{GBW}}{R_F\,C_{\mathrm{tot}}}},
-\qquad
-C_{T,\min}\,[\mathrm{pF}] = 318.3\,\frac{(G_{\min}-1)^2}{R_F\,\mathrm{GBW}}
-\tag{9}
-$$
-
-**Shot-noise-limited dynamic range** in a noise bandwidth $B$ (MHz), for a full-scale tone of peak output voltage $V_{\mathrm{pk}}$ (V), valid where the shot noise dominates the band noise and $|Z_T| = R_F$ at the tone, in practice from $I_{\mathrm{DC}}$ = 1 mA up (Eq. (33)):
-
-$$
-\mathrm{DR}_{\mathrm{shot}}\,[\mathrm{dB}] = 91.9 + 20\log_{10}\frac{V_{\mathrm{pk}}}{R_F\sqrt{I_{\mathrm{DC}}\,B}}
-\tag{10}
-$$
-
-### 3.2 Laying out the design for OPA855 at 2 kΩ
-
-Table 3.1 lists the values that go into the four equations for this case, each with its datasheet source. Three results below come from the numerical model of Section 4.5, which evaluates Eq. (13) with the open-loop curve digitized from the datasheet: the transimpedance at 100 MHz (1.996 kΩ), the bandwidth and phase margin of the flat design (557 MHz, 58°) and the full dynamic range (67.6 dB, Table A6.29).
-
-*Table 3.1. The values that go into Eqs. (7)–(10) for this design. Amplifier: OPA855, $R_F$ = 2 kΩ.*
-
-| Quantity | Value | Source |
-|---|---|---|
-| $e_n$ | 0.99 nV/√Hz (white level, flat to 97 MHz) | OPA855 datasheet Fig 6-11, p9 (table: 0.98 nV/√Hz TYP at 1 MHz, p6) |
-| $i_n$ | 2.6 pA/√Hz (white level) | Fig 6-11, p9 (table: 2.5 pA/√Hz TYP at 1 MHz, p6) |
-| $C_T$ | 1.0 + 0.35 + 0.6 + 0.2 = 2.15 pF | photodiode, PCB, $C_{\mathrm{CM}}$, $C_{\mathrm{DIFF}}$ (p6 EC) |
-| $C_F$ | 0.20 pF: the flat design needs 0.19 pF, below the parasitic floor of Table 1.1, so no discrete capacitor is fitted | Table A6.5 |
-| GBW, $G_{\min}$ | 8000 MHz, 7 V/V | p6 EC, p25 |
-| $V_{\mathrm{pk}}$ | (4.10 − 1.05)/2 = 1.525 V (output swing, 5 V, 200 Ω) | p7 EC |
-| $f$, $B$ | 100 MHz, 150 MHz | design specification |
-
-**The numbers.**
-- Eq. (7) at 100 MHz with $I_{\mathrm{DC}} = 0$: $\sqrt{16.47/2 + 2.6^2 + 0.99^2/2^2 + (6.283\times10^{-3}\times0.99\times100\times2.35)^2} = \sqrt{8.24 + 6.76 + 0.25 + 2.14} = 4.17$ pA/√Hz. This is 3.2 dB above the 2.87 pA/√Hz of the resistor alone. The numerical model gives the same 4.17 pA/√Hz (Table A6.15).
-- Eq. (7) with $I_{\mathrm{DC}}$ = 1 mA: the extra 320.4 pA²/Hz gives 18.38 pA/√Hz, only 0.23 dB above the 17.90 pA/√Hz of shot noise alone.
-- Eq. (8): with $|Z_T|$ = 1.996 kΩ at 100 MHz, an instrument of 10 dB noise figure adds $0.907\times10^{0.5}/1.996$ = **1.44 pA/√Hz** referred to the photocurrent. Against the 4.17 pA/√Hz of the dark TIA that is $10\log_{10}(1 + 1.44^2/4.17^2)$ = 0.49 dB; against the 18.38 pA/√Hz at 1 mA it is 0.03 dB. In output terms the dark TIA delivers −173.0 + 20 log₁₀(4.17 × 1.996) = −154.6 dBm/Hz to the instrument.
-- Eq. (9), bandwidth: 12.62 √(8000/(2 × 2.35)) = 521 MHz. The numerical model gives 557 MHz at 58° of phase margin at the same $C_F$ (Table A6.5).
-- Eq. (9), minimum source capacitance: 318.3 × 6²/(2 × 8000) = 0.72 pF, well below the 2.15 pF present. The same check gives 2.12 pF for OPA818 (3.75 pF present) and 4.94 pF for OPA847 (5.05 pF present); both pass, and both still have too little phase margin (Section 3.1).
-- Eq. (10) with $I_{\mathrm{DC}}$ = 10 mA: 91.9 + 20 log₁₀(1.525/(2 × √(10 × 150))) = 91.9 − 34.1 = **57.8 dB**. At 1 mA the same equation gives 67.8 dB, and the full calculation, which includes the amplifier noise, gives 67.6 dB (Table A6.29). With 10 mA in each diode ($I_{\mathrm{DC}}$ = 20 mA) it gives 91.9 + 20 log₁₀(1.525/(2 × √(20 × 150))) = **54.8 dB**.
-
-### 3.3 How the design compares with a plain 50-Ω termination
-
-We now set this design against the 50-Ω benchmark of Section 2.1, with a 2-dB noise figure, using the spot values of Eq. (7) at 100 MHz.
-
-**Noise.** The dark TIA's 4.17 pA/√Hz at 100 MHz is $20\log_{10}(22.85/4.17)$ = 14.8 dB below the chain's 22.85 pA/√Hz (Eq. (1)); integrated over the band, the measure $A$ of Section 2.1, the lead is 15.0 dB with the vendor's macromodel (Section 6.8). With photocurrent the shot noise is common to both. At $I_{\mathrm{DC}}$ = 1 mA it is 17.90 pA/√Hz: the TIA gives 18.38 pA/√Hz and the chain $\sqrt{22.85^2 + 17.90^2}$ = 29.03 pA/√Hz, so the TIA still leads by $20\log_{10}(29.03/18.38)$ = 4.0 dB. At 10 mA the shot noise is 56.61 pA/√Hz, the TIA gives 56.76 pA/√Hz and the chain $\sqrt{22.85^2 + 56.61^2}$ = 61.05 pA/√Hz, a lead of 0.63 dB. For a small RF signal on the DC, as in the receiver of Section 1.1, the TIA therefore wins at every photocurrent, by an amount that shrinks as the shot noise takes over.
-
-**Ceiling.** The design's largest tone at 100 MHz is $V_{\mathrm{pk}}/(\sqrt2\,|Z_T|)$ = 1.525 V/(√2 × 1.996 kΩ) = 0.540 mA rms. A chain reaches the same current when it compresses at $P_{\mathrm{eq}} = (R_0/4)I_{\max}^2$ = 12.5 Ω × (0.540 mA)² = 3.65 µW, i.e. −24.4 dBm (Eq. (5)). A low-noise amplifier that compresses at −10 dBm has a ceiling 14.4 dB higher.
-
-**Dynamic range.** At 1 mA the design has the 67.6 dB found in Section 3.2. The chain that compresses at −10 dBm has 78.0 dB (Table A2.2), 10.4 dB more, but only for a tone of 2.83 mA rms, which the light cannot supply: at 1 mA the largest tone is 0.71 mA rms (Eq. (32)). On that tone the chain's dynamic range is 66.0 dB, 1.6 dB below the TIA's, although the light already exceeds the TIA's ceiling. From $I_{\mathrm{DC}} = \sqrt2\times0.540$ mA = 0.76 mA up, the TIA's largest tone stays at 0.54 mA rms while the chain's grows with the light, and from about 1.2 mA up the chain's larger tone outweighs the TIA's lower noise (Section 6.8).
-
-### 3.4 What the four equations cannot tell us
-
-This first design answers the easy questions and leaves the harder ones open. Its noise is within 0.23 dB of the shot noise at 1 mA, so at the planned photocurrents the amplifier's noise matters only near 0.1 mA and at the top of the band. Its 1.525-V output amplitude, not its noise, sets the dynamic range from a few tens of microamperes up (31–63 µA for the 5-V parts, Eq. (51) of Section 6.6.3). Its stability rests on a feedback capacitance of 0.15–0.36 pF (the $C_F$ window of Section 6.2.4; the vendor's macromodel narrows it to 0.157–0.300 pF, Section 5.5) that the parasitics of the resistor and its pads largely set, and Eq. (9) gives a bandwidth but no phase margin: for a decompensated amplifier near its minimum stable gain, the phase margin depends on the amplifier's higher poles. Chapter 4 therefore derives the equations with their assumptions and builds the open-loop model that gives the phase margins, Chapter 5 checks that model against the manufacturers' SPICE macromodels, and Chapter 6 applies both to every candidate.
-
----
-
-## 4. TIA theory
-
-The design example of Chapter 3 used four equations without proof. This chapter derives them from the circuit of Figure 1, together with the open-loop model that gives the phase margins and the definitions of dynamic range, and then checks the model where it can be checked without a simulator. The derivation runs from the capacitance at the summing node (Section 4.1) through the feedback loop and its stability (Sections 4.2–4.5) to the noise (Sections 4.6–4.7) and the dynamic range (Section 4.8). The checks compare the model with the closed-loop and TIA data printed in the datasheets (Section 4.9) and with a bench measurement on an OPA846 board (Section 4.10). Symbols are defined where they first appear in each section.
-
-### 4.1 Total input capacitance
+### 3.1 Total input capacitance
 
 The stability, the bandwidth and the noise derived below all depend on the capacitance from the inverting node to AC ground, which sets the noise gain and multiplies $e_n$ in the noise. All capacitance between the inverting node and AC ground adds. The non-inverting input sits at a decoupled reference, so the differential input capacitance $C_{\mathrm{DIFF}}$ also connects the inverting node to AC ground:
 
 $$
 C_T = C_D + C_{\mathrm{PCB}} + C_{\mathrm{CM}} + C_{\mathrm{DIFF}}
-\tag{11}
+\tag{7}
 $$
 
 Here $C_D = C_{D,A} + C_{D,B}$ is the capacitance of both photodiodes, $C_{\mathrm{PCB}}$ the pad and trace capacitance at the inverting node, $C_{\mathrm{CM}}$ the datasheet common-mode capacitance of one input to ground and $C_{\mathrm{DIFF}}$ the capacitance between the two inputs. TI's application report SBOA122 uses the same sum for its "source capacitance" [A1], as do the OPA818 (p20, Fig 8-3) and LMH6629 (p28) datasheets.
 
-### 4.2 Transimpedance, noise gain and loop gain
+### 3.2 Transimpedance, noise gain and loop gain
 
 Three functions describe the TIA: its transimpedance, which turns the photocurrent into a voltage; its noise gain, which acts on the amplifier's voltage noise; and its loop gain, which decides whether it is stable. The feedback network is $R_F$ in parallel with the total feedback capacitance $C_F$:
 
 $$
 Z_F(s) = \frac{R_F}{1 + sR_FC_F}
-\tag{12}
+\tag{8}
 $$
 
 where $s=j2\pi f$ is the complex frequency.
@@ -387,7 +302,7 @@ Kirchhoff's current law at the inverting node, with node voltage $v_-$ and outpu
 
 $$
 Z_T(s) \equiv \frac{v_o}{i_{\mathrm{ph}}} = -\,\frac{Z_F(s)}{1 + \dfrac{1 + sC_TZ_F(s)}{A(s)}} = -\,Z_F(s)\,\frac{T(s)}{1+T(s)}
-\tag{13}
+\tag{9}
 $$
 
 with the noise gain $NG(s)$ and the loop gain $T(s)$ defined as
@@ -396,35 +311,35 @@ $$
 NG(s) = 1 + sC_TZ_F(s) = \frac{1 + sR_F\,(C_T + C_F)}{1 + sR_FC_F},
 \qquad
 T(s) = \frac{A(s)}{NG(s)}.
-\tag{14}
+\tag{10}
 $$
 
 The noise gain is the closed-loop gain seen by the amplifier's own input voltage noise. It has a zero at $f_z = 1/[2\pi R_F(C_T+C_F)]$, a pole at $f_p = 1/(2\pi R_FC_F)$, and the high-frequency asymptote
 
 $$
 NG_\infty = 1 + \frac{C_T}{C_F}.
-\tag{15}
+\tag{11}
 $$
 
-The loop crosses over at the frequency $f_c$ where $|A(j2\pi f_c)| = |NG(j2\pi f_c)|$, and the phase margin is $\phi_M = 180^\circ + \angle T(j2\pi f_c)$. Two consequences matter for the design. In band, where $|T| \gg 1$, $Z_T \approx -Z_F$, so $R_F$ and $C_F$ alone set the gain. Near crossover $T/(1+T)$ peaks when the margin is small, while $Z_F$ is already rolling off, so a flat $|Z_T|$ does not prove an adequate margin (Section 5.2, Figure 11).
+The loop crosses over at the frequency $f_c$ where $|A(j2\pi f_c)| = |NG(j2\pi f_c)|$, and the phase margin is $\phi_M = 180^\circ + \angle T(j2\pi f_c)$. Two consequences matter for the design. In band, where $|T| \gg 1$, $Z_T \approx -Z_F$, so $R_F$ and $C_F$ alone set the gain. Near crossover $T/(1+T)$ peaks when the margin is small, while $Z_F$ is already rolling off, so a flat $|Z_T|$ does not prove an adequate margin (Section 5.2, Figure 17).
 
-### 4.3 A flat (Butterworth) response with a single-pole amplifier
+### 3.3 A flat (Butterworth) response with a single-pole amplifier
 
-With $R_F$ fixed by the specification, the feedback capacitance $C_F$ is the one value left to choose, and it decides both how flat the response is and how far it extends. For an amplifier with a single pole the loop can be solved exactly, and the solution gives the $C_F$ of a maximally flat response and the bandwidth it reaches. These are the formulas behind Eq. (9) of Chapter 3 and the starting point of every design in Chapter 6. Above its dominant pole a compensated amplifier behaves as $A(s)=\omega_A/s$, with $\omega_A = 2\pi\,\mathrm{GBW}$ and GBW the gain–bandwidth product in hertz. Substituting this and Eq. (12) into Eq. (13):
+With $R_F$ fixed by the specification, the feedback capacitance $C_F$ is the one value left to choose, and it decides both how flat the response is and how far it extends. For an amplifier with a single pole the loop can be solved exactly, and the solution gives the $C_F$ of a maximally flat response and the bandwidth it reaches. These are the formulas behind the bandwidth estimate of Eq. (35), with which Chapter 4 lays out its two designs, and the starting point of every design in Chapter 6. Above its dominant pole a compensated amplifier behaves as $A(s)=\omega_A/s$, with $\omega_A = 2\pi\,\mathrm{GBW}$ and GBW the gain–bandwidth product in hertz. Substituting this and Eq. (8) into Eq. (9):
 
 $$
 Z_T(s) = \frac{-R_F}{1 + s\left(R_FC_F + \dfrac{1}{\omega_A}\right) + s^2\,\dfrac{R_F(C_T+C_F)}{\omega_A}}.
-\tag{16}
+\tag{12}
 $$
 
 This is a second-order low-pass. Comparing it with $1/(1 + s/(Q\omega_0) + s^2/\omega_0^2)$ gives the natural frequency $\omega_0$ and quality factor $Q$:
 
 $$
 \omega_0 = \sqrt{\frac{\omega_A}{R_F\,(C_T+C_F)}}, \qquad \frac{1}{Q\,\omega_0} = R_FC_F + \frac{1}{\omega_A}.
-\tag{17}
+\tag{13}
 $$
 
-A maximally flat (Butterworth) response has $Q = 1/\sqrt{2}$, and its −3-dB frequency equals $\omega_0/2\pi$. Setting $Q=1/\sqrt2$ in Eq. (17), squaring and cancelling the common term $2R_FC_F/\omega_A$:
+A maximally flat (Butterworth) response has $Q = 1/\sqrt{2}$, and its −3-dB frequency equals $\omega_0/2\pi$. Setting $Q=1/\sqrt2$ in Eq. (13), squaring and cancelling the common term $2R_FC_F/\omega_A$:
 
 $$
 \left(R_FC_F\right)^2 = \frac{2R_FC_T}{\omega_A} - \frac{1}{\omega_A^2}
@@ -432,38 +347,38 @@ $$
 C_F \simeq \sqrt{\frac{2\,C_T}{2\pi R_F\,\mathrm{GBW}}},
 \qquad
 f_{-3\,\mathrm{dB}} = \sqrt{\frac{\mathrm{GBW}}{2\pi R_F\,(C_T + C_F)}}.
-\tag{18}
+\tag{14}
 $$
 
 The approximation drops $1/\omega_A^2$, which is valid when $R_FC_T\omega_A \gg 1$; for 2 kΩ, 2.5 pF and 1.6 GHz this product is 50. Two comparisons with TI's forms:
 - The bandwidth expression is TI's Eq. (12) in SBOA122 [A1] with $C_F$ kept in the sum.
 - The $C_F$ expression is TI's $C_F = 1/(2\pi\cdot0.707\,R_Ff_{-3\,\mathrm{dB}})$ written differently [A2].
 
-TI's datasheet "TIA bandwidth" curves use $f_{-3\,\mathrm{dB}} = \sqrt{\mathrm{GBW}/(2\pi R_F C_{\mathrm{TOT}})}$ with $C_F$ and the PCB capacitance left out of $C_{\mathrm{TOT}}$ (Section 4.9). That omission makes them 10–15 % more optimistic than Eq. (18) at 2 kΩ.
+TI's datasheet "TIA bandwidth" curves use $f_{-3\,\mathrm{dB}} = \sqrt{\mathrm{GBW}/(2\pi R_F C_{\mathrm{TOT}})}$ with $C_F$ and the PCB capacitance left out of $C_{\mathrm{TOT}}$ (Section 3.9). That omission makes them 10–15 % more optimistic than Eq. (14) at 2 kΩ.
 
-**In practical units.** With GBW in MHz, $R_F$ in kΩ and capacitances in pF, Eq. (18) becomes the form used in Chapter 3:
+**In practical units.** With GBW in MHz, $R_F$ in kΩ and capacitances in pF, Eq. (14) becomes the form that Chapter 4 uses (Eq. (35)):
 
 $$
 f_{-3\,\mathrm{dB}}\,[\mathrm{MHz}] = 12.62\sqrt{\frac{\mathrm{GBW}[\mathrm{MHz}]}{R_F[\mathrm{k\Omega}]\;C_{\mathrm{tot}}[\mathrm{pF}]}},
 \qquad
 C_F\,[\mathrm{pF}] = 17.84\sqrt{\frac{C_T[\mathrm{pF}]}{R_F[\mathrm{k\Omega}]\;\mathrm{GBW}[\mathrm{MHz}]}},
-\tag{19}
+\tag{15}
 $$
 
 where $C_{\mathrm{tot}} = C_T + C_F$. The constants are $12.62 = \sqrt{10^6/(2\pi\cdot10^3\cdot10^{-12})}/10^6$ and $17.84 = 10^{12}\sqrt{2\cdot10^{-12}/(2\pi\cdot10^3\cdot10^6)}$.
 
 *Example.* Take a unity-gain-stable amplifier with GBW = 1600 MHz, $R_F$ = 2 kΩ and $C_T$ = 2.5 pF.
-- It needs $C_F = 17.84\sqrt{2.5/(2\times1600)} = 0.499$ pF; the exact Eq. (18) gives 0.496 pF.
+- It needs $C_F = 17.84\sqrt{2.5/(2\times1600)} = 0.499$ pF; the exact Eq. (14) gives 0.496 pF.
 - It reaches $f_{-3\,\mathrm{dB}} = 12.62\sqrt{1600/(2\times2.996)} = 206$ MHz.
-- The numerical model of Section 4.5, used in Sections 6.2–6.4, reproduces 206.1 MHz, zero peaking and a phase margin of 66.9° for this case.
+- The numerical model of Section 3.5, used in Sections 6.2–6.4, reproduces 206.1 MHz, zero peaking and a phase margin of 66.9° for this case.
 
-**Trading flatness for bandwidth.** Reducing $C_F$ below the Butterworth value raises the bandwidth at the cost of peaking. For the single-pole amplifier the model gives Table A4.1: 1 dB of peaking yields 1.28 times the Butterworth bandwidth with 0.69 of its $C_F$ and 54.3° of phase margin, and 3 dB yields 1.46 times at 41.8°.
+**Trading flatness for bandwidth.** Reducing $C_F$ below the Butterworth value raises the bandwidth at the cost of peaking. For the single-pole amplifier the model gives Table A3.1: 1 dB of peaking yields 1.28 times the Butterworth bandwidth with 0.69 of its $C_F$ and 54.3° of phase margin, and 3 dB yields 1.46 times at 41.8°.
 
 The frequently quoted rule $C_F = \sqrt{C_T/(2\pi R_F\,\mathrm{GBW})}$ (for example AN-1803 [A5]) is the Butterworth value divided by $\sqrt2$. In this model it gives 0.89 dB of peaking and 55° of phase margin, not the 45° stated there.
 
-### 4.4 When a decompensated amplifier is stable in a TIA
+### 3.4 When a decompensated amplifier is stable in a TIA
 
-Most of the parts with sub-nanovolt $e_n$ are decompensated: their internal compensation is lighter than that of a unity-gain-stable part, which buys gain–bandwidth but leaves them stable only at closed-loop gains of at least a minimum $G_{\min}$. Whether such a part can serve a 2-kΩ TIA on a 1-pF photodiode is the first question the comparison of Chapter 6 asks. This section derives the answer: a condition on the capacitance at the summing node, Eq. (20), and a split of the phase margin into the amplifier's own share and the share the feedback network takes, Eq. (21).
+Most of the parts with sub-nanovolt $e_n$ are decompensated: their internal compensation is lighter than that of a unity-gain-stable part, which buys gain–bandwidth but leaves them stable only at closed-loop gains of at least a minimum $G_{\min}$. Whether such a part can serve a 2-kΩ TIA on a 1-pF photodiode is the first question the comparison of Chapter 6 asks. This section derives the answer: a condition on the capacitance at the summing node, Eq. (16), and a split of the phase margin into the amplifier's own share and the share the feedback network takes, Eq. (17).
 
 **The stability condition.** A decompensated amplifier is stable only when the loop crosses over at an open-loop gain of at least its minimum stable gain $G_{\min}$. Below that gain, the amplifier's second pole has already removed too much phase.
 - In a resistive-feedback stage the loop crosses where $|A| = 1 + R_2/R_1$.
@@ -471,40 +386,40 @@ Most of the parts with sub-nanovolt $e_n$ are decompensated: their internal comp
 
 TI makes the same point: the minimum gain matters only where the open-loop gain and the noise gain intersect [A6].
 
-**A necessary condition on $C_T$.** The asymptote $NG_\infty$ of Eq. (15) overstates $|NG(f_c)|$, because crossover happens before the noise gain has flattened. In the single-pole Butterworth example of Section 4.3, $|NG(f_c)| = 5.34$ while $NG_\infty = 6.04$, a ratio of 0.885.
+**A necessary condition on $C_T$.** The asymptote $NG_\infty$ of Eq. (11) overstates $|NG(f_c)|$, because crossover happens before the noise gain has flattened. In the single-pole Butterworth example of Section 3.3, $|NG(f_c)| = 5.34$ while $NG_\infty = 6.04$, a ratio of 0.885.
 
-Insert the Butterworth $C_F$ of Eq. (18) into Eq. (15), which gives $C_T/C_F = \sqrt{\pi R_F\,\mathrm{GBW}\,C_T}$, and demand $NG_\infty \ge G_{\min}$:
+Insert the Butterworth $C_F$ of Eq. (14) into Eq. (11), which gives $C_T/C_F = \sqrt{\pi R_F\,\mathrm{GBW}\,C_T}$, and demand $NG_\infty \ge G_{\min}$:
 
 $$
 C_T \;\ge\; C_{T,\min} = \frac{2\,(G_{\min}-1)^2}{2\pi R_F\,\mathrm{GBW}},
 \qquad
 C_{T,\min}\,[\mathrm{pF}] = 318.3\,\frac{(G_{\min}-1)^2}{R_F[\mathrm{k\Omega}]\;\mathrm{GBW}[\mathrm{MHz}]}.
-\tag{20}
+\tag{16}
 $$
 
 A decompensated amplifier on a source whose total capacitance is below $C_{T,\min}$ cannot have both a flat response and enough noise gain at crossover. The designer must then do one of three things:
 - accept peaking (smaller $C_F$, larger $NG_\infty$);
-- add capacitance at the input, which raises the $e_n$ noise (Section 4.6);
+- add capacitance at the input, which raises the $e_n$ noise (Section 3.6);
 - choose another amplifier.
 
 *Example.* A part with $G_{\min} = 12$ and GBW = 3900 MHz (OPA847) at $R_F$ = 2 kΩ needs $C_T \ge 318.3\times11^2/(2\times3900) = 4.94$ pF.
 
-**Where the phase margin goes.** Eq. (20) is necessary but not sufficient. Writing $T = A/NG$ splits the phase margin into a property of the amplifier and a property of the feedback network:
+**Where the phase margin goes.** Eq. (16) is necessary but not sufficient. Writing $T = A/NG$ splits the phase margin into a property of the amplifier and a property of the feedback network:
 
 $$
 \phi_M = \underbrace{\left[180^\circ + \angle A(j2\pi f_c)\right]}_{\phi_A(f_c)} \;-\; \angle NG(j2\pi f_c),
 \qquad
 \angle NG(j2\pi f) = \arctan\frac{f}{f_z} - \arctan\frac{f}{f_p}.
-\tag{21}
+\tag{17}
 $$
 
 *The first term.* $\phi_A(f_c)$ is the phase margin the same amplifier would have in a resistive stage whose noise gain equals $|A(f_c)|$. Datasheets quote it at $G_{\min}$; OPA818, for example, has about 50° at 7 V/V (p16).
 
 *The second term.* This is the phase lead of the TIA's noise gain. It is positive because the zero $f_z$ lies below the pole $f_p$, and it is subtracted.
 
-*Check on the single-pole example of Section 4.3.* The loop crosses at $f_c$ = 1600/5.34 = 300 MHz, with $f_z$ = 26.6 MHz and $f_p$ = 160 MHz. So $\angle NG = 84.9^\circ - 61.8^\circ = 23.1^\circ$ and $\phi_M = 90^\circ - 23.1^\circ = 66.9^\circ$, exactly the numerical result.
+*Check on the single-pole example of Section 3.3.* The loop crosses at $f_c$ = 1600/5.34 = 300 MHz, with $f_z$ = 26.6 MHz and $f_p$ = 160 MHz. So $\angle NG = 84.9^\circ - 61.8^\circ = 23.1^\circ$ and $\phi_M = 90^\circ - 23.1^\circ = 66.9^\circ$, exactly the numerical result.
 
-*What it means for decompensated parts.* At its minimum stable gain a decompensated amplifier typically has $\phi_A$ ≈ 50–55°; OPA855, with 62° stated and about 74° on its curve (Table A4.2), is the exception. The noise-gain lead then leaves little: in the OPA818 and OPA846 designs of Table A6.11, $\phi_A$ = 48.2–55.3° and $\angle NG$ = 14.1–23.5° leave $\phi_M$ = 31.6–34.5°. This is the mechanism behind the OPA818 and OPA846 results of Section 6.2.6.
+*What it means for decompensated parts.* At its minimum stable gain a decompensated amplifier typically has $\phi_A$ ≈ 50–55°; OPA855, with 62° stated and about 74° on its curve (Table A3.2), is the exception. The noise-gain lead then leaves little: in the OPA818 and OPA846 designs of Table A6.11, $\phi_A$ = 48.2–55.3° and $\angle NG$ = 14.1–23.5° leave $\phi_M$ = 31.6–34.5°. This is the mechanism behind the OPA818 and OPA846 results of Section 6.2.6.
 
 There are only two ways to raise the phase margin:
 - make the loop cross at a larger noise gain, where $\phi_A$ is larger. That needs more $C_T$, hence more noise, because lowering $C_F$ instead raises the noise-gain lead at least as much as $\phi_A$ (Table A6.11, Section 6.2.6);
@@ -512,9 +427,9 @@ There are only two ways to raise the phase margin:
 
 The alternative, accepting the low margin and equalizing the peaking, is examined in Section 6.2.8.
 
-### 4.5 The open-loop model behind every phase margin
+### 3.5 The open-loop model behind every phase margin
 
-The single-pole results of Section 4.3 ignore the higher poles that make a decompensated amplifier decompensated, and near its minimum stable gain those poles set the phase margin (Section 4.4). Every analytical phase margin in this note therefore rests on the amplifier's own open-loop data; this section says where those data come from and how far they can be trusted.
+The single-pole results of Section 3.3 ignore the higher poles that make a decompensated amplifier decompensated, and near its minimum stable gain those poles set the phase margin (Section 3.4). Every analytical phase margin in this note therefore rests on the amplifier's own open-loop data; this section says where those data come from and how far they can be trusted.
 
 **Primary model: the datasheet curve itself.** The open-loop gain (dB) and phase (degrees) were digitized from each datasheet's open-loop plot:
 - from the PDF vector paths where the plot is vector graphics, with an uncertainty of about ±0.2 dB and ±1°;
@@ -530,18 +445,18 @@ Phase conventions were normalised:
 
 $$
 A(s) = \frac{A_0\,e^{-s\tau}}{(1 + s/\omega_1)(1 + s/\omega_2)(1 + s/\omega_3)}
-\tag{22}
+\tag{18}
 $$
 
 to the same points, with $A_0$ the DC gain, $\omega_1$ the dominant pole, $\omega_{2,3}$ two higher poles and $\tau$ an excess-phase delay. Where the two models disagree the tables quote the interpolated one.
 
-**Calibrated variant.** Three TI datasheets state a phase margin or GBW in the text or table that disagrees with their own plotted curve (Table A4.2).
+**Calibrated variant.** Three TI datasheets state a phase margin or GBW in the text or table that disagrees with their own plotted curve (Table A3.2).
 
 For these parts a calibrated variant scales the curve's magnitude to the table GBW and adds the pure delay that reproduces the text phase margin at the stated gain. It is reported alongside the plotted curve (Section 6.2.3). For all three parts the vendors' macromodels side with the stated values rather than with the plotted curves (Section 5.4).
 
 **Constructed model.** LTC6268-10 has no usable open-loop curve, so it uses a two-pole model with 4 GHz GBW and an assumed 45° at gain 10.
 
-**How the loop is evaluated.** For every candidate and both feedback resistors, Eqs. (13)–(14) were evaluated with this open-loop model on 6000 logarithmically spaced points from 10 kHz to 50 GHz.
+**How the loop is evaluated.** For every candidate and both feedback resistors, Eqs. (9)–(10) were evaluated with this open-loop model on 6000 logarithmically spaced points from 10 kHz to 50 GHz.
 
 The loop metrics were taken as follows:
 - **Crossover** is the first downward crossing of $|T| = 1$, and the phase margin is read there.
@@ -556,9 +471,9 @@ The loop metrics were taken as follows:
 - Above the highest plotted frequency, about 1 GHz for most parts, the loop gain is the curve's last segment continued, so a gain margin or second crossing found there is only indicative; the upper limit of $C_F$ is therefore the manufacturers' minimum-gain rule (Section 6.2.4).
 - The curves give the gain from the non-inverting input, while the TIA drives the inverting one. Above 1 GHz the two differ, which with the loaded output impedance makes this method's gain margins 4–7 dB optimistic (Sections 5.3 and 5.9).
 
-TI's OPA858 reference design shows the size of the effect for a first-order estimate: the hand calculation predicted 55° of phase margin, and the vendor macromodel gave 45.9° at 267 MHz [A7]. Section 4.9 compares the model with every TIA response printed in the datasheets. Phase margins below about 50° should be read with the SPICE results of Chapter 5 where they cover the design, and as needing a measurement otherwise.
+TI's OPA858 reference design shows the size of the effect for a first-order estimate: the hand calculation predicted 55° of phase margin, and the vendor macromodel gave 45.9° at 267 MHz [A7]. Section 3.9 compares the model with every TIA response printed in the datasheets. Phase margins below about 50° should be read with the SPICE results of Chapter 5 where they cover the design, and as needing a measurement otherwise.
 
-### 4.6 Noise referred to the photocurrent
+### 3.6 Noise referred to the photocurrent
 
 The smallest RF photocurrent the TIA can resolve is set by its noise; referring every source to the photocurrent puts the TIA, the shot noise and the 50-Ω benchmark in the same units. Four independent sources are present in Figure 1:
 - the Johnson noise current of $R_F$, with power spectral density $4k_BT/R_F$, in parallel with $R_F$;
@@ -575,23 +490,23 @@ Dividing the output noise by the signal transfer function $Z_F\,T/(1+T)$ refers 
 $$
 S_i(f) = \frac{4k_BT}{R_F} + i_n^2 + e_n^2\left[\frac{1}{R_F^2} + \left(2\pi f\,C_{\mathrm{tot}}\right)^2\right] + 2qI_{\mathrm{DC}},
 \qquad C_{\mathrm{tot}} = C_T + C_F.
-\tag{23}
+\tag{19}
 $$
 
-Eq. (23) assumes that the amplifier's noise is represented by $e_n$ and $i_n$ at its inputs, as the datasheets give it, that $e_n$ acts on the whole of $C_{\mathrm{tot}}$, including the amplifier's own input capacitance, and that $e_n$ and $i_n$ are uncorrelated. Section 4.7 shows where the last two fail for FET inputs, and Section 5.3 finds that OPA846's macromodel drives only 2.28 pF of its 3.07 pF with its $e_n$.
+Eq. (19) assumes that the amplifier's noise is represented by $e_n$ and $i_n$ at its inputs, as the datasheets give it, that $e_n$ acts on the whole of $C_{\mathrm{tot}}$, including the amplifier's own input capacitance, and that $e_n$ and $i_n$ are uncorrelated. Section 3.7 shows where the last two fail for FET inputs, and Section 5.3 finds that OPA846's macromodel drives only 2.28 pF of its 3.07 pF with its $e_n$.
 
-Three features of Eq. (23) organise the whole comparison:
+Three features of Eq. (19) organise the whole comparison:
 - **The input-referred noise does not depend on the open-loop gain or on the phase margin.** Those enter only through $C_F$ and through the output noise, $v_o(f) = \sqrt{S_i(f)}\,|Z_T(f)|$, which carries any peaking.
 - **The $e_n$ term rises in proportion to $f\,C_{\mathrm{tot}}$.** At 100–200 MHz the product $e_n\,C_{\mathrm{tot}}$ matters, not $e_n$ alone. An amplifier's own input capacitance enters twice: once through the bandwidth and once through this term.
 - **The $i_n^2$ and $4k_BT/R_F$ terms are flat.** A bipolar amplifier's 2–3 pA/√Hz of base-current shot noise therefore competes directly with the 2.87 pA/√Hz of a 2-kΩ resistor. Section 6.3.1 shows that at 100 MHz this, not $e_n$, is the largest amplifier contribution in OPA855 and OPA856.
 
 A fifth source is the Johnson noise of the photodiodes' series resistance $R_{\mathrm{ser}}$. In each diode it drives a current of density $4k_BTR_{\mathrm{ser}}(2\pi fC)^2$ into the node, with $C$ that diode's capacitance, so for equal resistances the pair contributes $4k_BTR_{\mathrm{ser}}(2\pi f)^2(C_{D,A}^2 + C_{D,B}^2)$. It is left out of the tables because $R_{\mathrm{ser}}$ is not specified (Appendix C, item 6). With 20 Ω in front of the whole 1 pF it reaches, at 200 MHz, $1.647\times10^{-20}\ \mathrm{J}\times20\ \Omega\times(2\pi\times2\times10^{8}\ \mathrm{Hz}\times10^{-12}\ \mathrm{F})^2 = 5.20\times10^{-25}\ \mathrm{A^2/Hz}$, i.e. 0.72 pA/√Hz, which adds 0.27 dB to the 2-kΩ floor there. For the baseline pair, two 0.5-pF diodes with 20 Ω each, $C_{D,A}^2 + C_{D,B}^2 = C_D^2/2$, so the density is $0.72/\sqrt2$ = 0.51 pA/√Hz, which adds $10\log_{10}(1 + 0.51^2/2.87^2)$ = 0.14 dB.
 
-**In practical units.** With $i_n$ in pA/√Hz, $e_n$ in nV/√Hz, $f$ in MHz, $C_{\mathrm{tot}}$ in pF, $R_F$ in kΩ and $I_{\mathrm{DC}}$ in mA, Eq. (23) becomes Eq. (7) of Chapter 3:
+**In practical units.** With $i_n$ in pA/√Hz, $e_n$ in nV/√Hz, $f$ in MHz, $C_{\mathrm{tot}}$ in pF, $R_F$ in kΩ and $I_{\mathrm{DC}}$ in mA, Eq. (19) becomes the form that Chapter 4 collects as Eq. (33):
 
 $$
 i_{\mathrm{eq}}\,[\mathrm{pA}/\sqrt{\mathrm{Hz}}] = \sqrt{\frac{16.47}{R_F} + i_n^2 + \frac{e_n^2}{R_F^2} + \left(6.283\times10^{-3}\,e_n\,f\,C_{\mathrm{tot}}\right)^2 + 320.4\,I_{\mathrm{DC}}}.
-\tag{24}
+\tag{20}
 $$
 
 The constants:
@@ -599,15 +514,15 @@ The constants:
 - $2\pi\times10^{-9}\,\mathrm{V}\times10^{6}\,\mathrm{Hz}\times10^{-12}\,\mathrm{F} = 6.283\times10^{-15}$ A, i.e. $6.283\times10^{-3}$ pA.
 - $2q\times10^{-3}\,\mathrm{A} = 3.204\times10^{-22}$ A²/Hz, i.e. 320.4 pA²/Hz per mA.
 
-**Reference levels at 25 °C.** Table A4.3 lists the levels that follow from Eq. (24): the Johnson noise of both feedback resistors and of 50 Ω, the shot noise of the four photocurrents, and the crossover current derived next.
+**Reference levels at 25 °C.** Table A3.3 lists the levels that follow from Eq. (20): the Johnson noise of both feedback resistors and of 50 Ω, the shot noise of the four photocurrents, and the crossover current derived next.
 
 The crossover current follows from equating $2qI_x$ with $4k_BT/R_F$. With $k_BT/q = 25.69$ mV at 25 °C, $I_x = 2\times25.69\,\mathrm{mV}/2\,\mathrm{k\Omega} = 25.7$ µA.
 
-**Band-integrated noise.** Averaging the $f^2$ term of Eq. (23) over a brick-wall band from 0 to $B$ gives $\frac{1}{B}\int_0^B (2\pi f C_{\mathrm{tot}} e_n)^2\,df = (2\pi B\,C_{\mathrm{tot}}\,e_n)^2/3$. This is the capacitive-noise term of TI's Eq. (13) in SBOA122 [A1] (written there with $C_S$ in place of $C_{\mathrm{tot}}$). Band penalties in this note integrate Eq. (23) numerically over 10–150 MHz and 10–200 MHz:
+**Band-integrated noise.** Averaging the $f^2$ term of Eq. (19) over a brick-wall band from 0 to $B$ gives $\frac{1}{B}\int_0^B (2\pi f C_{\mathrm{tot}} e_n)^2\,df = (2\pi B\,C_{\mathrm{tot}}\,e_n)^2/3$. This is the capacitive-noise term of TI's Eq. (13) in SBOA122 [A1] (written there with $C_S$ in place of $C_{\mathrm{tot}}$). Band penalties in this note integrate Eq. (19) numerically over 10–150 MHz and 10–200 MHz:
 
 $$
 \Delta N_{[f_1,f_2]} = 10\log_{10}\frac{\int_{f_1}^{f_2} S_i(f)\,df}{\int_{f_1}^{f_2} 4k_BT/R_F\,df}.
-\tag{25}
+\tag{21}
 $$
 
 **Output noise, and the instrument referred to the photocurrent.** The output noise density is $v_o(f) = \sqrt{S_i(f)}\,|Z_T(f)|$. Divided by the in-band gain, $v_o/R_F$ is the output noise in input-referred units; it differs from $\sqrt{S_i}$ only by the factor $|Z_T|/R_F$, i.e. by the peaking and the roll-off. With a 50-Ω series back-termination driving a 50-Ω input, the instrument sees $v_o/2$.
@@ -618,22 +533,22 @@ $$
 i_{\mathrm{inst}} = \frac{2\sqrt{50\,\Omega\cdot Fk_BT}}{|Z_T|},
 \qquad
 P_n = 10\log_{10}\frac{(v_o/2)^2}{50\,\Omega\times1\,\mathrm{mW}} = -173.0 + 20\log_{10}\left(v_o[\mathrm{nV}/\sqrt{\mathrm{Hz}}]\right)\ \mathrm{dBm/Hz}.
-\tag{26}
+\tag{22}
 $$
 
-The constants are $2\sqrt{50\times1.381\times10^{-23}\times298.15}$ = 0.907 nV/√Hz, which gives the bench form $i_{\mathrm{inst}}$ [pA/√Hz] = $0.907\times10^{\mathrm{NF}/20}/|Z_T|$[kΩ], and $10\log_{10}[(10^{-9})^2/(4\times50\times10^{-3})] = 10\log_{10}(5\times10^{-18}) = -173.0$. Writing $v_o = i_{\mathrm{eq}}|Z_T|$, with pA/√Hz times kΩ giving nV/√Hz, yields Eq. (8). The instrument adds to the TIA in power, $\sqrt{i_{\mathrm{eq}}^2 + i_{\mathrm{inst}}^2}$.
+The constants are $2\sqrt{50\times1.381\times10^{-23}\times298.15}$ = 0.907 nV/√Hz, which gives the bench form $i_{\mathrm{inst}}$ [pA/√Hz] = $0.907\times10^{\mathrm{NF}/20}/|Z_T|$[kΩ], and $10\log_{10}[(10^{-9})^2/(4\times50\times10^{-3})] = 10\log_{10}(5\times10^{-18}) = -173.0$. Writing $v_o = i_{\mathrm{eq}}|Z_T|$, with pA/√Hz times kΩ giving nV/√Hz, yields Eq. (34). The instrument adds to the TIA in power, $\sqrt{i_{\mathrm{eq}}^2 + i_{\mathrm{inst}}^2}$.
 
-*Example.* For the 2-kΩ OPA855 design at 100 MHz, Section 3.2 finds that an instrument with a 10-dB noise figure adds 1.44 pA/√Hz, half the 2.87 pA/√Hz Johnson noise of $R_F$. In output terms, a 2-kΩ resistor alone delivers −157.8 dBm/Hz to the instrument, 16.0 dB above the −173.9 dBm/Hz ($k_BT$) of a matched 50-Ω source at 25 °C.
+*Example.* For the 2-kΩ OPA855 design of Section 4.2 at 100 MHz, an instrument with a 10-dB noise figure adds 1.44 pA/√Hz, half the 2.87 pA/√Hz Johnson noise of $R_F$. In output terms, a 2-kΩ resistor alone delivers −157.8 dBm/Hz to the instrument, 16.0 dB above the −173.9 dBm/Hz ($k_BT$) of a matched 50-Ω source at 25 °C.
 
-### 4.7 Current noise of FET-input amplifiers at high frequency
+### 3.7 Current noise of FET-input amplifiers at high frequency
 
-**Why it matters here.** The amplifier's input current noise $i_n$ adds directly to the noise of the photocurrent (Eq. (23)), and at $R_F$ = 2 kΩ it competes with the feedback resistor's own $\sqrt{4k_BT/R_F}$ = 2.87 pA/√Hz. A bipolar input carries the shot noise of its base current, which is flat with frequency: 2.6 pA/√Hz for OPA855 (Table 3.1). A FET input carries only the shot noise of its gate leakage, which at DC is about a femtoampere per root hertz; 5 pA of leakage, for example, gives $\sqrt{2qI}$ = 1.3 fA/√Hz. On paper, therefore, a FET input removes current noise from the budget, and only its voltage noise $e_n$ remains. At the frequencies of this receiver that is not certain. Several FET-input datasheets show current-noise curves that rise in proportion to frequency from 1–10 MHz up and reach picoamperes per root hertz near 100 MHz (Table A4.4), the same order as the resistor's noise. How much of that rise is real, and additional to what Eq. (23) already counts, decides how much of the FET parts' advantage survives at 100–200 MHz. The bipolar OPA955 also shows a rise, from 0.56 to 1.10 pA/√Hz at 100 MHz, an excess of 0.95 pA/√Hz in quadrature.
+**Why it matters here.** The amplifier's input current noise $i_n$ adds directly to the noise of the photocurrent (Eq. (19)), and at $R_F$ = 2 kΩ it competes with the feedback resistor's own $\sqrt{4k_BT/R_F}$ = 2.87 pA/√Hz. A bipolar input carries the shot noise of its base current, which is flat with frequency: 2.6 pA/√Hz for OPA855 (Table 4.1). A FET input carries only the shot noise of its gate leakage, which at DC is about a femtoampere per root hertz; 5 pA of leakage, for example, gives $\sqrt{2qI}$ = 1.3 fA/√Hz. On paper, therefore, a FET input removes current noise from the budget, and only its voltage noise $e_n$ remains. At the frequencies of this receiver that is not certain. Several FET-input datasheets show current-noise curves that rise in proportion to frequency from 1–10 MHz up and reach picoamperes per root hertz near 100 MHz (Table A3.4), the same order as the resistor's noise. How much of that rise is real, and additional to what Eq. (19) already counts, decides how much of the FET parts' advantage survives at 100–200 MHz. The bipolar OPA955 also shows a rise, from 0.56 to 1.10 pA/√Hz at 100 MHz, an excess of 0.95 pA/√Hz in quadrature.
 
 **Why the datasheets do not settle it.** Two mechanisms produce an input current proportional to frequency:
-- **The amplifier's own $e_n$ acting on its own input capacitance.** Eq. (23) already contains it, because $C_T$ includes $C_{\mathrm{CM}} + C_{\mathrm{DIFF}}$.
+- **The amplifier's own $e_n$ acting on its own input capacitance.** Eq. (19) already contains it, because $C_T$ includes $C_{\mathrm{CM}} + C_{\mathrm{DIFF}}$.
 - **The induced gate noise of the input transistor.** The channel's thermal noise couples capacitively to the gate, and is partly correlated with the drain noise that makes $e_n$.
 
-None of these datasheets says which mechanism its curve represents. Adding the curve to Eq. (23) may therefore count the first mechanism twice, and leaving it out may miss the second. We therefore do not pick one. We bound the current noise from below with a physical model of the input pair, take Eq. (23) as the central estimate, and bound it from above by adding the datasheet curve as an independent source. The tables of Chapter 6 give the central value with the upper bound in brackets; for the FET parts the two differ by 0.3–2.7 dB in band noise (Section 6.3).
+None of these datasheets says which mechanism its curve represents. Adding the curve to Eq. (19) may therefore count the first mechanism twice, and leaving it out may miss the second. We therefore do not pick one. We bound the current noise from below with a physical model of the input pair, take Eq. (19) as the central estimate, and bound it from above by adding the datasheet curve as an independent source. The tables of Chapter 6 give the central value with the upper bound in brackets; for the FET parts the two differ by 0.3–2.7 dB in band noise (Section 6.3).
 
 **A lower bound from the physics of the input pair.** Consider a FET differential pair: M1 has its gate on the inverting node, M2 on the reference, and the tail is ideal. Each transistor has
 - transconductance $g_m$ and gate–source capacitance $C_g$;
@@ -650,7 +565,7 @@ The derivation, step by step:
 $$
 S_{i,f^2}^{\mathrm{low}} = e_n^2\,\omega^2\left[C_{\mathrm{tot}}^2 - 0.25\,C_gC_{\mathrm{tot}} + 0.325\,C_g^2\right],
 \qquad C_g \approx 2\,C_{\mathrm{DIFF}},
-\tag{27}
+\tag{23}
 $$
 
 where $\omega = 2\pi f$. Where the terms come from:
@@ -658,15 +573,15 @@ where $\omega = 2\pi f$. Where the terms come from:
 - The term $-0.25\,C_gC_{\mathrm{tot}}$ is the rest of the correlation term, $-2\times0.395\times\sqrt{0.4}/2 = -0.25$.
 - $C_g \approx 2C_{\mathrm{DIFF}}$ because the two gate capacitances appear in series between the inputs.
 
-For every FET part in this note $C_g \ll C_{\mathrm{tot}}$. Eq. (27) then differs from the "central" $e_n^2\omega^2C_{\mathrm{tot}}^2$ of Eq. (23) by less than 0.2 dB; for OPA818, $C_g$ = 1.0 pF and $C_{\mathrm{tot}}$ = 4.24 pF give −0.18 dB.
+For every FET part in this note $C_g \ll C_{\mathrm{tot}}$. Eq. (23) then differs from the "central" $e_n^2\omega^2C_{\mathrm{tot}}^2$ of Eq. (19) by less than 0.2 dB; for OPA818, $C_g$ = 1.0 pF and $C_{\mathrm{tot}}$ = 4.24 pF give −0.18 dB.
 
 **The three estimates.**
 
 $$
-S_i^{\mathrm{low}} = \text{Eq. (23) with Eq. (27)},\qquad
-S_i^{\mathrm{central}} = \text{Eq. (23)},\qquad
-S_i^{\mathrm{high}} = \text{Eq. (23)} + \max\!\left[0,\;i_{n,\mathrm{curve}}^2(f) - i_{n,\mathrm{white}}^2\right]
-\tag{28}
+S_i^{\mathrm{low}} = \text{Eq. (19) with Eq. (23)},\qquad
+S_i^{\mathrm{central}} = \text{Eq. (19)},\qquad
+S_i^{\mathrm{high}} = \text{Eq. (19)} + \max\!\left[0,\;i_{n,\mathrm{curve}}^2(f) - i_{n,\mathrm{white}}^2\right]
+\tag{24}
 $$
 
 The high estimate adds the datasheet's rising curve as an independent source above 1 MHz, and continues its last slope beyond the plotted range. Here $i_{n,\mathrm{curve}}(f)$ is the datasheet's current-noise curve, $i_{n,\mathrm{white}}$ its flat level, and $C_{\mathrm{in}} = C_{\mathrm{CM}} + C_{\mathrm{DIFF}}$ the amplifier's own input capacitance. It is what Linear Technology does in its own LTC6268-10 TIA noise breakdown, where the current-noise curve is added separately (LTC6268-10 p13, Fig 2).
@@ -677,7 +592,7 @@ The high estimate is credible as an upper bound, not as a double count, wherever
 
 Tables give the central value with the high value in brackets. The low value differs from the central by less than 0.2 dB and is not tabulated. For the parts of Chapter 6 the high estimate lies 0.3–2.7 dB above the central one in band noise (Section 6.3), and OPA955, whose curve also rises, is treated the same way.
 
-### 4.8 How the dynamic range is defined
+### 3.8 How the dynamic range is defined
 
 Dynamic range is the priority of this receiver (Section 1.1), so its definition decides how Chapter 6 ranks the candidates. It is the largest RF photocurrent the TIA passes undistorted divided by its band noise. This section states the two limits on that photocurrent, the DC through $R_F$ and the RF swing, and then defines the dynamic range in its electronic and usable forms.
 
@@ -690,7 +605,7 @@ Here $\Delta I = I_1 - I_2$ is the DC through $R_F$: in the balanced pair the im
 
 $$
 I_{\mathrm{DC,max}} = \frac{1}{R_F}\max\left\{\min(V_{\mathrm{ICH}},V_{\mathrm{OH}}) - V_{\mathrm{OL}},\;\; V_{\mathrm{OH}} - \max(V_{\mathrm{ICL}},V_{\mathrm{OL}})\right\}.
-\tag{29}
+\tag{25}
 $$
 
 **Largest undistorted RF amplitude.** At a tone frequency $f_0$ the output amplitude is limited by the smallest of three quantities:
@@ -700,7 +615,7 @@ $$
 
 $$
 V_{\mathrm{pk}} = \min\left\{V_{\mathrm{sw}},\;\; \frac{\mathrm{SR}}{2\pi f_0},\;\; \frac{I_{\mathrm{out}}}{1/R_L + 1/R_F + 2\pi f_0C_F}\right\}.
-\tag{30}
+\tag{26}
 $$
 
 With the DC photocurrent removed (Chapter 8), $V_{\mathrm{sw}} = (V_{\mathrm{OH}} - V_{\mathrm{OL}})/2$ with the output centred. With DC coupling, $V_{\mathrm{sw}}$ is the smaller distance from the DC output level to either limit.
@@ -709,56 +624,56 @@ With the DC photocurrent removed (Chapter 8), $V_{\mathrm{sw}} = (V_{\mathrm{OH}
 
 $$
 \mathrm{DR}_B = 20\log_{10}\frac{V_{\mathrm{pk}}/\left(\sqrt2\,|Z_T(f_0)|\right)}{\sqrt{\int_0^B S_i(f)\,df}}.
-\tag{31}
+\tag{27}
 $$
 
 We use $B$ = 150 MHz and $f_0$ = 100 MHz. The same ratio in a 1-Hz bandwidth, $20\log_{10}[V_{\mathrm{pk}}/(\sqrt2|Z_T|)/\sqrt{S_i(f_0)}]$ in dB·Hz, is the carrier-to-noise density ratio. It is stored in `data/results/results.json` but not tabulated.
 
-**Electronic and usable dynamic range.** Eq. (31) counts the largest tone the electronics can pass and assumes that the light can supply it. We call it the electronic dynamic range, and every dynamic range in this note is of this kind unless it is called usable. The light sets a second ceiling. In the balanced pair the signal is the difference current $i_1(t) - i_2(t)$. If the two beams are modulated sinusoidally, $i_{1,2}(t) = I_{1,2}\left(1 \pm m_{1,2}\cos 2\pi f_0t\right)$ with modulation depths $m_{1,2} \le 1$, the tone's amplitude is $I_1m_1 + I_2m_2 \le I_1 + I_2 = I_{\mathrm{DC}}$. Balanced heterodyne detection meets the same bound: a local oscillator of power $P_{\mathrm{LO}}$ beating with a signal of power $P_S$ gives the amplitude $2\mathcal{R}\sqrt{P_{\mathrm{LO}}P_S} \le \mathcal{R}\left(P_{\mathrm{LO}} + P_S\right) = I_{\mathrm{DC}}$, with $\mathcal{R}$ the responsivity, and the two are equal only for equal powers. The largest tone the light can supply is therefore $I_{\mathrm{DC}}/\sqrt2$ rms, and the usable dynamic range is set by the smaller of the two ceilings, against the same noise:
+**Electronic and usable dynamic range.** Eq. (27) counts the largest tone the electronics can pass and assumes that the light can supply it. We call it the electronic dynamic range, and every dynamic range in this note is of this kind unless it is called usable. The light sets a second ceiling. In the balanced pair the signal is the difference current $i_1(t) - i_2(t)$. If the two beams are modulated sinusoidally, $i_{1,2}(t) = I_{1,2}\left(1 \pm m_{1,2}\cos 2\pi f_0t\right)$ with modulation depths $m_{1,2} \le 1$, the tone's amplitude is $I_1m_1 + I_2m_2 \le I_1 + I_2 = I_{\mathrm{DC}}$. Balanced heterodyne detection meets the same bound: a local oscillator of power $P_{\mathrm{LO}}$ beating with a signal of power $P_S$ gives the amplitude $2\mathcal{R}\sqrt{P_{\mathrm{LO}}P_S} \le \mathcal{R}\left(P_{\mathrm{LO}} + P_S\right) = I_{\mathrm{DC}}$, with $\mathcal{R}$ the responsivity, and the two are equal only for equal powers. The largest tone the light can supply is therefore $I_{\mathrm{DC}}/\sqrt2$ rms, and the usable dynamic range is set by the smaller of the two ceilings, against the same noise:
 
 $$
 I_{\mathrm{tone}} \le \frac{I_{\mathrm{DC}}}{\sqrt2},
 \qquad
 \mathrm{DR}_{B,\mathrm{usable}} = 20\log_{10}\frac{\min\!\left(I_{\max}(f_0),\; I_{\mathrm{DC}}/\sqrt2\right)}{i_{n,B}},
-\tag{32}
+\tag{28}
 $$
 
-with $I_{\max}(f_0) = V_{\mathrm{pk}}/(\sqrt2\,|Z_T(f_0)|)$ the numerator of Eq. (31) and $i_{n,B} = \sqrt{\int_0^B S_i(f)\,df}$ its denominator. In the dark the light supplies no tone at all. The two figures agree above $I_{\mathrm{DC}} = \sqrt2\,I_{\max}$, where the light could drive the TIA past its ceiling, and differ below it: for the OPA855 design of Section 3.3, whose ceiling is 0.540 mA rms, that is 0.76 mA. Below it the light, not the TIA, limits the largest tone, and a better amplifier gains only through lower noise. We use the usable figure where a front end with a much higher ceiling, the 50-Ω chain of Section 2.1, is compared with the TIAs (Sections 3.3 and 6.8).
+with $I_{\max}(f_0) = V_{\mathrm{pk}}/(\sqrt2\,|Z_T(f_0)|)$ the numerator of Eq. (27) and $i_{n,B} = \sqrt{\int_0^B S_i(f)\,df}$ its denominator. In the dark the light supplies no tone at all. The two figures agree above $I_{\mathrm{DC}} = \sqrt2\,I_{\max}$, where the light could drive the TIA past its ceiling, and differ below it: for the OPA855 design of Section 4.8, whose ceiling is 0.540 mA rms, that is 0.76 mA. Below it the light, not the TIA, limits the largest tone, and a better amplifier gains only through lower noise. We use the usable figure where a front end with a much higher ceiling, the 50-Ω chain of Section 2.1, is compared with the TIAs (Sections 4.8 and 6.8).
 
-**Shot-noise-limited form.** When $2qI_{\mathrm{DC}}$ dominates $S_i$ (in practice $I_{\mathrm{DC}} \ge 1$ mA), the denominator of Eq. (31) is $\sqrt{2qI_{\mathrm{DC}}B}$ and $|Z_T| = R_F$ in band. Then
+**Shot-noise-limited form.** When $2qI_{\mathrm{DC}}$ dominates $S_i$ (in practice $I_{\mathrm{DC}} \ge 1$ mA), the denominator of Eq. (27) is $\sqrt{2qI_{\mathrm{DC}}B}$ and $|Z_T| = R_F$ in band. Then
 
 $$
 \mathrm{DR}_{\mathrm{shot}} = 20\log_{10}\frac{V_{\mathrm{pk}}}{\sqrt2\,R_F\sqrt{2qI_{\mathrm{DC}}B}}
 = 91.9 + 20\log_{10}\frac{V_{\mathrm{pk}}[\mathrm{V}]}{R_F[\mathrm{k\Omega}]\sqrt{I_{\mathrm{DC}}[\mathrm{mA}]\,B[\mathrm{MHz}]}},
-\tag{33}
+\tag{29}
 $$
 
-which is Eq. (10). The constant is $-20\log_{10}\left(\sqrt2\times10^{3}\times\sqrt{3.204\times10^{-19}\times10^{-3}\times10^{6}}\right) = -20\log_{10}(2.531\times10^{-5}) = 91.9$ dB, where $10^3$ converts kΩ to Ω and $10^{-3}$ and $10^6$ convert mA and MHz.
+which is Eq. (36). The constant is $-20\log_{10}\left(\sqrt2\times10^{3}\times\sqrt{3.204\times10^{-19}\times10^{-3}\times10^{6}}\right) = -20\log_{10}(2.531\times10^{-5}) = 91.9$ dB, where $10^3$ converts kΩ to Ω and $10^{-3}$ and $10^6$ convert mA and MHz.
 
-Eq. (33) states the central trade of this design. Once the DC is removed and shot noise dominates, dynamic range grows only with the output amplitude $V_{\mathrm{pk}}$ and with a smaller $R_F$, by 6 dB per halving. In this regime a smaller $R_F$ costs no sensitivity, because the shot noise, not the resistor, sets the floor. It does cost loop stability with a decompensated amplifier, because a smaller $R_F$ lowers the noise gain at crossover (Section 6.2.2).
+Eq. (29) states the central trade of this design. Once the DC is removed and shot noise dominates, dynamic range grows only with the output amplitude $V_{\mathrm{pk}}$ and with a smaller $R_F$, by 6 dB per halving. In this regime a smaller $R_F$ costs no sensitivity, because the shot noise, not the resistor, sets the floor. It does cost loop stability with a decompensated amplifier, because a smaller $R_F$ lowers the noise gain at crossover (Section 6.2.2).
 
-**Noise added by a DC sink.** Eq. (33) presumes that the DC has been removed before $R_F$, and whatever removes it adds noise at the summing node. Removing $I_{\mathrm{DC}}$ through a resistor $R_s$ that drops $V_S = I_{\mathrm{DC}}R_s$ injects its Johnson noise $4k_BT/R_s$ into the node. Relative to the shot noise of the current it carries,
+**Noise added by a DC sink.** Eq. (29) presumes that the DC has been removed before $R_F$, and whatever removes it adds noise at the summing node. Removing $I_{\mathrm{DC}}$ through a resistor $R_s$ that drops $V_S = I_{\mathrm{DC}}R_s$ injects its Johnson noise $4k_BT/R_s$ into the node. Relative to the shot noise of the current it carries,
 
 $$
 \frac{S_{\mathrm{sink}}}{S_{\mathrm{shot}}} = \frac{4k_BT/R_s}{2qI_{\mathrm{DC}}} = \frac{2k_BT}{qV_S} = \frac{51.4\ \mathrm{mV}}{V_S},
-\tag{34}
+\tag{30}
 $$
 
 independent of the current. With $V_S$ = 5 V the sink adds 1.0 % (−19.9 dB) to the shot-noise power, i.e. 0.04 dB. The same holds for a bipolar or MOS current sink whose output noise is set by an emitter or source degeneration resistor dropping $V_S$. An undegenerated bipolar sink instead adds its own full collector shot noise and doubles the noise power (+3 dB). Sections 8.2–8.4 apply it to Options A–C. In the balanced pair a sink or servo has to carry only the imbalance, and its noise ratio shrinks by the fractional imbalance (Eq. (79)).
 
-### 4.9 What the datasheets say about the model
+### 3.9 What the datasheets say about the model
 
-Before the model's phase margins and bandwidths are used, it must reproduce the closed-loop and TIA data printed in the datasheets. Table A4.5 collects every such comparison. They test the loop and bandwidth part of the model, Sections 4.2–4.5; Section 4.10 tests the noise of Section 4.6 and the peaking together on one board.
+Before the model's phase margins and bandwidths are used, it must reproduce the closed-loop and TIA data printed in the datasheets. Table A3.5 collects every such comparison. They test the loop and bandwidth part of the model, Sections 3.2–3.5; Section 3.10 tests the noise of Section 3.6 and the peaking together on one board.
 
-**What Table A4.5 shows.** The model reproduces the datasheets' closed-loop data well enough to rank the amplifiers, within the limits below.
+**What Table A3.5 shows.** The model reproduces the datasheets' closed-loop data well enough to rank the amplifiers, within the limits below.
 - Where the datasheet shows a real or simulated TIA response, the model reproduces the bandwidth to within 5 %.
 - The resistive comparisons use $A/(1 + A/G)$ and so leave out the amplifier's input capacitance, which the TIA model includes in $C_T$. Without it, the model reproduces the phase margin at each decompensated part's minimum gain to within a few degrees, except OPA846, whose peaking it puts about 1 dB low. With it, the capacitance and the low gain-setting resistors form a pole at 1–3 GHz that costs 12–19° at these crossovers, and the OPA818 and OPA846 curves predict more peaking than their datasheets show (4.3 against 1.4 dB, and 5.6 against 3.1 dB; Section 5.4). The TIA phase margins of these two parts in this note are therefore, if anything, pessimistic, as the vendors' macromodels confirm (Sections 5.4 and 5.9).
 - The 4–7 GHz region of the OPA855 and OPA955 curves, the OPA858 curve as plotted, and the LMH6629 curve are not trustworthy in detail. The text points out each place where that matters.
-- The vendors' front-page "TIA bandwidth" curves are calculations, 10–15 % optimistic at 2 kΩ because they leave out $C_F$ and the board capacitance (Section 4.3). The formula quoted there reproduces them within 1 % (last row of Table A4.5), so they are no test of the model, and they say nothing about phase margin.
+- The vendors' front-page "TIA bandwidth" curves are calculations, 10–15 % optimistic at 2 kΩ because they leave out $C_F$ and the board capacitance (Section 3.3). The formula quoted there reproduces them within 1 % (last row of Table A3.5), so they are no test of the model, and they say nothing about phase margin.
 
-### 4.10 A measurement on an OPA846 board at $R_F$ = 1.2 kΩ
+### 3.10 A measurement on an OPA846 board at $R_F$ = 1.2 kΩ
 
-The comparisons of Section 4.9 test the loop part of the model against the datasheets, but not its noise, and not on a real board. A prototype TIA with OPA846 tests both at once. Its measured transimpedance and noise at 50 MHz are compared here with the model, and together they tell how much capacitance the board puts at the summing node and across $R_F$, the two quantities that the designs of this note can only assume (Table 1.1).
+The comparisons of Section 3.9 test the loop part of the model against the datasheets, but not its noise, and not on a real board. A prototype TIA with OPA846 tests both at once. Its measured transimpedance and noise at 50 MHz are compared here with the model, and together they tell how much capacitance the board puts at the summing node and across $R_F$, the two quantities that the designs of this note can only assume (Table 1.1). Sections 4.4 and 4.5 lay out and simulate the design that the same amplifier gives at 2 kΩ on this note's 1-pF photodiode.
 
 **The measurement.** A prototype TIA was built with OPA846 and $R_F$ = 1.2 kΩ. It has no external feedback capacitor, so $C_F$ is only the parasitic of the resistor and its pads. Two results were measured:
 - the transimpedance at 50 MHz is 1.45 kΩ, i.e. 21 % (+1.6 dB) above $R_F$. The response peaks because the parasitic $C_F$ is small;
@@ -770,13 +685,13 @@ Four pieces of information that would pin the circuit down were not recorded wit
 - the frequency of the response peak;
 - the noise floor of the measuring instrument.
 
-The two results can be compared with the model independently, because the noise depends only on $C_{\mathrm{tot}}$ (Eq. (23)) while the peaking depends on $C_T$, $C_F$ and the loop.
+The two results can be compared with the model independently, because the noise depends only on $C_{\mathrm{tot}}$ (Eq. (19)) while the peaking depends on $C_T$, $C_F$ and the loop.
 
-**What the noise alone implies.** Solving Eq. (24) for the capacitance at a measured noise density $i_{\mathrm{eq}}$, in the same practical units (pA/√Hz, kΩ, nV/√Hz, MHz, pF):
+**What the noise alone implies.** Solving Eq. (20) for the capacitance at a measured noise density $i_{\mathrm{eq}}$, in the same practical units (pA/√Hz, kΩ, nV/√Hz, MHz, pF):
 
 $$
 C_{\mathrm{tot}} = \frac{\sqrt{i_{\mathrm{eq}}^2 - 16.47/R_F - i_n^2 - e_n^2/R_F^2}}{6.283\times10^{-3}\,e_n\,f}.
-\tag{35}
+\tag{31}
 $$
 
 The inputs are $i_{\mathrm{eq}}$ = 7 pA/√Hz, $R_F$ = 1.2 kΩ, $f$ = 50 MHz, and the OPA846 typical values $e_n$ = 1.2 nV/√Hz and $i_n$ = 2.8 pA/√Hz (Table A6.1). The capacitance-independent terms are $16.47/1.2 = 13.73$, $2.8^2 = 7.84$ and $1.2^2/1.2^2 = 1.00$ pA²/Hz. So
@@ -785,19 +700,19 @@ $$
 C_{\mathrm{tot}} = \frac{\sqrt{49 - 13.73 - 7.84 - 1.00}}{6.283\times10^{-3}\times1.2\times50} = \frac{5.14}{0.377} = 13.6\ \mathrm{pF}.
 $$
 
-The 1-pF photodiode on the layout assumed in this note has $C_{\mathrm{tot}}$ = 1 + 0.35 + 3.8 + 0.2 = 5.35 pF. Eq. (24) then gives 5.16 pA/√Hz, and the guaranteed maximum noise values (1.3 nV/√Hz and 3.5 pA/√Hz, OPA846 p3) give only 5.65 pA/√Hz. Part-to-part spread therefore cannot account for 7 pA/√Hz. Table A4.6 gives the noise of Eq. (24) at 50 MHz for node capacitances from 5.35 to 20 pF. Eq. (35) takes the noise as measured without photocurrent.
+The 1-pF photodiode on the layout assumed in this note has $C_{\mathrm{tot}}$ = 1 + 0.35 + 3.8 + 0.2 = 5.35 pF. Eq. (20) then gives 5.16 pA/√Hz, and the guaranteed maximum noise values (1.3 nV/√Hz and 3.5 pA/√Hz, OPA846 p3) give only 5.65 pA/√Hz. Part-to-part spread therefore cannot account for 7 pA/√Hz. Table A3.6 gives the noise of Eq. (20) at 50 MHz for node capacitances from 5.35 to 20 pF. Eq. (31) takes the noise as measured without photocurrent.
 
 **What the peaking alone implies.** Any second-order low-pass has
 
 $$|H| = \frac{1}{\sqrt{(1-x^2)^2 + (x/Q)^2}} \le \frac{1}{1-x^2}, \qquad x = f/f_n < 1,$$
 
-whatever its $Q$. Combining this with $f_n^2 = \mathrm{GBW}/(2\pi R_F C_{\mathrm{tot}})$, the natural frequency $\omega_0/2\pi$ of Eq. (17), gives a lower bound on the capacitance that can produce a measured $|Z_T(f)|$:
+whatever its $Q$. Combining this with $f_n^2 = \mathrm{GBW}/(2\pi R_F C_{\mathrm{tot}})$, the natural frequency $\omega_0/2\pi$ of Eq. (13), gives a lower bound on the capacitance that can produce a measured $|Z_T(f)|$:
 
 $$
 C_{\mathrm{tot}} \ge \frac{\mathrm{GBW}\,\left(1 - R_F/|Z_T(f)|\right)}{2\pi R_F f^2},
 \qquad
 C_{\mathrm{tot}}\,[\mathrm{pF}] \ge 159.2\,\frac{\mathrm{GBW}[\mathrm{MHz}]\,\left(1 - R_F/|Z_T(f)|\right)}{R_F[\mathrm{k\Omega}]\;f[\mathrm{MHz}]^2}.
-\tag{36}
+\tag{32}
 $$
 
 With GBW = 1750 MHz, $R_F/|Z_T|$ = 1.2/1.45 = 0.828 and $f$ = 50 MHz:
@@ -807,11 +722,11 @@ $$C_{\mathrm{tot}} \ge 159.2\times1750\times0.172/(1.2\times2500) = 16.0\ \mathr
 The full model, with the OPA846 datasheet open-loop curve, lowers the bound slightly. The decompensated amplifier's extra phase lag helps the peaking. The model's results:
 - With $C_T$ = 5.15 pF (1-pF photodiode), no $C_F$ gives more than 1.29 kΩ at 50 MHz.
 - At 8 pF and 12 pF the maxima are 1.34 kΩ and 1.42 kΩ.
-- Reaching 1.45 kΩ requires $C_T$ ≥ 14 pF. Table A4.7 lists the designs that do.
+- Reaching 1.45 kΩ requires $C_T$ ≥ 14 pF. Table A3.7 lists the designs that do.
 
-**Reading.** The two independent results point to the same circuit. The noise puts the total node capacitance, $C_F$ included, near 13.6 pF (the numerical model, with the datasheet noise curves, reaches 7 pA/√Hz at $C_T$ = 13.1 pF; Section 5.8), and the peaking requires $C_T$ ≥ 14 pF. The smallest design of Table A4.7 that reproduces 1.45 kΩ, 14 pF with 0.295 pF, meets both, so the board has about 14 pF at the summing node and about 0.3 pF of feedback capacitance.
+**Reading.** The two independent results point to the same circuit. The noise puts the total node capacitance, $C_F$ included, near 13.6 pF (the numerical model, with the datasheet noise curves, reaches 7 pA/√Hz at $C_T$ = 13.1 pF; Section 5.8), and the peaking requires $C_T$ ≥ 14 pF. The smallest design of Table A3.7 that reproduces 1.45 kΩ, 14 pF with 0.295 pF, meets both, so the board has about 14 pF at the summing node and about 0.3 pF of feedback capacitance.
 - **Agreement.** The model then gives 1.45 kΩ and 7.25 pA/√Hz at 50 MHz. Its noise is 5.8 dB above the 1.2-kΩ floor of 3.70 pA/√Hz, against 5.5 dB measured, so the two agree within 0.3 dB.
-- **Under-compensation.** For 14 pF at 1.2 kΩ the maximally flat $C_F$ of Eq. (19) would be $17.84\sqrt{14/(1.2\times1750)} = 1.46$ pF, five times the parasitic. That is why the board peaks. The model places a strong resonance near 115–125 MHz with very little phase margin. The exact margin of that resonance is uncertain by several degrees (Table A4.5), but a board in this state rings near 120 MHz and has little room before oscillating. Section 6.2.8 gives the change that makes it robust: raising the total $C_F$ to 0.9–1.1 pF leaves 22–28° in the worst case and keeps 193–199 MHz.
+- **Under-compensation.** For 14 pF at 1.2 kΩ the maximally flat $C_F$ of Eq. (15) would be $17.84\sqrt{14/(1.2\times1750)} = 1.46$ pF, five times the parasitic. That is why the board peaks. The model places a strong resonance near 115–125 MHz with very little phase margin. The exact margin of that resonance is uncertain by several degrees (Table A3.5), but a board in this state rings near 120 MHz and has little room before oscillating. Section 6.2.8 gives the change that makes it robust: raising the total $C_F$ to 0.9–1.1 pF leaves 22–28° in the worst case and keeps 193–199 MHz.
 - **Where the extra 9 pF can come from:**
   - the photodiode's capacitance at low reverse bias, which can be several times its value at rated bias;
   - its package, leads and fibre receptacle;
@@ -819,28 +734,207 @@ The full model, with the OPA846 datasheet open-loop curve, lowers the bound slig
   - pads and vias under the summing node.
 
 **An alternative explanation for the noise, and how to tell.** Suppose the node really carries only about 5.4 pF. The missing 4.7 pA/√Hz (in quadrature) at 50 MHz could then come from either of two sources:
-- **The instrument.** By Eq. (8), with $|Z_T|$ = 1.45 kΩ at 50 MHz, 4.7 pA/√Hz is what an instrument of 17.6 dB noise figure adds behind a 50-Ω back-termination; it would show the TIA's missing noise as −156.3 dBm/Hz. That is typical of a spectrum analyser without its preamplifier. A high-impedance probe sees the whole output rather than half of it, so it would need an input noise of 6.9 nV/√Hz to do the same.
+- **The instrument.** By Eq. (34), with $|Z_T|$ = 1.45 kΩ at 50 MHz, 4.7 pA/√Hz is what an instrument of 17.6 dB noise figure adds behind a 50-Ω back-termination; it would show the TIA's missing noise as −156.3 dBm/Hz. That is typical of a spectrum analyser without its preamplifier. A high-impedance probe sees the whole output rather than half of it, so it would need an input noise of 6.9 nV/√Hz to do the same.
 - **The non-inverting input.** Any resistance $R$ there adds $\sqrt{4k_BTR}$ to $e_n$, and that is multiplied by $\omega C_{\mathrm{tot}}$ like $e_n$ itself.
 
 Neither of these produces the +1.6 dB of transimpedance at 50 MHz, so a larger node capacitance is the explanation consistent with both measurements. Three measurements on the bench separate the two cases:
-1. **The frequency of the response peak.** From Table A4.7: about 120 MHz for 14–16 pF, 95 MHz for 20 pF, 80 MHz for 25 pF.
-2. **The noise at 10 MHz, where the capacitive term is small.** Eq. (24) gives 4.86 pA/√Hz for 13.6 pF and 4.77 pA/√Hz for 5.35 pF. An instrument floor is white at the TIA's output, so referred to the photocurrent it grows as $|Z_T|$ falls from 1.45 kΩ at 50 MHz to about $R_F$ = 1.2 kΩ at 10 MHz. The missing $\sqrt{7^2 - 5.16^2}$ = 4.73 pA/√Hz then becomes $4.73\times1.45/1.2$ = 5.72 pA/√Hz, and the total $\sqrt{4.77^2 + 5.72^2}$ = 7.44 pA/√Hz; a floor white at the input would give $\sqrt{4.77^2 + 4.73^2}$ = 6.72 pA/√Hz. A resistance at the non-inverting input cannot be told apart from a larger node capacitance this way, because its noise scales with $f\,C_{\mathrm{tot}}$ like the capacitive term; the peak frequency of item 1, or a look at the network on that input, settles it.
+1. **The frequency of the response peak.** From Table A3.7: about 120 MHz for 14–16 pF, 95 MHz for 20 pF, 80 MHz for 25 pF.
+2. **The noise at 10 MHz, where the capacitive term is small.** Eq. (20) gives 4.86 pA/√Hz for 13.6 pF and 4.77 pA/√Hz for 5.35 pF. An instrument floor is white at the TIA's output, so referred to the photocurrent it grows as $|Z_T|$ falls from 1.45 kΩ at 50 MHz to about $R_F$ = 1.2 kΩ at 10 MHz. The missing $\sqrt{7^2 - 5.16^2}$ = 4.73 pA/√Hz then becomes $4.73\times1.45/1.2$ = 5.72 pA/√Hz, and the total $\sqrt{4.77^2 + 5.72^2}$ = 7.44 pA/√Hz; a floor white at the input would give $\sqrt{4.77^2 + 4.73^2}$ = 6.72 pA/√Hz. A resistance at the non-inverting input cannot be told apart from a larger node capacitance this way, because its noise scales with $f\,C_{\mathrm{tot}}$ like the capacitive term; the peak frequency of item 1, or a look at the network on that input, settles it.
 3. **The instrument floor**, measured with its input terminated in 50 Ω.
+
+---
+
+## 4. Two design examples: OPA855 and OPA846 at 2 kΩ
+
+With the relations of Chapter 3 in hand, we now lay out two complete designs and check each in simulation, so that every quantity the later chapters compare across 25 amplifiers can first be seen at work in one circuit. Both designs use the 2-kΩ feedback resistor and the balanced pair with 1 pF at the summing node (Section 1.2), and both amplifiers are decompensated bipolar parts with a minimum stable gain of 7. They differ in what decides the design. OPA855, which Chapter 6 confirms as the best production part, has 8 GHz of gain–bandwidth product and only 0.8 pF of input capacitance: its loop has phase to spare, the parasitic capacitance of the feedback resistor sets the design, and the question is how far that parasitic and the photodiode may move. OPA846, one of the six parts on the starting list (Section 2.2) and the amplifier of the bench board of Section 3.10, has 1.75 GHz and 3.8 pF: its loop crosses over close to its minimum stable gain, its own input capacitance dominates the noise, and the question is whether it can be made stable at all.
+
+Both designs go through the same steps. Section 4.1 collects the four results of Chapter 3 that give a first estimate in practical units. Sections 4.2 and 4.4 lay out the two designs with them, and Sections 4.3 and 4.5 check each design in simulation in two independent ways: with our analytical model of Section 3.5, which evaluates the loop with the open-loop curve digitized from the datasheet, and with the vendor's SPICE macromodel in ngspice, whose loop gain is read by Middlebrook's double injection (Section 5.2) and whose small-signal quantities Chapter 5 examines for these and five other amplifiers. Section 4.6 asks how each design depends on the photodiode capacitance and on the feedback capacitance, Section 4.7 checks the large-signal limits and the dynamic range, Section 4.8 sets both designs against a plain 50-Ω termination, and Section 4.9 lists what the four equations cannot tell us. Every simulated number of this chapter and every curve of Figures 4 and 6–8 is reproduced by `scripts_archive/case_studies.py`, which writes `spice/results/case_studies.json`, and by `scripts_archive/make_case_figures.py`, which draws the figures from that file (Appendix B.2).
+
+### 4.1 Four equations for a first estimate
+
+Chapter 3 derived four results that, written in practical units, give a first estimate of any design by hand: the input-referred noise (Eq. (20)), the noise of an instrument behind the TIA referred to the same photocurrent (Eq. (22)), the bandwidth of a maximally flat design together with the stability condition of a decompensated amplifier (Eqs. (15) and (16)), and the shot-noise-limited dynamic range (Eq. (29)). We collect them here in kΩ, pF, MHz, nV/√Hz and pA/√Hz, so that every number of the two designs can be checked by hand. Their symbols and units are these.
+- $R_F$ is the feedback resistor in kΩ.
+- $e_n$ (nV/√Hz) and $i_n$ (pA/√Hz) are the amplifier's input voltage and current noise densities.
+- $f$ is frequency in MHz.
+- $C_{\mathrm{tot}} = C_T + C_F$ in pF. $C_T$ is all capacitance from the inverting node to AC ground: the photodiodes, the board, and the amplifier's own input capacitance $C_{\mathrm{CM}} + C_{\mathrm{DIFF}}$. The datasheet gives these two separately. $C_{\mathrm{CM}}$ is the capacitance of the inverting input to ground, and $C_{\mathrm{DIFF}}$ the capacitance between the two inputs. Because the non-inverting input sits at a decoupled reference, an AC ground, $C_{\mathrm{DIFF}}$ also connects the inverting node to AC ground, so the two add (Eq. (7)). $C_F$ is the total feedback capacitance.
+- $I_{\mathrm{DC}}$ is the total DC photocurrent of the balanced pair, $I_1 + I_2$, in mA. It sets the shot noise; the DC that flows through $R_F$ is only the imbalance $I_1 - I_2$ (Section 1.2).
+
+**Input-referred noise current density** (Eq. (20)):
+
+$$
+i_{\mathrm{eq}}\,[\mathrm{pA}/\sqrt{\mathrm{Hz}}] = \sqrt{\frac{16.47}{R_F} + i_n^2 + \frac{e_n^2}{R_F^2} + \left(6.283\times10^{-3}\,e_n\,f\,C_{\mathrm{tot}}\right)^2 + 320.4\,I_{\mathrm{DC}}}
+\tag{33}
+$$
+
+**The instrument after the TIA, referred to the photocurrent** (Eq. (22)). An instrument of noise figure NF (in dB, referred to $k_BT$ at 25 °C) behind a 50-Ω series back-termination adds the input-referred noise current $i_{\mathrm{inst}}$, in power, to the TIA's $i_{\mathrm{eq}}$. The second form translates the TIA's own noise into the power density the instrument receives. Here $|Z_T|$ is the transimpedance magnitude in kΩ at the frequency considered; it equals $R_F$ in band.
+
+$$
+i_{\mathrm{inst}}\,[\mathrm{pA}/\sqrt{\mathrm{Hz}}] = \frac{0.907\times10^{\mathrm{NF}/20}}{|Z_T|[\mathrm{k\Omega}]},
+\qquad
+P_n\,[\mathrm{dBm/Hz}] = -173.0 + 20\log_{10}\!\left(i_{\mathrm{eq}}[\mathrm{pA}/\sqrt{\mathrm{Hz}}]\cdot|Z_T|[\mathrm{k\Omega}]\right)
+\tag{34}
+$$
+
+**Bandwidth of a maximally flat design and the minimum source capacitance of a decompensated amplifier** (Eqs. (15) and (16)). GBW is the gain–bandwidth product in MHz and $G_{\min}$ the manufacturer's minimum stable gain. The first form holds for an amplifier with one dominant pole. The second is a necessary condition only: OPA818 and OPA847 satisfy it and still have too little phase margin (Section 6.2.6), and so does OPA846 (Section 4.5).
+
+$$
+f_{-3\,\mathrm{dB}}\,[\mathrm{MHz}] = 12.62\sqrt{\frac{\mathrm{GBW}}{R_F\,C_{\mathrm{tot}}}},
+\qquad
+C_{T,\min}\,[\mathrm{pF}] = 318.3\,\frac{(G_{\min}-1)^2}{R_F\,\mathrm{GBW}}
+\tag{35}
+$$
+
+**Shot-noise-limited dynamic range** in a noise bandwidth $B$ (MHz), for a full-scale tone of peak output voltage $V_{\mathrm{pk}}$ (V), valid where the shot noise dominates the band noise and $|Z_T| = R_F$ at the tone, in practice from $I_{\mathrm{DC}}$ = 1 mA up (Eq. (29)):
+
+$$
+\mathrm{DR}_{\mathrm{shot}}\,[\mathrm{dB}] = 91.9 + 20\log_{10}\frac{V_{\mathrm{pk}}}{R_F\sqrt{I_{\mathrm{DC}}\,B}}
+\tag{36}
+$$
+
+### 4.2 Laying out the design for OPA855 at 2 kΩ
+
+Table 4.1 lists the values that go into the four equations for both designs, each with its datasheet source; this section uses its OPA855 column and Section 4.4 its OPA846 column. Figure 3 shows the OPA855 design as it is simulated, with every value. Three results below come from the numerical model of Section 3.5, which evaluates Eq. (9) with the open-loop curve digitized from the datasheet: the transimpedance at 100 MHz (1.996 kΩ), the bandwidth and phase margin of the flat design (557 MHz, 58°) and the full dynamic range (67.6 dB, Table A6.29).
+
+*Table 4.1. The values that go into Eqs. (33)–(36) for the two designs. Amplifiers: OPA855 and OPA846, $R_F$ = 2 kΩ, $C_D$ = 1 pF.*
+
+| Quantity | OPA855 | OPA846 | Source |
+|---|---|---|---|
+| $e_n$ | 0.99 nV/√Hz (white level, flat to 97 MHz) | 1.2 nV/√Hz (1.22 nV/√Hz at 98 MHz on the curve) | OPA855 Fig 6-11, p9 (table: 0.98 nV/√Hz TYP at 1 MHz, p6); OPA846 p3, f > 1 MHz, and curve p6 |
+| $i_n$ | 2.6 pA/√Hz (white level) | 2.8 pA/√Hz (2.87 pA/√Hz at 98 MHz on the curve) | OPA855 Fig 6-11, p9 (table: 2.5 pA/√Hz TYP at 1 MHz, p6); OPA846 p3 and curve p6 |
+| $C_T$ | 1.0 + 0.35 + 0.6 + 0.2 = 2.15 pF | 1.0 + 0.35 + 1.8 + 2.0 = 5.15 pF | photodiode, PCB, $C_{\mathrm{CM}}$, $C_{\mathrm{DIFF}}$ (OPA855 p6 EC; OPA846 p3) |
+| $C_F$ | 0.20 pF: the flat design needs 0.19 pF, below the parasitic floor of Table 1.1, so no discrete capacitor is fitted | 0.75 pF: the flat design needs 0.745 pF; 0.55 pF fitted beside the 0.20-pF parasitic | Table A6.5 |
+| GBW, $G_{\min}$ | 8000 MHz, 7 V/V | 1750 MHz (1275 MHz MIN), 7 V/V | OPA855 p6 EC, p25; OPA846 p3, p1 |
+| $V_{\mathrm{pk}}$ | (4.10 − 1.05)/2 = 1.525 V (output swing, 5 V, 200 Ω) | 625 V/µs / (2π × 100 MHz) = 0.995 V (slew rate); swing (4.16 + 4.44)/2 = 4.30 V on ±6 V | OPA855 p7 EC; OPA846 p3 (slew rate), p8 (swing curve) |
+| $f$, $B$ | 100 MHz, 150 MHz | 100 MHz, 150 MHz | design specification |
+
+![Figure 3](figures/fig32_case_opa855_schematic.png)
+
+*Figure 3. The OPA855 design of Section 4.2 as it is simulated, with every value of Table 4.1; parasitic capacitances are drawn in grey. The balanced pair of Figure 1 delivers its photocurrents to the summing node. Each bias pin is decoupled by 10 nF to ground, which makes the far end of each diode an AC ground, so the capacitance of both diodes, 1 pF in total ($C_D$), loads the summing node. $C_{\mathrm{PCB}}$ = 0.35 pF is the pad and trace capacitance of Table 1.1, and $C_{\mathrm{CM}}$ = 0.6 pF and $C_{\mathrm{DIFF}}$ = 0.2 pF are the amplifier's input capacitances, which the vendor's macromodel contains itself (0.80 pF, Section 5.3); together they make $C_T$ = 2.15 pF (Eq. (7)). No feedback capacitor is fitted: the design needs 0.19 pF, less than the 0.20 pF that the 2-kΩ resistor and its pads bring ($C_{F,\mathrm{par}}$). The amplifier runs from ±2.5 V, which is its 5-V supply with the reference at mid-supply, so the non-inverting input is grounded. $R_L$ = 200 Ω is the load under which the datasheet's open-loop curve was taken; every small-signal run keeps it, so that the macromodel and the curve see the same load, and the large-signal runs of Section 4.7 use 1 MΩ, the light load of Table A6.28. In the simulations the pair is a current source in parallel with $C_D + C_{\mathrm{PCB}}$ = 1.35 pF, and the loop gain is read by injecting between the amplifier's output pin and the feedback network (Section 5.2).*
+
+**The numbers.**
+- Eq. (33) at 100 MHz with $I_{\mathrm{DC}} = 0$: $\sqrt{16.47/2 + 2.6^2 + 0.99^2/2^2 + (6.283\times10^{-3}\times0.99\times100\times2.35)^2} = \sqrt{8.24 + 6.76 + 0.25 + 2.14} = 4.17$ pA/√Hz. This is 3.2 dB above the 2.87 pA/√Hz of the resistor alone. The numerical model gives the same 4.17 pA/√Hz (Table A6.15).
+- Eq. (33) with $I_{\mathrm{DC}}$ = 1 mA: the extra 320.4 pA²/Hz gives 18.38 pA/√Hz, only 0.23 dB above the 17.90 pA/√Hz of shot noise alone.
+- Eq. (34): with $|Z_T|$ = 1.996 kΩ at 100 MHz, an instrument of 10 dB noise figure adds $0.907\times10^{0.5}/1.996$ = **1.44 pA/√Hz** referred to the photocurrent. Against the 4.17 pA/√Hz of the dark TIA that is $10\log_{10}(1 + 1.44^2/4.17^2)$ = 0.49 dB; against the 18.38 pA/√Hz at 1 mA it is 0.03 dB. In output terms the dark TIA delivers −173.0 + 20 log₁₀(4.17 × 1.996) = −154.6 dBm/Hz to the instrument.
+- Eq. (35), bandwidth: 12.62 √(8000/(2 × 2.35)) = 521 MHz. The numerical model gives 557 MHz at 58° of phase margin at the same $C_F$ (Table A6.5).
+- Eq. (35), minimum source capacitance: 318.3 × 6²/(2 × 8000) = 0.72 pF, well below the 2.15 pF present. The same check gives 2.12 pF for OPA818 (3.75 pF present), 4.94 pF for OPA847 (5.05 pF present) and 3.27 pF for OPA846 (5.15 pF present); all three pass, and all three still have too little phase margin (Sections 6.2.6 and 4.5).
+- Eq. (36) with $I_{\mathrm{DC}}$ = 10 mA: 91.9 + 20 log₁₀(1.525/(2 × √(10 × 150))) = 91.9 − 34.1 = **57.8 dB**. At 1 mA the same equation gives 67.8 dB, and the full calculation, which includes the amplifier noise, gives 67.6 dB (Table A6.29). With 10 mA in each diode ($I_{\mathrm{DC}}$ = 20 mA) it gives 91.9 + 20 log₁₀(1.525/(2 × √(20 × 150))) = **54.8 dB**.
+
+### 4.3 The OPA855 design in simulation
+
+The four equations give a bandwidth but no phase margin, gain margin, step response or tolerance, and they assume a pure input capacitance and datasheet noise. This section supplies what they leave out by simulating the design of Figure 3 with our analytical model and with the vendor's macromodel. Figure 4 shows the results and Table A4.1 lists them; the agreement between the two descriptions is close enough that the design's numbers can be trusted wherever the loop is well damped.
+
+**Transimpedance (Figure 4a).** The response is flat to within 0.01 dB in both, and falls by 3 dB at 563 MHz in SPICE and 557 MHz in our model. Both exceed the 521 MHz of Eq. (35). Eq. (35) is the maximally flat response of a single-pole amplifier, whose loop has 66.9° of phase margin (Section 3.3), while OPA855's loop has 58–60°: its closed loop peaks slightly near the crossover, where $Z_F$ is already rolling off from its pole at $1/(2\pi R_FC_F)$ = 1/(2π × 2 kΩ × 0.20 pF) = 398 MHz, and the two combine into a flat response that extends further. Above 1 GHz SPICE shows a resonance at 3.3 GHz, 19.7 dB below $R_F$. It is the trace of the gain margin set by the plateau of the macromodel's open-loop gain from the inverting input (Section 5.5), and our model, which has no such plateau, does not show it.
+
+**Loop gain (Figure 4b).** SPICE puts the crossover at 801 MHz with 59.6° of phase margin and 6.8 dB of gain margin; our model puts it at 795 MHz with 58.4° and 8.0 dB. The gain margin follows Eq. (47): the high-frequency noise gain is $NG_\infty = 1 + C_T/C_F$ = 1 + 2.15/0.20 = 11.75 (Eq. (11)), and $20\log_{10}(11.75/5.3)$ = 6.9 dB, as simulated. The 1.2-dB difference from our model is the error of reading a gain margin from a datasheet curve that Section 5.3 found for this part.
+
+**Step response (Figure 4c).** A 10-µA photocurrent step with a 20-ps rise gives 20.0 mV at the output, with 4.2 % overshoot, a 603-ps rise from 10 to 90 % and settling to 1 % in 1.92 ns. Our model, whose step response is the inverse Fourier transform of its transimpedance with the same input, gives 4.0 %, 600 ps and 1.95 ns. A rise of 603 ps corresponds to $0.35/603\ \mathrm{ps}$ = 580 MHz, the bandwidth above.
+
+**Noise (Figure 4d).** SPICE gives 4.10 pA/√Hz at 100 MHz, our model and Eq. (33) 4.17 pA/√Hz. Over 10–150 MHz the noise lies 3.01 dB above the Johnson noise of $R_F$ in SPICE and 3.13 dB in our model (Eq. (21)), and from 0 to 150 MHz it integrates to 49.5 and 50.2 nA rms. The terms of Eq. (33) at 100 MHz show where the noise comes from: 8.24 pA²/Hz from $R_F$, 6.76 from $i_n$, 0.25 from $e_n/R_F$ and 2.14 from $e_n\omega C_{\mathrm{tot}}$. The base-current noise of the input transistor is therefore the largest amplifier term at 100 MHz, as Section 6.3.1 finds for OPA855 and OPA856, and the $e_n$ term overtakes the resistor only at $2.87/(6.283\times10^{-3}\times0.99\times2.35)$ = 196 MHz. The total stays below the 5.66 pA/√Hz of shot noise at $I_{\mathrm{DC}}$ = 0.1 mA up to 291 MHz. The SPICE curve is reproduced exactly by Eq. (19) with the quantities fitted to the macromodel in Section 5.3 (0.968 nV/√Hz, 0.80 pF and 2.52 pA/√Hz at 100 MHz give 4.104 pA/√Hz), so the small difference from our model is one of parameters, not of the circuit.
+
+**Output noise.** Without a filter the output carries 0.54 mV rms in SPICE, of which only 0.10 mV rms lies below 150 MHz: the rest is the voltage noise amplified by the high-frequency noise gain above the crossover and by the 3.3-GHz resonance. This is why the proposed front end ends in a low-pass filter at 200–250 MHz (Section 8.9, Table A8.10).
+
+![Figure 4](figures/fig33_case_opa855_simulation.png)
+
+*Figure 4. The OPA855 design of Figure 3 in simulation: SPICE with the vendor's macromodel (solid) against our analytical model with the datasheet's open-loop curve and noise values (dashed). Amplifier: OPA855, $R_F$ = 2 kΩ, $C_F$ = 0.20 pF. (a) Transimpedance at $C_D$ = 1 pF; the dotted line marks −3 dB (63.0 dBΩ). (b) Loop gain, magnitude (black, left axis) and phase (blue, right axis), from Middlebrook's double injection in SPICE (Eq. (39)) and from $T = A/NG$ in our model (Eq. (10)); the axes are aligned so that 0 dB and −180° fall on the same dotted line, and the vertical line marks the SPICE crossover. (c) Response to a 10-µA photocurrent step with a 20-ps rise starting at 2 ns, with the output's DC level before the step subtracted; our model's curve is the inverse Fourier transform of its transimpedance with the same input. (d) Input-referred noise without photocurrent, with the three terms of Eq. (19) from the datasheet values: the Johnson noise of $R_F$, the current noise $i_n$ and the voltage noise acting through $1/R_F$ and $C_{\mathrm{tot}}$ = 2.35 pF; the dotted lines mark the shot noise of $I_{\mathrm{DC}}$ = 0.1 and 1 mA. (e) Transimpedance and (f) input-referred noise in SPICE at photodiode capacitances of 0–5 pF with $C_F$ fixed at 0.20 pF (Section 4.6). Below 1 pF the 3.3-GHz resonance of the gain margin rises, to 7.0 dB below $R_F$ at $C_D$ = 0; above 1 pF the response peaks near 300 MHz, by 2.5 dB at 5 pF, and the noise rises as $e_n\omega C_{\mathrm{tot}}$ with the larger capacitance.*
+
+### 4.4 Laying out the design for OPA846 at 2 kΩ
+
+OPA846 has nearly the voltage noise of OPA855, 1.2 against 0.99 nV/√Hz, and slightly more current noise, but 4.75 times the input capacitance (3.8 against 0.8 pF) and 0.22 times the gain–bandwidth product. Laying out the same TIA with it shows what these two numbers do to a design whose amplifier would otherwise look as quiet. Figure 5 shows the design with every value, and the numbers follow from the OPA846 column of Table 4.1.
+
+![Figure 5](figures/fig34_case_opa846_schematic.png)
+
+*Figure 5. The OPA846 design of Section 4.4 as it is simulated, with every value of Table 4.1; parasitic capacitances are drawn in grey. The photodiode pair, its decoupled bias, $C_D$ and $C_{\mathrm{PCB}}$ are those of Figure 3. The amplifier's input capacitances, $C_{\mathrm{CM}}$ = 1.8 pF and $C_{\mathrm{DIFF}}$ = 2.0 pF, make $C_T$ = 5.15 pF (Eq. (7)); the vendor's macromodel contains 3.07 pF of its own, of which its voltage noise drives 2.28 pF (Section 5.3). The flat design needs 0.745 pF of total feedback capacitance, so a 0.55-pF capacitor $C_{F,\mathrm{ext}}$ is fitted beside the 0.20 pF of the resistor and its pads, 0.75 pF in total. The amplifier runs from ±5 V, the supply of its datasheet tables, with the non-inverting input grounded; the large-signal runs of Section 4.7 use ±6 V, the supply of Table A6.3, and 1 MΩ. $R_L$ = 100 Ω is the load of the datasheet's open-loop curve, the same as a 50-Ω back-termination into a 50-Ω instrument.*
+
+**The numbers.**
+- Eq. (33) at 100 MHz with $I_{\mathrm{DC}} = 0$: with $C_{\mathrm{tot}}$ = 5.15 + 0.75 = 5.90 pF, $\sqrt{16.47/2 + 2.8^2 + 1.2^2/2^2 + (6.283\times10^{-3}\times1.2\times100\times5.90)^2} = \sqrt{8.24 + 7.84 + 0.36 + 19.79} = 6.02$ pA/√Hz, 6.4 dB above the 2.87 pA/√Hz of the resistor. The $e_n\omega C_{\mathrm{tot}}$ term, 19.79 pA²/Hz, is now the largest: the product $e_nC_{\mathrm{tot}}$ is 1.2 × 5.90 = 7.08 nV·pF/√Hz against 0.99 × 2.35 = 2.33 for OPA855, three times larger, so the term is 9.2 times larger. The numerical model gives 6.07 pA/√Hz (Table A6.15).
+- Eq. (33) with $I_{\mathrm{DC}}$ = 1 mA: $\sqrt{36.22 + 320.4}$ = 18.88 pA/√Hz, 0.47 dB above the shot noise alone.
+- Eq. (34): with $|Z_T|$ = 1.935 kΩ at 100 MHz from the numerical model, an instrument of 10 dB noise figure adds $0.907\times10^{0.5}/1.935$ = 1.48 pA/√Hz, which raises the dark noise by $10\log_{10}(1 + 1.48^2/6.02^2)$ = 0.26 dB; the dark TIA delivers −173.0 + 20 log₁₀(6.02 × 1.935) = −151.7 dBm/Hz to the instrument.
+- Eq. (35), bandwidth: the maximally flat $C_F$ of Eq. (15) is $17.84\sqrt{5.15/(2\times1750)}$ = 0.684 pF, and with it $12.62\sqrt{1750/(2\times(5.15 + 0.684))}$ = 155 MHz; with the 0.75 pF actually needed, 154 MHz. The numerical model puts the flat design at 0.745 pF with 235 MHz but only 34° of phase margin (Table A6.5).
+- Eq. (35), minimum source capacitance: 318.3 × 6²/(2 × 1750) = 3.27 pF against 5.15 pF present. The design passes, but by a factor of 5.15/3.27 = 1.6, against 2.15/0.72 = 3.0 for OPA855.
+- Eq. (36): at 100 MHz OPA846's amplitude is set by its slew rate, 625 V/µs/(2π × 100 MHz) = 0.995 V (Eq. (26)); the slew limit equals the 4.30-V swing at 625 V/µs/(2π × 4.30 V) = 23 MHz, and above that frequency it is the smaller. With 0.995 V, 91.9 + 20 log₁₀(0.995/(2 × √(1 × 150))) = 91.9 − 27.8 = **64.1 dB** at 1 mA, **54.1 dB** at 10 mA and 51.1 dB at 20 mA, 3.7 dB below OPA855 throughout, the ratio $20\log_{10}(1.525/0.995)$ of the two amplitudes. The full calculation gives 64.0, 54.3 and 51.4 dB (Table A4.1): it includes the amplifier noise, which costs 0.4 dB at 1 mA and less at higher photocurrents, and the transimpedance at 100 MHz, 1.935 rather than 2 kΩ, which raises the largest photocurrent tone by $20\log_{10}(2/1.935)$ = 0.29 dB.
+
+On these numbers OPA846 at 2 kΩ is a 154-MHz design with 6.0 pA/√Hz at 100 MHz and 3.7 dB less dynamic range than OPA855. Why the numerical model's bandwidth is half as large again as Eq. (35)'s, and whether the design is stable enough to use, is what the phase margin decides; Section 4.5 finds it.
+
+### 4.5 The OPA846 design in simulation
+
+Here the two descriptions of the amplifier disagree, and the disagreement is the main result. Figure 6 shows the design of Figure 5 in both, and Table A4.1 lists the numbers.
+
+**Loop gain (Figure 6b).** SPICE puts the crossover at 308 MHz with 44.7° of phase margin and 11.6 dB of gain margin; our model puts it at 237 MHz with 34.1° and 5.8 dB. The difference is the one Section 5.3 found between the two open-loop gains: from 100 to 300 MHz the macromodel has 1.3–2.6 dB more gain than the datasheet curve and, at 300 MHz, 13° less phase lag. Where the part lies, the datasheet's own closed-loop test circuit tells (Section 5.4): at a gain of +7 it measures 3.1 dB of peaking, about 41° of margin by the relations given there, against 1.4 dB (about 51°) in the macromodel and 5.6 dB from the curve with the input capacitance. The part therefore lies between the two descriptions, about 10° below the macromodel in that circuit. If the same gap holds in the TIA, the design has about 35°, near our model's value. Our model's split of the margin (Eq. (17), Table A6.11) shows where it goes: the amplifier's own phase at the crossover, $\phi_A$ = 55.3°, less the noise gain's lead, $\angle NG$ = 21.3°, leaves 34°.
+
+**Transimpedance (Figure 6a) and step response (Figure 6c).** Both responses are flat, without any peaking, and both meet 150 MHz, but they fall by 3 dB at 163 MHz in SPICE and at 233 MHz in our model. The lower margin widens the response: $Z_F$ rolls off from $1/(2\pi\times2\ \mathrm{k\Omega}\times0.75\ \mathrm{pF})$ = 106 MHz, and the closed loop, which peaks more at 34° than at 45°, holds $|Z_T|$ up beyond that pole. At 100 MHz $|Z_T|$ is already 1.71 kΩ in SPICE, 1.4 dB below $R_F$, against 1.94 kΩ in our model. The step shows the same: no overshoot in SPICE, with a rise of 2.13 ns and settling to 1 % in 5.05 ns, and 2.2 % overshoot, 1.48 ns and 5.39 ns in our model. Neither response reveals the margin; only the loop gain does (Section 5.2, Figure 17). The bandwidth of an OPA846 design is therefore as uncertain as its phase margin, between 163 and 233 MHz at 0.75 pF.
+
+**Noise (Figure 6d).** SPICE gives 5.34 pA/√Hz at 100 MHz against 6.07 in our model and 6.02 from Eq. (33); over 10–150 MHz the penalty is 5.03 against 6.01 dB, and from 0 to 150 MHz the noise integrates to 61.9 against 69.0 nA rms. The difference is again one of parameters. The macromodel's voltage noise drives only 2.28 pF of its own input capacitance, against the datasheet's 3.8 pF, while its current noise rises from 2.8 to 3.2 pA/√Hz (Section 5.3). Eq. (19) with those quantities at 100 MHz (1.14 nV/√Hz, 2.28 pF and 3.20 pA/√Hz) gives 8.23 + 10.23 + 0.32 + 9.80 = 28.59 pA²/Hz, i.e. 5.35 pA/√Hz, the SPICE value. In our model the $e_n\omega C_{\mathrm{tot}}$ term crosses the resistor's noise at $2.87/(6.283\times10^{-3}\times1.2\times5.90)$ = 65 MHz, and the total crosses the shot noise of 0.1 mA near 90 MHz (Section 6.3.1); in SPICE at 113 MHz. Our model, with the datasheet's capacitance, is the more conservative of the two. The bench board of Section 3.10, whose noise points to about 14 pF at the node, cannot decide between them.
+
+**What to do with it.** OPA846 at 2 kΩ on 1 pF reaches 150 MHz with 6.0 pA/√Hz, but with 34–45° of phase margin, depending on which description holds. Section 4.6 shows that no feedback capacitance and no photodiode up to 5 pF gives it a robust 45° in our model, and only a marginal one in SPICE. That leaves the two options of Section 6.2: equalize the peaking afterwards, for which Section 6.2.8 shows that a nominal 25° with $C_F$ ≥ 0.4 pF keeps every unit stable, or add capacitance at the node, which our model says needs 8 pF for 45° and then gives 116 MHz (Table A6.5). Table 9.1 sums up the part as worse than OPA818 on every axis except price.
+
+![Figure 6](figures/fig35_case_opa846_simulation.png)
+
+*Figure 6. The OPA846 design of Figure 5 in simulation, in the layout of Figure 4: SPICE with the vendor's macromodel (solid) against our analytical model (dashed). Amplifier: OPA846, $R_F$ = 2 kΩ, $C_F$ = 0.75 pF. (a) Transimpedance at $C_D$ = 1 pF. (b) Loop gain, magnitude and phase: 44.7° in SPICE against 34.1° in our model. (c) Response to a 10-µA step: no overshoot in SPICE, 2.2 % in our model. (d) Input-referred noise with the three terms of Eq. (19) from the datasheet values ($C_{\mathrm{tot}}$ = 5.90 pF); SPICE lies below our model because the macromodel's voltage noise drives 2.28 pF of its own capacitance, not the datasheet's 3.8 pF. (e) Transimpedance and (f) input-referred noise in SPICE at photodiode capacitances of 0–5 pF with $C_F$ fixed at 0.75 pF (Section 4.6). The response changes little with $C_D$: the phase margin stays at 43–45° (Figure 7c), and only above 3 pF does the step overshoot by more than 2 %.*
+
+### 4.6 How the two designs depend on the photodiode and feedback capacitances
+
+A design is laid out for one photodiode capacitance and one feedback capacitance, but neither is fixed on a board. The photodiode's capacitance changes with its bias and from part to part, and a front end is often moved to another photodiode; the feedback capacitance is set largely by the parasitics of the resistor and its pads. This section asks two questions of both designs: how far the photodiode capacitance may move before the design fails, and what each amplifier can do with another photodiode when $C_F$ is chosen anew. The criteria are those of Section 6.2.4: a phase margin of at least 45°, a gain margin of at least 3 dB and at most 1 dB of peaking. Figure 7 shows the results, and Tables A4.2 and A4.3 list them.
+
+**The feedback capacitance at $C_D$ = 1 pF (Figure 7a and b).** For OPA855 the phase margin rises from 36.6° at 0.10 pF to 69° at 0.34 pF while the bandwidth falls from 794 to 280 MHz. Below 0.15 pF the response peaks by more than 1 dB, and above 0.33 pF the gain margin falls below 3 dB, so at the nominal photodiode capacitance the criteria hold from 0.15 to 0.33 pF; over $C_D$ ± 0.2 pF the window narrows to 0.157–0.300 pF (Section 5.5). From 0.50 pF, where $NG_\infty$ = 1 + 2.15/0.50 falls to 5.3, the macromodel oscillates near 3 GHz (Eq. (47)). Our model agrees within 5.3° and 10 MHz up to 0.38 pF, where its loop gain regains unity on the plotted 4–7 GHz bump (Section 5.5). The design, 0.20 pF, sits at 59.6° and 563 MHz, inside the window, 0.04–0.05 pF above its lower edge and 0.10–0.13 pF below its upper edge. Section 8.9 proposes 0.25 pF for the front end, nearer the window's centre, at the price of 431 MHz instead of 563 (Table A5.6).
+
+For OPA846 the phase margin behaves differently: in SPICE it rises from 24.7° at 0.30 pF to a maximum of 44.8° at 0.80–0.85 pF and falls again beyond it, to 40.1° at 1.25 pF, and our model's curve has the same shape, 10° lower, with a maximum of 34.5°. Beyond the maximum a larger $C_F$ lowers the noise gain at the crossover, so the loop crosses where the amplifier's own phase is smaller (Eq. (17), Section 6.2.6). The bandwidth falls meanwhile from 298 MHz at 0.30 pF to 163 MHz at 0.75 pF and 98 MHz at 1.00 pF. Only 0.70–0.95 pF gives more than 44° in SPICE, and 150 MHz needs $C_F$ ≤ 0.78 pF, so only 0.70–0.78 pF has both, and the design's 0.75 pF lies in that narrow range.
+
+**The photodiode capacitance, with $C_F$ fixed (Figure 7c, e and f; Figures 4e–f and 6e–f).** For OPA855 at 0.20 pF, a photodiode capacitance growing from 0 to 5 pF lowers the phase margin from 64.1° to 42.5° and raises the gain margin from 2.0 to 15.4 dB, exactly as Eq. (47) predicts with $NG_\infty$ = 1 + $C_T$/0.20 pF (Figure 7e). Above 1 pF the response begins to peak, by 0.52 dB at 2 pF and 2.5 dB at 5 pF, and the step overshoots by 10.5 % and 23.9 %. The criteria fix the range of photodiodes the design serves. The gain margin reaches 3 dB at $NG_\infty$ = 7.5 (Eq. (47)), i.e. at $C_T$ = 6.5 × 0.20 = 1.30 pF, which is $C_D$ = 1.30 − 0.35 − 0.80 = 0.15 pF. The peaking reaches 1 dB between 2.5 pF (0.88 dB) and 3 pF (1.24 dB), at 2.5 + 0.5 × (1 − 0.88)/(1.24 − 0.88) = 2.7 pF. The phase margin stays above 45° up to 4.2 pF. The design of Figure 3 therefore serves any photodiode from 0.15 to 2.7 pF without a change, with 518–563 MHz. A smaller photodiode costs gain margin, which shows as the 3.3-GHz resonance rising to 7.0 dB below $R_F$ at $C_D$ = 0 (Figure 4e). The noise penalty rises from 2.71 dB at 0 pF to 3.01 dB at 1 pF and 5.12 dB at 5 pF.
+
+For OPA846 at 0.75 pF the phase margin in SPICE stays between 43.1° and 45.4° over the whole range, and our model's between 30.7° and 36.6°. A larger photodiode raises the noise gain at the crossover, which moves the crossover to where the amplifier's phase is larger, and it also raises the noise gain's own lead; in Eq. (17) the two nearly cancel. A larger photodiode, or capacitance added on purpose, therefore buys OPA846 little phase margin at a fixed $C_F$. The gain margin rises from 10.5 to 15.3 dB, the bandwidth from 147 MHz at 0 pF to 181 MHz at 3–4 pF, and the noise penalty from 4.46 to 7.59 dB; the step begins to overshoot only from 2.5 pF, by 7.3 % at 5 pF.
+
+**The feedback capacitance chosen anew at each photodiode capacitance (Figure 7d, Table A4.3).** The scans of Figure 7a–b, repeated at each $C_D$, give the widest-band $C_F$ that meets the three criteria, never below the 0.20-pF parasitic floor. For OPA855, 0.20 pF remains the best choice up to $C_D$ = 2.5 pF, with 525–563 MHz; at 3, 4 and 5 pF the best choices are 0.22, 0.24 and 0.26 pF, with 484, 439 and 404 MHz and at most 0.89 dB of peaking. At $C_D$ = 0 no $C_F$ at or above the floor gives 3 dB of gain margin (2.0 dB at 0.20 pF), so a photodiode smaller than 0.15 pF needs capacitance added at the node or a resistor with less parasitic capacitance. For OPA846 the scan in SPICE reaches 45° from $C_D$ = 1.25 pF, with 0.80 pF and 147 MHz, and with 0.75 pF from 1.5 to 4 pF, with 170–181 MHz (0.80 pF and 167 MHz at 5 pF), never by more than 0.9°; below 1.25 pF its best is 43.1–44.8°. In our model no $C_F$ reaches 45° at any $C_D$ up to 5 pF; the best is 44.9° at 5 pF, with 1.20 pF and only 104 MHz. Either way, choosing $C_F$ cannot make OPA846 robust at 2 kΩ; Section 6.5 reached the same verdict for $C_D$ = 1 ± 0.2 pF (44.5° and 144 MHz at 0.80 pF).
+
+![Figure 7](figures/fig36_case_design_space.png)
+
+*Figure 7. Both designs against the feedback capacitance and against the photodiode capacitance: SPICE (solid) and our analytical model (dashed). Amplifiers: OPA855 (blue) and OPA846 (red), $R_F$ = 2 kΩ. (a) Phase margin and (b) bandwidth against the total feedback capacitance at $C_D$ = 1 pF; the circles mark the designs, 0.20 and 0.75 pF. The OPA855 macromodel oscillates from 0.50 pF, where its gain margin reaches 0 dB (Eq. (47)), and our model's curve ends at 0.38 pF, where its loop gain regains unity on the plotted 4–7 GHz bump; neither is drawn beyond. (c) Phase margin and (d) bandwidth against the photodiode capacitance, with $C_F$ fixed at the design value; in (d) the dotted lines are SPICE with $C_F$ chosen anew at each $C_D$ (Table A4.3), with squares where the three criteria are met and crosses where they are not. (e) Gain margin and peaking in SPICE with $C_F$ fixed; the grey dashed line is Eq. (47) for OPA855 with $C_T$ = $C_D$ + 0.35 + 0.80 pF. The dotted lines in (a), (c) and (e) mark 45°, 3 dB and 1 dB, and those in (b) and (d) 150 MHz. (f) Noise penalty over 10–150 MHz relative to the Johnson noise of $R_F$ (Eq. (21)), $C_F$ fixed.*
+
+### 4.7 Large signals and dynamic range of the two designs
+
+From about 0.15 mA up, the largest undistorted tone, not the noise, sets the dynamic range (Section 6.6.3), and the four equations take that tone from the datasheet's swing and slew rate through Eq. (26). This section checks those ceilings in the two macromodels and gives the dynamic range of both designs. The method is that of Section 5.7: a sine photocurrent at 20, 50, 100, 150 and 200 MHz, whose output amplitude is stepped in fractions of the amplitude of Eq. (26), with a 1-MΩ load, and the total harmonic distortion of harmonics 2–5 (Eq. (48)) read at each step. OPA855 runs from ±2.5 V, as before, and OPA846 from ±6 V, the supply of Table A6.3. Figure 8a and Table A4.4 show where each model reaches −60 and −40 dBc.
+
+**OPA855.** Its amplitude is set by its swing, 1.525 V at every tone. The model behaves as Section 5.7 found for variant A. Up to 0.7 times that amplitude its distortion stays at the numerical floor, near −140 dBc; it reaches −60 dBc at 0.88–0.93 times (1.34–1.42 V) and −40 dBc at 0.99–1.05 times (1.51–1.60 V), as the waveform runs into the swing limit. The macromodel has no distortion of its own below that limit, so for small signals the datasheet's figures near 100 MHz, −73 dBc of second and −89 dBc of third harmonic at 1 Vpp (Table A8.11), remain the reference.
+
+**OPA846.** Its macromodel behaves differently. Its distortion grows smoothly with the amplitude, by about 6 dB for each doubling, the second harmonic dominating, and it grows steeply with frequency. Above 20 MHz it is the distortion, not the slew rate, that sets the ceiling. The THD reaches −60 dBc at 4.16 V at 20 MHz, at 0.41 V at 50 MHz, at 78 mV at 100 MHz, and below 33 and 25 mV at 150 and 200 MHz. It reaches −40 dBc at 2.41 V at 50 MHz, 0.66 V at 100 MHz, 0.28 V at 150 MHz and 0.15 V at 200 MHz. At the slew-rate amplitude of Eq. (26) it is −36 dBc at 100 MHz. At 20 MHz the model stays below −55 dBc up to 5.6 V, beyond the datasheet's 4.30-V swing on ±6 V. How far the part shares this the datasheet cannot say, because it plots distortion only up to 20 MHz: −66 dBc of second harmonic at 2 Vpp in a gain of +10 with 200 Ω (Table A6.31). At 20 MHz and 1 V peak in the TIA the model gives about −75 dBc. The TIA has more loop gain there than the gain-of-10 stage: its noise gain at 20 MHz is $|1 + jf/f_z|/|1 + jf/f_p|$ = 1.76, with $f_z = 1/[2\pi R_F(C_T + C_F)]$ = 13.5 MHz and $f_p = 1/(2\pi R_FC_F)$ = 106 MHz, against 10. That 15 dB of extra loop gain would bring the datasheet's −66 dBc to about −81 dBc, so the model is of the right order where the two can be compared. Above 20 MHz nothing tests it, and its quiescent current, 4.8 against 12.6 mA (Section 5.3), suggests internal stages biased unlike the part's. Its distortion near 100 MHz therefore needs a measurement (Appendix C, item 18).
+
+**Dynamic range (Figure 8b, Table A4.1).** With the amplitude of Eq. (26) and the noise integrated from 0 to 150 MHz, Eq. (27) gives the dynamic range for a 100-MHz tone. For OPA855 it is 80.7, 76.0, 67.6, 57.8 and 54.8 dB at $I_{\mathrm{DC}}$ = 0, 0.1, 1, 10 and 20 mA, the same in SPICE and in our model within 0.1 dB. For OPA846 it is 76.4, 72.9, 65.1, 55.4 and 52.4 dB in SPICE and 74.4, 71.4, 64.0, 54.3 and 51.4 dB in our model. SPICE is higher by 1.0–2.0 dB, from its lower noise (61.9 against 69.0 nA rms) and from its lower transimpedance at 100 MHz (1.71 against 1.94 kΩ), which raises the largest photocurrent tone by 1.1 dB. As an example, OPA846 in SPICE at 1 mA: the largest tone is $0.995\ \mathrm{V}/(\sqrt2\times1.712\ \mathrm{k\Omega})$ = 0.411 mA rms, the noise is $\sqrt{61.9^2 + 219.2^2}$ = 227.8 nA rms, with $\sqrt{2qI_{\mathrm{DC}}B}$ = 219.2 nA rms of shot noise, and $20\log_{10}(0.411\ \mathrm{mA}/227.8\ \mathrm{nA})$ = 65.1 dB. If OPA846's ceiling is instead the amplitude at which its model reaches −40 dBc, 0.66 V at 100 MHz, every figure falls by $20\log_{10}(0.995/0.659)$ = 3.6 dB, to 61.5 dB at 1 mA. At −60 dBc, 78 mV, it falls by 22 dB. At 1 mA OPA855 leads OPA846 by 2.5–3.6 dB on the amplitudes of Eq. (26), and by 6.1 dB if OPA846 must stay below −40 dBc.
+
+![Figure 8](figures/fig37_case_large_signal_dr.png)
+
+*Figure 8. Large-signal limits and dynamic range of the two designs. Amplifiers: OPA855 (blue, ±2.5 V) and OPA846 (red, ±6 V), $R_F$ = 2 kΩ, $C_D$ = 1 pF, 1-MΩ load. (a) Largest output amplitude against the tone frequency: Eq. (26) from the datasheets' swing and slew rate (lines), and the amplitudes at which each macromodel's THD (Eq. (48)) reaches −40 dBc (filled circles) and −60 dBc (open squares). OPA855's model limits where Eq. (26) says; OPA846's distorts from far below its slew limit, and at 150 and 200 MHz reaches −60 dBc below 0.05 times the amplitude of Eq. (26), the smallest step simulated, so those points are missing; at 20 MHz it stays below −40 dBc up to 1.3 times. (b) Dynamic range in 150 MHz for a 100-MHz tone (Eq. (27)) against the DC photocurrent $I_1 + I_2$, with the amplitude of Eq. (26) and the noise of SPICE (solid) or of our model (dashed); the dotted line is OPA846 with the amplitude at which its macromodel reaches −40 dBc, 0.66 V.*
+
+### 4.8 How the designs compare with a plain 50-Ω termination
+
+We now set both designs against the 50-Ω benchmark of Section 2.1, with a 2-dB noise figure, using the spot values of Eq. (33) at 100 MHz.
+
+**Noise.** The dark OPA855 TIA's 4.17 pA/√Hz at 100 MHz is $20\log_{10}(22.85/4.17)$ = 14.8 dB below the chain's 22.85 pA/√Hz (Eq. (1)); integrated over the band, the measure $A$ of Section 2.1, the lead is 15.0 dB with the vendor's macromodel (Section 6.8). With photocurrent the shot noise is common to both. At $I_{\mathrm{DC}}$ = 1 mA it is 17.90 pA/√Hz: the TIA gives 18.38 pA/√Hz and the chain $\sqrt{22.85^2 + 17.90^2}$ = 29.03 pA/√Hz, so the TIA still leads by $20\log_{10}(29.03/18.38)$ = 4.0 dB. At 10 mA the shot noise is 56.61 pA/√Hz, the TIA gives 56.76 pA/√Hz and the chain $\sqrt{22.85^2 + 56.61^2}$ = 61.05 pA/√Hz, a lead of 0.63 dB. For a small RF signal on the DC, as in the receiver of Section 1.1, the TIA therefore wins at every photocurrent, by an amount that shrinks as the shot noise takes over.
+
+**Ceiling.** The design's largest tone at 100 MHz is $V_{\mathrm{pk}}/(\sqrt2\,|Z_T|)$ = 1.525 V/(√2 × 1.996 kΩ) = 0.540 mA rms. A chain reaches the same current when it compresses at $P_{\mathrm{eq}} = (R_0/4)I_{\max}^2$ = 12.5 Ω × (0.540 mA)² = 3.65 µW, i.e. −24.4 dBm (Eq. (5)). A low-noise amplifier that compresses at −10 dBm has a ceiling 14.4 dB higher.
+
+**Dynamic range.** At 1 mA the design has the 67.6 dB found in Section 4.2. The chain that compresses at −10 dBm has 78.0 dB (Table A2.2), 10.4 dB more, but only for a tone of 2.83 mA rms, which the light cannot supply: at 1 mA the largest tone is 0.71 mA rms (Eq. (28)). On that tone the chain's dynamic range is 66.0 dB, 1.6 dB below the TIA's, although the light already exceeds the TIA's ceiling. From $I_{\mathrm{DC}} = \sqrt2\times0.540$ mA = 0.76 mA up, the TIA's largest tone stays at 0.54 mA rms while the chain's grows with the light, and from about 1.2 mA up the chain's larger tone outweighs the TIA's lower noise (Section 6.8).
+
+**OPA846.** The OPA846 design leads the chain by less and gives way to it sooner. Its dark noise at 100 MHz, 6.02 pA/√Hz by Eq. (33), is $20\log_{10}(22.85/6.02)$ = 11.6 dB below the chain's. Over the band its lead $A$ is 13.1 dB with the macromodel's noise and 12.2 dB with ours; at 1 mA it is 3.9 dB and at 10 mA 0.6 dB, so for small signals it, too, wins at every photocurrent. Its largest tone at 100 MHz is 0.995 V/(√2 × 1.935 kΩ) = 0.364 mA rms with our transimpedance (0.411 mA rms with the macromodel's 1.71 kΩ). A chain reaches that current at $P_{\mathrm{eq}}$ = 12.5 Ω × (0.364 mA)² = 1.65 µW, i.e. −27.8 dBm (−26.8 dBm with the macromodel). From $I_{\mathrm{DC}} = \sqrt2\times0.364$ mA = 0.51 mA up the light can drive the chain harder than the TIA, and from 0.84 mA up (0.93 mA with the macromodel) the chain's usable dynamic range is the larger, against 1.16 mA for OPA855. These figures come from `scripts_archive/case_studies.py` with the benchmark definitions of `scripts_archive/benchmark_50ohm.py`.
+
+### 4.9 What the four equations cannot tell us
+
+The four equations answer the easy questions, and the simulations of Sections 4.3–4.7 show where they stop. They get the noise of both designs and the bandwidth of the well-damped one within a few per cent: 4.17 pA/√Hz and 521 MHz for OPA855 against 4.10 pA/√Hz and 563 MHz in SPICE. They give no phase margin, and for a decompensated amplifier near its minimum stable gain the phase margin depends on the amplifier's higher poles. OPA846 passes the necessary condition of Eq. (35) with 5.15 against 3.27 pF and still has only 34–45°, and with it its bandwidth moves between 163 and 233 MHz. They give no gain margin either, and OPA855's gain margin sets the upper edge of its window of $C_F$, 0.157–0.300 pF over $C_D$ ± 0.2 pF (Section 5.5), and the smallest photodiode its design serves, 0.15 pF (Section 4.6). They take the ceiling from the datasheet's swing and slew rate, which OPA855's macromodel confirms and OPA846's does not: in that model its distortion sets the ceiling above 20 MHz (Section 4.7).
+
+Within their range the four equations show the shape of the problem. OPA855's noise is within 0.23 dB of the shot noise at 1 mA, so at the planned photocurrents the amplifier's noise matters only near 0.1 mA and at the top of the band. Its 1.525-V output amplitude, not its noise, sets the dynamic range from a few tens of microamperes up (31–63 µA for the 5-V parts, Eq. (51) of Section 6.6.3). Its stability rests on a feedback capacitance that the parasitics of the resistor and its pads largely set. Chapter 5 tests our analytical model against the manufacturers' SPICE macromodels of seven leading amplifiers, including these two, and explains the methods used here; Chapter 6 applies both to every candidate.
 
 ---
 
 ## 5. SPICE cross-check with the vendors' macromodels
 
-Every phase margin, bandwidth and noise density of Chapter 4 comes from our own model, fed with datasheet curves. Before Chapter 6 compares the candidates on those numbers, this chapter tests the model against the manufacturers' SPICE macromodels in the same circuits. The first seven amplifiers are the leading candidates:
+Every phase margin, bandwidth and noise density of Chapter 3 comes from our own model, fed with datasheet curves. Before Chapter 6 compares the candidates on those numbers, this chapter tests the model against the manufacturers' SPICE macromodels in the same circuits. Chapter 4 has already set two of these macromodels against our model, for its OPA855 and OPA846 designs; this chapter explains the methods used there and extends the test to the leading candidates. The first seven amplifiers are the leading candidates:
 - OPA855 and OPA818, the two variants of the proposed front end (Section 8.9);
 - OPA856, OPA858, OPA859 and LMH6629 (COMP pin high);
-- OPA846, the amplifier of the bench board of Section 4.10.
+- OPA846, the amplifier of the bench board of Section 3.10.
 
 Section 5.1 explains why the cross-check is needed and what a macromodel can and cannot settle. Sections 5.2 and 5.3 give the method: Middlebrook's double injection, which reads the loop gain of the intact circuit, and the small-signal quantities extracted from each macromodel, with which our equations predict the closed loop. Sections 5.4–5.8 give the results. The datasheets' own test circuits decide between curve and macromodel where the two disagree (Section 5.4); the TIA designs with scans of their feedback capacitance, the noise, the large-signal limits and the measured OPA846 board follow (Sections 5.5–5.8). Eleven further amplifiers run through the same fixtures and test circuits (Section 5.1), and Section 6.5 finds every part's best design in SPICE. Section 5.9 collects what the cross-check found and what it changes in our analysis. The simulator is ngspice-46, driven from a Python script without a schematic; Appendix B.1 explains how to run it this way, and Appendix B.2 says how to reproduce every number.
 
 ### 5.1 Why a SPICE cross-check, and what a macromodel can settle
 
-The analytical model of Chapter 4 evaluates Eqs. (13), (14) and (23) with two inputs per amplifier: the open-loop curve digitized from its datasheet and a pure input capacitance taken from the datasheet. Both inputs are weakest where our designs are marginal. Several curves end near 1 GHz (OPA818's at 0.96 GHz, Figure 4), so a gain margin at gigahertz frequencies rests on extrapolation or, for OPA855, on a plotted 4–7 GHz bump that Table A4.5 shows to be exaggerated. A datasheet curve gives the gain from the non-inverting input, while a TIA drives the inverting one. And three TI datasheets state a phase margin or GBW that disagrees with their own plotted curve (Table A4.2). Section 4.5 therefore reads every phase margin below about 50° with the results of this chapter.
+The analytical model of Chapter 3 evaluates Eqs. (9), (10) and (19) with two inputs per amplifier: the open-loop curve digitized from its datasheet and a pure input capacitance taken from the datasheet. Both inputs are weakest where our designs are marginal. Several curves end near 1 GHz (OPA818's at 0.96 GHz, Figure 10), so a gain margin at gigahertz frequencies rests on extrapolation or, for OPA855, on a plotted 4–7 GHz bump that Table A3.5 shows to be exaggerated. A datasheet curve gives the gain from the non-inverting input, while a TIA drives the inverting one. And three TI datasheets state a phase margin or GBW that disagrees with their own plotted curve (Table A3.2). Section 3.5 therefore reads every phase margin below about 50° with the results of this chapter.
 
 A vendor's macromodel can settle three things. It is a complete circuit, so its small-signal quantities, measured in simple fixtures and put into our equations, test whether the equations leave anything out (Section 5.3). It extends to tens of gigahertz, so the double injection of Section 5.2 reads its loop gain, and both margins, beyond the end of the datasheet curves. And where a datasheet contradicts itself, the closed-loop test circuit printed in it decides which description is consistent with it (Section 5.4).
 
@@ -855,11 +949,11 @@ Sections 5.3–5.5 report them under their own headings, and Section 6.5 finds t
 
 ### 5.2 Reading the loop gain with Middlebrook's double injection
 
-**Why not just simulate the TIA?** A closed-loop simulation gives $Z_T(f)$, and Eq. (13) shows how little that reveals.
+**Why not just simulate the TIA?** A closed-loop simulation gives $Z_T(f)$, and Eq. (9) shows how little that reveals.
 - $Z_T = -Z_F\,T/(1+T)$ is flat wherever $\lvert T\rvert \gg 1$.
 - Above crossover it follows $Z_F$, which the feedback capacitor makes small. A low margin there shows up only as a small bump far below the in-band level.
-- Example: variant A at its worst-gain-margin corner, total $C_F$ = 0.35 pF and $C_D$ = 0.8 pF. Its $Z_T$ has no in-band peaking at all, and its only trace of trouble is a bump 11 dB below $R_F$ at 3.4 GHz. Yet its gain margin is 1.9 dB (Figure 3a–c).
-- A closed-loop sweep or step therefore shows that a design works, not by how much. Figure 11 (Section 6.2.7) shows the same for OPA818 and OPA846, whose responses are flat at 32–34° of phase margin.
+- Example: variant A at its worst-gain-margin corner, total $C_F$ = 0.35 pF and $C_D$ = 0.8 pF. Its $Z_T$ has no in-band peaking at all, and its only trace of trouble is a bump 11 dB below $R_F$ at 3.4 GHz. Yet its gain margin is 1.9 dB (Figure 9a–c).
+- A closed-loop sweep or step therefore shows that a design works, not by how much. Figure 17 (Section 6.2.7) shows the same for OPA818 and OPA846, whose responses are flat at 32–34° of phase margin.
 
 The loop gain $T(f)$ shows the margins directly:
 - the crossover frequency $f_c$ where $\lvert T\rvert$ = 1;
@@ -867,7 +961,7 @@ The loop gain $T(f)$ shows the margins directly:
 - the gain margin $-20\log_{10}\lvert T\rvert$ where the phase reaches −180°;
 - any second crossing at higher frequency.
 
-It is also the quantity of our own model (Eq. (14)), so it can be compared like for like.
+It is also the quantity of our own model (Eq. (10)), so it can be compared like for like.
 
 **How to get $T$ without breaking the loop.** Cutting the loop and driving one side changes the operating point and the loading. Closing it at DC through a large inductor, as in Appendix B.1, keeps the operating point but still loses the loading.
 
@@ -920,13 +1014,13 @@ In a TIA, $Z_1$ is the amplifier's output impedance, 4–37 Ω in these models (
 
 **What the method adds, in numbers.**
 - **The margins appear directly.** Variant A's 1.9-dB corner, invisible in $Z_T$, is a single number.
-- **A single voltage injection gets the phase margin right to 1.3° and the gain margin wrong by up to 18.5 dB.** For OPA856 and LMH6629 it even reports a second crossing at 10–14 GHz that does not exist (Figure 3d). There $Z_1/Z_2$ grows above 1 because the feedback network becomes a low impedance. The double injection removes both errors.
+- **A single voltage injection gets the phase margin right to 1.3° and the gain margin wrong by up to 18.5 dB.** For OPA856 and LMH6629 it even reports a second crossing at 10–14 GHz that does not exist (Figure 9d). There $Z_1/Z_2$ grows above 1 because the feedback network becomes a low impedance. The double injection removes both errors.
 - **The operating point and every loading stay those of the real circuit.** No element is added except a 0-V source, which is a short at DC.
-- **The result is directly comparable with our $T = A/NG$** (Eq. (14)), so the comparison of Section 5.3 can name the cause of every difference.
+- **The result is directly comparable with our $T = A/NG$** (Eq. (10)), so the comparison of Section 5.3 can name the cause of every difference.
 
-![Figure 3](figures/fig07_spice_loop_gain_hidden_margin.png)
+![Figure 9](figures/fig07_spice_loop_gain_hidden_margin.png)
 
-*Figure 3. Loop gain and transimpedance of variant A at its worst-gain-margin corner, and what a voltage injection alone reports. Amplifiers: OPA855 (a–c) and OPA856 (d). (a, b) Loop gain of the 1-pF, 2-kΩ design at total $C_F$ = 0.35 pF and $C_D$ = 0.8 pF, from the double injection, Eq. (39), against our $T = A/NG$ with the digitized datasheet curve, drawn to the end of that curve at 9.7 GHz. SPICE gives $f_c$ = 1.42 GHz and 68.5° of phase margin. Between $f_c$ and $f_{180}$ = 3.5 GHz, the frequency at which the loop phase reaches −180° (Section 5.5), the loop gain stays between −2.1 and 0 dB, on the plateau of $A_-$, the open-loop gain from the inverting input (Section 5.3, Figure 4a), so the gain margin is only 1.9 dB. Our curve gives 62.7° and returns to 0 dB at 6.5 GHz, by 0.01 dB, on the plotted 4–7 GHz bump: the second crossing of Table A5.7. (c) Transimpedance of the same corner, computed from the SPICE loop gain with Eq. (13) and drawn up to 5 GHz, with the directly simulated response of the nominal design ($C_F$ = 0.25 pF, $C_D$ = 1.0 pF, gain margin 5.1 dB) for comparison. Neither has in-band peaking; the 1.9-dB margin shows only as a resonance 11.1 dB below $R_F$ at 3.4 GHz. At the neighbouring scan point (0.34 pF, 0.8 pF), Eq. (13) reproduces the directly simulated $Z_T$ to 0.11 dB from 1 MHz to 4 GHz. Above about 5 GHz the photocurrent that reaches the output through $C_F$, which Eq. (13) leaves out, dominates. (d) OPA856, 1 pF, 2 kΩ, $C_F$ = 0.55 pF: double injection against voltage injection alone, Eq. (37). The latter carries the error $Z_1/Z_2$ of Eq. (40), which grows above 2 GHz as the feedback network becomes a low impedance. It understates the gain margin by 18.5 dB (23.7 against 42.2 dB) and crosses 0 dB again at 10.6 GHz, where the loop does not.*
+*Figure 9. Loop gain and transimpedance of variant A at its worst-gain-margin corner, and what a voltage injection alone reports. Amplifiers: OPA855 (a–c) and OPA856 (d). (a, b) Loop gain of the 1-pF, 2-kΩ design at total $C_F$ = 0.35 pF and $C_D$ = 0.8 pF, from the double injection, Eq. (39), against our $T = A/NG$ with the digitized datasheet curve, drawn to the end of that curve at 9.7 GHz. SPICE gives $f_c$ = 1.42 GHz and 68.5° of phase margin. Between $f_c$ and $f_{180}$ = 3.5 GHz, the frequency at which the loop phase reaches −180° (Section 5.5), the loop gain stays between −2.1 and 0 dB, on the plateau of $A_-$, the open-loop gain from the inverting input (Section 5.3, Figure 10a), so the gain margin is only 1.9 dB. Our curve gives 62.7° and returns to 0 dB at 6.5 GHz, by 0.01 dB, on the plotted 4–7 GHz bump: the second crossing of Table A5.7. (c) Transimpedance of the same corner, computed from the SPICE loop gain with Eq. (9) and drawn up to 5 GHz, with the directly simulated response of the nominal design ($C_F$ = 0.25 pF, $C_D$ = 1.0 pF, gain margin 5.1 dB) for comparison. Neither has in-band peaking; the 1.9-dB margin shows only as a resonance 11.1 dB below $R_F$ at 3.4 GHz. At the neighbouring scan point (0.34 pF, 0.8 pF), Eq. (9) reproduces the directly simulated $Z_T$ to 0.11 dB from 1 MHz to 4 GHz. Above about 5 GHz the photocurrent that reaches the output through $C_F$, which Eq. (9) leaves out, dominates. (d) OPA856, 1 pF, 2 kΩ, $C_F$ = 0.55 pF: double injection against voltage injection alone, Eq. (37). The latter carries the error $Z_1/Z_2$ of Eq. (40), which grows above 2 GHz as the feedback network becomes a low impedance. It understates the gain margin by 18.5 dB (23.7 against 42.2 dB) and crosses 0 dB again at 10.6 GHz, where the loop does not.*
 
 ### 5.3 What is extracted from each macromodel, and how it predicts the closed loop
 
@@ -969,7 +1063,7 @@ a quadratic in $C_x$.
    - $C_0$ minus the test circuit's $C_F$ is the capacitance of the model's own that its $e_n$ drives.
    - The fit is done in pA²/Hz and pF so that the three columns of the least-squares problem are of similar size. In SI units the $C_x^2$ column is $10^{24}$ times smaller than the constant one, and the solver discards it.
 
-**From these quantities to the closed loop.** Our loop gain, Eq. (14), is $T = A/NG$ with $NG = 1 + sC_TZ_F$. The complete version uses:
+**From these quantities to the closed loop.** Our loop gain, Eq. (10), is $T = A/NG$ with $NG = 1 + sC_TZ_F$. The complete version uses:
 - the gain from the inverting input, $A_-$;
 - the node admittance $Y_{\mathrm{node}} = s(C_D + C_{\mathrm{PCB}}) + Y_{\mathrm{in}}$ in place of $sC_T$;
 - the output impedance loaded by $R_L$ and by the feedback network.
@@ -981,7 +1075,7 @@ T = A_-\,\frac{R_L + Z_o}{R_L}\,\frac{Z_L}{Z_L + Z_o}\,\frac{1}{1 + Z_F\,Y_{\mat
 Z_L = \left(\frac{1}{R_L} + \frac{1}{Z_F + 1/Y_{\mathrm{node}}}\right)^{-1}.
 \tag{45}
 $$
-The transimpedance then follows from Eq. (13). The noise follows from Eq. (23), with the fitted $e_n$ and $i_n$ and with $C_{\mathrm{tot}} = C_D + C_{\mathrm{PCB}} + C_F + (C_0 - C_F^{\mathrm{test}})$.
+The transimpedance then follows from Eq. (9). The noise follows from Eq. (19), with the fitted $e_n$ and $i_n$ and with $C_{\mathrm{tot}} = C_D + C_{\mathrm{PCB}} + C_F + (C_0 - C_F^{\mathrm{test}})$.
 
 **What Table A5.2 shows.**
 - **$e_n$ and the input capacitance match the datasheets**, except in three cases:
@@ -990,9 +1084,9 @@ The transimpedance then follows from Eq. (13). The noise follows from Eq. (23), 
   - OPA859's $e_n$ is 3.03 against 3.3 nV/√Hz, and rises to 3.65 nV/√Hz at 500 MHz.
 - **Current noise differs by model family:**
   - The bipolar parts have current noise close to their datasheet values. OPA855, OPA856 and LMH6629 are flat; OPA846 rises from 2.8 to 3.2 pA/√Hz between 10 and 100 MHz.
-  - The OPA858 and OPA859 models have essentially none: 0.03 pA/√Hz at 100 MHz. OPA858's datasheet curve rises to 4.65 pA/√Hz at 100 MHz (Table A4.4).
+  - The OPA858 and OPA859 models have essentially none: 0.03 pA/√Hz at 100 MHz. OPA858's datasheet curve rises to 4.65 pA/√Hz at 100 MHz (Table A3.4).
   - The OPA818 model adds a current noise that rises with frequency: 1.15, 2.36 and 4.22 pA/√Hz at 10, 50 and 100 MHz. That is 1.6–1.9 times the datasheet curve (0.59, 1.42 and 2.56 pA/√Hz at 10, 50 and 97.6 MHz), on top of the $e_n$ that drives the model's own 2.37 pF.
-  - Between 50 and 100 MHz the OPA818 datasheet curve lies within 10 % of $e_n\cdot2\pi f\cdot C_{CM}$ with $C_{CM}$ = 1.9 pF: at 97.6 MHz, 2.2 nV/√Hz × 2π × 97.6 MHz × 1.9 pF = 2.56 pA/√Hz. That is the input-capacitance noise that Eq. (23) already contains. If the curve is that noise, as its values suggest (it is labelled simulated, Appendix C, item 3), the model counts it twice. In any case the model's current noise is larger than the datasheet's.
+  - Between 50 and 100 MHz the OPA818 datasheet curve lies within 10 % of $e_n\cdot2\pi f\cdot C_{CM}$ with $C_{CM}$ = 1.9 pF: at 97.6 MHz, 2.2 nV/√Hz × 2π × 97.6 MHz × 1.9 pF = 2.56 pA/√Hz. That is the input-capacitance noise that Eq. (19) already contains. If the curve is that noise, as its values suggest (it is labelled simulated, Appendix C, item 3), the model counts it twice. In any case the model's current noise is larger than the datasheet's.
 - **$I_Q$ matches** except for OPA846, whose 2011 model carries 4.8 mA against 12.6 mA. The supply current does not enter the quantities measured here, but a model biased this differently may not describe the part, and Section 5.4 finds it peaking less than the datasheet's measured response (Appendix C, item 18).
 - **The output impedances are 5–18 Ω for the newer models and 37 Ω for OPA846.**
 - **The further amplifiers of Section 6.5.**
@@ -1001,8 +1095,8 @@ The transimpedance then follows from Eq. (13). The noise follows from Eq. (23), 
   - The other models agree with their datasheets within 0.7 nV/√Hz and 1.2 pF.
 
 **What Table A5.3 shows.**
-- **OPA855.** The magnitudes agree within 0.2 dB up to 1 GHz. The plotted 4–7 GHz bump (14.7 dB at 5 GHz on the datasheet curve) is absent from $A_+$, which has 1.1 dB there. $A_-$, however, has a plateau of 14.6–14.8 dB at 2–3 GHz, 1–2 dB above $A_+$ (Figure 4a). It has 4–13° more phase lag there and 25–39° more at 4–5 GHz. That plateau sets variant A's gain margin (Section 5.5).
-- **OPA818.** The macromodel has 16° less phase lag than the curve at 300 MHz (−106° against −123°), and the gap widens towards 1 GHz (Figure 4d). At variant B's crossover (300–390 MHz) this is the whole difference between our 33° and SPICE's 49°.
+- **OPA855.** The magnitudes agree within 0.2 dB up to 1 GHz. The plotted 4–7 GHz bump (14.7 dB at 5 GHz on the datasheet curve) is absent from $A_+$, which has 1.1 dB there. $A_-$, however, has a plateau of 14.6–14.8 dB at 2–3 GHz, 1–2 dB above $A_+$ (Figure 10a). It has 4–13° more phase lag there and 25–39° more at 4–5 GHz. That plateau sets variant A's gain margin (Section 5.5).
+- **OPA818.** The macromodel has 16° less phase lag than the curve at 300 MHz (−106° against −123°), and the gap widens towards 1 GHz (Figure 10d). At variant B's crossover (300–390 MHz) this is the whole difference between our 33° and SPICE's 49°.
 - **OPA858.** The macromodel's magnitude is 4.3–5.1 dB below the plotted curve up to 1 GHz, i.e. its gain–bandwidth product is that of the table (5.5 GHz, Section 6.2.3), not that of Fig 6-10.
 - **OPA856.** The macromodel has 1.2 dB less gain at 100–300 MHz and 2.8 dB less at 1 GHz, with 16° less phase lag there.
 - **LMH6629.** The macromodel has 1.4–2.3 dB more gain at 100 MHz–1 GHz and 18° less phase lag at 1 GHz.
@@ -1016,12 +1110,12 @@ The transimpedance then follows from Eq. (13). The noise follows from Eq. (23), 
   - ADA4817-1 and ADA4895-1 agree with their curves within 1.1 dB and 3° up to 300 MHz. ADA4899-1 has 1.1–3.3 dB less gain.
   - OPA955's macromodel matches its curve's magnitude within 1.1 dB up to 3 GHz but has far less phase lag above 300 MHz: 28° less at 1 GHz and 74° less at 3 GHz (−109° against −183°).
 
-![Figure 4](figures/fig08_spice_open_loop_gain.png)
+![Figure 10](figures/fig08_spice_open_loop_gain.png)
 
-*Figure 4. Open-loop gain from our digitized datasheet curve and from the macromodel, driven at the non-inverting input ($A_+$) and at the inverting input ($A_-$, as in the TIA), each with the datasheet's load. Amplifiers: OPA855 (a, c) and OPA818 (b, d). The shaded bands mark the loop crossovers of each variant's four TIA configurations in SPICE: 880–1032 MHz and 307–386 MHz (Table A5.6). Each datasheet curve is drawn only over its digitized range: for OPA855 the magnitude to 9.7 GHz and the phase to 4.5 GHz, for OPA818 to 0.96 and 0.94 GHz. Beyond these our analysis extrapolates. For OPA855 the magnitudes agree within 0.2 dB up to 1 GHz. Above that, $A_-$ has a 14.6–14.8-dB plateau at 2–3 GHz, 1–2 dB above $A_+$, and that plateau sets variant A's gain margin; the plotted 4–7 GHz bump appears in neither. For OPA818 the macromodel has less phase lag than the curve from 100 MHz up, 16° at 300 MHz, which is the difference between the analytical and the SPICE phase margins for variant B. Section 5.4 shows that the macromodel is the one consistent with the datasheet's measured closed-loop response. Between 10 and 300 MHz OPA855's macromodel has 6–20° more phase lag than its curve (9° at 100 MHz, 20° at 10 MHz). At 10–100 MHz, where the gap exceeds 8°, the loop gain of variant A is 26–56 dB, so the margins do not depend on it.*
+*Figure 10. Open-loop gain from our digitized datasheet curve and from the macromodel, driven at the non-inverting input ($A_+$) and at the inverting input ($A_-$, as in the TIA), each with the datasheet's load. Amplifiers: OPA855 (a, c) and OPA818 (b, d). The shaded bands mark the loop crossovers of each variant's four TIA configurations in SPICE: 880–1032 MHz and 307–386 MHz (Table A5.6). Each datasheet curve is drawn only over its digitized range: for OPA855 the magnitude to 9.7 GHz and the phase to 4.5 GHz, for OPA818 to 0.96 and 0.94 GHz. Beyond these our analysis extrapolates. For OPA855 the magnitudes agree within 0.2 dB up to 1 GHz. Above that, $A_-$ has a 14.6–14.8-dB plateau at 2–3 GHz, 1–2 dB above $A_+$, and that plateau sets variant A's gain margin; the plotted 4–7 GHz bump appears in neither. For OPA818 the macromodel has less phase lag than the curve from 100 MHz up, 16° at 300 MHz, which is the difference between the analytical and the SPICE phase margins for variant B. Section 5.4 shows that the macromodel is the one consistent with the datasheet's measured closed-loop response. Between 10 and 300 MHz OPA855's macromodel has 6–20° more phase lag than its curve (9° at 100 MHz, 20° at 10 MHz). At 10–100 MHz, where the gap exceeds 8°, the loop gain of variant A is 26–56 dB, so the margins do not depend on it.*
 
 **How Table A5.4 is read.**
-- **The two-port column reproduces SPICE**: to 0.1° of phase margin, 0.1 dB of gain margin and 1 % of bandwidth for the thirteen designs of the first seven amplifiers, and the noise to 0.3 %. The closed-loop simulation therefore holds nothing that Eqs. (13), (23) and (45) and the quantities of Table A5.2 do not.
+- **The two-port column reproduces SPICE**: to 0.1° of phase margin, 0.1 dB of gain margin and 1 % of bandwidth for the thirteen designs of the first seven amplifiers, and the noise to 0.3 %. The closed-loop simulation therefore holds nothing that Eqs. (9), (19) and (45) and the quantities of Table A5.2 do not.
   - For the further amplifiers of Section 6.5 the agreement is within 0.3°, 0.1 dB, 1.4 % and 1.5 %, with one exception, OPA847: 4.0°, 1.3 dB and 9 %. Its output couples back to its inverting input (Table A5.2), which Eq. (45) leaves out.
 - **Our method differs from it by method alone**: one open-loop curve and a pure input capacitance, with the same model's numbers.
   - The phase margin moves by at most 1.8° for OPA855, OPA818, OPA858 and OPA859. It moves by 6.4° for LMH6629, whose $A_-$ and $A_+$ part by 7° at 1 GHz, near its 801-MHz crossover (Table A5.3), and by 2.6° for OPA856 and 3.1° for OPA846, whose two gains differ by only 5° and 0° even at 1 GHz, far above their 208-MHz and 308-MHz crossovers; the input admittance and the loaded output impedance of Eq. (45) account for the rest. For OPA955 our method is 9° optimistic: its gain from the inverting input has 10–18° more lag than from the non-inverting input at 1–3 GHz (Table A5.3).
@@ -1037,7 +1131,7 @@ $$
 T = A_-\,\beta,\qquad G_{\mathrm{cl}} = \frac{A_+}{1+T}.
 \tag{46}
 $$
-Here $\beta$ is the feedback factor, $T$ the loop gain and $G_{\mathrm{cl}}$ the closed-loop gain. The input pole lies at $1/(2\pi R_{\parallel}C_{\mathrm{in}})$, where $R_{\parallel}$ is $R_G$ in parallel with $R_F$. For OPA818, $R_{\parallel}$ = 301 × 50.5/351.5 = 43.2 Ω and $C_{\mathrm{in}}$ = 2.4 pF put that pole at 1.5 GHz. Across the five circuits of the first seven parts that have gain-setting resistors (OPA856 and OPA859 are tested as buffers) it lies at 1–3 GHz, close enough to their 240–1250 MHz crossovers to cost 12–19° of phase (Table A5.5). Table A4.5 compared the curves with these circuits using $A/(1 + A/G)$, i.e. without $C_{\mathrm{in}}$.
+Here $\beta$ is the feedback factor, $T$ the loop gain and $G_{\mathrm{cl}}$ the closed-loop gain. The input pole lies at $1/(2\pi R_{\parallel}C_{\mathrm{in}})$, where $R_{\parallel}$ is $R_G$ in parallel with $R_F$. For OPA818, $R_{\parallel}$ = 301 × 50.5/351.5 = 43.2 Ω and $C_{\mathrm{in}}$ = 2.4 pF put that pole at 1.5 GHz. Across the five circuits of the first seven parts that have gain-setting resistors (OPA856 and OPA859 are tested as buffers) it lies at 1–3 GHz, close enough to their 240–1250 MHz crossovers to cost 12–19° of phase (Table A5.5). Table A3.5 compared the curves with these circuits using $A/(1 + A/G)$, i.e. without $C_{\mathrm{in}}$.
 
 Two cautions apply.
 - **The agreement can be by construction.** The models of OPA855, OPA818, OPA856 and OPA955 (TI's Green-Williams-Lis macromodels, Table B.1) are fitted to the datasheet's closed-loop gain and phase, so their agreement with a closed-loop statement shows that the fit holds, not that the model is independent evidence. What the referee adds is the other half: whether the open-loop curve, used with the datasheet's own input capacitance, is consistent with the same closed-loop data.
@@ -1082,7 +1176,7 @@ The corners vary the total $C_F$ by ±0.1 pF and $C_D$ by ±0.2 pF: nine combina
 
 **Variant A (OPA855).**
 - **Phase margin and bandwidth agree with our analysis.** At every corner of Table A5.7 the SPICE phase margin lies between 0.2° below and 5.8° above ours. The bandwidth is 2–4 % higher, and the step response has at most 1.2 % overshoot.
-- **The gain margin is the new information.** It is set at about 3.4 GHz by the plateau of $A_-$ (Table A5.3). It falls as $C_F$ rises, because a larger $C_F$ lowers the high-frequency noise gain $NG_\infty = 1 + C_T/C_F$ (Eq. (15)) and so raises $\lvert T\rvert$ there. At the upper $C_F$ corner it is only 1.4–3.1 dB.
+- **The gain margin is the new information.** It is set at about 3.4 GHz by the plateau of $A_-$ (Table A5.3). It falls as $C_F$ rises, because a larger $C_F$ lowers the high-frequency noise gain $NG_\infty = 1 + C_T/C_F$ (Eq. (11)) and so raises $\lvert T\rvert$ there. At the upper $C_F$ corner it is only 1.4–3.1 dB.
 - **The scan below finds how far $C_F$ may move before this margin falls under 3 dB** (Tables A5.8 and A5.9).
 
 **Variant B (OPA818).**
@@ -1098,15 +1192,15 @@ The corners vary the total $C_F$ by ±0.1 pF and $C_D$ by ±0.2 pF: nine combina
 Each step was simulated at the nominal $C_D$ and at $C_D$ ± 0.2 pF, with the loop gain of Eq. (39) and the transimpedance in the same deck: 660 runs in all. An edge is placed by linear interpolation between neighbouring steps. Each proposed value was then simulated again at its nine corners (its own $C_F$ tolerance, and $C_D$ ± 0.2 pF), and its noise with it: 180 further runs. The criteria are those of Section 6.2.4, required at all three photodiode capacitances: phase margin ≥ 45°, gain margin ≥ 3 dB, and peaking ≤ 1 dB. For variant B, whose gain margin is 14–19 dB everywhere, Table A5.10 asks for the phase margin alone, at 45° or 40°; its 40° designs peak by up to 1.53 dB at a corner, more than the 1 dB of variant A's window.
 
 **Reading Table A5.8.**
-- **The lower edge is set by peaking, not by phase margin** (Figure 5a–c). At the lower edges the worst-case phase margin is still 50–51°. Phase margin ≥ 45° alone would allow 0.135, 0.159, 0.160 and 0.188 pF in the order of the table. Our analytical model puts the lower edges within 0.011 pF of SPICE.
+- **The lower edge is set by peaking, not by phase margin** (Figure 11a–c). At the lower edges the worst-case phase margin is still 50–51°. Phase margin ≥ 45° alone would allow 0.135, 0.159, 0.160 and 0.188 pF in the order of the table. Our analytical model puts the lower edges within 0.011 pF of SPICE.
 - **The upper edge is set by the gain margin, and that depends only on $NG_\infty$.** The gain margin is read where the loop phase reaches −180°, at about 3.4 GHz.
-  - There $\omega R_FC_F \gg 1$. For example, at 2 kΩ and 0.3 pF, $\omega R_FC_F = 2\pi\times3.4\ \mathrm{GHz}\times2\ \mathrm{k\Omega}\times0.3\ \mathrm{pF} = 12.8$. So $Z_F \approx 1/(j\omega C_F)$, the noise gain of Eq. (14) has reached $NG_\infty$, and $\lvert T\rvert = \lvert A_-\rvert/NG_\infty$.
+  - There $\omega R_FC_F \gg 1$. For example, at 2 kΩ and 0.3 pF, $\omega R_FC_F = 2\pi\times3.4\ \mathrm{GHz}\times2\ \mathrm{k\Omega}\times0.3\ \mathrm{pF} = 12.8$. So $Z_F \approx 1/(j\omega C_F)$, the noise gain of Eq. (10) has reached $NG_\infty$, and $\lvert T\rvert = \lvert A_-\rvert/NG_\infty$.
   - With $f_{180}$ the frequency at which the loop phase is −180°:
 $$
 \mathrm{GM} = 20\log_{10}\frac{NG_\infty}{\lvert A_-(f_{180})\rvert},\qquad NG_\infty = 1 + \frac{C_T}{C_F}.
 \tag{47}
 $$
-  - In all twelve combinations of configuration and photodiode capacitance, the scan gives 3 dB at $NG_\infty$ = 7.49–7.55. In the six (the 1-pF designs) where 0 dB falls inside the scan, it gives 0 dB at 5.30–5.31. So $\lvert A_-(f_{180})\rvert$ = 5.3 (14.5 dB), the plateau of Table A5.3, and Eq. (47) holds: $20\log_{10}(7.5/5.3) = 3.0$ dB. Figure 5d shows every scan point against it.
+  - In all twelve combinations of configuration and photodiode capacitance, the scan gives 3 dB at $NG_\infty$ = 7.49–7.55. In the six (the 1-pF designs) where 0 dB falls inside the scan, it gives 0 dB at 5.30–5.31. So $\lvert A_-(f_{180})\rvert$ = 5.3 (14.5 dB), the plateau of Table A5.3, and Eq. (47) holds: $20\log_{10}(7.5/5.3) = 3.0$ dB. Figure 11d shows every scan point against it.
 - **What the rule means for $C_F$.**
   - The datasheet's minimum stable gain of 7 leaves $20\log_{10}(7/5.3)$ = 2.4 dB.
   - A 3-dB margin needs $NG_\infty \ge 7.5$, i.e. $C_F \le C_T/6.5$, with $C_T$ including the amplifier's own 0.80 pF. For $C_D$ = 0.8 pF this is (0.8 + 0.35 + 0.80)/6.5 = 0.300 pF, the edge in the table.
@@ -1114,9 +1208,9 @@ $$
 - **Our analytical model's upper edges lie 0.04–0.07 pF higher.** They sit at the second crossing of the plotted 4–7 GHz bump, close to the minimum-gain rule.
 - **The corners that our analysis flags are those that lose gain margin here.** The macromodel has no 4–7 GHz bump but loses margin at the same corners, at about 3.4 GHz, through the plateau of $A_-$, so the flags of Table A8.11 mark a real loss of margin. How large that loss is on a board depends on parasitics no model here contains: the output pin, the feedback pads and $R_F$'s own parasitics at gigahertz.
 
-![Figure 5](figures/fig09_spice_cf_scan_variant_A.png)
+![Figure 11](figures/fig09_spice_cf_scan_variant_A.png)
 
-*Figure 5. Variant A's feedback-capacitance scan in SPICE. Amplifier: OPA855. (a)–(c) Phase margin, gain margin and peaking of $\lvert Z_T\rvert$ against total $C_F$ for the 1-pF, 2-kΩ configuration at $C_D$ = 0.8, 1.0 and 1.2 pF, with our analytical model (datasheet curve) at 1.0 pF dashed. Dotted lines mark the criteria of Section 6.2.4: 45°, 3 dB and 1 dB. The shaded band, 0.157–0.300 pF, meets all three at all three photodiode capacitances (Table A5.8). Peaking at $C_D$ = 1.2 pF sets its lower edge, and the gain margin at $C_D$ = 0.8 pF its upper edge. Peaking is drawn only where the loop is stable (gain margin ≥ 0 dB); its rise above 0.42 pF is the 3-GHz resonance as the gain margin approaches 0 dB. Our analytical model's gain margin lies 1.1–1.5 dB above SPICE and ends at 0.38 pF, because from 0.40 pF its loop gain regains unity on the plotted 4–7 GHz bump. (d) Gain margin against the high-frequency noise gain $NG_\infty = 1 + C_T/C_F$, with $C_T = C_D$ + 0.35 pF + 0.80 pF (the model's own input capacitance), for all four configurations at all three photodiode capacitances, one circle per scan point, against Eq. (47) with $\lvert A_-(f_{180})\rvert$ = 5.3. Up to $NG_\infty$ = 20 the points lie at most 0.54 dB below Eq. (47). At larger $NG_\infty$, i.e. the smallest $C_F$, they fall up to 1.55 dB below it. There $\omega R_FC_F$ at $f_{180}$ drops to 1.9–2.6 (0.06 pF, 1.5–2 kΩ, 3.4 GHz), so $Z_F$ is no longer purely capacitive and the noise gain has not yet reached $NG_\infty$.*
+*Figure 11. Variant A's feedback-capacitance scan in SPICE. Amplifier: OPA855. (a)–(c) Phase margin, gain margin and peaking of $\lvert Z_T\rvert$ against total $C_F$ for the 1-pF, 2-kΩ configuration at $C_D$ = 0.8, 1.0 and 1.2 pF, with our analytical model (datasheet curve) at 1.0 pF dashed. Dotted lines mark the criteria of Section 6.2.4: 45°, 3 dB and 1 dB. The shaded band, 0.157–0.300 pF, meets all three at all three photodiode capacitances (Table A5.8). Peaking at $C_D$ = 1.2 pF sets its lower edge, and the gain margin at $C_D$ = 0.8 pF its upper edge. Peaking is drawn only where the loop is stable (gain margin ≥ 0 dB); its rise above 0.42 pF is the 3-GHz resonance as the gain margin approaches 0 dB. Our analytical model's gain margin lies 1.1–1.5 dB above SPICE and ends at 0.38 pF, because from 0.40 pF its loop gain regains unity on the plotted 4–7 GHz bump. (d) Gain margin against the high-frequency noise gain $NG_\infty = 1 + C_T/C_F$, with $C_T = C_D$ + 0.35 pF + 0.80 pF (the model's own input capacitance), for all four configurations at all three photodiode capacitances, one circle per scan point, against Eq. (47) with $\lvert A_-(f_{180})\rvert$ = 5.3. Up to $NG_\infty$ = 20 the points lie at most 0.54 dB below Eq. (47). At larger $NG_\infty$, i.e. the smallest $C_F$, they fall up to 1.55 dB below it. There $\omega R_FC_F$ at $f_{180}$ drops to 1.9–2.6 (0.06 pF, 1.5–2 kΩ, 3.4 GHz), so $Z_F$ is no longer purely capacitive and the noise gain has not yet reached $NG_\infty$.*
 
 **Reading Table A5.9.**
 - **The 1-pF windows are narrower than ±0.1 pF.** They are 0.143 pF wide at 2 kΩ and 0.117 pF wide at 1.5 kΩ, so the total $C_F$ must be held to ±0.070 and ±0.055 pF. The ±0.1 pF that Table A8.13 allows for the resistor and pads does not fit. The parasitic must be measured on the first board and trimmed with pad copper, as the notes to Table A8.13 describe.
@@ -1126,7 +1220,7 @@ $$
 - **The noise is that of Table A5.11 within 0.05 pA/√Hz.**
 
 **Reading Table A5.10.**
-- **At 1 pF and 2 kΩ the design of Table A8.11 is the 45°, ±0.1-pF design** (Figure 6): the scan returns 0.55 pF, the value of that table. At 2 pF the 45°, ±0.1-pF designs are 0.57 and 0.69 pF, 0.02–0.04 pF above the 0.55 and 0.65 pF of Table A8.11, which keep 44.3° and 43.4° at their worst corner (Table A5.6).
+- **At 1 pF and 2 kΩ the design of Table A8.11 is the 45°, ±0.1-pF design** (Figure 12): the scan returns 0.55 pF, the value of that table. At 2 pF the 45°, ±0.1-pF designs are 0.57 and 0.69 pF, 0.02–0.04 pF above the 0.55 and 0.65 pF of Table A8.11, which keep 44.3° and 43.4° at their worst corner (Table A5.6).
 - **At 1 pF and 1.5 kΩ, 45° is not reached at any $C_F$.** The best worst case is 44.7°, at 0.70 pF. Above that, $NG_\infty$ falls towards the minimum stable gain and the margin drops again.
 - **A smaller $C_F$ buys bandwidth in two ways.** One is accepting a worst case of 40° instead of 45°; the other is trimming $C_F$ to ±0.05 pF.
   - At 1 pF and 2 kΩ, against the 226 MHz of the design of Table A8.11: 259 MHz (45°, ±0.05 pF), 279 MHz (40°, ±0.1 pF) and 309 MHz (40°, ±0.05 pF, at 0.42 pF). That is 15–37 % more, with at most 1.35 dB of peaking at any corner.
@@ -1137,9 +1231,9 @@ $$
 - **The noise changes by at most 0.15 dB** across these designs.
 - **Our analytical model reaches neither 45° nor 40° at any $C_F$ in this range.** Its best worst case over the three photodiode capacitances is 28.6–36.8° across the four configurations, and 33.2° at 1 pF and 2 kΩ. At the nominal $C_D$ alone its best is 29.5–37.5°, and 34.0° at 1 pF and 2 kΩ, as Section 6.2.6 found. Its own conclusion for variant B, an equalized design, rests on that.
 
-![Figure 6](figures/fig10_spice_cf_scan_variant_B.png)
+![Figure 12](figures/fig10_spice_cf_scan_variant_B.png)
 
-*Figure 6. Variant B's feedback-capacitance scan in SPICE, four configurations. Amplifier: OPA818. (a) Worst-case phase margin over $C_D$ ± 0.2 pF at each total $C_F$: SPICE solid, analytical model (datasheet curve) dashed, with dotted lines at 45° and 40°. (b) Bandwidth at the nominal $C_D$. Open circles mark the designs of Table A8.11 and filled squares the 40°, ±0.05-pF designs of Table A5.10. (c) Largest peaking of $\lvert Z_T\rvert$ over the three photodiode capacitances, with 1 dB dotted. (d) Bandwidth against worst-case phase margin, the trade that $C_F$ sets, with the designs of Table A8.11 marked; along each curve $C_F$ rises from upper left to lower right. In SPICE three configurations reach 45°. At 1 pF and 1.5 kΩ the worst case peaks at 44.7°, at 0.70 pF. Our analytical model peaks at 28.6–36.8°. Below about 0.35 pF the bandwidth stops rising while the peaking, largest over the three photodiode capacitances, grows to 10.8–14.5 dB at 0.15 pF: the loop, not $C_F$, caps the bandwidth at 331–434 MHz.*
+*Figure 12. Variant B's feedback-capacitance scan in SPICE, four configurations. Amplifier: OPA818. (a) Worst-case phase margin over $C_D$ ± 0.2 pF at each total $C_F$: SPICE solid, analytical model (datasheet curve) dashed, with dotted lines at 45° and 40°. (b) Bandwidth at the nominal $C_D$. Open circles mark the designs of Table A8.11 and filled squares the 40°, ±0.05-pF designs of Table A5.10. (c) Largest peaking of $\lvert Z_T\rvert$ over the three photodiode capacitances, with 1 dB dotted. (d) Bandwidth against worst-case phase margin, the trade that $C_F$ sets, with the designs of Table A8.11 marked; along each curve $C_F$ rises from upper left to lower right. In SPICE three configurations reach 45°. At 1 pF and 1.5 kΩ the worst case peaks at 44.7°, at 0.70 pF. Our analytical model peaks at 28.6–36.8°. Below about 0.35 pF the bandwidth stops rising while the peaking, largest over the three photodiode capacitances, grows to 10.8–14.5 dB at 0.15 pF: the loop, not $C_F$, caps the bandwidth at 331–434 MHz.*
 
 **Other parts.** For the other five of the first seven, SPICE moves the margins in the direction that Sections 5.3 and 5.4 explain; the ranges are over the nine corners.
 - **OPA858**: its margin collapses at the low-$C_F$ corner (33° at 0.15 pF). In SPICE its window at 1 pF and 2 kΩ is 0.225–1.153 pF, and its best design, 0.280 ± 0.050 pF, keeps 45.9° at 446 MHz (Table A6.32); the alternative is the added input capacitance that Section 6.2.3 recommends for the calibrated curve.
@@ -1149,44 +1243,44 @@ $$
 
 ### 5.6 Noise
 
-The noise figures of Chapters 6 and 8 rest on Eq. (23) with the datasheet noise densities. Here each macromodel's own noise sources take their place in the same circuits, which tests those figures.
+The noise figures of Chapters 6 and 8 rest on Eq. (19) with the datasheet noise densities. Here each macromodel's own noise sources take their place in the same circuits, which tests those figures.
 
-**Reading Table A5.11.** Eq. (23) does not depend on the loop (Section 4.6), so every difference here is one of parameters. Figure 7a shows the spectra of four of the designs.
+**Reading Table A5.11.** Eq. (19) does not depend on the loop (Section 3.6), so every difference here is one of parameters. Figure 13a shows the spectra of four of the designs.
 - **OPA855 and OPA856 agree within 2.5 % and 0.2 dB**: within 2 % from 10 MHz up, and 2.4 % at 1 MHz. Variant A's noise figures in Sections 6.3, 6.4 and 8.9 stand.
-- **OPA858 matches our central estimate exactly**, because its model has no current noise. The FET current-noise question of Section 4.7 therefore remains open; SPICE cannot settle it.
+- **OPA858 matches our central estimate exactly**, because its model has no current noise. The FET current-noise question of Section 3.7 therefore remains open; SPICE cannot settle it.
 - **OPA859 is 0.5 dB below the central estimate**, because its model's $e_n$ is 3.03 instead of 3.3 nV/√Hz.
 - **LMH6629 and OPA846 are lower in SPICE** because their models carry less input capacitance than their datasheets: 1.30 against 5.70 pF, and 2.28 driven by $e_n$ against 3.8 pF.
-- **OPA818 is higher than even our high estimate.** At 100 MHz for variant B at 1 pF and 2 kΩ, Eq. (23) with the model's quantities is:
+- **OPA818 is higher than even our high estimate.** At 100 MHz for variant B at 1 pF and 2 kΩ, Eq. (19) with the model's quantities is:
   - $4k_BT/R_F$ = 8.23 pA²/Hz;
   - $e_n^2/R_F^2$ = (2.174 nV/√Hz / 2 kΩ)² = 1.18 pA²/Hz;
   - $i_n^2$ = 4.22² = 17.8 pA²/Hz;
   - $(e_n\omega C_{\mathrm{tot}})^2$ with $C_{\mathrm{tot}}$ = 1 + 0.35 + 0.55 + 2.37 = 4.27 pF: $(2.174\ \mathrm{nV}\times2\pi\times10^{8}\ \mathrm{Hz}\times4.27\ \mathrm{pF})^2$ = 5.83² = 34.0 pA²/Hz.
 
-  The sum is 61.2 pA²/Hz, i.e. 7.83 pA/√Hz, as SPICE gives (Figure 7b). Our central estimate has no $i_n$ term and a slightly lower $e_n$ (2.12 nV/√Hz, the datasheet curve at 1 MHz), and gives 6.49 pA/√Hz.
+  The sum is 61.2 pA²/Hz, i.e. 7.83 pA/√Hz, as SPICE gives (Figure 13b). Our central estimate has no $i_n$ term and a slightly lower $e_n$ (2.12 nV/√Hz, the datasheet curve at 1 MHz), and gives 6.49 pA/√Hz.
 
   The difference is the model's rising current noise, 1.6–1.9 times the datasheet curve (Section 5.3), so the SPICE figure is an upper bound. With it:
   - variant B's dark noise at 100 MHz is 1.6 dB above our central estimate and 1.0 dB above its high estimate;
   - its dark dynamic range falls by up to 1.6 dB, the change in band penalty;
   - with photocurrent, shot noise dilutes the change. Over 10–150 MHz the amplifier and $R_F$ contribute 35.7 pA²/Hz on average in our analysis and 51.3 pA²/Hz in SPICE. Against the 64.1 pA²/Hz of shot noise at 0.1 mA per diode the totals differ by 0.6 dB, and at 1 mA per diode (641 pA²/Hz) by 0.1 dB.
 
-![Figure 7](figures/fig11_spice_noise.png)
+![Figure 13](figures/fig11_spice_noise.png)
 
-*Figure 7. Input-referred noise in SPICE against our analytical model, without photocurrent. Amplifiers: OPA855 (variant A), OPA818 (variant B), LMH6629 (COMP HI) and OPA846 in (a); OPA818 in (b). (a) The 1-pF, 2-kΩ designs: SPICE solid, our central estimate dashed, and for the FET input of OPA818 the range up to our high estimate shaded. OPA855 agrees within 2 % from 10 MHz up (2.4 % at 1 MHz). LMH6629 and OPA846 are lower in SPICE because their models carry less input capacitance than their datasheets. OPA818 is higher than even the high estimate (Table A5.11). (b) OPA818, variant B at 1 pF and 2 kΩ ($C_F$ = 0.55 pF): the SPICE total and the terms of Eq. (23) with the quantities fitted to the macromodel (Section 5.3). The terms are the Johnson noise of $R_F$, $e_n/R_F$, the model's current noise $i_n$, and $e_n\omega C_{\mathrm{tot}}$ with $C_{\mathrm{tot}}$ = 1 + 0.35 + 0.55 + 2.37 = 4.27 pF. Their quadrature sum (dashed) lies on the SPICE curve. The model's $i_n$ is 1.6–1.9 times the datasheet's current-noise curve (dashed with points, digitized to 97.6 MHz). At 100 MHz it contributes 17.8 of the 61.2 pA²/Hz.*
+*Figure 13. Input-referred noise in SPICE against our analytical model, without photocurrent. Amplifiers: OPA855 (variant A), OPA818 (variant B), LMH6629 (COMP HI) and OPA846 in (a); OPA818 in (b). (a) The 1-pF, 2-kΩ designs: SPICE solid, our central estimate dashed, and for the FET input of OPA818 the range up to our high estimate shaded. OPA855 agrees within 2 % from 10 MHz up (2.4 % at 1 MHz). LMH6629 and OPA846 are lower in SPICE because their models carry less input capacitance than their datasheets. OPA818 is higher than even the high estimate (Table A5.11). (b) OPA818, variant B at 1 pF and 2 kΩ ($C_F$ = 0.55 pF): the SPICE total and the terms of Eq. (19) with the quantities fitted to the macromodel (Section 5.3). The terms are the Johnson noise of $R_F$, $e_n/R_F$, the model's current noise $i_n$, and $e_n\omega C_{\mathrm{tot}}$ with $C_{\mathrm{tot}}$ = 1 + 0.35 + 0.55 + 2.37 = 4.27 pF. Their quadrature sum (dashed) lies on the SPICE curve. The model's $i_n$ is 1.6–1.9 times the datasheet's current-noise curve (dashed with points, digitized to 97.6 MHz). At 100 MHz it contributes 17.8 of the 61.2 pA²/Hz.*
 
-**Noise against margin and bandwidth, across the amplifiers.** Figure 8 places the seven 1-pF, 2-kΩ designs by their SPICE noise penalty, worst-case phase margin and bandwidth, next to our values for the same designs. Each point is one design as chosen in Sections 6.2 and 8.9, not each amplifier's best: $C_F$ was set there from the datasheet curves.
+**Noise against margin and bandwidth, across the amplifiers.** Figure 14 places the seven 1-pF, 2-kΩ designs by their SPICE noise penalty, worst-case phase margin and bandwidth, next to our values for the same designs. Each point is one design as chosen in Sections 6.2 and 8.9, not each amplifier's best: $C_F$ was set there from the datasheet curves.
 - **Four designs meet both requirements of this note, 45° at the worst corner and 150 MHz**: OPA855 (3.02 dB, 48.7°, 431 MHz), OPA856 (3.27 dB, 50.0°, 184 MHz), OPA859 (5.91 dB, 49.7°, 196 MHz) and OPA818 (7.95 dB, 45.4°, 226 MHz). OPA855 is the quietest of them and has 1.9 times the bandwidth of the next, OPA818 (431 against 226 MHz).
 - **LMH6629 is as quiet in SPICE (3.05 dB) but has 41.1° and 169 MHz.** Its model carries 1.3 pF of input capacitance against the datasheet's 5.7 pF (Section 5.3). If the datasheet's value is right, its SPICE noise is optimistic.
 - **OPA858 is the widest (508 MHz) at 4.02 dB, with 32.6° at its low-$C_F$ corner**; Section 5.5 gives the remedy.
 - **OPA818's case (variant B) rests on the larger output swing of Table A6.28**, which a dark-noise penalty does not show.
 - **The largest moves from our analysis to SPICE** are in phase margin for OPA818 (+15.5°), OPA846 (+11.3°) and OPA858 (−16.7°), and in noise for LMH6629 (−1.6 dB) and OPA818 (+1.6 dB over the central estimate).
 
-![Figure 8](figures/fig12_spice_noise_vs_margin_bandwidth.png)
+![Figure 14](figures/fig12_spice_noise_vs_margin_bandwidth.png)
 
-*Figure 8. Noise penalty over 10–150 MHz, relative to the Johnson noise of the 2-kΩ $R_F$ and without photocurrent (Table A5.11), against (a) the worst-case phase margin over the nine capacitance corners ($C_F$ ± 0.1 pF, $C_D$ ± 0.2 pF) and (b) the bandwidth of the nominal design, for the 1-pF, 2-kΩ designs of Table A5.6. Amplifiers: OPA855 (variant A, $C_F$ = 0.25 pF), OPA818 (variant B, 0.55 pF), OPA856 (0.55 pF), LMH6629 (COMP HI, 0.55 pF), OPA858 (0.25 pF), OPA859 (0.54 pF) and OPA846 (0.75 pF). Filled circles are SPICE with the vendors' macromodels. Open circles are our analytical model with the datasheet curves and its central noise estimate, with a bar up to the high estimate for the FET inputs. A thin line joins the two for each amplifier. The shaded band in (b) lies below the 150-MHz requirement.*
+*Figure 14. Noise penalty over 10–150 MHz, relative to the Johnson noise of the 2-kΩ $R_F$ and without photocurrent (Table A5.11), against (a) the worst-case phase margin over the nine capacitance corners ($C_F$ ± 0.1 pF, $C_D$ ± 0.2 pF) and (b) the bandwidth of the nominal design, for the 1-pF, 2-kΩ designs of Table A5.6. Amplifiers: OPA855 (variant A, $C_F$ = 0.25 pF), OPA818 (variant B, 0.55 pF), OPA856 (0.55 pF), LMH6629 (COMP HI, 0.55 pF), OPA858 (0.25 pF), OPA859 (0.54 pF) and OPA846 (0.75 pF). Filled circles are SPICE with the vendors' macromodels. Open circles are our analytical model with the datasheet curves and its central noise estimate, with a bar up to the high estimate for the FET inputs. A thin line joins the two for each amplifier. The shaded band in (b) lies below the 150-MHz requirement.*
 
 ### 5.7 Large-signal limits
 
-From about 0.15 mA up, the largest undistorted tone, not the noise, sets the dynamic range (Section 6.6.3), and our analysis takes that tone from the datasheet swing and slew rate through Eq. (30). This section checks those limits in the macromodels by driving the designs with a tone until they distort.
+From about 0.15 mA up, the largest undistorted tone, not the noise, sets the dynamic range (Section 6.6.3), and our analysis takes that tone from the datasheet swing and slew rate through Eq. (26). This section checks those limits in the macromodels by driving the designs with a tone until they distort.
 
 The tone check drives a sine photocurrent into the 1-pF, 2-kΩ designs of both variants, at 20, 50, 100, 150 and 200 MHz. The output amplitude is swept from 0.5 to 1.3 times the amplitude of Table A6.28 in steps of 0.05, with a 1-MΩ load (the light load of Table A6.28). Each run lasts 48 periods with 256 points per period; the last 32 periods are windowed (Hann) and transformed. Harmonics 2–5 give
 $$
@@ -1203,21 +1297,21 @@ The numerical floor was checked at 0.1 of the Table A6.28 amplitude: HD2 −138 
 
 ### 5.8 The measured OPA846 board in SPICE
 
-Section 4.10 inferred from two measurements on an OPA846 board — 1.45 kΩ and about 7 pA/√Hz at 50 MHz, with $R_F$ = 1.2 kΩ and no external feedback capacitor — that about 14 pF sits at the summing node and about 0.3 pF across $R_F$. That inference rests on our analytical model, which for OPA846 predicts more peaking than the part shows (Section 5.4), so here we repeat it with the vendor's macromodel. The same circuit was simulated with the OPA846 macromodel at ±5 V with $R_L$ = 100 Ω. $C_T$ is the total node capacitance, including the model's own 3.07 pF; the external capacitance is $C_T$ − 3.07 pF.
+Section 3.10 inferred from two measurements on an OPA846 board — 1.45 kΩ and about 7 pA/√Hz at 50 MHz, with $R_F$ = 1.2 kΩ and no external feedback capacitor — that about 14 pF sits at the summing node and about 0.3 pF across $R_F$. That inference rests on our analytical model, which for OPA846 predicts more peaking than the part shows (Section 5.4), so here we repeat it with the vendor's macromodel. The same circuit was simulated with the OPA846 macromodel at ±5 V with $R_L$ = 100 Ω. $C_T$ is the total node capacitance, including the model's own 3.07 pF; the external capacitance is $C_T$ − 3.07 pF.
 
 **Reading Table A5.13.**
-- **The noise points to the same node capacitance as Section 4.10** (Figure 9b). SPICE reaches 7 pA/√Hz at 50 MHz at about 14.8 pF, by linear interpolation between 14 and 16 pF: 14 + 2 × (7.00 − 6.80)/(7.32 − 6.80) = 14.8 pF. Our analytical model reaches it at 12 + 2 × (7.00 − 6.69)/(7.25 − 6.69) = 13.1 pF. The baseline's total node capacitance of 5.15 pF (1-pF photodiode, 0.35 pF of board and the datasheet's 3.8 pF) gives only 5.1–5.2 pA/√Hz in both; in SPICE that total includes the model's 3.07 pF.
+- **The noise points to the same node capacitance as Section 3.10** (Figure 15b). SPICE reaches 7 pA/√Hz at 50 MHz at about 14.8 pF, by linear interpolation between 14 and 16 pF: 14 + 2 × (7.00 − 6.80)/(7.32 − 6.80) = 14.8 pF. Our analytical model reaches it at 12 + 2 × (7.00 − 6.69)/(7.25 − 6.69) = 13.1 pF. The baseline's total node capacitance of 5.15 pF (1-pF photodiode, 0.35 pF of board and the datasheet's 3.8 pF) gives only 5.1–5.2 pA/√Hz in both; in SPICE that total includes the model's 3.07 pF.
 - **The transimpedance agrees in kind.** At 14–16 pF SPICE gives 1.37–1.40 kΩ at 50 MHz against the measured 1.45 kΩ. It needs more capacitance than our analytical model for the same value, as expected from a model that peaks less than the part (Section 5.4).
-- **Both put the board close to oscillation.** SPICE gives 7–8° of phase margin and a +17 dB resonance at 130–150 MHz; our analytical model gives 2° and +30 dB at 123 MHz. The peak frequency of the bench response, the first of the three measurements Section 4.10 proposes, is thus expected near 120–150 MHz.
-- **The noise at 10 MHz is 4.8–4.9 pA/√Hz in both**, whatever the capacitance. A 10-MHz reading near 6.7–7.4 pA/√Hz would still point to an instrument floor instead (Section 4.10).
+- **Both put the board close to oscillation.** SPICE gives 7–8° of phase margin and a +17 dB resonance at 130–150 MHz; our analytical model gives 2° and +30 dB at 123 MHz. The peak frequency of the bench response, the first of the three measurements Section 3.10 proposes, is thus expected near 120–150 MHz.
+- **The noise at 10 MHz is 4.8–4.9 pA/√Hz in both**, whatever the capacitance. A 10-MHz reading near 6.7–7.4 pA/√Hz would still point to an instrument floor instead (Section 3.10).
 
-![Figure 9](figures/fig13_spice_bench_board.png)
+![Figure 15](figures/fig13_spice_bench_board.png)
 
-*Figure 9. The OPA846 bench board in SPICE ($R_F$ = 1.2 kΩ, total $C_F$ = 0.30 pF, ±5 V, $R_L$ = 100 Ω) for total node capacitances $C_T$ = 5.15, 12, 14 and 16 pF, which include the model's own 3.07 pF. Our analytical model at 14 pF is dashed, and the two bench readings at 50 MHz are diamonds. Amplifier: OPA846. (a) Transimpedance. SPICE gives 1.37–1.40 kΩ at 50 MHz for 14–16 pF, against the measured 1.45 kΩ (63.2 dBΩ), and a resonance of +16 to +18 dB at 130–150 MHz for 12–16 pF. Our analytical model gives 1.45 kΩ and +30 dB at 123 MHz for 14 pF. (b) Input-referred noise. The bench's 7 pA/√Hz at 50 MHz lies between the 14- and 16-pF curves (14.8 pF by interpolation, Table A5.13). The 5.15-pF case, our 1-pF baseline photodiode on this board, gives 5.1 pA/√Hz.*
+*Figure 15. The OPA846 bench board in SPICE ($R_F$ = 1.2 kΩ, total $C_F$ = 0.30 pF, ±5 V, $R_L$ = 100 Ω) for total node capacitances $C_T$ = 5.15, 12, 14 and 16 pF, which include the model's own 3.07 pF. Our analytical model at 14 pF is dashed, and the two bench readings at 50 MHz are diamonds. Amplifier: OPA846. (a) Transimpedance. SPICE gives 1.37–1.40 kΩ at 50 MHz for 14–16 pF, against the measured 1.45 kΩ (63.2 dBΩ), and a resonance of +16 to +18 dB at 130–150 MHz for 12–16 pF. Our analytical model gives 1.45 kΩ and +30 dB at 123 MHz for 14 pF. (b) Input-referred noise. The bench's 7 pA/√Hz at 50 MHz lies between the 14- and 16-pF curves (14.8 pF by interpolation, Table A5.13). The 5.15-pF case, our 1-pF baseline photodiode on this board, gives 5.1 pA/√Hz.*
 
 ### 5.9 What the cross-check found, and what it changes
 
-**Our method holds, except for gain margins.** Fed with each macromodel's own quantities, its open-loop gain, input admittance, output impedance and noise sources, our equations reproduce every SPICE result of the first seven parts: the loop gain to 0.1° of phase margin and 0.1 dB of gain margin, the bandwidth to 1 % and the noise density to 0.3 % (Section 5.3, Table A5.4). With the simpler inputs used throughout this note, one open-loop curve and a pure input capacitance, the phase margin moves by at most 1.8° for OPA855, OPA818, OPA858 and OPA859, 2.6° for OPA856, 3.1° for OPA846 and 6.4° for LMH6629. The gain margin, however, comes out 4–7 dB optimistic for OPA855, OPA818, OPA858 and LMH6629, because above 1 GHz the gain from the inverting input differs from that from the non-inverting input and the output impedance loads the feedback network. Above 1 GHz the datasheet curves also differ from the macromodels by more than this error, so our gain margins from the curves differ from SPICE in both directions. Over the nominal designs and the worst of their nine corners they are about 1.1 dB above SPICE for OPA855 (Figure 5b), 2.3–2.5 dB above for LMH6629 and 5.1 dB above for OPA859, and 4.5–4.9 dB below for OPA818, 5.7–5.8 dB below for OPA846, 11.8–12.4 dB below for OPA858 and 17.1–18.3 dB below for OPA856 (the SPICE values are in Table A5.6, ours in `spice/results/loop.json`). Gain margins from the datasheet curves are therefore indicative only; the phase margins from the curves differ from SPICE as Sections 5.4 and 5.5 describe.
+**Our method holds, except for gain margins.** Fed with each macromodel's own quantities, its open-loop gain, input admittance, output impedance and noise sources, our equations reproduce every SPICE result of the first seven parts: the loop gain to 0.1° of phase margin and 0.1 dB of gain margin, the bandwidth to 1 % and the noise density to 0.3 % (Section 5.3, Table A5.4). With the simpler inputs used throughout this note, one open-loop curve and a pure input capacitance, the phase margin moves by at most 1.8° for OPA855, OPA818, OPA858 and OPA859, 2.6° for OPA856, 3.1° for OPA846 and 6.4° for LMH6629. The gain margin, however, comes out 4–7 dB optimistic for OPA855, OPA818, OPA858 and LMH6629, because above 1 GHz the gain from the inverting input differs from that from the non-inverting input and the output impedance loads the feedback network. Above 1 GHz the datasheet curves also differ from the macromodels by more than this error, so our gain margins from the curves differ from SPICE in both directions. Over the nominal designs and the worst of their nine corners they are about 1.1 dB above SPICE for OPA855 (Figure 11b), 2.3–2.5 dB above for LMH6629 and 5.1 dB above for OPA859, and 4.5–4.9 dB below for OPA818, 5.7–5.8 dB below for OPA846, 11.8–12.4 dB below for OPA858 and 17.1–18.3 dB below for OPA856 (the SPICE values are in Table A5.6, ours in `spice/results/loop.json`). Gain margins from the datasheet curves are therefore indicative only; the phase margins from the curves differ from SPICE as Sections 5.4 and 5.5 describe.
 
 **Variant A (OPA855) is confirmed, with a tighter window of $C_F$.** In all four configurations SPICE gives 62.5–69.1° of phase margin, 291–548 MHz and noise within 2.5 % of our analysis. The new information is the gain margin at about 3.4 GHz, set by the plateau of $A_-$ (Table A5.3). It follows Eq. (47), GM = $20\log_{10}(NG_\infty/5.3)$, so 3 dB needs $NG_\infty \ge 7.5$, i.e. $C_F \le C_T/6.5$; the datasheet's minimum gain of 7 leaves 2.4 dB, and below $NG_\infty$ = 5.3 the model oscillates at about 3 GHz. At the upper corner ($C_F$ + 0.1 pF with $C_D$ − 0.2 pF) the margin is only 1.4–3.1 dB. Together with ≥ 45° and ≤ 1 dB of peaking at all three photodiode capacitances, this gives windows of 0.157–0.300 pF (2 kΩ) and 0.181–0.298 pF (1.5 kΩ) for the 1-pF designs, whose total $C_F$ must therefore be held to 0.230 ± 0.070 pF or 0.240 ± 0.055 pF, or trimmed on the first board, instead of the ±0.1 pF of Table A8.13. The 2-pF designs, with windows of 0.188–0.454 pF and 0.217–0.453 pF, keep ±0.1 pF at 0.320 ± 0.130 and 0.335 ± 0.115 pF (Tables A5.8 and A5.9). The corners that lose this margin are those at which Table A8.11 flags a second crossing on the plotted 4–7 GHz bump; the mechanism differs, but the flags mark a real loss of margin.
 
@@ -1232,11 +1326,11 @@ In the model its dark noise is 7.83 against our central 6.49 pA/√Hz at 100 MHz
 - **OPA858's open-loop gain is the table's 5.5 GHz**, not the plotted curve's: the macromodel's gain is 4–5 dB below the curve, and it reproduces the closed-loop table at a gain of 7. Its 2-kΩ design at 0.25 pF has 49° nominal and 33° at the low-$C_F$ corner, so the plotted-curve entries of Tables A9.1 and A9.2 (539 MHz, 58°) are optimistic, as Section 6.2.3 warned, and the calibrated entries are the ones to use.
 - **LMH6629's model has 1.3 pF at the inverting input against the datasheet's 5.7 pF** ($C_{CM}$ 1.7 pF plus a simulated $C_{DIFF}$ of 4 pF), so its SPICE noise is low: 4.76 against 7.65 pA/√Hz at 200 MHz. SPICE cannot settle this; a measurement of the input capacitance must.
 - **OPA856 agrees within 4° and 10 %**, with the macromodel the optimistic one (Section 5.4), and **OPA859 within 3° of our calibrated curve (Table A6.7) and 12 % in bandwidth**. The spot noise of both agrees within 0.5 dB.
-- **OPA846 lies between the two descriptions.** For its datasheet's test circuit the macromodel gives 1.4 dB of peaking and the curve with its input capacitance 5.6 dB, against 3.1 dB measured, so its 2-kΩ design lies between our 34° and SPICE's 45°. SPICE confirms the bench board of Section 4.10 in kind: about 15 pF at the node for the measured 7 pA/√Hz at 50 MHz, 7–8° of phase margin and a +17 dB resonance at 130–150 MHz (Section 5.8).
+- **OPA846 lies between the two descriptions.** For its datasheet's test circuit the macromodel gives 1.4 dB of peaking and the curve with its input capacitance 5.6 dB, against 3.1 dB measured, so its 2-kΩ design lies between our 34° and SPICE's 45°. SPICE confirms the bench board of Section 3.10 in kind: about 15 pF at the node for the measured 7 pA/√Hz at 50 MHz, 7–8° of phase margin and a +17 dB resonance at 130–150 MHz (Section 5.8).
 
 **Large signals.** The amplitudes of Table A6.28 are where the macromodels limit hard, within 7 %: the THD reaches −40 dBc at 0.98–1.07 times them, and −60 dBc needs a swing-limited output below 0.88–0.93 of them. Below these limits the models are nearly linear, so the datasheets' distortion figures remain the reference for small signals (Section 5.7).
 
-**All eighteen macromodels at their best designs (Section 6.5).** One rule for all parts at 1 pF and 2 kΩ, 45°, 3 dB and ≤ 1 dB of peaking over $C_D$ ± 0.2 pF and $C_F$ ± 0.05 pF, ranks them (Table A6.32, Figure 17).
+**All eighteen macromodels at their best designs (Section 6.5).** One rule for all parts at 1 pF and 2 kΩ, 45°, 3 dB and ≤ 1 dB of peaking over $C_D$ ± 0.2 pF and $C_F$ ± 0.05 pF, ranks them (Table A6.32, Figure 23).
 - **OPA955 is the strongest**: 0.90 dB above the Johnson floor and 560 MHz without added capacitance. With OPA855's 5-V supply and 1.52-V swing, it improves the dark noise by about 2 dB without changing the large-signal limit. Its datasheet is advance information, the part is preproduction, and its macromodel is conservative against its datasheet's test circuit.
 - **OPA855 follows at 3.01 dB and 535 MHz, then OPA858 at 4.08 dB and 446 MHz.**
 - **The parts our analysis found less suitable stay so.** Six reach no robust design at any $C_F$: OPA846, OPA847, ADA4895-1, OPA657, LMH6624 and THS4021. Two verdicts change in detail. LMH6624's macromodel follows its datasheet's closed-loop curve better than its plotted open-loop phase does and is far more stable than our analytical model, but it still reaches no robust design (29° worst case). Uncompensated AD8099 has a robust window in its model (202 MHz, 5.1 dB) where our analysis found none. OPA847's model fails its own datasheet's test circuit by 42 % in bandwidth, so this cross-check says nothing reliable about OPA847.
@@ -1254,7 +1348,7 @@ In the model its dark noise is 7.83 against our central 6.49 pA/√Hz at 100 MHz
 
 ## 6. The op amps compared
 
-With the model of Chapter 4 tested against the macromodels in Chapter 5, we can compare the candidates on the three properties that the specification makes decisive, in the order in which they remove candidates: stability at the 1-pF, 2-kΩ operating point (Section 6.2), noise relative to the shot noise of the lowest photocurrent (Section 6.3), and the output amplitude that sets the dynamic range once the shot noise dominates (Section 6.4). Section 6.1 first collects the datasheet values these comparisons rest on. Each comparison opens with a chart of every part, and the tables behind the charts are in Appendix A6. Sections 6.5 and 6.6 then let SPICE find each part's best design and recompute the dynamic range of the leading designs from their macromodels, and Sections 6.7 and 6.8 set the op-amp designs against the single-chip TIAs and against the 50-Ω benchmark. Section 6.9 then asks what changes if the receiver must also resolve signals below about 100 kHz, where the amplifiers' 1/f noise decides.
+With the model of Chapter 3 tested against the macromodels in Chapter 5, we can compare the candidates on the three properties that the specification makes decisive, in the order in which they remove candidates: stability at the 1-pF, 2-kΩ operating point (Section 6.2), noise relative to the shot noise of the lowest photocurrent (Section 6.3), and the output amplitude that sets the dynamic range once the shot noise dominates (Section 6.4). Section 6.1 first collects the datasheet values these comparisons rest on. Each comparison opens with a chart of every part, and the tables behind the charts are in Appendix A6. Sections 6.5 and 6.6 then let SPICE find each part's best design and recompute the dynamic range of the leading designs from their macromodels, and Sections 6.7 and 6.8 set the op-amp designs against the single-chip TIAs and against the 50-Ω benchmark. Section 6.9 then asks what changes if the receiver must also resolve signals below about 100 kHz, where the amplifiers' 1/f noise decides, and Section 6.10 follows the leading parts to larger feedback resistors, up to 10 kΩ, for a pair that carries less light.
 
 ### 6.1 The candidates' datasheet specifications
 
@@ -1299,17 +1393,17 @@ One entry per analysed part, in the order of Table A6.1. Page citations are to t
 
 ### 6.2 Stability and bandwidth
 
-Stability is compared first, because it removes most candidates before noise is considered. A 1-pF photodiode on a 2-kΩ feedback resistor gives a high-frequency noise gain of only about 7–12, which is exactly the minimum stable gain of the decompensated amplifiers, and these include most of the parts with sub-nanovolt $e_n$. The loop also crosses over while the noise gain is still rising, and that lead costs 14–30° of phase in the designs of Table A6.11, compared with a resistive stage at the same gain (Eq. (21), Section 4.4). A decompensated part therefore needs enough source capacitance for its GBW (Eq. (20)) and, in addition, enough phase of its own, $\phi_A$, at the crossover; a unity-gain-stable part has no such trap, and its GBW sets its bandwidth through Eq. (18). These phase margins come from the datasheet open-loop curves; the vendors' macromodels give OPA818, OPA955 and AD8099 more phase margin, and OPA858 and LMH6629 less (Sections 5.5, 5.9 and 6.5).
+Stability is compared first, because it removes most candidates before noise is considered. A 1-pF photodiode on a 2-kΩ feedback resistor gives a high-frequency noise gain of only about 7–12, which is exactly the minimum stable gain of the decompensated amplifiers, and these include most of the parts with sub-nanovolt $e_n$. The loop also crosses over while the noise gain is still rising, and that lead costs 14–30° of phase in the designs of Table A6.11, compared with a resistive stage at the same gain (Eq. (17), Section 3.4). A decompensated part therefore needs enough source capacitance for its GBW (Eq. (16)) and, in addition, enough phase of its own, $\phi_A$, at the crossover; a unity-gain-stable part has no such trap, and its GBW sets its bandwidth through Eq. (14). These phase margins come from the datasheet open-loop curves; the vendors' macromodels give OPA818, OPA955 and AD8099 more phase margin, and OPA858 and LMH6629 less (Sections 5.5, 5.9 and 6.5).
 
-Figure 10 shows the result for every analysed part at both feedback resistors: (a) the widest bandwidth with a phase margin of at least 45° and at most 1 dB of peaking, the robust design, and (b) the phase margin of the flat design. At 2 kΩ seven configurations reach 150 MHz robustly without added input capacitance: OPA855 (539 MHz), LMH6629 with the COMP pin high (276 MHz) and low (171 MHz), OPA856 (231 MHz), OPA859 (211 MHz), THS4304 (191 MHz) and OPA843 (150 MHz). OPA955 and OPA818 get there only with 3 and 8 pF added at the input. OPA858's robust design, with its open-loop curve as plotted, also adds 0.25 pF, although its flat design already reaches 558 MHz at 58° without it. Seven more reach 45° only below 150 MHz, and nine parts have no robust design at all. Among the decompensated parts with the lowest noise, OPA955, OPA818 and OPA846 have flat designs below 45° (36°, 32° and 34°), and OPA847 has no stable flat design; Sections 6.2.6 and 6.2.8 explain why, and what it costs to accept. Tables A6.5 and A6.6 give the numbers behind the figure, and the sections below explain them.
+Figure 16 shows the result for every analysed part at both feedback resistors: (a) the widest bandwidth with a phase margin of at least 45° and at most 1 dB of peaking, the robust design, and (b) the phase margin of the flat design. At 2 kΩ seven configurations reach 150 MHz robustly without added input capacitance: OPA855 (539 MHz), LMH6629 with the COMP pin high (276 MHz) and low (171 MHz), OPA856 (231 MHz), OPA859 (211 MHz), THS4304 (191 MHz) and OPA843 (150 MHz). OPA955 and OPA818 get there only with 3 and 8 pF added at the input. OPA858's robust design, with its open-loop curve as plotted, also adds 0.25 pF, although its flat design already reaches 558 MHz at 58° without it. Seven more reach 45° only below 150 MHz, and nine parts have no robust design at all. Among the decompensated parts with the lowest noise, OPA955, OPA818 and OPA846 have flat designs below 45° (36°, 32° and 34°), and OPA847 has no stable flat design; Sections 6.2.6 and 6.2.8 explain why, and what it costs to accept. Tables A6.5 and A6.6 give the numbers behind the figure, and the sections below explain them.
 
-![Figure 10](figures/fig17_bandwidth_phase_margin_all_parts.png)
+![Figure 16](figures/fig17_bandwidth_phase_margin_all_parts.png)
 
-*Figure 10. Stability and bandwidth of every analysed part, $C_D$ = 1 pF, nominal parasitics, from the analytical model with the datasheet open-loop curves. (a) Widest bandwidth with phase margin ≥ 45° and ≤ 1 dB of peaking (the robust design) at $R_F$ = 2 kΩ (filled) and 1.5 kΩ (open); dark red where the robust design adds input capacitance (1–8 pF to reach 45°; 0.25 pF for OPA858 at 2 kΩ, whose flat design already reaches 558 MHz at 58° without it). The shaded band is 150–200 MHz. (b) Phase margin of the flat design; the dashed line marks 45°. Amplifiers: all 25 analysed parts, 26 configurations (LMH6629 with the COMP pin high and low), sorted by robust bandwidth at 2 kΩ; OPA858 with its open-loop curve as plotted (Table A6.7 gives its calibrated variant). Values from Tables A6.5 and A6.6.*
+*Figure 16. Stability and bandwidth of every analysed part, $C_D$ = 1 pF, nominal parasitics, from the analytical model with the datasheet open-loop curves. (a) Widest bandwidth with phase margin ≥ 45° and ≤ 1 dB of peaking (the robust design) at $R_F$ = 2 kΩ (filled) and 1.5 kΩ (open); dark red where the robust design adds input capacitance (1–8 pF to reach 45°; 0.25 pF for OPA858 at 2 kΩ, whose flat design already reaches 558 MHz at 58° without it). The shaded band is 150–200 MHz. (b) Phase margin of the flat design; the dashed line marks 45°. Amplifiers: all 25 analysed parts, 26 configurations (LMH6629 with the COMP pin high and low), sorted by robust bandwidth at 2 kΩ; OPA858 with its open-loop curve as plotted (Table A6.7 gives its calibrated variant). Values from Tables A6.5 and A6.6.*
 
 #### 6.2.1 Results at $R_F$ = 2 kΩ
 
-Table A6.5 lists every configuration analysed. $C_T$ is Eq. (11) with nominal parasitics. "Required / realised" $C_F$ is the total feedback capacitance the flat design calls for, and what a board with 0.2 pF of parasitic actually has.
+Table A6.5 lists every configuration analysed. $C_T$ is Eq. (7) with nominal parasitics. "Required / realised" $C_F$ is the total feedback capacitance the flat design calls for, and what a board with 0.2 pF of parasitic actually has.
 
 Entries marked with an asterisk in Table A6.5 use a $C_F$ above $C_T/(G_{\min}-1)$, where the high-frequency noise gain falls below the manufacturer's minimum stable gain; the model finds them stable only because the curves stop at about 1 GHz (Section 6.2.4).
 
@@ -1317,13 +1411,13 @@ Entries marked with an asterisk in Table A6.5 use a $C_F$ above $C_T/(G_{\min}-1
 
 *Low-noise decompensated parts with large GBW and small input capacitance: OPA855, OPA858.* At 2 kΩ the minimum stable gain is no trap for these two. Their GBW is so large that the loop crosses at 0.8–0.9 GHz with $|NG(f_c)|$ = 9–10.5. There the amplifier's own phase margin $\phi_A$ is still 80–83° (Table A6.11), so they reach 58° at 557 MHz with no added capacitance.
 
-*Unity-gain-stable parts: OPA856, OPA859, THS4304, and OPA843 ($G_{\min}$ = 3, effectively stable here).* These give 49–69° flat designs at 134–195 MHz (OPA843 49°), and 150–231 MHz in their robust designs. Their bandwidth is set by GBW and Eq. (18), not by stability.
+*Unity-gain-stable parts: OPA856, OPA859, THS4304, and OPA843 ($G_{\min}$ = 3, effectively stable here).* These give 49–69° flat designs at 134–195 MHz (OPA843 49°), and 150–231 MHz in their robust designs. Their bandwidth is set by GBW and Eq. (14), not by stability.
 
 *LMH6629.* It sits between the two groups. With the COMP pin high ($G_{\min}$ = 10, 4 GHz) its 5.7 pF of input capacitance raises the noise gain enough to give 51° at 235 MHz.
 
 *Parts that cannot be used at this operating point.*
-- LMH6624, THS4021, AD8099, AD8021 and LTC6268-10 miss Eq. (20): their source capacitance is too small for their GBW and minimum stable gain. For THS4021, $C_{T,\min}$ = 318.3 × 9²/(2 × 2000) = 6.45 pF against the 2.85 pF present.
-- OPA846, OPA818, OPA847, OPA657, LT6230-10 and OPA955 meet Eq. (20) (OPA818 needs 2.12 pF and has 3.75 pF, Section 3.2) but have too little phase of their own at the crossover (Eq. (21), Section 6.2.6). OPA955's plotted curve leaves only about 40° at a gain of 7 (Table A6.2), so its flat design has 36°, and a smaller $C_F$ lowers it further (30° at 0.15 pF, Table A6.13).
+- LMH6624, THS4021, AD8099, AD8021 and LTC6268-10 miss Eq. (16): their source capacitance is too small for their GBW and minimum stable gain. For THS4021, $C_{T,\min}$ = 318.3 × 9²/(2 × 2000) = 6.45 pF against the 2.85 pF present.
+- OPA846, OPA818, OPA847, OPA657, LT6230-10 and OPA955 meet Eq. (16) (OPA818 needs 2.12 pF and has 3.75 pF, Section 4.2) but have too little phase of their own at the crossover (Eq. (17), Section 6.2.6). OPA955's plotted curve leaves only about 40° at a gain of 7 (Table A6.2), so its flat design has 36°, and a smaller $C_F$ lowers it further (30° at 0.15 pF, Table A6.13).
 - ADA4895-1 and LT6200-10 carry 14 and 7.3 pF of input capacitance of their own and reach 45° only with 8 and 1 pF added, at 39 and 99 MHz.
 - Unity-gain-stable parts with too little GBW for 150 MHz: ADA4899-1, ADA4817-1, AD8045 and THS4271.
 - LTC6228, whose 5 pF of input capacitance and 0.89 GHz GBW give at most 44°.
@@ -1334,16 +1428,16 @@ With 2 pF added, OPA955 is the quietest robust design of all (Section 6.2.6), an
 
 A smaller $R_F$ raises the feedback pole and lowers the noise gain at crossover. That helps the unity-gain-stable parts and hurts the decompensated ones.
 
-At 1.5 kΩ, OPA818 and OPA846 lose another 5° of phase margin, and OPA955 needs 3 pF of added capacitance to reach 45° (366 MHz; 6 pF gives the widest ≥ 45° bandwidth, 450 MHz). The unity-gain-stable parts gain 11–15 % in robust bandwidth and 15–16 % in flat bandwidth (Tables A6.5 and A6.6), close to the $\sqrt{2/1.5}$ = 1.15 of Eq. (18): OPA856 reaches 263 MHz and OPA859 239 MHz robustly.
+At 1.5 kΩ, OPA818 and OPA846 lose another 5° of phase margin, and OPA955 needs 3 pF of added capacitance to reach 45° (366 MHz; 6 pF gives the widest ≥ 45° bandwidth, 450 MHz). The unity-gain-stable parts gain 11–15 % in robust bandwidth and 15–16 % in flat bandwidth (Tables A6.5 and A6.6), close to the $\sqrt{2/1.5}$ = 1.15 of Eq. (14): OPA856 reaches 263 MHz and OPA859 239 MHz robustly.
 
 #### 6.2.3 With the open-loop curves calibrated to the datasheet tables
 
-Three TI datasheets state a gain–bandwidth product or phase margin that disagrees with their own plotted open-loop curve (Table A4.2), so for those parts the results above depend on which of the two is right. We therefore repeat the analysis with the calibrated variant of Section 4.5, which scales the plotted curve to the table GBW and adds the delay that reproduces the stated phase margin. Table A6.7 compares the two.
+Three TI datasheets state a gain–bandwidth product or phase margin that disagrees with their own plotted open-loop curve (Table A3.2), so for those parts the results above depend on which of the two is right. We therefore repeat the analysis with the calibrated variant of Section 3.5, which scales the plotted curve to the table GBW and adds the delay that reproduces the stated phase margin. Table A6.7 compares the two.
 
 **What the calibration changes.**
 - **OPA859.** Calibration changes almost nothing.
 - **OPA855.** The 26-ps delay costs 7° of phase margin. Robust designs remain possible with no added capacitance; the flat design at 2 kΩ then has 51°.
-- **OPA858.** Calibration matters most: 4 dB less gain and 93 ps of delay. The flat design falls to 40°, and 45° then needs 1 pF (2 kΩ) or 2 pF (1.5 kΩ) of added input capacitance. Only the calibrated variant comes close to TI's closed-loop table (Table A4.5), and the macromodel sides with the table (Section 5.4), so OPA858's bandwidths and phase margins from the plotted curve are optimistic. Its noise and dynamic range at a given $C_F$ depend little on the open-loop curve (Eq. (23)), and SPICE confirms them within 0.2 dB (Section 6.6.2).
+- **OPA858.** Calibration matters most: 4 dB less gain and 93 ps of delay. The flat design falls to 40°, and 45° then needs 1 pF (2 kΩ) or 2 pF (1.5 kΩ) of added input capacitance. Only the calibrated variant comes close to TI's closed-loop table (Table A3.5), and the macromodel sides with the table (Section 5.4), so OPA858's bandwidths and phase margins from the plotted curve are optimistic. Its noise and dynamic range at a given $C_F$ depend little on the open-loop curve (Eq. (19)), and SPICE confirms them within 0.2 dB (Section 6.6.2).
 
 #### 6.2.4 The feedback-capacitance window of the leading parts
 
@@ -1355,7 +1449,7 @@ $$
 C_F \le \frac{C_T}{G_{\min}-1}.
 $$
 
-This is Eq. (15) with $NG_\infty = G_{\min}$. TI states it for OPA855 ("requires a high-frequency gain of 7 V/V or greater to be stable", p25), and the LMH6629 datasheet states the equivalent rule for its TIA (p28). It is applied here even where a model curve that stops at 1 GHz would allow more.
+This is Eq. (11) with $NG_\infty = G_{\min}$. TI states it for OPA855 ("requires a high-frequency gain of 7 V/V or greater to be stable", p25), and the LMH6629 datasheet states the equivalent rule for its TIA (p28). It is applied here even where a model curve that stops at 1 GHz would allow more.
 
 **Consequences for each part.**
 - **OPA855 at 2 kΩ.** The window spans a factor of 2.5 in $C_F$ and 2.8 in bandwidth. A target of 0.25 pF total sits in the middle: on the datasheet curve ±0.1 pF of parasitic variation stays inside it and moves the bandwidth between about 700 and 260 MHz (Section 8.10). The upper edge also means that OPA855 cannot be band-limited much below 250 MHz by $C_F$; a narrower noise bandwidth needs a filter after the TIA. The vendor's macromodel narrows the window to 0.157–0.300 pF, because its gain margin at 3–4 GHz falls to 3 dB at $C_F = C_T/6.5$ (Eq. (47)); the total $C_F$ must then be held to 0.230 ± 0.070 pF or trimmed on the first board (Section 5.5).
@@ -1374,7 +1468,7 @@ A board is built with one external feedback capacitor, chosen before its parasit
 
 #### 6.2.6 Why three decompensated amplifiers fail on a 1-pF photodiode, and what added capacitance buys
 
-OPA847 and OPA846 have some of the lowest voltage noise of all the candidates, 0.85 and 1.2 nV/√Hz, and OPA818 combines a JFET input with the largest output swing of the leading parts. Yet on their datasheet curves none of the three reaches 45° of phase margin at this operating point without capacitance added at the input (Section 6.2.1). This section shows where their phase margin goes and what it costs in noise to buy it back. Table A6.11 splits the phase margin of representative designs into the two terms of Eq. (21).
+OPA847 and OPA846 have some of the lowest voltage noise of all the candidates, 0.85 and 1.2 nV/√Hz, and OPA818 combines a JFET input with the largest output swing of the leading parts. Yet on their datasheet curves none of the three reaches 45° of phase margin at this operating point without capacitance added at the input (Section 6.2.1). This section shows where their phase margin goes and what it costs in noise to buy it back. Table A6.11 splits the phase margin of representative designs into the two terms of Eq. (17).
 
 **OPA818 and OPA846: the two terms trade against each other.** Raising $C_F$ lowers the noise-gain lead $\angle NG$, but it also lowers $|NG(f_c)|$. The loop then crosses at a higher frequency, where the amplifier's own phase $\phi_A$ is lower. The phase margin saturates at 34°, with $|NG(f_c)|$ already at or below the minimum stable gain of 7. In its macromodel, which reproduces the datasheet's measured closed loop at a gain of 7, OPA818 keeps 39–45° at the worst capacitance corner (Sections 5.4–5.5).
 
@@ -1382,7 +1476,7 @@ OPA847 and OPA846 have some of the lowest voltage noise of all the candidates, 0
 
 **OPA855.** By contrast, the loop crosses where OPA855's second pole is still far away ($\phi_A$ ≈ 80°), so the same 17–24° lead leaves 58–63°.
 
-**What added input capacitance buys.** Table A6.12 shows the price of buying phase margin with capacitance added deliberately at the inverting node, for OPA818 and OPA846 and, for comparison, OPA955 and OPA855. The noise columns use the central model of Section 4.7 at 2 kΩ.
+**What added input capacitance buys.** Table A6.12 shows the price of buying phase margin with capacitance added deliberately at the inverting node, for OPA818 and OPA846 and, for comparison, OPA955 and OPA855. The noise columns use the central model of Section 3.7 at 2 kΩ.
 
 At 1.5 kΩ the same exercise needs more capacitance:
 - OPA818 reaches 40° only with 4 pF (184 MHz, 10.5 dB) and 45° only with 8 pF (136 MHz, 13.6 dB).
@@ -1390,29 +1484,29 @@ At 1.5 kΩ the same exercise needs more capacitance:
 - OPA955 needs 3 pF for 45° (366 MHz, 2.3 dB).
 
 **Reading Table A6.12.**
-- **The cost is the $e_n\omega C$ term of Eq. (23).** Each picofarad added to OPA818 costs about 1 dB of band noise, because its $e_n$ of 2.2 nV/√Hz acts on it.
+- **The cost is the $e_n\omega C$ term of Eq. (19).** Each picofarad added to OPA818 costs about 1 dB of band noise, because its $e_n$ of 2.2 nV/√Hz acts on it.
 - **The OPA818 and OPA846 designs that reach 45° need 5–8 pF, lose 3.7–8.3 dB of band noise and drop below 160 MHz.** OPA818 loses 6.1–8.3 dB and OPA846 3.7–5.4 dB against their flat designs (Tables A6.12 and A6.15).
 - **OPA955 is the exception.** Its $e_n$ (0.81 nV/√Hz) and $i_n$ (0.56 pA/√Hz) are so low that 2–3 pF of added capacitance buys 45° at 427–466 MHz for a band penalty of only 2.1–2.8 dB. That is still better than any production part without added capacitance.
 - **An added RC instead of a capacitor changes nothing in band.** TI's datasheets suggest an RC network from the inverting input to ground for stabilising decompensated parts at low gain (OPA818 p22: 10 Ω + 10 pF). Below its corner frequency, $1/(2\pi RC)$ = 1.6 GHz for that example, such a network is the same added capacitance and carries the same noise cost.
 
 #### 6.2.7 Transimpedance responses and the bandwidth–noise trade
 
-Figure 11 shows why a flat response does not prove a stable loop: OPA818 and OPA846 are flat at 32–34° of phase margin, because the roll-off of $Z_F$ hides the loop's peaking (Section 5.2). In Figure 12 a part reaches the wide, quiet corner only if its own loop supplies the phase margin, as OPA855's does; added input capacitance costs $e_n\omega C$ noise (Section 6.2.6).
+Figure 17 shows why a flat response does not prove a stable loop: OPA818 and OPA846 are flat at 32–34° of phase margin, because the roll-off of $Z_F$ hides the loop's peaking (Section 5.2). In Figure 18 a part reaches the wide, quiet corner only if its own loop supplies the phase margin, as OPA855's does; added input capacitance costs $e_n\omega C$ noise (Section 6.2.6).
 
-![Figure 11](figures/fig03_transimpedance_2k.png)
+![Figure 17](figures/fig03_transimpedance_2k.png)
 
-*Figure 11. Closed-loop transimpedance magnitude of the flat designs at $R_F$ = 2 kΩ. Amplifiers: OPA855, OPA858, OPA955, LMH6629 (COMP HI), OPA856, OPA859, OPA846, OPA818, as named in the plot legend. The dotted line marks −3 dB (63.0 dBΩ), and the shaded band marks the 150–200 MHz target. Curves are computed from each datasheet open-loop curve with nominal parasitics. OPA818 and OPA846 have flat responses despite 32–34° of loop phase margin: the loop's closed-loop peaking is masked by the roll-off of $Z_F$, which is why flatness alone is not a stability criterion.*
+*Figure 17. Closed-loop transimpedance magnitude of the flat designs at $R_F$ = 2 kΩ. Amplifiers: OPA855, OPA858, OPA955, LMH6629 (COMP HI), OPA856, OPA859, OPA846, OPA818, as named in the plot legend. The dotted line marks −3 dB (63.0 dBΩ), and the shaded band marks the 150–200 MHz target. Curves are computed from each datasheet open-loop curve with nominal parasitics. OPA818 and OPA846 have flat responses despite 32–34° of loop phase margin: the loop's closed-loop peaking is masked by the roll-off of $Z_F$, which is why flatness alone is not a stability criterion.*
 
-![Figure 12](figures/fig05_bandwidth_vs_noise_penalty_2k.png)
+![Figure 18](figures/fig05_bandwidth_vs_noise_penalty_2k.png)
 
-*Figure 12. Bandwidth of the robust design (phase margin ≥ 45°, ≤ 1 dB peaking) against its noise penalty over the 2-kΩ Johnson floor, integrated over 10–150 MHz. Amplifiers: every configuration of Table A6.5 that has a robust design, each labelled in the plot. Squares are FET inputs and circles bipolar. Dark red marks designs that needed deliberately added input capacitance to reach 45°. Vertical bars on FET parts span the central-to-high current-noise estimates of Section 4.7. The shaded band is 150–200 MHz. The best corner (wide and quiet) is lower right; OPA855 sits there, with OPA955 (with 3 pF added) next to it.*
+*Figure 18. Bandwidth of the robust design (phase margin ≥ 45°, ≤ 1 dB peaking) against its noise penalty over the 2-kΩ Johnson floor, integrated over 10–150 MHz. Amplifiers: every configuration of Table A6.5 that has a robust design, each labelled in the plot. Squares are FET inputs and circles bipolar. Dark red marks designs that needed deliberately added input capacitance to reach 45°. Vertical bars on FET parts span the central-to-high current-noise estimates of Section 3.7. The shaded band is 150–200 MHz. The best corner (wide and quiet) is lower right; OPA855 sits there, with OPA955 (with 3 pF added) next to it.*
 
-**The bench board of Section 4.10 and Figure 12.** The OPA846 point in Figure 12 is the robust design at 2 kΩ, with 8 pF added. Its node capacitance, $C_T$ = 13.15 pF, is almost that of the bench board, so its 6.82 pA/√Hz at 50 MHz is close to the bench result. In the figure's metric (Eq. (25), 10–150 MHz) the fitted bench circuit has a penalty of 9.4 dB over its own 1.2-kΩ floor, against 11.4 dB for the Figure 12 point over the 2-kΩ floor. The plot and the board agree: the noise of OPA846 sits this far above thermal whenever about 13–14 pF sits at its input.
+**The bench board of Section 3.10 and Figure 18.** The OPA846 point in Figure 18 is the robust design at 2 kΩ, with 8 pF added. Its node capacitance, $C_T$ = 13.15 pF, is almost that of the bench board, so its 6.82 pA/√Hz at 50 MHz is close to the bench result. In the figure's metric (Eq. (21), 10–150 MHz) the fitted bench circuit has a penalty of 9.4 dB over its own 1.2-kΩ floor, against 11.4 dB for the Figure 18 point over the 2-kΩ floor. The plot and the board agree: the noise of OPA846 sits this far above thermal whenever about 13–14 pF sits at its input.
 
 #### 6.2.8 How much phase margin is enough when the peaking is equalized later
 
-**Why peaking can be acceptable.** The input-referred noise of Eq. (23) does not depend on the loop gain, so a peak in $Z_T$ raises the signal and the noise by the same factor. An equalizer after the TIA, analogue or digital, restores a flat response at the same signal-to-noise ratio at every frequency. Two conditions apply:
-- the peaked signal must not clip or slew-limit before the equalizer (Eq. (30));
+**Why peaking can be acceptable.** The input-referred noise of Eq. (19) does not depend on the loop gain, so a peak in $Z_T$ raises the signal and the noise by the same factor. An equalizer after the TIA, analogue or digital, restores a flat response at the same signal-to-noise ratio at every frequency. Two conditions apply:
+- the peaked signal must not clip or slew-limit before the equalizer (Eq. (26));
 - the noise boosted above the band must be filtered before any sampling, or it aliases into the band.
 
 What the peaking must never become is oscillation, in any unit and at any temperature. This section finds the phase margin that guarantees that.
@@ -1437,39 +1531,39 @@ Table A6.13 flags OPA855's combinations at the upper $C_F$ corner; the note to t
 5. **The equalizer must follow a moving peak.** At 7 dB nominal (OPA846, 2 kΩ, 0.4 pF) the combinations span 2.9–12.0 dB and 130–188 MHz, so a fixed equalizer would leave errors of several dB. At about 4 dB nominal the span is 0.7–7.7 dB. Per-board calibration with temperature tracking is needed in either case.
 6. **The peak costs headroom.**
    - At the peak frequency, the largest usable input shrinks by the peak height.
-   - OPA846 can slew only 0.62 V peak at 160 MHz (Eq. (30)).
+   - OPA846 can slew only 0.62 V peak at 160 MHz (Eq. (26)).
    - The unfiltered output noise, divided by $R_F$, rises from 161 nA rms (OPA846 flat) to 265 nA rms (OPA846, 0.3 pF). For comparison, the flat design's in-band input noise over 10–150 MHz is 67.8 nA rms (Table A6.19), so the out-of-band part must be filtered before any sampling.
 7. **OPA847 cannot be rescued by equalization.** No $C_F$ keeps every combination stable: the worst margin is 0–1° and the gain margin at most 0.2 dB.
 8. **OPA955 benefits most.** At 2 kΩ and 0.25 pF it is flat to 530 MHz, with a 28° worst-case margin and a 0.9 dB band penalty (Table A6.15). It is still Advance Information.
 
-**The bench board of Section 4.10.** The same method applies to the OPA846 board at $R_F$ = 1.2 kΩ with about 14 pF at its input. Because that capacitance is only inferred, Table A6.14 uses $C_T$ = 14 pF ± 1 pF in place of ± 0.2 pF.
+**The bench board of Section 3.10.** The same method applies to the OPA846 board at $R_F$ = 1.2 kΩ with about 14 pF at its input. Because that capacitance is only inferred, Table A6.14 uses $C_T$ = 14 pF ± 1 pF in place of ± 0.2 pF.
 
 **What Table A6.14 means for the board.**
 - **As built, it is close to oscillating.** The model gives 2° of phase margin. Across the combinations it reaches 0.1°, and the peak can grow to over 50 dB.
 - **Recommended change:** raise the total $C_F$ to 0.9–1.1 pF, i.e. add about 0.6–0.8 pF. The board then has 26–32° nominal and 22–28° worst case, a +2.5 to +4.8 dB peak near 115–122 MHz, and keeps 193–199 MHz of bandwidth. The noise at 50 MHz rises only from 7.25 to 7.4–7.5 pA/√Hz.
 - **The choice is robust to the uncertain capacitance.** At 12 pF and at 16 pF, $C_F$ = 0.9–1.1 pF gives 26–33° nominal and 22–29° worst case.
-- **The real check is the board itself.** The model's OPA846 phase margin is uncertain by several degrees (Table A4.5), so the peak should be measured after the change.
+- **The real check is the board itself.** The model's OPA846 phase margin is uncertain by several degrees (Table A3.5), so the peak should be measured after the change.
 
 ### 6.3 Noise
 
-Noise is compared second, and over most of the planned range it decides little. The shot noise of the pair is already 5.66 pA/√Hz at 0.1 mA, 5.9 dB above the 2.87 pA/√Hz of a 2-kΩ resistor, and 17.90 pA/√Hz at 1 mA (Sections 1.1 and 3.2). The amplifier adds a flat part, chiefly the base-current shot noise $i_n$ of a bipolar input, and the term $e_n\omega C_{\mathrm{tot}}$, which rises with frequency and with the total input capacitance (Eq. (23)). Its noise therefore matters only near 0.1 mA and at 150–200 MHz, and the ranking follows $i_n$ and the product $e_nC_{\mathrm{tot}}$, not $e_n$ alone.
+Noise is compared second, and over most of the planned range it decides little. The shot noise of the pair is already 5.66 pA/√Hz at 0.1 mA, 5.9 dB above the 2.87 pA/√Hz of a 2-kΩ resistor, and 17.90 pA/√Hz at 1 mA (Sections 1.1 and 4.2). The amplifier adds a flat part, chiefly the base-current shot noise $i_n$ of a bipolar input, and the term $e_n\omega C_{\mathrm{tot}}$, which rises with frequency and with the total input capacitance (Eq. (19)). Its noise therefore matters only near 0.1 mA and at 150–200 MHz, and the ranking follows $i_n$ and the product $e_nC_{\mathrm{tot}}$, not $e_n$ alone.
 
-All noise numbers in this section use Eq. (23) for the design named in each table, with the amplifier's datasheet $e_n(f)$ and $i_n(f)$ curves where they exist.
-- FET-input parts and OPA955 show the central estimate of Section 4.7 with the high estimate in brackets.
-- Tables A6.15 (2 kΩ) and A6.17 (1.5 kΩ) give the noise of the flat designs, and Table A6.18 that of the robust designs at 2 kΩ, with the capacitance that OPA858, OPA955, OPA846 and OPA818 need added to reach 45°. They show ten amplifiers: the nine parts with a robust design at ≥ 150 MHz in Figure 10 (LMH6629 with the COMP pin high only) and OPA846, which was on the starting list (Section 2.2). Figure 13 adds every other part with a stable flat design.
+All noise numbers in this section use Eq. (19) for the design named in each table, with the amplifier's datasheet $e_n(f)$ and $i_n(f)$ curves where they exist.
+- FET-input parts and OPA955 show the central estimate of Section 3.7 with the high estimate in brackets.
+- Tables A6.15 (2 kΩ) and A6.17 (1.5 kΩ) give the noise of the flat designs, and Table A6.18 that of the robust designs at 2 kΩ, with the capacitance that OPA858, OPA955, OPA846 and OPA818 need added to reach 45°. They show ten amplifiers: the nine parts with a robust design at ≥ 150 MHz in Figure 16 (LMH6629 with the COMP pin high only) and OPA846, which was on the starting list (Section 2.2). Figure 19 adds every other part with a stable flat design.
 - At 2 kΩ the reference floor is 2.87 pA/√Hz. Over 10–150 MHz that integrates to 33.9 nA rms, and over 10–200 MHz to 39.6 nA rms.
-- Band noise in Sections 6.2–6.3 is integrated over 10–150 MHz (Eq. (25)), and the dynamic ranges of Sections 6.4–6.8 over 0–150 MHz (Eqs. (31) and (49)); the lowest 10 MHz raise the Johnson noise of 2 kΩ from 33.9 to 35.1 nA rms and the shot noise of 0.1 mA from 67.0 to 69.3 nA rms.
+- Band noise in Sections 6.2–6.3 is integrated over 10–150 MHz (Eq. (21)), and the dynamic ranges of Sections 6.4–6.8 over 0–150 MHz (Eqs. (27) and (49)); the lowest 10 MHz raise the Johnson noise of 2 kΩ from 33.9 to 35.1 nA rms and the shot noise of 0.1 mA from 67.0 to 69.3 nA rms.
 - Every value is referred to the photocurrent (Section 1.5). Output noise appears as $v_o/R_F$. $I_{\mathrm{DC}}$ is the total photocurrent $I_1 + I_2$ of the balanced pair (Section 1.2).
 
-Figure 13 ranks every analysed part with a stable flat design by its band noise above the Johnson floor of $R_F$, over 10–150 MHz, at both feedback resistors. The bipolar parts with sub-nanovolt $e_n$ and little input capacitance lead: at 2 kΩ OPA955 is 0.9 dB above the floor, OPA855 3.1 dB and OPA856 3.2 dB. For the FET-input parts and OPA955 a bar runs to the high estimate of Section 4.7, which lies 0.3–2.7 dB above the central one. All of them lie below the 50-Ω benchmark, which with a 2-dB noise figure is 18.0 dB above the 2-kΩ floor and 16.8 dB above the 1.5-kΩ floor (Eq. (1)). In the dark a TIA is therefore more sensitive than the plain termination by the difference of the two penalties over 10–150 MHz: 17.1 dB for OPA955, 14.9 dB for OPA855 and 0.9 dB for OPA657, the noisiest part. With the macromodels' band noise over 0–150 MHz, the measure $A$ of Section 6.8, OPA955 and OPA855 lead by 17.2 and 15.0 dB (Table A6.35).
+Figure 19 ranks every analysed part with a stable flat design by its band noise above the Johnson floor of $R_F$, over 10–150 MHz, at both feedback resistors. The bipolar parts with sub-nanovolt $e_n$ and little input capacitance lead: at 2 kΩ OPA955 is 0.9 dB above the floor, OPA855 3.1 dB and OPA856 3.2 dB. For the FET-input parts and OPA955 a bar runs to the high estimate of Section 3.7, which lies 0.3–2.7 dB above the central one. All of them lie below the 50-Ω benchmark, which with a 2-dB noise figure is 18.0 dB above the 2-kΩ floor and 16.8 dB above the 1.5-kΩ floor (Eq. (1)). In the dark a TIA is therefore more sensitive than the plain termination by the difference of the two penalties over 10–150 MHz: 17.1 dB for OPA955, 14.9 dB for OPA855 and 0.9 dB for OPA657, the noisiest part. With the macromodels' band noise over 0–150 MHz, the measure $A$ of Section 6.8, OPA955 and OPA855 lead by 17.2 and 15.0 dB (Table A6.35).
 
-![Figure 13](figures/fig18_noise_penalty_all_parts.png)
+![Figure 19](figures/fig18_noise_penalty_all_parts.png)
 
-*Figure 13. Input-referred noise integrated over 10–150 MHz, relative to the Johnson noise of $R_F$ (the band penalty), flat design, $C_D$ = 1 pF, from the analytical model, at $R_F$ = 2 kΩ (filled) and 1.5 kΩ (open). Dark red marks FET- or CMOS-input parts; a horizontal bar extends to the high estimate where it differs (OPA858, OPA859, OPA818, LTC6268-10 and OPA955). The dashed and dotted lines mark the 50-Ω benchmark with a 2-dB noise figure against the same floors, 18.0 dB at 2 kΩ and 16.8 dB at 1.5 kΩ (Eq. (1)). Amplifiers: the 21 configurations with a stable flat design (one per row), sorted by the penalty at 2 kΩ; OPA657 has one only at 2 kΩ. Values for the ten amplifiers of Tables A6.15 and A6.17 from those tables, for the others from `data/results/results.json`.*
+*Figure 19. Input-referred noise integrated over 10–150 MHz, relative to the Johnson noise of $R_F$ (the band penalty), flat design, $C_D$ = 1 pF, from the analytical model, at $R_F$ = 2 kΩ (filled) and 1.5 kΩ (open). Dark red marks FET- or CMOS-input parts; a horizontal bar extends to the high estimate where it differs (OPA858, OPA859, OPA818, LTC6268-10 and OPA955). The dashed and dotted lines mark the 50-Ω benchmark with a 2-dB noise figure against the same floors, 18.0 dB at 2 kΩ and 16.8 dB at 1.5 kΩ (Eq. (1)). Amplifiers: the 21 configurations with a stable flat design (one per row), sorted by the penalty at 2 kΩ; OPA657 has one only at 2 kΩ. Values for the ten amplifiers of Tables A6.15 and A6.17 from those tables, for the others from `data/results/results.json`.*
 
 #### 6.3.1 Input-referred noise and its components
 
-Figure 13 ranks the parts by their band noise, and this section explains the ranking. Table A6.16 splits each design's noise at 100 and 200 MHz into the terms of Eq. (23), so that one can see which property of each amplifier puts it where it is, and Figure 14 shows the spectra of eight of the designs.
+Figure 19 ranks the parts by their band noise, and this section explains the ranking. Table A6.16 splits each design's noise at 100 and 200 MHz into the terms of Eq. (19), so that one can see which property of each amplifier puts it where it is, and Figure 20 shows the spectra of eight of the designs.
 
 **What Table A6.16 shows.** The split explains the ranking better than any single specification can.
 
@@ -1483,16 +1577,16 @@ Figure 13 ranks the parts by their band noise, and this section explains the ran
 
 At 1.5 kΩ the absolute noise is higher, because the resistor floor rises by 1.25 dB. The penalty relative to that higher floor is 0.5–0.9 dB smaller.
 
-![Figure 14](figures/fig02_input_noise_2k.png)
+![Figure 20](figures/fig02_input_noise_2k.png)
 
-*Figure 14. Input-referred noise current density of the flat designs at $R_F$ = 2 kΩ. Amplifiers: OPA855, OPA858, OPA955, LMH6629 (COMP HI), OPA856, OPA859, OPA846, OPA818, as named in the plot legend.*
-- *Lines are the central estimate. Shaded bands extend to the high estimate for the parts with rising current-noise curves (Section 4.7).*
+*Figure 20. Input-referred noise current density of the flat designs at $R_F$ = 2 kΩ. Amplifiers: OPA855, OPA858, OPA955, LMH6629 (COMP HI), OPA856, OPA859, OPA846, OPA818, as named in the plot legend.*
+- *Lines are the central estimate. Shaded bands extend to the high estimate for the parts with rising current-noise curves (Section 3.7).*
 - *The dotted line is the 2-kΩ Johnson floor (2.87 pA/√Hz). The dashed lines are the shot noise of 0.1 mA and 1 mA.*
 - *Above about 30 MHz every curve rises as $e_n\omega C_{\mathrm{tot}}$. The low-capacitance bipolar parts (OPA855, OPA856, OPA955) stay below the 0.1-mA shot noise to beyond 200 MHz. OPA818, OPA859, OPA846 and OPA858 (high estimate) cross it near 80–90 MHz, and LMH6629 and OPA858 (central) near 125 MHz.*
 
 #### 6.3.2 Band-integrated noise
 
-A receiver sees its noise integrated over its band, not at one frequency, and an integral of this kind enters the dynamic range (Eq. (31)). Table A6.19 integrates each design's input-referred noise over 10–150 MHz and 10–200 MHz. For comparison, the shot noise of the DC photocurrent integrated over 10–150 MHz is $\sqrt{2qI_{\mathrm{DC}}\times140\ \mathrm{MHz}}$ (Table A6.20).
+A receiver sees its noise integrated over its band, not at one frequency, and an integral of this kind enters the dynamic range (Eq. (27)). Table A6.19 integrates each design's input-referred noise over 10–150 MHz and 10–200 MHz. For comparison, the shot noise of the DC photocurrent integrated over 10–150 MHz is $\sqrt{2qI_{\mathrm{DC}}\times140\ \mathrm{MHz}}$ (Table A6.20).
 
 Integrated over the band, the comparison with 0.1 mA (67.0 nA rms) splits the parts into three groups:
 - OPA955, OPA855, OPA856, OPA858 (central) and LMH6629 stay below it.
@@ -1503,7 +1597,7 @@ Integrated over the band, the comparison with 0.1 mA (67.0 nA rms) splits the pa
 
 The receiver runs with 0.1–10 mA of photocurrent, so what matters in the end is the total noise, the amplifier's together with the shot noise. Table A6.21 gives it at 100 MHz for each design. Table A6.22 gives the noise at the output, which is what a following instrument sees, referred back to the photocurrent through the in-band gain.
 
-**Reading Table A6.21.** The first row is the ideal, a noiseless amplifier with only the Johnson noise of $R_F$ and the shot noise. At 1 mA every part is within 0.03–0.50 dB of it at 2 kΩ; at 10 mA within 0.05 dB, and at 20 mA within 0.03 dB, because shot noise dominates. Any entry translates into the power density that a 50-Ω instrument receives through the back-termination by Eq. (8), with $|Z_T|$ at 100 MHz. Section 3.2 works it for OPA855.
+**Reading Table A6.21.** The first row is the ideal, a noiseless amplifier with only the Johnson noise of $R_F$ and the shot noise. At 1 mA every part is within 0.03–0.50 dB of it at 2 kΩ; at 10 mA within 0.05 dB, and at 20 mA within 0.03 dB, because shot noise dominates. Any entry translates into the power density that a 50-Ω instrument receives through the back-termination by Eq. (34), with $|Z_T|$ at 100 MHz. Section 4.2 works it for OPA855.
 
 Where $v_o/R_F$ falls below the input-referred density of Table A6.15, as it does for the slower designs (OPA856, LMH6629, OPA859, THS4304, OPA843 and OPA846) at 150–200 MHz, the TIA has begun to roll off. Signal and noise fall together there, and their ratio is unchanged.
 
@@ -1528,7 +1622,7 @@ At the planned photocurrents the amplifier's job is to keep its own noise well b
 #### 6.3.5 The option of 1 pF in each diode
 
 With 1 pF in each diode of the pair the node carries 2 pF (Section 1.2). Tables A1.3 and A1.4 give the leading amplifiers for that option, with the same nominal parasitics and design rules as Section 6.2; their last column repeats the 1-pF band penalty of Tables A6.15 and A6.17 for comparison. The option changes five things.
-- **Noise.** The band penalty rises by about 0.5 dB for OPA855, OPA856, OPA955 and LMH6629, whose $e_n$ is below 1 nV/√Hz, and by 0.8–2.2 dB for the others. The added picofarad raises the $e_n$ term of Eq. (23) by $e_n^2(2\pi f)^2\left[(C_{\mathrm{tot}} + 1\ \mathrm{pF})^2 - C_{\mathrm{tot}}^2\right]$, which grows with both $e_n$ and $C_{\mathrm{tot}}$: OPA846 (1.2 nV/√Hz on 5.9 pF) goes from 6.0 to 6.8 dB, OPA818 from 6.3 to 7.8 dB and OPA859 from 6.4 to 8.6 dB at 2 kΩ.
+- **Noise.** The band penalty rises by about 0.5 dB for OPA855, OPA856, OPA955 and LMH6629, whose $e_n$ is below 1 nV/√Hz, and by 0.8–2.2 dB for the others. The added picofarad raises the $e_n$ term of Eq. (19) by $e_n^2(2\pi f)^2\left[(C_{\mathrm{tot}} + 1\ \mathrm{pF})^2 - C_{\mathrm{tot}}^2\right]$, which grows with both $e_n$ and $C_{\mathrm{tot}}$: OPA846 (1.2 nV/√Hz on 5.9 pF) goes from 6.0 to 6.8 dB, OPA818 from 6.3 to 7.8 dB and OPA859 from 6.4 to 8.6 dB at 2 kΩ.
 - **Bandwidth.** Robust bandwidths fall by 2–17 %: OPA855 from 539 to 521 MHz, LMH6629 from 276 to 257 MHz, OPA856 from 231 to 198 MHz, OPA859 from 211 to 175 MHz at 2 kΩ.
 - **Stability of the decompensated parts improves slightly.** The flat designs of OPA846 and OPA818 move from 34° and 32° to 37° and 35°, and 45° needs 6 pF of added capacitance instead of 8 pF at 2 kΩ. OPA955 needs 2 pF added instead of 3 pF, which gives the same 466 MHz.
 - **OPA855's $C_F$ window widens.** At 2 kΩ it becomes 0.175–0.525 pF (0.204–0.525 pF at 1.5 kΩ), against 0.15–0.36 pF at 1 pF, because its upper limit $C_T/(G_{\min}-1)$ grows with $C_T$. Inside the window $C_F$ alone sets the bandwidth from 576 MHz at 0.175 pF to 176 MHz at 0.50 pF, so a 200–300 MHz design no longer needs a post-filter to define its bandwidth (Section 8.10).
@@ -1536,17 +1630,17 @@ With 1 pF in each diode of the pair the node carries 2 pF (Section 1.2). Tables 
 
 ### 6.4 Dynamic range
 
-Dynamic range is the ratio of the largest undistorted tone, $I_{\max} = V_{\mathrm{pk}}/(\sqrt2\,\lvert Z_T(f_0)\rvert)$, to the band noise (Eq. (31)). The amplifier's dark noise sets the floor only below the photocurrent at which the shot noise of the pair equals it, $I_{\mathrm{DC}}^{\times}$ of Eq. (51): 31–63 µA for the 5-V parts and 0.10–0.15 mA for the noisier OPA818 (Figure 16, Section 6.6.3). Above it the shot noise, the same for every part, sets the floor, and the dynamic range approaches Eq. (33): it falls by 10 dB per decade of photocurrent and rises by 6 dB for every doubling of $V_{\mathrm{pk}}$. The ceiling is the smaller of the swing and the slew-rate amplitude of Eq. (30), which cross at $f_{\times} = \mathrm{SR}/(2\pi V_{\mathrm{sw}})$ (Eq. (52)), so a larger supply helps only for tones below $f_{\times}$.
+Dynamic range is the ratio of the largest undistorted tone, $I_{\max} = V_{\mathrm{pk}}/(\sqrt2\,\lvert Z_T(f_0)\rvert)$, to the band noise (Eq. (27)). The amplifier's dark noise sets the floor only below the photocurrent at which the shot noise of the pair equals it, $I_{\mathrm{DC}}^{\times}$ of Eq. (51): 31–63 µA for the 5-V parts and 0.10–0.15 mA for the noisier OPA818 (Figure 22, Section 6.6.3). Above it the shot noise, the same for every part, sets the floor, and the dynamic range approaches Eq. (29): it falls by 10 dB per decade of photocurrent and rises by 6 dB for every doubling of $V_{\mathrm{pk}}$. The ceiling is the smaller of the swing and the slew-rate amplitude of Eq. (26), which cross at $f_{\times} = \mathrm{SR}/(2\pi V_{\mathrm{sw}})$ (Eq. (52)), so a larger supply helps only for tones below $f_{\times}$.
 
-Figure 15 shows the electronic dynamic range (Eq. (31)) in 150 MHz for a 100-MHz tone of the ten amplifiers carried forward, at $R_F$ = 2 kΩ with the imbalance servoed to zero, in the dark and at $I_1 + I_2$ = 0.1, 1 and 10 mA. In the dark the quietest parts lead, OPA955 with 82.9 dB. From 0.1 mA up the order follows the ceiling $I_{\max}$ instead: OPA818, with 2.23 V at 100 MHz, leads with 78.0, 70.7 and 61.1 dB, 3.1 dB ahead of OPA855 at 1 mA, and OPA856, slew-limited to 0.56 V, trails OPA855 by 8.5–8.6 dB at every current. The dashed lines mark the 50-Ω benchmark compressing at −10 dBm, which Section 6.8 sets against these designs. Table A6.29 gives the numbers, and the sections below derive them.
+Figure 21 shows the electronic dynamic range (Eq. (27)) in 150 MHz for a 100-MHz tone of the ten amplifiers carried forward, at $R_F$ = 2 kΩ with the imbalance servoed to zero, in the dark and at $I_1 + I_2$ = 0.1, 1 and 10 mA. In the dark the quietest parts lead, OPA955 with 82.9 dB. From 0.1 mA up the order follows the ceiling $I_{\max}$ instead: OPA818, with 2.23 V at 100 MHz, leads with 78.0, 70.7 and 61.1 dB, 3.1 dB ahead of OPA855 at 1 mA, and OPA856, slew-limited to 0.56 V, trails OPA855 by 8.5–8.6 dB at every current. The dashed lines mark the 50-Ω benchmark compressing at −10 dBm, which Section 6.8 sets against these designs. Table A6.29 gives the numbers, and the sections below derive them.
 
-![Figure 15](figures/fig19_dynamic_range_all_parts.png)
+![Figure 21](figures/fig19_dynamic_range_all_parts.png)
 
-*Figure 15. Electronic dynamic range (Eq. (31)) in 150 MHz for a 100-MHz tone, $R_F$ = 2 kΩ, $C_D$ = 1 pF, flat design, imbalance servoed to zero, from the analytical model; dark (diamonds) and $I_1 + I_2$ = 0.1, 1 and 10 mA. The dashed lines, in the colour of each current, mark the 50-Ω benchmark compressing at −10 dBm with a 2-dB noise figure (Table A2.2); its dark and 0.1-mA lines nearly coincide (80.1 and 79.8 dB). Amplifiers: the ten of Table A6.29 (one per row), sorted by the value at 1 mA. Values from Table A6.29.*
+*Figure 21. Electronic dynamic range (Eq. (27)) in 150 MHz for a 100-MHz tone, $R_F$ = 2 kΩ, $C_D$ = 1 pF, flat design, imbalance servoed to zero, from the analytical model; dark (diamonds) and $I_1 + I_2$ = 0.1, 1 and 10 mA. The dashed lines, in the colour of each current, mark the 50-Ω benchmark compressing at −10 dBm with a 2-dB noise figure (Table A2.2); its dark and 0.1-mA lines nearly coincide (80.1 and 79.8 dB). Amplifiers: the ten of Table A6.29 (one per row), sorted by the value at 1 mA. Values from Table A6.29.*
 
 #### 6.4.1 How much DC current $R_F$ can carry
 
-Any DC current through $R_F$ moves the output away from the centre of its swing and takes headroom from the RF signal. In the balanced pair (Section 1.2) that current is the imbalance $I_1 - I_2$ left uncorrected; in a single-ended detector it would be the whole photocurrent. Eq. (29), with the typical swing and input common-mode limits of Section 6.1, gives the largest such current for each part in Table A6.25. "Anode on node" corresponds, in the pair, to an imbalance with more current in the upper diode.
+Any DC current through $R_F$ moves the output away from the centre of its swing and takes headroom from the RF signal. In the balanced pair (Section 1.2) that current is the imbalance $I_1 - I_2$ left uncorrected; in a single-ended detector it would be the whole photocurrent. Eq. (25), with the typical swing and input common-mode limits of Section 6.1, gives the largest such current for each part in Table A6.25. "Anode on node" corresponds, in the pair, to an imbalance with more current in the upper diode.
 
 The last two columns give the DC current up to which the full RF amplitude $V_{\mathrm{pk}}$ of Table A6.26 survives. They apply to a known, fixed DC current, for which $V_{\mathrm{REF}}$ can be chosen to centre the output at that current; that current is then at most $I_{\mathrm{full}} = I_{\mathrm{DC,max}} - V_{\mathrm{pk}}/R_F$. An imbalance that wanders around zero costs headroom from the first microampere instead (Table A1.2).
 
@@ -1559,41 +1653,41 @@ The OPA818 orientation matters. Its JFET input range reaches the negative rail b
 
 #### 6.4.2 Largest RF amplitude
 
-Once the shot noise dominates the floor, the largest RF amplitude the output can deliver sets the dynamic range (Eq. (33)), so this is where the amplifiers differ most at high photocurrent. Eq. (30) at 100 and 150 MHz, with the DC removed and the output centred, gives Table A6.26. This is the amplitude at which the output clips or slews, not a distortion limit (Section 6.4.4). At 100 and 150 MHz the current limit, with a 100-Ω load (50-Ω back-termination plus 50-Ω instrument), never binds for these parts. Into 100 Ω the 5-V parts lose a further 0.05–0.1 V of swing.
+Once the shot noise dominates the floor, the largest RF amplitude the output can deliver sets the dynamic range (Eq. (29)), so this is where the amplifiers differ most at high photocurrent. Eq. (26) at 100 and 150 MHz, with the DC removed and the output centred, gives Table A6.26. This is the amplitude at which the output clips or slews, not a distortion limit (Section 6.4.4). At 100 and 150 MHz the current limit, with a 100-Ω load (50-Ω back-termination plus 50-Ω instrument), never binds for these parts. Into 100 Ω the 5-V parts lose a further 0.05–0.1 V of swing.
 
 **Where swing helps and where slew limits.**
 - **Slew rate is what limits the large-swing parts.** OPA818 has 11 V of output range, but at 1400 V/µs it can deliver only 2.23 V peak at 100 MHz, and 1.49 V at 150 MHz. Its real advantage over the 5-V parts is therefore 3.3 dB at 100 MHz and none at 150 MHz.
 - **OPA846 at 625 V/µs delivers less amplitude above 65 MHz than OPA855 does on 5 V.**
 - **For an RF difference current that is a fraction $m$ of $I_{\mathrm{DC}} = I_1 + I_2$, the RF amplitude is $mI_{\mathrm{DC}}$.** At 10 mA and 2 kΩ, the 5-V parts are full scale at $m$ ≈ 8 %, OPA818 at 11 %, and OPA856 already at 3 %. With "small RF", say $m$ = 1 % (0.2 V at 2 kΩ), the headroom at 10 mA is $20\log_{10}(V_{\mathrm{pk}}/0.2\ \mathrm{V})$ (Table A6.27).
 
-**The tone frequency decides how much the larger supplies help.** Table A6.28 repeats Eq. (30) at five tone frequencies, together with the shot-limited dynamic range of Eq. (33) for 10 mA in each diode ($I_1 + I_2$ = 20 mA) in 150 MHz.
+**The tone frequency decides how much the larger supplies help.** Table A6.28 repeats Eq. (26) at five tone frequencies, together with the shot-limited dynamic range of Eq. (29) for 10 mA in each diode ($I_1 + I_2$ = 20 mA) in 150 MHz.
 
 **Reading Table A6.28.**
 - **The 5-V parts are swing-limited at every frequency** (except OPA856, which slews), so their amplitude, and with it the dynamic range at high photocurrent, does not depend on the tone frequency.
 - **The ±5-V to ±6.5-V parts are slew-limited above 20–50 MHz**, so their amplitude falls as $1/f$. OPA818 leads OPA855 by 11.1 dB at 20 MHz, 9.3 dB at 50 MHz and 3.3 dB at 100 MHz. It ties at 150 MHz and trails by 2.8 dB at 200 MHz.
 - **The choice between OPA855 and OPA818 therefore depends on where the signal lies.** Below about 100 MHz OPA818's larger swing is worth its lower phase margin, provided the peaking is equalized (Section 6.2.8), which its macromodel shows to be unnecessary at $C_F$ = 0.55–0.65 pF (Section 5.5), or OPA818 works in a second stage (Section 8.5). Above about 150 MHz OPA855 is as good or better. Section 8.9 therefore carries both, as variants A and B of the proposed front end.
-- **Into a back-terminated 50-Ω load**, Eq. (30) with OPA818's 55 mA of linear output current allows about 5.2 V at 20 MHz (55 mA into the 95 Ω of the load in parallel with $R_F$), 0.4 dB below the light-load value. A sustained tone at that level exceeds the 25-mA absolute-maximum continuous output current of Section 6.1.2, since a sine of 55 mA peak carries $55/\sqrt2$ = 38.9 mA rms. At 100 MHz the slew-limited 2.23 V drives 2.23 V / 95.2 Ω = 23.4 mA peak, 16.6 mA rms, within the rating. The 5-V parts lose about 0.1 V of swing into this load.
+- **Into a back-terminated 50-Ω load**, Eq. (26) with OPA818's 55 mA of linear output current allows about 5.2 V at 20 MHz (55 mA into the 95 Ω of the load in parallel with $R_F$), 0.4 dB below the light-load value. A sustained tone at that level exceeds the 25-mA absolute-maximum continuous output current of Section 6.1.2, since a sine of 55 mA peak carries $55/\sqrt2$ = 38.9 mA rms. At 100 MHz the slew-limited 2.23 V drives 2.23 V / 95.2 Ω = 23.4 mA peak, 16.6 mA rms, within the rating. The 5-V parts lose about 0.1 V of swing into this load.
 
 #### 6.4.3 Dynamic range in a 150-MHz band
 
-Tables A6.29 and A6.30 combine the noise of Section 6.3 and the amplitude of Section 6.4.2 into the dynamic range of Eq. (31), in 150 MHz for a 100-MHz tone, at $R_F$ = 2 kΩ and 1.5 kΩ, in the dark and at 0.1, 1 and 10 mA. Figure 16 draws it against the photocurrent for four of the amplifiers at 2 kΩ, with the imbalance servoed to zero and, for comparison, for a single-ended detector whose DC flows through $R_F$.
+Tables A6.29 and A6.30 combine the noise of Section 6.3 and the amplitude of Section 6.4.2 into the dynamic range of Eq. (27), in 150 MHz for a 100-MHz tone, at $R_F$ = 2 kΩ and 1.5 kΩ, in the dark and at 0.1, 1 and 10 mA. Figure 22 draws it against the photocurrent for four of the amplifiers at 2 kΩ, with the imbalance servoed to zero and, for comparison, for a single-ended detector whose DC flows through $R_F$.
 
 **How to read Tables A6.29 and A6.30.**
-- **From 1 mA up the dynamic range approaches Eq. (33), which depends only on the ceiling.** OPA818's 2.23 V against 1.52 V is worth 3.3 dB, reached at 10 mA; at 1 mA its amplifier noise leaves 3.1 dB (Section 6.6.2). The smaller $R_F$ of 1.5 kΩ gains up to $20\log_{10}(2/1.5)$ = 2.5 dB, but only 2.0–2.1 dB for OPA843 and THS4304 (Table A6.30), whose flat designs are already rolling off at 100 MHz. Eq. (31) credits a smaller $\lvert Z_T(f_0)\rvert$ with a larger $I_{\max}$: OPA843's $\lvert Z_T\rvert$ = 1.59 V / 0.91 mA = 1.75 kΩ, 1.2 dB below $R_F$, places it second at 1 and 10 mA in Table A6.29, and, as for LMH6629 in Section 6.6.2, that credit holds only for a tone at 100 MHz.
+- **From 1 mA up the dynamic range approaches Eq. (29), which depends only on the ceiling.** OPA818's 2.23 V against 1.52 V is worth 3.3 dB, reached at 10 mA; at 1 mA its amplifier noise leaves 3.1 dB (Section 6.6.2). The smaller $R_F$ of 1.5 kΩ gains up to $20\log_{10}(2/1.5)$ = 2.5 dB, but only 2.0–2.1 dB for OPA843 and THS4304 (Table A6.30), whose flat designs are already rolling off at 100 MHz. Eq. (27) credits a smaller $\lvert Z_T(f_0)\rvert$ with a larger $I_{\max}$: OPA843's $\lvert Z_T\rvert$ = 1.59 V / 0.91 mA = 1.75 kΩ, 1.2 dB below $R_F$, places it second at 1 and 10 mA in Table A6.29, and, as for LMH6629 in Section 6.6.2, that credit holds only for a tone at 100 MHz.
 - **Dark, the quietest amplifier wins.** OPA955 reaches 82.9 dB despite its 5-V swing.
 - **The back-termination costs 0–0.6 dB**, the swing the 5-V parts lose into 100 Ω (Section 6.4.2).
-- **With 10 mA in each diode** ($I_1 + I_2$ = 20 mA), every entry of the 10-mA column falls by a further 3.0 dB (Eq. (33)): OPA855 54.8 dB and OPA818 58.1 dB at 2 kΩ, 57.3 and 60.6 dB at 1.5 kΩ.
+- **With 10 mA in each diode** ($I_1 + I_2$ = 20 mA), every entry of the 10-mA column falls by a further 3.0 dB (Eq. (29)): OPA855 54.8 dB and OPA818 58.1 dB at 2 kΩ, 57.3 and 60.6 dB at 1.5 kΩ.
 - **The noise is integrated to 150 MHz**, which presumes a post-filter (Section 6.3.3).
 - **These numbers assume the imbalance servoed to zero.** An uncorrected imbalance costs the amounts of Table A1.2; a single-ended detector keeps them only up to the currents in the last column of Table A6.25.
 
-![Figure 16](figures/fig06_dynamic_range_vs_idc_2k.png)
+![Figure 22](figures/fig06_dynamic_range_vs_idc_2k.png)
 
-*Figure 16. Dynamic range in 150 MHz for a 100-MHz tone against DC photocurrent ($I_1 + I_2$ for the balanced pair), $R_F$ = 2 kΩ, flat designs. Amplifiers: OPA855, LMH6629 (COMP HI), OPA846, OPA818, as named in the plot legend.*
+*Figure 22. Dynamic range in 150 MHz for a 100-MHz tone against DC photocurrent ($I_1 + I_2$ for the balanced pair), $R_F$ = 2 kΩ, flat designs. Amplifiers: OPA855, LMH6629 (COMP HI), OPA846, OPA818, as named in the plot legend.*
 - *Solid lines: imbalance servoed to zero, or DC removed before $R_F$. Dashed lines: a single-ended detector whose DC is carried by $R_F$, with the better photodiode orientation and the output centred as far as the input range allows.*
-- *Above $I_{\mathrm{DC}}^{\times}$ of Eq. (51), where the shot noise equals the dark band noise, the solid lines approach 10 dB per decade (Eq. (33)); for OPA818 in this model $I_{\mathrm{DC}}^{\times} = (70.7\ \mathrm{nA})^2/(2\times1.602\times10^{-19}\ \mathrm{C}\times150\ \mathrm{MHz})$ = 0.104 mA. The 25.7 µA of Section 1.1 is the crossover for $R_F$ alone.*
+- *Above $I_{\mathrm{DC}}^{\times}$ of Eq. (51), where the shot noise equals the dark band noise, the solid lines approach 10 dB per decade (Eq. (29)); for OPA818 in this model $I_{\mathrm{DC}}^{\times} = (70.7\ \mathrm{nA})^2/(2\times1.602\times10^{-19}\ \mathrm{C}\times150\ \mathrm{MHz})$ = 0.104 mA. The 25.7 µA of Section 1.1 is the crossover for $R_F$ alone.*
 - *The dashed lines collapse at the $I_{\mathrm{DC,max}}$ of Table A6.25: 1.5 mA for OPA855, 1.7 mA for LMH6629, 4.3 mA for OPA846 and 5.5 mA for OPA818.*
 
-Section 6.6 recomputes these numbers from the macromodels and shows, for OPA818, which noise and which large-signal limit set them (Figure 19).
+Section 6.6 recomputes these numbers from the macromodels and shows, for OPA818, which noise and which large-signal limit set them (Figure 25).
 
 #### 6.4.4 Linearity and overload recovery
 
@@ -1634,11 +1728,11 @@ Appendix B.1 lists four points these models need beyond the general procedure, a
 
 This rule is one for all parts. It differs from variant A's proposal (Table A5.9), which centres OPA855's window to allow ±0.07 pF.
 
-![Figure 17](figures/fig14_spice_best_design_all_parts.png)
+![Figure 23](figures/fig14_spice_best_design_all_parts.png)
 
-*Figure 17. Every amplifier at its best design in SPICE at 1 pF and 2 kΩ (Table A6.32): the noise penalty over 10–150 MHz against (a) the bandwidth at the nominal photodiode capacitance and (b) the largest worst-case phase margin that any $C_F$ reaches. Amplifiers: OPA855, OPA818, OPA856, OPA858, LMH6629 (COMP HI), OPA859, OPA846, OPA657, OPA847, LMH6624, THS4021, ADA4817-1, AD8099, ADA4899-1, ADA4895-1, OPA955, OPA817 and OPA814. Filled markers meet phase margin ≥ 45°, gain margin ≥ 3 dB and ≤ 1 dB of peaking at $C_D$ = 0.8–1.2 pF with $C_F$ ± 0.05 pF. Open markers meet them at no $C_F$; such a part is shown at its largest worst-case phase margin, given in brackets in (a). Circles are bipolar inputs and squares FET inputs. OPA657 (17.2 dB) is drawn at the top edge. The shaded band in (a) lies below 150 MHz. Two models carry far less input capacitance than their datasheets (LMH6629 1.3 against 5.7 pF, ADA4899-1 0.40 against 4.4 pF), so their noise here is optimistic. OPA847's model fails its datasheet's test circuit (Table A5.5), and OPA955's datasheet is advance information.*
+*Figure 23. Every amplifier at its best design in SPICE at 1 pF and 2 kΩ (Table A6.32): the noise penalty over 10–150 MHz against (a) the bandwidth at the nominal photodiode capacitance and (b) the largest worst-case phase margin that any $C_F$ reaches. Amplifiers: OPA855, OPA818, OPA856, OPA858, LMH6629 (COMP HI), OPA859, OPA846, OPA657, OPA847, LMH6624, THS4021, ADA4817-1, AD8099, ADA4899-1, ADA4895-1, OPA955, OPA817 and OPA814. Filled markers meet phase margin ≥ 45°, gain margin ≥ 3 dB and ≤ 1 dB of peaking at $C_D$ = 0.8–1.2 pF with $C_F$ ± 0.05 pF. Open markers meet them at no $C_F$; such a part is shown at its largest worst-case phase margin, given in brackets in (a). Circles are bipolar inputs and squares FET inputs. OPA657 (17.2 dB) is drawn at the top edge. The shaded band in (a) lies below 150 MHz. Two models carry far less input capacitance than their datasheets (LMH6629 1.3 against 5.7 pF, ADA4899-1 0.40 against 4.4 pF), so their noise here is optimistic. OPA847's model fails its datasheet's test circuit (Table A5.5), and OPA955's datasheet is advance information.*
 
-**Reading Table A6.32 and Figure 17.**
+**Reading Table A6.32 and Figure 23.**
 - **OPA955 is the best part in SPICE.** At 0.220 ± 0.050 pF it adds only 0.90 dB to the 2-kΩ Johnson floor and gives 560 MHz with 46° at the worst corner. It needs none of the 2–3 pF that our analysis adds for 45° (Section 6.2.6), and its window, 0.167–0.813 pF, is the widest of the fast bipolar parts. Its noise agrees with our own estimate for it (0.9 dB, Table A9.2).
   - Its macromodel has far less open-loop phase lag than the plotted curve above 300 MHz (Table A5.3). Against its datasheet's own test circuit it is 16 % slow and less damped than the part (Table A5.5), which makes it conservative for stability.
   - The datasheet is advance information, and the part is preproduction.
@@ -1649,11 +1743,11 @@ This rule is one for all parts. It differs from variant A's proposal (Table A5.9
 
 ### 6.6 Dynamic range of the leading designs in SPICE
 
-Section 6.4 gives the dynamic range of every candidate from our analytical model, and Chapter 5 checks the leading designs' noise and stability against the manufacturers' macromodels. Here we return to dynamic range, the receiver's priority. Section 6.6.1 states how it is computed. Section 6.6.2 recomputes it for the five leading amplifiers at their best designs in SPICE (Table A6.32), from the macromodels' own noise and transimpedance, and compares our analytical model at the same feedback capacitance (Table A6.33, Figure 18(a)–(b)). Section 6.6.3 examines one design, OPA818, in detail: which noise sets the floor and which large-signal limit sets the ceiling at each photocurrent and tone, and what a faster amplifier or a higher supply would buy (Figure 19). Section 6.7 then puts single-chip TIAs on the same definition, and Section 6.8 the 50-Ω benchmark.
+Section 6.4 gives the dynamic range of every candidate from our analytical model, and Chapter 5 checks the leading designs' noise and stability against the manufacturers' macromodels. Here we return to dynamic range, the receiver's priority. Section 6.6.1 states how it is computed. Section 6.6.2 recomputes it for the five leading amplifiers at their best designs in SPICE (Table A6.32), from the macromodels' own noise and transimpedance, and compares our analytical model at the same feedback capacitance (Table A6.33, Figure 24(a)–(b)). Section 6.6.3 examines one design, OPA818, in detail: which noise sets the floor and which large-signal limit sets the ceiling at each photocurrent and tone, and what a faster amplifier or a higher supply would buy (Figure 25). Section 6.7 then puts single-chip TIAs on the same definition, and Section 6.8 the 50-Ω benchmark.
 
 #### 6.6.1 How the dynamic range is computed
 
-The definition is that of Section 4.8, Eq. (31), with the noise split into the TIA's own part and the shot noise of the photocurrent. Referred to the photocurrent, the largest undistorted tone and the band noise are
+The definition is that of Section 3.8, Eq. (27), with the noise split into the TIA's own part and the shot noise of the photocurrent. Referred to the photocurrent, the largest undistorted tone and the band noise are
 
 $$
 I_{\max}(f_0) = \frac{V_{\mathrm{pk}}(f_0)}{\sqrt2\,\lvert Z_T(f_0)\rvert},
@@ -1669,12 +1763,12 @@ $$
 \tag{50}
 $$
 
-Here $I_{\max}$ is the rms photocurrent of the largest tone at $f_0$ whose output stays inside the limits of Eq. (30); $V_{\mathrm{pk}}(f_0)$ is that output amplitude and $\lvert Z_T(f_0)\rvert$ the transimpedance at the tone. $S_{i,0}(f)$ is the input-referred noise density of the TIA without photocurrent (amplifier and $R_F$), $q$ the electron charge, $I_{\mathrm{DC}} = I_1 + I_2$ the DC photocurrent of the balanced pair, and $B$ = 150 MHz the noise bandwidth. The imbalance is servoed to zero, as in Table A6.29, so $R_F$ carries no DC and the output is centred. Eq. (50) is Eq. (31) with $S_i = S_{i,0} + 2qI_{\mathrm{DC}}$.
+Here $I_{\max}$ is the rms photocurrent of the largest tone at $f_0$ whose output stays inside the limits of Eq. (26); $V_{\mathrm{pk}}(f_0)$ is that output amplitude and $\lvert Z_T(f_0)\rvert$ the transimpedance at the tone. $S_{i,0}(f)$ is the input-referred noise density of the TIA without photocurrent (amplifier and $R_F$), $q$ the electron charge, $I_{\mathrm{DC}} = I_1 + I_2$ the DC photocurrent of the balanced pair, and $B$ = 150 MHz the noise bandwidth. The imbalance is servoed to zero, as in Table A6.29, so $R_F$ carries no DC and the output is centred. Eq. (50) is Eq. (27) with $S_i = S_{i,0} + 2qI_{\mathrm{DC}}$.
 
 The inputs come from three places:
 - **Op amps in SPICE.** $S_{i,0}(f)$ is the noise spectrum simulated at each part's best design at 1 pF and 2 kΩ (Table A6.32), and $\lvert Z_T(f_0)\rvert$ the simulated transimpedance at the nominal photodiode capacitance. The integral runs over exactly 0–150 MHz: the spectrum is interpolated at 150 MHz and held at its 100-kHz value below the first point of the sweep, which changes nothing visible (100 kHz is 0.07 % of the band).
-- **Op amps in our analytical model.** Eqs. (13) and (23) with the datasheet open-loop curve and noise data, at the same total $C_F$.
-- **Both** take $V_{\mathrm{pk}}$ from Eq. (30) with the datasheet's light-load swing, slew rate and output current (Table A6.28). The macromodels' own large-signal behaviour was checked separately in Section 5.7.
+- **Op amps in our analytical model.** Eqs. (9) and (19) with the datasheet open-loop curve and noise data, at the same total $C_F$.
+- **Both** take $V_{\mathrm{pk}}$ from Eq. (26) with the datasheet's light-load swing, slew rate and output current (Table A6.28). The macromodels' own large-signal behaviour was checked separately in Section 5.7.
 - **Single-chip TIAs** (Section 6.7): $I_{\max}$ is the datasheet's linear input range, as rms, and $S_{i,0}$ the datasheet's input-referred noise density, taken as white over 0–150 MHz. For the variable-gain coherent-receiver TIAs both are taken at the one gain setting at which the noise is published (Eq. (53)).
 
 #### 6.6.2 The leading designs in SPICE and in our analytical model
@@ -1683,25 +1777,25 @@ Section 6.4 computed the dynamic range with our analytical model and the datashe
 
 **Example: OPA855 at $I_1 + I_2$ = 1 mA.** The swing limit gives $I_{\max}$ = 1.525 V / ($\sqrt2$ × 1994 Ω) = 0.541 mA rms. The shot noise is $\sqrt{2qI_{\mathrm{DC}}B} = \sqrt{2 \times 1.602\times10^{-19}\ \mathrm{C} \times 1\ \mathrm{mA} \times 150\ \mathrm{MHz}}$ = 219.2 nA rms, and with the 49.6 nA of dark noise $i_{n,B} = \sqrt{49.6^2 + 219.2^2}$ nA = 224.7 nA rms. Then $\mathrm{DR}_{150\,\mathrm{MHz}} = 20\log_{10}(0.541\ \mathrm{mA}/224.7\ \mathrm{nA})$ = 67.6 dB.
 
-**How to read Table A6.33 and Figure 18(a)–(b).**
+**How to read Table A6.33 and Figure 24(a)–(b).**
 - **For OPA955, OPA855 and OPA858, SPICE confirms our dynamic range within 0.2 dB** at every photocurrent. Their dark band noise agrees within 1.4 % and their transimpedance at 100 MHz within 2.3 %, and the values match Table A6.29, computed at our own flat designs, within 0.2 dB.
 - **OPA818 loses 1.5 dB in the dark and 0.8 dB at 0.1 mA in SPICE, and nothing from 1 mA up.** Its macromodel is noisier than our central estimate (84.8 against 70.7 nA rms; Section 5.6). Once the shot noise of 1 mA, 219.2 nA rms, dominates, the floor no longer depends on the amplifier, and both give 70.7 dB.
 - **LMH6629 gains 2.8 dB in the dark and 1.4 dB from 1 mA up in SPICE; neither gain should be counted.**
   - The dark gain comes from the macromodel's 1.3 pF of input capacitance against the datasheet's 5.7 pF (Section 5.3): less capacitance means less $e_n$ noise through $C_T$.
   - The gain at high photocurrent comes from the ceiling. At this $C_F$ the macromodel's transimpedance is already 0.5 dB down at 100 MHz (1879 Ω), while our analytical model peaks by 0.8 dB (2194 Ω). A smaller $\lvert Z_T(f_0)\rvert$ lets a larger photocurrent reach the same output limit, and Eq. (49) credits that. The credit holds only for a tone at 100 MHz: a signal spread over the band meets the output limit where $\lvert Z_T\rvert$ is largest, which is $R_F$ in both.
-- **Which part leads depends on the photocurrent** (Figure 18(a)).
+- **Which part leads depends on the photocurrent** (Figure 24(a)).
   - In the dark OPA955 leads with 82.9 dB; LMH6629's 82.1 dB is optimistic.
   - OPA818 overtakes OPA855 at $I_1 + I_2$ = 30 µA and OPA955 at 69 µA.
   - From 1 mA on, OPA818 leads OPA955, OPA855 and OPA858 by 2.9–3.4 dB, and LMH6629 by 1.7–2.0 dB on its optimistic SPICE figures. Against the 1.52-V parts its larger amplitude is worth $20\log_{10}(2.23/1.52)$ = 3.3 dB. At 1 mA its higher amplifier noise takes back 0.4 dB (it adds 0.6 dB to the shot noise, against 0.1–0.3 dB for the 5-V parts), and its transimpedance at 100 MHz, 0.1 dB lower, returns 0.1 dB.
-- **Which part leads also depends on the tone** (Figure 18(b), 1 mA).
+- **Which part leads also depends on the tone** (Figure 24(b), 1 mA).
   - The 5-V parts are limited by their 1.52-V swing at every tone up to 200 MHz. Their slew rates would take over only above the crossover of Eq. (52) (Section 6.6.3), $\mathrm{SR}/(2\pi V_{\mathrm{sw}})$ = 209 MHz (OPA858), 287 MHz (OPA855) and 391 MHz (OPA955).
   - OPA818 is limited by its swing only up to 40.5 MHz, where it reaches 78.4 dB, 10.7–10.8 dB above OPA955, OPA855 and OPA858. Above that its slew rate sets the ceiling, which falls as $1/f_0$: 76.6 dB at 50 MHz, 70.7 dB at 100 MHz, 67.6 dB at 150 MHz and 65.9 dB at 200 MHz.
   - OPA818 loses its lead over OPA955, OPA858 and OPA855 at 144.5, 146.0 and 147.9 MHz (136.0–142.2 MHz in our analytical model). At 200 MHz it trails them by 1.9–2.1 dB.
   - LMH6629 is slew-limited above 151 MHz. Its SPICE curve rises up to there because its transimpedance falls, as discussed above.
 
-![Figure 18](figures/fig15_dynamic_range_comparison.png)
+![Figure 24](figures/fig15_dynamic_range_comparison.png)
 
-*Figure 18. Dynamic range in 150 MHz (Eq. (50)), with the imbalance servoed to zero.*
+*Figure 24. Dynamic range in 150 MHz (Eq. (50)), with the imbalance servoed to zero.*
 - *(a) The five leading amplifiers at their best SPICE designs at 1 pF and 2 kΩ (Table A6.33), against $I_1 + I_2$ for a 100-MHz tone: SPICE solid, our analytical model at the same $C_F$ dashed. Shaded: the receiver's range of 0.1–10 mA.*
 - *(b) The same against the tone frequency at $I_1 + I_2$ = 1 mA. The annotations mark where the slew rate takes over from the swing (Eq. (52)).*
 - *(c) The single-chip TIAs of Table A6.34 that reach 150 MHz with a linear gain, against $I_1 + I_2$ for a 100-MHz tone, from their datasheets' linear input range and band noise. The coherent-receiver TIAs (MATA-006801, GX39220, RG8G32423) are drawn at the gain at which their noise is published (Eq. (53)); GX39220's curve ends at 8 mA, its limit of 4 mA of DC on each input. Dashed dark grey: the best of OPA855, OPA955, OPA818 and OPA858 in SPICE at each point; LMH6629 is left out (Section 6.6.2).*
@@ -1710,11 +1804,11 @@ Section 6.4 computed the dynamic range with our analytical model and the datashe
 
 #### 6.6.3 What limits the dynamic range of the OPA818 design
 
-Knowing which limit sets the dynamic range tells where an improvement would pay: a quieter amplifier where the noise sets the floor, more swing or slew rate where the ceiling does. We examine the OPA818 design, the one with the largest ceiling, because both of its large-signal limits, swing and slew rate, bind within the band, while the 5-V parts are limited by their swing alone (Section 6.6.2). Figure 19 draws the two sides of Eq. (50) separately for the OPA818 design of Table A6.33 ($C_F$ = 0.495 pF, 262 MHz), both as rms photocurrent: the band noise floors at the bottom and the ceilings of Eq. (30) at the top. The dynamic range is the vertical distance from the floor to the lowest ceiling, 20 dB per decade.
+Knowing which limit sets the dynamic range tells where an improvement would pay: a quieter amplifier where the noise sets the floor, more swing or slew rate where the ceiling does. We examine the OPA818 design, the one with the largest ceiling, because both of its large-signal limits, swing and slew rate, bind within the band, while the 5-V parts are limited by their swing alone (Section 6.6.2). Figure 25 draws the two sides of Eq. (50) separately for the OPA818 design of Table A6.33 ($C_F$ = 0.495 pF, 262 MHz), both as rms photocurrent: the band noise floors at the bottom and the ceilings of Eq. (26) at the top. The dynamic range is the vertical distance from the floor to the lowest ceiling, 20 dB per decade.
 
 **The floor.** Three noises add in power over 0–150 MHz:
 - the Johnson noise of $R_F$ alone, $\sqrt{4k_BTB/R_F}$ = 2.87 pA/√Hz × $\sqrt{150\ \mathrm{MHz}}$ = 35.1 nA rms;
-- the amplifier's own noise, mostly $e_n$ acting on $C_T$ (Eq. (23)), which raises the dark floor to 84.8 nA rms in SPICE (70.7 nA in our analytical model). The amplifier's part is $\sqrt{84.8^2 - 35.1^2}$ nA = 77.1 nA rms;
+- the amplifier's own noise, mostly $e_n$ acting on $C_T$ (Eq. (19)), which raises the dark floor to 84.8 nA rms in SPICE (70.7 nA in our analytical model). The amplifier's part is $\sqrt{84.8^2 - 35.1^2}$ nA = 77.1 nA rms;
 - the shot noise of the pair, $\sqrt{2qI_{\mathrm{DC}}B}$ = 69.3, 219.2 and 693.3 nA rms at $I_1 + I_2$ = 0.1, 1 and 10 mA.
 
 The shot noise equals the dark floor at
@@ -1724,9 +1818,9 @@ I_{\mathrm{DC}}^{\times} = \frac{i_{n,B}^2(0)}{2qB} = \frac{(84.8\ \mathrm{nA})^
 \tag{51}
 $$
 
-where $i_{n,B}(0)$ is the dark band noise of Eq. (49). Below $I_{\mathrm{DC}}^{\times}$ the amplifier sets the floor and the dynamic range is nearly flat. Above it the shot noise does, and the dynamic range falls by 10 dB per decade of photocurrent (Eq. (33)). At 0.1, 1 and 10 mA the amplifier still adds 4.0, 0.6 and 0.06 dB to the shot noise. For the 5-V parts of Table A6.33, $I_{\mathrm{DC}}^{\times}$ is only 31–63 µA.
+where $i_{n,B}(0)$ is the dark band noise of Eq. (49). Below $I_{\mathrm{DC}}^{\times}$ the amplifier sets the floor and the dynamic range is nearly flat. Above it the shot noise does, and the dynamic range falls by 10 dB per decade of photocurrent (Eq. (29)). At 0.1, 1 and 10 mA the amplifier still adds 4.0, 0.6 and 0.06 dB to the shot noise. For the 5-V parts of Table A6.33, $I_{\mathrm{DC}}^{\times}$ is only 31–63 µA.
 
-**The ceiling.** With the DC removed and the output centred, Eq. (30) gives the smaller of the swing and the slew-rate amplitude. The third limit, 55 mA of output current into $1/R_F + 2\pi f_0 C_F$, would allow more than 38 V at every tone up to 300 MHz and never binds. Swing and slew rate cross at
+**The ceiling.** With the DC removed and the output centred, Eq. (26) gives the smaller of the swing and the slew-rate amplitude. The third limit, 55 mA of output current into $1/R_F + 2\pi f_0 C_F$, would allow more than 38 V at every tone up to 300 MHz and never binds. Swing and slew rate cross at
 
 $$
 f_{\times} = \frac{\mathrm{SR}}{2\pi V_{\mathrm{sw}}} = \frac{1400\ \mathrm{V/\mu s}}{2\pi \times 5.50\ \mathrm{V}} = 40.5\ \mathrm{MHz},
@@ -1741,7 +1835,7 @@ $$
 \mathrm{DR}_{150\,\mathrm{MHz}} = 20\log_{10}\frac{0.803\ \mathrm{mA}}{\sqrt{(84.8\ \mathrm{nA})^2 + (219.2\ \mathrm{nA})^2}} = 20\log_{10}\frac{0.803\ \mathrm{mA}}{235.1\ \mathrm{nA}} = 70.7\ \mathrm{dB}.
 $$
 
-At 30 MHz the same floor under the 1.95-mA ceiling gives 78.4 dB (Figure 19(a)). In the dark at 100 MHz it is 79.5 dB, at 0.1 mA 77.3 dB, and at 10 mA 61.2 dB (Figure 19(b)).
+At 30 MHz the same floor under the 1.95-mA ceiling gives 78.4 dB (Figure 25(a)). In the dark at 100 MHz it is 79.5 dB, at 0.1 mA 77.3 dB, and at 10 mA 61.2 dB (Figure 25(b)).
 
 **What each change would buy at 100 MHz.**
 - **The slew rate is the binding limit above 40.5 MHz, and it moves the dynamic range at every photocurrent.**
@@ -1749,19 +1843,19 @@ At 30 MHz the same floor under the 1.95-mA ceiling gives 78.4 dB (Figure 19(a)).
   - On ±5 V the 4.00-V swing caps the gain at $20\log_{10}(4.00/2.23)$ = 5.1 dB.
   - Halving it to 700 V/µs costs 6.0 dB.
 - **The supply matters only at low tones.** On ±5 V (4.00 V of swing into 1 kΩ, Table A6.3) the ceiling at 100 MHz is unchanged, because 2.23 V is less than 4.00 V. Below 40.5 MHz it is $20\log_{10}(5.50/4.00)$ = 2.8 dB lower, and the loss vanishes at 1400 V/µs / (2π × 4.00 V) = 55.7 MHz.
-- **The 5-V parts' 1.52-V swing lies 3.3 dB below OPA818's slew limit at 100 MHz.** The two meet at 1400 V/µs / (2π × 1.525 V) = 146 MHz, which is why the curves of Figure 18(b) cross at 144.5–147.9 MHz.
+- **The 5-V parts' 1.52-V swing lies 3.3 dB below OPA818's slew limit at 100 MHz.** The two meet at 1400 V/µs / (2π × 1.525 V) = 146 MHz, which is why the curves of Figure 24(b) cross at 144.5–147.9 MHz.
 - **A quieter amplifier helps only below about 1 mA.** A noiseless one, leaving the 35.1 nA of $R_F$ alone, would gain 7.7 dB in the dark, 3.0 dB at 0.1 mA, 0.5 dB at 1 mA and 0.05 dB at 10 mA.
-- **$R_F$ moves the ceiling once the shot noise dominates.** The floor then no longer depends on $R_F$, while $I_{\max}$ scales as $1/\lvert Z_T\rvert$, so 1.5 kΩ gains 2.5 dB (Eq. (33), Table A6.30).
+- **$R_F$ moves the ceiling once the shot noise dominates.** The floor then no longer depends on $R_F$, while $I_{\max}$ scales as $1/\lvert Z_T\rvert$, so 1.5 kΩ gains 2.5 dB (Eq. (29), Table A6.30).
 
-![Figure 19](figures/fig16_dynamic_range_limits_opa818.png)
+![Figure 25](figures/fig16_dynamic_range_limits_opa818.png)
 
-*Figure 19. What sets the dynamic range of the OPA818 design of Table A6.33 ($R_F$ = 2 kΩ, total $C_F$ = 0.495 pF, 1 pF at the node, 262 MHz), with every quantity referred to the photocurrent as an rms current. Bottom: band noise over 0–150 MHz, the Johnson noise of $R_F$ alone (grey, dashed) and the total with the SPICE amplifier noise, in the dark and with the shot noise of $I_1 + I_2$ = 0.1, 1 and 10 mA (green). Top: the largest undistorted tone, $V_{\mathrm{pk}}/(\sqrt2\lvert Z_T(f_0)\rvert)$ of Eq. (49), for the swing on ±6.5 V (5.50 V) and on ±5 V (4.00 V), the swing of the 5-V parts (1.52 V), and slew rates of 700, 1400 (OPA818) and 2800 V/µs. Shaded: the dynamic range of OPA818 on ±6.5 V. (a) Against the tone frequency; the shading and the arrows are for $I_1 + I_2$ = 1 mA. The ceilings rise above about 150 MHz, where $\lvert Z_T\rvert$ rolls off, and the dotted line marks the edge of the noise band. (b) Against $I_1 + I_2$ for a 100-MHz tone, with our analytical model of the total noise dashed and the shot noise alone in teal. Amplifier: OPA818.*
+*Figure 25. What sets the dynamic range of the OPA818 design of Table A6.33 ($R_F$ = 2 kΩ, total $C_F$ = 0.495 pF, 1 pF at the node, 262 MHz), with every quantity referred to the photocurrent as an rms current. Bottom: band noise over 0–150 MHz, the Johnson noise of $R_F$ alone (grey, dashed) and the total with the SPICE amplifier noise, in the dark and with the shot noise of $I_1 + I_2$ = 0.1, 1 and 10 mA (green). Top: the largest undistorted tone, $V_{\mathrm{pk}}/(\sqrt2\lvert Z_T(f_0)\rvert)$ of Eq. (49), for the swing on ±6.5 V (5.50 V) and on ±5 V (4.00 V), the swing of the 5-V parts (1.52 V), and slew rates of 700, 1400 (OPA818) and 2800 V/µs. Shaded: the dynamic range of OPA818 on ±6.5 V. (a) Against the tone frequency; the shading and the arrows are for $I_1 + I_2$ = 1 mA. The ceilings rise above about 150 MHz, where $\lvert Z_T\rvert$ rolls off, and the dotted line marks the edge of the noise band. (b) Against $I_1 + I_2$ for a 100-MHz tone, with our analytical model of the total noise dashed and the shot noise alone in teal. Amplifier: OPA818.*
 
 ### 6.7 Single-chip TIAs
 
 Section 2.5 listed the single-chip TIAs on the market and showed that none can carry 0.1–10 mA of DC through its input. With the balanced pair and its imbalance servoed to zero (Section 8.8), a TIA with one input carries no DC. Three kinds are compared here: the lidar TIAs and the coherent-receiver TIAs of Section 2.5, the latter made for a balanced photodiode pair with one photodiode on each of two inputs, and three optical-communication TIAs, which prove not to be linear amplifiers. Their dynamic range on the definition of Eq. (50) depends on two datasheet quantities, the linear input current and the input-referred noise:
 - **Linear input.** The pair's RF difference current swings both ways around zero. $I_{\mathrm{pk}}$ is therefore the largest bipolar peak current that the datasheet shows as linear, at about 1–3 % of gain change unless stated otherwise. For a part that takes current in one direction only, it is half of that range, centred by a DC offset current. $I_{\max} = I_{\mathrm{pk}}/\sqrt2$ in Eq. (49).
-- **Noise.** The datasheet's input-referred noise integrated over 0–150 MHz, at the photodiode capacitance nearest 1 pF. Where only a density is given, it is taken as white. The coherent-receiver TIAs give one noise figure for their whole 24–65-GHz band; for GX39220 it is the average up to 65 GHz (note 1 on p. 10). Across such a band the voltage noise acting on the input capacitance dominates the upper part (Eq. (23)), and their noise within 150 MHz is not published (Appendix C, item 19).
+- **Noise.** The datasheet's input-referred noise integrated over 0–150 MHz, at the photodiode capacitance nearest 1 pF. Where only a density is given, it is taken as white. The coherent-receiver TIAs give one noise figure for their whole 24–65-GHz band; for GX39220 it is the average up to 65 GHz (note 1 on p. 10). Across such a band the voltage noise acting on the input capacitance dominates the upper part (Eq. (19)), and their noise within 150 MHz is not published (Appendix C, item 19).
 
 **Variable gain.** The coherent-receiver TIAs have a gain control, manual or automatic, that holds their differential output at a few hundred millivolts for the ADC that follows. Their documents quote a largest linear input that holds only at a low gain beside a noise figure that is lowest at the highest gain, so both must be taken at one setting. At the setting where the noise is published,
 
@@ -1776,7 +1870,7 @@ where $V_{\mathrm{lin,pp}}$ is the largest differential output, peak to peak, th
 
 **Example: GX39220 at 500 Ω and $I_1 + I_2$ = 1 mA.** Eq. (53) gives $I_{\mathrm{pk}}$ = 0.50 mA, so $I_{\max}$ = 0.50 mA / $\sqrt2$ = 353.6 µA rms. Its 28 pA/√Hz, taken as white, gives 28 pA/√Hz × $\sqrt{150\ \mathrm{MHz}}$ = 342.9 nA rms, and with the shot noise $i_{n,B} = \sqrt{342.9^2 + 219.2^2}$ nA = 407.0 nA rms. Then $\mathrm{DR}_{150\,\mathrm{MHz}} = 20\log_{10}(353.6\ \mathrm{\mu A}/407.0\ \mathrm{nA})$ = 58.8 dB, 8.8 dB below OPA855 and 11.9 dB below OPA818.
 
-**How to read Table A6.34 and Figure 18(c)–(d).**
+**How to read Table A6.34 and Figure 24(c)–(d).**
 - **The linear input range decides, and the lidar TIAs have 3–250 µA of it.** They are built for microampere pulses: 10–74 kΩ of transimpedance into an output of 0.5–2 V. The op-amp designs at 2 kΩ reach $I_{\mathrm{pk}} = V_{\mathrm{pk}}/\lvert Z_T\rvert$ = 0.77 mA (the 5-V parts) to 1.14 mA (OPA818). Once the shot noise dominates, Eq. (50) follows the ratio of the two: at 10 mA the LMH32401's 250 µA puts it $20\log_{10}(0.765/0.250)$ = 9.7 dB behind OPA855 and $20\log_{10}(1.136/0.250)$ = 13.2 dB behind OPA818.
 - **LMH32401 at 2 kΩ is the only lidar TIA within reach, and it is 10.4–13.5 dB behind at 1 mA.**
   - Its noise, 109 nA rms in 150 MHz, is also 2.2 times OPA855's 49.6 nA, which puts it 16.6 dB behind in the dark.
@@ -1789,7 +1883,7 @@ where $V_{\mathrm{lin,pp}}$ is the largest differential output, peak to peak, th
   - PHY1090 (10 Gb/s, 2 kΩ) is linear to 2 mApp only with 2–6.5 % harmonic distortion, also under gain control.
   - MAX3654, a 47–870-MHz CATV receiver, has a differential input and 21 dBm of output intercept, but it states no linear input current and its band starts at 47 MHz.
   - All three are last-time-buy or not recommended for new designs.
-- **The coherent-receiver TIAs are 8.8–32.1 dB behind the op-amp designs at 1 mA, at the gains where their noise is published** (Figure 18(c)–(d)).
+- **The coherent-receiver TIAs are 8.8–32.1 dB behind the op-amp designs at 1 mA, at the gains where their noise is published** (Figure 24(c)–(d)).
   - Their output is held at a few hundred millivolts, so their linear input falls as their gain rises: at the 0.5–6 kΩ where their noise is quoted, Eq. (53) allows 38–500 µA peak. Their full 3 mAppd of linear input needs 167 Ω (GX39220) to 233 Ω (MATA-006801), where no noise is published.
   - The dynamic range of 20 to more than 30 dB stated in their documents is the range of their gain control, which an automatic loop (1.1 MHz for GX39220, p. 10) uses to follow slow changes of the input level. It is not the ratio of the largest linear signal to the noise at one setting, which Eq. (50) measures.
   - GX39220 (Renesas, 2 × 96 Gbaud) is the only one with a full public datasheet. Its noise is 19, 22 and 28 pA/√Hz at 3.25 kΩ, 1 kΩ and 500 Ω, each the average up to 65 GHz, and its THD 1.5 % for outputs below 500 mVppd and 2 % up to 550 mVppd (p. 9). The 500-Ω setting gives the most, 58.8 dB at 1 mA and 1.6 dB above LMH32401; 1 kΩ gives 54.1 dB and 3.25 kΩ 44.6 dB. It is specified with a 30–50-fF photodiode on a 150–300-pH bond wire (p. 8), not with 1 pF. It is obsolete: Renesas's notice PLC250030 of 12 September 2025 set its last shipment for 12 September 2026 and names GX39221 as the replacement, whose full datasheet is not public.
@@ -1813,25 +1907,25 @@ With $I_{\max}$ = 1.5 mA / $\sqrt2$ = 1.061 mA rms and OPA818's 70.68 dB at 1 mA
 
 ### 6.8 How the designs compare with the 50-Ω benchmark
 
-We now set the leading designs against the benchmark family of Section 2.1, with both definitions of Section 4.8: the electronic dynamic range of Eq. (50), and the usable dynamic range of Eq. (32), which caps the tone at what the light can supply. The designs are the three leading op amps at their best SPICE designs (Table A6.33), the pHEMT composite of Section 7.1, a cascoded CE3512K2 GaAs pHEMT at the summing node followed by an OPA859 buffer (Table A7.4), and the high-voltage composite of Section 7.2, in which OPA859 at the summing node drives a THS3491 stage of gain 5.5 inside the $R_F$ loop (Table A7.7); their band noise and their ceiling at a 100-MHz tone come from those tables. The two composites are designed in Chapter 7; they appear here so that every front end meets the benchmark in one place. The benchmark is the 50-Ω chain with a 2-dB noise figure, compressing at −20, −10 or 0 dBm (Table A2.2). Tables A6.35 and A6.36 give the numbers, and Figure 20 draws them.
+We now set the leading designs against the benchmark family of Section 2.1, with both definitions of Section 3.8: the electronic dynamic range of Eq. (50), and the usable dynamic range of Eq. (28), which caps the tone at what the light can supply. The designs are the three leading op amps at their best SPICE designs (Table A6.33), the pHEMT composite of Section 7.1, a cascoded CE3512K2 GaAs pHEMT at the summing node followed by an OPA859 buffer (Table A7.4), and the high-voltage composite of Section 7.2, in which OPA859 at the summing node drives a THS3491 stage of gain 5.5 inside the $R_F$ loop (Table A7.7); their band noise and their ceiling at a 100-MHz tone come from those tables. The two composites are designed in Chapter 7; they appear here so that every front end meets the benchmark in one place. The benchmark is the 50-Ω chain with a 2-dB noise figure, compressing at −20, −10 or 0 dBm (Table A2.2). Tables A6.35 and A6.36 give the numbers, and Figure 26 draws them.
 
-**Small signal.** For the same small tone, a design's advantage is $A = 20\log_{10}(i_{n,B,50}/i_{n,B})$, the ratio of the band noises with the shot noise of the pair in both (Figure 20(a)); it does not depend on the chain's compression level. In the dark it is 17.7 dB for the pHEMT composite, 17.2 dB for OPA955, 15.0 dB for OPA855, 10.4 dB for OPA818 and 6.2 dB for the high-voltage composite, in the order of their dark band noise, 36.5, 38.8, 49.6, 84.8 and 136.5 nA rms against the chain's 279.8 nA. For OPA855 at 1 mA, for example, the shot noise $\sqrt{2qI_{\mathrm{DC}}B}$ = 219.2 nA rms brings the TIA to $\sqrt{49.6^2 + 219.2^2}$ = 224.8 nA and the chain to $\sqrt{279.8^2 + 219.2^2}$ = 355.5 nA, and $A = 20\log_{10}(355.5/224.8)$ = 4.0 dB. The common shot noise compresses every lead in the same way: at 1 mA they are 2.8–4.1 dB, and at 10 mA 0.5–0.6 dB. No design falls behind at any photocurrent.
+**Small signal.** For the same small tone, a design's advantage is $A = 20\log_{10}(i_{n,B,50}/i_{n,B})$, the ratio of the band noises with the shot noise of the pair in both (Figure 26(a)); it does not depend on the chain's compression level. In the dark it is 17.7 dB for the pHEMT composite, 17.2 dB for OPA955, 15.0 dB for OPA855, 10.4 dB for OPA818 and 6.2 dB for the high-voltage composite, in the order of their dark band noise, 36.5, 38.8, 49.6, 84.8 and 136.5 nA rms against the chain's 279.8 nA. For OPA855 at 1 mA, for example, the shot noise $\sqrt{2qI_{\mathrm{DC}}B}$ = 219.2 nA rms brings the TIA to $\sqrt{49.6^2 + 219.2^2}$ = 224.8 nA and the chain to $\sqrt{279.8^2 + 219.2^2}$ = 355.5 nA, and $A = 20\log_{10}(355.5/224.8)$ = 4.0 dB. The common shot noise compresses every lead in the same way: at 1 mA they are 2.8–4.1 dB, and at 10 mA 0.5–0.6 dB. No design falls behind at any photocurrent.
 
-**Electronic dynamic range.** The chain's electronic dynamic range equals a design's when the chain compresses at $P_x = P_{\mathrm{eq}} + A$ (Eq. (5)), and a chain that compresses above $P_x$ has more. For the op amps and the pHEMT composite $P_{\mathrm{eq}}$ is −24.4 to −20.9 dBm, so $P_x$ falls from −10.6 to −5.9 dBm in the dark to −20.4 to −17.3 dBm at 1 mA and −23.7 to −20.3 dBm at 10 mA. A 50-Ω amplifier that compresses at −10 dBm therefore has the larger electronic dynamic range from 0.1 mA up. Against the ten amplifiers of Figure 15 its lead is 1.8 dB (OPA818) to 12.4 dB (OPA856) at 0.1 mA and 7.3 to 19.0 dB at 1 mA, but most of the tones it assumes are larger than the light can supply. The high-voltage composite, with $P_{\mathrm{eq}}$ = −9.0 dBm, needs a chain that compresses above −2.7 dBm in the dark and above −8.5 dBm at 10 mA.
+**Electronic dynamic range.** The chain's electronic dynamic range equals a design's when the chain compresses at $P_x = P_{\mathrm{eq}} + A$ (Eq. (5)), and a chain that compresses above $P_x$ has more. For the op amps and the pHEMT composite $P_{\mathrm{eq}}$ is −24.4 to −20.9 dBm, so $P_x$ falls from −10.6 to −5.9 dBm in the dark to −20.4 to −17.3 dBm at 1 mA and −23.7 to −20.3 dBm at 10 mA. A 50-Ω amplifier that compresses at −10 dBm therefore has the larger electronic dynamic range from 0.1 mA up. Against the ten amplifiers of Figure 21 its lead is 1.8 dB (OPA818) to 12.4 dB (OPA856) at 0.1 mA and 7.3 to 19.0 dB at 1 mA, but most of the tones it assumes are larger than the light can supply. The high-voltage composite, with $P_{\mathrm{eq}}$ = −9.0 dBm, needs a chain that compresses above −2.7 dBm in the dark and above −8.5 dBm at 10 mA.
 
-**Usable dynamic range.** The chain's higher ceiling counts only for tones the light can supply (Figure 20(b)). Up to $I_{\mathrm{DC}} = \sqrt2\,I_{\max}$ of a design, 0.76–0.83 mA for OPA955, OPA855 and the pHEMT composite, 1.14 mA for OPA818 and 4.50 mA for the high-voltage composite, the light limits both, and the design leads by $A$. Above it the design clips, while the chain follows the light up to its own clip point, $\sqrt2\,I_{\max,50}$ = 1.26, 4.0 or 12.6 mA. The chain overtakes OPA955, OPA855 and the pHEMT composite at 1.16–1.25 mA whatever its compression level, because the light still limits the chain there. It overtakes OPA818 at 1.56 mA if it compresses at −10 dBm or above, and at 6.04 mA if it compresses at −20 dBm. It overtakes the high-voltage composite only if it compresses above that design's $P_{\mathrm{eq}}$ of −9.0 dBm: a 0-dBm chain does so above 5.0 mA. Over 0.1–10 mA the best usable dynamic range of any design is 59.1 dB at 0.1 mA (pHEMT composite; OPA955 59.0 dB), 69.6 dB at 1 mA (OPA818) and 73.1 dB at 10 mA (high-voltage composite), against 47.8, 66.0 and 71.6 dB for the chain that compresses at −10 dBm.
+**Usable dynamic range.** The chain's higher ceiling counts only for tones the light can supply (Figure 26(b)). Up to $I_{\mathrm{DC}} = \sqrt2\,I_{\max}$ of a design, 0.76–0.83 mA for OPA955, OPA855 and the pHEMT composite, 1.14 mA for OPA818 and 4.50 mA for the high-voltage composite, the light limits both, and the design leads by $A$. Above it the design clips, while the chain follows the light up to its own clip point, $\sqrt2\,I_{\max,50}$ = 1.26, 4.0 or 12.6 mA. The chain overtakes OPA955, OPA855 and the pHEMT composite at 1.16–1.25 mA whatever its compression level, because the light still limits the chain there. It overtakes OPA818 at 1.56 mA if it compresses at −10 dBm or above, and at 6.04 mA if it compresses at −20 dBm. It overtakes the high-voltage composite only if it compresses above that design's $P_{\mathrm{eq}}$ of −9.0 dBm: a 0-dBm chain does so above 5.0 mA. Over 0.1–10 mA the best usable dynamic range of any design is 59.1 dB at 0.1 mA (pHEMT composite; OPA955 59.0 dB), 69.6 dB at 1 mA (OPA818) and 73.1 dB at 10 mA (high-voltage composite), against 47.8, 66.0 and 71.6 dB for the chain that compresses at −10 dBm.
 
-**What it takes to stay ahead.** A design keeps its lead over every chain up to a photocurrent $I_{\mathrm{DC}}$ only if it can pass the full-modulation tone there, which by Eq. (6) takes an output amplitude of $|Z_T|\,I_{\mathrm{DC}}\,10^{-A/20}$. For OPA855 that is 1.994 kΩ × 1 mA × $10^{-4.0/20}$ = 1.26 V at 1 mA, which its 1.525 V covers, and 18.5 V at 10 mA. For 10 mA in each diode it is 1.994 kΩ × 20 mA × $10^{-0.33/20}$ = 38 V. The op amps have 1.5–2.2 V, and the high-voltage composite 8.3 V, enough to 4.5 mA. A smaller $R_F$ lowers the requirement in proportion and costs noise that the shot noise hides at high photocurrent (Eq. (33)), which is why the benchmark's strength lies there.
+**What it takes to stay ahead.** A design keeps its lead over every chain up to a photocurrent $I_{\mathrm{DC}}$ only if it can pass the full-modulation tone there, which by Eq. (6) takes an output amplitude of $|Z_T|\,I_{\mathrm{DC}}\,10^{-A/20}$. For OPA855 that is 1.994 kΩ × 1 mA × $10^{-4.0/20}$ = 1.26 V at 1 mA, which its 1.525 V covers, and 18.5 V at 10 mA. For 10 mA in each diode it is 1.994 kΩ × 20 mA × $10^{-0.33/20}$ = 38 V. The op amps have 1.5–2.2 V, and the high-voltage composite 8.3 V, enough to 4.5 mA. A smaller $R_F$ lowers the requirement in proportion and costs noise that the shot noise hides at high photocurrent (Eq. (29)), which is why the benchmark's strength lies there.
 
-![Figure 20](figures/fig20_benchmark_50ohm.png)
+![Figure 26](figures/fig20_benchmark_50ohm.png)
 
-*Figure 20. The leading designs against the 50-Ω benchmark: the pair terminated in 50 Ω in parallel with the input of an amplifier of 2 dB noise figure; 150-MHz noise band, 100-MHz tone, imbalance servoed to zero. (a) Small-signal advantage $A$ (Eq. (5)), the ratio of the benchmark's band noise to the design's, with the shot noise of $I_1 + I_2$ in both; it does not depend on the benchmark's compression level. (b) Usable dynamic range (Eq. (32)), with the tone limited by the design's ceiling or by the light, whichever is lower; dotted, the benchmark compressing at −20, −10 and 0 dBm at the input. The three dotted curves coincide below 1.26 mA, where the light, not the amplifier, limits the benchmark, and separate at 1.26, 4.0 and 12.6 mA. The shaded band is the planned 0.1–10 mA. Designs: OPA955, OPA855 and OPA818 at their best SPICE designs at 1 pF and 2 kΩ (Table A6.33); the pHEMT composite of Section 7.1, a cascoded CE3512K2 at the summing node followed by an OPA859 buffer (Table A7.4); and the high-voltage composite of Section 7.2, in which OPA859 drives a THS3491 stage of gain $G_2$ = 5.5 inside the $R_F$ loop (Table A7.7). Values in Tables A6.35 and A6.36.*
+*Figure 26. The leading designs against the 50-Ω benchmark: the pair terminated in 50 Ω in parallel with the input of an amplifier of 2 dB noise figure; 150-MHz noise band, 100-MHz tone, imbalance servoed to zero. (a) Small-signal advantage $A$ (Eq. (5)), the ratio of the benchmark's band noise to the design's, with the shot noise of $I_1 + I_2$ in both; it does not depend on the benchmark's compression level. (b) Usable dynamic range (Eq. (28)), with the tone limited by the design's ceiling or by the light, whichever is lower; dotted, the benchmark compressing at −20, −10 and 0 dBm at the input. The three dotted curves coincide below 1.26 mA, where the light, not the amplifier, limits the benchmark, and separate at 1.26, 4.0 and 12.6 mA. The shaded band is the planned 0.1–10 mA. Designs: OPA955, OPA855 and OPA818 at their best SPICE designs at 1 pF and 2 kΩ (Table A6.33); the pHEMT composite of Section 7.1, a cascoded CE3512K2 at the summing node followed by an OPA859 buffer (Table A7.4); and the high-voltage composite of Section 7.2, in which OPA859 drives a THS3491 stage of gain $G_2$ = 5.5 inside the $R_F$ loop (Table A7.7). Values in Tables A6.35 and A6.36.*
 
 ### 6.9 Noise at low frequencies
 
 The specification fixes the top of the band, 150 MHz, but not its bottom. If the receiver must also resolve signals between about 100 Hz and 100 kHz, such as a slow modulation, a lock-in measurement or the drift of the balance itself, the amplifiers' 1/f noise decides there, and it ranks them almost in the reverse of their order at 100 MHz. This section states what an amplifier may add at low frequency, compares the ten amplifiers carried forward on their datasheets' noise curves (Table A6.37), and lists what changes in the choice and in the front end.
 
-**What an amplifier may add.** Below about 100 kHz the capacitive term of Eq. (23) vanishes: at 10 kHz, $2\pi fC_{\mathrm{tot}}$ = 2π × 10 kHz × 6 pF = 0.38 µS, against $1/R_F$ = 500 µS. The amplifier then adds $i_n^2(f) + e_n^2(f)/R_F^2$, and both densities rise toward low frequency as $e_n^2(f) = e_w^2(1 + f_{ce}/f)$ and $i_n^2(f) = i_w^2(1 + f_{ci}/f)$, with $e_w$ and $i_w$ the white levels and $f_{ce}$ and $f_{ci}$ the 1/f corners. Against the floor of Eq. (23), $S_0 = 4k_BT/R_F + 2qI_{\mathrm{DC}}$, the amplifier stays negligible only while
+**What an amplifier may add.** Below about 100 kHz the capacitive term of Eq. (19) vanishes: at 10 kHz, $2\pi fC_{\mathrm{tot}}$ = 2π × 10 kHz × 6 pF = 0.38 µS, against $1/R_F$ = 500 µS. The amplifier then adds $i_n^2(f) + e_n^2(f)/R_F^2$, and both densities rise toward low frequency as $e_n^2(f) = e_w^2(1 + f_{ce}/f)$ and $i_n^2(f) = i_w^2(1 + f_{ci}/f)$, with $e_w$ and $i_w$ the white levels and $f_{ce}$ and $f_{ci}$ the 1/f corners. Against the floor of Eq. (19), $S_0 = 4k_BT/R_F + 2qI_{\mathrm{DC}}$, the amplifier stays negligible only while
 
 $$
 i_n(f) \ll \sqrt{S_0}, \qquad e_n(f) \ll R_F\sqrt{S_0}.
@@ -1867,6 +1961,24 @@ This stays below the resistor's Johnson noise, $\sqrt{4k_BT\times24\ \mathrm{k\O
 
 *A split front end could keep OPA855 for the band.* The fast TIA would take the photocurrent through a coupling capacitor, and a precision JFET-input TIA would take the low frequencies and the DC through a resistor $R_s$. The fast amplifier's low-frequency current noise would then stay inside its own loop, and its output would carry no DC. In the band, $R_s$ adds its Johnson noise, $\sqrt{4k_BT/R_s}$ = 0.91 pA/√Hz for 20 kΩ against 2.87 pA/√Hz for $R_F$, and the photodiode bias moves by the imbalance times $R_s$. This arrangement has not been analysed (Appendix C, item 21).
 
+### 6.10 Larger feedback resistors, up to 10 kΩ
+
+So far the pair has carried 0.1–10 mA, enough for its shot noise to bury the Johnson noise of a 2-kΩ resistor. A receiver with less light gives up that margin. The shot noise of $I_{\mathrm{DC}}$ equals the resistor's Johnson noise at $I_{\mathrm{DC}} = 2k_BT/(qR_F)$ (Section 3.6), which is 25.7 µA at 2 kΩ, 17.1 µA at 3 kΩ, 10.3 µA at 5 kΩ and 5.1 µA at 10 kΩ. With tens of microamperes in the pair, a larger resistor restores the light's lead. We therefore follow the amplifiers carried forward up to 10 kΩ, where the companion note takes over.
+
+**The resistor's own capacitance now sets the bandwidth.** Its pole, $1/(2\pi R_FC_{F,\mathrm{par}})$, lies at 398 MHz for 2 kΩ with our nominal 0.2 pF, but at 159 MHz for 5 kΩ and 80 MHz for 10 kΩ. A band of 150 MHz therefore needs $R_F \le 1/(2\pi\times150\ \mathrm{MHz}\times0.2\ \mathrm{pF})$ = 5.3 kΩ, or 10.6 kΩ if the layout holds the parasitic to 0.1 pF. Table A6.38 runs the analysis of this chapter at 2, 3, 5 and 10 kΩ with 0.2 pF, and Table A6.39 with 0.1 pF. Each design is the robust one of Table A9.2, with a phase margin of at least 45° and at most 1 dB of peaking, but with no capacitance added at the input. With 0.2 pF, four parts still reach 150 MHz at 5 kΩ: OPA955 with 191 MHz, OPA855 with 182 MHz, OPA858 with 180 MHz and LMH6629 with 169 MHz, while OPA856 falls just short with 149 MHz. At 10 kΩ every design stays between 69 and 129 MHz. With 0.1 pF, OPA955, OPA855 and OPA858 keep 200–232 MHz even at 10 kΩ.
+
+**The loop becomes easy to stabilize.** The noise gain at crossover grows with $R_F$ (Section 3.2), so the minimum-gain trap of the 2-kΩ design disappears. OPA855's phase margin rises from 59° at 2 kΩ to 66°, 73° and 78° at 3, 5 and 10 kΩ, with the 0.2-pF parasitic as its only feedback capacitance. OPA955, OPA818 and OPA846, which need added input capacitance at 2–3 kΩ, are robust without it from 5 kΩ up. Added capacitance still buys bandwidth, because a loop with up to 1 dB of peaking carries the response past the resistor's pole, but it costs noise: 8 pF gives OPA855 99 MHz instead of 84 MHz at 10 kΩ, with a band penalty of 11.5 dB instead of 7.4 dB (`data/results/medium_gain.json`).
+
+**The bipolar parts keep their lead.** Their current noise, 2.1–2.8 pA/√Hz for all but OPA955, exceeds the resistor's Johnson noise from about 2–4 kΩ up, and at 5 kΩ that noise is only 1.82 pA/√Hz. Yet over a band of tens of megahertz the voltage noise acting on the node capacitance weighs more. At 5 kΩ OPA855 and OPA856 stay within 5.5 dB of the resistor's noise, against 6.4 dB for OPA858 and 9.0 dB for OPA818. At 10 kΩ, over the narrower band that each design then reaches, OPA855, OPA856 and OPA859 stay within 7.3–7.4 dB and OPA858 within 5.1 dB. OPA955, with 0.79 nV/√Hz and 0.55 pA/√Hz, stays within 1.7–1.9 dB at 5–10 kΩ. With its calibrated open-loop curve (Table A6.7), OPA858 keeps nearly the same bandwidth and noise at 3–10 kΩ, but with 46–64° of phase margin instead of 66–77°.
+
+**Less light is needed for the light to dominate.** The DC photocurrent of the pair whose shot noise equals the TIA's own noise in the band falls with $R_F$. For OPA855 it falls from 53 µA at 2 kΩ to 37 µA at 5 kΩ and 28 µA at 10 kΩ, for OPA858 to 16 µA at 10 kΩ, and for OPA955 to 16 and 8 µA at 5 and 10 kΩ (Table A6.38).
+
+**What it costs.** The largest RF current the output can carry falls as $1/R_F$. With 2 V of peak output it is 1 mA at 2 kΩ, 0.4 mA at 5 kΩ and 0.2 mA at 10 kΩ, so a larger resistor suits a pair whose signal is as small as its light. The imbalance must still stay out of $R_F$ (Section 8.1): at 10 kΩ, 0.1 mA of imbalance would take 1 V of the swing.
+
+**The choice for a weaker pair.** With 20–50 µA in the pair and 150 MHz to cover, 3–5 kΩ is the range. There OPA855 keeps 182–334 MHz with 66–73° of phase margin and needs no added capacitance, and the pair's shot noise exceeds its own noise from 37–44 µA. OPA955, once released, lowers that to 16 µA at 5 kΩ. 10 kΩ serves 150 MHz only if the parasitic is held to about 0.1 pF.
+
+**Where the companion note continues.** From 10 kΩ up the companion note takes over. Its Section 6.9 evaluates 10 kΩ on photodiodes of 20 pF to 1 nF, and it runs its single-pole model and our model on our node at 2 kΩ and 10 kΩ with a common design rule. At 10 kΩ the two agree on bandwidth within 2–6% for OPA855, OPA858 and LMH6629, within 11% for OPA955 and within 15% for OPA818. At 2 kΩ the single-pole model falls short by up to a third, which is why this note uses the full open-loop curves, and why the two notes meet at 10 kΩ.
+
 ---
 
 ## 7. Composite front ends
@@ -1877,7 +1989,7 @@ Section 6.6.3 shows that from about 0.15 mA up the ceiling, not the noise, sets 
 
 This section asks whether a discrete transistor at the summing node, a silicon JFET, a GaAs pHEMT or a SiGe bipolar transistor, can lower the floor enough to matter below about 0.15 mA, where the noise still sets the dynamic range (Section 6.6.3).
 
-**Why the question arises.** In our analytical model at its SPICE design, OPA855's input noise at 100 MHz, 4.17 pA/√Hz, is $\sqrt{2.87^2 + 2.60^2 + 1.54^2}$ pA/√Hz. Of this, 2.87 pA/√Hz is the Johnson noise of $R_F$, 2.60 pA/√Hz the bipolar input current noise, and 1.54 pA/√Hz its $e_n$ of 0.99 nV/√Hz acting on 2.36 pF of node and feedback capacitance, together with the small $e_n/R_F$ term (Eq. (23)). At this node OPA855 thus loses more to its base current than to its voltage noise. A FET removes the current noise but adds its own capacitance, and Eq. (56) below decides which effect wins. OPA955, with 0.56 pA/√Hz of current noise, has little to remove. OPA818's current noise is negligible in the central treatment of Section 4.7, but its 2.2-nV/√Hz voltage noise on 4.24 pF gives it the largest dark band noise of the three, 84.8 nA rms, and the most to gain (Table A7.1).
+**Why the question arises.** In our analytical model at its SPICE design, OPA855's input noise at 100 MHz, 4.17 pA/√Hz, is $\sqrt{2.87^2 + 2.60^2 + 1.54^2}$ pA/√Hz. Of this, 2.87 pA/√Hz is the Johnson noise of $R_F$, 2.60 pA/√Hz the bipolar input current noise, and 1.54 pA/√Hz its $e_n$ of 0.99 nV/√Hz acting on 2.36 pF of node and feedback capacitance, together with the small $e_n/R_F$ term (Eq. (19)). At this node OPA855 thus loses more to its base current than to its voltage noise. A FET removes the current noise but adds its own capacitance, and Eq. (56) below decides which effect wins. OPA955, with 0.56 pA/√Hz of current noise, has little to remove. OPA818's current noise is negligible in the central treatment of Section 3.7, but its 2.2-nV/√Hz voltage noise on 4.24 pF gives it the largest dark band noise of the three, 84.8 nA rms, and the most to gain (Table A7.1).
 
 The front end considered is a common-source FET with a cascode at its drain, followed by an op amp, with $R_F$ from the op amp's output back to the FET's gate. Referred to the photocurrent, its input noise density is
 
@@ -1956,15 +2068,15 @@ Even if all four go right, the gain over OPA855 in the receiver's range is at mo
 
 **Such front ends in the literature.** Discrete GaAs FETs of this kind have been used at photodiode nodes in quantum-optics detectors. Serikawa and Furusawa [A23] buffer two 2.0-pF silicon photodiodes, 4.6 pF together with the amplifier's input, with a source follower made of CEL's NE3509M04 hetero-junction FET (0.28 nV/√Hz), ahead of a Mini-Circuits CMA-5043+ monolithic microwave amplifier, in a resonant 500-MHz homodyne detector (Sec. III A, p. 4, Fig. 4 and Table I of the arXiv version). They prefer the hetero-junction FET to a bipolar transistor because of the base current's shot noise. They put 150 Ω in series with the gate to stop the follower from oscillating at several gigahertz, with 10 nH in parallel to reduce the resistor's thermal noise at 500 MHz, and they hold the gate at 0 V through ferrite beads and set 10 mA with a 47-Ω source resistor. Bowden, Vianello and Hobson [A24] put a common-source CEL GaAs FET (CE3521M4 in the text, CE3514M4 in Fig. 1; the paper calls it a JFET) between a 2-pF photodiode and an LMH6624 op amp in a resonant 90-MHz detector (Fig. 1, p. 1). They report 1.2 pA/√Hz against the 1.0 pA/√Hz Johnson limit of its 16-kΩ transimpedance, and state that their prototypes with the op amp alone did not get below 3 pA/√Hz at 50 MHz and above (pp. 1–2). Both detectors are resonant, so neither needs a broadband loop with phase margin. The composites below carry the same idea into a broadband TIA with feedback through $R_F$.
 
-**The composite circuit (Figure 21).** The input transistor Q1 works in common source (common emitter) with its gate (base) at the summing node $v_g$. A second transistor of the same type, Q2, works in common gate (common base) above it at node $v_x$, with its gate held at a fixed bias. A resistor $R_D$ runs from $V_{DD}$ = 15 V to Q2's drain $v_d$, a compensation capacitor $C_N$ from $v_d$ to ground, and OPA859 serves as a unity-gain buffer from $v_d$, through a DC level shift, to the output $v_o$. $R_F \parallel C_F$ returns from $v_o$ to the gate, and the buffer also drives 200 Ω, as in Chapter 5.
+**The composite circuit (Figure 27).** The input transistor Q1 works in common source (common emitter) with its gate (base) at the summing node $v_g$. A second transistor of the same type, Q2, works in common gate (common base) above it at node $v_x$, with its gate held at a fixed bias. A resistor $R_D$ runs from $V_{DD}$ = 15 V to Q2's drain $v_d$, a compensation capacitor $C_N$ from $v_d$ to ground, and OPA859 serves as a unity-gain buffer from $v_d$, through a DC level shift, to the output $v_o$. $R_F \parallel C_F$ returns from $v_o$ to the gate, and the buffer also drives 200 Ω, as in Chapter 5.
 - The cascode removes the Miller multiplication of Q1's gate–drain capacitance, so $C_{\mathrm{rss}}$ counts twice in $C_T$ and not $g_mR_D$ times (Eq. (55)).
 - The voltage gain from gate to drain at low frequencies is $g_m$ times $R_D$ in parallel with the cascode's output resistance: 9–13 for the JFETs, about 70 for the pHEMT and 350–430 for the bipolar transistor. The gain–bandwidth product is $g_m/2\pi(C_N + C_d)$, where $C_d$ is the capacitance already at the drain node: Q2's gate–drain (collector–base) capacitance and the buffer's 0.62 pF of input capacitance.
 - $R_D$'s Johnson current, referred to the gate, is a voltage noise $\sqrt{4k_BT/R_D}/g_m$ in series with Q1's own. A JFET that needs 19–32 mA for its $g_m$ leaves only 220–360 Ω for $R_D$ from the 15-V supply, which adds 0.19–0.21 nV/√Hz; the pHEMT at 10 mA has 1.1 kΩ and 0.06 nV/√Hz.
 - The level shift is an ideal DC source in the simulations and sets the drain voltage. The summing node, and with it the output, sits at the DC voltage that the input transistor needs for its drain current (bias, package and layout, below).
 
-![Figure 21](figures/fig21_discrete_composite.png)
+![Figure 27](figures/fig21_discrete_composite.png)
 
-*Figure 21. The discrete-transistor composite of Section 7.1, with the values of the pHEMT design of Table A7.4 (CE3512K2 at 10 mA). Q1 works in common source with its gate at the summing node $v_g$, and Q2, of the same type, works in common gate on top of it, which removes the Miller multiplication of Q1's gate–drain capacitance. $V_{B2}$ = 1.5 V holds Q2's gate and is bypassed to ground; it puts Q1's drain $v_x$ at 2 V, so both transistors see 2 V from drain to source and the same gate–source voltage at the shared current. $R_D$ = 1.1 kΩ from 15 V sets that current, 10 mA, with the drain $v_d$ at 4 V. $C_N$ = 8 pF from the drain to ground sets the gain–bandwidth product, $g_m/2\pi(C_N + C_d)$, and with it the loop's crossover. The ideal level shift $V_{LS}$ = 4.5 V takes the drain's 4 V down to the gate's −0.5 V, so that the OPA859 unity-gain buffer and the output $v_o$ sit at the gate's DC voltage, as $R_F$ requires; the paragraphs on bias, package and layout explain why the source is lifted in practice. $R_F$ = 2 kΩ with $C_F$ = 0.55 pF closes the loop, and 200 Ω loads the buffer as in Chapter 5. The dashed $R_g$ is the optional gate stopper of Eq. (63). The bipolar design of Table A7.4 has the same circuit with BFP740ESD transistors at 1 mA, $R_D$ = 11.7 kΩ, $C_N$ = 4 pF, $C_F$ = 0.60 pF and Q1's emitter at −0.73 V. Amplifiers: OPA859 with CE3512K2 or BFP740ESD.*
+*Figure 27. The discrete-transistor composite of Section 7.1, with the values of the pHEMT design of Table A7.4 (CE3512K2 at 10 mA). Q1 works in common source with its gate at the summing node $v_g$, and Q2, of the same type, works in common gate on top of it, which removes the Miller multiplication of Q1's gate–drain capacitance. $V_{B2}$ = 1.5 V holds Q2's gate and is bypassed to ground; it puts Q1's drain $v_x$ at 2 V, so both transistors see 2 V from drain to source and the same gate–source voltage at the shared current. $R_D$ = 1.1 kΩ from 15 V sets that current, 10 mA, with the drain $v_d$ at 4 V. $C_N$ = 8 pF from the drain to ground sets the gain–bandwidth product, $g_m/2\pi(C_N + C_d)$, and with it the loop's crossover. The ideal level shift $V_{LS}$ = 4.5 V takes the drain's 4 V down to the gate's −0.5 V, so that the OPA859 unity-gain buffer and the output $v_o$ sit at the gate's DC voltage, as $R_F$ requires; the paragraphs on bias, package and layout explain why the source is lifted in practice. $R_F$ = 2 kΩ with $C_F$ = 0.55 pF closes the loop, and 200 Ω loads the buffer as in Chapter 5. The dashed $R_g$ is the optional gate stopper of Eq. (63). The bipolar design of Table A7.4 has the same circuit with BFP740ESD transistors at 1 mA, $R_D$ = 11.7 kΩ, $C_N$ = 4 pF, $C_F$ = 0.60 pF and Q1's emitter at −0.73 V. Amplifiers: OPA859 with CE3512K2 or BFP740ESD.*
 
 Each transistor is described by its common-source two-port admittances at its own operating point: $y_{11}$, $y_{12}$, $y_{21}$ and $y_{22}$ for Q1, and $y'_{11}$ to $y'_{22}$ for Q2, whose gate–source voltage is $-v_x$ and drain–source voltage $v_d - v_x$. The buffer is described by its gain $B$ and input admittance $Y_b$, and $Y_x = j\omega(C_D + C_{\mathrm{PCB}})$ and $Y_F = 1/R_F + j\omega C_F$. The three node equations are then
 
@@ -2031,7 +2143,7 @@ A discrete transistor at the summing node therefore lowers the floor by no more 
 
 ### 7.2 A high-voltage output stage inside the $R_F$ loop
 
-From about 0.15 mA up the dynamic range follows the output amplitude dB for dB (Section 6.6.3, Figure 19), and Section 7.1 shows that no input transistor changes that. Raising $V_{\mathrm{pk}}$ at 100 MHz from OPA818's 2.23 V to 10 V would add $20\log_{10}(10/2.23)$ = 13.0 dB at every photocurrent at unchanged noise; that needs a slew rate of at least $2\pi \times 100\ \mathrm{MHz} \times 10\ \mathrm{V}$ = 6.3 kV/µs and rails of about ±12 V. This section builds that composite: a first stage at the summing node, which sets the noise, driving a fast high-voltage amplifier inside the $R_F$ loop. The numbers are for the baseline (1 pF, 0.35 pF of board, 2 kΩ) and come from `scripts_archive/composite_tia.py`, `spice_composite_checks.py` and `composite_report_numbers.py`.
+From about 0.15 mA up the dynamic range follows the output amplitude dB for dB (Section 6.6.3, Figure 25), and Section 7.1 shows that no input transistor changes that. Raising $V_{\mathrm{pk}}$ at 100 MHz from OPA818's 2.23 V to 10 V would add $20\log_{10}(10/2.23)$ = 13.0 dB at every photocurrent at unchanged noise; that needs a slew rate of at least $2\pi \times 100\ \mathrm{MHz} \times 10\ \mathrm{V}$ = 6.3 kV/µs and rails of about ±12 V. This section builds that composite: a first stage at the summing node, which sets the noise, driving a fast high-voltage amplifier inside the $R_F$ loop. The numbers are for the baseline (1 pF, 0.35 pF of board, 2 kΩ) and come from `scripts_archive/composite_tia.py`, `spice_composite_checks.py` and `composite_report_numbers.py`.
 
 **The output amplifier.** Besides that slew rate, $2\pi f_0V_{\mathrm{pk}}$, and rails of ±12 V or more, it needs a closed-loop bandwidth several times the TIA's loop crossover. THS3491 comes closest of the high-voltage current-feedback amplifiers read for this note (Table D.4): 900 MHz at a gain of 5 and 2 Vpp, 320 MHz at 10 Vpp, 8000 V/µs at 20 Vpp, supplies of ±7 to ±16 V, ±420 mA of linear output current and 1.7 nV/√Hz (SBOS875C p1). THS3091 and THS3095 give 6000 V/µs at a gain of 5, 305 MHz at a gain of 2 and ±310 mA (SLOS423K p1), THS3061 and THS3062 7000 V/µs, 300 MHz at unity gain and ±145 mA into 50 Ω (SLOS394B p1), and THS3001 6500 V/µs, 420 MHz at unity gain and 100 mA (SLOS217I p1). TI designed THS3491 for better than 40 dB of spurious-free dynamic range with a 100-MHz, 20-Vpp signal into 100 Ω, and its datasheet states how large a signal stays linear (p29). Some internal devices saturate with large signals above 100 MHz and the loop then opens, so Fig 9-4 (p29) gives the maximum recommended output voltage that keeps the amplifier linear. On ±15 V it falls from 26.0 Vpp at 1–10 MHz to 20.1 Vpp at 100 MHz and 14.2 Vpp at 150 MHz. These readings, and every other THS3491 curve used here, were checked against the figures' vector paths with `scripts_archive/overlay_digitized.py`, which also draws them on the datasheet figures; the largest residuals, in `data/digitization_checks/`, are 0.008 Vpp, 0.005 dB and 0.005°.
 
@@ -2050,11 +2162,11 @@ where $Z_{OL}$ is its open-loop transimpedance, $Z_i$ the impedance of its inver
 
 The datasheet's own two curves do not agree with each other. Fig 8-22 (p16) gives the open-loop transimpedance and phase without load, and Fig 8-1 (p13) the measured closed-loop response in the circuit of Fig 9-1 (p27). Eq. (64) with Fig 8-22 does not reproduce Fig 8-1, with or without $C_n$. With $C_n$ = 1.2 pF it predicts 1.9 GHz with 3.6 dB of peaking at a gain of 5, against 944 MHz with no peaking measured, and no −3-dB point below 5 GHz at a gain of 2. With $C_n$ = 0, the textbook form, it predicts 1.4 GHz with 1.1 dB of peaking at a gain of 5, and 340 MHz at a gain of 2, against 730 MHz measured. The phase of Fig 8-22 agrees with the model's internal transimpedance within 3.4° from 100 to 770 MHz, but its magnitude lies above the model's by 0.8 dB at 100 and 300 MHz, 1.6 dB at 500 MHz and 2.8 dB at 770 MHz (51.8 against 49.0 dBΩ). The model, in contrast, reproduces Fig 8-1 at gains of 5, 10 and 20 within 5–13 % in bandwidth, with 0.4–0.8 dB more peaking; at a gain of 2 it gives about twice the measured bandwidth (Table A7.5). The model's noise matches the datasheet too: 16.2 nV/√Hz at the output at a gain of 5, against 15.9 nV/√Hz from the datasheet's $e_n$, $i_n$ and resistors, and 16.8 mA of supply current against 16.7 mA (p9). The analysis below therefore describes the THS3491 by Eq. (64) with its model's $Z_{OL}$, $Z_i$ and $C_n$, its input by the model's 50 kΩ ∥ 1.5 pF, and its noise by the datasheet's $e_n$, $i_n$ and resistors. It describes the OPA859 by its model's open-loop gain, output impedance, input capacitance (0.82 pF) and voltage noise (Chapter 5). SPICE runs of the whole composite with both vendor models check the result (below and Section 7.3).
 
-![Figure 22](figures/fig22_hv_composite.png)
+![Figure 28](figures/fig22_hv_composite.png)
 
-*Figure 22. The dual-feedback high-voltage composite of Section 7.2, with the values of its $G_2$ = 5.5 design (Table A7.7). OPA859 on ±2.5 V, its non-inverting input grounded, is the first stage at the summing node. THS3491 on ±15 V follows as a non-inverting stage of gain $G_2 = 1 + R_{F2}/R_{G2}$ = 1 + 568 Ω/126 Ω = 5.5, with $R_{F2}$ interpolated from the datasheet's Table 9-2 and $R_{G2} = R_{F2}/(G_2 - 1)$. $R_F$ = 2 kΩ returns from the THS3491's output $v_2$, split into two 1-kΩ resistors in series because the total $C_F$ of 0.100 pF lies below the parasitic capacitance of a single resistor (Section 8.10). $C_L$ = 3.25 pF from the OPA859's output $v_1$ closes the fast local loop that makes the composite stable; without it the circuit is the plain composite, which is unstable (Table A7.6). The THS3491 drives 100 Ω, the load of its datasheet characterization. Amplifiers: OPA859 and THS3491.*
+*Figure 28. The dual-feedback high-voltage composite of Section 7.2, with the values of its $G_2$ = 5.5 design (Table A7.7). OPA859 on ±2.5 V, its non-inverting input grounded, is the first stage at the summing node. THS3491 on ±15 V follows as a non-inverting stage of gain $G_2 = 1 + R_{F2}/R_{G2}$ = 1 + 568 Ω/126 Ω = 5.5, with $R_{F2}$ interpolated from the datasheet's Table 9-2 and $R_{G2} = R_{F2}/(G_2 - 1)$. $R_F$ = 2 kΩ returns from the THS3491's output $v_2$, split into two 1-kΩ resistors in series because the total $C_F$ of 0.100 pF lies below the parasitic capacitance of a single resistor (Section 8.10). $C_L$ = 3.25 pF from the OPA859's output $v_1$ closes the fast local loop that makes the composite stable; without it the circuit is the plain composite, which is unstable (Table A7.6). The THS3491 drives 100 Ω, the load of its datasheet characterization. Amplifiers: OPA859 and THS3491.*
 
-**Two topologies (Figure 22).** In the plain composite, $R_F \parallel C_F$ runs from the THS3491's output $v_2$ to the summing node $v_s$, and the OPA859, with its non-inverting input grounded, drives the THS3491 directly. In the dual-feedback composite a capacitor $C_L$ also runs from the OPA859's output $v_1$ to the summing node; it closes a fast local loop around the first stage and takes over the feedback at high frequencies. The THS3491 drives 100 Ω, the load of its datasheet characterization, in parallel with its own feedback network and $R_F$. The OPA859 is a Thevenin source $A_1(e_1 - v_s)$ behind its open-loop output impedance $Z_o$, where $e_1$ is its input voltage noise. The THS3491 gives $v_2 = H_2(v_1 + e_2)$ with input admittance $Y_{in2}$, where $e_2$ is its noise referred to its input, 3.0–4.3 nV/√Hz at gains of 5.5 to 4. The node capacitance $C_T = C_D + C_{\mathrm{PCB}} + C_{\mathrm{in1}}$ = 1 + 0.35 + 0.82 pF = 2.17 pF includes the OPA859's input capacitance $C_{\mathrm{in1}}$. With $Y_T = j\omega C_T$, $Y_F = 1/R_F + j\omega C_F$, $Y_L = j\omega C_L$ and $Y_s = Y_T + Y_F + Y_L$, the two node equations are
+**Two topologies (Figure 28).** In the plain composite, $R_F \parallel C_F$ runs from the THS3491's output $v_2$ to the summing node $v_s$, and the OPA859, with its non-inverting input grounded, drives the THS3491 directly. In the dual-feedback composite a capacitor $C_L$ also runs from the OPA859's output $v_1$ to the summing node; it closes a fast local loop around the first stage and takes over the feedback at high frequencies. The THS3491 drives 100 Ω, the load of its datasheet characterization, in parallel with its own feedback network and $R_F$. The OPA859 is a Thevenin source $A_1(e_1 - v_s)$ behind its open-loop output impedance $Z_o$, where $e_1$ is its input voltage noise. The THS3491 gives $v_2 = H_2(v_1 + e_2)$ with input admittance $Y_{in2}$, where $e_2$ is its noise referred to its input, 3.0–4.3 nV/√Hz at gains of 5.5 to 4. The node capacitance $C_T = C_D + C_{\mathrm{PCB}} + C_{\mathrm{in1}}$ = 1 + 0.35 + 0.82 pF = 2.17 pF includes the OPA859's input capacitance $C_{\mathrm{in1}}$. With $Y_T = j\omega C_T$, $Y_F = 1/R_F + j\omega C_F$, $Y_L = j\omega C_L$ and $Y_s = Y_T + Y_F + Y_L$, the two node equations are
 
 $$
 \begin{aligned}
@@ -2135,15 +2247,15 @@ At 2 kΩ every milliampere of DC through $R_F$ takes 2 V of output swing, so bef
 
 Option A is the one we recommend for a single-ended detector, because it keeps the photodiode bias fixed and costs only about 1 % of the shot-noise power (Eq. (69); the four options are compared at the end of Section 8.5). It removes the DC where it arrives, at the summing node, through a resistor whose far end a slow servo moves until the resistor carries exactly the photocurrent.
 
-**Circuit (Figure 23).**
+**Circuit (Figure 29).**
 - A resistor $R_s$ runs from the summing node to a voltage that is $V_S$ below the node. Its far end is bypassed to ground with a capacitor of tens of nanofarads, so it is an AC ground.
 - A slow integrator compares the TIA's DC output with its set point and drives the far end of $R_s$ through an RC filter.
 - In steady state the integrator makes $R_s$ carry exactly $I_{\mathrm{DC}}$, so the output sits at its set point whatever the photocurrent. The photodiode bias does not change, because the summing node stays at $V_{\mathrm{REF}}$.
 - For the anode-on-node orientation the far end of $R_s$ must sit $V_S$ below $V_{\mathrm{REF}}$. A 5-V single-supply TIA with $V_S$ = 5 V therefore needs a negative rail for the servo.
 
-![Figure 23](figures/fig23_option_a.png)
+![Figure 29](figures/fig23_option_a.png)
 
-*Figure 23. Option A for a single-ended detector: a resistive DC sink at the summing node, driven by a slow servo. $R_s = V_S/I_{\mathrm{DC}}$ (Table A8.1) carries the photocurrent to its far end, which sits $V_S$ below $V_{\mathrm{REF}}$: 500 Ω at 10 mA for $V_S$ = 5 V. The 10-nF capacitor makes that end an AC ground; with $R_s$ it sets a pole at 32 kHz, above which the servo's own noise no longer reaches the node (Eq. (69)), and the filter resistor keeps the capacitor off the integrator's output. The integrator senses $v_o$ on its non-inverting input and the set point $V_{set}$ through $R_i$ on its inverting input, with $C_i$ in its feedback, so it integrates $v_o - V_{set}$ without inversion. If the photocurrent rises, $v_o$ falls, the integrator lowers the far end of $R_s$, and $R_s$ draws the extra current: the loop through the inverting TIA is a negative-feedback loop. With $\tau = R_iC_i$ its unity-gain frequency is $R_F/(2\pi\tau R_s)$, as in Eq. (80), placed at 1–10 kHz. A TIA on a single supply needs a negative rail for the integrator. Any amplifier.*
+*Figure 29. Option A for a single-ended detector: a resistive DC sink at the summing node, driven by a slow servo. $R_s = V_S/I_{\mathrm{DC}}$ (Table A8.1) carries the photocurrent to its far end, which sits $V_S$ below $V_{\mathrm{REF}}$: 500 Ω at 10 mA for $V_S$ = 5 V. The 10-nF capacitor makes that end an AC ground; with $R_s$ it sets a pole at 32 kHz, above which the servo's own noise no longer reaches the node (Eq. (69)), and the filter resistor keeps the capacitor off the integrator's output. The integrator senses $v_o$ on its non-inverting input and the set point $V_{set}$ through $R_i$ on its inverting input, with $C_i$ in its feedback, so it integrates $v_o - V_{set}$ without inversion. If the photocurrent rises, $v_o$ falls, the integrator lowers the far end of $R_s$, and $R_s$ draws the extra current: the loop through the inverting TIA is a negative-feedback loop. With $\tau = R_iC_i$ its unity-gain frequency is $R_F/(2\pi\tau R_s)$, as in Eq. (80), placed at 1–10 kHz. A TIA on a single supply needs a negative rail for the integrator. Any amplifier.*
 
 **Noise.** With $R_s = V_S/I_{\mathrm{DC}}$ (Table A8.1), $R_s$ adds three current-noise terms at the summing node:
 - its own Johnson noise;
@@ -2157,7 +2269,7 @@ $$
 \tag{69}
 $$
 
-With $V_S$ = 5 V the first term is 1.0 % (Eq. (34)). The second term is negligible for $e_n$ = 1 nV/√Hz, giving $2.5\times10^{-4}$ at 10 mA. A servo left unfiltered, with $e_s$ = 10 nV/√Hz at 10 mA, would contribute 0.125, or 0.5 dB. A 10-nF bypass at the far end of $R_s$ ($R_s$ = 500 Ω at 10 mA) gives a pole at 32 kHz and removes it.
+With $V_S$ = 5 V the first term is 1.0 % (Eq. (30)). The second term is negligible for $e_n$ = 1 nV/√Hz, giving $2.5\times10^{-4}$ at 10 mA. A servo left unfiltered, with $e_s$ = 10 nV/√Hz at 10 mA, would contribute 0.125, or 0.5 dB. A 10-nF bypass at the far end of $R_s$ ($R_s$ = 500 Ω at 10 mA) gives a pole at 32 kHz and removes it.
 
 The resistor's 0.05–0.1 pF of pad capacitance adds to $C_T$ and is covered by the $C_{\mathrm{PCB}}$ corners of Section 6.2.5.
 
@@ -2167,7 +2279,7 @@ The resistor's 0.05–0.1 pF of pad capacitance adds to $C_T$ and is covered by 
 
 **A fixed photocurrent needs no servo.** If $I_{\mathrm{DC}}$ is fixed, $R_s$ can return to a fixed voltage.
 
-**Active sinks.** An active current sink (a degenerated bipolar or MOS current source) obeys the same Eq. (34), with $V_S$ the voltage across its degeneration resistor. Its advantage is a higher output impedance at low frequency. Its disadvantages are the 0.1–0.5 pF of collector or drain capacitance at the summing node, and the full collector shot noise (+3 dB) if it is not degenerated.
+**Active sinks.** An active current sink (a degenerated bipolar or MOS current source) obeys the same Eq. (30), with $V_S$ the voltage across its degeneration resistor. Its advantage is a higher output impedance at low frequency. Its disadvantages are the 0.1–0.5 pF of collector or drain capacitance at the summing node, and the full collector shot noise (+3 dB) if it is not degenerated.
 
 **In the balanced pair** the same circuit has to correct only the imbalance. That makes $R_s$ larger and its noise smaller (Section 8.8 (d), Eq. (79)).
 
@@ -2175,18 +2287,18 @@ The resistor's 0.05–0.1 pF of pad capacitance adds to $C_T$ and is covered by 
 
 Option B keeps the DC out of the TIA altogether: the photodiode's DC returns through its own bias resistor, and only the RF is coupled into the summing node. It needs no servo, but the photodiode bias then falls as the light rises.
 
-**Circuit (Figure 24).**
+**Circuit (Figure 30).**
 - The photodiode's DC flows through a resistor $R_b$ from its anode to a negative bias.
 - The RF reaches the TIA through a coupling capacitor $C_c$.
 - The TIA never sees the DC, and no servo is needed.
 
-![Figure 24](figures/fig24_option_b.png)
+![Figure 30](figures/fig24_option_b.png)
 
-*Figure 24. Option B: the photodiode AC-coupled into the TIA. The photodiode's DC flows through $R_b$ from its anode to the negative bias $-V_{\mathrm{bias}}$; 500 Ω drops 5 V at 10 mA. The RF reaches the summing node through $C_c$ = 10 nF, which with $R_b$ sets the low-frequency corner, $1/(2\pi R_bC_c)$ = 32 kHz. Because the TIA's input impedance is a small inductance (Eq. (70)), almost all of the RF photocurrent enters the TIA rather than $R_b$ (Eq. (71)). Any amplifier.*
+*Figure 30. Option B: the photodiode AC-coupled into the TIA. The photodiode's DC flows through $R_b$ from its anode to the negative bias $-V_{\mathrm{bias}}$; 500 Ω drops 5 V at 10 mA. The RF reaches the summing node through $C_c$ = 10 nF, which with $R_b$ sets the low-frequency corner, $1/(2\pi R_bC_c)$ = 32 kHz. Because the TIA's input impedance is a small inductance (Eq. (70)), almost all of the RF photocurrent enters the TIA rather than $R_b$ (Eq. (71)). Any amplifier.*
 
-**Noise.** $R_b$ obeys Eq. (34) with $V_S = I_{\mathrm{DC}}R_b$.
+**Noise.** $R_b$ obeys Eq. (30) with $V_S = I_{\mathrm{DC}}R_b$.
 
-**RF current lost into $R_b$.** That depends on the TIA's input impedance. From the derivation of Eq. (13), $v_- = -v_o/A$ and $i = (v_- - v_o)/Z_F$, so
+**RF current lost into $R_b$.** That depends on the TIA's input impedance. From the derivation of Eq. (9), $v_- = -v_o/A$ and $i = (v_- - v_o)/Z_F$, so
 
 $$
 Z_{\mathrm{in}} = \frac{Z_F}{1+A} \approx \frac{j\omega R_F}{\omega_A} = j\omega L_{\mathrm{in}},
@@ -2219,16 +2331,16 @@ The same numbers apply to the summing-node resistor $R_s$ of Option A.
 
 ### 8.4 Option C: an inductive bias tee at the summing node
 
-Option C asks whether the DC sink of Option A can be hidden from the summing node at RF, as the bias tee hides the DC path of the 50-Ω termination (Section 2.1). A choke $L_{\mathrm{ch}}$ in series with the DC path isolates the sink's capacitance and noise from the summing node at RF (Figure 25).
+Option C asks whether the DC sink of Option A can be hidden from the summing node at RF, as the bias tee hides the DC path of the 50-Ω termination (Section 2.1). A choke $L_{\mathrm{ch}}$ in series with the DC path isolates the sink's capacitance and noise from the summing node at RF (Figure 31).
 
-![Figure 25](figures/fig25_option_c.png)
+![Figure 31](figures/fig25_option_c.png)
 
-*Figure 25. Option C: an inductive bias tee at the summing node. The 1-µH choke $L_{\mathrm{ch}}$ isolates the sink's capacitance and noise from the node at RF, and the photocurrent divides between $L_{\mathrm{ch}}$ and the TIA's input inductance in the ratio $L_{\mathrm{ch}}/(L_{\mathrm{in}} + L_{\mathrm{ch}})$. The choke still needs a sink, here $R_s$ to the bypassed far end and servo of Option A (Figure 23), and its own self-capacitance of 0.1–0.5 pF, drawn in grey, lands at the summing node. Any amplifier.*
+*Figure 31. Option C: an inductive bias tee at the summing node. The 1-µH choke $L_{\mathrm{ch}}$ isolates the sink's capacitance and noise from the node at RF, and the photocurrent divides between $L_{\mathrm{ch}}$ and the TIA's input inductance in the ratio $L_{\mathrm{ch}}/(L_{\mathrm{in}} + L_{\mathrm{ch}})$. The choke still needs a sink, here $R_s$ to the bypassed far end and servo of Option A (Figure 29), and its own self-capacitance of 0.1–0.5 pF, drawn in grey, lands at the summing node. Any amplifier.*
 
 **Current division.** Below $f_p$ both $L_{\mathrm{ch}}$ and $Z_{\mathrm{in}}$ are inductive, so the currents divide in phase. Eq. (71) then becomes the frequency-independent ratio $L_{\mathrm{ch}}/(L_{\mathrm{in}} + L_{\mathrm{ch}})$. For OPA855 and a 1-µH choke that is 0.962 (−0.34 dB).
 
 **Why it is not recommended here.**
-- **The choke does not remove the need for a sink.** Its far end must still go to a resistor or current source that sets $I_{\mathrm{DC}}$, so Eq. (34) still governs the noise.
+- **The choke does not remove the need for a sink.** Its far end must still go to a resistor or current source that sets $I_{\mathrm{DC}}$, so Eq. (30) still governs the noise.
 - **It adds what the summing node can least afford.** Its self-capacitance is 0.1–0.5 pF, and its self-resonance (a few hundred MHz for a compact 1-µH part) lands near the band.
 
 It is worth considering only if the sink's own capacitance exceeds about 0.5 pF, for example a large active sink.
@@ -2237,15 +2349,15 @@ It is worth considering only if the sink's own capacitance exceeds about 0.5 pF,
 
 Option D needs no DC sink at all. It splits the transimpedance over two stages: a first TIA whose feedback resistor is small enough to carry the whole photocurrent, and an AC-coupled voltage stage that restores the 2-kΩ gain. The question is what the small first resistor costs in noise.
 
-**Circuit (Figure 26).** A first TIA with a small $R_{F1}$ carries the whole DC. For a 5-V part, $R_{F1}$ ≤ 3.05 V/10 mA = 305 Ω. An AC-coupled voltage stage of gain $G_2$ then follows, with $R_{F1}G_2$ = 2 kΩ, e.g. $R_{F1}$ = 286 Ω and $G_2$ = 7.
+**Circuit (Figure 32).** A first TIA with a small $R_{F1}$ carries the whole DC. For a 5-V part, $R_{F1}$ ≤ 3.05 V/10 mA = 305 Ω. An AC-coupled voltage stage of gain $G_2$ then follows, with $R_{F1}G_2$ = 2 kΩ, e.g. $R_{F1}$ = 286 Ω and $G_2$ = 7.
 
-![Figure 26](figures/fig26_option_d.png)
+![Figure 32](figures/fig26_option_d.png)
 
-*Figure 26. Option D: two-stage split gain. The first stage, OPA856 with $R_{F1}$ = 286 Ω and $C_{F1}$ = 1.6 pF, carries the whole DC: 10 mA through 286 Ω is 2.86 V, inside the 3.05 V that a 5-V part leaves. $C_c$ AC-couples its output into the second stage, OPA855 at a voltage gain $G_2$ = 7, so that $R_{F1}G_2$ = 2 kΩ; the resistor to ground gives the second stage's input its DC return and, with $C_c$, sets the low-frequency corner. The two-stage loop was not modelled. Amplifiers: OPA856 and OPA855.*
+*Figure 32. Option D: two-stage split gain. The first stage, OPA856 with $R_{F1}$ = 286 Ω and $C_{F1}$ = 1.6 pF, carries the whole DC: 10 mA through 286 Ω is 2.86 V, inside the 3.05 V that a 5-V part leaves. $C_c$ AC-couples its output into the second stage, OPA855 at a voltage gain $G_2$ = 7, so that $R_{F1}G_2$ = 2 kΩ; the resistor to ground gives the second stage's input its DC return and, with $C_c$, sets the low-frequency corner. The two-stage loop was not modelled. Amplifiers: OPA856 and OPA855.*
 
 **Advantages.** It needs no DC sink. The second stage sets the output swing, so a ±6.5-V OPA818 at a voltage gain of 7 (its comfortable regime, about 50° phase margin) supplies the 2.23 V peak.
 
-**The first stage must be unity-gain stable.** At 286 Ω a decompensated part fails Eq. (20): OPA855 would need $C_T$ ≥ 5.0 pF. OPA856 at 286 Ω needs $C_F$ = 1.6 pF and gives about 390 MHz by Eq. (19).
+**The first stage must be unity-gain stable.** At 286 Ω a decompensated part fails Eq. (16): OPA855 would need $C_T$ ≥ 5.0 pF. OPA856 at 286 Ω needs $C_F$ = 1.6 pF and gives about 390 MHz by Eq. (15).
 
 **Noise cost.** The first stage's resistor contributes $\sqrt{4k_BT/R_{F1}}$ = 7.6 pA/√Hz. The second stage's voltage noise, referred to the input, adds
 
@@ -2266,13 +2378,13 @@ A single 2-kΩ OPA855 stage gives 3.9 pA/√Hz at low frequency (4.17 pA/√Hz a
 
 ### 8.6 Bootstrapping the photodiodes
 
-**The idea (Figure 27).** The amplifier's voltage noise $e_n$ appears at the summing node and drives the current $e_n\cdot j\omega C_D$ through the photodiode capacitance. That is the $C_D$ part of the $e_n\omega C_{\mathrm{tot}}$ term of Eq. (23). Bootstrapping drives the far, bias-side terminal of the photodiode with a unity-gain follower whose input is the summing node. The voltage across $C_D$ then stays constant, and $C_D$ carries no current. The photocurrent is unaffected, because the photodiode is a current source.
+**The idea (Figure 33).** The amplifier's voltage noise $e_n$ appears at the summing node and drives the current $e_n\cdot j\omega C_D$ through the photodiode capacitance. That is the $C_D$ part of the $e_n\omega C_{\mathrm{tot}}$ term of Eq. (19). Bootstrapping drives the far, bias-side terminal of the photodiode with a unity-gain follower whose input is the summing node. The voltage across $C_D$ then stays constant, and $C_D$ carries no current. The photocurrent is unaffected, because the photodiode is a current source.
 
 Hobbs uses the idea on a large-area photodiode in a cascoded front end. A follower $Q_2$ drives the cold end of the diode and forces the drop across $C_d$ to be constant, at frequencies where the reactance of $C_d$ is much larger than the follower's emitter resistance [A11, Fig. 8 and text, p. 45].
 
-![Figure 27](figures/fig27_bootstrap.png)
+![Figure 33](figures/fig27_bootstrap.png)
 
-*Figure 27. Bootstrapping a photodiode. A unity-gain follower whose input is the summing node drives the photodiode's far, bias-side terminal through $C_c$, so the voltage across the photodiode capacitance $C_D$ (grey) stays constant and $C_D$ carries no current. $R_B$ feeds the DC bias from $+V_B$; the reactance of $C_c$ must stay well below $R_B$ in the band, or $R_B$ loads the follower. Eq. (73) gives the noise traded, for the 1-mA bipolar follower of Table A8.4. In the balanced pair the lower photodiode's anode is driven the same way through a second coupling capacitor. Any amplifier.*
+*Figure 33. Bootstrapping a photodiode. A unity-gain follower whose input is the summing node drives the photodiode's far, bias-side terminal through $C_c$, so the voltage across the photodiode capacitance $C_D$ (grey) stays constant and $C_D$ carries no current. $R_B$ feeds the DC bias from $+V_B$; the reactance of $C_c$ must stay well below $R_B$ in the band, or $R_B$ loads the follower. Eq. (73) gives the noise traded, for the 1-mA bipolar follower of Table A8.4. In the balanced pair the lower photodiode's anode is driven the same way through a second coupling capacitor. Any amplifier.*
 
 **What it removes and what it adds.** Let the follower have voltage noise $e_b$, input current noise $i_b$ and input capacitance $C_{\mathrm{in},b}$, which is what remains after its own bootstrapping. It replaces the $e_n\omega C_D$ current by three others:
 - its voltage noise now sits across $C_D$, giving $e_b\,\omega C_D$;
@@ -2305,7 +2417,7 @@ $$
 
 **Why it is not recommended here.**
 - **Noise.** With OPA855 at 1 pF, the term removed (0.62–1.24 pA/√Hz at 100–200 MHz) is smaller than the white base-current noise the follower adds (1.79 pA/√Hz). Bootstrapping therefore raises the noise; at 2 pF it breaks even at 200 MHz (Table A8.4). Only OPA818, with its 2.2-nV/√Hz $e_n$, would gain, and only 0.3 dB at 100 MHz and 0.5 dB at 200 MHz with 2 pF at the node.
-- **Stability.** Bootstrapping removes $C_D$ from $C_T$, which lowers the noise gain $NG_\infty = 1 + C_T/C_F$ of Eq. (15). For the decompensated parts that is the wrong direction.
+- **Stability.** Bootstrapping removes $C_D$ from $C_T$, which lowers the noise gain $NG_\infty = 1 + C_T/C_F$ of Eq. (11). For the decompensated parts that is the wrong direction.
   - OPA855 at 1 pF would keep $C_T$ ≈ 1.15 pF plus the follower's 0.3 pF. $C_F$ would then have to stay below $C_T/6$ ≈ 0.24 pF to respect $G_{\min}$ = 7, against a resistor parasitic of 0.2 ± 0.1 pF.
   - OPA818 needs more input capacitance to reach 40–45° (Section 6.2.6), and bootstrapping takes capacitance away.
 - **The pair.** Both diodes' bias nodes would have to be driven, through coupling capacitors that carry the photocurrents' RF components, with the DC bias fed through resistors or chokes. That adds parasitics at exactly the nodes that set the common-mode rejection.
@@ -2317,15 +2429,15 @@ $$
 
 Hobbs shows the arrangement as the cascoded transimpedance amplifier, in which $Q_1$ isolates the summing junction from $C_d$ [A11, Fig. 5, p. 44]. In his noise canceller, the cascode transistor $Q_3$ "prevents the capacitance of the signal photodiode from loading the summing junction" [A22, p. 906, describing Fig. 3 on p. 907].
 
-**The balanced pair needs a complementary pair (Figure 28).**
+**The balanced pair needs a complementary pair (Figure 34).**
 - The upper diode drives current into the node, so its CB transistor must pass current from emitter to collector towards the node: a PNP.
 - The lower diode draws current out of the node, so its CB transistor is an NPN.
 
 Hobbs' differential noise canceller uses exactly this arrangement: a PNP MPSA64 ($Q_3$) on one signal photodiode and an NPN MPSA14 ($Q_4$) on the other, with the two photodiodes in series [A22, Fig. 19, p. 916].
 
-![Figure 28](figures/fig28_cascode.png)
+![Figure 34](figures/fig28_cascode.png)
 
-*Figure 28. Cascoding the balanced pair. A common-base PNP, $Q_A$, passes the upper photodiode's current from its emitter to its collector at the summing node, and a common-base NPN, $Q_B$, does the same for the lower photodiode. Each base sits at a DC bias that sets its photodiode's reverse voltage and is bypassed to ground, so the photodiode capacitance sits at the low-impedance emitter node and the summing node sees only the two collector–base capacitances, $2C_\mu$ (grey, 0.1–0.3 pF each). The dashed $R_q = V_q/I_q$ from ±12 V are the optional standing currents of Eq. (76) and Table A8.6, which keep the emitter resistance, and with it the pole of Eq. (75), out of the band at low photocurrent; the two standing currents cancel at the summing node when they are equal. Any amplifier.*
+*Figure 34. Cascoding the balanced pair. A common-base PNP, $Q_A$, passes the upper photodiode's current from its emitter to its collector at the summing node, and a common-base NPN, $Q_B$, does the same for the lower photodiode. Each base sits at a DC bias that sets its photodiode's reverse voltage and is bypassed to ground, so the photodiode capacitance sits at the low-impedance emitter node and the summing node sees only the two collector–base capacitances, $2C_\mu$ (grey, 0.1–0.3 pF each). The dashed $R_q = V_q/I_q$ from ±12 V are the optional standing currents of Eq. (76) and Table A8.6, which keep the emitter resistance, and with it the pole of Eq. (75), out of the band at low photocurrent; the two standing currents cancel at the summing node when they are equal. Any amplifier.*
 
 **Transfer.** At emitter current $I$ the small-signal emitter resistance is $r_e = k_BT/(qI)$ [A11, Eq. (7), p. 44]. The photocurrent divides between $r_e$ and the capacitance from the emitter node to AC ground, $C_e = C_D + C_{je}$. Here $C_{je}$ is the base–emitter junction capacitance, and the base is AC-grounded. The transistor adds its transit time $1/(2\pi f_T)$. To first order,
 
@@ -2354,7 +2466,7 @@ Each source behaves differently:
 - The collector shot noise appears with $|1 - h| \approx \omega r_eC_e/\sqrt{1 + (\omega r_eC_e)^2}$, which is the splitting factor of Hobbs' Eq. (8) [A11, p. 44]. Referred to the input, it is $2qI\,(\omega r_eC_e)^2 = 4k_BT(r_e/2)(\omega C_e)^2$, because $2qI\,r_e^2 = 2k_BT\,r_e$.
 - The thermal noise of the base resistance $r_b$ moves the emitter like a voltage source and drives $4k_BTr_b(\omega C_e)^2$ through $C_e$.
 
-At low photocurrent $r_e$ is large. A standing current $I_q$ can then be fed into the emitter node from a voltage $V_q$ through a resistor $R_q = V_q/I_q$. A current derived from a quiet voltage through a resistor carries no shot noise, only the resistor's Johnson noise [A11, "Noise considerations", p. 45]. That noise is $4k_BTI_q/V_q$, a fraction $2k_BT/(qV_q)$ of the shot noise of $I_q$ (Eq. (34)). The transistor then carries $I + I_q$.
+At low photocurrent $r_e$ is large. A standing current $I_q$ can then be fed into the emitter node from a voltage $V_q$ through a resistor $R_q = V_q/I_q$. A current derived from a quiet voltage through a resistor carries no shot noise, only the resistor's Johnson noise [A11, "Noise considerations", p. 45]. That noise is $4k_BTI_q/V_q$, a fraction $2k_BT/(qV_q)$ of the shot noise of $I_q$ (Eq. (30)). The transistor then carries $I + I_q$.
 
 The input-referred noise that each CB stage adds is therefore
 
@@ -2371,7 +2483,7 @@ The standing currents of the PNP and the NPN flow into and out of the summing no
 - **In the shot-noise regime it is nearly free.** Self-biased by 1–10 mA per diode, the two transistors add 0.04–0.06 dB to the pair's shot noise (Table A8.5), mostly base-current partition noise, which is $1/\beta$ of the shot noise. At 0.1 mA per diode they add 0.24 dB at 100 MHz and 0.79 dB at 200 MHz, because $r_e$ = 257 Ω makes large the second term of Eq. (76), the voltage noise $e_{cb} = \sqrt{4k_BT(r_b + r_e/2)}$ acting on $C_e$.
 - **It is not free in the dark.**
   - At low photocurrent $r_e$ is large, and the pole of Eq. (75) falls into the band: 48 MHz at 10 µA. A standing current keeps it out, but then the pair adds 2.1–3.3 pA/√Hz at 200 MHz (Table A8.6). That is more than the $e_n\omega C$ noise the cascodes remove, 0.75–2.0 pA/√Hz with OPA855.
-  - The reason is that OPA855's $e_n$ of 0.99 nV/√Hz (the white level of Fig 6-11, Table 3.1) is itself the Johnson noise of only 59.5 Ω. A CB transistor is quieter only for $r_b + r_e/2$ < 59.5 Ω, i.e. above about 0.26 mA, and at such currents its base shot noise and the standing current's noise dominate.
+  - The reason is that OPA855's $e_n$ of 0.99 nV/√Hz (the white level of Fig 6-11, Table 4.1) is itself the Johnson noise of only 59.5 Ω. A CB transistor is quieter only for $r_b + r_e/2$ < 59.5 Ω, i.e. above about 0.26 mA, and at such currents its base shot noise and the standing current's noise dominate.
   - Hobbs notes the same limit for a biased cascode: the base current has full shot noise [A11, p. 45]. A bias current with a fraction $\delta$ of full shot-noise power limits the signal-to-noise ratio above $f_c\sqrt{\delta}$ [A11, Eq. (9), p. 44].
 - **It hurts the decompensated amplifiers.** With both $C_D$ replaced by $2C_\mu$ = 0.4 pF, OPA855 sees $C_T$ = 1.55 pF. Its $C_F$ window shrinks to 0.13–0.26 pF at 2 kΩ (0.15–0.26 pF at 1.5 kΩ), which no longer contains the ±0.1 pF spread around the 0.2-pF parasitic: 0.20 pF gives 545 MHz at 59°, 0.25 pF gives 396 MHz at 61°, and 0.30 pF violates $G_{\min}$. Unity-gain-stable OPA856 gains only about 10 % in bandwidth: 227 MHz against 205 MHz, both at 53°.
 - **Common-mode rejection.** The two paths now differ in $\alpha$, and a 0.5 % mismatch limits the rejection to −46 dB. They also differ in $\tau_e$, because the NPN and the PNP differ in $f_T$ and each $r_e$ follows its own diode's current. Hobbs warns that excessive photodiode capacitance may make the cascode transistor oscillate [A22, p. 918]; its base must be bypassed with low inductance.
@@ -2386,7 +2498,7 @@ In the balanced pair the imbalance $I_1 - I_2$ is the only DC that reaches $R_F$
 **(a) Why a DC servo is hard to make quiet.**
 1. **An actuator at the summing node injects its own noise at full gain.**
    - An undegenerated transistor current source carrying $I$ injects its full shot noise, $2qI$.
-   - A degenerated one injects $(2k_BT/qV_E)\cdot2qI$, with $V_E$ the voltage across its emitter resistor (Eq. (34)).
+   - A degenerated one injects $(2k_BT/qV_E)\cdot2qI$, with $V_E$ the voltage across its emitter resistor (Eq. (30)).
    - Its collector capacitance, 0.1–0.5 pF, adds to $C_T$.
 2. **The servo amplifier's own noise reaches the node through the actuator's gain**: through $1/R_s$ for a resistor, or through the transconductance of a transistor. Through 500 Ω, 10 nV/√Hz becomes 20 pA/√Hz, seven times the Johnson noise of 2 kΩ. For this reason Hobbs divides the servo voltage 40:1 at the base of his splitting transistor. He notes that most op amps have at least several nanovolts per root hertz, against about 1 nV/√Hz for good transistors [A22, p. 907, text after Eq. (6)].
 3. **An electronic correction carries no laser noise.** It removes the DC of the imbalance, but not the RIN that the imbalance current carries:
@@ -2400,14 +2512,14 @@ $$
 4. **The loop contains the TIA.** It turns the TIA into a high-pass at the loop's unity-gain frequency. It must stay stable with the TIA's low-frequency gain, and it must not respond to the RF on the TIA's output.
 5. **The bias nodes couple to the summing node through $C_D$** (item (e)). A bank of different capacitors at a bias pin can resonate inside the band.
 
-**(b) Servo on the optical split, preferred where the optics allow (Figure 29).** The light may pass a tunable splitter or attenuator before the two photodiodes; on a photonic chip, for example, a thermo-optic Mach–Zehnder splitter. A slow integrator that nulls the TIA's DC output can then trim the split.
+**(b) Servo on the optical split, preferred where the optics allow (Figure 35).** The light may pass a tunable splitter or attenuator before the two photodiodes; on a photonic chip, for example, a thermo-optic Mach–Zehnder splitter. A slow integrator that nulls the TIA's DC output can then trim the split.
 - Nothing electrical is added at the summing node: no noise and no capacitance.
 - Because the null is reached by moving light, the RIN cancels together with the DC.
 - It is as fast as its actuator: kilohertz for a thermo-optic phase shifter, ample for drift.
 
-![Figure 29](figures/fig29_optical_servo.png)
+![Figure 35](figures/fig29_optical_servo.png)
 
-*Figure 29. Servo on the optical split. A tunable splitter, for example a thermo-optic Mach–Zehnder on a photonic chip, divides the light between the two photodiodes. A slow integrator senses the TIA's output through an RC low-pass that keeps the RF out, compares it with the set point $V_{\mathrm{REF}}$, and drives the splitter's heater until the DC output is zero. Nothing electrical is added at the summing node, and the RIN cancels together with the DC. Any amplifier.*
+*Figure 35. Servo on the optical split. A tunable splitter, for example a thermo-optic Mach–Zehnder on a photonic chip, divides the light between the two photodiodes. A slow integrator senses the TIA's output through an RC low-pass that keeps the RF out, compares it with the set point $V_{\mathrm{REF}}$, and drives the splitter's heater until the DC output is zero. Nothing electrical is added at the summing node, and the RIN cancels together with the DC. Any amplifier.*
 
 **(c) Servo by dividing a photocurrent: the Hobbs noise canceller.** Hobbs' laser noise canceller [A22] uses a bipolar differential pair as an electronically variable current splitter.
 - The pair $Q_1/Q_2$ divides a photocurrent fed into its common emitters. The ratio of the collector currents depends only on the base-voltage difference, $i_{C2}/i_{C1} = \exp(q\Delta V_{BE}/k_BT)$, not on the current itself [A22, Fig. 2 and Eq. (3), p. 906].
@@ -2415,13 +2527,13 @@ $$
 - The cancellation bandwidth does not depend on the loop bandwidth, only on the speeds of the photodiodes and the transistors [A22, abstract, p. 903; p. 906].
 - The differential, high-dynamic-range version has the topology of this design [A22, Fig. 19, p. 916]. The two signal photodiodes are in series with cascodes, $i_{\mathrm{sig1}}$ is made a few per cent larger than $i_{\mathrm{sig2}}$, and only a small comparison current from a third photodiode passes the pair. With $i_{\mathrm{sig1}}$ = 1.83 mA, $i_{\mathrm{sig2}}$ = 1.77 mA and $i_{\mathrm{comp}}$ = 0.15 mA it reached a 1-Hz signal-to-noise ratio of 160.0 dB, about 0.5 dB below the theoretical value [A22, Fig. 21 and text, p. 917].
 
-Applied here, the pair can divide either of two currents, and Figure 30 draws the first:
+Applied here, the pair can divide either of two currents, and Figure 36 draws the first:
 - the current of the lower photodiode, made slightly stronger, returning a fraction $1 - f$ to a supply and delivering $f$ to the summing node (the topology of [A22, Fig. 3]);
 - a small third photocurrent from a sample of the light (the topology of [A22, Fig. 19]).
 
-![Figure 30](figures/fig30_current_splitter.png)
+![Figure 36](figures/fig30_current_splitter.png)
 
-*Figure 30. The photocurrent divider of Hobbs' canceller applied to the pair, in the topology of [A22, Fig. 3]. The lower photodiode, made slightly stronger than the upper one, feeds the common emitters of the differential pair Q1/Q2. Q2 delivers the fraction $f$ of that current to the summing node and Q1 returns $1 - f$ to the supply $+V_{CC}$; the split depends only on the difference of the base voltages. Q2's base sits at a bypassed bias. The servo integrator senses the TIA's output through an RC low-pass, compares it with $V_{\mathrm{REF}}$ and drives Q1's base through a divider of at least 20:1 with an RF bypass, so that its own noise stays small beside that of the base resistances (Eq. (78)). Q3, a common-base PNP, is the matching cascode on the upper photodiode, which isolates that photodiode's capacitance and matches the delay of the divided path (Table A8.10). Any amplifier.*
+*Figure 36. The photocurrent divider of Hobbs' canceller applied to the pair, in the topology of [A22, Fig. 3]. The lower photodiode, made slightly stronger than the upper one, feeds the common emitters of the differential pair Q1/Q2. Q2 delivers the fraction $f$ of that current to the summing node and Q1 returns $1 - f$ to the supply $+V_{CC}$; the split depends only on the difference of the base voltages. Q2's base sits at a bypassed bias. The servo integrator senses the TIA's output through an RC low-pass, compares it with $V_{\mathrm{REF}}$ and drives Q1's base through a divider of at least 20:1 with an RF bypass, so that its own noise stays small beside that of the base resistances (Eq. (78)). Q3, a common-base PNP, is the matching cascode on the upper photodiode, which isolates that photodiode's capacitance and matches the delay of the divided path (Table A8.10). Any amplifier.*
 
 *The delivered current has full shot noise, whatever the split.* Let a current $I_{\mathrm{sp}}$ with full shot noise feed the common emitters. Let $Q_2$ deliver $I_{C2} = fI_{\mathrm{sp}}$ to the node while $Q_1$ takes $I_{C1} = (1 - f)I_{\mathrm{sp}}$. With the bases AC-grounded and the emitters fed from a high impedance, the input fluctuation divides in the ratio of the transconductances, i.e. as $f$ to $1 - f$. Each collector adds its own shot noise $2qI_{Ck}$, which the emitter node redistributes in the same ratio. Kirchhoff's current law at the emitter node then gives
 
@@ -2463,9 +2575,9 @@ $$
 \tag{79}
 $$
 
-which is the single-ended Eq. (34) multiplied by the fractional imbalance.
+which is the single-ended Eq. (30) multiplied by the fractional imbalance.
 
-*The loop (drawn in Figure 31).*
+*The loop (drawn in Figure 37).*
 - **Sensing.** The integrator senses the TIA output through an RC low-pass, for example 1 kΩ and 1 nF (160 kHz), so that it never sees the RF.
 - **Injection.** It drives the far end of $R_s$ through a filter of 3.3 kΩ and 10 nF (4.8 kHz). That capacitor, with a 100-pF RF capacitor in parallel, returns to the TIA's ground next to the $V_{\mathrm{REF}}$ decoupling.
 - **Corner.** With an integrator of time constant $\tau$ the loop gain is $R_F/(j\omega R_s\tau)$, so the TIA becomes a high-pass with corner
@@ -2497,7 +2609,7 @@ Here $e_{\mathrm{reg}}$ is the regulator's output noise, $Z_s$ the series elemen
 - With the 1-nF capacitor and its 0.25 nH they form a parallel resonance at $1/(2\pi\sqrt{0.58\ \mathrm{nH}\times1\ \mathrm{nF}})$ ≈ 210 MHz, where the bypass impedance rises to 1.5 Ω.
 - Behind 10 Ω, a 100-nV/√Hz regulator then injects 17 pA/√Hz per pF of photodiode capacitance at 200 MHz, six times the Johnson noise of 2 kΩ.
 
-A single low-inductance capacitor at the pin, fed through a ferrite bead and the monitor resistor (Figure 31), keeps the injected current below 0.1 pA/√Hz per pF from 10 to 200 MHz. The bulk capacitance belongs upstream of the bead. Hobbs recommends a quiet linear supply for the canceller. Where switching supplies cannot be avoided, he adds linear regulators or capacitance multipliers on the card [A22, pp. 918–919].
+A single low-inductance capacitor at the pin, fed through a ferrite bead and the monitor resistor (Figure 37), keeps the injected current below 0.1 pA/√Hz per pF from 10 to 200 MHz. The bulk capacitance belongs upstream of the bead. Hobbs recommends a quiet linear supply for the canceller. Where switching supplies cannot be avoided, he adds linear regulators or capacitance multipliers on the card [A22, pp. 918–919].
 
 *The bias servo itself.*
 - It senses the voltage at the photodiode pin through an RC filter, for example 10 kΩ and 100 nF.
@@ -2506,17 +2618,17 @@ A single low-inductance capacitor at the pin, fed through a ferrite bead and the
 
 ### 8.9 The proposed balanced front end, in two variants
 
-The arguments of Sections 8.1–8.8 fix everything except the amplifier. In the balanced pair only the imbalance reaches $R_F$ (Section 8.1), so none of the DC sinks of Sections 8.2–8.5 is needed. Bootstrapping and cascoding add more noise than they remove at 0.5–1 pF and lower the noise gain of the decompensated amplifiers (Sections 8.6 and 8.7), so both photodiodes connect directly to the summing node, within 1–2 mm of it. The imbalance is nulled by trimming the optical split where the optics allow, because that adds nothing at the node and nulls the RIN with the DC (Section 8.8 (b)). Otherwise a 24-kΩ resistor to a ±12-V integrator covers ±0.5 mA for 0.83 pA/√Hz (Section 8.8 (d)), and the current splitter of Section 8.8 (c) is kept for a large imbalance with a noisy laser. Each bias pin is fed through a ferrite bead and a 100-Ω monitor resistor to a single low-inductance capacitor, which keeps the injected noise below 0.1 pA/√Hz per pF from 10 to 200 MHz (Section 8.8 (e)). A second-order low-pass at 200–250 MHz after the TIA sets the noise bandwidth (Section 6.3.3). Figure 31 draws the front end, and Table A8.10 lists its parts with their reasons. The front end is designed for 0.5–1 pF in each photodiode and up to 10 mA in each diode, and its two variants differ only in the amplifier and its feedback capacitance:
+The arguments of Sections 8.1–8.8 fix everything except the amplifier. In the balanced pair only the imbalance reaches $R_F$ (Section 8.1), so none of the DC sinks of Sections 8.2–8.5 is needed. Bootstrapping and cascoding add more noise than they remove at 0.5–1 pF and lower the noise gain of the decompensated amplifiers (Sections 8.6 and 8.7), so both photodiodes connect directly to the summing node, within 1–2 mm of it. The imbalance is nulled by trimming the optical split where the optics allow, because that adds nothing at the node and nulls the RIN with the DC (Section 8.8 (b)). Otherwise a 24-kΩ resistor to a ±12-V integrator covers ±0.5 mA for 0.83 pA/√Hz (Section 8.8 (d)), and the current splitter of Section 8.8 (c) is kept for a large imbalance with a noisy laser. Each bias pin is fed through a ferrite bead and a 100-Ω monitor resistor to a single low-inductance capacitor, which keeps the injected noise below 0.1 pA/√Hz per pF from 10 to 200 MHz (Section 8.8 (e)). A second-order low-pass at 200–250 MHz after the TIA sets the noise bandwidth (Section 6.3.3). Figure 37 draws the front end, and Table A8.10 lists its parts with their reasons. The front end is designed for 0.5–1 pF in each photodiode and up to 10 mA in each diode, and its two variants differ only in the amplifier and its feedback capacitance:
 - **Variant A, OPA855 on 5 V.** It has the lowest noise and the most robust loop, and a dynamic range at least equal to variant B's for tones from 150 MHz up.
 - **Variant B, OPA818 on ±6.5 V.** It has the larger dynamic range for tones below about 100 MHz, by up to 11 dB. Two descriptions of its loop disagree. The vendor's macromodel, which reproduces OPA818's measured response at a gain of 7 where the datasheet curve fails once the input capacitance is included (Section 5.4), gives 43–50° nominal and 39–45° at the worst capacitance corner, with no peaking and no equalizer. The datasheet curve gives 27–35° nominal and 21–30° at the worst of the 27 corners of Table A8.11, with peaking to be equalized (Section 6.2.8). The first board decides (Appendix C, item 16).
 
-![Figure 31](figures/fig31_front_end.png)
+![Figure 37](figures/fig31_front_end.png)
 
-*Figure 31. The proposed balanced front end (Section 8.9, Table A8.10). Each photodiode bias, $\pm V_B$ from a linear regulator, passes bulk capacitance, a ferrite bead (FB, about 430 Ω at 100 MHz) and a 100-Ω monitor resistor to one low-inductance 10-nF capacitor at the photodiode pin. The bead and the single capacitor keep the regulator noise that reaches the summing node through the photodiode capacitance below 0.1 pA/√Hz per pF from 10 to 200 MHz (Section 8.8 (e), Table A8.9), and the drop across each 100 Ω reads that diode's current, $I_1$ or $I_2$, at 1 V per 10 mA. Both photodiodes sit at the summing node, within 1–2 mm. The amplifier is OPA855 on 5 V with $V_{\mathrm{REF}}$ = 2.58 V (variant A) or OPA818 on ±6.5 V with $V_{\mathrm{REF}}$ = 0.1 V (variant B); $R_F$ is 2 kΩ, or 1.5 kΩ for more dynamic range, and the total $C_F$ 0.25 or 0.55 pF (Tables A8.11 and A8.13). The imbalance servo is that of Section 8.8 (d): the integrator, on ±12 V, senses the output through 1 kΩ and 1 nF (160 kHz), integrates its difference from $V_{\mathrm{REF}}$ without inversion with $\tau$ = 13 µs, and drives $R_s$ = 24 kΩ through 3.3 kΩ into 10 nF in parallel with 100 pF (4.8 kHz), for ±0.5 mA of range and a high-pass corner of 1 kHz (Eq. (80)). Where the optics allow, the servo trims the optical split instead (Figure 29) and $R_s$ is left out. A second-order low-pass at 200–250 MHz sets the noise bandwidth before the ADC. Amplifiers: OPA855 (variant A) and OPA818 (variant B).*
+*Figure 37. The proposed balanced front end (Section 8.9, Table A8.10). Each photodiode bias, $\pm V_B$ from a linear regulator, passes bulk capacitance, a ferrite bead (FB, about 430 Ω at 100 MHz) and a 100-Ω monitor resistor to one low-inductance 10-nF capacitor at the photodiode pin. The bead and the single capacitor keep the regulator noise that reaches the summing node through the photodiode capacitance below 0.1 pA/√Hz per pF from 10 to 200 MHz (Section 8.8 (e), Table A8.9), and the drop across each 100 Ω reads that diode's current, $I_1$ or $I_2$, at 1 V per 10 mA. Both photodiodes sit at the summing node, within 1–2 mm. The amplifier is OPA855 on 5 V with $V_{\mathrm{REF}}$ = 2.58 V (variant A) or OPA818 on ±6.5 V with $V_{\mathrm{REF}}$ = 0.1 V (variant B); $R_F$ is 2 kΩ, or 1.5 kΩ for more dynamic range, and the total $C_F$ 0.25 or 0.55 pF (Tables A8.11 and A8.13). The imbalance servo is that of Section 8.8 (d): the integrator, on ±12 V, senses the output through 1 kΩ and 1 nF (160 kHz), integrates its difference from $V_{\mathrm{REF}}$ without inversion with $\tau$ = 13 µs, and drives $R_s$ = 24 kΩ through 3.3 kΩ into 10 nF in parallel with 100 pF (4.8 kHz), for ±0.5 mA of range and a high-pass corner of 1 kHz (Eq. (80)). Where the optics allow, the servo trims the optical split instead (Figure 35) and $R_s$ is left out. A second-order low-pass at 200–250 MHz sets the noise bandwidth before the ADC. Amplifiers: OPA855 (variant A) and OPA818 (variant B).*
 
 Which variant is better depends on where the RF signal lies (Table A6.28), so both are carried here.
 
-*Note on variant A's flagged corners.* The corners flagged in Table A8.11 lie at the upper $C_F$ corner with high open-loop gain, where $NG_\infty = 1 + C_T/C_F$ falls to 6.3–7.7, around the minimum stable gain of 7. There the analytical model finds a second loop-gain crossing at the plotted 4–7 GHz bump, while the main crossover keeps 50–63°. The plotted bump overstates the real one (Table A4.5), as for Table A6.13, but the macromodel shows that these corners do lose margin: the gain margin at 3–4 GHz falls to 1.4–3.1 dB, and 3 dB needs $NG_\infty \ge 7.5$ (Eq. (47), Section 5.5). Variant A therefore needs the tighter $C_F$ tolerance of Section 8.10. The 2-pF designs leave more room: the flag appears at 1 corner of 27 at 2 kΩ.
+*Note on variant A's flagged corners.* The corners flagged in Table A8.11 lie at the upper $C_F$ corner with high open-loop gain, where $NG_\infty = 1 + C_T/C_F$ falls to 6.3–7.7, around the minimum stable gain of 7. There the analytical model finds a second loop-gain crossing at the plotted 4–7 GHz bump, while the main crossover keeps 50–63°. The plotted bump overstates the real one (Table A3.5), as for Table A6.13, but the macromodel shows that these corners do lose margin: the gain margin at 3–4 GHz falls to 1.4–3.1 dB, and 3 dB needs $NG_\infty \ge 7.5$ (Eq. (47), Section 5.5). Variant A therefore needs the tighter $C_F$ tolerance of Section 8.10. The 2-pF designs leave more room: the flag appears at 1 corner of 27 at 2 kΩ.
 
 **How the two variants compare.** The numbers below are for 1 pF at the node and 2 kΩ; the other configurations follow the same pattern.
 - **Noise.** Variant A is quieter wherever the amplifier's own noise matters. In the dark it leads by 3.7 dB at 100 MHz and 7.6 dB at 200 MHz; at 0.1 mA per diode by 1.1 and 3.6 dB. At 1 mA per diode the difference shrinks to 0.2 and 0.7 dB, and at 10 mA per diode to 0.02 and 0.08 dB, because shot noise dominates. In the macromodel variant B's dark noise at 100 MHz is 1.6 dB above the central estimate, an upper bound (Section 5.6).
@@ -2561,11 +2673,11 @@ The external capacitor is the target total minus the 0.2-pF nominal parasitic. D
 Each item below follows from a result of this chapter, cited with it.
 
 - **Bootstrapping or cascoding 0.5–1-pF photodiodes for noise.** It adds more noise than it removes in the dark and at low current, and it lowers the noise gain of the decompensated amplifiers (Sections 8.6 and 8.7).
-- **An undegenerated transistor current source at the summing node as the DC actuator.** It adds the full shot noise of its current and 0.1–0.5 pF (Section 8.2, Eq. (34)).
+- **An undegenerated transistor current source at the summing node as the DC actuator.** It adds the full shot noise of its current and 0.1–0.5 pF (Section 8.2, Eq. (30)).
 - **Driving the injection resistor straight from an op amp**, or the base of a splitting transistor without a divider and an RF bypass. The servo amplifier's noise then reaches the summing node (Section 8.8 (a)).
 - **A bank of capacitors of different values at a photodiode bias pin.** It can resonate inside the band (Section 8.8 (e), Table A8.9).
 - **Correcting a large optical imbalance electronically when the laser is noisy.** The imbalance current keeps its RIN (Eq. (77)).
-- **Carrying 10 mA of DC through an $R_F$ small enough to hold it, without a second stage.** On a 5-V part that means $R_F$ ≤ 305 Ω (Section 8.5). At 286 Ω its Johnson noise alone, 7.6 pA/√Hz, exceeds the 5.66 pA/√Hz shot noise of 0.1 mA (Table A1.1), and the instrument's noise reaches the photocurrent through a transimpedance 2 kΩ/286 Ω = 7.0 times smaller (Eq. (8)). Option D restores the gain in a second stage.
+- **Carrying 10 mA of DC through an $R_F$ small enough to hold it, without a second stage.** On a 5-V part that means $R_F$ ≤ 305 Ω (Section 8.5). At 286 Ω its Johnson noise alone, 7.6 pA/√Hz, exceeds the 5.66 pA/√Hz shot noise of 0.1 mA (Table A1.1), and the instrument's noise reaches the photocurrent through a transimpedance 2 kΩ/286 Ω = 7.0 times smaller (Eq. (34)). Option D restores the gain in a second stage.
 
 ---
 
@@ -2575,7 +2687,7 @@ The chapters above follow one argument. The 1-pF, 2-kΩ operating point makes st
 
 ### 9.1 The three constraints that decide the design
 
-**(i) Stability at 2 kΩ and 1 pF.** At this operating point the loop crosses over at a noise gain of only about 7–12, the minimum stable gain of the decompensated amplifiers, the class that offers the most gain–bandwidth for the least voltage noise, and the noise gain is still rising there, which costs a further 14–30° of phase (Eq. (21)). Section 6.2 gives the mechanism and the results, and Sections 4.4 and 4.9 the derivation and its check against TI's own TIA data.
+**(i) Stability at 2 kΩ and 1 pF.** At this operating point the loop crosses over at a noise gain of only about 7–12, the minimum stable gain of the decompensated amplifiers, the class that offers the most gain–bandwidth for the least voltage noise, and the noise gain is still rising there, which costs a further 14–30° of phase (Eq. (17)). Section 6.2 gives the mechanism and the results, and Sections 3.4 and 3.9 the derivation and its check against TI's own TIA data.
 
 This constraint, not noise, is the first filter. With nominal parasitics (Section 1.4), seven parts reach ≥ 150 MHz with a phase margin ≥ 45° and ≤ 1 dB of peaking without deliberately added input capacitance (Table A9.1): OPA855 (539 MHz), OPA858 (539 MHz with its open-loop curve as plotted, and 454 MHz with the more credible calibrated curve and 1 pF added), LMH6629 with the COMP pin high (276 MHz), OPA856 (231 MHz), OPA859 (211 MHz), THS4304 (191 MHz) and OPA843 (150 MHz, marginal). OPA846 and OPA818, two of the six parts on the starting list (Section 2.2), are not among them, and what it would take to rescue them shows what the operating point costs:
 - They reach at most 35° and 34° of phase margin at any feedback capacitance. These margins rest on the datasheet open-loop curves; the vendors' SPICE macromodels give more, 49° for OPA818 at $C_F$ = 0.55 pF and 45° for OPA846 at 0.75 pF. OPA818's model reproduces its datasheet's measured response at a gain of 7, which the curve does not once the input capacitance is included, and OPA846's model peaks less than its datasheet shows (Section 5.4).
@@ -2591,7 +2703,7 @@ OPA847 (minimum stable gain 12) reaches only 9°. A larger photodiode capacitanc
 
 In the balanced pair the two DC photocurrents cancel at the summing node, and $R_F$ carries only the imbalance $\Delta I = I_1 - I_2$. An uncorrected imbalance still moves the output off centre and costs dynamic range: on a 5-V part at 2 kΩ, 0.1 mA costs 1.2 dB and 0.5 mA costs 9.3 dB (Table A1.2). Because dynamic range is the priority of this design, the imbalance is servoed to zero (Section 8.8). The quietest way is to trim the optical split, which nulls the DC and the laser's intensity noise together. The electronic way that adds least is a resistor from the summing node to a filtered servo output: covering ±0.5 mA from ±12 V, a 24-kΩ resistor adds 0.83 pA/√Hz.
 
-**(iii) The light sets the noise floor.** The shot noise of a balanced pair is that of the total photocurrent, $2q(I_1 + I_2)$: the shot noises of the two diodes are independent and add in power, while their mean currents subtract. It equals the Johnson noise of 2 kΩ at a total of only 25.7 µA (Section 4.6). At $I_1 + I_2$ = 0.1, 1 and 10 mA it is 5.9, 15.9 and 25.9 dB above the 2-kΩ floor; with 10 mA in each diode (20 mA in total) it is 28.9 dB above. The best TIAs have a total noise, $R_F$ included, of 3.2–5.2 pA/√Hz at 100–200 MHz, against shot noise of 5.66, 17.9, 56.6 and 80.05 pA/√Hz at those currents. Two regimes follow. At ≥ 1 mA every candidate in Table A9.2 is within 0.1–0.6 dB of the shot-noise limit at 100 MHz and within 0.2–1.6 dB at 200 MHz, so the choice is governed by bandwidth margin, output swing and robustness. At 0.1 mA and 150–200 MHz, the amplifier's own noise, its current noise $i_n$ and its voltage noise $e_n$ acting on the input capacitance, still matters. A ranking by GBW or by $e_n$ alone would therefore mislead in both regimes.
+**(iii) The light sets the noise floor.** The shot noise of a balanced pair is that of the total photocurrent, $2q(I_1 + I_2)$: the shot noises of the two diodes are independent and add in power, while their mean currents subtract. It equals the Johnson noise of 2 kΩ at a total of only 25.7 µA (Section 3.6). At $I_1 + I_2$ = 0.1, 1 and 10 mA it is 5.9, 15.9 and 25.9 dB above the 2-kΩ floor; with 10 mA in each diode (20 mA in total) it is 28.9 dB above. The best TIAs have a total noise, $R_F$ included, of 3.2–5.2 pA/√Hz at 100–200 MHz, against shot noise of 5.66, 17.9, 56.6 and 80.05 pA/√Hz at those currents. Two regimes follow. At ≥ 1 mA every candidate in Table A9.2 is within 0.1–0.6 dB of the shot-noise limit at 100 MHz and within 0.2–1.6 dB at 200 MHz, so the choice is governed by bandwidth margin, output swing and robustness. At 0.1 mA and 150–200 MHz, the amplifier's own noise, its current noise $i_n$ and its voltage noise $e_n$ acting on the input capacitance, still matters. A ranking by GBW or by $e_n$ alone would therefore mislead in both regimes.
 
 ### 9.2 The choice of amplifier, and why
 
@@ -2601,7 +2713,7 @@ The three constraints rank the amplifiers by four criteria, in the order in whic
 3. RF amplitude, which sets the dynamic range once the imbalance is servoed to zero, and headroom for an uncorrected imbalance;
 4. layout tolerance, package and availability.
 
-GBW and $e_n$ enter only through these criteria. Table 9.1 gives the ranking that results, and Table A9.2 collects the figures of the eight leading amplifiers at 2 kΩ. In Table A9.2, "robust" is the widest bandwidth with a phase margin ≥ 45° and ≤ 1 dB of peaking, adding input capacitance only if needed, and "flat" the smallest feedback capacitance that gives ≤ 0.01 dB of peaking (Section 1.5). Noise is input-referred at 100 / 200 MHz, and the FET-input parts and OPA955 show a central estimate with the upper estimate in brackets (Section 4.7). "Penalty" is the band-integrated noise relative to the 2-kΩ Johnson floor over 10–150 MHz, and "clearance" the shot noise of 1 mA relative to all other noise at 100 / 200 MHz. $I_{\mathrm{DC,max}}$ is the largest DC current that $R_F$ can carry, that is, the largest imbalance $|I_1 - I_2|$ that can be left uncorrected, with the output pushed to one limit (Section 6.4.1). $V_{\mathrm{pk}}$ is the largest undistorted output amplitude at 100 MHz, with what limits it, and DR is in 150 MHz at $I_1 + I_2$ = 1 mA, with the imbalance servoed to zero.
+GBW and $e_n$ enter only through these criteria. Table 9.1 gives the ranking that results, and Table A9.2 collects the figures of the eight leading amplifiers at 2 kΩ. In Table A9.2, "robust" is the widest bandwidth with a phase margin ≥ 45° and ≤ 1 dB of peaking, adding input capacitance only if needed, and "flat" the smallest feedback capacitance that gives ≤ 0.01 dB of peaking (Section 1.5). Noise is input-referred at 100 / 200 MHz, and the FET-input parts and OPA955 show a central estimate with the upper estimate in brackets (Section 3.7). "Penalty" is the band-integrated noise relative to the 2-kΩ Johnson floor over 10–150 MHz, and "clearance" the shot noise of 1 mA relative to all other noise at 100 / 200 MHz. $I_{\mathrm{DC,max}}$ is the largest DC current that $R_F$ can carry, that is, the largest imbalance $|I_1 - I_2|$ that can be left uncorrected, with the output pushed to one limit (Section 6.4.1). $V_{\mathrm{pk}}$ is the largest undistorted output amplitude at 100 MHz, with what limits it, and DR is in 150 MHz at $I_1 + I_2$ = 1 mA, with the imbalance servoed to zero.
 
 *Table 9.1. Ranking. Amplifiers: OPA855, OPA955, LMH6629 (COMP HI), OPA856, OPA858, OPA859, THS4304, OPA818, OPA846, OPA843, and the remaining parts of Table A6.5 in the last row.*
 
@@ -2625,9 +2737,11 @@ GBW and $e_n$ enter only through these criteria. Table 9.1 gives the ranking tha
 
 **For a straightforward board, OPA856 trades amplitude for tolerance.** It is unity-gain stable, so there is no minimum-gain trap: any total $C_F$ from 0.45 to 3 pF gives ≥ 45° of phase margin at 2 kΩ, 0.55 pF gives about 205 MHz and 53°, and ±0.1 pF of resistor parasitic moves it only between 175 and 235 MHz. It is nearly as quiet as OPA855 (3.2 dB penalty). Its slew rate, however, limits it to 0.56 V peak at 100 MHz, so it suits an RF photocurrent below about 0.28 mA peak at 2 kΩ, and with only about 11 dB of loop gain at 100 MHz it is weak for large RF signals. For larger signals the practical choice is LMH6629 with the COMP pin high, which is also available in a leaded SOT-23-5 package, fixed at G ≥ 10.
 
-**OPA818 gives the most dynamic range of any single amplifier, at the price of a marginal loop.** It is the best of the three decompensated parts of the starting list, which Table A9.3 sets side by side. It tolerates the largest uncorrected imbalance of all candidates, 5.5 mA at 2 kΩ and 7.3 mA at 1.5 kΩ. It has the largest RF amplitude, 2.23 V peak at 100 MHz, slew-limited, and 4.5–5.5 V at 20–50 MHz (Table A6.28). With it comes the highest dynamic range of all the candidates for a 100-MHz tone: 78.0, 70.7 and 61.1 dB at $I_1 + I_2$ = 0.1, 1 and 10 mA, and 58.1 dB with 10 mA in each diode. For tones at 20–50 MHz its lead over the 5-V parts grows to 9–11 dB; at 150 MHz it is gone (Table A6.28). Its JFET input has no shot noise of its own. With a 1-pF photodiode at 2 kΩ, however, its phase margin cannot exceed 34°, which leaves three options. We can accept a 33–34° design, with a total $C_F$ ≈ 0.55–0.62 pF and 240–330 MHz, verified in simulation and on the board; its upper end, $C_T/6$, keeps the high-frequency noise gain at the minimum stable gain of 7, and across parasitic and part-to-part spread it keeps a worst case of 25–28° (Section 6.2.8). We can add 2 pF at the input, for 40° at 181 MHz and 3 dB more noise. Or we can move OPA818 to a stage where its noise gain is naturally higher, the second stage of Option D (Section 8.5). As a 33° TIA it should be used only after simulation and a board measurement confirm the phase margin, and it is worth that effort where the RF signal lies below about 100 MHz and dynamic range comes first. It is variant B of the proposed front end (Section 8.9). OPA846 reaches a similar 34.5° with less than half the slew rate (625 against 1400 V/µs) and more input capacitance (3.8 against 2.4 pF), so it is worse than OPA818 on every axis except price; a bench OPA846 TIA at 1.2 kΩ agrees with the model in both noise and peaking, for about 14 pF at its input (Section 4.10). OPA847, with a minimum stable gain of 12, reaches only 9°, has no stable flat design, and cannot be used here.
+**OPA818 gives the most dynamic range of any single amplifier, at the price of a marginal loop.** It is the best of the three decompensated parts of the starting list, which Table A9.3 sets side by side. It tolerates the largest uncorrected imbalance of all candidates, 5.5 mA at 2 kΩ and 7.3 mA at 1.5 kΩ. It has the largest RF amplitude, 2.23 V peak at 100 MHz, slew-limited, and 4.5–5.5 V at 20–50 MHz (Table A6.28). With it comes the highest dynamic range of all the candidates for a 100-MHz tone: 78.0, 70.7 and 61.1 dB at $I_1 + I_2$ = 0.1, 1 and 10 mA, and 58.1 dB with 10 mA in each diode. For tones at 20–50 MHz its lead over the 5-V parts grows to 9–11 dB; at 150 MHz it is gone (Table A6.28). Its JFET input has no shot noise of its own. With a 1-pF photodiode at 2 kΩ, however, its phase margin cannot exceed 34°, which leaves three options. We can accept a 33–34° design, with a total $C_F$ ≈ 0.55–0.62 pF and 240–330 MHz, verified in simulation and on the board; its upper end, $C_T/6$, keeps the high-frequency noise gain at the minimum stable gain of 7, and across parasitic and part-to-part spread it keeps a worst case of 25–28° (Section 6.2.8). We can add 2 pF at the input, for 40° at 181 MHz and 3 dB more noise. Or we can move OPA818 to a stage where its noise gain is naturally higher, the second stage of Option D (Section 8.5). As a 33° TIA it should be used only after simulation and a board measurement confirm the phase margin, and it is worth that effort where the RF signal lies below about 100 MHz and dynamic range comes first. It is variant B of the proposed front end (Section 8.9). OPA846 reaches a similar 34.5° with less than half the slew rate (625 against 1400 V/µs) and more input capacitance (3.8 against 2.4 pF), so it is worse than OPA818 on every axis except price; a bench OPA846 TIA at 1.2 kΩ agrees with the model in both noise and peaking, for about 14 pF at its input (Section 3.10). OPA847, with a minimum stable gain of 12, reaches only 9°, has no stable flat design, and cannot be used here.
 
 **If the receiver must also resolve signals below about 100 kHz, the order changes (Section 6.9).** OPA855 then adds the most noise of the ten, 35 pA/√Hz at 1 kHz from the 1/f noise of its base current, and OPA856, THS4304 and the CMOS-input OPA859 and OPA858 follow. OPA955 is quiet at both ends but not yet released. Among production parts OPA818 balances the two: it keeps 262 MHz and adds 0.2 dB at 1 kHz and 1.7 dB at 100 Hz from 1 mA up (Table A6.37).
+
+**If the pair carries only tens of microamperes, a larger feedback resistor restores the light's lead (Section 6.10).** The resistor's own capacitance then sets the band: 150 MHz needs $R_F \le$ 5.3 kΩ with 0.2 pF of parasitic, or 10.6 kΩ with 0.1 pF. Up to that limit OPA855 remains the choice. At 3–5 kΩ it keeps 182–334 MHz with 66–73° of phase margin and no added capacitance, and the pair's shot noise exceeds its own noise from 37–44 µA. Its current noise exceeds the resistor's from about 2.6 kΩ, but in this band it costs less than the voltage noise of the FET parts. Above about 10 kΩ, or with still less light, the companion note continues.
 
 ### 9.3 The front end that follows
 
@@ -2637,7 +2751,7 @@ The proposed balanced front end (Section 8.9) comes in two variants that share e
 
 ### 9.4 What limits the dynamic range, and what would raise it
 
-**From about 0.15 mA up, the ceiling sets the dynamic range, not the noise.** The shot noise of the pair then dominates the floor. Even a noiseless amplifier would gain only 0.8 dB over OPA855 at $I_1 + I_2$ = 0.1 mA and 0.1 dB at 1 mA, while every doubling of the output amplitude gains 6 dB at every photocurrent (Section 6.6.3, Eq. (51), Figure 19, Table A7.1). SPICE confirms the dynamic range of Table A6.29 for OPA955, OPA855 and OPA858 within 0.2 dB at every photocurrent. OPA818 loses 1.5 dB in the dark and nothing from 1 mA up, and LMH6629's gain in SPICE comes from its model's small input capacitance and is not counted (Section 6.6.2).
+**From about 0.15 mA up, the ceiling sets the dynamic range, not the noise.** The shot noise of the pair then dominates the floor. Even a noiseless amplifier would gain only 0.8 dB over OPA855 at $I_1 + I_2$ = 0.1 mA and 0.1 dB at 1 mA, while every doubling of the output amplitude gains 6 dB at every photocurrent (Section 6.6.3, Eq. (51), Figure 25, Table A7.1). SPICE confirms the dynamic range of Table A6.29 for OPA955, OPA855 and OPA858 within 0.2 dB at every photocurrent. OPA818 loses 1.5 dB in the dark and nothing from 1 mA up, and LMH6629's gain in SPICE comes from its model's small input capacitance and is not counted (Section 6.6.2).
 
 **Among single op amps, the amplitude decides.** OPA818, with the largest amplitude, leads from 30–69 µA up, for tones below 145–148 MHz. It is slew-limited above 40.5 MHz, and its 2.23 V at 100 MHz is 3.3 dB above the 1.52 V of the 5-V parts. A faster slew rate would raise the ceiling at every photocurrent, and a higher supply only for tones below the swing–slew crossover (Eq. (52)). OPA855, or OPA955 once released, gives the most in the dark and at the highest tones (Sections 6.6.2–6.6.3).
 
@@ -2647,7 +2761,7 @@ The proposed balanced front end (Section 8.9) comes in two variants that share e
 
 **Single-chip TIAs fall short for the same reason: their linear input is small.** Every single-chip TIA with public figures is at least 8.8 dB behind at 1 mA. No lidar TIA comes within 10 dB: their linear input ranges are 3–250 µA, against 0.77–1.14 mA for the op-amp designs, and the best, LMH32401 at 2 kΩ, gives 57.2 dB at 1 mA against 67.6–70.7 dB. The coherent-receiver TIAs, made for a balanced pair with one photodiode on each input, are 8.8–32.1 dB behind at 1 mA at the gains where their noise is published, because their output is held at a few hundred millivolts, so at those gains their linear input is only 38–500 µA peak (Eq. (53)). GX39220 at 500 Ω, the only one with a full public datasheet, gives 58.8 dB, and MATA-006801 at its 2 kΩ gives 52.5 dB (Section 6.7). Their full 3 mAppd of linear input holds only at 167–233 Ω, where no noise is published; there a TIA would match OPA818 at 1 mA only if it added no more than 17.9 pA/√Hz within 150 MHz (Eq. (54)). No public document gives that figure; a full datasheet or a measurement of GX39221 or MATA-006801 at that setting would settle it.
 
-**The same trade between floor and ceiling decides the comparison with a plain 50-Ω termination (Section 6.8).** For the receiver as specified, a small RF signal on 0.1–10 mA, every design we carry forward beats a 50-Ω termination with a 2-dB amplifier at every photocurrent, because only the noise matters for a small signal. OPA855 leads by 15.0 dB in the dark, 10.6 dB at 0.1 mA, 4.0 dB at 1 mA and 0.6 dB at 10 mA; OPA955 and the pHEMT composite lead by 17.2 and 17.7 dB in the dark and 11.2 and 11.3 dB at 0.1 mA; and the high-voltage composite, the noisiest, by 6.2 dB in the dark (Figure 20(a)). For this a TIA needs only less band noise than the chain, whose 22.85 pA/√Hz integrate to 279.8 nA rms in 150 MHz; the designs here have 2.0–7.7 times less in the dark. For large signals the benchmark wins from about 1.2 mA up, because its ceiling is higher. A TIA on a 5-V op amp clips at 0.54 mA rms, so it follows fully modulated light only up to $I_1 + I_2$ = 0.76 mA, while a 50-Ω chain that compresses at −20 dBm follows it to 1.26 mA, and one at −10 dBm to 4.0 mA. The chain's usable dynamic range overtakes OPA855's and OPA955's at 1.16–1.17 mA and OPA818's at 1.56 mA (6.04 mA for a chain at −20 dBm). The compression level that matches a design is $P_{\mathrm{eq}} = (R_0/4)I_{\max}^2$: −24.4 dBm for OPA855, −24.3 dBm for OPA955, −23.6 dBm for the pHEMT composite, −20.9 dBm for OPA818 and −9.0 dBm for the high-voltage composite. A chain compressing at −10 dBm has more electronic dynamic range than every op-amp design from 0.1 mA up, but most of the tones that assumes are larger than the light can supply. To beat the chain at every photocurrent, a TIA needs an output amplitude of $|Z_T|\,I_{\mathrm{DC}}\,10^{-A/20}$, about 18.5 V at 10 mA and 2 kΩ (Eq. (6)). The high-voltage composite, with 8.3 V, comes closest: no chain that compresses at −10 dBm or below overtakes it, and a 0-dBm chain only above 5.0 mA.
+**The same trade between floor and ceiling decides the comparison with a plain 50-Ω termination (Section 6.8).** For the receiver as specified, a small RF signal on 0.1–10 mA, every design we carry forward beats a 50-Ω termination with a 2-dB amplifier at every photocurrent, because only the noise matters for a small signal. OPA855 leads by 15.0 dB in the dark, 10.6 dB at 0.1 mA, 4.0 dB at 1 mA and 0.6 dB at 10 mA; OPA955 and the pHEMT composite lead by 17.2 and 17.7 dB in the dark and 11.2 and 11.3 dB at 0.1 mA; and the high-voltage composite, the noisiest, by 6.2 dB in the dark (Figure 26(a)). For this a TIA needs only less band noise than the chain, whose 22.85 pA/√Hz integrate to 279.8 nA rms in 150 MHz; the designs here have 2.0–7.7 times less in the dark. For large signals the benchmark wins from about 1.2 mA up, because its ceiling is higher. A TIA on a 5-V op amp clips at 0.54 mA rms, so it follows fully modulated light only up to $I_1 + I_2$ = 0.76 mA, while a 50-Ω chain that compresses at −20 dBm follows it to 1.26 mA, and one at −10 dBm to 4.0 mA. The chain's usable dynamic range overtakes OPA855's and OPA955's at 1.16–1.17 mA and OPA818's at 1.56 mA (6.04 mA for a chain at −20 dBm). The compression level that matches a design is $P_{\mathrm{eq}} = (R_0/4)I_{\max}^2$: −24.4 dBm for OPA855, −24.3 dBm for OPA955, −23.6 dBm for the pHEMT composite, −20.9 dBm for OPA818 and −9.0 dBm for the high-voltage composite. A chain compressing at −10 dBm has more electronic dynamic range than every op-amp design from 0.1 mA up, but most of the tones that assumes are larger than the light can supply. To beat the chain at every photocurrent, a TIA needs an output amplitude of $|Z_T|\,I_{\mathrm{DC}}\,10^{-A/20}$, about 18.5 V at 10 mA and 2 kΩ (Eq. (6)). The high-voltage composite, with 8.3 V, comes closest: no chain that compresses at −10 dBm or below overtakes it, and a 0-dBm chain only above 5.0 mA.
 
 For dynamic range at 0.1–10 mA, then, a single op amp is the simplest answer and the high-voltage composite the best. OPA818 (variant B) gives the most of any single amplifier for tones below about 145 MHz, OPA855 the most in the dark and at the highest tones, and the high-voltage composite adds 7.8–11.9 dB to OPA818 from the dark to 10 mA at a 100-MHz tone, at the cost of about −47 dBc HD3 at full swing, ±15-V rails and a narrow stability window.
 
@@ -2663,7 +2777,7 @@ LMH6629's input capacitance (5.7 pF in the datasheet, 1.3 pF in the model) and t
 
 Some designs need care whatever the models say, because they are marginal, sensitive to the board's parasitics, or rest on values that are simulated or preliminary:
 
-1. **Every design below 50° of phase margin.** This covers OPA855 with the calibrated curve (51° flat at 2 kΩ; Table A6.7), OPA818 and OPA846 at any $C_F$, and OPA955 with added capacitance (45°). Flat transimpedance hides low phase margin (Figure 11). The output noise and the response to load or supply disturbances still peak. For designs whose peaking will be equalized, Section 6.2.8 gives the worst-case limits. The vendors' macromodels give OPA818 and OPA846 more margin than these analytical numbers (Section 5.5).
+1. **Every design below 50° of phase margin.** This covers OPA855 with the calibrated curve (51° flat at 2 kΩ; Table A6.7), OPA818 and OPA846 at any $C_F$, and OPA955 with added capacitance (45°). Flat transimpedance hides low phase margin (Figure 17). The output noise and the response to load or supply disturbances still peak. For designs whose peaking will be equalized, Section 6.2.8 gives the worst-case limits. The vendors' macromodels give OPA818 and OPA846 more margin than these analytical numbers (Section 5.5).
 2. **OPA855 and OPA858 with no external $C_F$.** The design rests on a parasitic that, at 0.1 pF, gives 36–38° and 3–3.6 dB of peaking (Table A6.9). Aim for 0.25 pF total and verify.
 3. **Any external $C_F$ below 0.1 pF.** It is not a reproducible discrete part (Table A8.13, OPA855 rows). Use pad geometry, or two series resistors, as the datasheets advise.
 4. **$C_F$ above $C_T/(G_{\min}-1)$ on decompensated parts:** 0.36 pF for OPA855 and OPA858, 0.78 pF for LMH6629 (COMP HI), 0.62 pF for OPA818. This violates the manufacturer's minimum-gain rule, even where the model, whose curves end near 1 GHz, finds the loop stable. In OPA855's macromodel the gain margin at 3–4 GHz is $20\log_{10}(NG_\infty/5.3)$ (Eq. (47)).
@@ -2678,7 +2792,7 @@ Some designs need care whatever the models say, because they are marginal, sensi
 
 ### 9.6 What the next stage must respect
 
-The TIA drives an instrument or a further amplifier, whose noise adds to the TIA's once both are referred to the photocurrent. A quiet front end is wasted behind a noisy next stage, so this section states how quiet that stage must be. Table A9.4 gives, at 100 MHz, the total input-referred noise of a 2-kΩ OPA855 TIA and the largest instrument noise, referred to the same photocurrent by Eq. (8), that degrades it by no more than 0.5 dB. That limit is $\sqrt{10^{0.05}-1}$ = 0.349 times the TIA noise, because a noise 0.349 times as large raises the total by $10\log_{10}(1+0.349^2)$ = 0.5 dB.
+The TIA drives an instrument or a further amplifier, whose noise adds to the TIA's once both are referred to the photocurrent. A quiet front end is wasted behind a noisy next stage, so this section states how quiet that stage must be. Table A9.4 gives, at 100 MHz, the total input-referred noise of a 2-kΩ OPA855 TIA and the largest instrument noise, referred to the same photocurrent by Eq. (34), that degrades it by no more than 0.5 dB. That limit is $\sqrt{10^{0.05}-1}$ = 0.349 times the TIA noise, because a noise 0.349 times as large raises the total by $10\log_{10}(1+0.349^2)$ = 0.5 dB.
 
 The last two columns are translations. The first gives the same limit as the instrument's noise figure, referred to $k_BT$ = −173.9 dBm/Hz at 25 °C. The second gives the TIA noise as the power density that the instrument receives through the 50-Ω back-termination.
 
@@ -2688,34 +2802,34 @@ The last two columns are translations. The first gives the same limit as the ins
 
 ### 9.7 What only a simulation or a measurement can settle
 
-The analytical model is validated where the datasheets allow (Table A4.5), but it cannot resolve the following. Each item names the check that settles it. Chapter 5 runs the manufacturers' macromodels; items 1–4 say what that settles.
+The analytical model is validated where the datasheets allow (Table A3.5), but it cannot resolve the following. Each item names the check that settles it. Chapter 5 runs the manufacturers' macromodels; items 1–4 say what that settles.
 
 1. **Phase margin of the chosen design, with package parasitics.** Run the manufacturer's SPICE macromodel (TINA-TI or PSpice, from the product page) with:
    - the photodiode's equivalent circuit;
    - the resistor and capacitor parasitics;
    - the pad capacitances.
 
-   Below about 50° the datasheet curves and the macromodels can differ by 11.3–16.7° (OPA846, OPA818, OPA858; Section 5.6), and a hand calculation by 9.1° (Section 4.5): TI's OPA858 reference design shows 55° against 45.9° [A7]. Then measure the step response or the small-signal frequency response of the first board. A 0.1-dB-flat response with ringing in the step response indicates low phase margin hidden by $Z_F$.
+   Below about 50° the datasheet curves and the macromodels can differ by 11.3–16.7° (OPA846, OPA818, OPA858; Section 5.6), and a hand calculation by 9.1° (Section 3.5): TI's OPA858 reference design shows 55° against 45.9° [A7]. Then measure the step response or the small-signal frequency response of the first board. A 0.1-dB-flat response with ringing in the step response indicates low phase margin hidden by $Z_F$.
 
    Section 5.5 runs this check for the designs of Tables A8.11 and A8.13, without package parasitics. The macromodels confirm variant A, give variant B and OPA846 more margin than the datasheet curves, and give OPA858 and LMH6629 less. The board measurement remains necessary.
-2. **The 4–7 GHz open-loop region of OPA855 and OPA955, and the true upper limit of $C_F$.** The plotted curves exaggerate it (Table A4.5). The minimum-gain rule is used as the limit until a simulation shows otherwise.
+2. **The 4–7 GHz open-loop region of OPA855 and OPA955, and the true upper limit of $C_F$.** The plotted curves exaggerate it (Table A3.5). The minimum-gain rule is used as the limit until a simulation shows otherwise.
 
    Section 5.5 runs it for OPA855. The macromodel has no bump in its gain from the non-inverting input, but its gain from the inverting input has a plateau at 2–3 GHz. That plateau limits the gain margin to 1.4–3.1 dB at the upper $C_F$ corner. A scan of $C_F$ shows that the margin depends only on $NG_\infty$ (Eq. (47)). The upper limit for 3 dB is $C_F = C_T/6.5$: 0.30–0.33 pF at 1 pF, 0.02–0.03 pF below the minimum-gain rule. On the board, the parasitics of the output pin and feedback pads at 3–4 GHz decide the rest.
 3. **OPA858's open-loop gain.** It is the plotted curve or the table GBW. Only the macromodel or a measurement of the closed-loop response at G = 7 can tell.
 
    The macromodel settles it in favour of the table (Section 5.4).
-4. **High-frequency current noise of the FET parts (Section 4.7).** Measure the dark output noise of the finished TIA from 10 to 200 MHz with a spectrum analyser, behind a low-noise amplifier if needed. Compare it with the central and high curves of Figure 14.
+4. **High-frequency current noise of the FET parts (Section 3.7).** Measure the dark output noise of the finished TIA from 10 to 200 MHz with a spectrum analyser, behind a low-noise amplifier if needed. Compare it with the central and high curves of Figure 20.
 
    SPICE does not settle it (Section 5.6). The OPA818 model adds a current noise larger than its datasheet curve; the OPA858 and OPA859 models have none.
 5. **The actual parasitic feedback capacitance of the chosen resistor and pads.** Measure it with an impedance analyser or a vector network analyser on a test coupon, or infer it from the TIA's bandwidth and peaking on the first board using Table A8.13.
 6. **The photodiode.**
    - its junction capacitance against bias and photocurrent;
-   - its series resistance $R_{\mathrm{ser}}$, which adds $4k_BTR_{\mathrm{ser}}\omega^2(C_{D,A}^2 + C_{D,B}^2)$ of noise (Section 4.6);
+   - its series resistance $R_{\mathrm{ser}}$, which adds $4k_BTR_{\mathrm{ser}}\omega^2(C_{D,A}^2 + C_{D,B}^2)$ of noise (Section 3.6);
    - its own linearity and bandwidth at 10 mA per diode (space-charge effects), which can limit the dynamic range before the amplifier does. Hobbs stresses keeping the photodiode current density low in systems that need the highest dynamic range [A22, p. 917].
 7. **Distortion of the TIA at 100 MHz into the real load.** This applies especially to OPA856 and OPA859, whose loop gain in the TIA is about 10 dB lower than in their datasheet tests (Table A6.31).
 8. **The servos of Sections 8.2 and 8.8.** Check their loop dynamics, their interaction with the TIA at low frequency, and their settling after a step in photocurrent. For a current-splitting servo, also check the cancellation against frequency; it has been demonstrated only to about 10 MHz [A22, Fig. 6(b), p. 910].
 9. **Temperature.** All numbers are at 25 °C. TI quotes about 5° of phase-margin change for OPA855 over −40 to 125 °C (p18).
-10. **The bench OPA846 result (Section 4.10).** Three measurements decide between a large node capacitance and an instrument floor as the source of its excess noise: the frequency of its response peak, its noise at 10 MHz, and the instrument floor.
+10. **The bench OPA846 result (Section 3.10).** Three measurements decide between a large node capacitance and an instrument floor as the source of its excess noise: the frequency of its response peak, its noise at 10 MHz, and the instrument floor.
 11. **The common-mode rejection of the balanced pair at 10–200 MHz.** It depends on three things: how well the photodiodes match; the optical path difference [A22, Eq. (16), p. 918]; and any transistor that sits in one path only (Section 8.8 (c)). Measure it by modulating the intensity common to both beams, as Hobbs did with a Pockels cell driven by the spectrum analyser's tracking generator [A22, p. 908; Figs. 5 and 6].
 12. **The bias network at the photodiode pins.** The resonances of Table A8.9 rest on assumed capacitor parasitics. Measure the bypass impedance of the layout, or the dark noise with the bias regulator deliberately disturbed.
 
@@ -2723,7 +2837,7 @@ The analytical model is validated where the datasheets allow (Table A4.5), but i
 
 ## Appendix A. Tables
 
-The tables behind the charts and the text of Chapters 1–9, grouped by the chapter that discusses them and numbered in the order of the sections they belong to. Each caption names the amplifiers it covers. Three short tables stay in the text: the assumed values (Table 1.1), the values of the design example (Table 3.1) and the ranking (Table 9.1). Tables B.1–B.2, D.1–D.4 and E.1 belong to their own appendices.
+The tables behind the charts and the text of Chapters 1–9, grouped by the chapter that discusses them and numbered in the order of the sections they belong to. Each caption names the amplifiers it covers. Three short tables stay in the text: the assumed values (Table 1.1), the values of the two design examples (Table 4.1) and the ranking (Table 9.1). Tables B.1–B.2, D.1–D.4 and E.1 belong to their own appendices.
 
 ### A1. Tables of Chapter 1: What we are designing
 
@@ -2783,7 +2897,7 @@ The tables behind the charts and the text of Chapters 1–9, grouped by the chap
 | 1 mA | +4.2 dB | +0.23 dB |
 | 0.1 mA | +12.4 dB | +1.9 dB |
 
-*Table A2.2. The 50-Ω benchmark family: the photodiode pair terminated in 50 Ω in parallel with the 50-Ω input of an amplifier of 2 dB noise figure, whose input compresses at $P_{\max}$. Noise 22.85 pA/√Hz, 279.8 nA rms in 150 MHz in the dark; dynamic range in 150 MHz (Eq. (3)); "usable" caps the tone at $I_{\mathrm{DC}}/\sqrt2$ rms (Eq. (32)). No op amp.*
+*Table A2.2. The 50-Ω benchmark family: the photodiode pair terminated in 50 Ω in parallel with the 50-Ω input of an amplifier of 2 dB noise figure, whose input compresses at $P_{\max}$. Noise 22.85 pA/√Hz, 279.8 nA rms in 150 MHz in the dark; dynamic range in 150 MHz (Eq. (3)); "usable" caps the tone at $I_{\mathrm{DC}}/\sqrt2$ rms (Eq. (28)). No op amp.*
 
 | $P_{\max}$ (input) | $I_{\max,50}$ (mA rms) | Fully modulated light passes up to $I_1 + I_2$ (mA) | Electronic dynamic range at $I_1 + I_2$ = 0 / 0.1 / 1 / 10 / 20 mA (dB) | Usable dynamic range at 0.1 / 1 / 10 / 20 mA (dB) |
 |---|---|---|---|---|
@@ -2804,10 +2918,10 @@ The tables behind the charts and the text of Chapters 1–9, grouped by the chap
 
 | Part | What it is | Key numbers | Reason not a candidate for a 1.5–2 kΩ, ≥ 150 MHz discrete TIA | Status; 1ku price (USD) | Datasheet |
 |---|---|---|---|---|---|
-| OPA817 | TI JFET-input, unity-gain-stable voltage-feedback op amp | GBWP 400 MHz TYP; $e_n$ 4.5 nV/√Hz (f ≥ 200 kHz); $i_n$ 18 fA/√Hz TYP (no frequency), curve rising ∝ f to ≈30 MHz (1.07 pA/√Hz at 10 MHz, ≈5.35 near 100 MHz); $C_{CM}$ / $C_{DIFF}$ 2.9 / 0.1 pF; ±3.7 V into 100 Ω at ±5 V; 23.5 mA; WSON-8 3 × 3 mm with FB and PD pins | DERIVED: Eq. (9) gives about 75 MHz at 2 kΩ ($C_T$ = 4.35 pF, $C_F$ = 1.3 pF); 4.5 nV/√Hz on 5.7 pF gives 16 pA/√Hz at 100 MHz | ACTIVE; 3.61 (OPA817DTKR) | SBOS847B (Dec 2024) |
-| OPA814 | TI JFET-input, unity-gain-stable voltage-feedback op amp | GBWP 250 MHz TYP; $e_n$ 5.3 nV/√Hz (f > 100 kHz); $i_n$ 11 fA/√Hz TYP (f > 100 kHz) against a rising curve (0.53 pA/√Hz at 10 MHz, ≈3.9 near 100 MHz); $C_{CM}$ / $C_{DIFF}$ 2.5 / 0.2 pF; ±3.7 V into 100 Ω; 16 mA; SOIC-8, SOT-23-5 | DERIVED: Eq. (9) gives about 59 MHz at 2 kΩ; 5.3 nV/√Hz on 5.7 pF gives 19 pA/√Hz at 100 MHz | ACTIVE; 4.55 (OPA814DBVR) | SBOSA14A (Nov 2023) |
-| LMH6609 | TI (formerly National) unity-gain-stable bipolar voltage-feedback op amp | GBP 240 MHz (p13); SSBW 900 MHz ($A_V$ = +1); $e_n$ 3.1 nV/√Hz and $i_n$ 1.6 pA/√Hz (> 1 MHz); $C_{IN}$ 1.2 pF; 1400 V/µs; ±3.5 V into 100 Ω at ±5 V; 7 mA; SOIC-8, SOT-23-5 | DERIVED: with the 240 MHz GBP, Eq. (9) gives about 70 MHz at 2 kΩ | ACTIVE; 1.44 (LMH6609MAX/NOPB) to 1.73 (LMH6609MA/NOPB) | SNOSA84F (Mar 2013) |
-| OPA699 | TI decompensated (G ≥ +4) bipolar voltage-feedback op amp with output limiters (VH, VL pins) | GBW 1000 MHz TYP (820 MIN); $e_n$ 4.1 nV/√Hz, $i_n$ 2 pA/√Hz (f ≥ 1 MHz); $C_{CM}$ / $C_{DIFF}$ 1 / 1 pF; 1400 V/µs; limited-step recovery 1 ns TYP; ±4.1 V (≥ 500 Ω, ±5 V); 15.5 mA; SOIC-8 only | DERIVED: Eq. (9) gives about 140 MHz at 2 kΩ ($C_F$ = 0.73 pF, $NG_\infty$ = 5.6 > 4); 4.1 nV/√Hz on 4.1 pF gives 10.5 pA/√Hz at 100 MHz, 11 dB above the 2-kΩ floor. Its output limiters ("transimpedance with fast overdrive recovery" is a listed application) would help only against overload | ACTIVE; 3.44 (OPA699IDR) to 4.12 (OPA699ID) | SBOS261D (Dec 2008) |
+| OPA817 | TI JFET-input, unity-gain-stable voltage-feedback op amp | GBWP 400 MHz TYP; $e_n$ 4.5 nV/√Hz (f ≥ 200 kHz); $i_n$ 18 fA/√Hz TYP (no frequency), curve rising ∝ f to ≈30 MHz (1.07 pA/√Hz at 10 MHz, ≈5.35 near 100 MHz); $C_{CM}$ / $C_{DIFF}$ 2.9 / 0.1 pF; ±3.7 V into 100 Ω at ±5 V; 23.5 mA; WSON-8 3 × 3 mm with FB and PD pins | DERIVED: Eq. (35) gives about 75 MHz at 2 kΩ ($C_T$ = 4.35 pF, $C_F$ = 1.3 pF); 4.5 nV/√Hz on 5.7 pF gives 16 pA/√Hz at 100 MHz | ACTIVE; 3.61 (OPA817DTKR) | SBOS847B (Dec 2024) |
+| OPA814 | TI JFET-input, unity-gain-stable voltage-feedback op amp | GBWP 250 MHz TYP; $e_n$ 5.3 nV/√Hz (f > 100 kHz); $i_n$ 11 fA/√Hz TYP (f > 100 kHz) against a rising curve (0.53 pA/√Hz at 10 MHz, ≈3.9 near 100 MHz); $C_{CM}$ / $C_{DIFF}$ 2.5 / 0.2 pF; ±3.7 V into 100 Ω; 16 mA; SOIC-8, SOT-23-5 | DERIVED: Eq. (35) gives about 59 MHz at 2 kΩ; 5.3 nV/√Hz on 5.7 pF gives 19 pA/√Hz at 100 MHz | ACTIVE; 4.55 (OPA814DBVR) | SBOSA14A (Nov 2023) |
+| LMH6609 | TI (formerly National) unity-gain-stable bipolar voltage-feedback op amp | GBP 240 MHz (p13); SSBW 900 MHz ($A_V$ = +1); $e_n$ 3.1 nV/√Hz and $i_n$ 1.6 pA/√Hz (> 1 MHz); $C_{IN}$ 1.2 pF; 1400 V/µs; ±3.5 V into 100 Ω at ±5 V; 7 mA; SOIC-8, SOT-23-5 | DERIVED: with the 240 MHz GBP, Eq. (35) gives about 70 MHz at 2 kΩ | ACTIVE; 1.44 (LMH6609MAX/NOPB) to 1.73 (LMH6609MA/NOPB) | SNOSA84F (Mar 2013) |
+| OPA699 | TI decompensated (G ≥ +4) bipolar voltage-feedback op amp with output limiters (VH, VL pins) | GBW 1000 MHz TYP (820 MIN); $e_n$ 4.1 nV/√Hz, $i_n$ 2 pA/√Hz (f ≥ 1 MHz); $C_{CM}$ / $C_{DIFF}$ 1 / 1 pF; 1400 V/µs; limited-step recovery 1 ns TYP; ±4.1 V (≥ 500 Ω, ±5 V); 15.5 mA; SOIC-8 only | DERIVED: Eq. (35) gives about 140 MHz at 2 kΩ ($C_F$ = 0.73 pF, $NG_\infty$ = 5.6 > 4); 4.1 nV/√Hz on 4.1 pF gives 10.5 pA/√Hz at 100 MHz, 11 dB above the 2-kΩ floor. Its output limiters ("transimpedance with fast overdrive recovery" is a listed application) would help only against overload | ACTIVE; 3.44 (OPA699IDR) to 4.12 (OPA699ID) | SBOS261D (Dec 2008) |
 | LTC6409 | ADI (Linear Technology) fully differential amplifier, stable at a differential gain of 1 | GBW 10 GHz TYP (9.5 MIN); $e_n$ 1.1 nV/√Hz and $i_n$ 8.8 pA/√Hz at 1 MHz; $C_{DIFF}$ 0.5 pF ($C_{CM}$ n.s.); $I_B$ −70 µA TYP; 52 mA; 2.7–5.25 V; 3 × 2 mm QFN-10 | fully differential amplifier, listed only as an alternative architecture (balanced or differential TIA, or post-amplifier); no TIA, photodiode or capacitive-source example in the datasheet | RECOMMENDED FOR NEW DESIGNS (related ADI pages); from 6.78 (price listings disagree) | 6409fb Rev B (05/17) |
 | OPA857 | TI integrated TIA, pseudo-differential output, internal 5 kΩ / 20 kΩ feedback | BW 125 MHz (5 kΩ) / 105 MHz (20 kΩ) TYP; 25 / 15 nA rms integrated noise (135 MHz, 1.5 pF); linear input 240 µA (5 kΩ) / 60 µA (20 kΩ), unipolar; OUT 0.6–1.9 V; 3.3 V, 20.5 mA; VQFN-16 3 × 3 mm | no DC or ambient-light cancellation, so a 0.1–10 mA DC photocurrent is out of range without an external DC-removal circuit; a 100 Ω load cuts bandwidth to 89 MHz (5 kΩ) and 50 Ω drive is not practical | ACTIVE; 2.59 (OPA857IRGTR) to 3.42 (OPA857IRGTT) | SBOS630D (Aug 2016) |
 | LMH32401 | TI integrated TIA, differential output, 2 kΩ / 20 kΩ, with ambient-light cancellation (ALC) | 450 MHz (2 kΩ) / 275 MHz (20 kΩ) at $C_{PD}$ = 1 pF; 250 / 49 nA rms; maximum DC input with ALC off 600 MIN / 705 TYP µA (2 kΩ); ALC range 2 mA MIN / 3 mA TYP (adds shot noise; 18 µs settling, 2 kΩ); output 0.75 Vpp (VOD = 0) to ≈1.5 Vpp; 3.3 V, 24 mA TYP; VQFN-16 3 × 3 mm | DC capacity 0.7 mA without ALC and 2–3 mA with it, against 10 mA needed; 8.7 pA/√Hz at 100 MHz (2 kΩ, 1 pF; Fig 6-11), 6.4 dB above the OPA855 design (Section 2.5) | ACTIVE; 5.26 (LMH32401IRGTR) to 6.31 (LMH32401IRGTT) | SBOS965D (Jan 2023) |
@@ -2821,15 +2935,15 @@ The tables behind the charts and the text of Chapters 1–9, grouped by the chap
 | OPA2846, LMH6626 | TI | duals of OPA846 and LMH6624 | as the single versions |
 | MAX4304, MAX4104 | ADI (Maxim) | 2.1 nV/√Hz; G ≥ 2 and G ≥ 1; −3 dB 730 and 880 MHz | Datasheet not read; GBW and swing unverified |
 | LT6200-5 | ADI (Linear) | 800 MHz, G ≥ 5; 0.95 nV/√Hz; rail-to-rail | The −10 version (Section 6.2) shows what this family's 7.3 pF input capacitance costs |
-| LT1226 | ADI (Linear) | 1 GHz, G ≥ 25; 2.6 nV/√Hz; ±12 V swing into 500 Ω | Eq. (20) needs $C_T$ ≥ 318.3 × 24²/(2 × 1000) = 92 pF at 2 kΩ: unusable here |
-| LT1222 | ADI (Linear) | 500 MHz, G ≥ 10 uncompensated; 3 nV/√Hz; ±12 V swing | Eq. (20) needs $C_T$ ≥ 26 pF at 2 kΩ, and the noise is high |
+| LT1226 | ADI (Linear) | 1 GHz, G ≥ 25; 2.6 nV/√Hz; ±12 V swing into 500 Ω | Eq. (16) needs $C_T$ ≥ 318.3 × 24²/(2 × 1000) = 92 pF at 2 kΩ: unusable here |
+| LT1222 | ADI (Linear) | 500 MHz, G ≥ 10 uncompensated; 3 nV/√Hz; ±12 V swing | Eq. (16) needs $C_T$ ≥ 26 pF at 2 kΩ, and the noise is high |
 | AD829 | ADI | 750 MHz uncompensated, external compensation pin; 1.7 nV/√Hz, 1.5 pA/√Hz; up to ±15 V | The only low-noise ±15 V option with GBW near 750 MHz. Its compensation would have to be designed for the TIA noise gain; not modelled |
-| LTC6268 (unity-gain) | ADI (Linear) | 500 MHz CMOS | Eq. (9) gives about 120 MHz at 2 kΩ |
+| LTC6268 (unity-gain) | ADI (Linear) | 500 MHz CMOS | Eq. (35) gives about 120 MHz at 2 kΩ |
 | ISL55190 | Renesas | 800 MHz (dual), 1.2 nV/√Hz | No product page found; probably discontinued |
 
-### A4. Tables of Chapter 4: TIA theory
+### A3. Tables of Chapter 3: TIA theory
 
-*Table A4.1. Peaking against bandwidth and phase margin. Amplifier: generic single-pole amplifier of the example in Section 4.3 (GBW = 1600 MHz, $R_F$ = 2 kΩ, $C_T$ = 2.5 pF), not a specific part. The ratios are nearly the same for any single-pole amplifier with $R_FC_T\omega_A \gg 1$.*
+*Table A3.1. Peaking against bandwidth and phase margin. Amplifier: generic single-pole amplifier of the example in Section 3.3 (GBW = 1600 MHz, $R_F$ = 2 kΩ, $C_T$ = 2.5 pF), not a specific part. The ratios are nearly the same for any single-pole amplifier with $R_FC_T\omega_A \gg 1$.*
 
 | Peaking | $C_F$ / Butterworth $C_F$ | $f_{-3\,\mathrm{dB}}$ / Butterworth $f_{-3\,\mathrm{dB}}$ | Phase margin |
 |---|---|---|---|
@@ -2839,7 +2953,7 @@ The tables behind the charts and the text of Chapters 1–9, grouped by the chap
 | 2 dB | 0.56 | 1.38 | 47.4° |
 | 3 dB | 0.47 | 1.46 | 41.8° |
 
-*Table A4.2. Datasheet text against the plotted open-loop curve. Amplifiers: OPA855, OPA858, OPA859.*
+*Table A3.2. Datasheet text against the plotted open-loop curve. Amplifiers: OPA855, OPA858, OPA859.*
 
 | Part | Text or table | Plotted curve |
 |---|---|---|
@@ -2847,7 +2961,7 @@ The tables behind the charts and the text of Chapters 1–9, grouped by the chap
 | OPA858 | 5.5 GHz and 55° | 8.8 GHz |
 | OPA859 | 63° as a buffer | about 75° |
 
-*Table A4.3. Reference noise levels at 25 °C. No amplifier: resistor Johnson noise and photocurrent shot noise only.*
+*Table A3.3. Reference noise levels at 25 °C. No amplifier: resistor Johnson noise and photocurrent shot noise only.*
 
 | Reference | Formula | Value |
 |---|---|---|
@@ -2857,7 +2971,7 @@ The tables behind the charts and the text of Chapters 1–9, grouped by the chap
 | Shot noise of $I_{\mathrm{DC}} = I_1 + I_2$ = 0.1 / 1 / 10 / 20 mA | $\sqrt{2qI_{\mathrm{DC}}}$ | 5.66 / 17.90 / 56.61 / 80.05 pA/√Hz |
 | Photocurrent at which shot noise equals the $R_F$ Johnson noise | $I_x = 2k_BT/(qR_F)$ | 25.7 µA (2 kΩ), 34.3 µA (1.5 kΩ) |
 
-*Table A4.4. Published current-noise curves that rise with frequency. Amplifiers: OPA858, OPA859, OPA818, LTC6268-10.*
+*Table A3.4. Published current-noise curves that rise with frequency. Amplifiers: OPA858, OPA859, OPA818, LTC6268-10.*
 
 | Part | Curve | Value |
 |---|---|---|
@@ -2865,7 +2979,7 @@ The tables behind the charts and the text of Chapters 1–9, grouped by the chap
 | OPA818 | Fig 6-20, labelled "Simulation" and "Common-mode noise" | 2.6 pA/√Hz at 100 MHz |
 | LTC6268-10 | G20 | 7.1 pA/√Hz at 100 MHz, 12 at 200 MHz |
 
-*Table A4.5. Model against datasheet closed-loop and TIA data. Amplifiers: OPA856, OPA855, OPA818, OPA846, OPA847, OPA955, OPA858, OPA859, LMH6629 (COMP HI); the last row covers TI's calculator curves for OPA859, OPA858, OPA855, OPA818 and OPA856.*
+*Table A3.5. Model against datasheet closed-loop and TIA data. Amplifiers: OPA856, OPA855, OPA818, OPA846, OPA847, OPA955, OPA858, OPA859, LMH6629 (COMP HI); the last row covers TI's calculator curves for OPA859, OPA858, OPA855, OPA818 and OPA856.*
 
 | Datasheet data | Conditions | Datasheet value | Model | Reading |
 |---|---|---|---|---|
@@ -2881,13 +2995,13 @@ The tables behind the charts and the text of Chapters 1–9, grouped by the chap
 | LMH6629, COMP high, at G = 10 | p5 table | 900 MHz (WSON-8), no peaking | 597 MHz, $\phi_A$ = 70.9° | model conservative for LMH6629 |
 | TI TIA-calculator curves (OPA859 p1 and Fig 9-2; OPA858 Figs 9-2/9-3; OPA855 Fig 9-2; OPA818 p1) | $C_{PD}$ = 1 pF, $R_F$ = 2–20 kΩ | e.g. OPA859, 2 kΩ: 199.4 MHz; OPA858, 10 kΩ: 220.6 MHz; OPA855, 6 kΩ: 343.5 MHz; OPA818, 20 kΩ: 79.5 MHz | $\sqrt{\mathrm{GBW}/(2\pi R_F C_{\mathrm{TOT}})}$ without $C_F$ and PCB reproduces all within 1 %: 198.4, 219.3, 343.4, 79.5 MHz | the calculator omits $C_F$, PCB capacitance and the minimum stable gain; OPA856's calculator curve is 9 % above the formula with the table GBW |
 
-*Table A4.6. Input-referred noise at 50 MHz against total node capacitance, Eq. (24) with typical values. Amplifier: OPA846, $R_F$ = 1.2 kΩ.*
+*Table A3.6. Input-referred noise at 50 MHz against total node capacitance, Eq. (20) with typical values. Amplifier: OPA846, $R_F$ = 1.2 kΩ.*
 
 | $C_{\mathrm{tot}}$ (pF) | 5.35 | 8 | 10 | 12 | 13.6 | 16 | 20 |
 |---|---|---|---|---|---|---|---|
 | Noise at 50 MHz (pA/√Hz) | 5.16 | 5.63 | 6.06 | 6.56 | 6.99 | 7.68 | 8.91 |
 
-*Table A4.7. Designs that reproduce the measured $\lvert Z_T(50\ \mathrm{MHz})\rvert$ = 1.45 kΩ (model, datasheet open-loop curve). Amplifier: OPA846, $R_F$ = 1.2 kΩ.*
+*Table A3.7. Designs that reproduce the measured $\lvert Z_T(50\ \mathrm{MHz})\rvert$ = 1.45 kΩ (model, datasheet open-loop curve). Amplifier: OPA846, $R_F$ = 1.2 kΩ.*
 
 | $C_T$ | $C_F$ | Phase margin | Peak | $f_{-3\,\mathrm{dB}}$ | Input-referred noise at 50 MHz |
 |---|---|---|---|---|---|
@@ -2896,6 +3010,111 @@ The tables behind the charts and the text of Chapters 1–9, grouped by the chap
 | 20 pF | 1.01 pF | 28° | +4.7 dB at 95 MHz | 162 MHz | 9.35 pA/√Hz |
 | 25 pF | 1.32 pF | 35° | +3.1 dB at 80 MHz | 139 MHz | 11.2 pA/√Hz |
 | 30 pF | 1.55 pF | 38° | +2.3 dB at 70 MHz | 122 MHz | 13.0 pA/√Hz |
+
+### A4. Tables of Chapter 4: Two design examples: OPA855 and OPA846 at 2 kΩ
+
+*Table A4.1. The two designs at $C_D$ = 1 pF in our analytical model (datasheet open-loop curve, central noise estimate) and in SPICE with the vendors' macromodels. The dynamic range is Eq. (27) in 150 MHz for a 100-MHz tone, with the amplitude of Eq. (26), 1.525 V for OPA855 and 0.995 V for OPA846, and the transimpedance at 100 MHz of the same column; the usable figure is Eq. (28); the last row uses the amplitude at which the OPA846 macromodel's THD reaches −40 dBc at 100 MHz, 0.66 V. Amplifiers: OPA855 ($C_F$ = 0.20 pF) and OPA846 ($C_F$ = 0.75 pF), $R_F$ = 2 kΩ.*
+
+| Quantity | OPA855, model | OPA855, SPICE | OPA846, model | OPA846, SPICE |
+|---|---|---|---|---|
+| Crossover $f_c$ (MHz) | 795 | 801 | 237 | 308 |
+| Phase margin (°) | 58.4 | 59.6 | 34.1 | 44.7 |
+| Gain margin (dB) | 8.0 | 6.8 | 5.8 | 11.6 |
+| $f_{-3\,\mathrm{dB}}$ (MHz) | 557 | 563 | 233 | 163 |
+| Peaking (dB) | 0.00 | 0.00 | 0.00 | 0.00 |
+| $\lvert Z_T\rvert$ at 100 MHz (kΩ) | 1.996 | 2.001 | 1.935 | 1.712 |
+| Step: overshoot (%) | 4.0 | 4.2 | 2.2 | 0.0 |
+| Step: rise, 10–90 % (ps) | 600 | 603 | 1475 | 2130 |
+| Step: settling to 1 % (ns) | 1.95 | 1.92 | 5.39 | 5.05 |
+| Noise at 10 MHz (pA/√Hz) | 3.91 | 3.86 | 4.08 | 4.08 |
+| Noise at 50 MHz (pA/√Hz) | 3.97 | 3.91 | 4.64 | 4.41 |
+| Noise at 100 MHz (pA/√Hz) | 4.17 | 4.10 | 6.07 | 5.34 |
+| Noise at 150 MHz (pA/√Hz) | 4.47 | 4.40 | 7.90 | 6.63 |
+| Noise at 200 MHz (pA/√Hz) | 4.87 | 4.79 | 9.91 | 8.15 |
+| Penalty over 10–150 MHz (dB) | 3.13 | 3.01 | 6.01 | 5.03 |
+| Band noise, 0–150 MHz (nA rms) | 50.2 | 49.5 | 69.0 | 61.9 |
+| Output noise, unfiltered (mV rms) | – | 0.540 | – | 0.274 |
+| Output noise to 150 MHz (mV rms) | – | 0.099 | – | 0.108 |
+| Dynamic range at 0 mA (dB) | 80.6 | 80.7 | 74.4 | 76.4 |
+| Dynamic range at 0.1 mA (dB) | 76.0 | 76.0 | 71.4 | 72.9 |
+| Dynamic range at 1 mA (dB) | 67.6 | 67.6 | 64.0 | 65.1 |
+| Dynamic range at 10 mA (dB) | 57.8 | 57.8 | 54.3 | 55.4 |
+| Dynamic range at 20 mA (dB) | 54.8 | 54.8 | 51.4 | 52.4 |
+| Usable dynamic range at 0.1 mA (dB) | 58.3 | 58.4 | 57.2 | 57.6 |
+| Dynamic range at 0 / 0.1 / 1 / 10 mA with the −40-dBc amplitude (dB) | – | – | – | 72.9 / 69.3 / 61.5 / 51.8 |
+
+*Table A4.2. The two designs against the photodiode capacitance with $C_F$ fixed at the design value: SPICE, with our analytical model in brackets. $C_T$ and $NG_\infty = 1 + C_T/C_F$ use the datasheets' input capacitances (OPA855 0.8 pF, OPA846 3.8 pF); the macromodels contain 0.80 and 3.07 pF. The noise is without photocurrent. Amplifiers: OPA855 ($C_F$ = 0.20 pF) and OPA846 ($C_F$ = 0.75 pF), $R_F$ = 2 kΩ.*
+
+| Part | $C_D$ (pF) | $C_T$ (pF) | $NG_\infty$ | $f_c$ (MHz) | Phase margin (°) | Gain margin (dB) | $f_{-3\,\mathrm{dB}}$ (MHz) | Peaking (dB) | Overshoot (%) | Noise at 100 MHz (pA/√Hz) | Penalty, 10–150 MHz (dB) |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| OPA855 | 0 | 1.15 | 6.75 | 1414 | 64.1 (57.1) | 2.0 | 518 (517) | 0.00 (0.00) | 0.7 (0.1) | 3.93 (3.99) | 2.71 (2.83) |
+| OPA855 | 0.25 | 1.40 | 8.00 | 1164 | 63.7 (59.1) | 3.5 | 539 (537) | 0.00 (0.00) | 0.7 (0.4) | 3.97 (4.03) | 2.77 (2.89) |
+| OPA855 | 0.5 | 1.65 | 9.25 | 1002 | 62.5 (59.5) | 4.7 | 554 (550) | 0.00 (0.00) | 1.5 (1.2) | 4.01 (4.07) | 2.84 (2.96) |
+| OPA855 | 0.75 | 1.90 | 10.50 | 888 | 61.1 (59.0) | 5.8 | 561 (556) | 0.00 (0.00) | 2.7 (2.5) | 4.05 (4.11) | 2.92 (3.04) |
+| OPA855 | 1 | 2.15 | 11.75 | 801 | 59.6 (58.4) | 6.8 | 563 (557) | 0.00 (0.00) | 4.2 (4.0) | 4.10 (4.17) | 3.01 (3.13) |
+| OPA855 | 1.25 | 2.40 | 13.00 | 733 | 58.1 (57.7) | 7.7 | 561 (553) | 0.07 (0.02) | 5.9 (5.5) | 4.16 (4.22) | 3.10 (3.23) |
+| OPA855 | 1.5 | 2.65 | 14.25 | 678 | 56.7 (56.9) | 8.5 | 556 (548) | 0.19 (0.10) | 7.5 (7.0) | 4.22 (4.28) | 3.20 (3.33) |
+| OPA855 | 2 | 3.15 | 16.75 | 595 | 54.0 (54.9) | 9.9 | 542 (532) | 0.52 (0.34) | 10.5 (9.8) | 4.35 (4.42) | 3.43 (3.56) |
+| OPA855 | 2.5 | 3.65 | 19.25 | 535 | 51.5 (53.0) | 11.1 | 525 (514) | 0.88 (0.62) | 13.3 (12.3) | 4.50 (4.57) | 3.68 (3.81) |
+| OPA855 | 3 | 4.15 | 21.75 | 488 | 49.3 (51.4) | 12.1 | 508 (497) | 1.24 (0.90) | 15.8 (14.6) | 4.67 (4.74) | 3.95 (4.08) |
+| OPA855 | 4 | 5.15 | 26.75 | 422 | 45.5 (48.5) | 13.9 | 476 (464) | 1.91 (1.44) | 20.2 (18.5) | 5.04 (5.12) | 4.52 (4.66) |
+| OPA855 | 5 | 6.15 | 31.75 | 376 | 42.5 (46.1) | 15.4 | 447 (436) | 2.52 (1.92) | 23.9 (21.7) | 5.45 (5.54) | 5.12 (5.27) |
+| OPA846 | 0 | 4.15 | 6.53 | 369 | 43.1 (30.7) | 10.5 | 147 (246) | 0.00 (0.00) | 0.0 (0.4) | 4.96 (5.53) | 4.46 (5.28) |
+| OPA846 | 0.25 | 4.40 | 6.87 | 351 | 43.6 (31.7) | 10.7 | 151 (245) | 0.00 (0.00) | 0.0 (0.5) | 5.05 (5.66) | 4.60 (5.46) |
+| OPA846 | 0.5 | 4.65 | 7.20 | 335 | 44.0 (32.6) | 11.0 | 156 (242) | 0.00 (0.00) | 0.0 (0.7) | 5.14 (5.79) | 4.74 (5.65) |
+| OPA846 | 0.75 | 4.90 | 7.53 | 321 | 44.4 (33.4) | 11.3 | 160 (237) | 0.00 (0.00) | 0.0 (1.2) | 5.24 (5.93) | 4.88 (5.83) |
+| OPA846 | 1 | 5.15 | 7.87 | 308 | 44.7 (34.1) | 11.6 | 163 (233) | 0.00 (0.00) | 0.0 (2.2) | 5.34 (6.07) | 5.03 (6.01) |
+| OPA846 | 1.25 | 5.40 | 8.20 | 296 | 44.9 (34.7) | 11.8 | 167 (228) | 0.00 (0.04) | 0.0 (3.5) | 5.45 (6.22) | 5.18 (6.20) |
+| OPA846 | 1.5 | 5.65 | 8.53 | 285 | 45.1 (35.3) | 12.1 | 170 (223) | 0.00 (0.10) | 0.0 (4.8) | 5.56 (6.36) | 5.33 (6.38) |
+| OPA846 | 2 | 6.15 | 9.20 | 265 | 45.3 (36.4) | 12.6 | 176 (214) | 0.00 (0.27) | 0.0 (7.3) | 5.79 (6.66) | 5.65 (6.75) |
+| OPA846 | 2.5 | 6.65 | 9.87 | 248 | 45.4 (36.6) | 13.1 | 179 (206) | 0.00 (0.47) | 0.7 (9.5) | 6.03 (6.97) | 5.97 (7.11) |
+| OPA846 | 3 | 7.15 | 10.53 | 234 | 45.4 (36.4) | 13.6 | 181 (199) | 0.00 (0.68) | 1.9 (11.5) | 6.28 (7.29) | 6.29 (7.46) |
+| OPA846 | 4 | 8.15 | 11.87 | 210 | 45.1 (35.9) | 14.5 | 181 (188) | 0.00 (1.11) | 4.6 (15.0) | 6.82 (7.94) | 6.94 (8.16) |
+| OPA846 | 5 | 9.15 | 13.20 | 191 | 44.5 (35.5) | 15.3 | 178 (179) | 0.12 (1.54) | 7.3 (18.0) | 7.39 (8.60) | 7.59 (8.82) |
+
+*Table A4.3. Total $C_F$ chosen anew at each photodiode capacitance: the widest bandwidth with a phase margin of at least 45°, a gain margin of at least 3 dB and at most 1 dB of peaking at that $C_D$, never below the 0.20-pF parasitic floor. Where no $C_F$ of the grid meets all three ("no"), the one with the smallest shortfall, $(45 - \phi_M)^+/45 + (3 - \mathrm{GM})^+/3 + (\mathrm{peaking} - 1)^+/1$, is given. SPICE scans 0.10–0.60 pF in 0.02-pF steps for OPA855 and 0.30–2.00 pF in 0.05-pF steps for OPA846; our analytical model is scanned on the same grid without the gain-margin criterion, which it does not give reliably (Section 5.3). Amplifiers: OPA855 and OPA846, $R_F$ = 2 kΩ.*
+
+| Part | $C_D$ (pF) | $C_F$, SPICE (pF) | Meets | Phase margin (°) | Gain margin (dB) | $f_{-3\,\mathrm{dB}}$ (MHz) | Peaking (dB) | Penalty (dB) | $C_F$, model (pF) | Meets | Phase margin, model (°) | $f_{-3\,\mathrm{dB}}$, model (MHz) |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| OPA855 | 0 | 0.20 | no | 64.1 | 2.0 | 518 | 0.00 | 2.71 | 0.20 | yes | 57.1 | 517 |
+| OPA855 | 0.25 | 0.20 | yes | 63.7 | 3.5 | 539 | 0.00 | 2.77 | 0.20 | yes | 59.1 | 537 |
+| OPA855 | 0.5 | 0.20 | yes | 62.5 | 4.7 | 554 | 0.00 | 2.84 | 0.20 | yes | 59.5 | 550 |
+| OPA855 | 0.75 | 0.20 | yes | 61.1 | 5.8 | 561 | 0.00 | 2.92 | 0.20 | yes | 59.0 | 556 |
+| OPA855 | 1 | 0.20 | yes | 59.6 | 6.8 | 563 | 0.00 | 3.01 | 0.20 | yes | 58.4 | 557 |
+| OPA855 | 1.25 | 0.20 | yes | 58.1 | 7.7 | 561 | 0.07 | 3.10 | 0.20 | yes | 57.7 | 553 |
+| OPA855 | 1.5 | 0.20 | yes | 56.7 | 8.5 | 556 | 0.19 | 3.20 | 0.20 | yes | 56.9 | 548 |
+| OPA855 | 2 | 0.20 | yes | 54.0 | 9.9 | 542 | 0.52 | 3.43 | 0.20 | yes | 54.9 | 532 |
+| OPA855 | 2.5 | 0.20 | yes | 51.5 | 11.1 | 525 | 0.88 | 3.68 | 0.20 | yes | 53.0 | 514 |
+| OPA855 | 3 | 0.22 | yes | 52.7 | 11.4 | 484 | 0.73 | 3.96 | 0.20 | yes | 51.4 | 497 |
+| OPA855 | 4 | 0.24 | yes | 52.1 | 12.5 | 439 | 0.84 | 4.54 | 0.22 | yes | 51.8 | 445 |
+| OPA855 | 5 | 0.26 | yes | 52.0 | 13.3 | 404 | 0.89 | 5.16 | 0.24 | yes | 52.4 | 405 |
+| OPA846 | 0 | 0.70 | no | 43.1 | 11.0 | 168 | 0.00 | 4.44 | 0.75 | no | 30.7 | 246 |
+| OPA846 | 0.25 | 0.75 | no | 43.6 | 10.7 | 151 | 0.00 | 4.60 | 0.80 | no | 31.8 | 196 |
+| OPA846 | 0.5 | 0.75 | no | 44.0 | 11.0 | 156 | 0.00 | 4.74 | 0.80 | no | 32.7 | 199 |
+| OPA846 | 0.75 | 0.80 | no | 44.4 | 10.8 | 141 | 0.00 | 4.91 | 0.85 | no | 33.7 | 177 |
+| OPA846 | 1 | 0.80 | no | 44.8 | 11.1 | 144 | 0.00 | 5.06 | 0.85 | no | 34.5 | 180 |
+| OPA846 | 1.25 | 0.80 | yes | 45.2 | 11.4 | 147 | 0.00 | 5.21 | 0.90 | no | 35.4 | 161 |
+| OPA846 | 1.5 | 0.75 | yes | 45.1 | 12.1 | 170 | 0.00 | 5.33 | 0.90 | no | 36.2 | 164 |
+| OPA846 | 2 | 0.75 | yes | 45.3 | 12.6 | 176 | 0.00 | 5.65 | 0.95 | no | 37.7 | 150 |
+| OPA846 | 2.5 | 0.75 | yes | 45.4 | 13.1 | 179 | 0.00 | 5.97 | 0.95 | no | 39.1 | 153 |
+| OPA846 | 3 | 0.75 | yes | 45.4 | 13.6 | 181 | 0.00 | 6.29 | 1.00 | no | 40.4 | 141 |
+| OPA846 | 4 | 0.75 | yes | 45.1 | 14.5 | 181 | 0.00 | 6.94 | 1.10 | no | 42.8 | 120 |
+| OPA846 | 5 | 0.80 | yes | 45.9 | 14.8 | 167 | 0.00 | 7.62 | 1.20 | no | 44.9 | 104 |
+
+*Table A4.4. Large-signal limits in the macromodels: the amplitude of Eq. (26) from the datasheet's swing and slew rate, and the output amplitudes at which the THD of harmonics 2–5 (Eq. (48)) reaches −60 and −40 dBc, with their fraction of Eq. (26) in brackets, and the second and third harmonics at the amplitude of Eq. (26). The amplitude is stepped by 0.1 from 0.5 to 1.3 times Eq. (26), and for OPA846 also at 0.05, 0.1, 0.15, 0.2, 0.3 and 0.4 times; where the THD does not cross a level within that range, the bound is given. 1-MΩ load, OPA855 on ±2.5 V, OPA846 on ±6 V. Amplifiers: OPA855 ($C_F$ = 0.20 pF) and OPA846 ($C_F$ = 0.75 pF), $R_F$ = 2 kΩ, $C_D$ = 1 pF.*
+
+| Part | Tone | Amplitude of Eq. (26) | Set by | SPICE: amplitude at THD = −60 dBc | at THD = −40 dBc | At the amplitude of Eq. (26): HD2, HD3 |
+|---|---|---|---|---|---|---|
+| OPA855 | 20 MHz | 1.525 V | swing | 1.42 V (0.93 ×) | 1.60 V (1.05 ×) | −61.4, −49.9 dBc |
+| OPA855 | 50 MHz | 1.525 V | swing | 1.37 V (0.90 ×) | 1.54 V (1.01 ×) | −58.4, −44.9 dBc |
+| OPA855 | 100 MHz | 1.525 V | swing | 1.34 V (0.88 ×) | 1.51 V (0.99 ×) | −55.6, −41.0 dBc |
+| OPA855 | 150 MHz | 1.525 V | swing | 1.34 V (0.88 ×) | 1.51 V (0.99 ×) | −53.8, −39.5 dBc |
+| OPA855 | 200 MHz | 1.525 V | swing | 1.34 V (0.88 ×) | 1.51 V (0.99 ×) | −52.6, −39.5 dBc |
+| OPA846 | 20 MHz | 4.300 V | swing | 4.16 V (0.97 ×) | above 5.59 V (1.3 ×) | −60.8, −65.7 dBc |
+| OPA846 | 50 MHz | 1.989 V | slew rate | 0.407 V (0.20 ×) | 2.41 V (1.21 ×) | −44.6, −49.2 dBc |
+| OPA846 | 100 MHz | 0.995 V | slew rate | 0.0775 V (0.08 ×) | 0.659 V (0.66 ×) | −36.2, −42.4 dBc |
+| OPA846 | 150 MHz | 0.663 V | slew rate | below 0.0332 V (0.05 ×) | 0.282 V (0.43 ×) | −32.4, −40.2 dBc |
+| OPA846 | 200 MHz | 0.497 V | slew rate | below 0.0249 V (0.05 ×) | 0.151 V (0.30 ×) | −30.0, −41.0 dBc |
 
 ### A5. Tables of Chapter 5: SPICE cross-check with the vendors' macromodels
 
@@ -2957,7 +3176,7 @@ The tables behind the charts and the text of Chapters 1–9, grouped by the chap
 | ADA4895-1 | 23.0 dB, −118° / 23.6 dB, −118° | 12.2 dB, −141° / 12.9 dB, −142° | −6.6 dB, −229° / 0.9 dB, −219° | −35.6 dB, −295° / not plotted | 0.0 dB, −6° | 0.0 dB, −18° |
 | OPA955 | 40.3 dB, −91° / 40.9 dB, −94° | 30.5 dB, −95° / 31.2 dB, −102° | 19.2 dB, −97° / 20.3 dB, −125° | 9.5 dB, −109° / 9.8 dB, −183° | +0.5 dB, −10° | −2.4 dB, −18° |
 
-*Table A5.4. Our equations with each macromodel's own quantities, against the full SPICE simulation. "Analytical method": Eqs. (13)–(14) with $A_+$ and a pure capacitance $C_T$ = $C_D$ + 0.35 pF + $C_{\mathrm{in}}$. "Two-port": Eq. (45). Noise: Eq. (23) with the fitted $e_n$, $i_n$ and capacitance, largest deviation from SPICE at 10–200 MHz. The last nine rows are our own designs for the further amplifiers of Section 6.5; a dash means that the loop phase does not reach −180° above crossover. Amplifiers: OPA855 (variant A), OPA818 (variant B), OPA856, LMH6629 (COMP HI), OPA858, OPA859, OPA846, OPA657, OPA847, LMH6624, THS4021, ADA4817-1, ADA4899-1, ADA4895-1, AD8099, OPA955.*
+*Table A5.4. Our equations with each macromodel's own quantities, against the full SPICE simulation. "Analytical method": Eqs. (9)–(10) with $A_+$ and a pure capacitance $C_T$ = $C_D$ + 0.35 pF + $C_{\mathrm{in}}$. "Two-port": Eq. (45). Noise: Eq. (19) with the fitted $e_n$, $i_n$ and capacitance, largest deviation from SPICE at 10–200 MHz. The last nine rows are our own designs for the further amplifiers of Section 6.5; a dash means that the loop phase does not reach −180° above crossover. Amplifiers: OPA855 (variant A), OPA818 (variant B), OPA856, LMH6629 (COMP HI), OPA858, OPA859, OPA846, OPA657, OPA847, LMH6624, THS4021, ADA4817-1, ADA4899-1, ADA4895-1, AD8099, OPA955.*
 
 | Design | $C_T$ of the model (pF) | Analytical method: PM, GM, $f_{-3\,\mathrm{dB}}$ | Two-port: PM, GM, $f_{-3\,\mathrm{dB}}$ | SPICE: PM, GM, $f_{-3\,\mathrm{dB}}$ | Noise against SPICE |
 |---|---|---|---|---|---|
@@ -2986,7 +3205,7 @@ The tables behind the charts and the text of Chapters 1–9, grouped by the chap
 
 *Table A5.5. The datasheets' closed-loop test circuits: what the datasheet states; the full SPICE circuit (closed-loop $f_{-3\,\mathrm{dB}}$ and peaking, and phase margin from Eq. (39)); the datasheet curve without and with the datasheet input capacitance; and Eq. (46) with the macromodel's own quantities. For the further amplifiers of Section 6.5 the circuits and statements were read from the datasheets' tables and curves; none of those datasheets states a phase margin, and "curve" marks a value read from a plot. AD8099's circuit carries the datasheet's external compensation, which the open-loop curves do not describe. Amplifiers: OPA855, OPA818, OPA858, OPA856, LMH6629 (COMP HI), OPA859, OPA846, OPA657, OPA847, LMH6624, THS4021, ADA4817-1, AD8099, ADA4899-1, ADA4895-1, OPA955 (one per row).*
 
-| Amplifier and circuit | Datasheet statement | SPICE: $f_{-3\,\mathrm{dB}}$, peak; PM at $f_c$ | Datasheet curve, no $C_{\mathrm{in}}$ (Table A4.5) | Datasheet curve with $C_{CM} + C_{DIFF}$ | Macromodel quantities, Eq. (46) |
+| Amplifier and circuit | Datasheet statement | SPICE: $f_{-3\,\mathrm{dB}}$, peak; PM at $f_c$ | Datasheet curve, no $C_{\mathrm{in}}$ (Table A3.5) | Datasheet curve with $C_{CM} + C_{DIFF}$ | Macromodel quantities, Eq. (46) |
 |---|---|---|---|---|---|
 | OPA855, non-inverting, 453 Ω / 75 Ω, $R_L$ = 200 Ω, ±2.5 V | 62° at noise gain 7 (p18) | 3446 MHz, 0.64 dB; 59.9° at 1138 MHz | 5371 MHz, 6.20 dB; 73.9° at 1245 MHz | 4183 MHz, 3.54 dB; 55.2° at 1152 MHz | 3606 MHz, 2.42 dB; 59.3° at 1151 MHz |
 | OPA818, non-inverting, 301 Ω / 50.5 Ω, $R_L$ = 100 Ω, ±5 V | about 50° at noise gain 7 (p16); 765 MHz and 1.4 dB peaking (p5) | 758 MHz, 1.37 dB; 54.0° at 370 MHz | 664 MHz, 1.22 dB; 51.7° at 352 MHz | 669 MHz, 4.26 dB; 39.9° at 344 MHz | 783 MHz, 1.86 dB; 54.0° at 370 MHz |
@@ -3078,7 +3297,7 @@ The tables behind the charts and the text of Chapters 1–9, grouped by the chap
 | | | PM ≥ 40°, $C_F$ ± 0.1 pF | 0.485 pF / none | 0.59 ± 0.1 pF | 40.3° | 299 MHz (245–347) | 0.09 dB (1.21 dB) | 9.14 / 16.98; 8.04 dB |
 | | | PM ≥ 40°, $C_F$ ± 0.05 pF | 0.485 pF / none | 0.54 ± 0.05 pF | 40.3° | 322 MHz (297–347) | 0.46 dB (1.21 dB) | 9.08 / 16.87; 7.99 dB |
 
-*Table A5.11. Input-referred noise density: SPICE / analytical central estimate (high estimate in brackets for the FET parts), in pA/√Hz, and the band penalty over 10–150 MHz relative to the Johnson noise of $R_F$ (Eq. (25)). The simulated spectrum is integrated over exactly 10–150 MHz, interpolated in $\log f$ at both band edges: the noise sweep has 50 points per decade, and its last point below 150 MHz is 144.5 MHz. No photocurrent, no servo resistor. The last nine rows are our own designs for the further amplifiers of Section 6.5. Amplifiers: OPA855 (variant A), OPA818 (variant B), OPA856, LMH6629 (COMP HI), OPA858, OPA859, OPA846, OPA657, OPA847, LMH6624, THS4021, ADA4817-1, ADA4899-1, ADA4895-1, AD8099, OPA955.*
+*Table A5.11. Input-referred noise density: SPICE / analytical central estimate (high estimate in brackets for the FET parts), in pA/√Hz, and the band penalty over 10–150 MHz relative to the Johnson noise of $R_F$ (Eq. (21)). The simulated spectrum is integrated over exactly 10–150 MHz, interpolated in $\log f$ at both band edges: the noise sweep has 50 points per decade, and its last point below 150 MHz is 144.5 MHz. No photocurrent, no servo resistor. The last nine rows are our own designs for the further amplifiers of Section 6.5. Amplifiers: OPA855 (variant A), OPA818 (variant B), OPA856, LMH6629 (COMP HI), OPA858, OPA859, OPA846, OPA657, OPA847, LMH6624, THS4021, ADA4817-1, ADA4899-1, ADA4895-1, AD8099, OPA955.*
 
 | Design | 50 MHz | 100 MHz | 200 MHz | Penalty: SPICE / analytical central (high) |
 |---|---|---|---|---|
@@ -3120,7 +3339,7 @@ The tables behind the charts and the text of Chapters 1–9, grouped by the chap
 | OPA818 (B), 1 pF, 2 kΩ | 150 MHz | 1.49 V | 1.50 V (1.01 ×) | 1.56 V (1.05 ×) | −69.0, −69.7 dBc |
 | OPA818 (B), 1 pF, 2 kΩ | 200 MHz | 1.11 V | 1.15 V (1.03 ×) | 1.19 V (1.07 ×) | −92.1, −93.7 dBc |
 
-*Table A5.13. The OPA846 bench board ($R_F$ = 1.2 kΩ, total $C_F$ = 0.30 pF) against total node capacitance: SPICE and our analytical model (datasheet curve, Eq. (23) with typical values). Measured: $\lvert Z_T\rvert$ = 1.45 kΩ and about 7 pA/√Hz at 50 MHz. Amplifier: OPA846.*
+*Table A5.13. The OPA846 bench board ($R_F$ = 1.2 kΩ, total $C_F$ = 0.30 pF) against total node capacitance: SPICE and our analytical model (datasheet curve, Eq. (19) with typical values). Measured: $\lvert Z_T\rvert$ = 1.45 kΩ and about 7 pA/√Hz at 50 MHz. Amplifier: OPA846.*
 
 | Total node capacitance $C_T$ | SPICE: PM, GM | SPICE: $\lvert Z_T\rvert$ at 50 MHz; peak | SPICE noise at 10 / 50 MHz (pA/√Hz) | Analytical model: PM; $\lvert Z_T\rvert$ at 50 MHz; peak | Analytical noise at 10 / 50 MHz (pA/√Hz) |
 |---|---|---|---|---|---|
@@ -3470,7 +3689,7 @@ The model sees these designs as stable only because the curves stop at about 1 G
 | OPA855 | 1.5 | 0.15 | 44 | 1.7 dB at 493 MHz | 876 | yes | 16 | 3.9 | 0–10.7 dB, up to 729 MHz | 4.49 | 356 |
 | OPA855 | 1.5 | 0.20 | 52 | 0.2 dB at 319 MHz | 746 | flagged* | 29 | 3.3 | 0–5.5 dB, up to 660 MHz | 4.50 | 321 |
 
-\* OPA855: every flagged combination is a second loop-gain crossing at the plotted 4–7 GHz open-loop bump. It occurs at the upper $C_F$ corner, where $NG_\infty = 1 + C_T/C_F$ falls to 6.6–7.7, around the minimum stable gain of 7, while the margin at the main crossover stays at 55–63°. Table A4.5 shows that the plotted bump overstates the real one, but the vendor's macromodel loses gain margin at the same corners (Section 5.5): by Eq. (47) it has only $20\log_{10}(6.6/5.3)$ = 1.9 dB to $20\log_{10}(7.7/5.3)$ = 3.2 dB there. The flags therefore mark the upper edge of the $C_F$ window at gigahertz frequencies, not a peaking limit.
+\* OPA855: every flagged combination is a second loop-gain crossing at the plotted 4–7 GHz open-loop bump. It occurs at the upper $C_F$ corner, where $NG_\infty = 1 + C_T/C_F$ falls to 6.6–7.7, around the minimum stable gain of 7, while the margin at the main crossover stays at 55–63°. Table A3.5 shows that the plotted bump overstates the real one, but the vendor's macromodel loses gain margin at the same corners (Section 5.5): by Eq. (47) it has only $20\log_{10}(6.6/5.3)$ = 1.9 dB to $20\log_{10}(7.7/5.3)$ = 3.2 dB there. The flags therefore mark the upper edge of the $C_F$ window at gigahertz frequencies, not a peaking limit.
 
 *Table A6.14. The bench board. Amplifier: OPA846, $R_F$ = 1.2 kΩ, $C_T$ = 14 pF (± 1 pF in the combinations), total $C_F$ from 0.3 pF (as built) upward. Noise is input-referred at 50 MHz.*
 
@@ -3674,7 +3893,7 @@ The model sees these designs as stable only because the curves stop at about 1 G
 | OPA846 | 13.9 dB |
 | OPA856 | 8.9 dB |
 
-*Table A6.28. Largest undistorted output amplitude against tone frequency (Eq. (30), light load, flat design at 2 kΩ, 1-pF baseline), and the shot-limited dynamic range in 150 MHz at $I_1 + I_2$ = 20 mA (Eq. (33)), at 2 kΩ / 1.5 kΩ. Amplifiers: OPA855, OPA955, LMH6629 (COMP HI), OPA856, OPA843, OPA846, OPA818 (one per row; OPA855 and OPA955 share a row).*
+*Table A6.28. Largest undistorted output amplitude against tone frequency (Eq. (26), light load, flat design at 2 kΩ, 1-pF baseline), and the shot-limited dynamic range in 150 MHz at $I_1 + I_2$ = 20 mA (Eq. (29)), at 2 kΩ / 1.5 kΩ. Amplifiers: OPA855, OPA955, LMH6629 (COMP HI), OPA856, OPA843, OPA846, OPA818 (one per row; OPA855 and OPA955 share a row).*
 
 | Part | 20 MHz | 50 MHz | 100 MHz | 150 MHz | 200 MHz |
 |---|---|---|---|---|---|
@@ -3685,7 +3904,7 @@ The model sees these designs as stable only because the curves stop at about 1 G
 | OPA846 (±6 V) | 4.30 V, swing; 63.8 / 66.3 dB | 1.99 V, slew; 57.1 / 59.6 dB | 0.99 V, slew; 51.1 / 53.6 dB | 0.66 V, slew; 47.5 / 50.0 dB | 0.50 V, slew; 45.0 / 47.5 dB |
 | OPA818 (±6.5 V) | 5.50 V, swing; 65.9 / 68.4 dB | 4.46 V, slew; 64.1 / 66.6 dB | 2.23 V, slew; 58.1 / 60.6 dB | 1.49 V, slew; 54.5 / 57.0 dB | 1.11 V, slew; 52.0 / 54.5 dB |
 
-*Table A6.29. Dynamic range (Eq. (31)) in 150 MHz for a 100-MHz tone, $R_F$ = 2 kΩ, flat design, with the imbalance servoed to zero (or, single-ended, the DC removed); $I_{\mathrm{DC}} = I_1 + I_2$. The last column is the same into a back-terminated 50-Ω load (100 Ω). Amplifiers: the ten of Table A6.25 (one per row).*
+*Table A6.29. Dynamic range (Eq. (27)) in 150 MHz for a 100-MHz tone, $R_F$ = 2 kΩ, flat design, with the imbalance servoed to zero (or, single-ended, the DC removed); $I_{\mathrm{DC}} = I_1 + I_2$. The last column is the same into a back-terminated 50-Ω load (100 Ω). Amplifiers: the ten of Table A6.25 (one per row).*
 
 | Part | Supply | DR at $I_{\mathrm{DC}}$ = 0 / 0.1 / 1 / 10 mA (dB) | Same into 100 Ω |
 |---|---|---|---|
@@ -3728,7 +3947,7 @@ The model sees these designs as stable only because the curves stop at about 1 G
 | OPA818 | at 100 MHz, G = 7: 1 Vpp −49 / −66 dBc (100 Ω), −54 / −79 dBc (1 kΩ); 2 Vpp −43 / −54 dBc (100 Ω), −50 / −67 dBc (1 kΩ); IMD3 −48.5 dBc at 100 MHz (2 Vpp per tone) | 15.1 / 11.5 dB | 25 ns | p5 EC, Figs 6-13 to 6-16 |
 | OPA846 | plotted only to 20 MHz: −66 / −70 dBc at 20 MHz, 2 Vpp, 200 Ω, G = +10 (curve); −76 / −109 dBc TYP at 5 MHz, 100 Ω | 9.0 / 3.8 dB (G = 10) | about 19 ns from the negative limit (curve) | PDF p3, p5, p7 |
 
-*Table A6.32. Every amplifier's widest-band robust design in SPICE at 1 pF and 2 kΩ: the window of total $C_F$ that meets the criteria at $C_D$ = 0.8–1.2 pF, with the criterion that sets each edge; the design and its worst case over its nine corners; bandwidth at the nominal $C_D$ (range over the corners); noise at 100 MHz and the band penalty over 10–150 MHz (Eq. (25)); and the largest worst-case phase margin over all $C_F$. A dash for the gain margin: the loop phase does not reach −180°. Ordered by robust design, then bandwidth. Amplifiers: all eighteen of Table B.1, one per row.*
+*Table A6.32. Every amplifier's widest-band robust design in SPICE at 1 pF and 2 kΩ: the window of total $C_F$ that meets the criteria at $C_D$ = 0.8–1.2 pF, with the criterion that sets each edge; the design and its worst case over its nine corners; bandwidth at the nominal $C_D$ (range over the corners); noise at 100 MHz and the band penalty over 10–150 MHz (Eq. (21)); and the largest worst-case phase margin over all $C_F$. A dash for the gain margin: the loop phase does not reach −180°. Ordered by robust design, then bandwidth. Amplifiers: all eighteen of Table B.1, one per row.*
 
 | Amplifier | Window meeting all criteria (edges set by) | Design: total $C_F$ | Worst PM / GM / peaking over its corners | $f_{-3\,\mathrm{dB}}$ nominal (range) | Noise at 100 MHz; penalty 10–150 MHz | Largest worst-case PM (at $C_F$) |
 |---|---|---|---|---|---|---|
@@ -3751,7 +3970,7 @@ The model sees these designs as stable only because the curves stop at about 1 G
 | OPA657 | none | 1.15 pF (criteria not met) | 36.6° / 11.0 dB / 0.00 dB | 108 MHz (106–109) | 23.25 pA/√Hz; 17.25 dB | 36.6° (1.15 pF) |
 | ADA4895-1 | none | 2.05 pF (criteria not met) | 39.1° / 11.3 dB / 0.00 dB | 58 MHz (58–59) | 10.57 pA/√Hz; 10.47 dB | 39.1° (2.05 pF) |
 
-*Table A6.33. Dynamic range in 150 MHz (Eq. (50)) of the five leading amplifiers at their best designs in SPICE at 1 pF and 2 kΩ (Table A6.32), with the imbalance servoed to zero. The ceiling at 100 MHz: the output amplitude $V_{\mathrm{pk}}$ of Eq. (30) and the limit that sets it, $\lvert Z_T\rvert$ at 100 MHz, and $I_{\max}$ of Eq. (49). The dark band noise is $i_{n,B}$ of Eq. (49) at $I_{\mathrm{DC}}$ = 0. Pairs are SPICE / analytical model at the same $C_F$. Amplifiers: OPA955, OPA855, OPA858, LMH6629 (COMP HI), OPA818 (one per row).*
+*Table A6.33. Dynamic range in 150 MHz (Eq. (50)) of the five leading amplifiers at their best designs in SPICE at 1 pF and 2 kΩ (Table A6.32), with the imbalance servoed to zero. The ceiling at 100 MHz: the output amplitude $V_{\mathrm{pk}}$ of Eq. (26) and the limit that sets it, $\lvert Z_T\rvert$ at 100 MHz, and $I_{\max}$ of Eq. (49). The dark band noise is $i_{n,B}$ of Eq. (49) at $I_{\mathrm{DC}}$ = 0. Pairs are SPICE / analytical model at the same $C_F$. Amplifiers: OPA955, OPA855, OPA858, LMH6629 (COMP HI), OPA818 (one per row).*
 
 | Part | Design: total $C_F$, $f_{-3\,\mathrm{dB}}$ | $V_{\mathrm{pk}}$ at 100 MHz (limit) | $\lvert Z_T(100\ \mathrm{MHz})\rvert$ | $I_{\max}$ at 100 MHz, rms | Dark band noise (nA rms) | DR at $I_1+I_2$ = 0 / 0.1 / 1 / 10 mA, SPICE (dB) | The same, analytical model (dB) |
 |---|---|---|---|---|---|---|---|
@@ -3789,7 +4008,7 @@ The model sees these designs as stable only because the curves stop at about 1 G
 | pHEMT composite (CE3512K2) | 36.5 | 0.589; 0.83 | −23.6 | 17.7 / 11.3 / 4.1 / 0.6 / 0.3 | −5.9 / −12.3 / −19.5 / −23.0 / −23.3 |
 | high-voltage composite (OPA859 + THS3491, $G_2$ = 5.5) | 136.5 | 3.182; 4.50 | −9.0 | 6.2 / 5.5 / 2.8 / 0.5 / 0.3 | −2.7 / −3.5 / −6.2 / −8.5 / −8.7 |
 
-*Table A6.36. The leading designs against the 50-Ω benchmark: usable dynamic range in 150 MHz (Eq. (32)) and the photocurrent above which the benchmark's usable dynamic range is the larger, for each compression level ("none" means not up to 100 mA). Front ends: those of Table A6.35, and in the last three rows the benchmark itself.*
+*Table A6.36. The leading designs against the 50-Ω benchmark: usable dynamic range in 150 MHz (Eq. (28)) and the photocurrent above which the benchmark's usable dynamic range is the larger, for each compression level ("none" means not up to 100 mA). Front ends: those of Table A6.35, and in the last three rows the benchmark itself.*
 
 | Design | Usable dynamic range at $I_1 + I_2$ = 0.1 / 1 / 10 / 20 mA (dB) | Benchmark ahead above, for $P_{\max}$ = −20 / −10 / 0 dBm (mA) |
 |---|---|---|
@@ -3816,6 +4035,36 @@ The model sees these designs as stable only because the curves stop at about 1 G
 | THS4304 | 8.1 / 17.3 | 25 / 52 | 17.8 / 53.5 | 15.9 / 9.5 / 2.9 / 0.4 | 25.4 / 18.6 / 9.9 / 2.8 | Fig 18 (p10) |
 | OPA856 | 2.8 / 21 | 6.84† / 61.6† | 21 / 61.7† | 17.4 / 10.8 / 3.7 / 0.6 | 26.7 / 19.8 / 11.0 / 3.4 | Fig 7-5 (p7) |
 | OPA855 | 2.85 / 35.2 | 7† / 111† | 35.2 / 111† | 21.8 / 15.0 / 6.8 / 1.4 | 31.8 / 24.9 / 15.9 / 6.9 | Fig 6-11 (p9) |
+
+*Table A6.38. Larger feedback resistors with 0.2 pF of feedback parasitic (the nominal value): the robust design of each amplifier carried forward (the widest bandwidth with a phase margin of at least 45° and at most 1 dB of peaking, as in Table A9.2, but with no capacitance added at the input) on the 1-pF node with 0.35 pF of board capacitance. Each cell gives the −3 dB bandwidth and the phase margin; the band-average input-referred noise over 10 MHz to the lower of 150 MHz and the bandwidth, against the Johnson noise of $R_F$ (central FET model, Section 3.7); and the DC photocurrent of the pair whose shot noise equals that noise. Each open-loop curve as plotted; Section 6.10 gives OPA858 with its calibrated curve (Table A6.7). Amplifiers: the ten carried forward. `medium_gain.py`.*
+
+| Part | 2 kΩ | 3 kΩ | 5 kΩ | 10 kΩ |
+|---|---|---|---|---|
+| OPA855 | 539 MHz, 59°; 3.1 dB; 53 µA | 334 MHz, 66°; 4.1 dB; 44 µA | 182 MHz, 73°; 5.5 dB; 37 µA | 84 MHz, 78°; 7.4 dB; 28 µA |
+| OPA955 | needs added input capacitance | needs added input capacitance | 191 MHz, 50°; 1.9 dB; 16 µA | 85 MHz, 55°; 1.7 dB; 8 µA |
+| LMH6629 (COMP HI) | 276 MHz, 45°; 4.6 dB; 74 µA | 223 MHz, 47°; 5.7 dB; 64 µA | 169 MHz, 49°; 7.4 dB; 57 µA | 113 MHz, 53°; 9.0 dB; 41 µA |
+| OPA856 | 231 MHz, 47°; 3.2 dB; 54 µA | 192 MHz, 48°; 4.1 dB; 44 µA | 149 MHz, 49°; 5.5 dB; 37 µA | 103 MHz, 52°; 7.4 dB; 28 µA |
+| OPA858 | 539 MHz, 59°; 4.0 dB; 64 µA | 331 MHz, 66°; 4.9 dB; 53 µA | 180 MHz, 72°; 6.4 dB; 45 µA | 83 MHz, 77°; 5.1 dB; 16 µA |
+| OPA859 | 211 MHz, 53°; 6.0 dB; 102 µA | 174 MHz, 53°; 7.0 dB; 86 µA | 134 MHz, 55°; 7.8 dB; 61 µA | 90 MHz, 60°; 7.3 dB; 28 µA |
+| THS4304 | 191 MHz, 56°; 6.1 dB; 105 µA | 157 MHz, 55°; 7.3 dB; 91 µA | 122 MHz, 56°; 7.8 dB; 62 µA | 86 MHz, 56°; 8.5 dB; 36 µA |
+| OPA818 | needs added input capacitance | needs added input capacitance | 146 MHz, 45°; 9.0 dB; 82 µA | 129 MHz, 47°; 10.5 dB; 57 µA |
+| OPA846 | needs added input capacitance | needs added input capacitance | 116 MHz, 45°; 7.9 dB; 63 µA | 91 MHz, 46°; 9.5 dB; 46 µA |
+| OPA843 | 150 MHz, 45°; 7.0 dB; 128 µA | 127 MHz, 45°; 7.3 dB; 92 µA | 97 MHz, 47°; 7.9 dB; 63 µA | 69 MHz, 48°; 9.3 dB; 43 µA |
+
+*Table A6.39. Larger feedback resistors with 0.1 pF of feedback parasitic (an optimistic layout): the robust design of each amplifier carried forward (the widest bandwidth with a phase margin of at least 45° and at most 1 dB of peaking, as in Table A9.2, but with no capacitance added at the input) on the 1-pF node with 0.35 pF of board capacitance. Each cell gives the −3 dB bandwidth and the phase margin; the band-average input-referred noise over 10 MHz to the lower of 150 MHz and the bandwidth, against the Johnson noise of $R_F$ (central FET model, Section 3.7); and the DC photocurrent of the pair whose shot noise equals that noise. Each open-loop curve as plotted; Section 6.10 gives OPA858 with its calibrated curve (Table A6.7). Amplifiers: the ten carried forward. `medium_gain.py`.*
+
+| Part | 2 kΩ | 3 kΩ | 5 kΩ | 10 kΩ |
+|---|---|---|---|---|
+| OPA855 | 706 MHz, 49°; 3.1 dB; 53 µA | 571 MHz, 50°; 4.0 dB; 44 µA | 402 MHz, 57°; 5.5 dB; 36 µA | 200 MHz, 70°; 7.8 dB; 31 µA |
+| OPA955 | needs added input capacitance | needs added input capacitance | 447 MHz, 46°; 1.8 dB; 16 µA | 232 MHz, 55°; 3.0 dB; 10 µA |
+| LMH6629 (COMP HI) | 276 MHz, 45°; 4.6 dB; 74 µA | 223 MHz, 47°; 5.7 dB; 64 µA | 169 MHz, 49°; 7.4 dB; 57 µA | 120 MHz, 49°; 9.1 dB; 42 µA |
+| OPA856 | 231 MHz, 47°; 3.2 dB; 54 µA | 192 MHz, 48°; 4.1 dB; 44 µA | 149 MHz, 49°; 5.5 dB; 37 µA | 105 MHz, 51°; 7.4 dB; 28 µA |
+| OPA858 | 737 MHz, 48°; 3.8 dB; 62 µA | 592 MHz, 50°; 4.7 dB; 50 µA | 408 MHz, 58°; 6.1 dB; 42 µA | 200 MHz, 71°; 8.5 dB; 36 µA |
+| OPA859 | 211 MHz, 53°; 6.0 dB; 102 µA | 174 MHz, 53°; 7.0 dB; 86 µA | 134 MHz, 55°; 7.8 dB; 61 µA | 96 MHz, 56°; 7.7 dB; 30 µA |
+| THS4304 | 191 MHz, 56°; 6.1 dB; 105 µA | 157 MHz, 55°; 7.3 dB; 91 µA | 122 MHz, 56°; 7.8 dB; 62 µA | 86 MHz, 56°; 8.5 dB; 36 µA |
+| OPA818 | needs added input capacitance | needs added input capacitance | 146 MHz, 45°; 9.0 dB; 82 µA | 136 MHz, 45°; 10.9 dB; 63 µA |
+| OPA846 | needs added input capacitance | needs added input capacitance | 116 MHz, 45°; 7.9 dB; 63 µA | 91 MHz, 46°; 9.5 dB; 46 µA |
+| OPA843 | 150 MHz, 45°; 7.0 dB; 128 µA | 127 MHz, 45°; 7.3 dB; 92 µA | 97 MHz, 47°; 7.9 dB; 63 µA | 69 MHz, 48°; 9.3 dB; 43 µA |
 
 ### A7. Tables of Chapter 7: Composite front ends
 
@@ -4023,7 +4272,7 @@ The model sees these designs as stable only because the curves stop at about 1 G
 
 | Item | Choice | Reason |
 |---|---|---|
-| Photodiodes | Both directly at the summing node, within 1–2 mm; no cable, no cascode, no bootstrap | At 0.5–1 pF neither technique pays (Sections 8.6 and 8.7). A cable adds about 1 pF/cm (Section 4.10); Hobbs also mounts the photodiodes on the board next to the transistors, never on cables [A22, p. 919] |
+| Photodiodes | Both directly at the summing node, within 1–2 mm; no cable, no cascode, no bootstrap | At 0.5–1 pF neither technique pays (Sections 8.6 and 8.7). A cable adds about 1 pF/cm (Section 3.10); Hobbs also mounts the photodiodes on the board next to the transistors, never on cables [A22, p. 919] |
 | $R_F$ | 2 kΩ for the lowest dark noise; 1.5 kΩ for more dynamic range | 1.5 kΩ gains 1.8–2.5 dB of dynamic range at every current for both amplifiers (Tables A6.29 and A6.30), for 0.5–0.7 dB more dark noise and a 1.8–2.5 dB quieter instrument (Section 9.6). For variant B it also costs about 6° of phase margin |
 | Post-filter | Second-order low-pass at 200–250 MHz | Sets the noise bandwidth; keeps the $e_n\omega C$ noise and the shot noise beyond the band out of the digitizer (Section 6.3.3) |
 | Imbalance, first choice | Trim of the optical split, by a slow integrator on the TIA's DC output | No electrical noise or capacitance; nulls DC and RIN together (Section 8.8 (b)) |
@@ -4052,7 +4301,7 @@ The model sees these designs as stable only because the curves stop at about 1 G
 | Datasheet distortion near 100 MHz, G = 7 (Table A6.31) | −73 / −89 dBc HD2 / HD3 at 1 Vpp | −54 / −79 dBc at 1 Vpp into 1 kΩ; −49 / −66 dBc into 100 Ω |
 | Package; price (1ku) | WSON-8 2×2 mm; USD 3.05 | WSON-8 3×3 mm or SOT-23-5; USD 7.08 |
 
-*Table A8.12. Expected noise and dynamic range of the two variants, with the 24-kΩ servo resistor included. Noise is input-referred at 100 / 200 MHz (pA/√Hz), central estimate; the dark column gives OPA818's high estimate (Section 4.7) in brackets. The penalty is over 10–150 MHz relative to the Johnson noise of $R_F$, central (high). The dynamic range is in 150 MHz for a 100-MHz tone (Eq. (31), light load, imbalance at zero). Per-diode currents of 0.1, 1 and 10 mA correspond to $I_1 + I_2$ = 0.2, 2 and 20 mA. Amplifiers: OPA855 (variant A) and OPA818 (variant B).*
+*Table A8.12. Expected noise and dynamic range of the two variants, with the 24-kΩ servo resistor included. Noise is input-referred at 100 / 200 MHz (pA/√Hz), central estimate; the dark column gives OPA818's high estimate (Section 3.7) in brackets. The penalty is over 10–150 MHz relative to the Johnson noise of $R_F$, central (high). The dynamic range is in 150 MHz for a 100-MHz tone (Eq. (27), light load, imbalance at zero). Per-diode currents of 0.1, 1 and 10 mA correspond to $I_1 + I_2$ = 0.2, 2 and 20 mA. Amplifiers: OPA855 (variant A) and OPA818 (variant B).*
 
 | Variant and configuration | $f_{-3\,\mathrm{dB}}$, phase margin | Dark | 0.1 mA per diode | 1 mA per diode | 10 mA per diode | Penalty | Dynamic range, dark / 0.1 / 1 / 10 mA per diode |
 |---|---|---|---|---|---|---|---|
@@ -4126,7 +4375,7 @@ The model sees these designs as stable only because the curves stop at about 1 G
 | DR at $I_1 + I_2$ = 0.1 / 1 / 10 mA | 71.4 / 63.9 / 54.3 dB | 78.0 / 70.7 / 61.1 dB | – |
 | HD near 100 MHz | specified only to 20 MHz | −49 / −66 dBc at 1 Vpp, 100 Ω | specified only to 20 MHz |
 | Overdrive recovery | ≈ 19 ns | 25 ns | n.s. |
-| Bench check | 1.2 kΩ prototype: 1.45 kΩ and about 7 pA/√Hz at 50 MHz, both matching the model for about 14 pF at the input (Section 4.10) | – | – |
+| Bench check | 1.2 kΩ prototype: 1.45 kΩ and about 7 pA/√Hz at 50 MHz, both matching the model for about 14 pF at the input (Section 3.10) | – | – |
 | Package; price (1ku) | SOIC-8, SOT-23-5; USD 2.95 | WSON-8 3×3, SOT-23-5; USD 7.08 | SOIC-8, SOT-23-6; USD 6.35 (two orderables last-time-buy) |
 | Verdict | not suitable | best of the three; use in a second stage or verify a 33° TIA | not usable |
 
@@ -4237,7 +4486,7 @@ wrdata noise.txt inoise_spectrum onoise_spectrum
 ```
 
 `noise v(out) src` computes the output noise density at `v(out)` and the same noise divided by the small-signal gain from the source `src` [S1, §11.3.4, pp. 326–327]. With the photocurrent source as `src`:
-- `inoise_spectrum` is the noise referred to the photocurrent, in A/√Hz. That is exactly the quantity of Eq. (23), with every noise source of the macromodel and of the resistors included.
+- `inoise_spectrum` is the noise referred to the photocurrent, in A/√Hz. That is exactly the quantity of Eq. (19), with every noise source of the macromodel and of the resistors included.
 - `setplot noise1` selects the plot that holds the spectral densities; `noise2` holds the integrated values.
 - ngspice's other matrix solver, KLU, cannot run a noise analysis [S1, p. 327]; these runs used the sparse solver, as the log shows.
 
@@ -4386,9 +4635,20 @@ The archived `ngspice_shared.py` is this driver made robust:
    python make_spice_figures.py
    ```
    The first takes about ten minutes, two of them for the scans of variants A and B and four for the scan of all eighteen parts (`pscan`). `--parts OPA955 OPA817` runs the per-part checks for chosen parts only and merges their results into the existing files. `dr_comparison.py` (Section 6.6) and `make_spice_figures.py` read saved data only and take seconds. The checks can also be run one at a time, in the order of the script's help text.
+
+   The two design examples of Chapter 4 have a driver of their own:
+   ```
+   python case_studies.py run
+   python case_studies.py tables
+   python case_studies.py notetables
+   python make_case_figures.py
+   python make_schematics.py ../figures fig32_case_opa855 fig34_case_opa846
+   ```
+   `case_studies.py run` takes about four minutes, half of it for the large-signal runs; `--parts` and `--steps nominal cd cf tone` run parts of it and keep the rest of `spice/results/case_studies.json`. `tables` writes every result, with the comparisons against the 50-Ω benchmark, to `data/results/case_studies_tables.md`, and `notetables` writes Tables A4.1–A4.4 as printed here.
 4. **Find the results**:
    - every deck and its ngspice log under `spice/runs/<check>/<case>/`;
    - the translated model copies under `spice/runs/_models/`;
+   - the decks of Chapter 4 under `spice/runs/case_<PART>/`, and its results in `spice/results/case_studies.json`, with the curves in `case_studies_curves.json`;
    - the results under `spice/results/<check>.json`;
    - the tables of Chapter 5 in `spice/results/tables.md`.
 
@@ -4403,18 +4663,18 @@ Every item below would change a number in this note if resolved. None changes th
 1. **OPA955 is Advance Information.**
    - All of its values are preliminary, and its only orderable is pre-production.
    - Its rising current-noise curve may already contain the $e_n\omega C_{\mathrm{in}}$ term; the excess matches $e_n\cdot2\pi f\cdot1.9$ pF.
-   - Its open-loop curve exaggerates the 2–7 GHz region (Table A4.5).
+   - Its open-loop curve exaggerates the 2–7 GHz region (Table A3.5).
 2. **OPA858's open-loop gain.** The plotted Fig 6-10 implies 8.8 GHz; the table and the simulated Figs 8-5 and 8-6 give 5.5 GHz with 55°. Its stability results span 58° (plotted) to 40° (calibrated) for the flat 2-kΩ design.
    - The vendor's macromodel sides with the table and reproduces its closed-loop values at a gain of 7 (Section 5.4).
    - In that model the 2-kΩ design at 0.25 pF has 49° nominal and 33° at the low-$C_F$ corner, between the plotted and calibrated results.
    - The rows of this note that use the plotted curve are optimistic.
-3. **The FET current-noise curves are not explained.** None of the OPA818, OPA858, OPA859 and LTC6268-10 datasheets says what its curve represents. OPA818's curve is labelled simulated. The tables give a range (Section 4.7). The macromodels do not settle it: OPA818's adds a current noise 1.6–1.9 times its datasheet curve, and OPA858's and OPA859's have none (Section 5.3).
+3. **The FET current-noise curves are not explained.** None of the OPA818, OPA858, OPA859 and LTC6268-10 datasheets says what its curve represents. OPA818's curve is labelled simulated. The tables give a range (Section 3.7). The macromodels do not settle it: OPA818's adds a current noise 1.6–1.9 times its datasheet curve, and OPA858's and OPA859's have none (Section 5.3).
 4. **The LMH6629 differential input capacitance (4 pF) is a simulated value.** The model's closed-loop bandwidth at G = 10 is 34 % below the table value, so the LMH6629 results are probably conservative.
    - The vendor's macromodel has only 1.3 pF at the inverting input. Its parameter sheet lists 1.7 pF of input capacitance, the datasheet's common-mode value, and it has no 4-pF term.
    - It reproduces the table's bandwidth within 8 % (Section 5.4).
    - Only a measurement of the input capacitance can decide between 5.7 and 1.3 pF; the noise at 200 MHz differs by 4 dB between them (Section 5.6).
 5. **OPA856 slew rate.** The datasheet text says 2750 V/µs. The table (350 V/µs) and the transient figure (365/346 V/µs) agree with each other, and the table value is used.
-6. **Photodiode parameters other than $C_D$** are not specified: series resistance, capacitance against bias and photocurrent, and linearity at 10 mA. They enter Sections 4.6, 6.4 and 9.7.
+6. **Photodiode parameters other than $C_D$** are not specified: series resistance, capacitance against bias and photocurrent, and linearity at 10 mA. They enter Sections 3.6, 6.4 and 9.7.
 7. **The parasitic feedback capacitance** of the resistor and pads actually used is assumed as 0.2 ± 0.1 pF.
 8. **Temperature dependence** is not modelled. All values are at 25 °C.
 9. **Market-scan items not resolved** (see `data/market_scan.md`, "Open items"):
@@ -4427,7 +4687,7 @@ Every item below would change a number in this note if resolved. None changes th
 10. **Analysis inputs that are simpler than the records.** Where a datasheet gives several swing or output-current values, the analysis used one per part. The full sets are in Tables A6.1–A6.4.
     - **LMH6629.** The 100-Ω swing (0.82–4.19 V) was used for both load cases. Its no-load swing is 0.72–4.28 V, so its light-load dynamic range is understated by 0.45 dB.
     - **LT6200-10, LT6230-10, AD8021, THS4271 and THS4021.** Their 100-Ω swing figures are single-condition approximations (package, $I_Q$ and linear $I_{\mathrm{out}}$ entries in `parts_db.py` are synced with Tables A6.3–A6.4). None of these parts is among the ten in Sections 6.3 and 6.4, so those tables are unaffected.
-11. **The bench OPA846 measurement (Section 4.10)** lacks four pieces of information: the photodiode capacitance at its operating bias, how the photodiode is connected, the frequency of the response peak, and the instrument noise floor. With them, Section 4.10 could pin down the node capacitance instead of inferring it.
+11. **The bench OPA846 measurement (Section 3.10)** lacks four pieces of information: the photodiode capacitance at its operating bias, how the photodiode is connected, the frequency of the response peak, and the instrument noise floor. With them, Section 3.10 could pin down the node capacitance instead of inferring it.
 12. **ADI datasheet revisions.** The ADI datasheets were taken from distributor copies. The ADA4817-1 copy is Rev. A of 2009 (current: Rev. H), and the AD8099 copy is Rev. E (current: Rev. F). Values that changed in later revisions would not be reflected. Neither part is a recommendation here.
 13. **Parameters of the balanced pair (Section 1.2).**
     - Whether 10 mA is the current in each diode or in the pair. The tables cover both cases: $I_{\mathrm{DC}}$ = 10 mA in total, and 20 mA, i.e. 10 mA in each diode.
@@ -4443,7 +4703,7 @@ Every item below would change a number in this note if resolved. None changes th
     - Variant B's margins in Sections 6.2, 8.9 and 8.10 rest on the curve, those of Chapter 5 on the model.
     - The first board decides, through its step response or frequency response.
 17. **Everything above 2 GHz.** The gain margins of Section 5.5 are set at 3–4 GHz. In that range the datasheet curves and the macromodels differ in detail, and a real board adds parasitics that neither contains. They show where margin is short, not how much a board will have.
-18. **The OPA846 macromodel** (2011) peaks less than its datasheet's measured response at a gain of 7 (1.4 against 3.1 dB). It also draws 4.8 mA of quiescent current against 12.6 mA. Its margins in Chapter 5 are therefore optimistic.
+18. **The OPA846 macromodel** (2011) peaks less than its datasheet's measured response at a gain of 7 (1.4 against 3.1 dB). It also draws 4.8 mA of quiescent current against 12.6 mA. Its margins in Chapters 4 and 5 are therefore optimistic. The 2-kΩ design of Section 4.4 has 44.7° in the model against 34.1° with the datasheet curve. Above 20 MHz the model also distorts from far below its slew-rate limit, reaching −40 dBc at 0.66 V and −60 dBc at 78 mV at 100 MHz, while the datasheet plots distortion only up to 20 MHz (Section 4.7); only a measurement can tell whether the part does the same.
 19. **Single-chip TIAs (Section 6.7).**
     - The coherent-receiver TIAs publish their noise only at their higher gains and only as one figure for a 24–65-GHz band. Whether they can approach the op-amp designs depends on their noise within 150 MHz at the 167–233-Ω setting where their 3 mAppd stays linear (Eq. (54)): at most 17.9 pA/√Hz to match OPA818 at 1 mA, and 31.2 pA/√Hz to match OPA855. A full datasheet or a measurement of GX39221 or MATA-006801 at that setting would settle it.
     - MATA-006801's figures come from its product page, which lists a 2-kΩ gain beside a manual-mode range of 65 Ω to 1.5 kΩ and states no conditions for its 16 pA/√Hz. Its datasheet, available on request, would also give its low-frequency and DC behaviour.
@@ -4466,6 +4726,7 @@ Every item below would change a number in this note if resolved. None changes th
     - The curves of OPA955 are Advance Information.
     - The noise index of the servo resistor and the intensity noise of the laser at low frequency are properties of the parts chosen and are not known here.
     - The split front end of Section 6.9 has not been analysed: its two loops, the crossover between them and the shift of the photodiode bias need the treatment that Sections 8.2–8.5 give the other options.
+22. **Larger feedback resistors (Section 6.10).** The designs at 3–10 kΩ come from our analytical model with the datasheet open-loop curves as plotted; no SPICE check has been run above 2 kΩ in this note, although the companion note's Section 6.9 compares its single-pole model with ours there. With OPA858's calibrated curve (Table A6.7) its phase margins at 3–10 kΩ fall to 46–64°, and it needs added capacitance at 2 kΩ, as in Table A9.2. Above about 5 kΩ the bandwidth follows the feedback parasitic, so its actual value on the board, 0.1–0.3 pF, decides whether 150 MHz is reached. OPA955 is Advance Information.
 
 ---
 
@@ -4655,7 +4916,7 @@ The TI model packages [S3]–[S13] and [S18]–[S21] and the Infineon model [S22
 |---|---|
 | `TIA_opamp_survey.md` | this report |
 | `TIA_opamp_survey.pdf`, `index.html` | the same report as a PDF and as a web page, built by `build/build_pdf.py` and `build/make_web_html.py` at the root of the repository |
-| `figures/` | Figures 1–31 as PNG (600 dpi) and PDF. The file names keep the order in which the figures were drawn: `fig01` and `fig21`–`fig31` are Figure 1 and the schematics of Chapters 7 and 8, Figures 21–31 (`scripts_archive/make_schematics.py`, in the shared style of `scripts_archive/schematic_style.py`); `fig02`–`fig06` are Figures 14, 11, 2, 12 and 16 (`scripts_archive/make_figures.py`); `fig07`–`fig16` are Figures 3–9 and 17–19 (`scripts_archive/make_spice_figures.py`); and `fig17`–`fig20` are Figures 10, 13, 15 and 20 (`scripts_archive/make_narrative_figures.py`) |
+| `figures/` | Figures 1–37 as PNG (600 dpi) and PDF. The file names keep the order in which the figures were drawn: `fig01` and `fig21`–`fig31` are Figure 1 and the schematics of Chapters 7 and 8, Figures 27–37 (`scripts_archive/make_schematics.py`, in the shared style of `scripts_archive/schematic_style.py`); `fig02`–`fig06` are Figures 20, 17, 2, 18 and 22 (`scripts_archive/make_figures.py`); `fig07`–`fig16` are Figures 9–15 and 23–25 (`scripts_archive/make_spice_figures.py`); `fig17`–`fig20` are Figures 16, 19, 21 and 26 (`scripts_archive/make_narrative_figures.py`); and `fig32`–`fig37` are Figures 3–8 of Chapter 4, the two schematics from `scripts_archive/make_schematics.py` and the simulations from `scripts_archive/make_case_figures.py` |
 | `datasheets/` | not part of the public repository (Appendix D gives each document's source): datasheets of every part of Chapters 2 and 6; `market_scan_candidates/` holds the market-scan extras, `integrated_tia/` the single-chip TIAs of Section 6.7 with the coherent-receiver documents in `integrated_tia/coherent/` (Table D.2), `fet_front_end/` the discrete FETs and `bjt_front_end/` the bipolar transistor of Section 7.1 (Table D.3), and `hv_output_stage/` the high-voltage amplifiers of Section 7.2 (Table D.4) |
 | `appnotes/` | not part of the public repository (Appendix D gives each document's source): the application notes and articles [A1]–[A24], and the ngspice manual [S1] |
 | `data/specs/<PART>.json`, `.md` | per-part extraction records, with page and figure citations for every value and the digitized open-loop and noise curves |
@@ -4669,21 +4930,24 @@ The TI model packages [S3]–[S13] and [S18]–[S21] and the Infineon model [S22
 | `data/results/peaking_tolerance.json` | Section 6.2.8 (Table A6.13); Table A6.14 is printed by `scripts_archive/peaking_tolerance.py bench` |
 | `spice/models/<PART>/` | the vendors' model packages and libraries of Table B.1, downloaded separately; of these only the four ADI files are part of the public repository, unmodified and under ADI's terms. `spice/models/README.md` gives each file's terms: no TI file or netlist extracted from one may be shared |
 | `spice/runs/<check>/<case>/` | written by `scripts_archive/spice_tia_checks.py` when the checks are run, and not part of the public repository (about 500 MB in 22,000 files): every ngspice deck of Chapter 5 and Section 6.5 with its log and data files; `spice/runs/_models/` holds the translated model copies (vendor files) |
-| `spice/results/` | one JSON file per check of `scripts_archive/spice_tia_checks.py`, `tables.md` with the tables of Chapter 5, and `dr_comparison.json` with the dynamic-range comparison of Section 6.6 (`scripts_archive/dr_comparison.py`) |
+| `spice/results/` | one JSON file per check of `scripts_archive/spice_tia_checks.py`, `tables.md` with the tables of Chapter 5, and `dr_comparison.json` with the dynamic-range comparison of Section 6.6 (`scripts_archive/dr_comparison.py`); `case_studies.json` and `case_studies_curves.json` hold the simulations of Chapter 4 (`scripts_archive/case_studies.py`), whose decks it writes under `spice/runs/case_<PART>/` |
 | `spice/runs/composite/<check>/<case>/` | written by `scripts_archive/spice_composite_checks.py` when the checks are run, and not part of the public repository: every ngspice deck of Sections 7.1–7.3 with its log and data files; `spice/runs/_models/` also holds the translated THS3491 library with its renamed subcircuits, `fet_cards.lib` and the translated BFP740ESD model (vendor files) |
 | `spice/results/composite_*.json` | one file per check of `scripts_archive/spice_composite_checks.py`; `composite_convergence.json` lists every convergence message by deck, with what was done about it (Table A7.11), and `composite_overlay_curves.json` the SPICE curves drawn on the THS3491 figures |
 | `data/results/composite_analytical.json`, `composite_hv_fine_scan.json` | the analytical scans of Sections 7.1–7.2 (`scripts_archive/composite_tia.py`; the fine scan with `--fine`) |
 | `data/results/benchmark_50ohm.json` | the 50-Ω benchmark family and the leading designs against it (Sections 2.1 and 6.8; Tables A2.2, A6.35 and A6.36), from `scripts_archive/benchmark_50ohm.py`, whose `--tables` option prints the table rows |
+| `data/results/case_studies_tables.md`, `case_studies_note_tables.md` | the two design examples of Chapter 4: every result, with the comparisons against the 50-Ω benchmark, and Tables A4.1–A4.4 as printed here (`scripts_archive/case_studies.py`, actions `tables` and `notetables`) |
+| `data/results/table_a6_37.md` | Table A6.37 (Section 6.9), from `scripts_archive/low_frequency_noise.py` |
+| `data/results/medium_gain.json`, `table_a6_38.md`, `table_a6_39.md` | Section 6.10 (Tables A6.38–A6.39): the robust designs at 2–10 kΩ for both feedback parasitics, from `scripts_archive/medium_gain.py`; the JSON file also keeps the widest design with added input capacitance and the designs with the calibrated curves of OPA855, OPA858 and OPA859 |
 | `data/digitization_checks/` | the residuals of the THS3491 and OPA859 readings against the figures' vector paths, TI's measured Fig 8-1 curves as read from the datasheet, and a manifest with the SHA-256 of every source (`scripts_archive/overlay_digitized.py`, which also draws the readings on the rendered datasheet figures; those renderings are not part of the public repository) |
-| `scripts_archive/` | every script, with an index in `scripts_archive/README.md`; the SPICE driver and checks are `ngspice_shared.py`, `spice_tia_checks.py` and `spice_report_tables.py`, the TINA-TI netlist extractor is `extract_tina_model.py`, the diagnostics are in `spice_diagnostics/`; the composites of Sections 7.1–7.3 use `composite_tia.py`, `spice_composite_checks.py`, `overlay_digitized.py`, `composite_report_numbers.py` and `fet_front_end/phemt_stability_factors.py`; the 50-Ω benchmark and the charts of Chapter 6 use `benchmark_50ohm.py` and `make_narrative_figures.py` |
+| `scripts_archive/` | every script, with an index in `scripts_archive/README.md`; the SPICE driver and checks are `ngspice_shared.py`, `spice_tia_checks.py` and `spice_report_tables.py`, the TINA-TI netlist extractor is `extract_tina_model.py`, the diagnostics are in `spice_diagnostics/`; the composites of Sections 7.1–7.3 use `composite_tia.py`, `spice_composite_checks.py`, `overlay_digitized.py`, `composite_report_numbers.py` and `fet_front_end/phemt_stability_factors.py`; the 50-Ω benchmark and the charts of Chapter 6 use `benchmark_50ohm.py` and `make_narrative_figures.py`; the design examples of Chapter 4 use `case_studies.py` and `make_case_figures.py` |
 
-The scripts, their docstrings and the tables they write to `data/results/` and `spice/results/` use the section, table and equation numbers of this note before its reorganization of 27 October 2026; `scripts_archive/rework/TIA_opamp_survey.map.txt` converts every such number to the present one, and `scripts_archive/README.md` maps the old sections of Chapter 9 to the present ones.
+The scripts, their docstrings and the tables they write to `data/results/` and `spice/results/` use the section, table and equation numbers of this note before its reorganization of 27 October 2026, and those written before 4 November 2026 the order in which a design example preceded the theory; `scripts_archive/rework/TIA_opamp_survey.map.txt` and `scripts_archive/rework/case_studies_reorder.map.txt` convert every such number to the present one, and `scripts_archive/README.md` maps the old sections of Chapter 9 to the present ones.
 
 ---
 
 ## Appendix F. Datasheet inconsistencies found during extraction
 
-Every disagreement found between a datasheet's own table, text and figures, grouped by part. Where the analysis had to choose, the choice is stated in Section 4.5, Table A6.7 or Appendix C.
+Every disagreement found between a datasheet's own table, text and figures, grouped by part. Where the analysis had to choose, the choice is stated in Section 3.5, Table A6.7 or Appendix C.
 
 **OPA855**
 - Phase margin: ≈62° at noise gain 7 in the text (p18) against ≈74° DERIVED from Fig 6-10 (p9).
@@ -4794,7 +5058,7 @@ Every disagreement found between a datasheet's own table, text and figures, grou
 **OPA657**
 - GBW unit printed "dB" in the table (p5).
 - Fig 16 open-loop curve implies 2.2–2.5 GHz against 1.6 GHz in the table (p10 against p5).
-- Typical-characteristic plots cite "See Figure 28", which is the ESD figure; the test circuits are Figs 29 and 30.
+- Typical-characteristic plots cite "See Figure 34", which is the ESD figure; the test circuits are Figs 29 and 30.
 - Standard-grade offset drift prints ±12 µV/°C in the MIN column (p5).
 - Current noise drawn as an idealized flat line; origin not stated (Fig 13 p10).
 

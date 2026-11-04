@@ -72,7 +72,11 @@ def table_a1() -> str:
                 "times the rms (Appendix B.1). The composites' gain–bandwidth product of 50 MHz is an assumption, and "
                 "their current noise is the shot noise of the maximum gate current, an upper bound. OPA381 and OPA388 "
                 "are auto-zero and zero-drift parts; their bias currents at 85 °C are datasheet limits (OPA388) or the "
-                "25 °C limit doubled every 10 °C (OPA381), the latter an assumption.")
+                "25 °C limit doubled every 10 °C (OPA381), the latter an assumption. OPA858, OPA855, OPA955 and LMH6629 "
+                "come from the companion note's records and are evaluated at 10 kΩ and 100 kΩ only (Section 6.9). "
+                "OPA955's datasheet is Advance Information, for a preproduction part, so its values may change. The "
+                "85-°C bias currents of OPA855 and OPA955 are the 25-°C maximum plus the typical drift over 60 °C, an "
+                "estimate, and LMH6629's $C_{DIFF}$ of 4 pF is a simulated value.")
     return "\n".join(rows)
 
 
@@ -81,7 +85,9 @@ def table_a2() -> str:
     out = ["*Table A.2. Derived figures of merit: the critical feedback resistance of Eq. (11), above which the "
            "amplifier's current noise exceeds the resistor's Johnson noise, and the optimum source resistance of "
            "Eq. (14) with $e_n$ at 1 kHz (or the nearest specified frequency). $i_n$ is the lowest-frequency "
-           "specified value.*", "",
+           "specified value. For the wideband bipolar parts that value lies on a $1/f$ rise; their white current noise "
+           "above 1 MHz, 2.5 pA/√Hz for OPA855, 2.6 pA/√Hz for LMH6629 and 0.55 pA/√Hz for OPA955, gives "
+           "$R_{F,\\mathrm{crit}}$ = 2.6, 2.4 and 54 kΩ, the values that apply in a band of megahertz (Section 6.9).*", "",
            "| Part | $e_n$ at 1 kHz (nV/√Hz) | $i_n$ (fA/√Hz) | $R_{F,\\mathrm{crit}}$ | $R_{opt}$ | $C_{CM}+C_{DIFF}$ (pF) | GBW (MHz) |",
            "|---|---|---|---|---|---|---|"]
     for name in ORDER:
@@ -105,7 +111,9 @@ def table_a3() -> str:
                "times the mid-band noise gain $(C_T + C_F)/C_F$, Section 3.1); excess noise $\\Delta N$ over the "
                "resistor-plus-diode floor "
                "in [1 Hz, $f_{-3\\,\\mathrm{dB}}$], Eq. (16); DC output error at 85 °C from the maximum $V_{OS}$ and "
-               "$I_B$, Eq. (38) without leakage. `hg_analysis.py`.*")
+               "$I_B$, Eq. (38) without leakage. A dash marks a gain at which a part is not evaluated: the companion "
+               "note's fast parts OPA858, OPA855, OPA955 and LMH6629 are evaluated at 10 kΩ and 100 kΩ only "
+               "(Section 6.9). `hg_analysis.py`.*")
         head = "| Part | " + " | ".join(eng(rf, "Ω") for rf in rfs) + " |"
         block = [cap, "", head, "|---|" + "---|" * len(rfs)]
         for name in ORDER:
@@ -113,7 +121,7 @@ def table_a3() -> str:
             for rf in rfs:
                 r = next((x for x in sel if x["amp"] == name and x["rf"] == rf), None)
                 if r is None:
-                    cells.append("")
+                    cells.append("–")
                     continue
                 flag = " R" if r["limited_by"] == "resistor" else ""
                 if r.get("a0_over_ng", 1e9) < 10:
@@ -132,8 +140,9 @@ def table_a4() -> str:
            "resistor's own capacitance sets the bandwidth.*", "",
            "| GBW | $C_T$ | $C_{par}$ = 0.05 pF | 0.1 pF | 0.2 pF |", "|---|---|---|---|---|"]
     rows = num["crossover"]
-    for gbw in (2.0, 20.0, 200.0):
-        for ct in (10.0, 100.0, 1000.0):
+    for gbw, cts in ((2.0, (10.0, 100.0, 1000.0)), (20.0, (10.0, 100.0, 1000.0)), (200.0, (10.0, 100.0, 1000.0)),
+                     (2000.0, (1.0, 10.0, 100.0))):
+        for ct in cts:
             vals = [next(r for r in rows if math.isclose(r["gbw_MHz"], gbw, rel_tol=1e-6)
                          and math.isclose(r["c_t_pF"], ct, rel_tol=1e-6)
                          and math.isclose(r["c_par_pF"], cp, rel_tol=1e-6))
