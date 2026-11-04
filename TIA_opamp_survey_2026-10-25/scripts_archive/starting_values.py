@@ -1,12 +1,13 @@
-"""Recommended starting component values and their tolerance to the feedback parasitic.
+"""Recommended starting component values and their tolerance (Table A8.13).
 
 Usage: python starting_values.py <out_md>
 
 For each recommended design (part, R_F, added input capacitance, target total
 C_F) evaluate the nominal response (C_PCB = 0.35 pF) and the response when the
-resistor/pad parasitic is 0.1 pF lower or higher than the nominal 0.2 pF with
-the same external capacitor (total C_F - 0.1 pF and + 0.1 pF), and at the
-C_PCB corners 0.2 and 0.5 pF.  Writes a Markdown table.
+total C_F is 0.1 pF lower or higher (the tolerance of the fitted capacitor and of
+the parasitic, Table 1.1), and at the C_PCB corners 0.2 and 0.5 pF.  The external
+capacitor is the total minus the 0.08-pF parasitic of Table 1.1 (Appendix G).
+Writes a Markdown table.
 """
 import sys
 from pathlib import Path
@@ -14,6 +15,8 @@ from pathlib import Path
 import tia_model as tm
 from parts_db import PARTS
 from run_analysis import C_D, open_loop_model
+
+C_FPAR_PF = 0.08   # parasitic feedback capacitance of Table 1.1 (Appendix G)
 
 DESIGNS = [  # label, part, R_F, C_add (pF), target total C_F (pF)
     ("OPA855", "OPA855", 2000.0, 0.0, 0.25),
@@ -36,8 +39,8 @@ def fmt(m):
 
 
 def main(out_md):
-    rows = ["| Design | $R_F$ | Total $C_F$ target (external with 0.2 pF parasitic) | Nominal: $f_{-3\\,\\mathrm{dB}}$, PM, peaking | "
-            "$C_{F,\\mathrm{par}}$ 0.1 pF (total −0.1) | $C_{F,\\mathrm{par}}$ 0.3 pF (total +0.1) | $C_{\\mathrm{PCB}}$ 0.2 / 0.5 pF | "
+    rows = ["| Design | $R_F$ | Total $C_F$ target (external) | Nominal: $f_{-3\\,\\mathrm{dB}}$, PM, peaking | "
+            "Total −0.1 pF | Total +0.1 pF | $C_{\\mathrm{PCB}}$ 0.2 / 0.5 pF | "
             "$NG_\\infty$ at target vs $G_{\\min}$ |",
             "|---|---|---|---|---|---|---|---|"]
     for label, part, R_F, c_add, cf in DESIGNS:
@@ -50,7 +53,7 @@ def main(out_md):
         c02 = tm.loop_metrics(ol, R_F, C_T - 0.15e-12, cf * 1e-12)
         c05 = tm.loop_metrics(ol, R_F, C_T + 0.15e-12, cf * 1e-12)
         ng = 1 + C_T / (cf * 1e-12)
-        ext = cf - 0.2
+        ext = cf - C_FPAR_PF
         ext_s = f"{ext:.2f} pF" if ext >= 0.1 else ("none (parasitic only)" if ext <= 0.02 else f"{ext:.2f} pF (below a discrete part)")
         rows.append(f"| {label} | {R_F/1000:g} kΩ | {cf:.2f} pF ({ext_s}) | {fmt(nom)} | {fmt(lo)} | {fmt(hi)} | "
                     f"{c02['f_3dB']/1e6:.0f} / {c05['f_3dB']/1e6:.0f} MHz, {c02['pm_deg']:.0f}° / {c05['pm_deg']:.0f}° | "

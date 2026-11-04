@@ -23,7 +23,8 @@ from parts_db import PARTS
 # ---------------------------------------------------------------------------
 C_D = 1.0e-12
 C_PCB_NOM, C_PCB_RANGE = 0.35e-12, (0.2e-12, 0.5e-12)      # pad and trace capacitance at the node (Table 1.1)
-C_FPAR_NOM, C_FPAR_RANGE = 0.20e-12, (0.1e-12, 0.3e-12)    # parasitic feedback capacitance of R_F (Table 1.1)
+C_FPAR_NOM, C_FPAR_RANGE = 0.20e-12, (0.1e-12, 0.3e-12)    # minimum total C_F of every design and its -/+0.1 pF
+# corners (Table 1.1); the names are historical: the parasitic itself is 0.08 pF, 0.05-0.12 pF (Appendix G)
 R_F_LIST = (1500.0, 2000.0)
 SPOT_F = (1e6, 10e6, 50e6, 100e6, 150e6, 200e6)
 BANDS = ((10e6, 150e6), (10e6, 200e6))

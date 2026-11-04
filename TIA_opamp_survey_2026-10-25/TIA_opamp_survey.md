@@ -4,7 +4,7 @@ Design study and amplifier survey.
 
 > This note was created with significant AI assistance. It may contain errors, so check the cited datasheet pages, tables and scripts before relying on a figure. The note itself is dedicated to the public domain under CC0 1.0; no copyright is reserved. The manufacturers' SPICE model files are not covered: each remains under its vendor's terms (`spice/models/README.md`).
 
-> **Which note to read.** This note covers the corner of large photocurrent and high bandwidth: a balanced pair at 0.1–10 mA of DC photocurrent, a 1.5–2-kΩ feedback resistor and at least 150 MHz, where the light's own shot noise sets the floor and the loop's stability decides the design. Section 6.10 follows the design up to 10 kΩ, for a pair that carries less light. Its companion, [*Operational amplifiers for high-gain photodiode transimpedance amplifiers: 10 kΩ to 1 GΩ, from DC to tens of megahertz*](../TIA_high_gain_survey_2026-11-02/TIA_high_gain_survey.md), continues from there. In its range the signal photocurrent lies between about a picoampere and a few hundred microamperes, and the amplifier's voltage noise acting on the node capacitance, its input current and the resistor's own capacitance decide the design. The photocurrent and the bandwidth decide which note applies. The photocurrent's shot noise equals the Johnson noise of the feedback resistor at $I = 2k_BT/(qR_F)$, which is 51.4 mV divided by $R_F$ at 25 °C, and a bandwidth $B$ allows at most $R_F = 1/(2\pi BC_{F,\mathrm{par}})$: 5.3 kΩ at 150 MHz for our nominal 0.2 pF of feedback parasitic, and 10.6 kΩ for 0.1 pF. With tens of microamperes or more and more than about 50 MHz of bandwidth, this note applies; with a few microamperes or less, the companion does. The two notes meet at 10 kΩ, where both analyses are evaluated (Section 6.10).
+> **Which note to read.** This note covers the corner of large photocurrent and high bandwidth: a balanced pair at 0.1–10 mA of DC photocurrent, a 1.5–2-kΩ feedback resistor and at least 150 MHz, where the light's own shot noise sets the floor and the loop's stability decides the design. Section 6.10 follows the design up to 10 kΩ, for a pair that carries less light. Its companion, [*Operational amplifiers for high-gain photodiode transimpedance amplifiers: 10 kΩ to 1 GΩ, from DC to tens of megahertz*](../TIA_high_gain_survey_2026-11-02/TIA_high_gain_survey.md), continues from there. In its range the signal photocurrent lies between about a picoampere and a few hundred microamperes, and the amplifier's voltage noise acting on the node capacitance, its input current and the resistor's own capacitance decide the design. The photocurrent and the bandwidth decide which note applies. The photocurrent's shot noise equals the Johnson noise of the feedback resistor at $I = 2k_BT/(qR_F)$, which is 51.4 mV divided by $R_F$ at 25 °C, and a bandwidth $B$ allows at most $R_F = 1/(2\pi BC_F)$: 10.6 kΩ at 150 MHz for 0.1 pF across the resistor, close to its parasitic alone (Table 1.1), and 5.3 kΩ for 0.2 pF. With tens of microamperes or more and more than about 50 MHz of bandwidth, this note applies; with a few microamperes or less, the companion does. The two notes meet at 10 kΩ, where both analyses are evaluated (Section 6.10).
 
 We are designing the front end of a balanced optical receiver. A pair of photodiodes, with 1 pF in total at the amplifier's summing node, carries 0.1–10 mA of DC photocurrent with a small RF signal on top, and a transimpedance amplifier (TIA) with a 1.5–2 kΩ feedback resistor has to turn the RF difference current of the pair into a voltage over at least 150 MHz, with the widest possible dynamic range. Choosing the amplifier is the visible part of the task, but the choice follows from three properties of the problem, and this note is built around them.
 
@@ -88,8 +88,8 @@ Unless a section says otherwise, the numbers in this note use the values of Tabl
 | $C_{\mathrm{PCB}}$ | pad and trace capacitance at the inverting node | 0.35 pF nominal, 0.2–0.5 pF corners | specified range 0.2–0.5 pF |
 | $C_{\mathrm{CM}}$, $C_{\mathrm{DIFF}}$ | amplifier common-mode (inverting input to ground) and differential input capacitance | per datasheet | Table A6.1 |
 | $C_T$ | $C_D+C_{\mathrm{PCB}}+C_{\mathrm{CM}}+C_{\mathrm{DIFF}}$ | per amplifier | Eq. (7) |
-| $C_{F,\mathrm{par}}$ | parasitic feedback capacitance of $R_F$, its pads and the layout | 0.20 pF nominal, 0.1–0.3 pF corners | specified range 0.1–0.3 pF; Texas Instruments (TI) quotes up to 0.2 pF for the resistor alone [A2] |
-| $C_F$ | total feedback capacitance, $C_{F,\mathrm{ext}}+C_{F,\mathrm{par}}$ | designed per amplifier, never below $C_{F,\mathrm{par}}$ | Section 6.2 |
+| $C_{F,\mathrm{par}}$ | parasitic feedback capacitance of $R_F$, its pads and the amplifier's pins | 0.08 pF nominal, 0.05–0.12 pF corners | Appendix G: an 0402 or 0201 beside the amplifier's FB pin, with the planes removed under the feedback network; Texas Instruments (TI) quotes up to 0.2 pF for the resistor alone [A2] |
+| $C_F$ | total feedback capacitance, $C_{F,\mathrm{ext}}+C_{F,\mathrm{par}}$ | designed per amplifier, at least 0.2 pF; corners ±0.1 pF | Section 6.2; the minimum and the corners come from the tolerance of the total, a fitted capacitor's ±0.05 pF plus the corners of $C_{F,\mathrm{par}}$ (Section G.14) |
 | $R_F$ | feedback resistor | 1.5 kΩ and 2 kΩ | design specification |
 | $T$ | temperature | 298.15 K (25 °C) | the temperature of datasheet tables |
 | $I_{\mathrm{DC}}$ | total DC photocurrent of the pair, $I_1+I_2$; it sets the shot noise | 0, 0.1, 1 and 10 mA; also 20 mA, i.e. 10 mA in each diode | operating range stated for this design |
@@ -110,10 +110,10 @@ Unless a section says otherwise, the numbers in this note use the values of Tabl
 - "Dynamic range" is the electronic dynamic range of Eq. (27) unless it is called usable. The electronic figure assumes that the light can supply any tone up to the TIA's ceiling; the usable figure of Eq. (28) also caps the tone at $I_{\mathrm{DC}}/\sqrt2$ rms, the most the light can supply (Section 3.8).
 
 **Design labels.** These are used in every table.
-- *Flat*: the smallest total $C_F$ that gives ≤ 0.01 dB of transimpedance peaking. If that is below 0.2 pF, the realised design uses $C_F$ = 0.2 pF, the parasitic floor.
+- *Flat*: the smallest total $C_F$ that gives ≤ 0.01 dB of transimpedance peaking. If that is below 0.2 pF, the realised design uses $C_F$ = 0.2 pF, the minimum total of Table 1.1: below it the ±0.1 pF tolerance of the total costs most of the phase margin (Section 6.2.8).
 - *1-dB*: the smallest $C_F$ with ≤ 1 dB of peaking.
 - *Largest phase margin*: the maximum over stable $C_F \ge 0.2$ pF.
-- *Robust*: the widest bandwidth with phase margin ≥ 45° and ≤ 1 dB of peaking. Up to 8 pF of capacitance may be added deliberately at the inverting node if that is the only way to reach 45°. The robust design is read on the logarithmic grid of $C_F$ of Section 3.5, whose first point above the 0.2-pF floor is 0.206 pF, so it can come out slightly narrower than a flat design on the floor: OPA855 gives 539 MHz robust at 0.21 pF and 557 MHz flat at 0.20 pF with 58° (Table A6.5).
+- *Robust*: the widest bandwidth with phase margin ≥ 45° and ≤ 1 dB of peaking. Up to 8 pF of capacitance may be added deliberately at the inverting node if that is the only way to reach 45°. The robust design is read on the logarithmic grid of $C_F$ of Section 3.5, whose first point above the 0.2-pF minimum is 0.206 pF, so it can come out slightly narrower than a flat design at the minimum: OPA855 gives 539 MHz robust at 0.21 pF and 557 MHz flat at 0.20 pF with 58° (Table A6.5).
 - *$C_F$ window*: the range of total $C_F$ that keeps the phase margin ≥ 45°, the gain margin ≥ 3 dB and the peaking ≤ 1 dB, and, for a decompensated amplifier, keeps the high-frequency noise gain $1 + C_T/C_F$ at or above the minimum stable gain $G_{\min}$ (Section 6.2.4).
 
 **Datasheet value types.** Each datasheet value carries a label. TYP marks a typical value, which is not guaranteed. MIN and MAX mark limits guaranteed at 25 °C unless stated, by test or, where the datasheet says so, by design. CURVE marks a value read from a typical-characteristics plot, given with its reading uncertainty, and SCOPE and PHOTO mark values read from an oscilloscope trace or a raster photograph. SIM marks a value that the manufacturer labels as simulated, TEXT a value stated in prose, and DERIVED a value computed here from datasheet data. n.s. marks a value the datasheet does not specify.
@@ -462,7 +462,7 @@ The loop metrics were taken as follows:
 - **Crossover** is the first downward crossing of $|T| = 1$, and the phase margin is read there.
 - **Gain margin** is read where the loop phase first reaches −180°.
 - **Second crossing.** A design whose loop gain rises above 1 again beyond 1.2 $f_c$ is counted as unstable. This happens at the 4–7 GHz open-loop bumps of OPA855 and OPA955 when $C_F$ is too large.
-- **Design search.** $C_F$ was scanned from 0.02 to 3 pF on a logarithmic grid of 160 values. The flat and 1-dB designs were then refined by bisection; the robust design was read on the grid, whose first point above the 0.2-pF floor is 0.206 pF.
+- **Design search.** $C_F$ was scanned from 0.02 to 3 pF on a logarithmic grid of 160 values. The flat and 1-dB designs were then refined by bisection; the robust design was read on the grid, whose first point above the 0.2-pF minimum total is 0.206 pF.
 
 **Limits that apply to every number derived this way.**
 - Datasheet open-loop curves are typical curves at one stated load, and several are labelled simulated.
@@ -746,7 +746,7 @@ Neither of these produces the +1.6 dB of transimpedance at 50 MHz, so a larger n
 
 ## 4. Two design examples: OPA855 and OPA846 at 2 kΩ
 
-With the relations of Chapter 3 in hand, we now lay out two complete designs and check each in simulation, so that every quantity the later chapters compare across 25 amplifiers can first be seen at work in one circuit. Both designs use the 2-kΩ feedback resistor and the balanced pair with 1 pF at the summing node (Section 1.2), and both amplifiers are decompensated bipolar parts with a minimum stable gain of 7. They differ in what decides the design. OPA855, which Chapter 6 confirms as the best production part, has 8 GHz of gain–bandwidth product and only 0.8 pF of input capacitance: its loop has phase to spare, the parasitic capacitance of the feedback resistor sets the design, and the question is how far that parasitic and the photodiode may move. OPA846, one of the six parts on the starting list (Section 2.2) and the amplifier of the bench board of Section 3.10, has 1.75 GHz and 3.8 pF: its loop crosses over close to its minimum stable gain, its own input capacitance dominates the noise, and the question is whether it can be made stable at all.
+With the relations of Chapter 3 in hand, we now lay out two complete designs and check each in simulation, so that every quantity the later chapters compare across 25 amplifiers can first be seen at work in one circuit. Both designs use the 2-kΩ feedback resistor and the balanced pair with 1 pF at the summing node (Section 1.2), and both amplifiers are decompensated bipolar parts with a minimum stable gain of 7. They differ in what decides the design. OPA855, which Chapter 6 confirms as the best production part, has 8 GHz of gain–bandwidth product and only 0.8 pF of input capacitance: its loop has phase to spare, the feedback capacitance sets the design, and the question is how far that capacitance and the photodiode may move. OPA846, one of the six parts on the starting list (Section 2.2) and the amplifier of the bench board of Section 3.10, has 1.75 GHz and 3.8 pF: its loop crosses over close to its minimum stable gain, its own input capacitance dominates the noise, and the question is whether it can be made stable at all.
 
 Both designs go through the same steps. Section 4.1 collects the four results of Chapter 3 that give a first estimate in practical units. Sections 4.2 and 4.4 lay out the two designs with them, and Sections 4.3 and 4.5 check each design in simulation in two independent ways: with our analytical model of Section 3.5, which evaluates the loop with the open-loop curve digitized from the datasheet, and with the vendor's SPICE macromodel in ngspice, whose loop gain is read by Middlebrook's double injection (Section 5.2) and whose small-signal quantities Chapter 5 examines for these and five other amplifiers. Section 4.6 asks how each design depends on the photodiode capacitance and on the feedback capacitance, Section 4.7 checks the large-signal limits and the dynamic range, Section 4.8 sets both designs against a plain 50-Ω termination, and Section 4.9 lists what the four equations cannot tell us. Every simulated number of this chapter and every curve of Figures 4 and 6–8 is reproduced by `scripts_archive/case_studies.py`, which writes `spice/results/case_studies.json`, and by `scripts_archive/make_case_figures.py`, which draws the figures from that file (Appendix B.2).
 
@@ -802,14 +802,14 @@ Table 4.1 lists the values that go into the four equations for both designs, eac
 | $e_n$ | 0.99 nV/√Hz (white level, flat to 97 MHz) | 1.2 nV/√Hz (1.22 nV/√Hz at 98 MHz on the curve) | OPA855 Fig 6-11, p9 (table: 0.98 nV/√Hz TYP at 1 MHz, p6); OPA846 p3, f > 1 MHz, and curve p6 |
 | $i_n$ | 2.6 pA/√Hz (white level) | 2.8 pA/√Hz (2.87 pA/√Hz at 98 MHz on the curve) | OPA855 Fig 6-11, p9 (table: 2.5 pA/√Hz TYP at 1 MHz, p6); OPA846 p3 and curve p6 |
 | $C_T$ | 1.0 + 0.35 + 0.6 + 0.2 = 2.15 pF | 1.0 + 0.35 + 1.8 + 2.0 = 5.15 pF | photodiode, PCB, $C_{\mathrm{CM}}$, $C_{\mathrm{DIFF}}$ (OPA855 p6 EC; OPA846 p3) |
-| $C_F$ | 0.20 pF: the flat design needs 0.19 pF, below the parasitic floor of Table 1.1, so no discrete capacitor is fitted | 0.75 pF: the flat design needs 0.745 pF; 0.55 pF fitted beside the 0.20-pF parasitic | Table A6.5 |
+| $C_F$ | 0.20 pF: the flat design needs 0.19 pF, below the 0.2-pF minimum total of Table 1.1; 0.12 pF fitted beside the 0.08-pF parasitic | 0.75 pF: the flat design needs 0.745 pF; 0.67 pF fitted beside the 0.08-pF parasitic | Table A6.5; Appendix G |
 | GBW, $G_{\min}$ | 8000 MHz, 7 V/V | 1750 MHz (1275 MHz MIN), 7 V/V | OPA855 p6 EC, p25; OPA846 p3, p1 |
 | $V_{\mathrm{pk}}$ | (4.10 − 1.05)/2 = 1.525 V (output swing, 5 V, 200 Ω) | 625 V/µs / (2π × 100 MHz) = 0.995 V (slew rate); swing (4.16 + 4.44)/2 = 4.30 V on ±6 V | OPA855 p7 EC; OPA846 p3 (slew rate), p8 (swing curve) |
 | $f$, $B$ | 100 MHz, 150 MHz | 100 MHz, 150 MHz | design specification |
 
 ![Figure 3](figures/fig32_case_opa855_schematic.png)
 
-*Figure 3. The OPA855 design of Section 4.2 as it is simulated, with every value of Table 4.1; parasitic capacitances are drawn in grey. The balanced pair of Figure 1 delivers its photocurrents to the summing node. Each bias pin is decoupled by 10 nF to ground, which makes the far end of each diode an AC ground, so the capacitance of both diodes, 1 pF in total ($C_D$), loads the summing node. $C_{\mathrm{PCB}}$ = 0.35 pF is the pad and trace capacitance of Table 1.1, and $C_{\mathrm{CM}}$ = 0.6 pF and $C_{\mathrm{DIFF}}$ = 0.2 pF are the amplifier's input capacitances, which the vendor's macromodel contains itself (0.80 pF, Section 5.3); together they make $C_T$ = 2.15 pF (Eq. (7)). No feedback capacitor is fitted: the design needs 0.19 pF, less than the 0.20 pF that the 2-kΩ resistor and its pads bring ($C_{F,\mathrm{par}}$). The amplifier runs from ±2.5 V, which is its 5-V supply with the reference at mid-supply, so the non-inverting input is grounded. $R_L$ = 200 Ω is the load under which the datasheet's open-loop curve was taken; every small-signal run keeps it, so that the macromodel and the curve see the same load, and the large-signal runs of Section 4.7 use 1 MΩ, the light load of Table A6.28. In the simulations the pair is a current source in parallel with $C_D + C_{\mathrm{PCB}}$ = 1.35 pF, and the loop gain is read by injecting between the amplifier's output pin and the feedback network (Section 5.2).*
+*Figure 3. The OPA855 design of Section 4.2 as it is simulated, with every value of Table 4.1; parasitic capacitances are drawn in grey. The balanced pair of Figure 1 delivers its photocurrents to the summing node. Each bias pin is decoupled by 10 nF to ground, which makes the far end of each diode an AC ground, so the capacitance of both diodes, 1 pF in total ($C_D$), loads the summing node. $C_{\mathrm{PCB}}$ = 0.35 pF is the pad and trace capacitance of Table 1.1, and $C_{\mathrm{CM}}$ = 0.6 pF and $C_{\mathrm{DIFF}}$ = 0.2 pF are the amplifier's input capacitances, which the vendor's macromodel contains itself (0.80 pF, Section 5.3); together they make $C_T$ = 2.15 pF (Eq. (7)). $C_F$ = 0.20 pF is a 0.12-pF capacitor $C_{F,\mathrm{ext}}$ fitted beside the 0.08 pF that the resistor, its pads and the amplifier's pins bring ($C_{F,\mathrm{par}}$, Appendix G): the flat design needs 0.19 pF, and every design keeps at least 0.2 pF in total (Table 1.1). The amplifier runs from ±2.5 V, which is its 5-V supply with the reference at mid-supply, so the non-inverting input is grounded. $R_L$ = 200 Ω is the load under which the datasheet's open-loop curve was taken; every small-signal run keeps it, so that the macromodel and the curve see the same load, and the large-signal runs of Section 4.7 use 1 MΩ, the light load of Table A6.28. In the simulations the pair is a current source in parallel with $C_D + C_{\mathrm{PCB}}$ = 1.35 pF, and the loop gain is read by injecting between the amplifier's output pin and the feedback network (Section 5.2).*
 
 **The numbers.**
 - Eq. (33) at 100 MHz with $I_{\mathrm{DC}} = 0$: $\sqrt{16.47/2 + 2.6^2 + 0.99^2/2^2 + (6.283\times10^{-3}\times0.99\times100\times2.35)^2} = \sqrt{8.24 + 6.76 + 0.25 + 2.14} = 4.17$ pA/√Hz. This is 3.2 dB above the 2.87 pA/√Hz of the resistor alone. The numerical model gives the same 4.17 pA/√Hz (Table A6.15).
@@ -843,7 +843,7 @@ OPA846 has nearly the voltage noise of OPA855, 1.2 against 0.99 nV/√Hz, and sl
 
 ![Figure 5](figures/fig34_case_opa846_schematic.png)
 
-*Figure 5. The OPA846 design of Section 4.4 as it is simulated, with every value of Table 4.1; parasitic capacitances are drawn in grey. The photodiode pair, its decoupled bias, $C_D$ and $C_{\mathrm{PCB}}$ are those of Figure 3. The amplifier's input capacitances, $C_{\mathrm{CM}}$ = 1.8 pF and $C_{\mathrm{DIFF}}$ = 2.0 pF, make $C_T$ = 5.15 pF (Eq. (7)); the vendor's macromodel contains 3.07 pF of its own, of which its voltage noise drives 2.28 pF (Section 5.3). The flat design needs 0.745 pF of total feedback capacitance, so a 0.55-pF capacitor $C_{F,\mathrm{ext}}$ is fitted beside the 0.20 pF of the resistor and its pads, 0.75 pF in total. The amplifier runs from ±5 V, the supply of its datasheet tables, with the non-inverting input grounded; the large-signal runs of Section 4.7 use ±6 V, the supply of Table A6.3, and 1 MΩ. $R_L$ = 100 Ω is the load of the datasheet's open-loop curve, the same as a 50-Ω back-termination into a 50-Ω instrument.*
+*Figure 5. The OPA846 design of Section 4.4 as it is simulated, with every value of Table 4.1; parasitic capacitances are drawn in grey. The photodiode pair, its decoupled bias, $C_D$ and $C_{\mathrm{PCB}}$ are those of Figure 3. The amplifier's input capacitances, $C_{\mathrm{CM}}$ = 1.8 pF and $C_{\mathrm{DIFF}}$ = 2.0 pF, make $C_T$ = 5.15 pF (Eq. (7)); the vendor's macromodel contains 3.07 pF of its own, of which its voltage noise drives 2.28 pF (Section 5.3). The flat design needs 0.745 pF of total feedback capacitance, so a 0.67-pF capacitor $C_{F,\mathrm{ext}}$ is fitted beside the 0.08 pF of the resistor, its pads and the amplifier's pins, 0.75 pF in total. The amplifier runs from ±5 V, the supply of its datasheet tables, with the non-inverting input grounded; the large-signal runs of Section 4.7 use ±6 V, the supply of Table A6.3, and 1 MΩ. $R_L$ = 100 Ω is the load of the datasheet's open-loop curve, the same as a 50-Ω back-termination into a 50-Ω instrument.*
 
 **The numbers.**
 - Eq. (33) at 100 MHz with $I_{\mathrm{DC}} = 0$: with $C_{\mathrm{tot}}$ = 5.15 + 0.75 = 5.90 pF, $\sqrt{16.47/2 + 2.8^2 + 1.2^2/2^2 + (6.283\times10^{-3}\times1.2\times100\times5.90)^2} = \sqrt{8.24 + 7.84 + 0.36 + 19.79} = 6.02$ pA/√Hz, 6.4 dB above the 2.87 pA/√Hz of the resistor. The $e_n\omega C_{\mathrm{tot}}$ term, 19.79 pA²/Hz, is now the largest: the product $e_nC_{\mathrm{tot}}$ is 1.2 × 5.90 = 7.08 nV·pF/√Hz against 0.99 × 2.35 = 2.33 for OPA855, three times larger, so the term is 9.2 times larger. The numerical model gives 6.07 pA/√Hz (Table A6.15).
@@ -873,7 +873,7 @@ Here the two descriptions of the amplifier disagree, and the disagreement is the
 
 ### 4.6 How the two designs depend on the photodiode and feedback capacitances
 
-A design is laid out for one photodiode capacitance and one feedback capacitance, but neither is fixed on a board. The photodiode's capacitance changes with its bias and from part to part, and a front end is often moved to another photodiode; the feedback capacitance is set largely by the parasitics of the resistor and its pads. This section asks two questions of both designs: how far the photodiode capacitance may move before the design fails, and what each amplifier can do with another photodiode when $C_F$ is chosen anew. The criteria are those of Section 6.2.4: a phase margin of at least 45°, a gain margin of at least 3 dB and at most 1 dB of peaking. Figure 7 shows the results, and Tables A4.2 and A4.3 list them.
+A design is laid out for one photodiode capacitance and one feedback capacitance, but neither is fixed on a board. The photodiode's capacitance changes with its bias and from part to part, and a front end is often moved to another photodiode; the feedback capacitance carries the tolerances of the fitted capacitor and of the parasitics of the resistor, its pads and the amplifier's pins. This section asks two questions of both designs: how far the photodiode capacitance may move before the design fails, and what each amplifier can do with another photodiode when $C_F$ is chosen anew. The criteria are those of Section 6.2.4: a phase margin of at least 45°, a gain margin of at least 3 dB and at most 1 dB of peaking. Figure 7 shows the results, and Tables A4.2 and A4.3 list them.
 
 **The feedback capacitance at $C_D$ = 1 pF (Figure 7a and b).** For OPA855 the phase margin rises from 36.6° at 0.10 pF to 69° at 0.34 pF while the bandwidth falls from 794 to 280 MHz. Below 0.15 pF the response peaks by more than 1 dB, and above 0.33 pF the gain margin falls below 3 dB, so at the nominal photodiode capacitance the criteria hold from 0.15 to 0.33 pF; over $C_D$ ± 0.2 pF the window narrows to 0.157–0.300 pF (Section 5.5). From 0.50 pF, where $NG_\infty$ = 1 + 2.15/0.50 falls to 5.3, the macromodel oscillates near 3 GHz (Eq. (47)). Our model agrees within 5.3° and 10 MHz up to 0.38 pF, where its loop gain regains unity on the plotted 4–7 GHz bump (Section 5.5). The design, 0.20 pF, sits at 59.6° and 563 MHz, inside the window, 0.04–0.05 pF above its lower edge and 0.10–0.13 pF below its upper edge. Section 8.9 proposes 0.25 pF for the front end, nearer the window's centre, at the price of 431 MHz instead of 563 (Table A5.6).
 
@@ -883,7 +883,7 @@ For OPA846 the phase margin behaves differently: in SPICE it rises from 24.7° a
 
 For OPA846 at 0.75 pF the phase margin in SPICE stays between 43.1° and 45.4° over the whole range, and our model's between 30.7° and 36.6°. A larger photodiode raises the noise gain at the crossover, which moves the crossover to where the amplifier's phase is larger, and it also raises the noise gain's own lead; in Eq. (17) the two nearly cancel. A larger photodiode, or capacitance added on purpose, therefore buys OPA846 little phase margin at a fixed $C_F$. The gain margin rises from 10.5 to 15.3 dB, the bandwidth from 147 MHz at 0 pF to 181 MHz at 3–4 pF, and the noise penalty from 4.46 to 7.59 dB; the step begins to overshoot only from 2.5 pF, by 7.3 % at 5 pF.
 
-**The feedback capacitance chosen anew at each photodiode capacitance (Figure 7d, Table A4.3).** The scans of Figure 7a–b, repeated at each $C_D$, give the widest-band $C_F$ that meets the three criteria, never below the 0.20-pF parasitic floor. For OPA855, 0.20 pF remains the best choice up to $C_D$ = 2.5 pF, with 525–563 MHz; at 3, 4 and 5 pF the best choices are 0.22, 0.24 and 0.26 pF, with 484, 439 and 404 MHz and at most 0.89 dB of peaking. At $C_D$ = 0 no $C_F$ at or above the floor gives 3 dB of gain margin (2.0 dB at 0.20 pF), so a photodiode smaller than 0.15 pF needs capacitance added at the node or a resistor with less parasitic capacitance. For OPA846 the scan in SPICE reaches 45° from $C_D$ = 1.25 pF, with 0.80 pF and 147 MHz, and with 0.75 pF from 1.5 to 4 pF, with 170–181 MHz (0.80 pF and 167 MHz at 5 pF), never by more than 0.9°; below 1.25 pF its best is 43.1–44.8°. In our model no $C_F$ reaches 45° at any $C_D$ up to 5 pF; the best is 44.9° at 5 pF, with 1.20 pF and only 104 MHz. Either way, choosing $C_F$ cannot make OPA846 robust at 2 kΩ; Section 6.5 reached the same verdict for $C_D$ = 1 ± 0.2 pF (44.5° and 144 MHz at 0.80 pF).
+**The feedback capacitance chosen anew at each photodiode capacitance (Figure 7d, Table A4.3).** The scans of Figure 7a–b, repeated at each $C_D$, give the widest-band $C_F$ that meets the three criteria, never below the 0.20-pF minimum total of Table 1.1. For OPA855, 0.20 pF remains the best choice up to $C_D$ = 2.5 pF, with 525–563 MHz; at 3, 4 and 5 pF the best choices are 0.22, 0.24 and 0.26 pF, with 484, 439 and 404 MHz and at most 0.89 dB of peaking. At $C_D$ = 0 no $C_F$ at or above that minimum gives 3 dB of gain margin (2.0 dB at 0.20 pF), so a photodiode smaller than 0.15 pF needs capacitance added at the node, or a total $C_F$ below the minimum, with the tolerance risk of Section 6.2.8. For OPA846 the scan in SPICE reaches 45° from $C_D$ = 1.25 pF, with 0.80 pF and 147 MHz, and with 0.75 pF from 1.5 to 4 pF, with 170–181 MHz (0.80 pF and 167 MHz at 5 pF), never by more than 0.9°; below 1.25 pF its best is 43.1–44.8°. In our model no $C_F$ reaches 45° at any $C_D$ up to 5 pF; the best is 44.9° at 5 pF, with 1.20 pF and only 104 MHz. Either way, choosing $C_F$ cannot make OPA846 robust at 2 kΩ; Section 6.5 reached the same verdict for $C_D$ = 1 ± 0.2 pF (44.5° and 144 MHz at 0.80 pF).
 
 ![Figure 7](figures/fig36_case_design_space.png)
 
@@ -919,7 +919,7 @@ We now set both designs against the 50-Ω benchmark of Section 2.1, with a 2-dB 
 
 The four equations answer the easy questions, and the simulations of Sections 4.3–4.7 show where they stop. They get the noise of both designs and the bandwidth of the well-damped one within a few per cent: 4.17 pA/√Hz and 521 MHz for OPA855 against 4.10 pA/√Hz and 563 MHz in SPICE. They give no phase margin, and for a decompensated amplifier near its minimum stable gain the phase margin depends on the amplifier's higher poles. OPA846 passes the necessary condition of Eq. (35) with 5.15 against 3.27 pF and still has only 34–45°, and with it its bandwidth moves between 163 and 233 MHz. They give no gain margin either, and OPA855's gain margin sets the upper edge of its window of $C_F$, 0.157–0.300 pF over $C_D$ ± 0.2 pF (Section 5.5), and the smallest photodiode its design serves, 0.15 pF (Section 4.6). They take the ceiling from the datasheet's swing and slew rate, which OPA855's macromodel confirms and OPA846's does not: in that model its distortion sets the ceiling above 20 MHz (Section 4.7).
 
-Within their range the four equations show the shape of the problem. OPA855's noise is within 0.23 dB of the shot noise at 1 mA, so at the planned photocurrents the amplifier's noise matters only near 0.1 mA and at the top of the band. Its 1.525-V output amplitude, not its noise, sets the dynamic range from a few tens of microamperes up (31–63 µA for the 5-V parts, Eq. (51) of Section 6.6.3). Its stability rests on a feedback capacitance that the parasitics of the resistor and its pads largely set. Chapter 5 tests our analytical model against the manufacturers' SPICE macromodels of seven leading amplifiers, including these two, and explains the methods used here; Chapter 6 applies both to every candidate.
+Within their range the four equations show the shape of the problem. OPA855's noise is within 0.23 dB of the shot noise at 1 mA, so at the planned photocurrents the amplifier's noise matters only near 0.1 mA and at the top of the band. Its 1.525-V output amplitude, not its noise, sets the dynamic range from a few tens of microamperes up (31–63 µA for the 5-V parts, Eq. (51) of Section 6.6.3). Its stability rests on a feedback capacitance of 0.20 pF, made of a fitted capacitor and the parasitics of the resistor, its pads and the pins, each with its tolerance. Chapter 5 tests our analytical model against the manufacturers' SPICE macromodels of seven leading amplifiers, including these two, and explains the methods used here; Chapter 6 applies both to every candidate.
 
 ---
 
@@ -1168,7 +1168,7 @@ The designs are those chosen with our analytical model:
 - the starting values of Table A8.13 for OPA856 and LMH6629;
 - OPA858 at variant A's values;
 - the flat designs of Section 6.2.1 for OPA859 and OPA846;
-- for the further amplifiers of Section 6.5, our own choices at 1 pF and 2 kΩ: the robust design where one exists without added capacitance (ADA4817-1, ADA4899-1), otherwise the flat design (OPA657, ADA4895-1), otherwise the $C_F$ of largest phase margin (OPA847, LMH6624, THS4021, OPA955); AD8099 has none, so its 0.2-pF parasitic $C_F$ alone is used.
+- for the further amplifiers of Section 6.5, our own choices at 1 pF and 2 kΩ: the robust design where one exists without added capacitance (ADA4817-1, ADA4899-1), otherwise the flat design (OPA657, ADA4895-1), otherwise the $C_F$ of largest phase margin (OPA847, LMH6624, THS4021, OPA955); AD8099 has none, so it is simulated at the 0.2-pF minimum total.
 
 Each has the 0.35-pF board capacitance and $R_L$ as in Table A5.3. Variant B runs at ±6.5 V as in Section 8.9, OPA846, OPA657, OPA847, ADA4817-1, AD8099 and ADA4899-1 at ±5 V, LMH6624 at ±6 V, THS4021 at ±15 V, and the others at ±2.5 V.
 
@@ -1213,7 +1213,7 @@ $$
 *Figure 11. Variant A's feedback-capacitance scan in SPICE. Amplifier: OPA855. (a)–(c) Phase margin, gain margin and peaking of $\lvert Z_T\rvert$ against total $C_F$ for the 1-pF, 2-kΩ configuration at $C_D$ = 0.8, 1.0 and 1.2 pF, with our analytical model (datasheet curve) at 1.0 pF dashed. Dotted lines mark the criteria of Section 6.2.4: 45°, 3 dB and 1 dB. The shaded band, 0.157–0.300 pF, meets all three at all three photodiode capacitances (Table A5.8). Peaking at $C_D$ = 1.2 pF sets its lower edge, and the gain margin at $C_D$ = 0.8 pF its upper edge. Peaking is drawn only where the loop is stable (gain margin ≥ 0 dB); its rise above 0.42 pF is the 3-GHz resonance as the gain margin approaches 0 dB. Our analytical model's gain margin lies 1.1–1.5 dB above SPICE and ends at 0.38 pF, because from 0.40 pF its loop gain regains unity on the plotted 4–7 GHz bump. (d) Gain margin against the high-frequency noise gain $NG_\infty = 1 + C_T/C_F$, with $C_T = C_D$ + 0.35 pF + 0.80 pF (the model's own input capacitance), for all four configurations at all three photodiode capacitances, one circle per scan point, against Eq. (47) with $\lvert A_-(f_{180})\rvert$ = 5.3. Up to $NG_\infty$ = 20 the points lie at most 0.54 dB below Eq. (47). At larger $NG_\infty$, i.e. the smallest $C_F$, they fall up to 1.55 dB below it. There $\omega R_FC_F$ at $f_{180}$ drops to 1.9–2.6 (0.06 pF, 1.5–2 kΩ, 3.4 GHz), so $Z_F$ is no longer purely capacitive and the noise gain has not yet reached $NG_\infty$.*
 
 **Reading Table A5.9.**
-- **The 1-pF windows are narrower than ±0.1 pF.** They are 0.143 pF wide at 2 kΩ and 0.117 pF wide at 1.5 kΩ, so the total $C_F$ must be held to ±0.070 and ±0.055 pF. The ±0.1 pF that Table A8.13 allows for the resistor and pads does not fit. The parasitic must be measured on the first board and trimmed with pad copper, as the notes to Table A8.13 describe.
+- **The 1-pF windows are narrower than ±0.1 pF.** They are 0.143 pF wide at 2 kΩ and 0.117 pF wide at 1.5 kΩ, so the total $C_F$ must be held to ±0.070 and ±0.055 pF. The ±0.1 pF that Table A8.13 allows for the fitted capacitor and the parasitic does not fit. The total must be measured on the first board and trimmed with pad copper, as the notes to Table A8.13 describe.
 - **The 2-pF windows allow ±0.130 and ±0.115 pF**, so ±0.1 pF fits without trimming.
 - **Every proposal passes at its nine corners**, with 50–51°, 3.0–3.1 dB and ≤ 0.93 dB of peaking.
 - **The window controls stability, not bandwidth.** Across the 1-pF, 2-kΩ window the nominal bandwidth runs from 671 MHz at 0.16 pF to 333 MHz at 0.30 pF. At the proposed 0.230 pF it is 481 MHz, but 327–684 MHz across its corners. The post-filter at 200–250 MHz of Table A8.10, not $C_F$, has to set the bandwidth.
@@ -1403,7 +1403,7 @@ Figure 16 shows the result for every analysed part at both feedback resistors: (
 
 #### 6.2.1 Results at $R_F$ = 2 kΩ
 
-Table A6.5 lists every configuration analysed. $C_T$ is Eq. (7) with nominal parasitics. "Required / realised" $C_F$ is the total feedback capacitance the flat design calls for, and what a board with 0.2 pF of parasitic actually has.
+Table A6.5 lists every configuration analysed. $C_T$ is Eq. (7) with nominal parasitics. "Required / realised" $C_F$ is the total feedback capacitance the flat design calls for, and the total realised, at least the 0.2-pF minimum of Table 1.1.
 
 Entries marked with an asterisk in Table A6.5 use a $C_F$ above $C_T/(G_{\min}-1)$, where the high-frequency noise gain falls below the manufacturer's minimum stable gain; the model finds them stable only because the curves stop at about 1 GHz (Section 6.2.4).
 
@@ -1452,18 +1452,18 @@ $$
 This is Eq. (11) with $NG_\infty = G_{\min}$. TI states it for OPA855 ("requires a high-frequency gain of 7 V/V or greater to be stable", p25), and the LMH6629 datasheet states the equivalent rule for its TIA (p28). It is applied here even where a model curve that stops at 1 GHz would allow more.
 
 **Consequences for each part.**
-- **OPA855 at 2 kΩ.** The window spans a factor of 2.5 in $C_F$ and 2.8 in bandwidth. A target of 0.25 pF total sits in the middle: on the datasheet curve ±0.1 pF of parasitic variation stays inside it and moves the bandwidth between about 700 and 260 MHz (Section 8.10). The upper edge also means that OPA855 cannot be band-limited much below 250 MHz by $C_F$; a narrower noise bandwidth needs a filter after the TIA. The vendor's macromodel narrows the window to 0.157–0.300 pF, because its gain margin at 3–4 GHz falls to 3 dB at $C_F = C_T/6.5$ (Eq. (47)); the total $C_F$ must then be held to 0.230 ± 0.070 pF or trimmed on the first board (Section 5.5).
+- **OPA855 at 2 kΩ.** The window spans a factor of 2.5 in $C_F$ and 2.8 in bandwidth. A target of 0.25 pF total sits in the middle: on the datasheet curve ±0.1 pF of variation in the total stays inside it and moves the bandwidth between about 700 and 260 MHz (Section 8.10). The upper edge also means that OPA855 cannot be band-limited much below 250 MHz by $C_F$; a narrower noise bandwidth needs a filter after the TIA. The vendor's macromodel narrows the window to 0.157–0.300 pF, because its gain margin at 3–4 GHz falls to 3 dB at $C_F = C_T/6.5$ (Eq. (47)); the total $C_F$ must then be held to 0.230 ± 0.070 pF or trimmed on the first board (Section 5.5).
 - **LMH6629.** Its window is narrower in ratio (1.8) but sits at larger, more reproducible capacitances.
 - **The unity-gain-stable parts.** They have no upper edge at all, which is what makes them easy to lay out.
 
 #### 6.2.5 What the board's parasitic capacitances do to a fixed design
 
-A board is built with one external feedback capacitor, chosen before its parasitic capacitances are known, and the parasitics then land somewhere in their tolerance. To see what that does, we froze the flat design's external $C_F$ and set $C_{\mathrm{PCB}}$ to 0.2 or 0.5 pF and $C_{F,\mathrm{par}}$ to 0.1 or 0.3 pF, the corners of the ranges in Table 1.1.
+A board is built with one external feedback capacitor, chosen before its parasitic capacitances are known, and the capacitor and the parasitics then land somewhere in their tolerances. To see what that does, we froze the flat design's total $C_F$, moved it by −0.1 or +0.1 pF, the corners of Table 1.1, and set $C_{\mathrm{PCB}}$ to 0.2 or 0.5 pF.
 
 **What the corners show.**
-- **$C_{F,\mathrm{par}}$ matters, $C_{\mathrm{PCB}}$ hardly at all.** The board capacitance at the input moves every design by only 1–5 %. The parasitic feedback capacitance is the sensitive quantity.
-- **OPA955, OPA855 and OPA858 are the most sensitive (Tables A6.9 and A6.10).** Their flat designs rely on the parasitic alone. If an 0201 resistor with small pads gives only 0.1 pF, OPA855 and OPA858 fall to 35–38° with 3.0–3.8 dB of peaking and OPA955 to 17–18° with 8.0–8.7 dB; with 0.3 pF OPA855 and OPA858 give a well-damped 320 MHz at 2 kΩ. These parts are therefore safest with a deliberate total of about 0.25 pF (Section 8.10).
-- **OPA818 and OPA846 have no margin to lose.** Their flat designs sit at 28–34°, and 0.1 pF of parasitic takes OPA818 to 24–27° with 2.4–2.8 dB of peaking and OPA846 to 27–33°.
+- **The feedback capacitance matters, $C_{\mathrm{PCB}}$ hardly at all.** The board capacitance at the input moves every design by only 1–5 %. The total feedback capacitance is the sensitive quantity.
+- **OPA955, OPA855 and OPA858 are the most sensitive (Tables A6.9 and A6.10).** Their flat designs sit at the 0.2-pF minimum. If the total comes out at 0.1 pF, OPA855 and OPA858 fall to 35–38° with 3.0–3.8 dB of peaking and OPA955 to 17–18° with 8.0–8.7 dB; at 0.3 pF OPA855 and OPA858 give a well-damped 320 MHz at 2 kΩ. These parts are therefore safest with a total of about 0.25 pF (Section 8.10).
+- **OPA818 and OPA846 have no margin to lose.** Their flat designs sit at 28–34°, and a total 0.1 pF lower takes OPA818 to 24–27° with 2.4–2.8 dB of peaking and OPA846 to 27–33°.
 - **The unity-gain-stable parts move by about 30 % in bandwidth and never fall below 49°;** OPA843 ($G_{\min}$ = 3) falls to 45–46° and LMH6629 to 44–46°.
 
 #### 6.2.6 Why three decompensated amplifiers fail on a 1-pF photodiode, and what added capacitance buys
@@ -1512,7 +1512,7 @@ Figure 17 shows why a flat response does not prove a stable loop: OPA818 and OPA
 What the peaking must never become is oscillation, in any unit and at any temperature. This section finds the phase margin that guarantees that.
 
 **Method.** Each design was evaluated at its nominal values and at all 27 combinations of three variations:
-- the total $C_F$ moved by ±0.1 pF (resistor and pad parasitic);
+- the total $C_F$ moved by ±0.1 pF (the fitted capacitor and the parasitic, Table 1.1);
 - $C_T$ moved by ±0.2 pF (photodiode bias and board);
 - the open-loop gain scaled down to the datasheet minimum GBW or up by 1.5 dB. The downward scaling is −2.75 dB for OPA846 (1275 against 1750 MHz), −2.0 dB for OPA847 (3100 against 3900 MHz), and −2 dB where no minimum is given.
 
@@ -1521,8 +1521,8 @@ A combination counts as stable when the loop gain crosses unity once and the pha
 Table A6.13 flags OPA855's combinations at the upper $C_F$ corner; the note to the table explains them.
 
 **Findings from Table A6.13.**
-1. **A nominal phase margin of about 25° or more is enough, when $C_F$ ≥ 0.4 pF.** At that size the ±0.1 pF parasitic is at most a quarter of $C_F$. Every combination then stays stable with a worst case of 18–28°, and the nominal peak stays below about 4 dB. Below 20° nominal, the worst cases fall to 2–12° and the peak can grow by 10–20 dB in some combinations; units at that point sit close to oscillation.
-2. **Designs with $C_F$ ≤ 0.2 pF are governed by the parasitic, not by the nominal margin.** OPA955 at 2 kΩ and 0.15 pF has 30° nominal but only 1° worst case, because the −0.1 pF corner leaves 0.05 pF. OPA855 at 0.15 pF drops from 44–50° to 16–19°. Such designs need the parasitic controlled to better than ±0.1 pF, or a larger $C_F$: OPA955 at 0.25 pF keeps a 28° worst case.
+1. **A nominal phase margin of about 25° or more is enough, when $C_F$ ≥ 0.4 pF.** At that size the ±0.1 pF tolerance is at most a quarter of $C_F$. Every combination then stays stable with a worst case of 18–28°, and the nominal peak stays below about 4 dB. Below 20° nominal, the worst cases fall to 2–12° and the peak can grow by 10–20 dB in some combinations; units at that point sit close to oscillation.
+2. **Designs with $C_F$ ≤ 0.2 pF are governed by the tolerance of the total, not by the nominal margin.** OPA955 at 2 kΩ and 0.15 pF has 30° nominal but only 1° worst case, because the −0.1 pF corner leaves 0.05 pF. OPA855 at 0.15 pF drops from 44–50° to 16–19°. Such designs need the total controlled to better than ±0.1 pF, or a larger $C_F$: OPA955 at 0.25 pF keeps a 28° worst case.
 3. **Peaking buys little bandwidth for OPA846 and OPA818.** At 2 kΩ:
    - OPA846 goes from 235–237 MHz (flat, $C_F$ = 0.74 pF) to 266–272 MHz at $C_F$ = 0.3–0.5 pF;
    - OPA818 goes from 363 MHz to 377 MHz.
@@ -1965,9 +1965,9 @@ This stays below the resistor's Johnson noise, $\sqrt{4k_BT\times24\ \mathrm{k\O
 
 So far the pair has carried 0.1–10 mA, enough for its shot noise to bury the Johnson noise of a 2-kΩ resistor. A receiver with less light gives up that margin. The shot noise of $I_{\mathrm{DC}}$ equals the resistor's Johnson noise at $I_{\mathrm{DC}} = 2k_BT/(qR_F)$ (Section 3.6), which is 25.7 µA at 2 kΩ, 17.1 µA at 3 kΩ, 10.3 µA at 5 kΩ and 5.1 µA at 10 kΩ. With tens of microamperes in the pair, a larger resistor restores the light's lead. We therefore follow the amplifiers carried forward up to 10 kΩ, where the companion note takes over.
 
-**The resistor's own capacitance now sets the bandwidth.** Its pole, $1/(2\pi R_FC_{F,\mathrm{par}})$, lies at 398 MHz for 2 kΩ with our nominal 0.2 pF, but at 159 MHz for 5 kΩ and 80 MHz for 10 kΩ. A band of 150 MHz therefore needs $R_F \le 1/(2\pi\times150\ \mathrm{MHz}\times0.2\ \mathrm{pF})$ = 5.3 kΩ, or 10.6 kΩ if the layout holds the parasitic to 0.1 pF. Table A6.38 runs the analysis of this chapter at 2, 3, 5 and 10 kΩ with 0.2 pF, and Table A6.39 with 0.1 pF. Each design is the robust one of Table A9.2, with a phase margin of at least 45° and at most 1 dB of peaking, but with no capacitance added at the input. With 0.2 pF, four parts still reach 150 MHz at 5 kΩ: OPA955 with 191 MHz, OPA855 with 182 MHz, OPA858 with 180 MHz and LMH6629 with 169 MHz, while OPA856 falls just short with 149 MHz. At 10 kΩ every design stays between 69 and 129 MHz. With 0.1 pF, OPA955, OPA855 and OPA858 keep 200–232 MHz even at 10 kΩ.
+**The feedback capacitance now sets the bandwidth.** Its pole, $1/(2\pi R_FC_F)$, lies at 398 MHz for 2 kΩ with 0.2 pF, but at 159 MHz for 5 kΩ and 80 MHz for 10 kΩ. A band of 150 MHz therefore needs $R_F \le 1/(2\pi\times150\ \mathrm{MHz}\times0.2\ \mathrm{pF})$ = 5.3 kΩ, or 10.6 kΩ with 0.1 pF. Table A6.38 runs the analysis of this chapter at 2, 3, 5 and 10 kΩ with 0.2 pF across the resistor, the minimum total of the 2-kΩ designs, which at these resistances means a fitted capacitor of about 0.12 pF; Table A6.39 runs it with 0.1 pF, close to the parasitic alone (0.08 pF, Table 1.1). Each design is the robust one of Table A9.2, with a phase margin of at least 45° and at most 1 dB of peaking, but with no capacitance added at the input. With 0.2 pF, four parts still reach 150 MHz at 5 kΩ: OPA955 with 191 MHz, OPA855 with 182 MHz, OPA858 with 180 MHz and LMH6629 with 169 MHz, while OPA856 falls just short with 149 MHz. At 10 kΩ every design stays between 69 and 129 MHz. With 0.1 pF, OPA955, OPA855 and OPA858 keep 200–232 MHz even at 10 kΩ.
 
-**The loop becomes easy to stabilize.** The noise gain at crossover grows with $R_F$ (Section 3.2), so the minimum-gain trap of the 2-kΩ design disappears. OPA855's phase margin rises from 59° at 2 kΩ to 66°, 73° and 78° at 3, 5 and 10 kΩ, with the 0.2-pF parasitic as its only feedback capacitance. OPA955, OPA818 and OPA846, which need added input capacitance at 2–3 kΩ, are robust without it from 5 kΩ up. Added capacitance still buys bandwidth, because a loop with up to 1 dB of peaking carries the response past the resistor's pole, but it costs noise: 8 pF gives OPA855 99 MHz instead of 84 MHz at 10 kΩ, with a band penalty of 11.5 dB instead of 7.4 dB (`data/results/medium_gain.json`).
+**The loop becomes easy to stabilize.** The noise gain at crossover grows with $R_F$ (Section 3.2), so the minimum-gain trap of the 2-kΩ design disappears. OPA855's phase margin rises from 59° at 2 kΩ to 66°, 73° and 78° at 3, 5 and 10 kΩ, with 0.2 pF as its whole feedback capacitance. OPA955, OPA818 and OPA846, which need added input capacitance at 2–3 kΩ, are robust without it from 5 kΩ up. Added capacitance still buys bandwidth, because a loop with up to 1 dB of peaking carries the response past the resistor's pole, but it costs noise: 8 pF gives OPA855 99 MHz instead of 84 MHz at 10 kΩ, with a band penalty of 11.5 dB instead of 7.4 dB (`data/results/medium_gain.json`).
 
 **The bipolar parts keep their lead.** Their current noise, 2.1–2.8 pA/√Hz for all but OPA955, exceeds the resistor's Johnson noise from about 2–4 kΩ up, and at 5 kΩ that noise is only 1.82 pA/√Hz. Yet over a band of tens of megahertz the voltage noise acting on the node capacitance weighs more. At 5 kΩ OPA855 and OPA856 stay within 5.5 dB of the resistor's noise, against 6.4 dB for OPA858 and 9.0 dB for OPA818. At 10 kΩ, over the narrower band that each design then reaches, OPA855, OPA856 and OPA859 stay within 7.3–7.4 dB and OPA858 within 5.1 dB. OPA955, with 0.79 nV/√Hz and 0.55 pA/√Hz, stays within 1.7–1.9 dB at 5–10 kΩ. With its calibrated open-loop curve (Table A6.7), OPA858 keeps nearly the same bandwidth and noise at 3–10 kΩ, but with 46–64° of phase margin instead of 66–77°.
 
@@ -1975,7 +1975,7 @@ So far the pair has carried 0.1–10 mA, enough for its shot noise to bury the J
 
 **What it costs.** The largest RF current the output can carry falls as $1/R_F$. With 2 V of peak output it is 1 mA at 2 kΩ, 0.4 mA at 5 kΩ and 0.2 mA at 10 kΩ, so a larger resistor suits a pair whose signal is as small as its light. The imbalance must still stay out of $R_F$ (Section 8.1): at 10 kΩ, 0.1 mA of imbalance would take 1 V of the swing.
 
-**The choice for a weaker pair.** With 20–50 µA in the pair and 150 MHz to cover, 3–5 kΩ is the range. There OPA855 keeps 182–334 MHz with 66–73° of phase margin and needs no added capacitance, and the pair's shot noise exceeds its own noise from 37–44 µA. OPA955, once released, lowers that to 16 µA at 5 kΩ. 10 kΩ serves 150 MHz only if the parasitic is held to about 0.1 pF.
+**The choice for a weaker pair.** With 20–50 µA in the pair and 150 MHz to cover, 3–5 kΩ is the range. There OPA855 keeps 182–334 MHz with 66–73° of phase margin and needs no added capacitance, and the pair's shot noise exceeds its own noise from 37–44 µA. OPA955, once released, lowers that to 16 µA at 5 kΩ. 10 kΩ serves 150 MHz only with about 0.1 pF across the resistor, the parasitic alone of a careful layout (Table 1.1).
 
 **Where the companion note continues.** From 10 kΩ up the companion note takes over. Its Section 6.9 evaluates 10 kΩ on photodiodes of 20 pF to 1 nF, and it runs its single-pole model and our model on our node at 2 kΩ and 10 kΩ with a common design rule. At 10 kΩ the two agree on bandwidth within 2–6% for OPA855, OPA858 and LMH6629, within 11% for OPA955 and within 15% for OPA818. At 2 kΩ the single-pole model falls short by up to a third, which is why this note uses the full open-loop curves, and why the two notes meet at 10 kΩ. The companion note also runs OPA855, OPA955 and OPA818 at 10 kΩ on our node in SPICE, with our supplies, loads and double injection (its Section 9.8). For OPA855 the macromodel reproduces our design of Table A6.38 within 0.2% in bandwidth and 0.4° in phase margin, at 84 MHz and 78.8°, and its noise lies 0.3 dB below our model's, close to the agreement found at 2 kΩ (Section 5.6); at 0.10 pF of total feedback capacitance it gives 215 MHz, against 207 MHz from our model. For OPA955 the macromodel reproduces Table A6.38 within 0.2% in bandwidth and 0.05 dB in noise, at 85 MHz, but gives 70.7° of phase margin against our 55.4°, because it has far less phase lag above 300 MHz than the datasheet curve (Section 5.3). For OPA818 it gives 115 MHz and 56.5° against our 129 MHz and 47°, and 2.2 dB more noise, in the same direction as at 2 kΩ, where OPA818's macromodel had 15.5° more phase margin and 1.6 dB more noise than our analysis.
 
@@ -2164,7 +2164,7 @@ The datasheet's own two curves do not agree with each other. Fig 8-22 (p16) give
 
 ![Figure 28](figures/fig22_hv_composite.png)
 
-*Figure 28. The dual-feedback high-voltage composite of Section 7.2, with the values of its $G_2$ = 5.5 design (Table A7.7). OPA859 on ±2.5 V, its non-inverting input grounded, is the first stage at the summing node. THS3491 on ±15 V follows as a non-inverting stage of gain $G_2 = 1 + R_{F2}/R_{G2}$ = 1 + 568 Ω/126 Ω = 5.5, with $R_{F2}$ interpolated from the datasheet's Table 9-2 and $R_{G2} = R_{F2}/(G_2 - 1)$. $R_F$ = 2 kΩ returns from the THS3491's output $v_2$, split into two 1-kΩ resistors in series because the total $C_F$ of 0.100 pF lies below the parasitic capacitance of a single resistor (Section 8.10). $C_L$ = 3.25 pF from the OPA859's output $v_1$ closes the fast local loop that makes the composite stable; without it the circuit is the plain composite, which is unstable (Table A7.6). The THS3491 drives 100 Ω, the load of its datasheet characterization. Amplifiers: OPA859 and THS3491.*
+*Figure 28. The dual-feedback high-voltage composite of Section 7.2, with the values of its $G_2$ = 5.5 design (Table A7.7). OPA859 on ±2.5 V, its non-inverting input grounded, is the first stage at the summing node. THS3491 on ±15 V follows as a non-inverting stage of gain $G_2 = 1 + R_{F2}/R_{G2}$ = 1 + 568 Ω/126 Ω = 5.5, with $R_{F2}$ interpolated from the datasheet's Table 9-2 and $R_{G2} = R_{F2}/(G_2 - 1)$. $R_F$ = 2 kΩ returns from the THS3491's output $v_2$, split into two 1-kΩ resistors in series, as TI advises for a total $C_F$ below 0.15 pF (Section 8.10): 0.100 pF is too small to be set with a fitted capacitor beside a single resistor's parasitic. $C_L$ = 3.25 pF from the OPA859's output $v_1$ closes the fast local loop that makes the composite stable; without it the circuit is the plain composite, which is unstable (Table A7.6). The THS3491 drives 100 Ω, the load of its datasheet characterization. Amplifiers: OPA859 and THS3491.*
 
 **Two topologies (Figure 28).** In the plain composite, $R_F \parallel C_F$ runs from the THS3491's output $v_2$ to the summing node $v_s$, and the OPA859, with its non-inverting input grounded, drives the THS3491 directly. In the dual-feedback composite a capacitor $C_L$ also runs from the OPA859's output $v_1$ to the summing node; it closes a fast local loop around the first stage and takes over the feedback at high frequencies. The THS3491 drives 100 Ω, the load of its datasheet characterization, in parallel with its own feedback network and $R_F$. The OPA859 is a Thevenin source $A_1(e_1 - v_s)$ behind its open-loop output impedance $Z_o$, where $e_1$ is its input voltage noise. The THS3491 gives $v_2 = H_2(v_1 + e_2)$ with input admittance $Y_{in2}$, where $e_2$ is its noise referred to its input, 3.0–4.3 nV/√Hz at gains of 5.5 to 4. The node capacitance $C_T = C_D + C_{\mathrm{PCB}} + C_{\mathrm{in1}}$ = 1 + 0.35 + 0.82 pF = 2.17 pF includes the OPA859's input capacitance $C_{\mathrm{in1}}$. With $Y_T = j\omega C_T$, $Y_F = 1/R_F + j\omega C_F$, $Y_L = j\omega C_L$ and $Y_s = Y_T + Y_F + Y_L$, the two node equations are
 
@@ -2189,7 +2189,7 @@ which for $Z_o$ = 0 is $T = A_1(Y_L + H_2Y_F)/Y_s$; the plain composite is the c
 
 **The plain composite is unstable.** Its loop gain is $A_1H_2Y_F/Y_s$: the first stage's gain–bandwidth times $G_2$, about 0.9 GHz × $G_2$, divided by the noise gain of the TIA. That puts the crossover at 390–640 MHz for $G_2$ = 2–8, where the THS3491 already adds tens of degrees of lag. Even the best total $C_F$ leaves only 15° of phase margin at a gain of 2 and none from 3 up (Table A7.6), so no gain gives a robust design.
 
-**The dual-feedback composite is robust in a narrow window.** $C_L$ closes a local loop around the first stage with a noise gain of $(C_T + C_F + C_L)/C_L$, 1.7–2.0 for the designs below, so the outer loop through the THS3491 no longer has to carry the crossover alone. A first scan over $G_2$ = 2–8, $C_L$ = 0.5–4.0 pF and $C_F$ = 0.10–1.50 pF, and a finer one over $G_2$ = 4–7, $C_L$ = 2.0–4.0 pF in 0.25-pF steps and $C_F$ = 0.100–0.300 pF in 0.025-pF steps, each design over all 27 corners ($C_D$ ± 0.2 pF, $C_F$ ± 0.1 pF and $C_L$ ± 0.1 pF), find robust designs only at $G_2$ = 4–5.5. They are five of the 486 designs of the fine scan, with $C_F$ = 0.100–0.125 pF and 0.55–0.6 pF of $C_L$ per unit of $G_2$; with less $C_L$ the phase margin fails, and with more the bandwidth. A total $C_F$ of 0.100–0.125 pF lies below the 0.2-pF nominal parasitic of one resistor and its pads (Table 1.1), and its −0.1-pF corner reaches 0.000–0.025 pF. It needs $R_F$ split into two series resistors of $R_F/2$, which TI advises for a $C_F$ below 0.15 pF (Section 8.10), and a parasitic measured on the board; the robust window assumes both. Both scans start at 0.10 pF, so smaller values were not explored. Table A7.7 gives the one at each gain with the largest dynamic range at 1 mA. SPICE runs of these four designs at all 27 corners give worst-corner values within 0.2° of phase margin, 0.1 dB of gain margin, 0.01 dB of peaking and 1 MHz of bandwidth of the analysis, and band noise at nominal capacitances within 0.6 nA. Over 16 further designs at nominal capacitances, stable and unstable, SPICE and the analysis agree within 1.3° of phase margin, 0.4 dB of gain margin, 4.5 MHz of bandwidth and 0.8 % of band noise. Described with OPA859's datasheet curve instead of its model, the fine scan would also accept gains of 6 and 7 (29 robust designs at $G_2$ = 4–7). SPICE gives two of these designs, $G_2$ = 6 with $C_F$ = 0.150 pF and $C_L$ = 3.00 pF and $G_2$ = 7 with 0.150 and 3.75 pF, only 34.4° and 36.8° at the worst corner, about 10° less than the datasheet curve predicts.
+**The dual-feedback composite is robust in a narrow window.** $C_L$ closes a local loop around the first stage with a noise gain of $(C_T + C_F + C_L)/C_L$, 1.7–2.0 for the designs below, so the outer loop through the THS3491 no longer has to carry the crossover alone. A first scan over $G_2$ = 2–8, $C_L$ = 0.5–4.0 pF and $C_F$ = 0.10–1.50 pF, and a finer one over $G_2$ = 4–7, $C_L$ = 2.0–4.0 pF in 0.25-pF steps and $C_F$ = 0.100–0.300 pF in 0.025-pF steps, each design over all 27 corners ($C_D$ ± 0.2 pF, $C_F$ ± 0.1 pF and $C_L$ ± 0.1 pF), find robust designs only at $G_2$ = 4–5.5. They are five of the 486 designs of the fine scan, with $C_F$ = 0.100–0.125 pF and 0.55–0.6 pF of $C_L$ per unit of $G_2$; with less $C_L$ the phase margin fails, and with more the bandwidth. A total $C_F$ of 0.100–0.125 pF lies below the 0.2-pF minimum of Table 1.1 and within the corners of one resistor's parasitic, 0.05–0.12 pF, and its −0.1-pF corner reaches 0.000–0.025 pF, below what any resistor and pads give. It needs $R_F$ split into two series resistors of $R_F/2$, which TI advises for a $C_F$ below 0.15 pF (Section 8.10), and a total measured and trimmed on the board; the robust window assumes both. Both scans start at 0.10 pF, so smaller values were not explored. Table A7.7 gives the one at each gain with the largest dynamic range at 1 mA. SPICE runs of these four designs at all 27 corners give worst-corner values within 0.2° of phase margin, 0.1 dB of gain margin, 0.01 dB of peaking and 1 MHz of bandwidth of the analysis, and band noise at nominal capacitances within 0.6 nA. Over 16 further designs at nominal capacitances, stable and unstable, SPICE and the analysis agree within 1.3° of phase margin, 0.4 dB of gain margin, 4.5 MHz of bandwidth and 0.8 % of band noise. Described with OPA859's datasheet curve instead of its model, the fine scan would also accept gains of 6 and 7 (29 robust designs at $G_2$ = 4–7). SPICE gives two of these designs, $G_2$ = 6 with $C_F$ = 0.150 pF and $C_L$ = 3.00 pF and $G_2$ = 7 with 0.150 and 3.75 pF, only 34.4° and 36.8° at the worst corner, about 10° less than the datasheet curve predicts.
 
 **Noise and dynamic range.** The composite is 2.4–2.8 times as noisy as OPA855 (49.6 nA), for two reasons that come with the dual feedback. The first stage's voltage noise, about 3.0 nV/√Hz in its model above 10 MHz, acts on $C_T + C_F + C_L$, 4.5–5.5 pF instead of about 2.4 pF, which gives its 94–113 nA. The THS3491's noise reaches the summing node through $C_L$ ($\lvert Y_L + Y_s/A_1\rvert$ in Eq. (65)) and adds 63–67 nA. The ceiling more than pays for both. At $G_2$ = 5.5 the dynamic range at 100 MHz is 87.3, 86.4, 81.8 and 73.1 dB at 0, 0.1, 1 and 10 mA: 7.8, 9.1, 11.1 and 11.9 dB above OPA818 and 4.4, 9.7, 14.0 and 15.2 dB above OPA955. Its transimpedance at 100 MHz is 1.84 kΩ, 0.7 dB below $R_F$, which Eq. (49) credits as it credits OPA818's 1.96 kΩ (0.2 dB below $R_F$); with $\lvert Z_T\rvert$ = $R_F$ the composite gives 86.6, 85.6, 81.1 and 72.4 dB. To use OPA818's 70.7 dB at 1 mA in 150 MHz, an ADC whose full scale matches the TIA's largest tone needs a noise spectral density of $-70.7 - 10\log_{10}(150\ \mathrm{MHz})$ = −152.5 dBFS/Hz, and the composite's 81.8 dB needs −163.6 dBFS/Hz.
 
@@ -2418,7 +2418,7 @@ $$
 **Why it is not recommended here.**
 - **Noise.** With OPA855 at 1 pF, the term removed (0.62–1.24 pA/√Hz at 100–200 MHz) is smaller than the white base-current noise the follower adds (1.79 pA/√Hz). Bootstrapping therefore raises the noise; at 2 pF it breaks even at 200 MHz (Table A8.4). Only OPA818, with its 2.2-nV/√Hz $e_n$, would gain, and only 0.3 dB at 100 MHz and 0.5 dB at 200 MHz with 2 pF at the node.
 - **Stability.** Bootstrapping removes $C_D$ from $C_T$, which lowers the noise gain $NG_\infty = 1 + C_T/C_F$ of Eq. (11). For the decompensated parts that is the wrong direction.
-  - OPA855 at 1 pF would keep $C_T$ ≈ 1.15 pF plus the follower's 0.3 pF. $C_F$ would then have to stay below $C_T/6$ ≈ 0.24 pF to respect $G_{\min}$ = 7, against a resistor parasitic of 0.2 ± 0.1 pF.
+  - OPA855 at 1 pF would keep $C_T$ ≈ 1.15 pF plus the follower's 0.3 pF. $C_F$ would then have to stay below $C_T/6$ ≈ 0.24 pF to respect $G_{\min}$ = 7, against the 0.2-pF minimum total and its ±0.1 pF tolerance (Table 1.1).
   - OPA818 needs more input capacitance to reach 40–45° (Section 6.2.6), and bootstrapping takes capacitance away.
 - **The pair.** Both diodes' bias nodes would have to be driven, through coupling capacitors that carry the photocurrents' RF components, with the DC bias fed through resistors or chokes. That adds parasitics at exactly the nodes that set the common-mode rejection.
 - **Where bootstrapping belongs.** It belongs on large photodiodes, where $e_n\omega C_D$ dominates: $C_D$ above about 5–10 pF at 100 MHz, or tens to hundreds of picofarads at 1–10 MHz. Hobbs' example is a 100-pF photodiode at 2 µA in a 1-MHz front end. There the cascode-plus-bootstrap circuit loses only 3.3 dB of carrier-to-noise ratio at 1 MHz [A11, Figs. 9 and 10, p. 45].
@@ -2485,7 +2485,7 @@ The standing currents of the PNP and the NPN flow into and out of the summing no
   - At low photocurrent $r_e$ is large, and the pole of Eq. (75) falls into the band: 48 MHz at 10 µA. A standing current keeps it out, but then the pair adds 2.1–3.3 pA/√Hz at 200 MHz (Table A8.6). That is more than the $e_n\omega C$ noise the cascodes remove, 0.75–2.0 pA/√Hz with OPA855.
   - The reason is that OPA855's $e_n$ of 0.99 nV/√Hz (the white level of Fig 6-11, Table 4.1) is itself the Johnson noise of only 59.5 Ω. A CB transistor is quieter only for $r_b + r_e/2$ < 59.5 Ω, i.e. above about 0.26 mA, and at such currents its base shot noise and the standing current's noise dominate.
   - Hobbs notes the same limit for a biased cascode: the base current has full shot noise [A11, p. 45]. A bias current with a fraction $\delta$ of full shot-noise power limits the signal-to-noise ratio above $f_c\sqrt{\delta}$ [A11, Eq. (9), p. 44].
-- **It hurts the decompensated amplifiers.** With both $C_D$ replaced by $2C_\mu$ = 0.4 pF, OPA855 sees $C_T$ = 1.55 pF. Its $C_F$ window shrinks to 0.13–0.26 pF at 2 kΩ (0.15–0.26 pF at 1.5 kΩ), which no longer contains the ±0.1 pF spread around the 0.2-pF parasitic: 0.20 pF gives 545 MHz at 59°, 0.25 pF gives 396 MHz at 61°, and 0.30 pF violates $G_{\min}$. Unity-gain-stable OPA856 gains only about 10 % in bandwidth: 227 MHz against 205 MHz, both at 53°.
+- **It hurts the decompensated amplifiers.** With both $C_D$ replaced by $2C_\mu$ = 0.4 pF, OPA855 sees $C_T$ = 1.55 pF. Its $C_F$ window shrinks to 0.13–0.26 pF at 2 kΩ (0.15–0.26 pF at 1.5 kΩ), which no longer contains the ±0.1 pF spread around the 0.2-pF minimum total: 0.20 pF gives 545 MHz at 59°, 0.25 pF gives 396 MHz at 61°, and 0.30 pF violates $G_{\min}$. Unity-gain-stable OPA856 gains only about 10 % in bandwidth: 227 MHz against 205 MHz, both at 53°.
 - **Common-mode rejection.** The two paths now differ in $\alpha$, and a 0.5 % mismatch limits the rejection to −46 dB. They also differ in $\tau_e$, because the NPN and the PNP differ in $f_T$ and each $r_e$ follows its own diode's current. Hobbs warns that excessive photodiode capacitance may make the cascode transistor oscillate [A22, p. 918]; its base must be bypassed with low inductance.
 - **What it is good for.** It fixes the photodiode bias independently of the TIA, keeps the photodiodes reverse-biased when the TIA overloads, and isolates a photodiode capacitance that is large or that varies with bias and light. Hobbs' cascode improves the bandwidth 8:1 for a 100-pF photodiode [A11, p. 44] and may allow up to 40 times more amplifier bandwidth in the canceller [A22, p. 906]. With 0.5–1 pF per diode those gains do not arise.
 
@@ -2641,22 +2641,22 @@ Which variant is better depends on where the RF signal lies (Table A6.28), so bo
 ### 8.10 Starting component values
 
 This section turns the designs into parts. Table A8.13 gives starting values for the two variants of Section 8.9 and for the alternatives that Section 9.2 names: OPA856 and LMH6629 for a straightforward board, and OPA955 once it is released. Three properties of the feedback resistor matter.
-- **Package.** Use a thin-film $R_F$ in 0402 or 0201. Its body and pads give the 0.1–0.3 pF of parasitic capacitance assumed throughout. TI quotes up to 0.2 pF for the resistor alone [A2].
+- **Package.** Use a thin-film $R_F$ in 0402 or 0201. Its body, its pads and the amplifier's pins give about 0.08 pF of parasitic capacitance, 0.05–0.12 pF at the corners (Table 1.1, Appendix G), and more for a precision part with deep trim cuts (Section G.13.2). TI quotes up to 0.2 pF for the resistor alone [A2].
 - **Tolerance.** 1 % is adequate. The transimpedance gain error is the resistor tolerance.
 - **Very small $C_F$ and high crossover.** TI recommends two series resistors of $R_F/2$ when the required $C_F$ is below 0.15 pF (OPA818 p23, OPA856 p24, OPA858 p26); above 400 MHz (relevant for OPA855 and OPA955, whose loops cross near 0.8–1 GHz) two 0201 parts in series also halve the distributed RC and series inductance (~0.3–0.5 nH) of a single 0402 resistor.
 
-The external capacitor is the target total minus the 0.2-pF nominal parasitic. Discrete RF capacitors are available down to 0.1 pF in 0.1-pF steps, typically with ±0.05 pF tolerance.
+The external capacitor is the target total minus the 0.08-pF nominal parasitic. Discrete RF capacitors are available down to 0.1 pF in 0.1-pF steps, typically with ±0.05 pF tolerance; that tolerance and the corners of the parasitic make the ±0.1 pF of the total assumed throughout (Table 1.1).
 
 **Notes on Table A8.13.**
 
 *OPA855.*
-- **Window and target.** In the vendor's macromodel the window over ±0.2 pF of photodiode capacitance is 0.157–0.300 pF at 2 kΩ: peaking sets its lower edge, and a 3-dB gain margin at 3–4 GHz, i.e. $C_F \le C_T/6.5$ (Eq. (47)), sets its upper edge (Table A5.8). The total $C_F$ should therefore be 0.230 ± 0.070 pF at 2 kΩ and 0.240 ± 0.055 pF at 1.5 kΩ, or be trimmed (Table A5.9). The datasheet curve gives the wider 0.15–0.36 pF at 2 kΩ and 0.17–0.36 pF at 1.5 kΩ, whose upper edge is the minimum-gain rule $C_F \le C_T/6$; it would accept ±0.1 pF around 0.25 pF at 2 kΩ and about ±0.08 pF at 1.5 kΩ. The OPA855 rows of Table A8.13 are these datasheet-curve designs. No discrete capacitor is needed if the resistor and pads give 0.2–0.25 pF.
-- **Adjusting on the board.** Measure the peaking of the first board and trim with pad copper. A 0.1-pF capacitor is the right part only if the parasitic proves to be about 0.15 pF or less.
+- **Window and target.** In the vendor's macromodel the window over ±0.2 pF of photodiode capacitance is 0.157–0.300 pF at 2 kΩ: peaking sets its lower edge, and a 3-dB gain margin at 3–4 GHz, i.e. $C_F \le C_T/6.5$ (Eq. (47)), sets its upper edge (Table A5.8). The total $C_F$ should therefore be 0.230 ± 0.070 pF at 2 kΩ and 0.240 ± 0.055 pF at 1.5 kΩ, or be trimmed (Table A5.9). The datasheet curve gives the wider 0.15–0.36 pF at 2 kΩ and 0.17–0.36 pF at 1.5 kΩ, whose upper edge is the minimum-gain rule $C_F \le C_T/6$; it would accept ±0.1 pF around 0.25 pF at 2 kΩ and about ±0.08 pF at 1.5 kΩ. The OPA855 rows of Table A8.13 are these datasheet-curve designs. With the 0.08 pF of Table 1.1 they need 0.17 pF fitted at 2 kΩ and 0.19 pF at 1.5 kΩ, and the macromodel's targets 0.15 and 0.16 pF.
+- **Adjusting on the board.** These values lie between the 0.1-pF steps of the discrete parts: fit the step below and add pad copper, then measure the peaking of the first board and trim.
 - **Noise bandwidth.** Both designs have 420–540 MHz of bandwidth on the datasheet curve, and 481–630 MHz at the macromodel's targets (Table A5.9). Set the noise bandwidth with a first- or second-order filter at 200–250 MHz after the TIA (Section 6.3.3).
 - **Supply.** With 5 V single supply, set $V_{\mathrm{REF}}$ to 2.58 V, which centres the output at zero imbalance and lies inside the 1.1–4.6 V input range.
 - **With 2 pF at the node** (1 pF in each diode) the macromodel's window is 0.188–0.454 pF at 2 kΩ, and the total $C_F$ should be 0.320 ± 0.130 pF at 2 kΩ and 0.335 ± 0.115 pF at 1.5 kΩ, so ±0.1 pF fits without trimming (Tables A5.8 and A5.9). On the datasheet curve the window is 0.175–0.525 pF, and a total of 0.35 pF gives 280 MHz at 68°, moving between 201 and 436 MHz for ±0.1 pF (`data/results/balanced_detector.json`).
 
-*OPA856 and LMH6629.* The values are deliberately in the flat-to-0.1-dB region. On the datasheet curves both tolerate the parasitic corners with ≥ 46° of phase margin; in SPICE OPA856 keeps 50–62°, while LMH6629 keeps 41–47°, the gap between its macromodel's gains from the two inputs (Sections 5.3 and 5.5).
+*OPA856 and LMH6629.* The values are deliberately in the flat-to-0.1-dB region. On the datasheet curves both tolerate the ±0.1-pF corners of the total with ≥ 46° of phase margin; in SPICE OPA856 keeps 50–62°, while LMH6629 keeps 41–47°, the gap between its macromodel's gains from the two inputs (Sections 5.3 and 5.5).
 - **LMH6629.** The COMP pin must be high (WSON-8), or use the SOT-23-5 version, which is internally fixed at G ≥ 10. TI notes that the SOT-23-5 version peaks more (2 dB at G = 10 in a voltage-gain circuit) and has worse HD2 (LMH6629 p5, p15).
 - **OPA856.** It can carry a feedback clamp diode across $R_F$ because it is unity-gain stable (OPA856 p19, Fig 9-1). This is useful against optical overload.
 
@@ -2735,13 +2735,13 @@ GBW and $e_n$ enter only through these criteria. Table 9.1 gives the ranking tha
 
 **For 200–300 MHz OPA855 is again the choice, because its $C_F$ window covers about 250–700 MHz at 2 kΩ.** At $C_F$ = 0.30–0.35 pF it gives 260–330 MHz with 63–66° of phase margin, and at 0.25 pF it gives 420 MHz, which a post-filter brings down. Lower bandwidths always need a post-filter, because $C_F$ above 0.36 pF violates the minimum stable gain. The runner-up is LMH6629 with the COMP pin high, at 229 MHz with 52° or 272 MHz with 46°. It offers 250 mA of output current for driving 50-Ω loads, a 0.44–0.78 pF $C_F$ window and a SOT-23-5 option. It costs 1.5 dB more noise than OPA855, from its 5.7 pF of input capacitance, of which the 4-pF differential part is a simulated, not measured, value.
 
-**For a straightforward board, OPA856 trades amplitude for tolerance.** It is unity-gain stable, so there is no minimum-gain trap: any total $C_F$ from 0.45 to 3 pF gives ≥ 45° of phase margin at 2 kΩ, 0.55 pF gives about 205 MHz and 53°, and ±0.1 pF of resistor parasitic moves it only between 175 and 235 MHz. It is nearly as quiet as OPA855 (3.2 dB penalty). Its slew rate, however, limits it to 0.56 V peak at 100 MHz, so it suits an RF photocurrent below about 0.28 mA peak at 2 kΩ, and with only about 11 dB of loop gain at 100 MHz it is weak for large RF signals. For larger signals the practical choice is LMH6629 with the COMP pin high, which is also available in a leaded SOT-23-5 package, fixed at G ≥ 10.
+**For a straightforward board, OPA856 trades amplitude for tolerance.** It is unity-gain stable, so there is no minimum-gain trap: any total $C_F$ from 0.45 to 3 pF gives ≥ 45° of phase margin at 2 kΩ, 0.55 pF gives about 205 MHz and 53°, and ±0.1 pF on the total moves it only between 175 and 235 MHz. It is nearly as quiet as OPA855 (3.2 dB penalty). Its slew rate, however, limits it to 0.56 V peak at 100 MHz, so it suits an RF photocurrent below about 0.28 mA peak at 2 kΩ, and with only about 11 dB of loop gain at 100 MHz it is weak for large RF signals. For larger signals the practical choice is LMH6629 with the COMP pin high, which is also available in a leaded SOT-23-5 package, fixed at G ≥ 10.
 
 **OPA818 gives the most dynamic range of any single amplifier, at the price of a marginal loop.** It is the best of the three decompensated parts of the starting list, which Table A9.3 sets side by side. It tolerates the largest uncorrected imbalance of all candidates, 5.5 mA at 2 kΩ and 7.3 mA at 1.5 kΩ. It has the largest RF amplitude, 2.23 V peak at 100 MHz, slew-limited, and 4.5–5.5 V at 20–50 MHz (Table A6.28). With it comes the highest dynamic range of all the candidates for a 100-MHz tone: 78.0, 70.7 and 61.1 dB at $I_1 + I_2$ = 0.1, 1 and 10 mA, and 58.1 dB with 10 mA in each diode. For tones at 20–50 MHz its lead over the 5-V parts grows to 9–11 dB; at 150 MHz it is gone (Table A6.28). Its JFET input has no shot noise of its own. With a 1-pF photodiode at 2 kΩ, however, its phase margin cannot exceed 34°, which leaves three options. We can accept a 33–34° design, with a total $C_F$ ≈ 0.55–0.62 pF and 240–330 MHz, verified in simulation and on the board; its upper end, $C_T/6$, keeps the high-frequency noise gain at the minimum stable gain of 7, and across parasitic and part-to-part spread it keeps a worst case of 25–28° (Section 6.2.8). We can add 2 pF at the input, for 40° at 181 MHz and 3 dB more noise. Or we can move OPA818 to a stage where its noise gain is naturally higher, the second stage of Option D (Section 8.5). As a 33° TIA it should be used only after simulation and a board measurement confirm the phase margin, and it is worth that effort where the RF signal lies below about 100 MHz and dynamic range comes first. It is variant B of the proposed front end (Section 8.9). OPA846 reaches a similar 34.5° with less than half the slew rate (625 against 1400 V/µs) and more input capacitance (3.8 against 2.4 pF), so it is worse than OPA818 on every axis except price; a bench OPA846 TIA at 1.2 kΩ agrees with the model in both noise and peaking, for about 14 pF at its input (Section 3.10). OPA847, with a minimum stable gain of 12, reaches only 9°, has no stable flat design, and cannot be used here.
 
 **If the receiver must also resolve signals below about 100 kHz, the order changes (Section 6.9).** OPA855 then adds the most noise of the ten, 35 pA/√Hz at 1 kHz from the 1/f noise of its base current, and OPA856, THS4304 and the CMOS-input OPA859 and OPA858 follow. OPA955 is quiet at both ends but not yet released. Among production parts OPA818 balances the two: it keeps 262 MHz and adds 0.2 dB at 1 kHz and 1.7 dB at 100 Hz from 1 mA up (Table A6.37).
 
-**If the pair carries only tens of microamperes, a larger feedback resistor restores the light's lead (Section 6.10).** The resistor's own capacitance then sets the band: 150 MHz needs $R_F \le$ 5.3 kΩ with 0.2 pF of parasitic, or 10.6 kΩ with 0.1 pF. Up to that limit OPA855 remains the choice. At 3–5 kΩ it keeps 182–334 MHz with 66–73° of phase margin and no added capacitance, and the pair's shot noise exceeds its own noise from 37–44 µA. Its current noise exceeds the resistor's from about 2.6 kΩ, but in this band it costs less than the voltage noise of the FET parts. Above about 10 kΩ, or with still less light, the companion note continues.
+**If the pair carries only tens of microamperes, a larger feedback resistor restores the light's lead (Section 6.10).** The feedback capacitance then sets the band: 150 MHz needs $R_F \le$ 5.3 kΩ with 0.2 pF across the resistor, or 10.6 kΩ with 0.1 pF, close to its parasitic alone (Table 1.1). Up to that limit OPA855 remains the choice. At 3–5 kΩ it keeps 182–334 MHz with 66–73° of phase margin and no added capacitance, and the pair's shot noise exceeds its own noise from 37–44 µA. Its current noise exceeds the resistor's from about 2.6 kΩ, but in this band it costs less than the voltage noise of the FET parts. Above about 10 kΩ, or with still less light, the companion note continues.
 
 ### 9.3 The front end that follows
 
@@ -2778,8 +2778,8 @@ LMH6629's input capacitance (5.7 pF in the datasheet, 1.3 pF in the model) and t
 Some designs need care whatever the models say, because they are marginal, sensitive to the board's parasitics, or rest on values that are simulated or preliminary:
 
 1. **Every design below 50° of phase margin.** This covers OPA855 with the calibrated curve (51° flat at 2 kΩ; Table A6.7), OPA818 and OPA846 at any $C_F$, and OPA955 with added capacitance (45°). Flat transimpedance hides low phase margin (Figure 17). The output noise and the response to load or supply disturbances still peak. For designs whose peaking will be equalized, Section 6.2.8 gives the worst-case limits. The vendors' macromodels give OPA818 and OPA846 more margin than these analytical numbers (Section 5.5).
-2. **OPA855 and OPA858 with no external $C_F$.** The design rests on a parasitic that, at 0.1 pF, gives 36–38° and 3–3.6 dB of peaking (Table A6.9). Aim for 0.25 pF total and verify.
-3. **Any external $C_F$ below 0.1 pF.** It is not a reproducible discrete part (Table A8.13, OPA855 rows). Use pad geometry, or two series resistors, as the datasheets advise.
+2. **OPA855 and OPA858 at the 0.2-pF minimum.** The design rests on a total of 0.2 pF; if it comes out at 0.1 pF, it gives 36–38° and 3–3.6 dB of peaking (Table A6.9). Aim for 0.25 pF total and verify.
+3. **Any external $C_F$ below 0.1 pF**, which a total below about 0.18 pF needs beside the 0.08-pF parasitic. It is not a reproducible discrete part. Use pad geometry, or two series resistors, as the datasheets advise.
 4. **$C_F$ above $C_T/(G_{\min}-1)$ on decompensated parts:** 0.36 pF for OPA855 and OPA858, 0.78 pF for LMH6629 (COMP HI), 0.62 pF for OPA818. This violates the manufacturer's minimum-gain rule, even where the model, whose curves end near 1 GHz, finds the loop stable. In OPA855's macromodel the gain margin at 3–4 GHz is $20\log_{10}(NG_\infty/5.3)$ (Eq. (47)).
    - The rule therefore leaves 2.4 dB.
    - A 3-dB margin needs $NG_\infty \ge 7.5$, i.e. $C_F \le C_T/6.5$, 0.02–0.03 pF below the rule.
@@ -2821,7 +2821,7 @@ The analytical model is validated where the datasheets allow (Table A3.5), but i
 4. **High-frequency current noise of the FET parts (Section 3.7).** Measure the dark output noise of the finished TIA from 10 to 200 MHz with a spectrum analyser, behind a low-noise amplifier if needed. Compare it with the central and high curves of Figure 20.
 
    SPICE does not settle it (Section 5.6). The OPA818 model adds a current noise larger than its datasheet curve; the OPA858 and OPA859 models have none.
-5. **The actual parasitic feedback capacitance of the chosen resistor and pads.** Measure it with an impedance analyser or a vector network analyser on a test coupon, or infer it from the TIA's bandwidth and peaking on the first board using Table A8.13.
+5. **The actual parasitic feedback capacitance of the chosen resistor, pads and pins.** Appendix G estimates 0.05–0.12 pF for the layout of this note. Measure it with an impedance analyser or a vector network analyser on a test coupon, or infer it from the TIA's bandwidth and peaking on the first board using Table A8.13.
 6. **The photodiode.**
    - its junction capacitance against bias and photocurrent;
    - its series resistance $R_{\mathrm{ser}}$, which adds $4k_BTR_{\mathrm{ser}}\omega^2(C_{D,A}^2 + C_{D,B}^2)$ of noise (Section 3.6);
@@ -3072,7 +3072,7 @@ The tables behind the charts and the text of Chapters 1–9, grouped by the chap
 | OPA846 | 4 | 8.15 | 11.87 | 210 | 45.1 (35.9) | 14.5 | 181 (188) | 0.00 (1.11) | 4.6 (15.0) | 6.82 (7.94) | 6.94 (8.16) |
 | OPA846 | 5 | 9.15 | 13.20 | 191 | 44.5 (35.5) | 15.3 | 178 (179) | 0.12 (1.54) | 7.3 (18.0) | 7.39 (8.60) | 7.59 (8.82) |
 
-*Table A4.3. Total $C_F$ chosen anew at each photodiode capacitance: the widest bandwidth with a phase margin of at least 45°, a gain margin of at least 3 dB and at most 1 dB of peaking at that $C_D$, never below the 0.20-pF parasitic floor. Where no $C_F$ of the grid meets all three ("no"), the one with the smallest shortfall, $(45 - \phi_M)^+/45 + (3 - \mathrm{GM})^+/3 + (\mathrm{peaking} - 1)^+/1$, is given. SPICE scans 0.10–0.60 pF in 0.02-pF steps for OPA855 and 0.30–2.00 pF in 0.05-pF steps for OPA846; our analytical model is scanned on the same grid without the gain-margin criterion, which it does not give reliably (Section 5.3). Amplifiers: OPA855 and OPA846, $R_F$ = 2 kΩ.*
+*Table A4.3. Total $C_F$ chosen anew at each photodiode capacitance: the widest bandwidth with a phase margin of at least 45°, a gain margin of at least 3 dB and at most 1 dB of peaking at that $C_D$, never below the 0.20-pF minimum total of Table 1.1. Where no $C_F$ of the grid meets all three ("no"), the one with the smallest shortfall, $(45 - \phi_M)^+/45 + (3 - \mathrm{GM})^+/3 + (\mathrm{peaking} - 1)^+/1$, is given. SPICE scans 0.10–0.60 pF in 0.02-pF steps for OPA855 and 0.30–2.00 pF in 0.05-pF steps for OPA846; our analytical model is scanned on the same grid without the gain-margin criterion, which it does not give reliably (Section 5.3). Amplifiers: OPA855 and OPA846, $R_F$ = 2 kΩ.*
 
 | Part | $C_D$ (pF) | $C_F$, SPICE (pF) | Meets | Phase margin (°) | Gain margin (dB) | $f_{-3\,\mathrm{dB}}$ (MHz) | Peaking (dB) | Penalty (dB) | $C_F$, model (pF) | Meets | Phase margin, model (°) | $f_{-3\,\mathrm{dB}}$, model (MHz) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -3478,7 +3478,7 @@ Assembly difficulty for a hand-assembled or prototype-house HF board: low (SOIC 
 | LT6200-10 | TSOT-23-6 (S6; V− pin fused to lead frame); SO-8 (S8) | 0.95 / 1.27 mm; no EP; no FB; SHDN pin (active low) | low: SOIC / SOT-23 leaded | PRODUCTION (family and sample-buy pages) | 2.27 (LT6200CS6-10, TSOT-23-6); 2.32 (LT6200CS8-10#PBF, SO-8); overview page 2.50 / 2.56; ADI list 1ku via search-engine result | 62001ff Rev F (12/11), distributor copy |
 | LT6230-10 | TSOT-23-6 (S6) only | 0.95 mm; no EP; no FB; ENABLE pin (active low, must be driven low to operate) | low: SOT-23 leaded | PRODUCTION (family level; model-level status not shown) | 2.50 (C-grade CS6-10 reel); 2.93 (I-grade IS6-10 reel); family from 2.09; ADI list 1ku via search-engine result | 623012fc Rev C (1/11), distributor copy |
 
-*Table A6.5. Stability and bandwidth, $R_F$ = 2 kΩ, $C_D$ = 1 pF, $C_{\mathrm{PCB}}$ = 0.35 pF, $C_{F,\mathrm{par}}$ = 0.2 pF. Amplifiers: all 25 analysed parts, 26 configurations (one per row; LMH6629 in COMP HI and COMP LO).*
+*Table A6.5. Stability and bandwidth, $R_F$ = 2 kΩ, $C_D$ = 1 pF, $C_{\mathrm{PCB}}$ = 0.35 pF, total $C_F$ at least 0.2 pF. Amplifiers: all 25 analysed parts, 26 configurations (one per row; LMH6629 in COMP HI and COMP LO).*
 
 | Part | $C_T$ (pF) | Flat: $C_F$ required / realised (pF) | Flat: $f_{-3\,\mathrm{dB}}$ (MHz) | Flat: PM (°) | 1-dB: $f_{-3\,\mathrm{dB}}$ (MHz) / PM (°) | Largest PM (°) at $C_F$ (pF), $f_{-3\,\mathrm{dB}}$ | Robust: added $C$ (pF), $C_F$ (pF), $f_{-3\,\mathrm{dB}}$ (MHz) |
 |---|---|---|---|---|---|---|---|
@@ -3584,35 +3584,35 @@ The model sees these designs as stable only because the curves stop at about 1 G
 | OPA843 | 2 kΩ | 0.80–1.78 | 150–53 | $G_{\min}$ = 3 | 0.79– / 0.80– |
 | OPA846, OPA818, OPA955 | both | **no window** | – | phase margin < 45° at every $C_F$ | – |
 
-*Table A6.9. Parasitic corners, $R_F$ = 2 kΩ, flat design ($f_{-3\,\mathrm{dB}}$, phase margin, peaking). Amplifiers: OPA855, OPA858, OPA955, LMH6629 (COMP HI), OPA856, OPA859, THS4304, OPA843, OPA846, OPA818 (one per row).*
+*Table A6.9. Corners of the board's capacitances, $R_F$ = 2 kΩ, flat design ($f_{-3\,\mathrm{dB}}$, phase margin, peaking): the realised total $C_F$ moved by −0.1 or +0.1 pF, and $C_{\mathrm{PCB}}$ of 0.2 or 0.5 pF. Amplifiers: OPA855, OPA858, OPA955, LMH6629 (COMP HI), OPA856, OPA859, THS4304, OPA843, OPA846, OPA818 (one per row).*
 
-| Part | External $C_F$ (pF) | $C_{\mathrm{PCB}}$ / $C_{F,\mathrm{par}}$ = 0.2 / 0.1 pF | 0.2 / 0.3 | 0.5 / 0.1 | 0.5 / 0.3 |
+| Part | Total $C_F$ (pF) | $C_{\mathrm{PCB}}$ = 0.2 pF, total −0.1 pF | 0.2 pF, +0.1 pF | 0.5 pF, −0.1 pF | 0.5 pF, +0.1 pF |
 |---|---|---|---|---|---|
-| OPA855 | 0.00 | 827 MHz, 38°, +3.2 dB | 320 MHz, 64°, 0 dB | 776 MHz, 36°, +3.6 dB | 328 MHz, 65°, 0 dB |
-| OPA858 | 0.00 | 850 MHz, 38°, +3.0 dB | 317 MHz, 62°, 0 dB | 799 MHz, 37°, +3.4 dB | 325 MHz, 64°, 0 dB |
-| OPA955 | 0.00 | 986 MHz, 18°, +8.0 dB | 351 MHz, 37°, 0 dB | 924 MHz, 18°, +8.5 dB | 366 MHz, 39°, 0 dB |
-| LMH6629 (COMP HI) | 0.34 | 278 MHz, 46°, +0.8 dB | 186 MHz, 55°, 0 dB | 275 MHz, 45°, +0.9 dB | 188 MHz, 55°, 0 dB |
-| OPA856 | 0.38 | 227 MHz, 50°, +0.5 dB | 163 MHz, 59°, 0 dB | 221 MHz, 49°, +0.7 dB | 166 MHz, 58°, 0 dB |
-| OPA859 | 0.34 | 200 MHz, 58°, +0.4 dB | 149 MHz, 68°, 0 dB | 195 MHz, 56°, +0.6 dB | 150 MHz, 67°, 0 dB |
-| THS4304 | 0.48 | 167 MHz, 64°, +0.2 dB | 127 MHz, 73°, 0 dB | 166 MHz, 62°, +0.3 dB | 128 MHz, 72°, 0 dB |
-| OPA843 | 0.72 | 149 MHz, 46°, +0.3 dB | 119 MHz, 51°, 0 dB | 147 MHz, 46°, +0.5 dB | 119 MHz, 51°, 0 dB |
-| OPA846 | 0.54 | 268 MHz, 32°, +0.7 dB | 181 MHz, 34°, 0 dB | 258 MHz, 33°, +0.9 dB | 183 MHz, 35°, 0 dB |
-| OPA818 | 0.29 | 386 MHz, 27°, +2.5 dB | 283 MHz, 33°, 0 dB | 370 MHz, 27°, +2.8 dB | 288 MHz, 34°, 0 dB |
+| OPA855 | 0.20 | 827 MHz, 38°, +3.2 dB | 320 MHz, 64°, 0 dB | 776 MHz, 36°, +3.6 dB | 328 MHz, 65°, 0 dB |
+| OPA858 | 0.20 | 850 MHz, 38°, +3.0 dB | 317 MHz, 62°, 0 dB | 799 MHz, 37°, +3.4 dB | 325 MHz, 64°, 0 dB |
+| OPA955 | 0.20 | 986 MHz, 18°, +8.0 dB | 351 MHz, 37°, 0 dB | 924 MHz, 18°, +8.5 dB | 366 MHz, 39°, 0 dB |
+| LMH6629 (COMP HI) | 0.54 | 278 MHz, 46°, +0.8 dB | 186 MHz, 55°, 0 dB | 275 MHz, 45°, +0.9 dB | 188 MHz, 55°, 0 dB |
+| OPA856 | 0.58 | 227 MHz, 50°, +0.5 dB | 163 MHz, 59°, 0 dB | 221 MHz, 49°, +0.7 dB | 166 MHz, 58°, 0 dB |
+| OPA859 | 0.54 | 200 MHz, 58°, +0.4 dB | 149 MHz, 68°, 0 dB | 195 MHz, 56°, +0.6 dB | 150 MHz, 67°, 0 dB |
+| THS4304 | 0.68 | 167 MHz, 64°, +0.2 dB | 127 MHz, 73°, 0 dB | 166 MHz, 62°, +0.3 dB | 128 MHz, 72°, 0 dB |
+| OPA843 | 0.92 | 149 MHz, 46°, +0.3 dB | 119 MHz, 51°, 0 dB | 147 MHz, 46°, +0.5 dB | 119 MHz, 51°, 0 dB |
+| OPA846 | 0.74 | 268 MHz, 32°, +0.7 dB | 181 MHz, 34°, 0 dB | 258 MHz, 33°, +0.9 dB | 183 MHz, 35°, 0 dB |
+| OPA818 | 0.49 | 386 MHz, 27°, +2.5 dB | 283 MHz, 33°, 0 dB | 370 MHz, 27°, +2.8 dB | 288 MHz, 34°, 0 dB |
 
-*Table A6.10. Parasitic corners, $R_F$ = 1.5 kΩ, flat design. Amplifiers: OPA855, OPA858, OPA955, LMH6629 (COMP HI), OPA856, OPA859, THS4304, OPA843, OPA846, OPA818 (one per row).*
+*Table A6.10. Corners of the board's capacitances, $R_F$ = 1.5 kΩ, flat design, as in Table A6.9. Amplifiers: OPA855, OPA858, OPA955, LMH6629 (COMP HI), OPA856, OPA859, THS4304, OPA843, OPA846, OPA818 (one per row).*
 
-| Part | External $C_F$ (pF) | 0.2 / 0.1 pF | 0.2 / 0.3 | 0.5 / 0.1 | 0.5 / 0.3 |
+| Part | Total $C_F$ (pF) | $C_{\mathrm{PCB}}$ = 0.2 pF, total −0.1 pF | 0.2 pF, +0.1 pF | 0.5 pF, −0.1 pF | 0.5 pF, +0.1 pF |
 |---|---|---|---|---|---|
-| OPA855 | 0.02 | 960 MHz, 38°, +3.0 dB | 417 MHz, 61°, 0 dB | 902 MHz, 36°, +3.5 dB | 428 MHz, 62°, 0 dB |
-| OPA858 | 0.01 | 998 MHz, 36°, +3.3 dB | 425 MHz, 58°, 0 dB | 937 MHz, 35°, +3.8 dB | 437 MHz, 60°, 0 dB |
-| OPA955 | 0.02 | 1156 MHz, 17°, +8.3 dB | 475 MHz, 32°, 0 dB | 1078 MHz, 17°, +8.7 dB | 504 MHz, 35°, 0 dB |
-| LMH6629 (COMP HI) | 0.42 | 322 MHz, 45°, +0.6 dB | 226 MHz, 52°, 0 dB | 318 MHz, 44°, +0.7 dB | 228 MHz, 52°, 0 dB |
-| OPA856 | 0.48 | 254 MHz, 50°, +0.3 dB | 193 MHz, 58°, 0 dB | 249 MHz, 49°, +0.6 dB | 195 MHz, 57°, 0 dB |
-| OPA859 | 0.42 | 226 MHz, 58°, +0.3 dB | 176 MHz, 67°, 0 dB | 220 MHz, 56°, +0.5 dB | 176 MHz, 65°, 0 dB |
-| THS4304 | 0.58 | 188 MHz, 65°, +0.1 dB | 148 MHz, 73°, 0 dB | 187 MHz, 63°, +0.2 dB | 150 MHz, 71°, 0 dB |
-| OPA843 | 0.87 | 171 MHz, 45°, +0.2 dB | 141 MHz, 50°, 0 dB | 168 MHz, 45°, +0.4 dB | 142 MHz, 49°, 0 dB |
-| OPA846 | 0.67 | 356 MHz, 27°, +0.7 dB | 280 MHz, 29°, 0 dB | 334 MHz, 28°, +1.0 dB | 275 MHz, 30°, 0 dB |
-| OPA818 | 0.39 | 453 MHz, 24°, +2.4 dB | 416 MHz, 29°, 0 dB | 433 MHz, 25°, +2.6 dB | 397 MHz, 30°, 0 dB |
+| OPA855 | 0.22 | 960 MHz, 38°, +3.0 dB | 417 MHz, 61°, 0 dB | 902 MHz, 36°, +3.5 dB | 428 MHz, 62°, 0 dB |
+| OPA858 | 0.21 | 998 MHz, 36°, +3.3 dB | 425 MHz, 58°, 0 dB | 937 MHz, 35°, +3.8 dB | 437 MHz, 60°, 0 dB |
+| OPA955 | 0.22 | 1156 MHz, 17°, +8.3 dB | 475 MHz, 32°, 0 dB | 1078 MHz, 17°, +8.7 dB | 504 MHz, 35°, 0 dB |
+| LMH6629 (COMP HI) | 0.62 | 322 MHz, 45°, +0.6 dB | 226 MHz, 52°, 0 dB | 318 MHz, 44°, +0.7 dB | 228 MHz, 52°, 0 dB |
+| OPA856 | 0.68 | 254 MHz, 50°, +0.3 dB | 193 MHz, 58°, 0 dB | 249 MHz, 49°, +0.6 dB | 195 MHz, 57°, 0 dB |
+| OPA859 | 0.62 | 226 MHz, 58°, +0.3 dB | 176 MHz, 67°, 0 dB | 220 MHz, 56°, +0.5 dB | 176 MHz, 65°, 0 dB |
+| THS4304 | 0.78 | 188 MHz, 65°, +0.1 dB | 148 MHz, 73°, 0 dB | 187 MHz, 63°, +0.2 dB | 150 MHz, 71°, 0 dB |
+| OPA843 | 1.07 | 171 MHz, 45°, +0.2 dB | 141 MHz, 50°, 0 dB | 168 MHz, 45°, +0.4 dB | 142 MHz, 49°, 0 dB |
+| OPA846 | 0.87 | 356 MHz, 27°, +0.7 dB | 280 MHz, 29°, 0 dB | 334 MHz, 28°, +1.0 dB | 275 MHz, 30°, 0 dB |
+| OPA818 | 0.59 | 453 MHz, 24°, +2.4 dB | 416 MHz, 29°, 0 dB | 433 MHz, 25°, +2.6 dB | 397 MHz, 30°, 0 dB |
 
 *Table A6.11. Phase-margin decomposition at $R_F$ = 2 kΩ (nominal parasitics). Amplifiers: OPA855, OPA818, OPA846, OPA847 (two feedback capacitances each).*
 
@@ -4036,7 +4036,7 @@ The model sees these designs as stable only because the curves stop at about 1 G
 | OPA856 | 2.8 / 21 | 6.84† / 61.6† | 21 / 61.7† | 17.4 / 10.8 / 3.7 / 0.6 | 26.7 / 19.8 / 11.0 / 3.4 | Fig 7-5 (p7) |
 | OPA855 | 2.85 / 35.2 | 7† / 111† | 35.2 / 111† | 21.8 / 15.0 / 6.8 / 1.4 | 31.8 / 24.9 / 15.9 / 6.9 | Fig 6-11 (p9) |
 
-*Table A6.38. Larger feedback resistors with 0.2 pF of feedback parasitic (the nominal value): the robust design of each amplifier carried forward (the widest bandwidth with a phase margin of at least 45° and at most 1 dB of peaking, as in Table A9.2, but with no capacitance added at the input) on the 1-pF node with 0.35 pF of board capacitance. Each cell gives the −3 dB bandwidth and the phase margin; the band-average input-referred noise over 10 MHz to the lower of 150 MHz and the bandwidth, against the Johnson noise of $R_F$ (central FET model, Section 3.7); and the DC photocurrent of the pair whose shot noise equals that noise. Each open-loop curve as plotted; Section 6.10 gives OPA858 with its calibrated curve (Table A6.7). Amplifiers: the ten carried forward. `medium_gain.py`.*
+*Table A6.38. Larger feedback resistors with 0.2 pF across $R_F$, the minimum total of the 2-kΩ designs (Table 1.1): the robust design of each amplifier carried forward (the widest bandwidth with a phase margin of at least 45° and at most 1 dB of peaking, as in Table A9.2, but with no capacitance added at the input) on the 1-pF node with 0.35 pF of board capacitance. Each cell gives the −3 dB bandwidth and the phase margin; the band-average input-referred noise over 10 MHz to the lower of 150 MHz and the bandwidth, against the Johnson noise of $R_F$ (central FET model, Section 3.7); and the DC photocurrent of the pair whose shot noise equals that noise. Each open-loop curve as plotted; Section 6.10 gives OPA858 with its calibrated curve (Table A6.7). Amplifiers: the ten carried forward. `medium_gain.py`.*
 
 | Part | 2 kΩ | 3 kΩ | 5 kΩ | 10 kΩ |
 |---|---|---|---|---|
@@ -4051,7 +4051,7 @@ The model sees these designs as stable only because the curves stop at about 1 G
 | OPA846 | needs added input capacitance | needs added input capacitance | 116 MHz, 45°; 7.9 dB; 63 µA | 91 MHz, 46°; 9.5 dB; 46 µA |
 | OPA843 | 150 MHz, 45°; 7.0 dB; 128 µA | 127 MHz, 45°; 7.3 dB; 92 µA | 97 MHz, 47°; 7.9 dB; 63 µA | 69 MHz, 48°; 9.3 dB; 43 µA |
 
-*Table A6.39. Larger feedback resistors with 0.1 pF of feedback parasitic (an optimistic layout): the robust design of each amplifier carried forward (the widest bandwidth with a phase margin of at least 45° and at most 1 dB of peaking, as in Table A9.2, but with no capacitance added at the input) on the 1-pF node with 0.35 pF of board capacitance. Each cell gives the −3 dB bandwidth and the phase margin; the band-average input-referred noise over 10 MHz to the lower of 150 MHz and the bandwidth, against the Johnson noise of $R_F$ (central FET model, Section 3.7); and the DC photocurrent of the pair whose shot noise equals that noise. Each open-loop curve as plotted; Section 6.10 gives OPA858 with its calibrated curve (Table A6.7). Amplifiers: the ten carried forward. `medium_gain.py`.*
+*Table A6.39. Larger feedback resistors with 0.1 pF across $R_F$, close to the parasitic alone (Table 1.1): the robust design of each amplifier carried forward (the widest bandwidth with a phase margin of at least 45° and at most 1 dB of peaking, as in Table A9.2, but with no capacitance added at the input) on the 1-pF node with 0.35 pF of board capacitance. Each cell gives the −3 dB bandwidth and the phase margin; the band-average input-referred noise over 10 MHz to the lower of 150 MHz and the bandwidth, against the Johnson noise of $R_F$ (central FET model, Section 3.7); and the DC photocurrent of the pair whose shot noise equals that noise. Each open-loop curve as plotted; Section 6.10 gives OPA858 with its calibrated curve (Table A6.7). Amplifiers: the ten carried forward. `medium_gain.py`.*
 
 | Part | 2 kΩ | 3 kΩ | 5 kΩ | 10 kΩ |
 |---|---|---|---|---|
@@ -4315,21 +4315,21 @@ The model sees these designs as stable only because the curves stop at about 1 G
 | B: 2 pF, 1.5 kΩ, $C_F$ = 0.65 pF | 373 MHz, 31° | 8.09 / 14.85 (8.50 / 15.65) | 11.38 / 16.87 | 26.58 / 29.35 | 80.46 / 81.42 | 7.0 (7.4) dB | 81.6 / 78.1 / 70.3 / 60.7 dB |
 | Shot noise alone | – | – | 8.01 | 25.32 | 80.05 | – | – |
 
-*Table A8.13. Recommended starting values (nominal $C_{\mathrm{PCB}}$ = 0.35 pF, $C_{F,\mathrm{par}}$ = 0.2 pF) and their tolerance. Amplifiers: OPA855, OPA856, LMH6629 (COMP HI), OPA818, OPA955, each at the $R_F$ given in its row. The parasitic columns keep the same external capacitor and move the total by ∓0.1 pF. For OPA855 the macromodel narrows the tolerance to 0.230 ± 0.070 pF at 2 kΩ and 0.240 ± 0.055 pF at 1.5 kΩ (Section 8.10).*
+*Table A8.13. Recommended starting values (nominal $C_{\mathrm{PCB}}$ = 0.35 pF, $C_{F,\mathrm{par}}$ = 0.08 pF) and their tolerance. Amplifiers: OPA855, OPA856, LMH6629 (COMP HI), OPA818, OPA955, each at the $R_F$ given in its row. The external capacitor is the total minus the 0.08-pF parasitic; the two tolerance columns move the total by ∓0.1 pF. For OPA855 the macromodel narrows the tolerance to 0.230 ± 0.070 pF at 2 kΩ and 0.240 ± 0.055 pF at 1.5 kΩ (Section 8.10).*
 
-| Design | $R_F$ | Total $C_F$ target (external) | Nominal: $f_{-3\,\mathrm{dB}}$, PM, peaking | Parasitic 0.1 pF | Parasitic 0.3 pF | $C_{\mathrm{PCB}}$ 0.2 / 0.5 pF | $NG_\infty$ vs $G_{\min}$ |
+| Design | $R_F$ | Total $C_F$ target (external) | Nominal: $f_{-3\,\mathrm{dB}}$, PM, peaking | Total −0.1 pF | Total +0.1 pF | $C_{\mathrm{PCB}}$ 0.2 / 0.5 pF | $NG_\infty$ vs $G_{\min}$ |
 |---|---|---|---|---|---|---|---|
-| **OPA855** | 2 kΩ | 0.25 pF (0.05 pF: no discrete part; pad overlap) | 421 MHz, 63°, 0 dB | 695 MHz, 50°, 0.8 dB | 264 MHz, 65°, 0 dB | 415 / 425 MHz, 63° / 63° | 9.6 vs 7 |
-| **OPA855** | 1.5 kΩ | 0.27 pF (0.07 pF: pad overlap) | 539 MHz, 60°, 0 dB | 830 MHz, 48°, 1.0 dB | 344 MHz, 61°, 0 dB | 533 / 543 MHz, 59° / 60° | 9.0 vs 7 |
-| **OPA856** | 2 kΩ | 0.55 pF (0.35 pF; e.g. 0.3 + pad) | 205 MHz, 53°, 0.1 dB | 232 MHz, 47°, 1.0 dB | 174 MHz, 58°, 0 dB | 206 / 204 MHz, 54° / 53° | 5.5 vs 1 |
-| **OPA856** | 1.5 kΩ | 0.65 pF (0.45 pF) | 231 MHz, 53°, 0.1 dB | 258 MHz, 48°, 0.7 dB | 201 MHz, 57°, 0 dB | 232 / 230 MHz, 54° / 52° | 4.8 vs 1 |
-| **LMH6629** (COMP HI) | 2 kΩ | 0.55 pF (0.35 pF) | 229 MHz, 52°, 0 dB | 272 MHz, 46°, 0.7 dB | 182 MHz, 55°, 0 dB | 228 / 229 MHz, 52° / 52° | 13.8 vs 10 |
-| **LMH6629** (COMP HI) | 1.5 kΩ | 0.65 pF (0.45 pF) | 262 MHz, 50°, 0 dB | 308 MHz, 46°, 0.4 dB | 213 MHz, 53°, 0 dB | 262 / 263 MHz, 50° / 50° | 11.8 vs 10 |
-| OPA818 | 2 kΩ | 0.55 pF (0.35 pF) | 331 MHz, 33°, 0 dB | 372 MHz, 30°, 0.8 dB | 207 MHz, 34°, 0 dB | 335 / 326 MHz, 33° / 33° | 7.8 vs 7 |
-| OPA818 | 1.5 kΩ | 0.55 pF (0.35 pF) | 442 MHz, 27°, 0.8 dB | 441 MHz, 23°, 3.6 dB | 426 MHz, 29°, 0 dB | 453 / 432 MHz, 27° / 27° | 7.8 vs 7 |
-| OPA818 + 2 pF at the input | 2 kΩ | 0.75 pF (0.55 pF) | 181 MHz, 40°, 0 dB | 243 MHz, 38°, 0 dB | 137 MHz, 40°, 0 dB | 179 / 183 MHz, 40° / 40° | 8.7 vs 7 |
-| OPA955 + 2 pF (watch) | 2 kΩ | 0.31 pF (0.11 pF) | 428 MHz, 45°, 0 dB | 649 MHz, 37°, 1.2 dB | 251 MHz, 47°, 0 dB | 423 / 432 MHz, 45° / 45° | 15.4 vs 7 |
-| OPA955 + 3 pF (watch) | 1.5 kΩ | 0.44 pF (0.24 pF) | 364 MHz, 45°, 0 dB | 581 MHz, 42°, 0 dB | 250 MHz, 46°, 0 dB | 360 / 368 MHz, 45° / 45° | 13.4 vs 7 |
+| **OPA855** | 2 kΩ | 0.25 pF (0.17 pF: 0.1 pF and pad overlap) | 421 MHz, 63°, 0 dB | 695 MHz, 50°, 0.8 dB | 264 MHz, 65°, 0 dB | 415 / 425 MHz, 63° / 63° | 9.6 vs 7 |
+| **OPA855** | 1.5 kΩ | 0.27 pF (0.19 pF: a 0.2-pF part) | 539 MHz, 60°, 0 dB | 830 MHz, 48°, 1.0 dB | 344 MHz, 61°, 0 dB | 533 / 543 MHz, 59° / 60° | 9.0 vs 7 |
+| **OPA856** | 2 kΩ | 0.55 pF (0.47 pF; e.g. 0.4 + pad) | 205 MHz, 53°, 0.1 dB | 232 MHz, 47°, 1.0 dB | 174 MHz, 58°, 0 dB | 206 / 204 MHz, 54° / 53° | 5.5 vs 1 |
+| **OPA856** | 1.5 kΩ | 0.65 pF (0.57 pF) | 231 MHz, 53°, 0.1 dB | 258 MHz, 48°, 0.7 dB | 201 MHz, 57°, 0 dB | 232 / 230 MHz, 54° / 52° | 4.8 vs 1 |
+| **LMH6629** (COMP HI) | 2 kΩ | 0.55 pF (0.47 pF) | 229 MHz, 52°, 0 dB | 272 MHz, 46°, 0.7 dB | 182 MHz, 55°, 0 dB | 228 / 229 MHz, 52° / 52° | 13.8 vs 10 |
+| **LMH6629** (COMP HI) | 1.5 kΩ | 0.65 pF (0.57 pF) | 262 MHz, 50°, 0 dB | 308 MHz, 46°, 0.4 dB | 213 MHz, 53°, 0 dB | 262 / 263 MHz, 50° / 50° | 11.8 vs 10 |
+| OPA818 | 2 kΩ | 0.55 pF (0.47 pF) | 331 MHz, 33°, 0 dB | 372 MHz, 30°, 0.8 dB | 207 MHz, 34°, 0 dB | 335 / 326 MHz, 33° / 33° | 7.8 vs 7 |
+| OPA818 | 1.5 kΩ | 0.55 pF (0.47 pF) | 442 MHz, 27°, 0.8 dB | 441 MHz, 23°, 3.6 dB | 426 MHz, 29°, 0 dB | 453 / 432 MHz, 27° / 27° | 7.8 vs 7 |
+| OPA818 + 2 pF at the input | 2 kΩ | 0.75 pF (0.67 pF) | 181 MHz, 40°, 0 dB | 243 MHz, 38°, 0 dB | 137 MHz, 40°, 0 dB | 179 / 183 MHz, 40° / 40° | 8.7 vs 7 |
+| OPA955 + 2 pF (watch) | 2 kΩ | 0.31 pF (0.23 pF) | 428 MHz, 45°, 0 dB | 649 MHz, 37°, 1.2 dB | 251 MHz, 47°, 0 dB | 423 / 432 MHz, 45° / 45° | 15.4 vs 7 |
+| OPA955 + 3 pF (watch) | 1.5 kΩ | 0.44 pF (0.36 pF) | 364 MHz, 45°, 0 dB | 581 MHz, 42°, 0 dB | 250 MHz, 46°, 0 dB | 360 / 368 MHz, 45° / 45° | 13.4 vs 7 |
 
 ### A9. Tables of Chapter 9: Conclusions and recommendations
 
@@ -4675,7 +4675,7 @@ Every item below would change a number in this note if resolved. None changes th
    - Only a measurement of the input capacitance can decide between 5.7 and 1.3 pF; the noise at 200 MHz differs by 4 dB between them (Section 5.6).
 5. **OPA856 slew rate.** The datasheet text says 2750 V/µs. The table (350 V/µs) and the transient figure (365/346 V/µs) agree with each other, and the table value is used.
 6. **Photodiode parameters other than $C_D$** are not specified: series resistance, capacitance against bias and photocurrent, and linearity at 10 mA. They enter Sections 3.6, 6.4 and 9.7.
-7. **The parasitic feedback capacitance** of the resistor and pads actually used is assumed as 0.2 ± 0.1 pF.
+7. **The parasitic feedback capacitance** of the resistor, pads and pins actually used is estimated at 0.08 pF, with corners at 0.05 and 0.12 pF, by a two-dimensional model that leaves out the package interior and a patterned film (Appendix G). The bench board of Section 3.10 points to about 0.3 pF in another layout (Section G.13.5).
 8. **Temperature dependence** is not modelled. All values are at 25 °C.
 9. **Market-scan items not resolved** (see `data/market_scan.md`, "Open items"):
    - **3PEAK TPH2861.** It is an 8-GHz, G ≥ 7, FB-pin part similar to OPA855: 1.1 nV/√Hz, 3.1 pA/√Hz, 0.5/0.6 pF. Its lifecycle status and price were not found, and it was not modelled.
@@ -4726,7 +4726,7 @@ Every item below would change a number in this note if resolved. None changes th
     - The curves of OPA955 are Advance Information.
     - The noise index of the servo resistor and the intensity noise of the laser at low frequency are properties of the parts chosen and are not known here.
     - The split front end of Section 6.9 has not been analysed: its two loops, the crossover between them and the shift of the photodiode bias need the treatment that Sections 8.2–8.5 give the other options.
-22. **Larger feedback resistors (Section 6.10).** The designs at 3–10 kΩ come from our analytical model with the datasheet open-loop curves as plotted, and the companion note's Section 6.9 compares its single-pole model with ours there. Its Section 9.8 runs three of them in SPICE at 10 kΩ on our node: OPA855's macromodel reproduces our design within 0.2% in bandwidth and 0.4° in phase margin, OPA955's within 0.2% in bandwidth and 0.05 dB in noise but with 15° more phase margin, and OPA818's has 11% less bandwidth, 9° more phase margin and 2.2 dB more noise than our model gives. The designs at 3 and 5 kΩ, and the other amplifiers, have not been run in SPICE. With OPA858's calibrated curve (Table A6.7) its phase margins at 3–10 kΩ fall to 46–64°, and it needs added capacitance at 2 kΩ, as in Table A9.2. Above about 5 kΩ the bandwidth follows the feedback parasitic, so its actual value on the board, 0.1–0.3 pF, decides whether 150 MHz is reached. OPA955 is Advance Information.
+22. **Larger feedback resistors (Section 6.10).** The designs at 3–10 kΩ come from our analytical model with the datasheet open-loop curves as plotted, and the companion note's Section 6.9 compares its single-pole model with ours there. Its Section 9.8 runs three of them in SPICE at 10 kΩ on our node: OPA855's macromodel reproduces our design within 0.2% in bandwidth and 0.4° in phase margin, OPA955's within 0.2% in bandwidth and 0.05 dB in noise but with 15° more phase margin, and OPA818's has 11% less bandwidth, 9° more phase margin and 2.2 dB more noise than our model gives. The designs at 3 and 5 kΩ, and the other amplifiers, have not been run in SPICE. With OPA858's calibrated curve (Table A6.7) its phase margins at 3–10 kΩ fall to 46–64°, and it needs added capacitance at 2 kΩ, as in Table A9.2. Above about 5 kΩ the bandwidth follows the feedback capacitance, so its actual value on the board, 0.05–0.12 pF for the parasitic alone by Appendix G, decides whether 150 MHz is reached. OPA955 is Advance Information.
 
 ---
 
@@ -4862,11 +4862,24 @@ Each entry gives its source; the documents themselves are not part of this note'
   - the shot noise of a divided current, Appendix A, Eqs. (A3)–(A5) (pp. 919–920).
 - **[A23]** T. Serikawa and A. Furusawa, "500 MHz resonant photodetector for high-quantum-efficiency, low-noise homodyne measurement", *Review of Scientific Instruments* 89(6), 063120 (2018). https://doi.org/10.1063/1.5029859. Read in full in its arXiv version, arXiv:1803.06462v2. Cited for the photodiodes and the capacitance at the node, the NE3509M04 source follower and the reason for preferring it to a bipolar transistor, the gate resistor with its parallel inductor, and the bias (Sec. III A, p. 4, Fig. 4 and Table I).
 - **[A24]** W. Bowden, A. Vianello and R. Hobson, "A low-noise resonant input transimpedance amplified photodetector", *Review of Scientific Instruments* 90, 106106 (2019). https://doi.org/10.1063/1.5114896. Read in full in its arXiv version, arXiv:1910.11941v1. Cited for the common-source CEL FET between the photodiode and the op amp (Fig. 1, pp. 1–2), the measured 1.2 pA/√Hz against 1.0 pA/√Hz (abstract and p. 2), and the prototypes with the op amp alone (pp. 1–2).
+- **[A25]** J. Schurr, R. H. Judaschke and S. A. Awan, "Resistance standards with very small calculable AC-DC difference at frequencies up to 2 MHz for the calibration of precision LCR meters", *Measurement Science and Technology* 36, 015030 (2025). https://doi.org/10.1088/1361-6501/ad9169. Read in its arXiv version, arXiv:2407.17805v3, whose pages are cited. Source of the free-standing capacitances of Section G.13.2 and of the film-to-case model of Section G.2.3.
+- **[A26]** Vishay Intertechnology, *Frequency Response of Thin Film Chip Resistors*, technical note 60107, Rev. 04-Feb-09 (measurements and models by Modelithics). https://www.vishay.com/docs/60107/freqresp.pdf
+- **[A27]** Vishay Dale Thin Film, *FC: High Frequency (Up to 40 GHz) Resistor, Thin Film Surface Mount Chip*, datasheet 60093, Rev. 11-May-2026. https://www.vishay.com/docs/60093/fcseries.pdf
+- **[A28]** Vishay Sfernice, *CH: High Frequency 70 GHz Thin Film Chip Resistor*, datasheet 53014, Rev. 03-Jul-2026. https://www.vishay.com/docs/53014/ch.pdf
+- **[A29]** Vishay Beyschlag, *Resistors in Microwave Applications*, application note 28871, Rev. 19-Mar-13. https://www.vishay.com/docs/28871/resistorsmicrowaveapp.pdf
+- **[A30]** KOA Corporation, *High-frequency characteristics of resistors*, technical note KDST_TN-010_v0100-EN, 2021. https://www.koaspeer.com/pdfs/technical_notes/High-frequency_characteristics_EN.pdf
+- **[A31]** G. Brisebois, "Op Amp Combines Femtoamp Bias Current with 4GHz Gain Bandwidth Product, Shines New Light on Photonics Applications", *LT Journal of Analog Innovation* 25(2), July 2015; PDF pages are cited. https://www.analog.com/media/en/technical-documentation/tech-articles/lt-journal-article/LTJournal-V25N2-00-df-LTC6268-GlenBrisebois.pdf
+- **[A32]** Analog Devices, "Transimpedance Amplifier Noise Considerations", technical article on the LTC6268, 18 February 2015. https://www.analog.com/en/resources/technical-articles/transimpedance-amplifier-noise-considerations.html
+- **[A33]** Linear Technology, *Demo Manual DC2414A: LTC6268 and LTC6268-10 3-Channel SOT-23 Transimpedance Amplifier*, dc2414af (schematic Rev 3, 9 June 2016). https://www.analog.com/media/en/technical-documentation/user-guides/DC2414AF.PDF
+- **[A34]** Texas Instruments, *Reference Design Maximizing Transimpedance Bandwidth for LIDAR and Time-of-Flight Applications*, TIDA-060025, design guide TIDUEL3A (November 2018, revised April 2022), with its bill of materials TIDRXT2 and layer plots TIDRXT6. https://www.ti.com/lit/pdf/TIDUEL3
 
 ### Books
 
 - **[B1]** A. van der Ziel, *Noise in Solid State Devices and Circuits*, Wiley, 1986. Source of the channel and induced-gate noise of FETs and their correlation.
 - **[B2]** T. H. Lee, *The Design of CMOS Radio-Frequency Integrated Circuits*, 2nd ed., Cambridge University Press, 2004, chapter on MOSFET noise. Long-channel values $\gamma = 2/3$, $\delta = 4/3$, $c = 0.395j$.
+- **[B3]** D. Gilbarg and N. S. Trudinger, *Elliptic Partial Differential Equations of Second Order*, Springer, 2001 (Classics in Mathematics). Its Section 8.1, the weak maximum principle for operators in divergence form, is used in Section G.4.3.
+- **[B4]** L. V. Ahlfors, *Complex Analysis*, 3rd ed., McGraw-Hill, 1979. Its Chapter 4, with the argument principle, is used in Section G.6.
+- **[B5]** F. W. J. Olver et al. (eds.), *NIST Digital Library of Mathematical Functions*, https://dlmf.nist.gov, the online edition of the *NIST Handbook of Mathematical Functions* (Cambridge University Press, 2010). Its Chapters 19 and 22, on the elliptic integrals and Jacobi's elliptic functions, are used in Sections G.5–G.10.
 
 ### Simulator and simulation models (Chapters 5–7)
 
@@ -4916,9 +4929,9 @@ The TI model packages [S3]–[S13] and [S18]–[S21] and the Infineon model [S22
 |---|---|
 | `TIA_opamp_survey.md` | this report |
 | `TIA_opamp_survey.pdf`, `index.html` | the same report as a PDF and as a web page, built by `build/build_pdf.py` and `build/make_web_html.py` at the root of the repository |
-| `figures/` | Figures 1–37 as PNG (600 dpi) and PDF. The file names keep the order in which the figures were drawn: `fig01` and `fig21`–`fig31` are Figure 1 and the schematics of Chapters 7 and 8, Figures 27–37 (`scripts_archive/make_schematics.py`, in the shared style of `scripts_archive/schematic_style.py`); `fig02`–`fig06` are Figures 20, 17, 2, 18 and 22 (`scripts_archive/make_figures.py`); `fig07`–`fig16` are Figures 9–15 and 23–25 (`scripts_archive/make_spice_figures.py`); `fig17`–`fig20` are Figures 16, 19, 21 and 26 (`scripts_archive/make_narrative_figures.py`); and `fig32`–`fig37` are Figures 3–8 of Chapter 4, the two schematics from `scripts_archive/make_schematics.py` and the simulations from `scripts_archive/make_case_figures.py` |
+| `figures/` | Figures 1–43 as PNG (600 dpi) and PDF. The file names keep the order in which the figures were drawn: `fig01` and `fig21`–`fig31` are Figure 1 and the schematics of Chapters 7 and 8, Figures 27–37 (`scripts_archive/make_schematics.py`, in the shared style of `scripts_archive/schematic_style.py`); `fig02`–`fig06` are Figures 20, 17, 2, 18 and 22 (`scripts_archive/make_figures.py`); `fig07`–`fig16` are Figures 9–15 and 23–25 (`scripts_archive/make_spice_figures.py`); `fig17`–`fig20` are Figures 16, 19, 21 and 26 (`scripts_archive/make_narrative_figures.py`); and `fig32`–`fig37` are Figures 3–8 of Chapter 4, the two schematics from `scripts_archive/make_schematics.py` and the simulations from `scripts_archive/make_case_figures.py`; `fig38`–`fig43` are Figures 38–43 of Appendix G (`scripts_archive/parasitic_cf/make_parasitic_cf_figures.py`) |
 | `datasheets/` | not part of the public repository (Appendix D gives each document's source): datasheets of every part of Chapters 2 and 6; `market_scan_candidates/` holds the market-scan extras, `integrated_tia/` the single-chip TIAs of Section 6.7 with the coherent-receiver documents in `integrated_tia/coherent/` (Table D.2), `fet_front_end/` the discrete FETs and `bjt_front_end/` the bipolar transistor of Section 7.1 (Table D.3), and `hv_output_stage/` the high-voltage amplifiers of Section 7.2 (Table D.4) |
-| `appnotes/` | not part of the public repository (Appendix D gives each document's source): the application notes and articles [A1]–[A24], and the ngspice manual [S1] |
+| `appnotes/` | not part of the public repository (Appendix D gives each document's source): the application notes and articles [A1]–[A34], with the documents behind Appendix G in `appnotes/parasitic_cf/`, and the ngspice manual [S1] |
 | `data/specs/<PART>.json`, `.md` | per-part extraction records, with page and figure citations for every value and the digitized open-loop and noise curves |
 | `data/market_scan.md`, `.json` | candidate scan, rejected parts, lifecycle and prices, integrated TIAs, application-note list |
 | `data/integrated_tias.json` | the single-chip TIA records of Section 6.7 (Table A6.34), with page and figure citations |
@@ -4937,9 +4950,10 @@ The TI model packages [S3]–[S13] and [S18]–[S21] and the Infineon model [S22
 | `data/results/benchmark_50ohm.json` | the 50-Ω benchmark family and the leading designs against it (Sections 2.1 and 6.8; Tables A2.2, A6.35 and A6.36), from `scripts_archive/benchmark_50ohm.py`, whose `--tables` option prints the table rows |
 | `data/results/case_studies_tables.md`, `case_studies_note_tables.md` | the two design examples of Chapter 4: every result, with the comparisons against the 50-Ω benchmark, and Tables A4.1–A4.4 as printed here (`scripts_archive/case_studies.py`, actions `tables` and `notetables`) |
 | `data/results/table_a6_37.md` | Table A6.37 (Section 6.9), from `scripts_archive/low_frequency_noise.py` |
-| `data/results/medium_gain.json`, `table_a6_38.md`, `table_a6_39.md` | Section 6.10 (Tables A6.38–A6.39): the robust designs at 2–10 kΩ for both feedback parasitics, from `scripts_archive/medium_gain.py`; the JSON file also keeps the widest design with added input capacitance and the designs with the calibrated curves of OPA855, OPA858 and OPA859 |
+| `data/results/medium_gain.json`, `table_a6_38.md`, `table_a6_39.md` | Section 6.10 (Tables A6.38–A6.39): the robust designs at 2–10 kΩ for both feedback capacitances, from `scripts_archive/medium_gain.py`; the JSON file also keeps the widest design with added input capacitance and the designs with the calibrated curves of OPA855, OPA858 and OPA859 |
+| `data/parasitic_cf/` | Appendix G: the measured capacitances across chip resistors (`resistor_shunt_capacitance.md`, `.json`, with the curve readings in `resistor_curve_readings.csv`) and across feedback networks on TIA boards (`tia_feedback_parasitics.md`, `.json`, with `inferred_values.json`), the resistor dimensions, land patterns and permittivities (`geometry_and_permittivity.md`, `.json`), and every number of the estimate (`analytic_estimate.json`, from `scripts_archive/parasitic_cf/cf_parasitic_estimate.py`) |
 | `data/digitization_checks/` | the residuals of the THS3491 and OPA859 readings against the figures' vector paths, TI's measured Fig 8-1 curves as read from the datasheet, and a manifest with the SHA-256 of every source (`scripts_archive/overlay_digitized.py`, which also draws the readings on the rendered datasheet figures; those renderings are not part of the public repository) |
-| `scripts_archive/` | every script, with an index in `scripts_archive/README.md`; the SPICE driver and checks are `ngspice_shared.py`, `spice_tia_checks.py` and `spice_report_tables.py`, the TINA-TI netlist extractor is `extract_tina_model.py`, the diagnostics are in `spice_diagnostics/`; the composites of Sections 7.1–7.3 use `composite_tia.py`, `spice_composite_checks.py`, `overlay_digitized.py`, `composite_report_numbers.py` and `fet_front_end/phemt_stability_factors.py`; the 50-Ω benchmark and the charts of Chapter 6 use `benchmark_50ohm.py` and `make_narrative_figures.py`; the design examples of Chapter 4 use `case_studies.py` and `make_case_figures.py` |
+| `scripts_archive/` | every script, with an index in `scripts_archive/README.md`; the SPICE driver and checks are `ngspice_shared.py`, `spice_tia_checks.py` and `spice_report_tables.py`, the TINA-TI netlist extractor is `extract_tina_model.py`, the diagnostics are in `spice_diagnostics/`; the composites of Sections 7.1–7.3 use `composite_tia.py`, `spice_composite_checks.py`, `overlay_digitized.py`, `composite_report_numbers.py` and `fet_front_end/phemt_stability_factors.py`; the 50-Ω benchmark and the charts of Chapter 6 use `benchmark_50ohm.py` and `make_narrative_figures.py`; the design examples of Chapter 4 use `case_studies.py` and `make_case_figures.py`; the estimate of Appendix G and its figures use the scripts in `scripts_archive/parasitic_cf/`, indexed in its `INDEX.md` |
 
 The scripts, their docstrings and the tables they write to `data/results/` and `spice/results/` use the section, table and equation numbers of this note before its reorganization of 27 October 2026, and those written before 4 November 2026 the order in which a design example preceded the theory; `scripts_archive/rework/TIA_opamp_survey.map.txt` and `scripts_archive/rework/case_studies_reorder.map.txt` convert every such number to the present one, and `scripts_archive/README.md` maps the old sections of Chapter 9 to the present ones.
 
@@ -5191,3 +5205,974 @@ Every disagreement found between a datasheet's own table, text and figures, grou
 - THS3491: the open-loop transimpedance of Fig 8-22 (p16) does not reproduce the measured closed loop of Fig 8-1 (p13) through Eq. (64) with the 15-Ω inverting input (p9). Without a capacitance at the inverting node it gives 340 MHz at a gain of 2 against 730 MHz measured, and with 1.2 pF it gives 1.9 GHz and 3.6 dB of peaking at a gain of 5 against 944 MHz with none. Its magnitude lies above TI's model by 0.8 dB at 100–300 MHz and by 2.8 dB at 770 MHz, while its phase agrees with the model within 3.4°; the model reproduces Fig 8-1 at gains of 5–20 (Table A7.5).
 - THS3491: no capacitance is given for the inverting input, although it sets the response at low gains (Eq. (64)); TI's model has 1.2 pF.
 - SAV-551+: page 1 offers it as a replacement for Avago's ATF-55143, while footnote b on the same page names ATF-54143.
+
+---
+
+## Appendix G. Parasitic capacitance across the feedback resistor
+
+Table 1.1 takes the parasitic feedback capacitance $C_{F,\mathrm{par}}$ as 0.08 pF, with corners at 0.05 and 0.12 pF. This appendix derives that value from the geometry of a chip resistor on its land pattern and of the amplifier's pins. The value matters wherever the parasitic is a large part of the total feedback capacitance. The 2-kΩ OPA855 design of Section 4.2 has 0.20 pF in total, of which 0.08 pF is the parasitic and 0.12 pF a fitted capacitor, and the feedback zero, the phase margin and the peaking all move with the total (Section 6.2.5).
+
+Every formula is derived from electrostatics in the order in which it is used, and each special function is defined where it first appears. Each approximation is stated together with the direction in which it moves the result, and the estimate is compared with published measurements at the end. The script `scripts_archive/parasitic_cf/cf_parasitic_estimate.py` evaluates every formula and checks each one numerically a second way, and `scripts_archive/parasitic_cf/make_parasitic_cf_figures.py` draws Figures 38–43 from the same formulas. Those numerical checks confirm the arithmetic; they are not part of any argument.
+
+### G.1 The estimate in brief
+
+Table G.1 gives the capacitance across a chip resistor on its land pattern, with the power and ground planes removed under it, as the OPA855 datasheet asks (p29). It is evaluated at the nominal dimensions of Table G.2, on the IPC-7351 land pattern. Each contribution has a range from two sources: the two bounds that bracket each idealised problem, and the permittivity ranges of Table G.3. The lower bound is rigorous within the two-dimensional model; the upper estimate takes the upper end of every term. The last column spreads the body's dimensions over their datasheet tolerances.
+
+*Table G.1. Capacitance across the resistor and its pads (fF), planes removed, film facing up; the amplifier's pins are added in Section G.11.*
+
+| Size | Board | Body | Air | Lower bound | Central | Upper estimate | Across tolerances |
+|---|---|---|---|---|---|---|---|
+| 0201 | 11.7–15.3 | 11.7–15.3 | 3.0–3.1 | 23.4 | 30.0 | 33.6 | 20.6–41.6 |
+| 0402 | 15.6–20.9 | 19.5–25.8 | 3.9–4.1 | 35.1 | 45.0 | 50.9 | 29.4–69.9 |
+| 0603 | 23.4–34.2 | 25.1–31.9 | 6.6–6.9 | 48.5 | 64.0 | 73.0 | 38.8–108.9 |
+| 0805 | 29.4–44.8 | 36.7–46.1 | 9.0–9.5 | 66.1 | 87.7 | 100.4 | 53.0–156.4 |
+
+On the smaller pads of other published 0402 patterns (Yageo, KOA, and the IEC 61188-6-2 table of Vishay 28950; Table G.2), the 0402 central value falls to 39–43 fF.
+
+For the layout of this note, an 0402 beside OPA855 pins 1–3 (Figure 43), the resistor and pads give 35–51 fF at nominal dimensions, with a central value of 45 fF and 29–70 fF across the tolerances. The two-dimensional model adds at most about 25 fF for the pins (Section G.11), less where pin 4 and the thermal pad shield them. On top come the package interior and, for a patterned thin-film part, its film, which the model does not compute. The sum is about 0.04–0.08 pF at nominal dimensions and at most about 0.1 pF across the tolerances. The vendors' measured body values run 5–15 fF above the model's body term in 0402 (Section G.13.1), which moves the estimate towards the upper part of that range. Measured careful single-resistor layouts in 0603 and 0805, which include traces and pins, give 0.10–0.14 pF (Section G.13.3).
+
+Table 1.1 therefore takes 0.08 pF as the nominal value, the upper end of the range at nominal dimensions, where the vendors' body values place it. Its lower corner, 0.05 pF, adds the lower bound for the resistor and pads at nominal dimensions, 35 fF, to that for the pins without their grounded neighbours, 15 fF. Its upper corner, 0.12 pF, is the largest value across the tolerances, about 0.1 pF, with 0.02 pF added for what the model leaves out: the package interior, the film pattern of a plain or lightly trimmed film, and the field around the ends (Section G.12). A precision thin-film part with deep trim cuts can exceed it (Section G.13.2).
+
+Mounting the resistor upside down changes these numbers by less than 2 fF in this layout (Section G.10.7). Ground under the resistor would lower $C_{F,\mathrm{par}}$ but adds capacitance at the summing node, which is a loss for the OPA855 design (Section G.10.6).
+
+### G.2 Which capacitance the amplifier sees
+
+Datasheets and papers call several different quantities "the capacitance of a resistor", and they differ by factors of two. This section fixes the one that sets the feedback zero of the TIA, so that the calculation and the measurements it is compared with refer to the same quantity.
+
+#### G.2.1 The capacitance matrix
+
+Consider conductors $1,\dots,n$ held at potentials $V_1,\dots,V_n$, with every other conductor (the planes, the supply pins, the surroundings) at zero potential. Let $\varphi_j$ be the potential that solves $\nabla\cdot(\varepsilon\nabla\varphi_j) = 0$, which is Laplace's equation inside each material with the normal displacement continuous at interfaces, with conductor $j$ at 1 V and every other conductor at 0 V. By superposition the potential for arbitrary $V_j$ is $\varphi = \sum_j V_j\varphi_j$, and the charge on conductor $i$ is
+
+$$
+Q_i = \sum_j c_{ij}V_j,
+\qquad
+c_{ij} = \oint_{S_i}\varepsilon\,\frac{\partial\varphi_j}{\partial n}\,\mathrm dS,
+\tag{G.1}
+$$
+
+where $S_i$ is the surface of conductor $i$, $\varepsilon = \varepsilon_0\varepsilon_r$ is the permittivity next to it, and $n$ is the normal pointing from the dielectric into the conductor. (The surface charge is the normal displacement leaving the conductor, $-\varepsilon\,\partial\varphi/\partial n_{\mathrm{out}}$, where $n_{\mathrm{out}} = -n$ points out of the conductor; it equals $\varepsilon\,\partial\varphi/\partial n$.)
+
+The coefficients are symmetric, and the field energy is a quadratic form in the potentials. Both follow from Green's first identity on the dielectric volume $\mathcal V$ outside the conductors:
+
+$$
+\int_{\mathcal V}\varepsilon\,\nabla\varphi_i\cdot\nabla\varphi_j\,\mathrm dV
+= \oint_{\partial\mathcal V}\varphi_i\,\varepsilon\,\frac{\partial\varphi_j}{\partial n}\,\mathrm dS
+- \int_{\mathcal V}\varphi_i\,\nabla\cdot\left(\varepsilon\nabla\varphi_j\right)\mathrm dV .
+$$
+
+The volume integral on the right is zero. Inside each material $\varepsilon$ is constant and $\varphi_j$ is harmonic, and at an interface between two materials the normal component of $\varepsilon\nabla\varphi_j$ is continuous, so no interface term arises. On the boundary, $\varphi_i$ is 1 on conductor $i$ and 0 on every other conductor, and at infinity the integrand falls faster than the surface grows: in three dimensions $\varphi_i\sim1/r$ and $|\nabla\varphi_j|\sim1/r^2$. The two-dimensional cross-sections used below have bounded potentials. A bounded two-dimensional potential tends to a constant at infinity, and the boundary term on a large circle is that constant times the net flux through the circle plus a term of order $1/r$. The net flux is the total charge, which is zero when no conductor is grounded, and in the problems below that contain a grounded conductor the region is a strip bounded by the grounded plane, where the potential tends to zero. The left side is therefore $c_{ij}$ by Eq. (G.1), and since it is symmetric in $i$ and $j$,
+
+$$
+c_{ij} = c_{ji} = \int_{\mathcal V}\varepsilon\,\nabla\varphi_i\cdot\nabla\varphi_j\,\mathrm dV,
+\qquad
+W = \frac12\int_{\mathcal V}\varepsilon\,|\nabla\varphi|^2\,\mathrm dV = \frac12\sum_{i,j}c_{ij}V_iV_j .
+\tag{G.2}
+$$
+
+#### G.2.2 The feedback capacitance is the mutual capacitance
+
+Call A everything connected to the amplifier's output: in the OPA855, the FB pin, the output-side pad and termination of $R_F$, and the trace between them. Call B everything connected to the inverting input. The loop holds B at the potential of the non-inverting input, which is AC ground. With B and every other conductor at 0 V, a voltage $V_A$ induces the charge $Q_B = c_{BA}V_A$ on B, which is negative. The summing node supplies that charge, so the current that $V_A$ sends into it through the parasitic capacitance is $-j\omega Q_B = j\omega(-c_{AB})V_A$, and
+
+$$
+C_{F,\mathrm{par}} = -c_{AB}.
+\tag{G.3}
+$$
+
+This is the mutual, or direct, capacitance $C_m$. The rest of A's charge goes to ground and loads the output, and B's capacitance to ground adds to the input capacitance $C_T$ of Eq. (7).
+
+The capacitance between two isolated terminals is a different quantity. With charges $+Q$ on A and $-Q$ on B, Eq. (G.1) gives $Q = c_{AA}V_A + c_{AB}V_B$ and $-Q = c_{AB}V_A + c_{BB}V_B$. Solving for $V_A - V_B$ and substituting $c_{AA} = C_m + C_{A0}$, $c_{BB} = C_m + C_{B0}$ and $c_{AB} = -C_m$, where $C_{A0}$ and $C_{B0}$ are the capacitances of A and B to ground,
+
+$$
+C_{2\mathrm t} = \frac{Q}{V_A - V_B} = \frac{c_{AA}c_{BB} - c_{AB}^2}{c_{AA} + c_{BB} + 2c_{AB}} = C_m + \frac{C_{A0}C_{B0}}{C_{A0} + C_{B0}} .
+\tag{G.4}
+$$
+
+(The numerator is $(C_m + C_{A0})(C_m + C_{B0}) - C_m^2 = C_m(C_{A0} + C_{B0}) + C_{A0}C_{B0}$ and the denominator is $C_{A0} + C_{B0}$.) The two-terminal capacitance exceeds the mutual capacitance by the series combination of the two capacitances to ground. An instrument that holds its low terminal at virtual ground, as the TIA does, measures $C_m$ in the presence of its fixture, by the same argument.
+
+In a two-dimensional cross-section with no grounded conductor the two quantities coincide. If A and B are both at 1 V, the bounded solution is the constant 1, with no field and no charge, so $c_{AA} + c_{AB} = c_{BB} + c_{AB} = 0$, that is, $C_{A0} = C_{B0} = 0$. Both forms of Eq. (G.4) are then $0/0$, but the charges are directly $Q = c_{AA}V_A + c_{AB}V_B = C_m(V_A - V_B)$, so $C_{2\mathrm t} = C_m$. Every cross-section of Sections G.6 to G.9 is of this kind.
+
+#### G.2.3 The resistive film
+
+The film between the terminations is a conductor of a third kind. At the frequencies of interest its potential is set by the current through it and falls linearly from the A end to the B end, so it belongs to neither A nor B, yet it carries charge. Its effect on the feedback admittance follows from current continuity and Ohm's law along the film.
+
+Put the B end of the film at $x = 0$ and the A end at $x = g$. Let $r$ be its resistance per unit length, so that $R_F = rg$, let $\lambda(x)$ be its charge per unit length, and let $J(x)$ be the conduction current in it, flowing from A towards B. Charge conservation in the element between $x$ and $x + \mathrm dx$ (the current $J(x+\mathrm dx)$ enters and $J(x)$ leaves) and Ohm's law give
+
+$$
+\frac{\mathrm dJ}{\mathrm dx} = j\omega\lambda(x),
+\qquad
+\frac{\mathrm d\varphi}{\mathrm dx} = r\,J(x).
+\tag{G.5}
+$$
+
+Integrating the first equation from $x$ to $g$ gives $J(x) = J(g) - j\omega\int_x^g\lambda(x')\,\mathrm dx'$. Integrating the second from 0 to $g$ gives the drop $V = V_A - V_B$,
+
+$$
+V = r\int_0^gJ\,\mathrm dx = R_F\,J(g) - j\omega r\int_0^g\!\!\int_x^g\lambda(x')\,\mathrm dx'\,\mathrm dx = R_F\,J(g) - j\omega r\int_0^g x'\lambda(x')\,\mathrm dx',
+$$
+
+where the order of integration was exchanged: $\int_0^g\mathrm dx\int_x^g\mathrm dx' = \int_0^g\mathrm dx'\int_0^{x'}\mathrm dx$. Hence $J(g) = V/R_F + (j\omega/g)\int_0^gx\lambda\,\mathrm dx$, and the current that reaches the B end is
+
+$$
+J(0) = J(g) - j\omega\int_0^g\lambda\,\mathrm dx = \frac{V}{R_F} - j\omega\int_0^g\left(1 - \frac xg\right)\lambda(x)\,\mathrm dx .
+\tag{G.6}
+$$
+
+The summing node must also supply the charge $Q_B$ that collects on B's own surfaces, so the current that the feedback network delivers into the summing node is $I_B = J(0) - j\omega Q_B$. (For a plain capacitor $C$, $Q_B = -CV$ and $I_B = j\omega CV$, as it should be.) Therefore
+
+$$
+I_B = \frac{V}{R_F} + j\omega C_{\mathrm{eff}}V,
+\qquad
+C_{\mathrm{eff}} = -\frac1V\left[Q_B + \int_0^g\left(1 - \frac xg\right)\lambda(x)\,\mathrm dx\right].
+\tag{G.7}
+$$
+
+To first order in $\omega$, $Q_B$ and $\lambda$ are the electrostatic charges for the potentials of zeroth order: $V$ on A, 0 on B and on ground, and $Vx/g$ on the film. Treat the film as a row of small conductors $i$, and collect A, B and the film elements in one capacitance matrix $\mathbf C$. Define the vectors $\mathbf u$, with $u_A = 1$, $u_B = 0$ and $u_i = x_i/g$, and $\mathbf v = \mathbf 1 - \mathbf u$, with $v_A = 0$, $v_B = 1$ and $v_i = 1 - x_i/g$. The charges are $Q_B = V(\mathbf C\mathbf u)_B$ and $\lambda_i\,\mathrm dx = V(\mathbf C\mathbf u)_i$, so the bracket in Eq. (G.7) is $V\,\mathbf v^{\mathsf T}\mathbf C\mathbf u$, and
+
+$$
+C_{\mathrm{eff}} = -\mathbf v^{\mathsf T}\mathbf C\,\mathbf u
+= \frac14\Bigl[(\mathbf u - \mathbf v)^{\mathsf T}\mathbf C\,(\mathbf u - \mathbf v) - (\mathbf u + \mathbf v)^{\mathsf T}\mathbf C\,(\mathbf u + \mathbf v)\Bigr].
+\tag{G.8}
+$$
+
+The second form follows from expanding the two quadratic forms with the symmetric $\mathbf C$: the terms $\mathbf u^{\mathsf T}\mathbf C\mathbf u$ and $\mathbf v^{\mathsf T}\mathbf C\mathbf v$ cancel and the cross terms $\mp2\mathbf v^{\mathsf T}\mathbf C\mathbf u$ remain. By Eq. (G.2), the first quadratic form is twice the field energy with A at $+1$ V, B at $-1$ V and the film at $2x/g - 1$ (the odd drive). The second is twice the energy with A, B and the film all at $+1$ V (the even drive). Without a film, $\mathbf v^{\mathsf T}\mathbf C\mathbf u = c_{BA}$ and Eq. (G.8) is Eq. (G.3) again. Eq. (G.8) holds while the film's potential stays linear, that is, while the displacement currents along the film are small against the conduction current. The first neglected terms are of second order in $\omega R_FC$, where $C$ is the part of the capacitance that loads the film. For the uniform RC line below they are a conductance of $7(\omega R_FC_g)^2/360$ relative to $1/R_F$ and a correction of $31(\omega R_FC_g)^2/2520$ relative to $C_{\mathrm{eff}}$, both under 0.1 % at $\omega R_FC_g = 0.19$ (approximation 5 of Section G.12).
+
+Two special cases are used below.
+
+**No grounded conductor.** If nothing in the cross-section is grounded, the even drive leaves every conductor at the same potential. As in Section G.2.2 it then produces no field, and its energy is zero. With the odd drive scaled to $\pm V/2$, Eq. (G.8) becomes
+
+$$
+C'_{\mathrm{eff}} = \frac{2W'}{V^2},
+\tag{G.9}
+$$
+
+where $W'$ is the field energy per unit length with A at $+V/2$, B at $-V/2$ and the film's potential falling linearly between them. This is the definition used in every cross-section of Sections G.6 to G.9, and it counts the film's charge correctly.
+
+**A film coupled to ground.** If the film is also coupled to ground, with capacitance $c_g(x)\,\mathrm dx$ per element, those elements of $\mathbf C$ add $-\sum_i v_iu_ic_{ig}$ to Eq. (G.8):
+
+$$
+\Delta C_{\mathrm{eff}} = -\int_0^g c_g(x)\,\frac xg\left(1 - \frac xg\right)\mathrm dx
+= -\frac{C_g}{6}\quad\text{for a uniform } c_g = C_g/g .
+\tag{G.10}
+$$
+
+A grounded conductor near the film thus subtracts from the feedback capacitance, in addition to any shielding of the direct coupling. The exact admittance of a uniform RC line confirms the coefficient. The line equations $\mathrm dV/\mathrm dx = -rI$ and $\mathrm dI/\mathrm dx = -j\omega c_gV$ give the transfer admittance $-y_{12} = (\theta/\sinh\theta)/R_F$ with $\theta^2 = j\omega R_FC_g$, and $\theta/\sinh\theta = 1 - \theta^2/6 + O(\theta^4)$ gives $-y_{12} = 1/R_F - j\omega C_g/6 + O(\omega^2)$ (confirmation C9). The same line gives a shunt admittance $j\omega C_g/2$ at each end. In general, repeating Eqs. (G.6) and (G.7) with B driven gives the shunt from B to ground as $j\omega\,\mathbf v^{\mathsf T}\mathbf C(\mathbf u + \mathbf v) = j\omega\sum_iv_ic_{ig}$ for the film's part, which is $j\omega C_g/2$ for any coupling symmetric about the film's midpoint. The film's capacitance to ground therefore also adds $C_g/2$ to the summing node; Section G.10.6 weighs the two. Schurr, Judaschke and Awan reach the same structure for a film whose capacitance to the case is lumped at its midpoint. Their Eq. (2) with $N = 1$ contains $-C_R/4$, which is the ground term $-\sum_iv_iu_ic_{ig}$ of Eq. (G.8) with the whole coupling at the film's midpoint, where $u = v = 1/2$ [A25, p. 3, Eq. (2)].
+
+### G.3 The geometry and the materials
+
+The estimate needs five inputs: the shape of the resistor body, its land pattern, the amplifier's pins, the layout around them, and the permittivities of the alumina, the board and the mould compound. Figure 38 draws an 0402 on its land pattern to scale. Figure 39 shows the idealised cross-section and how it is divided.
+
+**Resistor bodies and land patterns.** Table G.2 lists the dimensions of the four sizes, with the manufacturer documents they are taken from. The symbols are those of Figure 38:
+
+- $L$, $W$ and $T$: the length, width and thickness of the body;
+- $a$: the length of the top termination, which with $L$ fixes the film length $g = L - 2a$;
+- $w$: the pad length along the resistor axis;
+- $l$: the pad width across it;
+- $s$: the gap between the pads.
+
+*Table G.2. Body dimensions and land patterns (mm). Body: nominal value and datasheet tolerance, common to the thick-film general-purpose parts listed; pads: the IPC-7351-based reflow table of Vishay document 28950.*
+
+| Size | $L$ | $W$ | $T$ (overall height) | $a$ (top termination) | Gap $s$ | Pad length $w$ | Pad width $l$ |
+|---|---|---|---|---|---|---|---|
+| 0201 | 0.60 ± 0.03 | 0.30 ± 0.03 | 0.23 ± 0.03 | 0.10 ± 0.05 | 0.27 | 0.43 | 0.42 |
+| 0402 | 1.00 ± 0.05 | 0.50 ± 0.05 | 0.35 ± 0.05 | 0.20 ± 0.10 | 0.40 | 0.55 | 0.60 |
+| 0603 | 1.60 ± 0.10 | 0.80 ± 0.10 | 0.45 ± 0.10 | 0.30 ± 0.20 | 0.70 | 0.90 | 1.00 |
+| 0805 | 2.00 ± 0.10 | 1.25 ± 0.10 | 0.50, 0.40–0.70 | 0.40 ± 0.20 | 1.00 | 0.90 | 1.45 |
+
+The sources and the variation between them are as follows:
+
+- **Body dimensions.** They come from Panasonic ERJ (AOA0000C301, p. 3), Yageo RC (RC_L V.14, p. 4, Table 1), Vishay CRCW (20035, p. 11; from 0402 up), KOA RK73B (p. 1) and TT Electronics WCR (p. 1), which agree within their tolerances. The 0805 thickness spans Yageo's and Vishay's 0.50 ± 0.10 mm and Panasonic's 0.60 ± 0.10 mm.
+- **Thin-film parts.** Panasonic ERA, Yageo RT, Vishay TNPW, KOA RN73H and TT PCF have the same $L$, $W$ and $T$ within the tolerances. Their top terminations are 0.10–0.15 mm (0201), 0.15–0.25 mm (0402), 0.25–0.30 mm (0603) and 0.30–0.40 mm (0805).
+- **Construction.** Every construction drawing puts the film on the top face, with the terminations wrapping from the end face onto the top and bottom faces. None states whether they also cover the long side faces.
+- **Land patterns.** The land pattern is Vishay 28950, Rev. 12-Jul-2022, p. 1. Other published 0402 patterns are smaller or similar:
+  - Yageo (Mount V.10, p. 4, Table 1): gap 0.5, pad length 0.5, width 0.6.
+  - KOA's Appendix B (p. 1): 0.5, 0.4, 0.3.
+  - The IEC 61188-6-2 table of Vishay 28950: 0.55, 0.35, 0.55.
+
+All values were read from the rendered drawings; the collection `data/parasitic_cf/geometry_and_permittivity.md` gives every row with its page.
+
+**The layout.** The OPA855 datasheet asks for the power and ground planes to be cut out under the signal input and output pins and the feedback network, on the inner layers and in the outer pours (OPA855 p29, its Section 9.4.1 and Fig 9-12). Its layout example places $R_F$ beside pins 1 to 3, where "NC (Pin 2) isolates the IN- and FB pins". The estimate therefore takes no conductor under the feedback network in Sections G.6 to G.9 and G.11, and treats a plane or a guard under it separately in Section G.10. The board is taken as FR-4 of thickness $H$ = 1.6 mm, which enters only Eq. (G.27).
+
+**The amplifier's pins.** The DSG0008A package of the OPA855 has terminals 0.18–0.32 mm wide and 0.2–0.4 mm long on a 0.5-mm pitch. Its body is 1.9–2.1 mm square, and the terminals' side walls are 0.1 or 0.2 mm of metal (OPA855 p38). The example land pattern uses pads 0.25 mm wide and 0.5 mm long (OPA855 p39). FB is pin 1, pin 2 is not connected, IN− is pin 3 and IN+ is pin 4, and the thermal pad is connected to VS− (OPA855 p3, its Table 5-1).
+
+**Permittivities.** Table G.3 lists the relative permittivities with their sources and the frequencies at which they are given.
+
+*Table G.3. Relative permittivities used, with their sources.*
+
+| Material | Range used | Data behind it |
+|---|---|---|
+| Alumina, resistor substrate | 9.4–10.0 | 96 %: Kyocera A476, 9.4 at 1 MHz; CeramTec Rubalit 708S, 9.8 at 1 MHz (±10 %). 99.5–99.6 %: Kyocera A479S, 9.9, and A479U, 10, at 1 MHz; CoorsTek AD-995, 9.7–9.8 at 1 MHz and 9.8 at 4–5 GHz |
+| FR-4 laminate | 3.65–4.6 | Isola 370HR: 4.24 at 100 MHz, 4.17 at 1 GHz. Panasonic R-1755V cores: 4.05–4.70 at 100 MHz, 3.95–4.63 at 1 GHz; R-1650V prepregs: 3.65–4.02 at 1 GHz. Ventec VT-47: 3.45–4.35 at 1 GHz |
+| Epoxy mould compound | 3.1–4.0 | Resonac (Hitachi) CEL-9220HF10: 3.1 at 1 MHz; Panasonic CV8710: 4.0 at 1 MHz. No vendor states the value for a QFN or WSON package |
+| Solder mask (not modelled separately) | — | Taiyo PSR-4000 grades: 3.5–4.5 at 1 MHz, up to 4.9 after humidity; an LPI mask at 3.2 GHz: 3.2–3.5 |
+
+Only three resistor documents state the substrate purity: TT WCR and TT PCF give 96 %, and Vishay's thin-film note [A26, p. 1] gives 99.5 %. The range therefore spans both grades. CoorsTek's data show no dispersion between 1 MHz and 5 GHz for 99.5 % alumina, so the 1-MHz values are used at 0.1–1 GHz (approximation 13). The solder mask lies in layers 10–30 µm thick on the board surface and is not modelled separately. The collection `data/parasitic_cf/geometry_and_permittivity.md` gives every value with its document and page.
+
+![Figure 38](figures/fig38_parasitic_cf_geometry_0402.png)
+
+*Figure 38. An 0402 resistor on its land pattern, drawn to scale with the dimensions of Table G.2. (a) Top view: the pads (brown), the body (outline), the terminations (grey) wrapping onto the top face over the length $a$, and the film (purple) between them over the length $g$. (b) Cross-section through the resistor axis: board, pads, solder (light grey, with fillets on the end faces), the alumina body with its terminations, and the film on the top face. The body's lower face rests a few tens of micrometres above the board.*
+
+![Figure 39](figures/fig39_parasitic_cf_regions.png)
+
+*Figure 39. The idealised cross-section used in Sections G.6 to G.9. (a) Conductor A (red, $+V/2$) and conductor B (blue, $-V/2$) are the pads together with the terminations; the film (purple) carries the linear potential. Insulating cuts (dashed) divide the board (region I), the alumina block between and inside the terminations (region II) and the air (region III). (b) Region I as the half-plane problem of Sections G.6 and G.7. (c) Region II as the rectangle of Section G.8, with the dotted lines marking the metal faces of the upper bound. (d) Region III flattened onto one plane, as in Section G.9.*
+
+### G.4 Energy, bounds and conformal maps
+
+The real structure cannot be solved exactly in closed form; it is split into pieces that can. This section collects the tools that say how splitting, simplifying and mapping change the capacitance, so that every approximation can be given a direction.
+
+#### G.4.1 Capacitance per unit length
+
+A structure that does not change along $y$ over a width $\ell_y$ has capacitance $\ell_yC'$ apart from the field around its ends (approximation 1). By Eq. (G.9) the capacitance per unit length of its cross-section is
+
+$$
+C' = \frac{2W'}{V^2} = \varepsilon_0\,\frac{E[\varphi]}{V^2},
+\qquad
+E[\psi] = \iint\varepsilon_r\,|\nabla\psi|^2\,\mathrm dA .
+\tag{G.11}
+$$
+
+#### G.4.2 Dirichlet's principle
+
+Among all functions $\psi$ on the cross-section that take the prescribed values on A, on B and on the film, are continuous except across insulating cuts, have finite $E$ and tend to a constant at infinity, the potential $\varphi$ gives the smallest $E$. (In two dimensions finite $E$ alone does not make $\psi$ bounded, since $\ln\ln r$ has finite energy; the functions that tend to a constant are dense in energy, so the restriction loses nothing.) To see this, write $\psi = \varphi + \eta$, where $\eta$ vanishes wherever a value is prescribed. Then
+
+$$
+E[\psi] = E[\varphi] + 2\iint\varepsilon_r\,\nabla\varphi\cdot\nabla\eta\,\mathrm dA + E[\eta] .
+$$
+
+By the divergence theorem in each material region, the middle term is $2\sum\oint\eta\,\varepsilon_r\,\partial\varphi/\partial n\,\mathrm ds - 2\iint\eta\,\nabla\cdot(\varepsilon_r\nabla\varphi)\,\mathrm dA$. The area term vanishes because $\varphi$ is harmonic in each region. The line terms vanish piece by piece: $\eta = 0$ on the electrodes and the film; $\partial\varphi/\partial n = 0$ on insulating boundaries; across an interface the two sides contribute $\eta$ times the jump of $\varepsilon_r\,\partial\varphi/\partial n$, which is zero; and on a large circle $\eta$ tends to a constant, so the line term is that constant times the net flux of $\varphi$, which is zero (Section G.2.1), plus a term that falls as $1/r$. Hence
+
+$$
+E[\psi] = E[\varphi] + E[\eta] \ \ge\ E[\varphi],
+\tag{G.12}
+$$
+
+with equality only if $E[\eta] = 0$, which makes $\eta$ constant and, since it vanishes on the electrodes, zero. The minimiser is therefore unique in every region that touches an electrode. In a region that touches none, such as the air below the cut of Section G.7.3, the potential is fixed only up to a constant, which does not change the energy.
+
+#### G.4.3 Six rules for the direction of an approximation
+
+For a cross-section with the conductors A and B, possibly the film, and no grounded conductor, Eqs. (G.11) and (G.12) say that $C' = \varepsilon_0\min_\psi E[\psi]/V^2$. The first five rules follow from comparing two such minimisations.
+
+**Rule 1: more permittivity, more capacitance.** Raising $\varepsilon_r$ anywhere does not lower $C'$. It raises $E[\psi]$ for every $\psi$, and therefore the minimum.
+
+**Rule 2: more metal, more capacitance.** Adding material to A or to B (connected to it, at its potential) does not lower $C'$. $\psi$ must then also take the prescribed value on the added part, so the set of admissible functions shrinks, and a minimum over a smaller set is not smaller.
+
+**Rule 3: a cut lowers the capacitance.** Inserting an insulating cut, a sheet across which $\psi$ may jump, does not raise $C'$. Functions that jump across the cut become admissible, so the set grows and the minimum cannot rise. The minimiser over the larger set has $\partial\varphi/\partial n = 0$ on both faces of the cut, because otherwise a small change of $\psi$ next to one face would lower $E$.
+
+**Rule 4: a floating conductor raises the capacitance.** Inserting or enlarging a conductor whose potential is free and whose net charge is zero does not lower $C'$. The admissible functions are those that are constant on the floating conductor, with any constant, and enlarging it shrinks that set. Varying the constant shows that the minimiser carries zero net charge on it.
+
+**Rule 5: releasing a prescribed potential lowers the capacitance.** Removing the prescribed values from part of the boundary, which then becomes insulating, does not raise $C'$, for the same reason as Rule 3.
+
+With a grounded conductor present, $C_m$ is no longer the minimum of an energy, and Rules 1 to 5 do not apply to it. One rule survives.
+
+**Rule 6: grounded metal lowers the mutual capacitance.** Let $\varphi_A$ be the potential with A at 1 V and B and the ground at 0 V. With $n_B$ the normal pointing from B into the dielectric, Eqs. (G.1) and (G.3) give $C_m = \oint_{S_B}\varepsilon\,\partial\varphi_A/\partial n_B\,\mathrm dS$. Now enlarge the grounded metal, or add a grounded conductor, and call the new potential $\varphi'_A$, defined on the new, smaller dielectric region $\mathcal V'$. Let $\delta = \varphi_A - \varphi'_A$ on $\mathcal V'$ and $\delta^- = \min(\delta,0)$. The boundary of $\mathcal V'$ has four kinds of part:
+
+- On A, on B and on the original ground, $\delta = 0$. On the added ground, $\varphi'_A = 0\le\varphi_A$, so $\delta\ge0$. Hence $\delta^- = 0$ on every conductor held at a fixed potential.
+- On insulating parts (cuts, symmetry lines, the surface of approximation 9), $\partial\delta/\partial n = 0$.
+- On a floating conductor, both potentials are constant and carry zero net charge, so $\delta^-$ is a constant there and $\oint\varepsilon\,\partial\delta/\partial n = 0$.
+- At infinity the boundary term vanishes as in Section G.2.1.
+
+Since $\nabla\delta^- = \nabla\delta$ where $\delta<0$ and zero elsewhere, Green's identity gives $\int_{\mathcal V'}\varepsilon|\nabla\delta^-|^2\,\mathrm dV = \oint\delta^-\varepsilon\,\partial\delta/\partial n\,\mathrm dS - \int\delta^-\nabla\cdot(\varepsilon\nabla\delta)\,\mathrm dV = 0$. So $\delta^-$ is constant, and it is zero on A: $\varphi'_A\le\varphi_A$ everywhere. Both vanish on B, so $\partial\varphi'_A/\partial n_B\le\partial\varphi_A/\partial n_B$ there, and $C_m$ cannot increase. The same argument with $\delta = \varphi_A$, and with $\delta = 1 - \varphi_A$, gives $0\le\varphi_A\le1$ and hence $C_m\ge0$. Enlarging A raises $\varphi_A$ by the same argument and so cannot lower $C_m$, and enlarging B has the same effect by the symmetry $c_{AB} = c_{BA}$. For Dirichlet data on the whole boundary this is the weak maximum principle [B3, Section G.8.1]; the argument above extends it to cuts and floating conductors.
+
+#### G.4.4 Conformal maps keep the capacitance
+
+Let $\zeta = G(\varpi)$ map a region $D_\varpi$ one-to-one onto a region $D_\zeta$, with $G$ analytic and $G'\ne0$ inside, boundary arcs going to boundary arcs. For a function $\psi$ on $D_\zeta$, define $\tilde\psi = \psi\circ G$ on $D_\varpi$. Write $\varpi = u + iv$ and $G = G_1 + iG_2$, and let $\psi_1$ and $\psi_2$ be the derivatives of $\psi$ with respect to $\operatorname{Re}\zeta$ and $\operatorname{Im}\zeta$. The chain rule and the Cauchy–Riemann equations $\partial_uG_1 = \partial_vG_2$, $\partial_vG_1 = -\partial_uG_2$ give
+
+$$
+|\nabla_\varpi\tilde\psi|^2 = (\psi_1\partial_uG_1 + \psi_2\partial_uG_2)^2 + (-\psi_1\partial_uG_2 + \psi_2\partial_uG_1)^2 = (\psi_1^2 + \psi_2^2)\bigl[(\partial_uG_1)^2 + (\partial_uG_2)^2\bigr] = |G'(\varpi)|^2\,|\nabla_\zeta\psi|^2 .
+$$
+
+The area element transforms with the Jacobian $\partial_uG_1\partial_vG_2 - \partial_vG_1\partial_uG_2 = (\partial_uG_1)^2 + (\partial_uG_2)^2 = |G'|^2$, so
+
+$$
+\iint_{D_\varpi}|\nabla_\varpi\tilde\psi|^2\,\mathrm dA_\varpi = \iint_{D_\zeta}|\nabla_\zeta\psi|^2\,\mathrm dA_\zeta .
+\tag{G.13}
+$$
+
+Because $\psi\leftrightarrow\tilde\psi$ pairs the admissible functions of the two problems one to one, with the prescribed values on corresponding arcs, the two minima of Eq. (G.11) are equal. A conformal map therefore does not change the capacitance of a region of uniform permittivity. A reflection, $x\to-x$, changes neither $|\nabla\psi|^2$ nor the area, so it may be combined with a conformal map.
+
+### G.5 The complete elliptic integral and its relatives
+
+Every capacitance below comes out as a ratio of complete elliptic integrals. This section defines them, states the four properties that are used, and gives the names under which the script evaluates them.
+
+$$
+K(m) = \int_0^{\pi/2}\frac{\mathrm d\theta}{\sqrt{1 - m\sin^2\theta}} = \int_0^1\frac{\mathrm dt}{\sqrt{(1 - t^2)(1 - mt^2)}},
+\qquad 0\le m<1 .
+\tag{G.14}
+$$
+
+The second form follows from $t = \sin\theta$, $\mathrm dt = \cos\theta\,\mathrm d\theta$ and $\sqrt{1 - t^2} = \cos\theta$. Here $m$ is the parameter. The Digital Library of Mathematical Functions (DLMF) and many older texts write $K(k)$ with the modulus $k = \sqrt m$ [B5, §19.2(ii)]. `scipy.special.ellipk(m)` takes the parameter, and `scipy.special.ellipkm1(p)` returns $K(1 - p)$, which stays accurate when $p$ is small. Four properties are used:
+
+- $K(0) = \pi/2$.
+- $K$ increases strictly with $m$, because the integrand does.
+- $K$ is continuous on $[0,1)$: for $m\le m_0<1$ the integrand is continuous in $m$ and bounded by $(1 - m_0)^{-1/2}$.
+- $K(m)\to\infty$ as $m\to1$: the integrand increases to $1/\cos\theta$, whose integral diverges at $\pi/2$, so by monotone convergence the integral diverges too.
+
+The incomplete integral and its inverse are
+
+$$
+F(\phi\,|\,m) = \int_0^\phi\frac{\mathrm d\theta}{\sqrt{1 - m\sin^2\theta}},
+\qquad
+\operatorname{sn}(u\,|\,m) = \sin\phi\quad\text{where } F(\phi\,|\,m) = u .
+\tag{G.15}
+$$
+
+$F$ increases strictly with $\phi$, so $u$ determines $\phi$. This defines the Jacobi function sn [B5, §22.16(i)] for $0\le u\le K(m)$, the range used here. Since $F(\pi/2\,|\,m) = K(m)$, $\operatorname{sn}(K(m)\,|\,m) = 1$. `scipy.special.ellipkinc(phi, m)` returns $F(\phi\,|\,m)$, and `scipy.special.ellipj(u, m)` returns sn as its first output.
+
+The script confirms these functions numerically, to check the implementation (confirmations C1 and C6). $K$ from SciPy agrees to $10^{-13}$ with Gauss's arithmetic–geometric mean, $K(m) = \pi/[2\,\mathrm{AGM}(1,\sqrt{1 - m})]$ [B5, §19.8(i)], and to $10^{-11}$ with direct quadrature of Eq. (G.14), for $m$ from 0 to 0.999. Also, $F(\arcsin\operatorname{sn}(u|m)\,|\,m) = u$ to $10^{-12}$.
+
+### G.6 Two electrodes on the edge of a half-plane
+
+The board under the pads, the air above the body, the pins and, after a further map, the body itself all reduce to one problem. Two electrodes lie on the straight edge of a half-plane, and the rest of the edge is insulating. This section solves it exactly.
+
+**The problem.** In the upper half-plane $\mathcal H = \{\zeta = x + iz: z>0\}$ of relative permittivity $\varepsilon_r$, the electrodes are the intervals $[x_1,x_2]$ and $[x_3,x_4]$ of the real axis, with $x_1<x_2<x_3<x_4$, and their potentials differ by $V$. The rest of the real axis is insulating, $\partial\varphi/\partial z = 0$. The solution has three steps, drawn in Figure 40 for the pads of an 0402:
+
+1. A Möbius map moves the four end points to $0$, $m$, $1$ and $\infty$.
+2. A Schwarz–Christoffel map takes the half-plane onto a rectangle whose top and bottom sides are the electrodes.
+3. In the rectangle the field is uniform.
+
+**Step 1: four points to $0$, $m$, $1$, $\infty$.** The map
+
+$$
+\mathcal T(\zeta) = \frac{(\zeta - x_1)(x_3 - x_4)}{(\zeta - x_4)(x_3 - x_1)}
+\tag{G.16}
+$$
+
+sends $x_1\to0$, $x_3\to1$ and $x_4\to\infty$, as substitution shows, and $x_2$ to
+
+$$
+m = \mathcal T(x_2) = \frac{(x_2 - x_1)(x_4 - x_3)}{(x_4 - x_2)(x_3 - x_1)},
+\qquad
+1 - m = \frac{(x_3 - x_2)(x_4 - x_1)}{(x_4 - x_2)(x_3 - x_1)} .
+\tag{G.17}
+$$
+
+The second form follows from expanding $(x_4 - x_2)(x_3 - x_1) - (x_2 - x_1)(x_4 - x_3) = x_3x_4 + x_1x_2 - x_2x_4 - x_1x_3 = (x_3 - x_2)(x_4 - x_1)$. Both forms are positive, so $0<m<1$.
+
+$\mathcal T$ keeps the upper half-plane. Write $\mathcal T(\zeta) = (e_1\zeta + e_2)/(e_3\zeta + e_4)$ with the real coefficients $e_1 = x_3 - x_4$, $e_2 = -x_1(x_3 - x_4)$, $e_3 = x_3 - x_1$ and $e_4 = -x_4(x_3 - x_1)$. Multiplying numerator and denominator by $e_3\bar\zeta + e_4$,
+
+$$
+\operatorname{Im}\mathcal T(\zeta) = \frac{(e_1e_4 - e_2e_3)\,\operatorname{Im}\zeta}{|e_3\zeta + e_4|^2},
+\qquad
+e_1e_4 - e_2e_3 = (x_3 - x_4)(x_3 - x_1)(x_1 - x_4) > 0,
+$$
+
+since the first and third factors are negative and the second is positive. A real Möbius map is a one-to-one map of the extended plane onto itself that takes the real axis to the real axis, and with $e_1e_4 - e_2e_3>0$ it takes $\mathcal H$ onto $\mathcal H$. On the real axis $\mathcal T'(x) = (e_1e_4 - e_2e_3)/(e_3x + e_4)^2>0$, so $\mathcal T$ increases on each side of its only pole, $x_4$. The electrodes therefore go to $[0,m]$ and $[1,\infty)$, the gap $(x_2,x_3)$ goes to $(m,1)$, and the outside $(x_4,\infty)\cup(-\infty,x_1)$ goes to $(-\infty,0)$, passing through $\mathcal T(\infty) = e_1/e_3 = (x_3 - x_4)/(x_3 - x_1)<0$.
+
+**Step 2: the half-plane onto a rectangle.** For $t$ in the closed upper half-plane, define
+
+$$
+f(t) = \int_0^t\frac{\mathrm d\tau}{\sqrt\tau\,\sqrt{\tau - m}\,\sqrt{\tau - 1}},
+\tag{G.18}
+$$
+
+with each square root the principal branch, whose cut lies where its argument is real and negative. The three cuts lie on the real axis, so the integrand is analytic in $\mathcal H$ and the integral does not depend on the path inside $\mathcal H$. Near $0$, $m$ and $1$ the integrand grows as the inverse square root of the distance, which is integrable, so $f$ is continuous up to the real axis. Approached from above, $\sqrt{\tau - a}$ equals $+\sqrt{\tau - a}$ for real $\tau>a$ and $+i\sqrt{a - \tau}$ for $\tau<a$. This fixes the direction in which $f$ moves along each interval of the real axis, and a substitution gives the length of each image.
+
+On $(0,m)$, the product of the roots is $\sqrt\tau\cdot i\sqrt{m - \tau}\cdot i\sqrt{1 - \tau} = -\sqrt{\tau(m - \tau)(1 - \tau)}$, so $f$ moves in the $-x$ direction. With $\tau = m\sin^2\theta$ we have $\mathrm d\tau = 2m\sin\theta\cos\theta\,\mathrm d\theta$ and $\tau(m - \tau) = m^2\sin^2\theta\cos^2\theta$, so
+
+$$
+\int_0^m\frac{\mathrm d\tau}{\sqrt{\tau(m - \tau)(1 - \tau)}} = \int_0^{\pi/2}\frac{2\,\mathrm d\theta}{\sqrt{1 - m\sin^2\theta}} = 2K(m),
+\qquad
+f(m) = -2K(m).
+\tag{G.19}
+$$
+
+On $(m,1)$, the product is $\sqrt\tau\,\sqrt{\tau - m}\cdot i\sqrt{1 - \tau}$, so $f$ moves in the $-i$ direction. With $\tau = 1 - (1 - m)\sin^2\theta$, the factors become $1 - \tau = (1 - m)\sin^2\theta$ and $\tau - m = (1 - m)\cos^2\theta$, and $|\mathrm d\tau| = 2(1 - m)\sin\theta\cos\theta\,\mathrm d\theta$, so
+
+$$
+\int_m^1\frac{\mathrm d\tau}{\sqrt{\tau(\tau - m)(1 - \tau)}} = \int_0^{\pi/2}\frac{2\,\mathrm d\theta}{\sqrt{1 - (1 - m)\sin^2\theta}} = 2K(1 - m),
+\qquad
+f(1) = -2K(m) - 2iK(1 - m).
+\tag{G.20}
+$$
+
+On $(1,\infty)$, all three roots are positive, and $f$ moves in the $+x$ direction. With $\tau = 1/\sin^2\theta$, the factors become $\tau - 1 = \cos^2\theta/\sin^2\theta$ and $\tau - m = (1 - m\sin^2\theta)/\sin^2\theta$, and $|\mathrm d\tau| = 2\cos\theta\,\mathrm d\theta/\sin^3\theta$, so
+
+$$
+\int_1^\infty\frac{\mathrm d\tau}{\sqrt{\tau(\tau - m)(\tau - 1)}} = \int_0^{\pi/2}\frac{2\,\mathrm d\theta}{\sqrt{1 - m\sin^2\theta}} = 2K(m),
+\qquad
+f(\infty) = -2iK(1 - m).
+\tag{G.21}
+$$
+
+On $(-\infty,0)$, the product is $i\sqrt{|\tau|}\cdot i\sqrt{m + |\tau|}\cdot i\sqrt{1 + |\tau|} = -i\sqrt{|\tau|(m + |\tau|)(1 + |\tau|)}$, so $f$ moves in the $+i$ direction as $\tau$ increases. With $\varrho = -\tau = m\cot^2\theta$, the factors become $\varrho + m = m/\sin^2\theta$ and $\varrho + 1 = [1 - (1 - m)\cos^2\theta]/\sin^2\theta$, and $|\mathrm d\varrho| = 2m\cos\theta\,\mathrm d\theta/\sin^3\theta$, so
+
+$$
+\int_0^\infty\frac{\mathrm d\varrho}{\sqrt{\varrho(\varrho + m)(\varrho + 1)}} = \int_0^{\pi/2}\frac{2\,\mathrm d\theta}{\sqrt{1 - (1 - m)\cos^2\theta}} = 2K(1 - m),
+\tag{G.22}
+$$
+
+where the last step uses $\theta\to\pi/2 - \theta$. So $f(-\infty) = f(0) - 2iK(1 - m) = -2iK(1 - m)$, the same point as $f(+\infty)$ in Eq. (G.21).
+
+As $t$ runs along the real axis from $-\infty$ to $+\infty$, $f(t)$ therefore runs once around the rectangle $\mathcal R$ with corners $0$, $-2K(m)$, $-2K(m) - 2iK(1 - m)$ and $-2iK(1 - m)$. It goes up the right side, left along the top (the image of $[0,m]$), down the left side (the image of $[m,1]$), and right along the bottom (the image of $[1,\infty)$), which is counterclockwise. $f$ is analytic in $\mathcal H$ and continuous on its closure, including the point at infinity, since $f(t) - f(\infty) = O(|t|^{-1/2})$. Apply the argument principle to $f(t) - w_0$ on a large half-disc whose edge follows the real axis, with small half-circles around $0$, $m$ and $1$ whose images shrink to the corners. It shows that $f$ takes each value $w_0$ inside $\mathcal R$ exactly once in $\mathcal H$ and takes no value outside: the number of solutions equals the winding number of the image of the edge around $w_0$, which is 1 inside the rectangle and 0 outside [B4, Ch. 4]. Values on the boundary of $\mathcal R$ are not taken in $\mathcal H$ either: by the open-mapping theorem $f(\mathcal H)$ is open, and an open set contained in the closed rectangle lies in its interior. So $f$ maps $\mathcal H$ one-to-one onto the interior of $\mathcal R$.
+
+**Step 3: the field in the rectangle.** After the two maps, the electrodes are the top and bottom sides of $\mathcal R$. Each has length $2K(m)$, they are $2K(1 - m)$ apart, and the two other sides are insulating. The potential that falls linearly from top to bottom satisfies Laplace's equation, takes the prescribed values on both electrodes, and has zero normal derivative on the vertical sides, so it is the solution. Its field $V/2K(1 - m)$ fills the area $2K(m)\cdot2K(1 - m)$, so $E = \varepsilon_rV^2K(m)/K(1 - m)$. By Eq. (G.13) the original half-plane problem has the same energy, and Eq. (G.11) gives
+
+$$
+C' = \varepsilon_0\varepsilon_r\,\frac{K(m)}{K(1 - m)},
+\qquad
+m = \frac{(x_2 - x_1)(x_4 - x_3)}{(x_4 - x_2)(x_3 - x_1)} .
+\tag{G.23}
+$$
+
+When one electrode reaches to infinity ($x_1\to-\infty$), the same steps apply with $\mathcal T(\zeta) = (x_4 - x_3)/(x_4 - \zeta)$, whose coefficients give $e_1e_4 - e_2e_3 = x_4 - x_3>0$, and
+
+$$
+m = \frac{x_4 - x_3}{x_4 - x_2} .
+\tag{G.24}
+$$
+
+As the electrodes approach each other ($x_3 - x_2\to0$), $m\to1$ and $C'$ grows without bound; as they recede, $m\to0$ and $C'\to0$.
+
+![Figure 40](figures/fig40_parasitic_cf_cps_maps.png)
+
+*Figure 40. The two maps of Section G.6 for the pads of an 0402 ($w$ = 0.55 mm, $s$ = 0.40 mm, $m$ = 0.335). (a) The cross-section through the resistor axis, with the board shaded below and pads B (blue) and A (red); solid lines are equipotentials at steps of $V/10$, dashed lines are field lines at equal steps of flux. The same potential solves both half-spaces (Section G.7.2). (b) The same potential in the plane of $t = \mathcal T(\zeta)$ (Eq. (G.16)), where the electrodes are $[0,m]$ and $[1,\infty)$. (c) The rectangle $f(t)$ (Eq. (G.18)), where the electrodes are the top and bottom sides and the field is uniform. Every line is computed from Eqs. (G.16) and (G.18).*
+
+For drawing Figure 40, $f$ is evaluated in closed form as $f(t) = -2\sqrt{t/m}\,\mathcal R_F(1 - t/m,\,1 - t,\,1)$, where $\mathcal R_F$ is Carlson's symmetric elliptic integral [B5, §19.16(i)], not the resistor. On $(0,m)$ the right side equals $-2F(\arcsin\sqrt{t/m}\,|\,m)$, by [B5, §19.25(i)] and the homogeneity of $\mathcal R_F$, which is $f$ by the substitution of Eq. (G.19). Both sides are analytic in $\mathcal H$ and continuous up to $(0,m)$, where they agree. By the Schwarz reflection principle their difference continues analytically across that segment, and since it vanishes there it vanishes identically. The script confirms Eqs. (G.19) to (G.22) by quadrature (C2), the corner values of $f$ by integrating Eq. (G.18) along paths in $\mathcal H$ (C3), and the closed form against the path integral, all to $10^{-7}$ or better.
+
+### G.7 The pads
+
+The two land pads face each other across the gap $s$, and the part of their field that runs through the board is the largest contribution after the resistor body.
+
+#### G.7.1 The pads on a half-plane
+
+In the cross-section through the resistor axis, pad A occupies $s/2\le x\le s/2 + w$ and pad B the mirror interval, where $w$ is the pad length along the axis. Eq. (G.23) with $x_1 = -s/2 - w$, $x_2 = -s/2$, $x_3 = s/2$ and $x_4 = s/2 + w$ has $x_2 - x_1 = x_4 - x_3 = w$ and $x_4 - x_2 = x_3 - x_1 = s + w$, so for one half-space
+
+$$
+m = \left(\frac{w}{s + w}\right)^2,
+\qquad
+C'_{1/2} = \varepsilon_0\varepsilon_r\,\frac{K(m)}{K(1 - m)} .
+\tag{G.25}
+$$
+
+For the IPC-7351 land pattern of an 0402 (Table G.2: $w$ = 0.55 mm, $s$ = 0.40 mm), $m = (0.55/0.95)^2 = 0.335180$, $K(m) = 1.735059$ and $K(1 - m) = 2.026536$, so $K(m)/K(1 - m) = 0.856170$. Each unit of relative permittivity then contributes $0.856170\times8.854188$ fF/mm = 7.58 fF/mm.
+
+#### G.7.2 Board below, air above
+
+The pads lie in the plane between the board, of permittivity $\varepsilon_{\mathrm{pcb}}$, and the air. Let $\varphi_{1/2}$ be the half-plane solution and define $\varphi(x,z) = \varphi_{1/2}(x,|z|)$ on the whole plane. It is harmonic on each side, continuous across $z = 0$, and takes the prescribed values on the pads. Outside the pads it has $\partial\varphi/\partial z = 0$ on both sides of $z = 0$, so the normal displacement is continuous there ($0 = 0$) for any pair of permittivities, and the tangential field is continuous because $\varphi$ is. It therefore satisfies every condition of the two-dielectric problem, and by the uniqueness in Eq. (G.12) it is the solution. Its energy is $(1 + \varepsilon_{\mathrm{pcb}})$ times the half-plane energy, so, exactly for pads of zero thickness (approximation 2),
+
+$$
+C' = (1 + \varepsilon_{\mathrm{pcb}})\,\varepsilon_0\,\frac{K(m)}{K(1 - m)} .
+\tag{G.26}
+$$
+
+The board carries the fraction $\varepsilon_{\mathrm{pcb}}/(1 + \varepsilon_{\mathrm{pcb}})$, which is 81 % for $\varepsilon_{\mathrm{pcb}}$ = 4.2. In the decomposition of Section G.8 the air half is replaced by the body and the air above it, so only the board half, $C'_{\mathrm{board}} = \varepsilon_{\mathrm{pcb}}\varepsilon_0K(m)/K(1 - m)$, is kept from Eq. (G.26). Coplanar-strip formulas are often written with the modulus $k_0 = s/(s + 2w)$ as $K(k_0')/[2K(k_0)]$ per half-space in modulus notation, with $k_0' = \sqrt{1 - k_0^2}$. The two forms are equal by the descending Landen transformation [B5, §19.8(ii)]. In modulus notation, with $k = w/(s + w)$ the modulus of Eq. (G.25) and $\kappa_1 = (1 - k)/(1 + k) = s/(s + 2w) = k_0$, it gives $K(k') = (1 + \kappa_1)K(\kappa_1)$ and $K(k) = \tfrac12(1 + \kappa_1)K(\kappa_1')$, hence $K(k)/K(k') = K(k_0')/[2K(k_0)]$. The script confirms the equality to $10^{-12}$ for several pad shapes (C5).
+
+#### G.7.3 A board of finite thickness
+
+With the planes removed under the feedback network, as the OPA855 datasheet asks (Section G.3), the board is a layer of thickness $H$ with air below. Two calculations bracket it:
+
+- **Upper bound.** Replacing the air below the board by FR-4 raises the capacitance (Rule 1), so the board half of Eq. (G.26) is an upper bound.
+- **Lower bound.** A cut along the bottom face of the board (Rule 3) leaves the layer $-H<z<0$, insulating everywhere except at the pads, which can be solved exactly.
+
+The map $\Omega = \exp[\pi(x + i(z + H))/H]$ takes this strip one-to-one onto $\mathcal H$: the modulus $e^{\pi x/H}$ covers $(0,\infty)$ and the argument $\pi(z + H)/H$ covers $(0,\pi)$. The bottom face goes to the positive real axis and the top face to the negative real axis, $\Omega = -e^{\pi x/H}$. The pads land on $[-e^\beta,-e^\alpha]$ (A) and $[-e^{-\alpha},-e^{-\beta}]$ (B), with $\alpha = \pi s/(2H)$ and $\beta = \pi(s/2 + w)/H$. Eq. (G.17) applies with $x_1 = -e^\beta$, $x_2 = -e^\alpha$, $x_3 = -e^{-\alpha}$ and $x_4 = -e^{-\beta}$. Using the factorisations
+
+$$
+e^\beta - e^\alpha = 2e^{(\alpha + \beta)/2}\sinh\tfrac{\beta - \alpha}2,\quad
+e^{-\alpha} - e^{-\beta} = 2e^{-(\alpha + \beta)/2}\sinh\tfrac{\beta - \alpha}2,
+$$
+
+$$
+e^\alpha - e^{-\beta} = 2e^{(\alpha - \beta)/2}\sinh\tfrac{\alpha + \beta}2,\quad
+e^\beta - e^{-\alpha} = 2e^{(\beta - \alpha)/2}\sinh\tfrac{\alpha + \beta}2,
+$$
+
+the exponential prefactors cancel, and with $(\beta - \alpha)/2 = \pi w/2H$ and $(\alpha + \beta)/2 = \pi(s + w)/2H$,
+
+$$
+m_H = \left[\frac{\sinh(\pi w/2H)}{\sinh(\pi(s + w)/2H)}\right]^2,
+\qquad
+\varepsilon_{\mathrm{pcb}}\varepsilon_0\frac{K(m_H)}{K(1 - m_H)}\ \le\ C'_{\mathrm{board}}\ \le\ \varepsilon_{\mathrm{pcb}}\varepsilon_0\frac{K(m)}{K(1 - m)} .
+\tag{G.27}
+$$
+
+As $H\to\infty$, $\sinh u\approx u$ and $m_H\to m$ (confirmation C10). For the 0402 pads ($w$ = 0.55 mm, $s$ = 0.40 mm) and $H$ = 1.6 mm:
+
+- $\pi w/2H = 0.539961$ and $\pi(s + w)/2H = 0.932660$, so $m_H = 0.278369$.
+- The ratio $K(m_H)/K(1 - m_H)$ is 0.806931, against 0.856170 for the half-space: the lower bound is 5.8 % below the upper one.
+
+Eq. (G.27) assumes that no conductor lies under the window; a plane under the pads is the subject of Section G.10.
+
+### G.8 The resistor body
+
+The alumina between the two terminations is the largest single contribution for an 0402, about half of the estimate, and it is the part that depends on how the resistor is made.
+
+The body is a block of alumina of length $L$, width $W$ and thickness $T$. Each termination covers an end face and wraps onto the top and bottom faces over a length $a$ (Figure 38). Between the inner edges of the top wraps, a distance $g = L - 2a$, the film covers the top face. The cross-section through the axis gives the block region of Figure 39c, the rectangle $|x|<L/2$, $0<z<T$, with these boundaries:
+
+- conductor A on the right end face, and on the top and bottom faces for $g/2<x<L/2$;
+- conductor B on the mirror parts;
+- the film on the top face for $|x|<g/2$;
+- the bottom face for $|x|<g/2$, cut from the board (approximation 3).
+
+Its capacitance per unit width is bracketed by two exactly solvable problems.
+
+#### G.8.1 Upper bound: the slots filled with metal
+
+Fill the alumina inside each termination ($g/2<|x|<L/2$) with metal, which by Rule 2 does not lower the capacitance. The block between the two metal faces at $x = \pm g/2$ then has the potentials $\pm V/2$ on those faces, the film's linear potential on the top face, and an insulating bottom face. The linear potential $\varphi = Vx/g$ satisfies all three conditions and Laplace's equation, so it is the solution. Its field $V/g$ fills the area $gT$, so $E = \varepsilon_{\mathrm{al}}V^2T/g$ and
+
+$$
+C'_{\mathrm{block}}\ \le\ \varepsilon_{\mathrm{al}}\varepsilon_0\,\frac Tg .
+\tag{G.28}
+$$
+
+#### G.8.2 Lower bound: the film's potential released
+
+Release the film's prescribed potential, which leaves the top face between the wraps insulating; by Rule 5 this does not raise the capacitance. The remaining problem is odd in $x$, so the potential vanishes on the centre line $x = 0$, and the block is two equal halves in series. With A at $+V/2$, the charge $Q'$ on A is the same as in the half-block $0<x<L/2$ with the centre line at 0 V. The half-block's capacitance is $C'_{\mathrm{half}} = Q'/(V/2)$, so $C'_{\mathrm{block}} = Q'/V = C'_{\mathrm{half}}/2$.
+
+The half-block is a rectangle of width $L/2$ and height $T$. The rectangle $\mathcal R$ of Section G.6 has width $2K(m_b)$ and height $2K(1 - m_b)$, and $m_b$ is chosen to make the two similar:
+
+$$
+\frac{K(1 - m_b)}{K(m_b)} = \frac{2T}{L} .
+\tag{G.29}
+$$
+
+As $m_b$ runs from 0 to 1, $K(1 - m_b)$ falls and $K(m_b)$ rises (Section G.5), so the left side falls strictly and continuously from $+\infty$ to 0. Eq. (G.29) therefore has exactly one root, which the script finds by a bracketed root search (Brent's method).
+
+Place the half-block on $\mathcal R$, reflected left to right and with its lengths multiplied by $4K(m_b)/L$:
+
+*Table G.4. The half-block of the body placed on the rectangle $\mathcal R$ of Section G.6: each side, the side of $\mathcal R$ it becomes, and the part of the real axis whose image that side is.*
+
+| Half-block | Side of $\mathcal R$ | Image of |
+|---|---|---|
+| centre line ($x = 0$) | right side | $(-\infty,0]$ |
+| end face | left side | $[m_b,1]$ |
+| top face | top side | $[0,m_b]$ |
+| bottom face | bottom side | $[1,\infty)$ |
+
+A point of the top face at distance $\xi$ from the centre line then lies at distance $4K(m_b)\xi/L$ from the corner $f(0)$. A point of the bottom face at the same distance lies at the same distance from the corner $f(\infty)$.
+
+The top wrap begins at $\xi = g/2$. Its image $t_d\in(0,m_b)$ satisfies $\int_0^{t_d}\mathrm d\tau/\sqrt{\tau(m_b - \tau)(1 - \tau)} = 2K(m_b)g/L$. The substitution of Eq. (G.19) turns the left side into $2F(\theta_d\,|\,m_b)$ with $t_d = m_b\sin^2\theta_d$, so $F(\theta_d\,|\,m_b) = K(m_b)g/L$, and by Eq. (G.15)
+
+$$
+t_d = m_b\,\sigma^2,
+\qquad
+\sigma = \operatorname{sn}\bigl(K(m_b)\,g/L\,\big|\,m_b\bigr).
+\tag{G.30}
+$$
+
+The bottom wrap begins at the same $\xi$. Its image $t_c\in(1,\infty)$ satisfies $\int_{t_c}^\infty\mathrm d\tau/\sqrt{\tau(\tau - m_b)(\tau - 1)} = 2K(m_b)g/L$. The substitution of Eq. (G.21) turns the left side into $2F(\theta_c\,|\,m_b)$ with $t_c = 1/\sin^2\theta_c$, so $\theta_c = \theta_d$ and
+
+$$
+t_c = 1/\sigma^2 .
+\tag{G.31}
+$$
+
+So in the $t$-plane the centre line is the electrode $(-\infty,0]$ at 0 V. The termination is a single electrode $[t_d,t_c]$ at $V/2$: the top wrap, the end face and the bottom wrap, which contains $m_b$ and 1. The rest of the axis is insulating. Eq. (G.24) with $x_2 = 0$, $x_3 = t_d$ and $x_4 = t_c$ gives the parameter $(t_c - t_d)/t_c = 1 - m_b\sigma^4$, so $C'_{\mathrm{half}} = \varepsilon\,K(1 - \mu)/K(\mu)$ with $\mu = m_b\sigma^4$, and
+
+$$
+C'_{\mathrm{block}}\ \ge\ \varepsilon_{\mathrm{al}}\varepsilon_0\,\frac{K(1 - \mu)}{2K(\mu)},
+\qquad
+\mu = m_b\,\sigma^4 .
+\tag{G.32}
+$$
+
+Two limits check the result:
+
+- **No wraps** ($a = 0$, $g = L$): then $\sigma = \operatorname{sn}(K(m_b)\,|\,m_b) = 1$ and $\mu = m_b$. Eq. (G.32) becomes $\varepsilon_{\mathrm{al}}\varepsilon_0K(1 - m_b)/2K(m_b) = \varepsilon_{\mathrm{al}}\varepsilon_0T/L$ by Eq. (G.29), the parallel plate between the two end faces.
+- **Wraps meeting** ($g\to0$): then $\sigma\to0$, $\mu\to0$ and $K(1 - \mu)\to\infty$, so the capacitance grows without bound.
+
+The script also confirms numerically that $t_d$ and $t_c$ reproduce the wrap positions, by quadrature of the two integrals (C6).
+
+**An 0402 body.** With the nominal values of Table G.2, $L$ = 1.00 mm, $T$ = 0.35 mm and $a$ = 0.20 mm (so $g$ = 0.60 mm):
+
+- $2T/L = 0.70$ gives $m_b = 0.835335$, with $K(m_b) = 2.346049$ and $K(1 - m_b) = 1.642234$.
+- Then $K(m_b)g/L = 1.407629$, $\sigma = 0.909953$ and $\mu = 0.835335\times0.909953^4 = 0.572712$.
+- With $K(1 - \mu) = 1.796933$ and $K(\mu) = 1.921129$, Eq. (G.32) gives 0.467676 against $T/g = 0.583333$ from Eq. (G.28).
+
+With $\varepsilon_{\mathrm{al}}$ = 9.6 and $W$ = 0.50 mm, the block lies between $9.6\times8.854188\times0.5\times0.467676$ = 19.9 fF and $9.6\times8.854188\times0.5\times0.583333$ = 24.8 fF.
+
+Figure 41 draws the potential of the lower-bound problem. The field reaches into the slots under the wraps, and that penetration is what separates the two bounds. The film holds the top face at the linear potential but leaves the slots open below it, so the field still enters them. The analysis proves the bracket and does not place the true value within it; the central value of Section G.12 takes its middle.
+
+![Figure 41](figures/fig41_parasitic_cf_body_without_film.png)
+
+*Figure 41. The potential in an 0402 body ($L$ = 1.0 mm, $T$ = 0.35 mm, $g$ = 0.6 mm) for the lower bound of Eq. (G.32): terminations in blue (B) and red (A), insulating top and bottom faces between the wraps (dashed), equipotentials at steps of $V/20$. The dotted lines at $x = \pm g/2$ are the metal faces of the upper bound, Eq. (G.28), where the slots are filled. Computed from Eqs. (G.18), (G.24) and (G.29)–(G.31).*
+
+### G.9 The air above the body
+
+The field that leaves the terminations and the film into the air adds a few femtofarads.
+
+**Approximation 7 (flattening).** The region above the body is bounded by the top wraps at height $T$, the end faces, the solder fillets and the outer parts of the pads, which together make a stepped shape. This calculation replaces those surfaces by their projection onto one plane. The electrodes become $[g/2,X]$ and $[-X,-g/2]$, with $X = s/2 + w$ the outer pad edge, and the air region becomes the half-plane above that plane, with the film on the gap $|x|<g/2$. The direction of this approximation is not fixed by the rules of Section G.4, so its size is judged from the result: the air term is about a tenth of the total (Section G.12).
+
+#### G.9.1 Without the film's potential
+
+With the gap insulating, Eq. (G.25) applies with gap $g$ and electrode length $X - g/2$:
+
+$$
+m_{\mathrm{air}} = \left(\frac{X - g/2}{X + g/2}\right)^2 .
+\tag{G.33}
+$$
+
+For the 0402 ($g$ = 0.60 mm, $X$ = 0.75 mm), $m_{\mathrm{air}} = (0.45/1.05)^2 = 0.183673$ and the ratio is 0.719288.
+
+#### G.9.2 With the film's potential
+
+The film prescribes the potential $Vx/g$ on the gap. The map
+
+$$
+\zeta = X\sin\tilde w,\qquad \tilde w = u + iv,
+\tag{G.34}
+$$
+
+takes the half-strip $S = \{|u|<\pi/2,\ v>0\}$ one-to-one onto $\mathcal H$. Since $\sin(u + iv) = \sin u\cosh v + i\cos u\sinh v$, $\operatorname{Im}\zeta = X\cos u\sinh v>0$ in $S$. The bottom side $v = 0$ goes to $\zeta = X\sin u\in(-X,X)$, and the sides $u = \pm\pi/2$ go to $\zeta = \pm X\cosh v$, that is, to $|x|>X$. The map is one-to-one and onto because $\sin(u + iv) = \cosh(v + i(\pi/2 - u))$: on $S$ it is the map of Eq. (G.40) with $h = \pi$, applied to the half-strip $v>0$, $0<\pi/2 - u<\pi$, which Section G.10.2 shows to be one-to-one onto $\mathcal H$. With potentials $\pm1/2$ ($V = 1$), the data on the bottom side are
+
+$$
+\Phi(u) = \frac Xg\sin u\quad\text{for } |u|<u_g,
+\qquad
+\Phi(u) = \pm\frac12\quad\text{for } u_g\le|u|<\frac\pi2,
+\qquad
+u_g = \arcsin\frac g{2X},
+\tag{G.35}
+$$
+
+and the sides $u = \pm\pi/2$ are insulating. Each function $\sin(Mu)\,e^{-Mv} = \operatorname{Im}e^{iM\tilde w}$ with odd $M$ is harmonic, has $\partial/\partial u = M\cos(Mu)e^{-Mv} = 0$ at $u = \pm\pi/2$, and decays as $v\to\infty$. The functions $\sin(M_nu)$, $M_n = 2n + 1$, are the odd eigenfunctions of $-\mathrm d^2/\mathrm du^2$ on $(-\pi/2,\pi/2)$ with zero derivative at both ends. They are orthogonal, with $\int\sin^2 = \pi/2$, and complete for the odd function $\Phi$. The potential is therefore
+
+$$
+\varphi(u,v) = \sum_{n\ge0}b_n\sin(M_nu)\,e^{-M_nv},
+\qquad
+b_n = \frac2\pi\int_{-\pi/2}^{\pi/2}\Phi(u)\sin(M_nu)\,\mathrm du .
+\tag{G.36}
+$$
+
+The integral splits at $u_g$. With $S(j) = \sin(ju_g)/j$ and $S(0) = u_g$,
+
+$$
+b_n = \frac4\pi\left[\frac Xg\int_0^{u_g}\sin u\,\sin(M_nu)\,\mathrm du + \frac12\int_{u_g}^{\pi/2}\sin(M_nu)\,\mathrm du\right]
+= \frac4\pi\left[\frac X{2g}\bigl(S(M_n - 1) - S(M_n + 1)\bigr) + \frac{\cos(M_nu_g)}{2M_n}\right],
+\tag{G.37}
+$$
+
+using $\sin u\sin Mu = \frac12[\cos(M - 1)u - \cos(M + 1)u]$ and $\cos(M\pi/2) = 0$ for odd $M$.
+
+The energy follows from the orthogonality. The squared gradient is $|\nabla\varphi|^2 = \sum_{n,k}b_nb_kM_nM_ke^{-(M_n + M_k)v}\cos[(M_n - M_k)u]$. Its integral over $u$ is $\pi\delta_{nk}$, because $M_n - M_k = 2(n - k)$ is even, and $\int_0^\infty e^{-2M_nv}\,\mathrm dv = 1/(2M_n)$. Hence
+
+$$
+E = \frac\pi2\sum_{n\ge0}M_nb_n^2,
+\qquad
+C'_{\mathrm{air}} = \varepsilon_0E,
+\tag{G.38}
+$$
+
+by Eqs. (G.13) and (G.11).
+
+**Convergence.** $\Phi$ is continuous with a jump of slope at $\pm u_g$, so $b_n = O(M_n^{-2})$, the terms fall as $M_n^{-3}$, and the remainder after $N$ terms is $O(N^{-2})$. The script sums $4\times10^5$ terms, leaving a remainder near $10^{-12}$.
+
+**Check.** If the film covered the whole span ($g = 2X$), then $\Phi = \frac12\sin u$, so $b_0 = 1/2$ and all other $b_n = 0$, and $E = \pi/8$ exactly. The series code reproduces this to $10^{-12}$ (C8).
+
+For the 0402, Eq. (G.38) gives 0.760252, 5.7 % above the 0.719288 without the film. Rule 5 requires it to be higher, and it is.
+
+### G.10 Ground under the resistor
+
+Many boards keep a solid plane on the second layer, 0.1–0.4 mm under the pads. Some layouts add a grounded guard trace under the resistor on purpose. A ground under the resistor changes three things at once:
+
+- it shields part of the direct coupling;
+- it subtracts the film term of Eq. (G.10);
+- it adds capacitance from both nodes to ground.
+
+This section computes all three for the pads and the film, then weighs them for the TIA (Section G.10.6) and answers whether the resistor should be mounted upside down (Section G.10.7).
+
+#### G.10.1 Odd and even drives
+
+With a grounded conductor present, $C_m$ is not the minimum of an energy, so it is computed from two drives. For a symmetric pair, $c_{AA} = c_{BB}$. The charge on A per volt is $q_{\mathrm{odd}} = c_{AA} - c_{AB}$ in the odd drive ($V_A = +1$, $V_B = -1$) and $q_{\mathrm{even}} = c_{AA} + c_{AB}$ in the even drive ($V_A = V_B = 1$), so
+
+$$
+C_m = -c_{AB} = \frac{q_{\mathrm{odd}} - q_{\mathrm{even}}}2,
+\qquad
+C_{A0} = q_{\mathrm{even}} .
+\tag{G.39}
+$$
+
+By symmetry, the centre plane $x = 0$ is at potential 0 in the odd drive and carries no normal field in the even drive. Each drive is therefore a problem on the half-strip $x>0$, $0<d<h$, where $d$ is the depth below the board surface and $h$ that of the plane. The boundaries are:
+
+- the plane at $d = h$, at 0 V;
+- pad A on $d = 0$ for $s/2\le x\le s/2 + w$, at 1 V;
+- the rest of $d = 0$, cut (approximation 9);
+- the centre line $x = 0$, at 0 V in the odd drive and insulating in the even drive.
+
+#### G.10.2 The half-strip onto the half-plane
+
+With $q = x + id$, the map
+
+$$
+\zeta = \cosh\frac{\pi q}h = \frac12\left(Z + \frac1Z\right),\qquad Z = e^{\pi q/h},
+\tag{G.40}
+$$
+
+is the composition of two one-to-one maps:
+
+- $q\mapsto Z$ takes the half-strip onto $\{|Z|>1,\ 0<\arg Z<\pi\}$: the modulus $e^{\pi x/h}$ exceeds 1 and the argument $\pi d/h$ lies in $(0,\pi)$.
+- The Joukowski map $Z\mapsto\zeta$ takes that region one-to-one onto $\mathcal H$. For $Z = \rho e^{i\vartheta}$ with $\rho>1$ and $0<\vartheta<\pi$, $\operatorname{Im}\zeta = \frac12(\rho - 1/\rho)\sin\vartheta>0$. Conversely, for $\zeta\in\mathcal H$ the two roots of $Z^2 - 2\zeta Z + 1 = 0$ have product 1, and neither lies on the unit circle, where $\zeta = \cos\vartheta$ would be real. So exactly one root has $|Z|>1$, and $\operatorname{Im}\zeta>0$ then forces $0<\vartheta<\pi$.
+
+The board surface goes to $\zeta = \cosh(\pi x/h)\in(1,\infty)$, with the pad on $[u_1,u_2]$, where $u_1 = \cosh(\pi s/2h)$ and $u_2 = \cosh(\pi(s/2 + w)/h)$. The plane goes to $(-\infty,-1)$ and the centre line to $(-1,1)$ (confirmation C7). Figure 42 shows the half-strip and its image.
+
+![Figure 42](figures/fig42_parasitic_cf_plane_map.png)
+
+*Figure 42. The 0402 pads over a ground plane 0.2 mm below the board surface. (a) The board region with the equipotentials of the odd drive (pad A at $+V/2$, pad B at $-V/2$, plane at 0), computed from Eqs. (G.40), (G.24) and (G.18); the dotted line is the centre line, at 0 V in this drive. (b) The image of the half-strip $x>0$ under Eq. (G.40), on a compressed scale: the plane occupies $(-\infty,-1]$, the centre line $[-1,1]$, and the pad $[u_1,u_2]$ with $u_1$ = 11.6 and $u_2 = 6.5\times10^4$.*
+
+#### G.10.3 The two parameters
+
+In the even drive the electrodes are the plane $(-\infty,-1]$ and the pad $[u_1,u_2]$; in the odd drive the plane and the centre line merge into the single electrode $(-\infty,1]$. Eq. (G.24) gives the two parameters. With $\cosh A - 1 = 2\sinh^2(A/2)$ and $\cosh A + 1 = 2\cosh^2(A/2)$, their complements take a form that avoids cancellation:
+
+$$
+m_{\mathrm e} = \frac{u_2 - u_1}{u_2 + 1},\quad
+m_{\mathrm o} = \frac{u_2 - u_1}{u_2 - 1},\qquad
+1 - m_{\mathrm o} = \left[\frac{\sinh(\pi s/4h)}{\sinh(\pi(s + 2w)/4h)}\right]^2,\quad
+1 - m_{\mathrm e} = \left[\frac{\cosh(\pi s/4h)}{\cosh(\pi(s + 2w)/4h)}\right]^2,
+\tag{G.41}
+$$
+
+and $q_{\mathrm{odd,even}} = \varepsilon_{\mathrm{pcb}}\varepsilon_0K(m_{\mathrm{o,e}})/K(1 - m_{\mathrm{o,e}})$. As $h\to\infty$, $1 - m_{\mathrm o}\to[s/(s + 2w)]^2$ and $q_{\mathrm{odd}}/2$ tends to the half-space value of Eq. (G.25), in the Landen form of Section G.7.2. $q_{\mathrm{even}}$, however, falls only as $1/\ln h$. For large $h$, expanding the hyperbolic cosines gives $m_{\mathrm e}\approx\pi^2w(s + w)/4h^2$. With $K(m_{\mathrm e})\to\pi/2$ and $K(1 - m_{\mathrm e})\approx\frac12\ln(16/m_{\mathrm e})$ [B5, §19.12], this gives $q_{\mathrm{even}}/\varepsilon_{\mathrm{pcb}}\varepsilon_0\approx\pi/\ln[64h^2/\pi^2w(s + w)]$. In two dimensions a plane at any finite depth therefore takes a share of the charge (C7). The two-dimensional model with a plane is therefore used only for planes at depths comparable with the pads, and Eq. (G.27) for a board with the planes removed.
+
+For the 0402 pads ($w$ = 0.55 mm, $s$ = 0.40 mm), per unit $\varepsilon_{\mathrm{pcb}}\varepsilon_0$ and per millimetre of pad width:
+
+*Table G.5. The pads of an 0402 over a ground plane at depth $h$: the mutual capacitance across $R_F$ and each pad's capacitance to the plane, per unit $\varepsilon_{\mathrm{pcb}}\varepsilon_0$ and per millimetre of pad width.*
+
+| Depth of the plane, $h$ | $(q_{\mathrm{odd}} - q_{\mathrm{even}})/2$, across $R_F$ | $q_{\mathrm{even}}$, each pad to the plane |
+|---|---|---|
+| 0.10 mm | 0.001 | 6.38 |
+| 0.20 mm | 0.028 | 3.61 |
+| 0.36 mm | 0.112 | 2.31 |
+| no plane (Eq. (G.25)) | 0.856 | 0 |
+
+With $\varepsilon_{\mathrm{pcb}}$ = 4.2, a plane at 0.2 mm therefore removes 18.5 of the board's 19.1 fF from across an 0402. It adds $3.61\times4.2\times8.854\times0.6$ = 80 fF from each pad to ground.
+
+#### G.10.4 The film and a plane
+
+The film, at its linear potential, couples to a plane below through the alumina (in normal mounting), the air under the body and the board. Only the part of the film over the pad gap sees the plane; where the film lies over the pads, they shield it. Treated as three dielectric layers in series under that area $A_f$ (approximation 10),
+
+$$
+C_g \approx \frac{\varepsilon_0A_f}{T/\varepsilon_{\mathrm{al}} + t_s + h/\varepsilon_{\mathrm{pcb}}}
+\quad\text{(film up)},
+\qquad
+C_g \approx \frac{\varepsilon_0A_f}{t_s + h/\varepsilon_{\mathrm{pcb}}}
+\quad\text{(film down)},
+\tag{G.42}
+$$
+
+where $t_s$ is the gap between the body's lower face and the board, set by the terminations and the solder. Its value is not specified anywhere, so it enters as a condition. The film term follows from Eq. (G.44) of Section G.10.5, which weights the coupling of the middle fraction $r_g = \min(s,g)/g$ of the film. For an 0402 ($A_f = sW$ = 0.20 mm², $r_g = 2/3$, $\varepsilon_{\mathrm{al}}$ = 9.6, $\varepsilon_{\mathrm{pcb}}$ = 4.2) over a plane at 0.2 mm, with $t_s$ = 30 µm, $C_g$ is 16 fF with the film up and 23 fF with the film down, so the film term is −3.3 fF or −4.9 fF.
+
+#### G.10.5 A guard strip in the gap
+
+A grounded strip of width $w_g$ centred in the pad gap, on the board surface under the body, is the "ground trace under the resistor" of the LTC6268-10 datasheet (p14–p15). Its effect on the board region is again a two-electrode problem, with the board taken as a half-space. With ground present, the rules of Section G.4.3 do not fix the direction of that choice.
+
+In the odd drive, the strip's half $0<x<w_g/2$ and the centre line are both at 0 V. In the even drive, the strip is at 0 V and the centre line is insulating. Either way the region is the quarter-plane $x>0$ below the surface. With $q = x + id$, the map $\zeta = q^2$ takes it one-to-one onto $\mathcal H$, since it doubles the argument from $(0,\pi/2)$ to $(0,\pi)$. The surface goes to $\zeta = x^2>0$ and the centre line to $\zeta = -d^2<0$. The pad lands on $[s^2/4,X^2]$ and the strip on $[0,w_g^2/4]$. Eqs. (G.24) and (G.23) give
+
+$$
+1 - m_{\mathrm o} = \frac{s^2 - w_g^2}{4X^2 - w_g^2},
+\qquad
+m_{\mathrm e} = \frac{w_g^2\,(4X^2 - s^2)}{(4X^2 - w_g^2)\,s^2},
+\tag{G.43}
+$$
+
+and Eq. (G.39) gives the mutual capacitance and each pad's capacitance to the strip. Without a strip ($w_g\to0$), $q_{\mathrm{even}}\to0$ and the result is Eq. (G.25) again (confirmation C11).
+
+The film couples to the strip only over its middle part, the fraction $r_g = w_g/g$ of its length. In Eq. (G.10) the average of $\xi(1 - \xi)$ over $\xi\in[\frac{1 - r_g}2,\frac{1 + r_g}2]$ is $\frac14 - \frac{r_g^2}{12}$ (substitute $\chi = \xi - \frac12$: $\xi(1 - \xi) = \frac14 - \chi^2$, and $\chi^2$ averages to $r_g^2/12$). So
+
+$$
+\Delta C_{\mathrm{eff}} = -\left(\frac14 - \frac{r_g^2}{12}\right)C_g,
+\qquad
+C_g\approx\frac{\varepsilon_0\,w_gW}{t_s}\ \text{(film down)},\quad
+C_g\approx\frac{\varepsilon_0\,w_gW}{t_s + T/\varepsilon_{\mathrm{al}}}\ \text{(film up)},
+\tag{G.44}
+$$
+
+which is $-C_g/6$ for $r_g = 1$.
+
+For an 0402 with a 0.2-mm strip (0.1 mm clearance to each pad), $t_s$ = 30 µm and the middle permittivities of Table G.3:
+
+- **Board coupling.** The board's contribution falls from 18.8 to 11.3 fF.
+- **Film term.** It is −3.2 fF with the film up ($C_g$ = 13 fF) and −7.1 fF with the film down ($C_g$ = 30 fF).
+- **Cost.** The summing node gains 17 fF from its pad to the strip, plus $C_g/2$: 24 fF in all with the film up and 32 fF with it down.
+
+#### G.10.6 Capacitance to ground: what it costs
+
+Ground under the resistor reduces $C_{F,\mathrm{par}}$, but it never does so for free: every femtofarad it removes from across $R_F$ comes with capacitance from the summing node to ground. That capacitance is part of $C_T$ in Eq. (7), and in a TIA it is harmful in three ways:
+
+- **Noise gain.** The high-frequency noise gain $NG_\infty = 1 + C_T/C_F$ (Eq. (11)) rises.
+- **Noise.** The $e_n$ term of Eq. (19) rises with $C_{\mathrm{tot}} = C_T + C_F$.
+- **Bandwidth and stability.** A larger $C_T$ needs a larger $C_F$ for the same margin, which lowers the bandwidth; at fixed $C_F$ it lowers the phase margin.
+
+The capacitance from the output node to ground only loads an amplifier that drives 100–200 Ω, and tens of femtofarads there are harmless. For the noise, the film's two effects partly cancel: $C_F$ falls by $C_g/6$ while $C_T$ rises by $C_g/2$, so $C_{\mathrm{tot}}$ rises by $C_g/3$.
+
+Whether the trade pays depends on the design:
+
+- **More $C_F$ needed.** In the 2-kΩ OPA855 design, $C_F$ = 0.19–0.20 pF is needed and the parasitic supplies less (Section G.1). Removing parasitic capacitance only means fitting a larger capacitor, while the added $C_T$ stays, so ground under the resistor is a loss. A plane at 0.2 mm, for example, adds 80 fF to $C_T$ = 2.15 pF (+3.7 %) to remove about 22 fF that must then be fitted back.
+- **Less $C_F$ needed.** Ground under the resistor is useful only in designs that need less $C_F$ than the parasitic already gives. These are high-$R_F$, low-capacitance designs, the regime of the LTC6268-10 and DC2414A examples of Section G.13. There the guard is the cheapest way down, and the added $C_T$ is the price.
+
+The OPA855 datasheet's advice to clear the planes under the signal pins (OPA855 p29) minimises $C_T$, which is the right priority at 2 kΩ.
+
+#### G.10.7 Should the resistor be mounted upside down?
+
+A standard chip resistor can be soldered upside down, with its film towards the board. The terminations wrap onto both faces, so the joints are the same.
+
+**What flipping does not change.** The two terminations, and with them the alumina block between them, are symmetric top to bottom. The bounds of Eqs. (G.28) and (G.32) are therefore unchanged: the film's linear potential still fixes one face of the block, now the lower one. Flipping moves only the film, and with it the place where the film's own field goes.
+
+**With the planes cleared under the network.** Flipped, the film faces the FR-4 instead of the air. In the cross-section this moves the film's potential from the air half-plane, where Eq. (G.38) applies with $\varepsilon = 1$, to the board half-plane, where it applies with $\varepsilon_{\mathrm{pcb}}$. The gain is about $\varepsilon_0W(\varepsilon_{\mathrm{pcb}}\Delta_{\mathrm{board}} - \Delta_{\mathrm{air}})$, where $\Delta_{\mathrm{board}}$ and $\Delta_{\mathrm{air}}$ are the excesses of Eq. (G.38) over Eq. (G.33) in the two half-planes, about 0.04 each; for an 0402 this is 0.6 fF. The totals of Table G.1 change by 0.2–1.6 fF across 0201 to 0805. Two further effects of the same size are left out of that figure. With $g>s$, as in all four sizes, the film overlaps the inner ends of the pads across the solder gap, at a lower potential than theirs; a parallel-plate estimate, $\varepsilon_0Wt_s^{-1}\int(\frac12 - x/g)^2\,\mathrm dx$ over the two overlaps, gives 0.3 fF at $t_s$ = 30 µm. And the flattened data of Eq. (G.38), applied on the board side, let the film's potential reach the pads' at the pad edges, which the real film, at $\pm Vs/2g$ there, does not. Both are estimates of size, not bounds. Flipping therefore makes no difference in the recommended layout.
+
+**With ground under the film.** Flipped, nothing lies between the film and the ground except the solder gap $t_s$, so $C_g$ of Eqs. (G.42) and (G.44) grows: for the 0402 over a 0.2-mm guard, from 13 to 30 fF. The film term of Eq. (G.44) grows from −3.2 to −7.1 fF. Flipping thus strengthens exactly the trade of Section G.10.6, with more removed from across $R_F$ and more added to $C_T$ (32 instead of 24 fF). It also makes the result depend on $t_s$, which nobody controls: the joint height and, for thick film, the overcoat on the film side set it, and $C_g$ scales as $1/t_s$.
+
+**The answer for this note.** For the 2-kΩ OPA855 design, which needs more feedback capacitance than the parasitic supplies, do not flip the resistor and do not put ground under it. For a design that must get below the parasitic, flipping over a guard is a legitimate tool, but a poorly reproducible one. If a lower body capacitance is the aim, a flip-chip resistor is the stronger lever. These parts are made to be mounted film-down with terminations on that face only, so they lack the end-face parallel plate of Eq. (G.28). Vishay's fits give 26 fF for its 0402 flip chip against 39 fF for the wrap-around version [A26, p. 1, Table 1].
+
+### G.11 The amplifier's pins
+
+The FB pin and the inverting input of the OPA855 are package terminals 0.5 mm apart along the package edge, separated by pin 2, which is not connected (OPA855 p3, its Table 5-1; Figure 43a). They add their own coupling, independent of the resistor.
+
+**Geometry.** The board pads are 0.25 mm wide along the edge and 0.5 mm long across it, on a 0.5-mm pitch (OPA855 p39). Of each pad's length, about 0.3 mm lies under the package, where mould compound is above, and 0.2 mm outside it, where air is above (OPA855 p38: body 1.9–2.1 mm, terminals 0.2–0.4 mm long). In the cross-section along the package edge, pins 1 and 3 are strips of width $b$ = 0.25 mm whose centres lie $2p$ = 1.0 mm apart.
+
+**Without the middle pin.** Remove pin 2, a floating conductor, which by Rule 4 lowers the capacitance. Eq. (G.25) with $w = b$ and $s = 2p - b$ gives
+
+$$
+m = \left(\frac b{2p}\right)^2 = \frac1{16},
+\qquad
+\frac{K(m)}{K(1 - m)} = 0.569841 .
+\tag{G.45}
+$$
+
+**With the middle pin as a floating wall.** Enlarge pin 2 into an infinite floating slab of width $b$ through board and mould, which by Rule 4 raises the capacitance. By symmetry the slab sits at 0 V. To the left of it, its face is an equipotential plane perpendicular to the dielectric interface. The image of pin 1 in that plane, at potential $-V_1$, makes with pin 1 a symmetric pair of strips of width $b$ and gap $2g_p$, where $g_p = p - b$ is the clearance between neighbouring pads. The pair's potential vanishes on the mirror plane, so the field left of the slab is the pair's field, and the charge on pin 1 is $Q' = C'_{\mathrm{pair}}\,(V_1 - (-V_1))$. With $V_1 = V/2$ this is $Q' = VC'_{\mathrm{pair}}$, so the capacitance from pin 1 to pin 3 equals $C'_{\mathrm{pair}}$, with
+
+$$
+m = \left(\frac b{2p - b}\right)^2 = \frac19,
+\qquad
+\frac{K(m)}{K(1 - m)} = 0.639631 .
+\tag{G.46}
+$$
+
+**Media.** Along the pads, the 0.3 mm under the package has mould above ($\varepsilon_{\mathrm m}$) and board below, and the 0.2 mm outside has air above. Eq. (G.26) applies to each part, so $C_{\mathrm{pins}} = \varepsilon_0K/K\,[(\varepsilon_{\mathrm m} + \varepsilon_{\mathrm{pcb}})\times0.3 + (1 + \varepsilon_{\mathrm{pcb}})\times0.2]$ mm. The two bounds of the two-dimensional model are 14.9–18.7 fF without the middle pin and 16.7–21.0 fF with the wall, over the permittivity ranges of Table G.3.
+
+**Terminal side walls.** The package's terminals are metal blocks whose side walls, 0.1 or 0.2 mm high (OPA855 p38, "side wall metal thickness"), face each other across $g_p$. Treated as parallel plates in series through the floating pin (approximation 11), they add
+
+$$
+\Delta C_{\mathrm{pins}}\approx\frac{\varepsilon_{\mathrm m}\varepsilon_0\,t_{\mathrm{wall}}}{2g_p}\times0.3\ \mathrm{mm},
+\tag{G.47}
+$$
+
+which is 2.1 fF for $t_{\mathrm{wall}}$ = 0.1 mm and 4.3 fF for 0.2 mm, with $\varepsilon_{\mathrm m}$ = 4.0.
+
+**What lowers it, and what is missing.** Pin 4 (IN+) and the thermal pad (VS−) are AC grounds 0.25 mm from pin 3 and from the inner ends of pins 1 to 3. By Rule 6, which holds with a floating conductor present (Section G.4.3), they lower the mutual capacitance. Within the zero-thickness model the real pins therefore lie below the same pins without grounds, which lie below the floating-wall value by Rule 4: the floating-wall value is an upper bound there. The package interior adds its own coupling: the leadframe fingers, the bond wires and the die pads. No published value exists, and the vendor's macromodel has no FB-to-IN− capacitance (collection `data/parasitic_cf/tia_feedback_parasitics.md`, "Package and pins"). It is not included (approximation 12).
+
+![Figure 43](figures/fig43_parasitic_cf_pins_dsg.png)
+
+*Figure 43. The pins of the OPA855 (DSG0008A land pattern, OPA855 p39) with an 0402 $R_F$ beside pins 1–3 as in the datasheet's layout example (OPA855 p29, Fig 9-12). (a) Top view; pins 1 (FB, red) and 3 (IN−, blue), pin 2 not connected, the thermal pad at VS−. (b) Cross-section along the package edge with pin 2 removed, Eq. (G.45). (c) Pin 2 enlarged to a floating wall, with the image of pin 1 (dashed) that makes the field left of the wall that of a coplanar pair, Eq. (G.46).*
+
+### G.12 Assembling the estimate, and every approximation
+
+The pieces add in parallel, each over the width along which its cross-section holds:
+
+$$
+C_{F,\mathrm{par}}\approx W\,C'_{\mathrm{board,body}} + (l - W)\,C'_{\mathrm{board,pads}} + W\,C'_{\mathrm{block}} + W\,C'_{\mathrm{air}} + (l - W)\,C'_{\mathrm{air,pads}} + C_{\mathrm{pins}} + C_{\mathrm{traces}} + C_{\mathrm{pkg}} .
+\tag{G.48}
+$$
+
+The terms are:
+
+- $C'_{\mathrm{board,body}}$: the board term of Eq. (G.27). Over the body's width the conductor seen from the board extends to the inner edge of the bottom wrap, so its gap is $\min(g,s)$.
+- $C'_{\mathrm{board,pads}}$: the same for the bare pads, beyond the body's width.
+- $C'_{\mathrm{block}}$: from Eqs. (G.28) and (G.32).
+- $C'_{\mathrm{air}}$: from Eqs. (G.33) and (G.38) over the body, and Eq. (G.25) over the bare pads.
+- $C_{\mathrm{pins}}$: from Section G.11.
+- $C_{\mathrm{traces}}$: two parallel traces of width $w_t$ and edge spacing $s_t$ follow Eq. (G.26) with $m = [w_t/(s_t + w_t)]^2$.
+- $C_{\mathrm{pkg}}$: not estimated.
+
+The **lower bound of the two-dimensional model** is the sum of the board's cut-layer value and the block's lower bound. It is rigorous within the model's geometry, because every step that leads to it either lowers the capacitance by Rules 1–5 or is exact. The **upper estimate** takes the half-space board, the filled-slot block and the film-loaded air. The **central value** takes the middle of each range.
+
+*Table G.6. Every approximation of the estimate, with the direction in which it moves the result and its size or bound.*
+
+| No. | Approximation | Direction | Size or bound |
+|---|---|---|---|
+| 1 | Cross-sections treated as uniform over their widths; no field around the ends | Lowers $C_m$ by the end fringing | Not computed; Section G.13 compares the sum with measurements |
+| 2 | Pads and terminations of zero thickness where they face each other in the board plane | Lowers (Rule 2) | Copper 35 µm thick against gaps of 0.3–1 mm: below 1 fF |
+| 3 | Cuts between the board, the block and the air (Figure 39) | Lowers (Rule 3) | Part of the rigorous lower bound |
+| 4 | Uniform film with a linear potential, no trim cuts or meander | Lowers for patterned films | Up to several tens of fF for precision thin film (Section G.13) |
+| 5 | First order in frequency | — | Valid for $\omega R_FC\ll1$; 0.19 at 2 kΩ, 0.1 pF and 150 MHz |
+| 6 | Field in the termination slots | Bracketed | Eqs. (G.28) and (G.32) |
+| 7 | Air region flattened onto one plane | Not fixed | Air term about a tenth of the total; film and no-film versions differ by 5–6 % |
+| 8 | Board as a half-space (upper) or a cut layer (lower) | Bracketed | Eq. (G.27): 5.8 % apart for an 0402 on 1.6 mm |
+| 9 | With a plane: the board surface cut outside the pads | Not fixed for $C_m$ | Partial-capacitance model; used only for Section G.10 |
+| 10 | Film-to-ground as series parallel plates | Not fixed | Used only to size the film term |
+| 11 | Pins: zero thickness (lowers, Rule 2), side walls as parallel plates (not a bound), grounded pin 4 and thermal pad omitted (raises, Rule 6) | Mixed | Within the zero-thickness model the floating-wall value is an upper bound; 14.9–21.0 fF plus 2.1–4.3 fF |
+| 12 | Package interior not included | Lowers | Unknown; no published value |
+| 13 | Permittivities constant over 0.1–1 GHz, at the datasheet ranges of Section G.3 | — | Ranges carried through |
+| 14 | Gap under the body ($t_s$) ignored except in Section G.10; where the pads reach under the body ($g>s$), their coupling to the body's lower face across $t_s$ is cut | Lowers | A parallel-plate estimate of that coupling gives 0.3 fF for an 0402 at $t_s$ = 30 µm; the cut keeps the lower bound rigorous |
+| 15 | Block thickness $T$ taken as the datasheets' overall height, which includes the terminations and coatings | Raises | The alumina is thinner by the termination metal, tens of µm; the tolerance band of Table G.2 covers it |
+
+### G.13 Comparison with measurements
+
+The model can be tested at three levels: the resistor body alone, the body free-standing, and whole boards. The measured values below are cited with their sources, and the collections `data/parasitic_cf/resistor_shunt_capacitance.md` and `data/parasitic_cf/tia_feedback_parasitics.md` give every value with its page and the way it was read. The model values come from the script with the dimensions of Table G.2 and the permittivities of Table G.3.
+
+#### G.13.1 The body over a ground plane
+
+Vendors fit equivalent circuits to parts measured on test boards over a ground plane. They quote the capacitance across the part separately from its capacitance to ground, and leave the test pads to the fixture model. The closest model quantity is the block (Section G.8) plus the air above the film side (Section G.9), with the terminations alone as electrodes. The board side is left out, because the test board's ground plane takes most of it.
+
+*Table G.7. The body's capacitance in the model against the vendors' fitted values over a ground plane (fF). Vishay FC: [A26, p. 1, Table 1] and [A27, p. 3]; Vishay CH: read from the internal-impedance curves of [A28, pp. 7–8]; Vishay Beyschlag MCT and MCU: [A29, p. 4 and p. 5, Fig. 7]; KOA RK73: [A30, p. 3, Table 1]. Resistors alone, without the amplifier.*
+
+| Size | Model, nominal dimensions (fF) | Model, across tolerances (fF) | Vendor values over ground (fF) |
+|---|---|---|---|
+| 0201 | 13.1–16.8 | 10.0–24.8 | 20.6 (Vishay FC, flip chip); 23 (KOA RK73) |
+| 0402 | 22.0–28.6 | 15.7–47.6 | 26.2 (Vishay FC, flip chip); 39.2 (Vishay FC, wrap-around); 25 and 40 (Vishay CH); 30 (KOA RK73) |
+| 0603 | 29.0–36.2 | 18.0–70.5 | 35 (Vishay Beyschlag MCT); 40 and 49 (Vishay CH); 40.3 (Vishay FC); 50 (KOA RK73) |
+| 0805 | 43.0–53.0 | 28.4–105.3 | 36 (Vishay Beyschlag MCU); 65 (KOA RK73) |
+
+At nominal dimensions the model lies at or below the vendor values. It matches the flip-chip and lower thin-film values in 0402 and 0603, and in 0402 it falls 5–15 fF short of the wrap-around and KOA values. Across the datasheet tolerances its range contains every vendor value. The shortfall at nominal dimensions has the sign that approximations 1 and 3 predict. The cut model leaves out the field that leaves the body through its side faces and around its ends; a three-dimensional body has that field and a two-dimensional cross-section does not. The highest vendor values, KOA's, come from a fixture that KOA does not describe [A30].
+
+#### G.13.2 Free-standing parts and the film pattern
+
+Three measured values describe parts with nothing beneath them:
+
+- **DC2414A demo manual.** "A typical 0805 resistor has about 70fF of capacitance in air" [A33, p. 2].
+- **Susumu RG 0805.** Schurr, Judaschke and Awan measured $83\pm7$ fF for these 3.0–3.3-kΩ parts, free-standing in an impedance analyser's fixture between 10 and 110 MHz [A25, p. 7, Table 1].
+- **Vishay TNPU/TNPW 0603.** The same measurement gives $123\pm7$ fF for these 1.0–1.3-kΩ parts, with a field simulation of the floating part giving $125\pm7$ fF.
+
+The model of a free-standing body, the block plus the air on both faces with the film on one of them, gives 49–59 fF for an 0805 and 33–40 fF for an 0603 at nominal dimensions. Across the tolerances it gives 33–113 fF and 21–76 fF. The two 0805 values lie 10–35 fF above the model at nominal dimensions and inside its tolerance range. The precision 0603 lies 80–90 fF above it at nominal dimensions, and about 40 fF above even its tolerance extreme.
+
+Their films explain the excess. The photographs of [A25, p. 4, Fig. 2] show a meander in the Susumu part and deep laser-trim cuts in the Vishay parts, where approximation 4 assumes a plain film. Eqs. (G.8) and (G.9) still hold for such a film, with $u$ its DC potential when A is at 1 V and B at 0 V, and $v = 1 - u$. By the reciprocity of the resistive sheet, a current drawn from the film at a point P returns to the terminals as the fraction $v(\mathrm P)$ through B, which is what Eqs. (G.6) and (G.7) used along a straight film. The film's potential follows the current around the meander or the cut, so the two sides of a narrow cut differ by a potential $\Delta\varphi(\ell)$ that varies along it, falling to zero at the tip of a plunge cut. The field across the cut stores the energy $\frac12\int C'_{\mathrm{cut}}\Delta\varphi^2\,\mathrm d\ell$, and its share of $2W/V^2$ is
+
+$$
+\Delta C_{\mathrm{cut}} = \int_{\mathrm{cut}}C'_{\mathrm{cut}}\left(\frac{\Delta\varphi(\ell)}V\right)^2\mathrm d\ell\ \le\ C'_{\mathrm{cut}}\,\ell_c\left(\frac{\Delta\varphi_{\max}}V\right)^2,
+\tag{G.49}
+$$
+
+where $\ell_c$ is the length of the cut and $C'_{\mathrm{cut}}$ follows from Eq. (G.26) with the two film regions as the electrodes on the alumina–air interface. For a 20-µm cut between regions 0.2 mm wide on alumina ($\varepsilon_{\mathrm{al}}$ = 10.0), $C'_{\mathrm{cut}}$ = 137 fF/mm. A 0.6-mm cut with at most half the voltage across it ($\Delta\varphi_{\max}/V = 0.5$) then adds at most $137\times0.6\times0.25$ = 21 fF. That is the cut's own share; how much the cut also changes the rest of the field is not estimated, so the comparison is one of size. A few such cuts can account for the excess measured in the precision 0603. If an overcoat of permittivity $\varepsilon_{\mathrm{coat}}$ covers the film, the medium above it is not air, which raises $C'_{\mathrm{cut}}$ by about $(\varepsilon_{\mathrm{al}} + \varepsilon_{\mathrm{coat}})/(\varepsilon_{\mathrm{al}} + 1)$.
+
+The film pattern is therefore the least predictable part of $C_{F,\mathrm{par}}$. It depends on the part's value and trimming, which vendors do not publish. KOA states that its thick-film RK73 values do not depend on the resistance [A30, p. 3], which points to plain films with simple trims. The plain-film model applies best to such parts.
+
+#### G.13.3 Whole boards
+
+Four boards give measured totals for single unshielded resistors (Table G.8).
+
+*Table G.8. Measured totals across a single unshielded feedback resistor on a board, with its traces and the amplifier's pins. Amplifiers: LTC6268-10, LTC6268 and OPA858.*
+
+| Board | Measured total | Source |
+|---|---|---|
+| LTC6268-10, 0805 at 402 kΩ, basic layout | 0.10 pF | LTC6268-10 p14, Figs 4–5; [A31, p. 3, Fig. 4] |
+| LTC6268 article, 0603 at 499 kΩ, basic layout | 0.13 pF | [A32, Figs 6–7] |
+| DC2414A, careful layout on a laminate with $\varepsilon_r$ = 3.4 | about 0.1 pF; the manual's +30–40 % for FR-4 gives 0.13–0.14 pF | [A33, pp. 1–3] |
+| TIDA-060025, OPA858 with two 0201 resistors in series, each beside a 0.15-pF capacitor | no visible excess over the intended 75 fF, inferred from the measured edges | [A34, pp. 6, 8, 14, 18] |
+
+The model's resistor-on-pads values with the planes removed are 66–100 fF for an 0805 and 49–73 fF for an 0603 (Table G.1). They account for two thirds to all of the 0805 total and for about 40–55 % of the 0603 totals. The rest is the traces between the resistor and the amplifier, the amplifier's pins and, for patterned films, the film. The model's resistor-and-pad figure leaves all three out. For the TIDA-060025 board, the model gives 23–34 fF per 0201 resistor, which halves for two in series, plus at most about 25 fF for the DSG pins. That is a few tens of femtofarads, too little to show next to the 75 fF of the capacitors, as TI's edges indicate.
+
+#### G.13.4 Shielded layouts
+
+With ground copper under the resistor, the same boards give:
+
+- at most 11.6 fF for the 0805 of the LTC6268-10 board, with a wide ground trace under the whole body (LTC6268-10 p14–p15, Figs 6–7; [A31, pp. 3–4]);
+- at most 28.5 fF for the 0603 of the LTC6268 article, from its measured 11.2 MHz at 499 kΩ, $1/(2\pi\times499\ \mathrm{k\Omega}\times11.2\ \mathrm{MHz})$ [A32, Figs 8–9];
+- about 33 fF and about 7 fF for the two shielded channels of the DC2414A [A33, pp. 1–2].
+
+These are reductions by factors of 3 to more than 8. Section G.10 explains them qualitatively. The guard removes the path through the board (Rule 6, Eq. (G.43)), and it subtracts $C_g/6$ through the film (Eq. (G.10)). For an 0805 with a guard under the whole body and the film up, Eq. (G.42) with $t_s$ = 30 µm gives $C_g\approx\varepsilon_0gW/(t_s + T/\varepsilon_{\mathrm{al}})\approx$ 160 fF, so the film term alone is about −27 fF. The guard also pulls the potential of the body's lower face towards zero, which the cut model of Section G.8 cannot describe. A quantitative check would need that three-conductor problem solved for the actual boards, whose geometry the sources do not give.
+
+#### G.13.5 The bench board of Section 3.10
+
+The OPA846 board of Section 3.10 has no fitted feedback capacitor, and its measured transimpedance and noise at 50 MHz point to about 0.3 pF across its 1.2-kΩ resistor, with about 14 pF at the summing node (Table A3.7). That is two and a half times the upper corner of Table 1.1. The value is inferred from the loop, not measured directly, and it rests on the node capacitance, itself inferred because the photodiode's capacitance and connection were not recorded (Appendix C, item 11); nor does the note record that board's resistor size or traces. OPA846 has no FB pin (Table A6.4), so its feedback network cannot sit beside an FB pin as in Figure 43, and the traces that join its output and inverting-input pins add a coupling that this estimate leaves out (Eq. (G.48)). The bench board shows what a layout other than the one assumed here can carry. For an actual board, the measurement of Section 9.7, item 5, settles the value.
+
+### G.14 How the note uses the estimate
+
+**Table 1.1.** $C_{F,\mathrm{par}}$ = 0.08 pF, with corners at 0.05 and 0.12 pF (Section G.1). The value holds for an 0402 or 0201 resistor beside the amplifier's pins, with the planes removed under the feedback network, and for a plain or lightly trimmed film. A precision thin-film part with deep trim cuts can add several tens of femtofarads (Section G.13.2), and a layout with traces between the resistor and the pins adds their coupling (Eq. (G.48)).
+
+**The minimum total of 0.2 pF.** The note's designs keep a total $C_F$ of at least 0.2 pF, and the tolerance of the total, not the parasitic, sets that floor. The total is a fitted capacitor, typically ±0.05 pF (Section 8.10), plus the parasitic, whose corners lie 0.03 pF below and 0.04 pF above its nominal value. It is therefore known to about ±0.1 pF, the corner used throughout (Sections 5.1, 6.2.5 and 6.2.8). Section 6.2.8 shows that a design whose total is 0.2 pF or less is governed by that tolerance rather than by its nominal margin: OPA855 at 0.15 pF falls from 44–50° to 16–19° at the corners. The flat and robust designs are therefore realised at 0.2 pF or more (Section 1.5).
+
+**The OPA855 design.** Its flat design needs 0.19 pF and is realised at the 0.2-pF minimum: 0.08 pF of parasitic and a fitted 0.12 pF (Sections 4.2 and 8.10).
+
+**Ground under the resistor.** Ground under the feedback network would lower the parasitic, but at 2 kΩ every design fits a capacitor anyway, so the capacitance it adds at the summing node is only a loss (Section G.10.6). The planes stay removed, as the OPA855 datasheet asks.
+
+**Larger feedback resistors.** At 3–10 kΩ the parasitic alone may be the whole feedback capacitance. Section 6.10 gives the designs with 0.2 pF across the resistor (Table A6.38) and with 0.1 pF (Table A6.39); the second is the one nearest this estimate. The high-gain note's 10-kΩ SPICE checks, in its Section 9.8, run the designs of Table A6.38.
+
+**The high-gain note's value.** That note takes the resistor's own capacitance as 0.1 pF, with 0.05 and 0.2 pF as its range. The measured values of that quantity span 25–65 fF for bodies over a ground plane (Section G.13.1) and 83–123 fF for free-standing patterned thin-film parts (Section G.13.2), and this estimate gives 0.08 pF with the pads and pins, so 0.1 pF is consistent with both.
+
+**Designs that need less.** A design that needs less feedback capacitance than the parasitic gives has two remedies: two resistors in series, as the OPA855 datasheet advises below 0.15 pF (p29), or ground under the resistor at the price of Section G.10.6.

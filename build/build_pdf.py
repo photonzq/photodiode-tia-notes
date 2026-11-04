@@ -189,15 +189,15 @@ for h in body.find_all(["h2", "h3", "h4"]):
     m = re.match(r"^(\d+)\.\s", t)
     if m and h.name == "h2":
         anchors[("chapter", m.group(1))] = hid
-    m = re.match(r"^Appendix ([A-F])\.", t)
+    m = re.match(r"^Appendix ([A-G])\.", t)
     if m:
         anchors[("appendix", m.group(1))] = hid
-    m = re.match(r"^(\d+\.\d+(?:\.\d+)?|[A-F]\.\d+)\s", t)
+    m = re.match(r"^(\d+\.\d+(?:\.\d+)?|[A-G]\.\d+(?:\.\d+)?)\s", t)
     if m:
         anchors[("section", m.group(1))] = hid
         if "." in m.group(1) and m.group(1)[0].isalpha():
             anchors[("appendix", m.group(1))] = hid
-    m = re.match(r"^([A-F]\d+)\.\s", t)  # "A6. Tables of Chapter 6"
+    m = re.match(r"^([A-G]\d+)\.\s", t)  # "A6. Tables of Chapter 6"
     if m:
         anchors[("appendix", m.group(1))] = hid
 for p in body.find_all("p"):
@@ -205,7 +205,7 @@ for p in body.find_all("p"):
     if em is None or p.contents[0] is not em:
         continue
     t = em.get_text(" ", strip=True)
-    m = re.match(r"^Table ([A-F]?\d*\.?\d+(?:\.\d+)?[a-z]?)\.\s", t)  # Table 4a, 6.6, A6.37, A.8a
+    m = re.match(r"^Table ([A-G]?\d*\.?\d+(?:\.\d+)?[a-z]?)\.\s", t)  # Table 4a, 6.6, A6.37, A.8a, G.1
     if m:
         p["id"] = f"tab-{m.group(1)}"
         anchors[("table", m.group(1))] = p["id"]
@@ -219,8 +219,8 @@ log("anchors", len(anchors), {k: sum(1 for a in anchors if a[0] == k) for k in
 KIND = {"Section": "section", "Sections": "section", "Chapter": "chapter", "Chapters": "chapter",
         "Appendix": "appendix", "Appendices": "appendix", "Table": "table", "Tables": "table",
         "Figure": "figure", "Figures": "figure"}
-# A, A6.5, A.8a, B.1, 6.2.4, 4a; a letter only after a digit, and never the start of a word ("and Figure", "and Eq.")
-NUM = r"(?:[A-F](?:\.?\d+(?:\.\d+)*[a-z]?)?|\d+(?:\.\d+)*[a-z]?)(?![A-Za-z])"
+# A, A6.5, A.8a, B.1, G.2.1, 6.2.4, 4a; a letter only after a digit, and never the start of a word ("and Figure", "and Eq.")
+NUM = r"(?:[A-G](?:\.?\d+(?:\.\d+)*[a-z]?)?|\d+(?:\.\d+)*[a-z]?)(?![A-Za-z])"
 SEP = r"(?:,\s*|\s+and\s+|\s+or\s+|–|\s+to\s+)"
 EQN = r"\(" + TAG + r"\)"
 REF_RE = re.compile(

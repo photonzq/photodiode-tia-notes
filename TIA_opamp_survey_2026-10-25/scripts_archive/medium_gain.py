@@ -1,10 +1,10 @@
 """Section 6.10: larger feedback resistors, up to the 10 kOhm at which the companion note takes over (4 November 2026).
 
 The analysis of Chapter 6 at R_F = 2, 3, 5 and 10 kOhm for the ten amplifiers carried forward, on the 1-pF node with
-the nominal 0.35 pF of board capacitance, for the nominal 0.2-pF feedback parasitic (Table A6.38) and for 0.1 pF
-(Table A6.39). For each part and R_F:
+the nominal 0.35 pF of board capacitance, for 0.2 pF across R_F, the minimum total of the 2-kOhm designs (Table A6.38),
+and for 0.1 pF, close to the parasitic alone (Table A6.39). For each part and R_F:
 - the robust design of run_analysis.robust_design without added input capacitance: the widest bandwidth with a phase
-  margin of at least 45 deg and at most 1 dB of peaking, the total C_F never below the parasitic. At these resistances
+  margin of at least 45 deg and at most 1 dB of peaking, the total C_F never below the value across R_F. At these resistances
   the noise gain needs no added capacitance for stability; added capacitance only lets the loop's peaking carry the
   response past the resistor's own pole, at a cost in noise, so the widest design with added capacitance (the full
   rule of Table A9.2) is kept in the JSON file for comparison, not in the tables;
@@ -73,8 +73,8 @@ def design(name, rf, cfpar):
 
 
 def table(rows, cfpar, number):
-    cap = (f"*Table A6.{number}. Larger feedback resistors with {cfpar * 1e12:.1f} pF of feedback parasitic "
-           f"{'(the nominal value)' if cfpar > 0.15e-12 else '(an optimistic layout)'}: the robust design of each "
+    cap = (f"*Table A6.{number}. Larger feedback resistors with {cfpar * 1e12:.1f} pF across $R_F$, "
+           f"{'the minimum total of the 2-kΩ designs (Table 1.1)' if cfpar > 0.15e-12 else 'close to the parasitic alone (Table 1.1)'}: the robust design of each "
            "amplifier carried forward (the widest bandwidth with a phase margin of at least 45° and at most 1 dB of "
            "peaking, as in Table A9.2, but with no capacitance added at the input) on the 1-pF node with 0.35 pF of "
            "board capacitance. Each cell gives the −3 dB "

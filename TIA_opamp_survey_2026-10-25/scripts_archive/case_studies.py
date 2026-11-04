@@ -14,7 +14,7 @@ neither runs a simulation.
 
 The designs (Table 4.1 of the note): photodiode capacitance C_D = 1 pF at the summing node, board
 capacitance 0.35 pF, R_F = 2 kOhm, total feedback capacitance C_F = 0.20 pF for OPA855 (the
-parasitic floor; no capacitor is fitted) and 0.75 pF for OPA846 (the flat design of the analytical
+minimum total of Table 1.1: 0.12 pF fitted beside the 0.08-pF parasitic) and 0.75 pF for OPA846 (the flat design of the analytical
 model, 0.745 pF).  Small-signal runs use the supplies and loads of Chapter 5: OPA855 on +/-2.5 V
 with 200 ohm, OPA846 on +/-5 V with 100 ohm.  The large-signal runs use a 1-Mohm load and the
 supply of Table A6.3, +/-2.5 V (5 V) for OPA855 and +/-6 V for OPA846.
@@ -26,7 +26,7 @@ What is simulated for each design:
   cd       the same at C_D = 0-5 pF with C_F fixed: how the design responds to the photodiode;
   cf       loop gain and transimpedance on a grid of total C_F at every C_D.  At each C_D the C_F
            that gives the widest bandwidth with phase margin >= 45 deg, gain margin >= 3 dB and
-           <= 1 dB of peaking, with C_F >= 0.20 pF (the parasitic floor of Table 1.1), is chosen;
+           <= 1 dB of peaking, with C_F >= 0.20 pF (the minimum total of Table 1.1), is chosen;
            if no C_F meets all three, the one with the smallest shortfall,
            (45 - PM)+/45 + (3 - GM)+/3 + (peak - 1)+/1, is reported and marked;
   tone     large-signal limits: a sine photocurrent at 20-200 MHz whose output amplitude runs from
@@ -69,7 +69,7 @@ CASES = {
 }
 C_D_NOM = 1.0e-12
 CD_GRID_pF = (0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0)
-CF_FLOOR_pF = 0.20
+CF_FLOOR_pF = 0.20   # minimum total C_F of Table 1.1
 CRIT = dict(pm_deg=45.0, gm_dB=3.0, peak_dB=1.0)
 SPOT_F = (1e6, 10e6, 50e6, 100e6, 150e6, 200e6)
 TONE_F = (20e6, 50e6, 100e6, 150e6, 200e6)
@@ -825,7 +825,7 @@ def note_tables(res):
 
     L.append("*Table A4.3. Total $C_F$ chosen anew at each photodiode capacitance: the widest bandwidth with a phase "
              "margin of at least 45°, a gain margin of at least 3 dB and at most 1 dB of peaking at that $C_D$, never "
-             "below the 0.20-pF parasitic floor. Where no $C_F$ of the grid meets all three (\"no\"), the one with the "
+             "below the 0.20-pF minimum total of Table 1.1. Where no $C_F$ of the grid meets all three (\"no\"), the one with the "
              "smallest shortfall, $(45 - \\phi_M)^+/45 + (3 - \\mathrm{GM})^+/3 + (\\mathrm{peaking} - 1)^+/1$, is given. "
              "SPICE scans 0.10–0.60 pF in 0.02-pF steps for OPA855 and 0.30–2.00 pF in 0.05-pF steps for OPA846; our "
              "analytical model is scanned on the same grid without the gain-margin criterion, which it does not give "

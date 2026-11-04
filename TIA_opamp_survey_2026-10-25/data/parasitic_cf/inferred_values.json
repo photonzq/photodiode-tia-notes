@@ -1,0 +1,297 @@
+{
+  "bandwidth_bounds": [
+    {
+      "case": "LTC6268-10, 0805, basic layout",
+      "R_ohm": 402000.0,
+      "bandwidth_Hz": 4000000.0,
+      "C_total_fF": 98.98,
+      "source": "LTC6268-10 datasheet p.14, Fig. 5 (87 ns); LT Journal V25N2 Fig. 4 (88 ns)"
+    },
+    {
+      "case": "LTC6268-10, shield under whole resistor",
+      "R_ohm": 402000.0,
+      "bandwidth_Hz": 34000000.0,
+      "C_total_fF": 11.64,
+      "source": "LTC6268-10 datasheet p.14-15, Fig. 7 (10.3 ns, 34 MHz total system)"
+    },
+    {
+      "case": "LTC6268, 0603, basic layout",
+      "R_ohm": 499000.0,
+      "bandwidth_Hz": 2500000.0,
+      "C_total_fF": 127.58,
+      "source": "ADI article 'Transimpedance Amplifier Noise Considerations', Fig. 7"
+    },
+    {
+      "case": "LTC6268, 0603, minimal pads + ground trace near output end",
+      "R_ohm": 499000.0,
+      "bandwidth_Hz": 11200000.0,
+      "C_total_fF": 28.48,
+      "source": "same article, Fig. 9 (11.2 MHz); the capacitance is not stated there"
+    },
+    {
+      "case": "DC2414A U1, 1206, extreme ground shield, R_F = 10 Mohm",
+      "R_ohm": 10000000.0,
+      "bandwidth_Hz": 3500000.0,
+      "C_total_fF": 4.55,
+      "source": "DC2414A demo manual p.2 ('rise times as low as 100ns'; manual quotes ~7 fF)"
+    },
+    {
+      "case": "DN399, 1 Mohm with 0.1 pF capacitor",
+      "R_ohm": 1000000.0,
+      "bandwidth_Hz": 350000.0,
+      "C_total_fF": 454.73,
+      "source": "LT Design Note 399 p.1, Fig. 1 (350 kHz; note estimates ~0.4 pF total)"
+    }
+  ],
+  "rc_corner_checks": [
+    {
+      "case": "Burr-Brown AB-075 p.6: 0.5 pF across 100 Mohm",
+      "R_ohm": 100000000.0,
+      "C_fF": 500.0,
+      "corner_MHz": 0.0032,
+      "note": "quoted 3.2 kHz"
+    },
+    {
+      "case": "LTC6228 datasheet p.20: 400 fF across 5 kohm",
+      "R_ohm": 5000.0,
+      "C_fF": 400.0,
+      "corner_MHz": 79.5775,
+      "note": "quoted 79 MHz"
+    },
+    {
+      "case": "DC2414A manual p.2: 70 fF (0805 in air) across 10 Mohm",
+      "R_ohm": 10000000.0,
+      "C_fF": 70.0,
+      "corner_MHz": 0.2274,
+      "note": "quoted 220 kHz"
+    },
+    {
+      "case": "Usenet post (2022): 100 fF across 4 kohm",
+      "R_ohm": 4000.0,
+      "C_fF": 100.0,
+      "corner_MHz": 397.8874,
+      "note": "quoted 400 MHz"
+    },
+    {
+      "case": "2 kohm with 0.10 pF",
+      "R_ohm": 2000.0,
+      "C_fF": 100.0,
+      "corner_MHz": 795.7747,
+      "note": "context for a 2-kohm TIA"
+    },
+    {
+      "case": "2 kohm with 0.20 pF",
+      "R_ohm": 2000.0,
+      "C_fF": 200.0,
+      "corner_MHz": 397.8874,
+      "note": "context for a 2-kohm TIA"
+    },
+    {
+      "case": "2 kohm with 0.30 pF",
+      "R_ohm": 2000.0,
+      "C_fF": 300.0,
+      "corner_MHz": 265.2582,
+      "note": "context for a 2-kohm TIA"
+    }
+  ],
+  "balanced_detector_2017_total_cf": [
+    {
+      "R_F_ohm": 12000.0,
+      "C_F_nominal_pF": 0.0,
+      "C_F_total_pF": 0.173,
+      "sigma_pF": 0.018,
+      "parasitic_pF": 0.173
+    },
+    {
+      "R_F_ohm": 12000.0,
+      "C_F_nominal_pF": 0.3,
+      "C_F_total_pF": 0.563,
+      "sigma_pF": 0.048,
+      "parasitic_pF": 0.263
+    },
+    {
+      "R_F_ohm": 4300.0,
+      "C_F_nominal_pF": 0.3,
+      "C_F_total_pF": 0.369,
+      "sigma_pF": 0.033,
+      "parasitic_pF": 0.069
+    },
+    {
+      "R_F_ohm": 2000.0,
+      "C_F_nominal_pF": 0.4,
+      "C_F_total_pF": 0.397,
+      "sigma_pF": 0.044,
+      "parasitic_pF": -0.003
+    }
+  ],
+  "tida060025_two_series_sections": [
+    {
+      "c_par_per_section_fF": 0.0,
+      "C_total_fF": 75.0
+    },
+    {
+      "c_par_per_section_fF": 20.0,
+      "C_total_fF": 85.0
+    },
+    {
+      "c_par_per_section_fF": 50.0,
+      "C_total_fF": 100.0
+    },
+    {
+      "c_par_per_section_fF": 100.0,
+      "C_total_fF": 125.0
+    }
+  ],
+  "tida060025_second_order_edges": [
+    {
+      "C_T_pF": 1.9,
+      "C_F_fF": 75.0,
+      "f_n_MHz": 210.7,
+      "zeta": 0.515,
+      "t_r_10_90_ns": 1.259
+    },
+    {
+      "C_T_pF": 1.9,
+      "C_F_fF": 85.0,
+      "f_n_MHz": 210.2,
+      "zeta": 0.579,
+      "t_r_10_90_ns": 1.367
+    },
+    {
+      "C_T_pF": 1.9,
+      "C_F_fF": 100.0,
+      "f_n_MHz": 209.4,
+      "zeta": 0.676,
+      "t_r_10_90_ns": 1.561
+    },
+    {
+      "C_T_pF": 1.9,
+      "C_F_fF": 125.0,
+      "f_n_MHz": 208.1,
+      "zeta": 0.835,
+      "t_r_10_90_ns": 1.991
+    },
+    {
+      "C_T_pF": 2.0,
+      "C_F_fF": 75.0,
+      "f_n_MHz": 205.6,
+      "zeta": 0.502,
+      "t_r_10_90_ns": 1.271
+    },
+    {
+      "C_T_pF": 2.0,
+      "C_F_fF": 85.0,
+      "f_n_MHz": 205.1,
+      "zeta": 0.565,
+      "t_r_10_90_ns": 1.376
+    },
+    {
+      "C_T_pF": 2.0,
+      "C_F_fF": 100.0,
+      "f_n_MHz": 204.4,
+      "zeta": 0.659,
+      "t_r_10_90_ns": 1.564
+    },
+    {
+      "C_T_pF": 2.0,
+      "C_F_fF": 125.0,
+      "f_n_MHz": 203.2,
+      "zeta": 0.815,
+      "t_r_10_90_ns": 1.977
+    }
+  ],
+  "tida060025_cf_from_measured_edges": [
+    {
+      "edge": "fall 90-10 %, 100-ns pulse",
+      "TI_simulated_ns": 1.2,
+      "measured_ns": 1.11,
+      "calibration_k": 0.954,
+      "C_F_reproducing_fF": 65.0
+    },
+    {
+      "edge": "fall 90-10 %, 20-ns pulse",
+      "TI_simulated_ns": 1.2,
+      "measured_ns": 1.12,
+      "calibration_k": 0.954,
+      "C_F_reproducing_fF": 66.2
+    },
+    {
+      "edge": "rise 10-90 %, 100-ns pulse",
+      "TI_simulated_ns": 1.1800000000000002,
+      "measured_ns": 1.68,
+      "calibration_k": 0.938,
+      "C_F_reproducing_fF": 114.5
+    },
+    {
+      "edge": "rise 10-90 %, 20-ns pulse",
+      "TI_simulated_ns": 1.1800000000000002,
+      "measured_ns": 1.72,
+      "calibration_k": 0.938,
+      "C_F_reproducing_fF": 116.8
+    }
+  ],
+  "tida060025_fall_edge_sensitivity": [
+    {
+      "GBW_GHz": 4.5,
+      "C_T_pF": 1.7,
+      "C_F_reproducing_fF": 61.0
+    },
+    {
+      "GBW_GHz": 4.5,
+      "C_T_pF": 1.9,
+      "C_F_reproducing_fF": 56.1
+    },
+    {
+      "GBW_GHz": 4.5,
+      "C_T_pF": 2.1,
+      "C_F_reproducing_fF": 50.8
+    },
+    {
+      "GBW_GHz": 5.5,
+      "C_T_pF": 1.7,
+      "C_F_reproducing_fF": 68.1
+    },
+    {
+      "GBW_GHz": 5.5,
+      "C_T_pF": 1.9,
+      "C_F_reproducing_fF": 65.0
+    },
+    {
+      "GBW_GHz": 5.5,
+      "C_T_pF": 2.1,
+      "C_F_reproducing_fF": 61.4
+    },
+    {
+      "GBW_GHz": 6.5,
+      "C_T_pF": 1.7,
+      "C_F_reproducing_fF": 71.8
+    },
+    {
+      "GBW_GHz": 6.5,
+      "C_T_pF": 1.9,
+      "C_F_reproducing_fF": 69.9
+    },
+    {
+      "GBW_GHz": 6.5,
+      "C_T_pF": 2.1,
+      "C_F_reproducing_fF": 67.5
+    }
+  ],
+  "dc2414a_fr4_scaling": [
+    {
+      "value_on_er3p4_fF": 100.0,
+      "on_FR4_fF_low": 130.0,
+      "on_FR4_fF_high": 140.0
+    },
+    {
+      "value_on_er3p4_fF": 33.0,
+      "on_FR4_fF_low": 42.9,
+      "on_FR4_fF_high": 46.2
+    },
+    {
+      "value_on_er3p4_fF": 7.0,
+      "on_FR4_fF_low": 9.1,
+      "on_FR4_fF_high": 9.8
+    }
+  ]
+}

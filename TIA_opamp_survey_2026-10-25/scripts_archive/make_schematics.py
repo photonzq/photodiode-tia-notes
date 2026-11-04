@@ -592,8 +592,9 @@ def case_schematic(out: Path, stem: str, part: str, c_cm: str, c_diff: str, cf_e
                    r_l: str, vs: str) -> None:
     """One of the two designs of Chapter 4 (Table 4.1) as simulated: the balanced pair with
     its bias pins decoupled by 10 nF, 1 pF of photodiode capacitance and 0.35 pF of board at
-    the summing node, the amplifier's input capacitances, R_F = 2 kOhm, the parasitic 0.20 pF
-    across it and, for OPA846, a 0.55-pF capacitor; split supplies with the non-inverting
+    the summing node, the amplifier's input capacitances, R_F = 2 kOhm, the parasitic 0.08 pF
+    across it (Table 1.1, Appendix G) and the fitted capacitor, 0.12 pF for OPA855 and 0.67 pF
+    for OPA846; split supplies with the non-inverting
     input grounded; the load R_L of the small-signal runs.  Parasitics in grey."""
     s = ss.Sheet()
     # balanced pair at x = 0, summing node at y = 0; each bias pin decoupled to the left,
@@ -636,7 +637,7 @@ def case_schematic(out: Path, stem: str, part: str, c_cm: str, c_diff: str, cf_e
     x_fl, x_fr = x_in - 0.6, op.out[0] + 0.8
     y_r, dy = 1.75, 1.3
     caps = [(None, cf_ext)] if cf_ext else []
-    caps.append((ss.PARASITIC, "$C_{F,\\mathrm{par}}$  0.20 pF" + ("" if cf_ext else "  (no capacitor fitted)")))
+    caps.append((ss.PARASITIC, "$C_{F,\\mathrm{par}}$  0.08 pF"))
     top = y_r + dy * len(caps)
     s.dot((x_fl, 0.0))
     s.wire((x_fl, 0.0), (x_fl, top))
@@ -662,16 +663,17 @@ def case_schematic(out: Path, stem: str, part: str, c_cm: str, c_diff: str, cf_e
 
 
 def fig32_case_opa855(out: Path) -> None:
-    """Section 4.2, Table 4.1: OPA855, C_CM 0.6 pF, C_DIFF 0.2 pF; no feedback capacitor, the
-    0.20 pF of R_F and its pads alone; +-2.5 V (the 5-V supply); R_L 200 ohm."""
-    case_schematic(out, "fig32_case_opa855_schematic", "OPA855", "0.6 pF", "0.2 pF", None, "200 Ω", "2.5 V")
+    """Section 4.2, Table 4.1: OPA855, C_CM 0.6 pF, C_DIFF 0.2 pF; 0.12 pF fitted beside the
+    0.08 pF of R_F, its pads and the pins, 0.20 pF in total; +-2.5 V (the 5-V supply); R_L 200 ohm."""
+    case_schematic(out, "fig32_case_opa855_schematic", "OPA855", "0.6 pF", "0.2 pF",
+                   "$C_{F,\\mathrm{ext}}$  0.12 pF", "200 Ω", "2.5 V")
 
 
 def fig34_case_opa846(out: Path) -> None:
-    """Section 4.4, Table 4.1: OPA846, C_CM 1.8 pF, C_DIFF 2.0 pF; 0.55 pF fitted across R_F,
-    0.75 pF in total; +-5 V; R_L 100 ohm."""
+    """Section 4.4, Table 4.1: OPA846, C_CM 1.8 pF, C_DIFF 2.0 pF; 0.67 pF fitted beside the
+    0.08-pF parasitic, 0.75 pF in total; +-5 V; R_L 100 ohm."""
     case_schematic(out, "fig34_case_opa846_schematic", "OPA846", "1.8 pF", "2.0 pF",
-                   "$C_{F,\\mathrm{ext}}$  0.55 pF", "100 Ω", "5 V")
+                   "$C_{F,\\mathrm{ext}}$  0.67 pF", "100 Ω", "5 V")
 
 
 FIGURES = {f.__name__: f for f in (
