@@ -1,0 +1,101 @@
+Follow-up to spice_medium_pairs.txt (4 November 2026): OPA955 added to the SPICE checks at 10 kΩ at the user's
+request, on the 20-pF photodiode and on the companion's node. Section 9.8 and its counts in Section 9.1, two
+passages of Section 6.9, and Appendices C (item 23) and D. Run hg_spice_medium.py and hg_spice_tables.py first.
+Applied with plain_wording_pass.py, then assemble_note.py. Usage:
+python plain_wording_pass.py spice_medium_opa955_pairs.txt
+
+=== FILE 06_selection.md a82c92edc7ef
+
+=== OLD
+The vendors' macromodels confirm both crossings in SPICE. At 10 MHz the FET parts stay ahead of the bipolar parts by 1.4–2.4 dB, and at 30 MHz the bipolar parts lead by 4.0–5.2 dB, each part within 0.52 dB of its entry in Table 6.8 (Section 9.8).
+=== NEW
+The vendors' macromodels confirm both crossings in SPICE. At 10 MHz OPA818 and OPA858 stay ahead of LMH6629 and OPA855 by 1.4–2.4 dB, and at 30 MHz LMH6629 and OPA855 lead by 4.0–5.2 dB, each part within 0.52 dB of its entry in Table 6.8 (Section 9.8).
+=== END
+
+=== OLD
+because it combines 0.79 nV/√Hz with 0.55 pA/√Hz. Its data sheet is Advance Information
+=== NEW
+because it combines 0.79 nV/√Hz with 0.55 pA/√Hz. Its macromodel confirms its entries at 10 and 30 MHz within 0.13 dB (Section 9.8). Its data sheet is Advance Information
+=== END
+
+=== OLD
+In SPICE the vendors' macromodels give bandwidths between the two models', 215 MHz for OPA855 and 120 MHz for OPA818. OPA818's phase margin, 55°, also lies between them, and OPA855's, 67.5°, is within 2° of both (Section 9.8, Table 9.8).
+=== NEW
+In SPICE the vendors' macromodels give bandwidths between the two models', 215 MHz for OPA855, 229 MHz for OPA955 and 120 MHz for OPA818. The phase margins of OPA955 and OPA818, 63° and 55°, also lie between the two models', and OPA855's, 67.5°, is within 2° of both (Section 9.8, Table 9.8).
+=== END
+
+=== FILE 09_checks.md 6ef1e706d6e6
+
+=== OLD
+and, for the designs at 10 kΩ of Section 9.8, OPA855 (SBOMB43D, Rev. D), OPA858 (SBOMBK7) and LMH6629 (SNOM133).
+=== NEW
+and, for the designs at 10 kΩ of Section 9.8, OPA855 (SBOMB43D, Rev. D), OPA858 (SBOMBK7), LMH6629 (SNOM133) and OPA955 (SLOM544, a netlist that TI supplies only inside a TINA-TI file).
+=== END
+
+=== OLD
+In all, 120 TIA designs, 16 designs at 10 kΩ,
+=== NEW
+In all, 120 TIA designs, 21 designs at 10 kΩ,
+=== END
+
+=== OLD
+OPA818, OPA858, OPA855 and LMH6629 are each run at three designs:
+=== NEW
+OPA818, OPA858, OPA855, OPA955 and LMH6629 are each run at three designs:
+=== END
+
+=== OLD
+with the companion's supplies and loads: ±2.5 V and 200 Ω for OPA855, and ±6.5 V and 100 Ω for OPA818. Each of the two parts is run at this note's design for 0.1 pF of feedback parasitic, 0.100 pF for OPA855 and 0.195 pF for OPA818, and at the companion's design for its nominal 0.2 pF, which is 0.206 pF for both (its Table A6.38).
+=== NEW
+with the companion's supplies and loads: ±2.5 V and 200 Ω for OPA855 and OPA955, and ±6.5 V and 100 Ω for OPA818. Each of the three parts is run at this note's design for 0.1 pF of feedback parasitic, 0.100 pF for OPA855 and OPA955 and 0.195 pF for OPA818, and at the companion's design for its nominal 0.2 pF, which is 0.206 pF for all three (its Table A6.38).
+=== END
+
+=== OLD
+The macromodels are TI's for OPA855 (SBOMB43D, Rev. D), OPA858 (SBOMBK7) and LMH6629 (SNOM133, with its COMP pin high, the mode for gains of 10 and more), the files that the companion uses, and OPA818's model of Section 9.1. The 16 designs run in a few seconds (`hg_spice_medium.py`).
+=== NEW
+The macromodels are TI's for OPA855 (SBOMB43D, Rev. D), OPA858 (SBOMBK7), LMH6629 (SNOM133, with its COMP pin high, the mode for gains of 10 and more) and OPA955 (SLOM544), the files that the companion uses, and OPA818's model of Section 9.1. TI supplies OPA955's model only inside a TINA-TI file, from which the companion copied the netlist out unchanged, and the part itself is in preproduction (Section 6.9). The 21 designs run in a few seconds (`hg_spice_medium.py`).
+=== END
+
+=== OLD
+The bandwidths agree within 3.1% in eleven of the twelve designs, and no design peaks by more than 0.11 dB.
+=== NEW
+The bandwidths agree within 3.1% in fourteen of the fifteen designs, and no design peaks by more than 0.11 dB.
+=== END
+
+=== OLD
+At 10 MHz the FET parts come within 5.6–5.8 dB of the floor in SPICE and the bipolar parts within 7.2–8.0 dB, against 5.3–5.9 dB and 7.3–8.0 dB in the model. At 30 MHz the bipolar parts lead: LMH6629 and OPA855 come within 8.3 and 9.3 dB, and OPA818 and OPA858 within 13.4 and 13.5 dB, against 8.8, 9.5, 13.0 and 13.8 dB in the model. OPA818's noise density is 1–6% higher in SPICE, as at the higher gains of Section 9.2, and that of OPA858 and OPA855 is 1–4% lower.
+=== NEW
+At 10 MHz the FET parts OPA818 and OPA858 come within 5.6–5.8 dB of the floor in SPICE, and the bipolar production parts LMH6629 and OPA855 within 7.2–8.0 dB, against 5.3–5.9 dB and 7.3–8.0 dB in the model. At 30 MHz those two bipolar parts lead: LMH6629 and OPA855 come within 8.3 and 9.3 dB, and OPA818 and OPA858 within 13.4 and 13.5 dB, against 8.8, 9.5, 13.0 and 13.8 dB in the model. OPA955 leads both groups in SPICE as in the model, with 1.7 dB at 10 MHz and 5.5 dB at 30 MHz, against 1.8 and 5.6 dB. OPA818's noise density is 1–6% higher in SPICE, as at the higher gains of Section 9.2, and that of OPA858, OPA855 and OPA955 is 1–4% lower.
+=== END
+
+=== OLD
+**On the companion's node the macromodels' bandwidths lie between the two models'.**
+=== NEW
+**On the companion's node the macromodels' bandwidths lie between the two models', or within 1% of both where the feedback parasitic sets the bandwidth.**
+=== END
+
+=== OLD
+OPA855's noise is 0.3 dB below both models'. OPA818 shows the spread
+=== NEW
+OPA855's noise is 0.3 dB below both models'. OPA955 gives 229 MHz at 0.100 pF, between the companion's 244 MHz and this note's 217 MHz, and 85 MHz at 0.206 pF, within 1% of both. Its phase margin also lies between the two models', 62.7° against 54.0° and 71.9° at 0.100 pF and 70.7° against 55.4° and 85.4° at 0.206 pF, because its macromodel has far less phase lag above 300 MHz than its datasheet curve (the companion's Section 5.3). Its noise agrees with the companion's estimate within 0.05 dB and lies 0.5–0.9 dB below this note's. The two models' voltage-noise terms are equal, and the difference lies in the current noise. OPA955's datasheet curve rises above about 10 MHz, from 0.60 pA/√Hz at 10 MHz to 1.49 pA/√Hz at 150 MHz, and this note adds that rise in full, while the companion's model keeps 0.56 pA/√Hz across the band. On the 20-pF photodiode the rise costs only 0.1 dB, because there $e_n\,\omega C_T$ dominates. OPA818 shows the spread
+=== END
+
+=== OLD
+within 2.3% in bandwidth for OPA855 and 7.2% for OPA818, against 3.6% and 12.3%.
+=== NEW
+within 2.3%, 5.2% and 7.2% in bandwidth for OPA855, OPA955 and OPA818, against 3.6%, 6.5% and 12.3%.
+=== END
+
+=== FILE 12_appendix_b_e.md d37db58d6743
+
+=== OLD
+In SPICE (Section 9.8) the 10-kΩ designs of OPA818, OPA858, OPA855 and LMH6629 on the 20-pF photodiode agree with the model within 3.1% in bandwidth and 0.52 dB in excess noise, except LMH6629's, whose macromodel gives up to 9.8% less bandwidth and up to 0.84 dB less noise. On the companion's node the bandwidths of OPA855's and OPA818's macromodels lie between the two notes' models. OPA955 and the other photodiodes have not been run in SPICE at 10 kΩ.
+=== NEW
+In SPICE (Section 9.8) the 10-kΩ designs of OPA818, OPA858, OPA855, OPA955 and LMH6629 on the 20-pF photodiode agree with the model within 3.1% in bandwidth and 0.52 dB in excess noise, except LMH6629's, whose macromodel gives up to 9.8% less bandwidth and up to 0.84 dB less noise. On the companion's node the bandwidths of the macromodels of OPA855, OPA955 and OPA818 lie between the two notes' models, or within 1% of both. OPA955's current-noise curve rises above about 10 MHz, and this note adds the rise in full. On the companion's node that puts its noise 0.5–0.9 dB above its macromodel's and the companion's estimate, which agree within 0.05 dB, so its entries here are, if anything, pessimistic. The other photodiodes have not been run in SPICE at 10 kΩ.
+=== END
+
+=== OLD
+and, for Section 9.8, OPA855 (SBOMB43D, Rev. D), OPA858 (SBOMBK7) and LMH6629 (SNOM133).
+=== NEW
+and, for Section 9.8, OPA855 (SBOMB43D, Rev. D), OPA858 (SBOMBK7), LMH6629 (SNOM133) and OPA955 (SLOM544, TINA-TI model, netlist dated 6 July 2026).
+=== END

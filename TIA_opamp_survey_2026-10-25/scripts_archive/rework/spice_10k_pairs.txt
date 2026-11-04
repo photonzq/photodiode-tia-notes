@@ -1,0 +1,16 @@
+Old/new text pairs for the SPICE check at 10 kΩ that the companion note runs on this note's node (its Section 9.8,
+4 November 2026): three sentences at the end of Section 6.10, and the first sentence of Appendix C item 22. Written
+against the note with hash b4a53a4e920e. Applied with apply_pairs.py:
+python apply_pairs.py spice_10k_pairs.txt b4a53a4e920e
+
+=== OLD
+At 2 kΩ the single-pole model falls short by up to a third, which is why this note uses the full open-loop curves, and why the two notes meet at 10 kΩ.
+=== NEW
+At 2 kΩ the single-pole model falls short by up to a third, which is why this note uses the full open-loop curves, and why the two notes meet at 10 kΩ. The companion note also runs OPA855 and OPA818 at 10 kΩ on our node in SPICE, with our supplies, loads and double injection (its Section 9.8). For OPA855 the macromodel reproduces our design of Table A6.38 within 0.2% in bandwidth and 0.4° in phase margin, at 84 MHz and 78.8°, and its noise lies 0.3 dB below our model's, close to the agreement found at 2 kΩ (Section 5.6); at 0.10 pF of total feedback capacitance it gives 215 MHz, against 207 MHz from our model. For OPA818 it gives 115 MHz and 56.5° against our 129 MHz and 47°, and 2.2 dB more noise, in the same direction as at 2 kΩ, where OPA818's macromodel had 15.5° more phase margin and 1.6 dB more noise than our analysis.
+=== END
+
+=== OLD
+The designs at 3–10 kΩ come from our analytical model with the datasheet open-loop curves as plotted; no SPICE check has been run above 2 kΩ in this note, although the companion note's Section 6.9 compares its single-pole model with ours there.
+=== NEW
+The designs at 3–10 kΩ come from our analytical model with the datasheet open-loop curves as plotted, and the companion note's Section 6.9 compares its single-pole model with ours there. Its Section 9.8 runs two of them in SPICE at 10 kΩ on our node: OPA855's macromodel reproduces our design within 0.2% in bandwidth and 0.4° in phase margin, while OPA818's has 11% less bandwidth, 9° more phase margin and 2.2 dB more noise than our model gives. The designs at 3 and 5 kΩ, and the other amplifiers, have not been run in SPICE.
+=== END

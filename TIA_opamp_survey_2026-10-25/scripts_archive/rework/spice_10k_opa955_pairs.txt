@@ -1,0 +1,22 @@
+Follow-up to spice_10k_pairs.txt (4 November 2026): OPA955 added to the SPICE check at 10 kΩ that the companion
+note runs on this note's node (its Section 9.8), at the user's request; the end of Section 6.10 and Appendix C item
+22. Written against the note with hash e12c3198f854. Applied with apply_pairs.py:
+python apply_pairs.py spice_10k_opa955_pairs.txt e12c3198f854
+
+=== OLD
+The companion note also runs OPA855 and OPA818 at 10 kΩ on our node in SPICE, with our supplies, loads and double injection (its Section 9.8).
+=== NEW
+The companion note also runs OPA855, OPA955 and OPA818 at 10 kΩ on our node in SPICE, with our supplies, loads and double injection (its Section 9.8).
+=== END
+
+=== OLD
+at 0.10 pF of total feedback capacitance it gives 215 MHz, against 207 MHz from our model. For OPA818 it gives
+=== NEW
+at 0.10 pF of total feedback capacitance it gives 215 MHz, against 207 MHz from our model. For OPA955 the macromodel reproduces Table A6.38 within 0.2% in bandwidth and 0.05 dB in noise, at 85 MHz, but gives 70.7° of phase margin against our 55.4°, because it has far less phase lag above 300 MHz than the datasheet curve (Section 5.3). For OPA818 it gives
+=== END
+
+=== OLD
+Its Section 9.8 runs two of them in SPICE at 10 kΩ on our node: OPA855's macromodel reproduces our design within 0.2% in bandwidth and 0.4° in phase margin, while OPA818's has 11% less bandwidth, 9° more phase margin and 2.2 dB more noise than our model gives.
+=== NEW
+Its Section 9.8 runs three of them in SPICE at 10 kΩ on our node: OPA855's macromodel reproduces our design within 0.2% in bandwidth and 0.4° in phase margin, OPA955's within 0.2% in bandwidth and 0.05 dB in noise but with 15° more phase margin, and OPA818's has 11% less bandwidth, 9° more phase margin and 2.2 dB more noise than our model gives.
+=== END

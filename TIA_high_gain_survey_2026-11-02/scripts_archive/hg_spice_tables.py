@@ -130,10 +130,44 @@ def table_logamp() -> str:
     return "\n".join(out)
 
 
+def table_medium_20pf() -> str:
+    """Table 9.7: the 10-kOhm designs on the 20-pF photodiode (hg_spice_medium.py)."""
+    res = load("medium")["designs_20pF"]
+    label = {"own design": "Sweep's design", "held to 10 MHz": "Held to 10 MHz", "held to 30 MHz": "Held to 30 MHz"}
+    out = ["| Amplifier | Design | $C_F$ | $f_{-3\\,\\mathrm{dB}}$, SPICE / model | Peak, SPICE / model | "
+           "$\\Delta N$ over [1 Hz, $B$], SPICE / model ($B$) |", "|---|---|---|---|---|---|"]
+    for r in res:
+        out.append(f"| {r['part']} | {label[r['design']]} | {r['cf_pF']:.3f} pF | "
+                   f"{r['f3_spice'] / 1e6:.1f} / {r['f3_model'] / 1e6:.1f} MHz | "
+                   f"{r['peak_spice']:.2f} / {r['peak_model']:.2f} dB | "
+                   f"{r['dN_spice']:.1f} / {r['dN_model']:.1f} dB ({r['band_Hz'] / 1e6:.1f} MHz) |")
+    return "\n".join(out)
+
+
+def table_medium_node() -> str:
+    """Table 9.8: the 10-kOhm designs on the companion's 1-pF node, SPICE against both notes' models."""
+    order = ("OPA855", "OPA955", "OPA818")
+    res = sorted(load("medium")["companion_node"], key=lambda r: (order.index(r["part"]), r["cf_pF"]))
+    out = ["| Amplifier, $C_F$ | Design | $f_{-3\\,\\mathrm{dB}}$: SPICE / companion / this note | "
+           "Phase margin: SPICE / companion / this note | Noise over the band: SPICE / companion / this note |",
+           "|---|---|---|---|---|"]
+    for r in res:
+        s, a, h = r["spice"], r["companion_model"], r["this_note_model"]
+        design = ("This note's, 0.1 pF of parasitic" if r["design"].startswith("this note")
+                  else "Companion's Table A6.38, 0.2 pF")
+        out.append(f"| {r['part']}, {r['cf_pF']:.3f} pF | {design} | "
+                   f"{s['f3_Hz'] / 1e6:.0f} / {a['f3_Hz'] / 1e6:.0f} / {h['f3_Hz'] / 1e6:.0f} MHz | "
+                   f"{s['pm_deg']:.1f}° / {a['pm_deg']:.1f}° / {h['pm_deg']:.1f}° | "
+                   f"{s['penalty_dB']:.1f} / {a['penalty_dB']:.1f} / {h['penalty_dB']:.1f} dB "
+                   f"({r['band_MHz'][0]:.0f}–{r['band_MHz'][1]:.0f} MHz) |")
+    return "\n".join(out)
+
+
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     for name, fn in (("table_9_1", table_designs), ("table_9_2", table_flagged), ("table_9_3", table_models),
-                     ("table_9_4", table_distributed), ("table_9_5", table_composite), ("table_9_6", table_logamp)):
+                     ("table_9_4", table_distributed), ("table_9_5", table_composite), ("table_9_6", table_logamp),
+                     ("table_9_7", table_medium_20pf), ("table_9_8", table_medium_node)):
         (OUT / f"{name}.md").write_text(fn() + "\n", encoding="utf-8")
         print(name)
         print(fn())
