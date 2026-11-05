@@ -75,7 +75,8 @@ Each module's docstring derives what that module does; the code comments justify
    - Conductors fix the potential. Floating conductors share one unknown with zero net charge. Films carry their DC potential.
    - The system is solved by sparse factorisation or by multigrid-preconditioned conjugate gradients (PyAMG).
 4. **Capacitances** (`capacitance.py`). They are field integrals: $C_{ij} = \int\varepsilon\,\nabla\psi_i\cdot\nabla\psi_j\,\mathrm dV$. With a film, $C_F = -\int\varepsilon\,\nabla\varphi_u\cdot\nabla\varphi_v\,\mathrm dV$, the field form of $-\mathbf v^{\mathsf T}\mathbf C\mathbf u$. The module docstring derives both, and the even/odd decomposition used for symmetric layouts.
-5. **Error estimates** (`study.py`). Richardson extrapolation over three meshes, and extrapolation in $1/R$ over three grounded enclosure sizes (3-D only). The docstring derives the expected convergence order, $p = 2\nu$ with $\nu$ the smallest edge exponent of the layout (about 0.7–4/3 for these layouts), and why the enclosure error falls as $1/R$ for a layout without its own ground.
+5. **Beyond first order in frequency** (`distributed.py`). The capacitances above hold the film at its DC potential, exact to first order in $\omega RC$. When a conductor close under the film (a guard trace, say) loads it with a capacitance several times $C_F$, that order is not enough at the amplifier's bandwidth. The module divides the film into finite elements along its length, solves the capacitance matrix of their hat functions, and adds the film's resistance, which gives the feedback impedance at any frequency. Its low-frequency limit is the $C_F$ of `capacitance.py`.
+6. **Error estimates** (`study.py`). Richardson extrapolation over three meshes, and extrapolation in $1/R$ over three grounded enclosure sizes (3-D only). The docstring derives the expected convergence order, $p = 2\nu$ with $\nu$ the smallest edge exponent of the layout (about 0.7–4/3 for these layouts), and why the enclosure error falls as $1/R$ for a layout without its own ground.
 
 ## Installing and running
 
@@ -145,6 +146,7 @@ Each check prints what it exercises, the mesh, the computed and reference values
 | extrusion_3d_vs_2d | 3-D against 2-D, edge convergence, Richardson extrapolation | $-5.9\times10^{-4}$ (its own reported error, $2.8\times10^{-3}$) |
 | symmetry_declaration | a false symmetry is rejected | rejected |
 | resistor_section_shares | builder, film, material shares | $3\times10^{-13}$ ($10^{-9}$) |
+| uniform_rc_line | the film as finite elements (`distributed.py`) against the exact uniform RC line, for both admittances; no mesh | $1.2\times10^{-3}$ ($10^{-2}$) on the convergence order, 2.002 against 2 |
 
 The values are those recorded in `TIA_opamp_survey_2026-10-25/data/parasitic_cf/numerical/checks.json`. In the extrusion check the errors of the three 3-D meshes against the exact 2-D value fall with local orders 0.94 and 1.02, close to the order 1 expected for a sheet edge; the three-level extrapolation, which does not know the exact value, finds 0.86 and lands $5.9\times10^{-4}$ below it, inside the error it reports.
 

@@ -1,0 +1,9 @@
+=== ada4530_so8_1206 (11:00:26)
+[ada4530_so8_1206] ADA4530-1 in SOIC-8: R_F (1206) beside -IN and OUT, guard from pin 7, n = 10, refine 11.3: 1031001 elements, 346 s; first-order C_F = 21.83 fF; output end lo
+=== lmp7721_so8_1206 (11:06:14)
+[lmp7721_so8_1206] LMP7721 in SOIC-8: R_F (1206) beside -IN, guard on both sides, n = 10, refine 11.3: 1193919 elements, 411 s; first-order C_F = 11.61 fF; output end lo
+=== lmc6001_dip8_bottom_1206 (11:13:06)
+[lmc6001_dip8_bottom_1206] LMC6001 in PDIP-8: R_F (1206) on the solder side, no planes, n = 10, refine 16.0: 1199084 elements, 424 s; first-order C_F = 88.40 fF; output end hi
+=== lmc6001_dip8_bottom_guard_1206 (11:20:11)
+[lmc6001_dip8_bottom_guard_1206] LMC6001 in PDIP-8: as before, with a grounded guard ring, n = 10, refine 16.0: 1233575 elements, 445 s; first-order C_F = 27.45 fF; output end hi
+=== done (11:27:38)

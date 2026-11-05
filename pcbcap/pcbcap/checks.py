@@ -34,6 +34,11 @@ extrusion_3d_vs_2d show.  The tolerances are:
   * For extrusion_3d_vs_2d, the error that the Richardson extrapolation itself reports (study.py), so
     that the check tests the error bars quoted for the 3-D results.
   * 0 for symmetry_declaration, which checks a yes-or-no outcome.
+  * 1e-2 for uniform_rc_line, which checks a convergence order, 2 for linear elements.  Measured
+    between 16 and 32 elements at |theta| = 2, where the error is far above rounding (about 1e-4) and
+    the asymptotic regime is reached (the order between 8 and 16 elements is already 2.009), the first
+    run gave 2.002, a relative deviation of 1.2e-3; 1e-2 allows about nine times that, a choice like
+    the factor 3 above.
 """
 from __future__ import annotations
 
@@ -259,6 +264,44 @@ def _resistor_section_shares():
     return dict(computed=total, reference=res.C_F, unit="fF/mm", tolerance=1e-9,
                 lines=[_mesh_line(res), f"C_F = {res.C_F:.4f} fF/mm; shares: {shares}",
                        f"C_A0 = {res.C_A0:.4f} fF/mm (grounded enclosure at 3 mm)"])
+
+
+@register("uniform_rc_line", "The film as finite elements against the exact uniform RC line (no mesh)",
+          "distributed.py: conductance assembly, Galerkin capacitance matrix, elimination of the inner "
+          "nodes for y_F (Eq. (5)) and y_11 (Eq. (6)), second-order convergence")
+def _uniform_rc_line():
+    import math
+    from . import distributed
+    ns, thetas = (8, 10, 16, 32), (1.0, 2.0, 3.0, 4.0, 6.0)
+    rows = distributed.check_uniform_line(ns=ns, thetas=thetas)
+    err = {(n, th): (ef, e11) for n, th, ef, e11 in rows}
+    lines = ["relative errors |y - exact| / |exact| of y_F and y_11 (C_g = 100 fF, R = 1 GOhm):"]
+    for n in ns:
+        lines.append(f"  n = {n:2d}: " + "; ".join(f"|theta| {th:g}: {err[(n, th)][0]:.2e}, {err[(n, th)][1]:.2e}"
+                                                   for th in thetas))
+    order = {k: math.log2(err[(16, 2.0)][k] / err[(32, 2.0)][k]) for k in (0, 1)}
+    order_8_16 = math.log2(err[(8, 2.0)][0] / err[(16, 2.0)][0])
+    lines.append(f"order of y_F at |theta| = 2: {order_8_16:.3f} from 8 to 16 elements, {order[0]:.3f} from 16 to 32; "
+                 f"order of y_11: {order[1]:.3f} from 16 to 32")
+    # The error estimate of distributed.coarsen: 5 elements from the matrix of 10, (y_5 - y_10) / 3
+    # against the true error of 10 elements.
+    import numpy as np
+    R, Cg = 1e9, 100.0
+    C10 = distributed.uniform_line_matrix(10, Cg)
+    C5 = distributed.coarsen(C10, 2)
+    same = float(np.abs(C5 - distributed.uniform_line_matrix(5, Cg)).max() / np.abs(C5).max())
+    lines.append(f"coarsen(10 -> 5) against the 5-element matrix built directly: largest difference {same:.1e} "
+                 "(relative)")
+    for th in thetas:
+        f = th ** 2 / (R * Cg * 1e-15) / (2 * math.pi)
+        t = complex(np.sqrt(1j * th ** 2))
+        for name, fn, exact in (("y_F", distributed.feedback_admittance, t / np.sinh(t) / R),
+                                ("y_11", distributed.input_admittance, t / np.tanh(t) / R)):
+            y10, y5 = fn(C10, R, [f])[0], fn(C5, R, [f])[0]
+            lines.append(f"  |theta| {th:g}, {name}: error of 10 elements {abs(y10 - exact) / abs(exact):.2e}, "
+                         f"estimated {abs(y5 - y10) / 3 / abs(y10):.2e}")
+    return dict(computed=order[0], reference=2.0, unit="", tolerance=1e-2, lines=lines,
+                data=[dict(n=n, theta=th, err_yF=ef, err_y11=e11) for n, th, ef, e11 in rows])
 
 
 # ================================================================================================

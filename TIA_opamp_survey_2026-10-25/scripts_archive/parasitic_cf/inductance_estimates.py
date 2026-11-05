@@ -435,7 +435,7 @@ def part_e() -> None:
 # for each package's L_x (the layouts above, both pins counted) and C_F from 0.1 to 1 pF.  For
 # comparison: the precision amplifiers of the high-gain note in these packages have gain-bandwidth
 # products of a few to 80 MHz (OPA637: 80 MHz at a gain of 10, SBOS165C, p. 12), which bound their
-# crossovers; its wideband FET parts reach 230 MHz to 4 GHz (high-gain note, Section 6.1), and only
+# crossovers; its wideband FET parts reach 230 MHz to 4 GHz (high-gain note, Section 5.5), and only
 # they, at its lowest gains, can approach f_1%.  The resistor's own inductance (A) is evaluated for
 # the 0805 at 10 kohm.
 LEAD_INTERNAL = 2.35      # nH per pin, assumption (TI OPA846 model, Table B.1), as PACKAGE_ALLOWANCE

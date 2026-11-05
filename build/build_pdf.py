@@ -50,6 +50,8 @@ KEYWORDS = {
                          "dynamic range; phase margin; SPICE"),
     "TIA_high_gain_survey": ("transimpedance amplifier; photodiode; operational amplifier; electrometer; noise; "
                              "feedback resistor; bandwidth; guarding; SPICE"),
+    "TIA_feedback_layouts": ("transimpedance amplifier; feedback resistor; parasitic capacitance; guard ring; "
+                             "distributed RC line; finite-element method; SOIC-8; PDIP-8"),
 }.get(MD.stem, "")
 EQ_MARK = "EQNOMARK"
 TAG = r"(?:[A-Z]\.\d+|\d+[a-z]?)"  # an equation number: 12, 26a or B.1
@@ -189,6 +191,7 @@ for h in body.find_all(["h2", "h3", "h4"]):
     m = re.match(r"^(\d+)\.\s", t)
     if m and h.name == "h2":
         anchors[("chapter", m.group(1))] = hid
+        anchors.setdefault(("section", m.group(1)), hid)  # a short note calls its top-level parts "Section 3"
     m = re.match(r"^Appendix ([A-G])\.", t)
     if m:
         anchors[("appendix", m.group(1))] = hid

@@ -94,6 +94,8 @@ packages.py     leaded packages (SOT-23-5, SOIC-8, PDIP-8), vias, traces, parts 
 meshing.py      layout -> labelled mesh (gmsh)
 fem.py          the finite-element system: assembly, conditions, solution (scikit-fem, PyAMG)
 capacitance.py  capacitances from the solutions, with their derivations
+distributed.py  the resistor's film as a distributed RC line (finite elements along it), for
+                frequencies where the first-order film model of capacitance.py no longer holds
 study.py        mesh-convergence and enclosure-size extrapolation, sweeps
 analytic.py     exact solutions used by the tests
 plotting.py     figures of layouts, meshes and fields; a layout from several sides (draw_views)

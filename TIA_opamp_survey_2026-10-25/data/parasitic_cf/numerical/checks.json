@@ -189,5 +189,158 @@
    "C_A0 = 29.0890 fF/mm (grounded enclosure at 3 mm)"
   ],
   "data": null
+ },
+ "uniform_rc_line": {
+  "name": "uniform_rc_line",
+  "title": "The film as finite elements against the exact uniform RC line (no mesh)",
+  "exercises": "distributed.py: conductance assembly, Galerkin capacitance matrix, elimination of the inner nodes for y_F (Eq. (5)) and y_11 (Eq. (6)), second-order convergence",
+  "computed": 2.0023187694586606,
+  "reference": 2.0,
+  "unit": "",
+  "rel_error": 0.001159384729330304,
+  "tolerance": 0.01,
+  "verdict": "PASS",
+  "seconds": 0.014029599988134578,
+  "lines": [
+   "relative errors |y - exact| / |exact| of y_F and y_11 (C_g = 100 fF, R = 1 GOhm):",
+   "  n =  8: |theta| 1: 2.18e-04, 3.99e-04; |theta| 2: 3.30e-03, 3.35e-03; |theta| 3: 1.42e-02, 6.84e-03; |theta| 4: 3.62e-02, 1.03e-02; |theta| 6: 1.33e-01, 2.34e-02",
+   "  n = 10: |theta| 1: 1.39e-04, 2.55e-04; |theta| 2: 2.10e-03, 2.14e-03; |theta| 3: 9.03e-03, 4.38e-03; |theta| 4: 2.30e-02, 6.62e-03; |theta| 6: 8.34e-02, 1.50e-02",
+   "  n = 16: |theta| 1: 5.41e-05, 9.99e-05; |theta| 2: 8.19e-04, 8.37e-04; |theta| 3: 3.51e-03, 1.71e-03; |theta| 4: 8.89e-03, 2.59e-03; |theta| 6: 3.18e-02, 5.85e-03",
+   "  n = 32: |theta| 1: 1.35e-05, 2.50e-05; |theta| 2: 2.04e-04, 2.09e-04; |theta| 3: 8.74e-04, 4.27e-04; |theta| 4: 2.21e-03, 6.46e-04; |theta| 6: 7.85e-03, 1.46e-03",
+   "order of y_F at |theta| = 2: 2.009 from 8 to 16 elements, 2.002 from 16 to 32; order of y_11: 2.000 from 16 to 32",
+   "coarsen(10 -> 5) against the 5-element matrix built directly: largest difference 0.0e+00 (relative)",
+   "  |theta| 1, y_F: error of 10 elements 1.39e-04, estimated 1.41e-04",
+   "  |theta| 1, y_11: error of 10 elements 2.55e-04, estimated 2.54e-04",
+   "  |theta| 2, y_F: error of 10 elements 2.10e-03, estimated 2.15e-03",
+   "  |theta| 2, y_11: error of 10 elements 2.14e-03, estimated 2.14e-03",
+   "  |theta| 3, y_F: error of 10 elements 9.03e-03, estimated 9.30e-03",
+   "  |theta| 3, y_11: error of 10 elements 4.38e-03, estimated 4.40e-03",
+   "  |theta| 4, y_F: error of 10 elements 2.30e-02, estimated 2.40e-02",
+   "  |theta| 4, y_11: error of 10 elements 6.62e-03, estimated 6.63e-03",
+   "  |theta| 6, y_F: error of 10 elements 8.34e-02, estimated 9.24e-02",
+   "  |theta| 6, y_11: error of 10 elements 1.50e-02, estimated 1.50e-02"
+  ],
+  "data": [
+   {
+    "n": 8,
+    "theta": 1.0,
+    "err_yF": 0.00021751136250421887,
+    "err_y11": 0.0003987414004395539
+   },
+   {
+    "n": 8,
+    "theta": 2.0,
+    "err_yF": 0.0032971143656476284,
+    "err_y11": 0.0033460109118907694
+   },
+   {
+    "n": 8,
+    "theta": 3.0,
+    "err_yF": 0.014185232612122883,
+    "err_y11": 0.00684263560861884
+   },
+   {
+    "n": 8,
+    "theta": 4.0,
+    "err_yF": 0.036240619240346786,
+    "err_y11": 0.010347020467321154
+   },
+   {
+    "n": 8,
+    "theta": 6.0,
+    "err_yF": 0.1334033674047873,
+    "err_y11": 0.02341295164557724
+   },
+   {
+    "n": 10,
+    "theta": 1.0,
+    "err_yF": 0.00013888796523448305,
+    "err_y11": 0.00025546881032065803
+   },
+   {
+    "n": 10,
+    "theta": 2.0,
+    "err_yF": 0.00210368199787467,
+    "err_y11": 0.002142299781756409
+   },
+   {
+    "n": 10,
+    "theta": 3.0,
+    "err_yF": 0.009030254027869642,
+    "err_y11": 0.00437563679117472
+   },
+   {
+    "n": 10,
+    "theta": 4.0,
+    "err_yF": 0.022986551013727218,
+    "err_y11": 0.006620556881496183
+   },
+   {
+    "n": 10,
+    "theta": 6.0,
+    "err_yF": 0.08339954517740238,
+    "err_y11": 0.014986706337543324
+   },
+   {
+    "n": 16,
+    "theta": 1.0,
+    "err_yF": 5.411798676493659e-05,
+    "err_y11": 9.990854174622287e-05
+   },
+   {
+    "n": 16,
+    "theta": 2.0,
+    "err_yF": 0.0008190137715889694,
+    "err_y11": 0.0008371932288024958
+   },
+   {
+    "n": 16,
+    "theta": 3.0,
+    "err_yF": 0.0035071046780186742,
+    "err_y11": 0.0017076966977665157
+   },
+   {
+    "n": 16,
+    "theta": 4.0,
+    "err_yF": 0.008892451043279067,
+    "err_y11": 0.00258551539771016
+   },
+   {
+    "n": 16,
+    "theta": 6.0,
+    "err_yF": 0.031774751830787734,
+    "err_y11": 0.0058548049356785805
+   },
+   {
+    "n": 32,
+    "theta": 1.0,
+    "err_yF": 1.3513255647323837e-05,
+    "err_y11": 2.499107803885259e-05
+   },
+   {
+    "n": 32,
+    "theta": 2.0,
+    "err_yF": 0.00020442461755349676,
+    "err_y11": 0.0002093409380193617
+   },
+   {
+    "n": 32,
+    "theta": 3.0,
+    "err_yF": 0.0008743410015420036,
+    "err_y11": 0.00042674027287601383
+   },
+   {
+    "n": 32,
+    "theta": 4.0,
+    "err_yF": 0.0022128003236172138,
+    "err_y11": 0.0006463027783819163
+   },
+   {
+    "n": 32,
+    "theta": 6.0,
+    "err_yF": 0.007850306373039328,
+    "err_y11": 0.0014637395583800067
+   }
+  ]
  }
 }
