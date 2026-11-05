@@ -90,12 +90,14 @@ constants.py    units (mm, fF) and the vacuum permittivity in them
 materials.py    permittivities with their sources
 geometry.py     the layout vocabulary: boxes, sheets, nets, films, enclosure, mirror symmetry
 parts.py        builders: chip resistors, land patterns, boards, planes, solder mask, WSON pins
+packages.py     leaded packages (SOT-23-5, SOIC-8, PDIP-8), vias, traces, parts on the bottom side
 meshing.py      layout -> labelled mesh (gmsh)
 fem.py          the finite-element system: assembly, conditions, solution (scikit-fem, PyAMG)
 capacitance.py  capacitances from the solutions, with their derivations
 study.py        mesh-convergence and enclosure-size extrapolation, sweeps
 analytic.py     exact solutions used by the tests
-plotting.py     figures of layouts, meshes and fields
+plotting.py     figures of layouts, meshes and fields; a layout from several sides (draw_views)
+webview.py      a layout as an interactive HTML page (needs plotly; imported on its own)
 config.py       building a run from a TOML file;  ``python -m pcbcap`` runs one
 
 Minimal example

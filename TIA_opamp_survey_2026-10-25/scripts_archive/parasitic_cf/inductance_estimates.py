@@ -402,6 +402,129 @@ def part_e() -> None:
     print()
 
 
+# ================================================================================================
+# (F) The leads of the SOT-23-5, SOIC-8 and PDIP-8 packages, and the high-gain range
+# ================================================================================================
+# The leads outside the body are part of the path between the amplifier and its feedback network,
+# like the routing of (C), so they add to L_x.  Each lead's path from where the routing meets it to
+# the body is a chain of straight segments, and their partial self-inductances, Eqs. (B3)-(B4), are
+# summed as in (C); the same reasons make the sum an estimate on the high side.  The dimensions are
+# those of the package models (pcbcap.packages, whose docstrings give their sources):
+#   * gull-wing lead (SOT-23-5 and SOIC-8): the current enters the foot along its soldered length, so
+#     half the foot is counted; then the riser, from the pad up to the shoulder's centre (stand-off +
+#     shoulder height + half a lead thickness); then the shoulder outside the body.  Strips of the
+#     lead's width.
+#   * through-hole lead (PDIP-8) with the network on the solder side (g_eight_lead_3d.py, dip8_bottom):
+#     the current runs from the bottom pad up the filled hole, a tube of the hole's radius over the
+#     board's thickness (Eq. (B4)); up the shoulder from the seating plane to the exit's centre
+#     (stand-off + exit height + half a lead thickness); and along the exit to the body.  Strips of
+#     the shoulder's width.
+# No drawing dimensions the lead frame inside the body (the finger and the bond wire to the die).
+# As in (C), the 2.35 nH that TI's OPA846 model puts at its inverting input (Table B.1) stands in for
+# it, here for both pins and every package, as an assumption.  Because the assumption is not a
+# measurement, the result is also stated the other way round: the largest L_x that keeps delta_1
+# below 1 %, L_max = 0.01 / (w^2 C_F), from Eq. (C1).
+#
+# The high-gain range.  delta_1 = w^2 L_x C_F does not depend on R_F, and delta_2 = w L_x / R_F falls
+# as R_F grows, so what decides is the frequency of the loop crossover, where C_F sets the phase
+# margin.  That frequency is f_c = GBW C_F / (C_F + C_T) for an amplifier of gain-bandwidth GBW,
+# because at high frequency the feedback factor is the capacitive divider C_F / (C_F + C_T) and the
+# loop gain GBW / f times it is 1 at f_c.  It varies from design to design, so instead of one bound
+# the result is given as the crossover frequency below which delta_1 stays under 1 %:
+#     delta_1 = (2 pi f)^2 L_x C_F <= 0.01   <=>   f <= f_1% = sqrt(0.01 / (L_x C_F)) / (2 pi),
+# for each package's L_x (the layouts above, both pins counted) and C_F from 0.1 to 1 pF.  For
+# comparison: the precision amplifiers of the high-gain note in these packages have gain-bandwidth
+# products of a few to 80 MHz (OPA637: 80 MHz at a gain of 10, SBOS165C, p. 12), which bound their
+# crossovers; its wideband FET parts reach 230 MHz to 4 GHz (high-gain note, Section 6.1), and only
+# they, at its lowest gains, can approach f_1%.  The resistor's own inductance (A) is evaluated for
+# the 0805 at 10 kohm.
+LEAD_INTERNAL = 2.35      # nH per pin, assumption (TI OPA846 model, Table B.1), as PACKAGE_ALLOWANCE
+
+
+def lead_paths():
+    """{package: [(kind, length mm, width or radius mm), ...]} for one lead (comments above)."""
+    import sys
+    sys.path.insert(0, str(HERE.parents[2] / "pcbcap"))     # HERE is this script's folder
+    from pcbcap import packages as pk
+    s23, so8, dip = pk.Sot23(), pk.Soic8(), pk.Dip8()
+    out = {}
+    for name, p in (("SOT-23-5", s23), ("SOIC-8", so8)):
+        riser = p.standoff + p.shoulder_height + p.lead_thickness / 2
+        shoulder = max(0.0, (p.lead_span - p.body_width) / 2 - p.foot_length - p.lead_thickness)
+        segs = [("strip", p.foot_length / 2, p.lead_width), ("strip", riser, p.lead_width)]
+        if shoulder > 0:
+            segs.append(("strip", shoulder, p.lead_width))
+        out[name] = segs
+    shoulder = dip.standoff + dip.exit_height + dip.lead_thickness / 2
+    exit_len = dip.row / 2 - dip.lead_thickness / 2 - dip.body_width / 2
+    out["PDIP-8"] = [("tube", BOARD_H, dip.drill / 2), ("strip", shoulder, dip.shoulder_width),
+                     ("strip", exit_len, dip.shoulder_width)]
+    return out
+
+
+def segment_inductance(kind: str, length: float, size: float) -> float:
+    return partial_strip(length, size) if kind == "strip" else partial_tube(length, size)
+
+
+# Routing of the eight-lead layouts (g_eight_lead_3d.py), centre line to centre line as in (C):
+#   SOIC-8 double_sided, 0402 (hp = 0.475): per side a via through the board and the bottom traces
+#     (2.2, -0.635) -> (2.2, 0) -> (0.475, 0): 0.635 and 1.725 mm;
+#   PDIP-8 dip8_bottom, 0402 for the 2-kohm comparison: per side the bottom traces (3.81, -1.27) ->
+#     (3.81, 0) -> (0.475, 0): 1.27 and 3.335 mm (no via: the holes are part of the leads above).
+ROUTING_8 = {"SOIC-8": ([0.635, 1.725, 0.635, 1.725], 2), "PDIP-8": ([1.27, 3.335, 1.27, 3.335], 0)}
+
+
+def part_f(cf_best: dict[str, float]) -> None:
+    print("(F) Package leads, Eqs. (B3)-(B4), and Eq. (C1) at the OPA846 crossover and in the high-gain range")
+    per_lead = {}
+    for name, segs in lead_paths().items():
+        parts_ = [segment_inductance(*s) for s in segs]
+        per_lead[name] = sum(parts_)
+        desc = ", ".join(f"{k} {l:.3f} mm x {sz:.3f} mm: {v:.3f} nH" for (k, l, sz), v in zip(segs, parts_))
+        print(f"  {name} lead outside the body: {desc}; total {per_lead[name]:.3f} nH")
+    f, cf_pf, rf = DESIGNS["OPA846"]
+    om = w(f)
+    lmax = 0.01 / (om ** 2 * cf_pf * 1e-12) * 1e9
+    print(f"  OPA846 design: {f / 1e6:.0f} MHz, C_F = {cf_pf:.2f} pF, R_F = {rf / 1e3:.0f} kohm; "
+          f"L_max for delta_1 = 1 %: 0.01 / (({om:.3e})^2 x {cf_pf:.2f}e-12) = {lmax:.2f} nH")
+    for name in ("SOIC-8", "PDIP-8"):
+        segs, nv = ROUTING_8[name]
+        lr = routing_inductance(segs, nv)
+        lx = lr + 2 * per_lead[name] + 2 * LEAD_INTERNAL
+        d1 = om ** 2 * lx * 1e-9 * cf_pf * 1e-12
+        d2 = om * lx * 1e-9 / rf
+        print(f"    {name}: routing {lr:.2f} nH + leads 2 x {per_lead[name]:.2f} nH + inside 2 x {LEAD_INTERNAL:.2f} nH "
+              f"= L_x {lx:.2f} nH; delta_1 = {d1:.4f} ({100 * d1:.2f} %), delta_2 = {d2:.4f} rad "
+              f"({math.degrees(d2):.2f} deg)")
+    # Same accounting for the SOT-23-5 double-sided layout of (C), for comparison.
+    segs23, nv23 = LAYOUTS["OPA846 double-sided, 0402"]
+    lx23 = routing_inductance(segs23, nv23) + 2 * per_lead["SOT-23-5"] + 2 * LEAD_INTERNAL
+    d1 = om ** 2 * lx23 * 1e-9 * cf_pf * 1e-12
+    print(f"    SOT-23-5 (same accounting, both pins): L_x {lx23:.2f} nH; delta_1 = {d1:.4f} ({100 * d1:.2f} %)")
+    # High-gain range: the crossover frequency below which delta_1 < 1 % (comments above)
+    print("  High-gain range: f_1% = sqrt(0.01 / (L_x C_F)) / (2 pi), the crossover below which delta_1 < 1 %")
+    lxs = {"SOT-23-5": lx23}
+    for name in ("SOIC-8", "PDIP-8"):
+        segs, nv = ROUTING_8[name]
+        lxs[name] = routing_inductance(segs, nv) + 2 * per_lead[name] + 2 * LEAD_INTERNAL
+    for name, lx in lxs.items():
+        row = []
+        for c in (0.1, 0.2, 0.5, 1.0):
+            f1 = math.sqrt(0.01 / (lx * 1e-9 * c * 1e-12)) / (2 * math.pi)
+            row.append(f"C_F {c:.1f} pF: {f1 / 1e6:.0f} MHz")
+        print(f"    {name}, L_x {lx:.2f} nH: " + "; ".join(row))
+    lx = lxs["PDIP-8"]
+    for f2, r2 in ((80e6, 10e3), (80e6, 100e3), (10e6, 1e6)):
+        om2 = w(f2)
+        print(f"    delta_2 = w L_x / R_F with the PDIP-8's L_x at {f2 / 1e6:g} MHz and {r2 / 1e3:g} kohm: "
+              f"{om2 * lx * 1e-9 / r2:.2e} rad ({math.degrees(om2 * lx * 1e-9 / r2):.4f} deg)")
+    ls = L_S_KOA["0805"]
+    print(f"  Resistor's own inductance, Eq. (A4): 0805, L_s = {ls:.1f} nH, at 10 kohm L_s/R^2 = "
+          f"{ls * 1e-9 / 1e8 * 1e15:.4f} fF against C_p = {cf_best['0805']:.1f} fF "
+          f"({100 * ls * 1e-9 / 1e8 * 1e15 / cf_best['0805']:.3f} %)")
+    print()
+
+
 def main() -> None:
     rec = json.loads(RECORD_3D.read_text(encoding="utf-8"))
     cf_best = {s: rec[f"size_{s}"]["C_F_best"] for s in ("0201", "0402", "0603", "0805")}
@@ -410,6 +533,7 @@ def main() -> None:
     part_c()
     part_d()
     part_e()
+    part_f(cf_best)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,222 @@
+{
+ "opa846_so8_double_sided_0402": {
+  "table": {
+   "C_F": 56.061992745285565,
+   "C_A0": 303.64601534710323,
+   "C_B0": 304.3470348186263,
+   "shares": {
+    "air": 6.390795174936673,
+    "alumina": 21.52762732226269,
+    "board": 25.10293082949771,
+    "mould": 3.040639418588359
+   },
+   "dofs": 1205952.0,
+   "elements": 908447,
+   "seconds": 131.42505380001967,
+   "level": 5.66
+  },
+  "lines": [
+   "refine 5.66: C_F = 56.06 fF, C_A0 = 303.6 fF, C_B0 = 304.3 fF; 908447 elements, 1205952 unknowns, 131 s"
+  ],
+  "seconds": 131.50723469999502,
+  "title": "OPA846 in SO-8: R_F (0402) under the package on the bottom side, refine 5.66"
+ },
+ "opa846_so8_vias_under_0402": {
+  "table": {
+   "C_F": 66.51866349871224,
+   "C_A0": 297.30295180201915,
+   "C_B0": 297.87475222273144,
+   "shares": {
+    "air": 6.934865938356204,
+    "alumina": 21.541164714510305,
+    "board": 34.464969817392756,
+    "mould": 3.577663028452819
+   },
+   "dofs": 1223174.0,
+   "elements": 921459,
+   "seconds": 120.32015769998543,
+   "level": 5.66
+  },
+  "lines": [
+   "refine 5.66: C_F = 66.52 fF, C_A0 = 297.3 fF, C_B0 = 297.9 fF; 921459 elements, 1223174 unknowns, 120 s"
+  ],
+  "seconds": 120.39947000000393,
+  "title": "OPA846 in SO-8: as before, with the vias under the body beside the pads, refine 5.66"
+ },
+ "opa846_so8_under_body_0402": {
+  "table": {
+   "C_F": 57.47709454419143,
+   "C_A0": 285.5730330617768,
+   "C_B0": 362.9052612914826,
+   "shares": {
+    "air": 6.302216248018124,
+    "alumina": 21.487060626694106,
+    "board": 24.083779452129793,
+    "mould": 5.604038217349377
+   },
+   "dofs": 1125902.0,
+   "elements": 847961,
+   "seconds": 112.50360650001676,
+   "level": 5.66
+  },
+  "lines": [
+   "refine 5.66: C_F = 57.48 fF, C_A0 = 285.6 fF, C_B0 = 362.9 fF; 847961 elements, 1125902 unknowns, 113 s"
+  ],
+  "seconds": 112.57286899999599,
+  "title": "OPA846 in SO-8: R_F (0402) beyond pins 4 and 5, traces under the body, refine 5.66"
+ },
+ "opa637_so8_bottom_0805": {
+  "table": {
+   "C_F": 93.28582413947757,
+   "C_A0": 263.0812538027194,
+   "C_B0": 267.0914036554657,
+   "shares": {
+    "air": 6.208741975165697,
+    "alumina": 39.62557801853565,
+    "board": 43.010055964055404,
+    "mould": 4.44144818172072
+   },
+   "dofs": 935888.0,
+   "elements": 704325,
+   "seconds": 75.92692480000551,
+   "level": 11.3
+  },
+  "lines": [
+   "refine 11.3: C_F = 93.29 fF, C_A0 = 263.1 fF, C_B0 = 267.1 fF; 704325 elements, 935888 unknowns, 76 s"
+  ],
+  "seconds": 75.97958600000129,
+  "title": "OPA637 in SOIC-8: R_F (0805) under the package on the bottom side, no planes, refine 11.3"
+ },
+ "ada4530_so8_1206": {
+  "table": {
+   "C_F": 21.80650017231448,
+   "C_A0": 346.482488056795,
+   "C_B0": 464.20358660583156,
+   "shares": {
+    "air": -11.746599514663016,
+    "alumina": 18.38420838260449,
+    "board": 12.741155482443851,
+    "mould": 2.4277358219290424
+   },
+   "dofs": 1177713.0,
+   "elements": 886419,
+   "seconds": 103.10263780000969,
+   "level": 11.3
+  },
+  "lines": [
+   "refine 11.3: C_F = 21.81 fF, C_A0 = 346.5 fF, C_B0 = 464.2 fF; 886419 elements, 1177713 unknowns, 103 s"
+  ],
+  "seconds": 103.16742969999905,
+  "title": "ADA4530-1 in SOIC-8: R_F (1206) beside -IN and OUT, guard from pin 7, refine 11.3"
+ },
+ "lmp7721_so8_1206": {
+  "table": {
+   "C_F": 11.598585865251163,
+   "C_A0": 572.9489641740495,
+   "C_B0": 479.44951782374994,
+   "shares": {
+    "air": -12.516648552197516,
+    "alumina": 17.893478138805577,
+    "board": 4.560264515141206,
+    "mould": 1.6614917635018207
+   },
+   "dofs": 1394564.0,
+   "elements": 1049687,
+   "seconds": 121.07986749999691,
+   "level": 11.3
+  },
+  "lines": [
+   "refine 11.3: C_F = 11.60 fF, C_A0 = 572.9 fF, C_B0 = 479.4 fF; 1049687 elements, 1394564 unknowns, 121 s"
+  ],
+  "seconds": 121.16085769998608,
+  "title": "LMP7721 in SOIC-8: R_F (1206) beside -IN, guard on both sides, refine 11.3"
+ },
+ "lmc6001_dip8_bottom_1206": {
+  "table": {
+   "C_F": 88.39855489788656,
+   "C_A0": 452.65460975918757,
+   "C_B0": 453.6620914741829,
+   "shares": {
+    "air": 6.74275681779763,
+    "alumina": 30.817686812079515,
+    "board": 41.35365883918631,
+    "mould": 9.48445242882285
+   },
+   "dofs": 1401630.0,
+   "elements": 1055786,
+   "seconds": 125.98279050001292,
+   "level": 16.0
+  },
+  "lines": [
+   "refine 16.0: C_F = 88.40 fF, C_A0 = 452.7 fF, C_B0 = 453.7 fF; 1055786 elements, 1401630 unknowns, 126 s"
+  ],
+  "seconds": 126.07373090001056,
+  "title": "LMC6001 in PDIP-8: R_F (1206) on the solder side, no planes, refine 16.0"
+ },
+ "lmc6001_dip8_bottom_guard_1206": {
+  "table": {
+   "C_F": 27.412339443389456,
+   "C_A0": 564.3189385845224,
+   "C_B0": 859.8520111380708,
+   "shares": {
+    "air": -10.083306943004464,
+    "alumina": 16.37441314064551,
+    "board": 13.051904926018004,
+    "mould": 8.069328319730566
+   },
+   "dofs": 1446266.0,
+   "elements": 1089448,
+   "seconds": 128.06965210000635,
+   "level": 16.0
+  },
+  "lines": [
+   "refine 16.0: C_F = 27.41 fF, C_A0 = 564.3 fF, C_B0 = 859.9 fF; 1089448 elements, 1446266 unknowns, 128 s"
+  ],
+  "seconds": 128.14821149999625,
+  "title": "LMC6001 in PDIP-8: as before, with a grounded guard ring, refine 16.0"
+ },
+ "opa637_so8_bottom_0805_refine16": {
+  "table": {
+   "C_F": 93.37682638339885,
+   "C_A0": 264.5673644079872,
+   "C_B0": 268.66354119366326,
+   "shares": {
+    "air": 6.226612715247932,
+    "alumina": 39.62556172284732,
+    "board": 43.03591742145569,
+    "mould": 4.488734523847715
+   },
+   "dofs": 819394.0,
+   "elements": 616797,
+   "seconds": 64.84078849997604,
+   "level": 16.0
+  },
+  "lines": [
+   "refine 16.0: C_F = 93.38 fF, C_A0 = 264.6 fF, C_B0 = 268.7 fF; 616797 elements, 819394 unknowns, 65 s"
+  ],
+  "seconds": 64.88572790002218,
+  "title": "OPA637 case at refine 16 instead of 11.3 (check of the level used for the PDIP cases)"
+ },
+ "opa846_sot23_double_sided_0402_policy": {
+  "table": {
+   "C_F": 56.14506046279904,
+   "C_A0": 301.17886054377203,
+   "C_B0": 282.5790697300898,
+   "shares": {
+    "air": 6.279017337807822,
+    "alumina": 21.529942084979837,
+    "board": 25.84190683390551,
+    "mould": 2.494194206105904
+   },
+   "dofs": 771916.0,
+   "elements": 581464,
+   "seconds": 68.40558289998444,
+   "level": 5.66
+  },
+  "lines": [
+   "refine 5.66: C_F = 56.15 fF, C_A0 = 301.2 fF, C_B0 = 282.6 fF; 581464 elements, 771916 unknowns, 68 s"
+  ],
+  "seconds": 68.46408030000748,
+  "title": "Published SOT-23-5 layout double_sided (0402) with this script's mesh policy (check)"
+ }
+}

@@ -52,6 +52,21 @@ from .geometry import GROUND, Film, Interval, Layout, LinearProfile
 #   of T and a.  The tolerances of L and W in Table G.2 (+-0.03 to +-0.10 mm) are not stored, so the
 #   corners of ChipResistor.from_size vary T and a only.
 #   Pads: IPC-7351-based reflow land pattern of Vishay document 28950 (Rev. 12-Jul-2022, p. 1).
+#
+# 1206, added for the high-gain layouts (not in Table G.2; the same five documents and pages, read
+# for this size, and the same rule as Table G.2: the value that most makers print, with a range
+# that spans all of them where they differ):
+#   Panasonic ERJ8G   L 3.20 +0.05/-0.20, W 1.60 +0.05/-0.15, T 0.60 +-0.10, a 0.50 +-0.20
+#                     (marked "not recommended for new design" on p. 3);
+#   Yageo RC1206      L 3.10 +-0.10, W 1.60 +-0.10, T 0.55 +-0.10, a 0.45 +-0.20;
+#   Vishay CRCW1206   L 3.2 +0.10/-0.20, W 1.6 +-0.15, T 0.55 +-0.05, a (T2, top) 0.4 +-0.20;
+#   KOA RK73B2B       L 3.2 +-0.2, W 1.6 +-0.2, T 0.6 +-0.1, a (c) 0.5 +-0.3;
+#   TT WCR1206        L 3.1 +-0.15, W 1.55 +0.15/-0.1, T 0.55 +-0.1, a (C) 0.45 +-0.2.
+#   L = 3.20 (three of five; Yageo and TT 3.10), W = 1.60 (four of five).  T = 0.55 (three of five),
+#   from 0.45 (0.55 - 0.10) to 0.70 (0.60 + 0.10).  For a the five nominal values are 0.40, 0.45 (two)
+#   and 0.50 (two), so no value is printed by most makers; the median, 0.45, is taken, with the
+#   tolerance that four of the five print, +-0.20: 0.25 to 0.65.
+#   Pads, Vishay 28950 p. 1 (IPC-7351 reflow): gap G 1.75, pad length Y 1.15, pad width X 1.80.
 # ------------------------------------------------------------------------------------------------
 CHIP_SIZES = {
     #        L     W              T (min, nom, max)    a (min, nom, max)
@@ -59,6 +74,7 @@ CHIP_SIZES = {
     "0402": dict(L=1.00, W=0.50, T=(0.30, 0.35, 0.40), a=(0.10, 0.20, 0.30)),
     "0603": dict(L=1.60, W=0.80, T=(0.35, 0.45, 0.55), a=(0.10, 0.30, 0.50)),
     "0805": dict(L=2.00, W=1.25, T=(0.40, 0.50, 0.70), a=(0.20, 0.40, 0.60)),
+    "1206": dict(L=3.20, W=1.60, T=(0.45, 0.55, 0.70), a=(0.25, 0.45, 0.65)),
 }
 LAND_PATTERNS = {
     # w = pad length along the resistor axis, l = pad width across it, s = gap between pads (mm)
@@ -66,6 +82,7 @@ LAND_PATTERNS = {
     "0402": dict(w=0.55, l=0.60, s=0.40),
     "0603": dict(w=0.90, l=1.00, s=0.70),
     "0805": dict(w=0.90, l=1.45, s=1.00),
+    "1206": dict(w=1.15, l=1.80, s=1.75),
 }
 _CORNER = {"min": 0, "nominal": 1, "max": 2}
 

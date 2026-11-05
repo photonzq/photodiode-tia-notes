@@ -197,7 +197,7 @@ def draw_top(ax, layout, window=None) -> None:
     ax.set_ylabel(r"$y$ (mm)")
 
 
-def draw_iso(ax, layout, window) -> None:
+def draw_iso(ax, layout, window, elev: float = 24.0, azim: float = -58.0) -> None:
     """Isometric view of a 3-D layout, clipped to ``window`` = ((x0, x1), (y0, y1), (z0, z1)).
 
     Matplotlib's 3-D axes have no depth buffer.  They draw polygons in the order of their mean depth
@@ -227,10 +227,53 @@ def draw_iso(ax, layout, window) -> None:
        extent show through it, although DIELECTRIC_STYLE keeps it opaque in sections and top
        views; the board is drawn faint (0.10); other dielectrics take their DIELECTRIC_STYLE alpha;
        ground planes are drawn translucent (0.18) with their cut-outs open (_sheet_cells).
-    The view is fixed (view_init(elev=24, azim=-58)), and the shading assumes it."""
-    from matplotlib.colors import to_rgb
+    The view is set by ``elev`` and ``azim`` (degrees, as in Matplotlib's view_init).  The default,
+    (24, -58), is the view of the published figures; their shading table SHADE was set by eye for
+    it and is used unchanged there, so those figures do not change.  For any other view the shading
+    comes from view_shade, which works from the direction of the camera.  Nothing in rules 1-4
+    depends on the view: the faces kept are the same from every side, and Matplotlib sorts them by
+    depth for the view it is given."""
     from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-    from .geometry import Box, Dielectric, Sheet
+
+    shade = SHADE if (float(elev), float(azim)) == DEFAULT_VIEW else view_shade(elev, azim)
+    faces = visible_faces(layout, window, shade)
+    if faces:
+        ax.add_collection3d(Poly3DCollection([f[0] for f in faces], facecolors=[(*f[1], f[2]) for f in faces],
+                                             edgecolors="none"))
+    ax.set_xlim(*window[0])
+    ax.set_ylim(*window[1])
+    ax.set_zlim(*window[2])
+    ax.set_box_aspect([window[i][1] - window[i][0] for i in range(3)])
+    ax.set_xlabel(r"$x$ (mm)")
+    ax.set_ylabel(r"$y$ (mm)")
+    ax.set_zlabel(r"$z$ (mm)")
+    ax.view_init(elev=elev, azim=azim)
+
+
+def iso_alpha(it) -> float:
+    """Opacity of an item in the 3-D views (rule 4 of draw_iso)."""
+    from .geometry import Dielectric
+    r = it.role
+    if isinstance(r, Dielectric):
+        if r.name == "board":
+            return 0.10
+        if r.name == "alumina":
+            return ISO_ALUMINA_ALPHA
+        return _role_style(r)["alpha"]
+    return 0.95
+
+
+def visible_faces(layout, window, shade=None) -> list:
+    """The faces that draw_iso draws (its rules 1 and 4), as a list of (polygon, rgb, alpha, k).
+
+    polygon is a (4, 3) array of the corners of an axis-aligned rectangle, rgb the face's colour
+    (the item's colour times shade[(axis, sign)] of the face's outward normal, or unshaded when
+    ``shade`` is None), alpha its opacity and k the index of the item in layout.items.  The faces are
+    the same whatever the view, so the Matplotlib views (draw_iso) and the interactive HTML view
+    (webview.py) use this one list; the HTML view passes shade=None and lets the browser light the
+    faces as the camera turns.  Films and ground planes are never shaded."""
+    from matplotlib.colors import to_rgb
+    from .geometry import Box, Sheet
 
     eps = 1e-9      # coordinates closer than this are the same plane (mm)
 
@@ -238,31 +281,21 @@ def draw_iso(ax, layout, window) -> None:
         a, b = max(iv[0], w[0]), min(iv[1], w[1])
         return (a, b) if b > a else None
 
-    def alpha_of(it):
-        r = it.role
-        if isinstance(r, Dielectric):
-            if r.name == "board":
-                return 0.10
-            if r.name == "alumina":
-                return ISO_ALUMINA_ALPHA
-            return _role_style(r)["alpha"]
-        return 0.95
-
+    alpha_of = iso_alpha
     items = [(k, it) for k, it in enumerate(layout.items) if _role_style(it.role) is not None]
     boxes = [(k, it, layout.item_extent(it)) for k, it in items if isinstance(it, Box)]
     zsheets = [(k, it) for k, it in items if isinstance(it, Sheet) and it.normal == "z"]
-    polys, colors = [], []
+    faces = []
 
-    def add(n, c, cells, rgb, alpha):
-        """Append the rectangles ``cells`` of the plane (axis n) = c as polygons of one colour."""
+    def add(n, c, cells, rgb, alpha, k):
+        """Append the rectangles ``cells`` of the plane (axis n) = c as faces of one colour."""
         u, v = [a for a in "xyz" if a != n]
         for (u0, u1), (v0, v1) in cells:
             pts = []
             for uu, vv in ((u0, v0), (u1, v0), (u1, v1), (u0, v1)):
                 q = {n: c, u: uu, v: vv}
                 pts.append([q["x"], q["y"], q["z"]])
-            polys.append(np.array(pts))
-            colors.append((*rgb, alpha))
+            faces.append((np.array(pts), rgb, alpha, k))
 
     for k, it, ext in boxes:
         cl = {a: clip(ext[a], window[i]) for i, a in enumerate("xyz")}
@@ -291,7 +324,8 @@ def draw_iso(ax, layout, window) -> None:
                             for cell in _sheet_cells(sh):
                                 cells = _rect_minus(cells, cell)
                 if cells:
-                    add(n, c, cells, np.clip(base * SHADE[(n, sign)], 0.0, 1.0), al)
+                    f = 1.0 if shade is None else shade[(n, sign)]
+                    add(n, c, cells, np.clip(base * f, 0.0, 1.0), al, k)
     for k, sh in zsheets:                                             # the films and planes themselves
         if not (window[2][0] <= sh.at <= window[2][1]):
             continue
@@ -302,25 +336,156 @@ def draw_iso(ax, layout, window) -> None:
             if cx is not None and cy is not None:
                 cells.append((cx, cy))
         if cells:
-            add("z", sh.at, cells, np.array(to_rgb(_role_style(sh.role)["fc"])), 0.18 if is_plane else 0.95)
-    if polys:
-        ax.add_collection3d(Poly3DCollection(polys, facecolors=colors, edgecolors="none"))
-    ax.set_xlim(*window[0])
-    ax.set_ylim(*window[1])
-    ax.set_zlim(*window[2])
-    ax.set_box_aspect([window[i][1] - window[i][0] for i in range(3)])
-    ax.set_xlabel(r"$x$ (mm)")
-    ax.set_ylabel(r"$y$ (mm)")
-    ax.set_zlabel(r"$z$ (mm)")
-    ax.view_init(elev=24, azim=-58)
+            add("z", sh.at, cells, np.array(to_rgb(_role_style(sh.role)["fc"])), 0.18 if is_plane else 0.95, k)
+    return faces
 
 
-# Shading of a face by its outward normal (axis, sign), for the fixed view of draw_iso (camera at
-# +x, -y, +z): top faces brightest, then the faces turned towards the viewer, then the rest.
+# The view of the published figures, and the shading of a face by its outward normal (axis, sign)
+# for that view (camera at +x, -y, +z): top faces brightest, then the faces turned towards the
+# viewer, then the rest.  Set by eye; kept as it is so that the published figures do not change.
+DEFAULT_VIEW = (24.0, -58.0)
 SHADE = {("z", +1): 1.00, ("y", -1): 0.84, ("x", +1): 0.70,
          ("z", -1): 0.60, ("y", +1): 0.76, ("x", -1): 0.66}
 # The alumina body in 3-D views: see-through, so that the terminations show inside it.
 ISO_ALUMINA_ALPHA = 0.35
+
+
+def view_shade(elev: float, azim: float) -> dict:
+    """Shading of the six face orientations for a camera at elevation ``elev`` and azimuth ``azim``.
+
+    Matplotlib's view_init(elev, azim) puts the camera in the direction
+        v = (cos(elev) cos(azim), cos(elev) sin(azim), sin(elev))
+    from the centre of the box.  Each face, with outward normal n, is shaded by
+        s = 0.72 + 0.28 n.l,      l = (v + sgn(elev) z) / |v + sgn(elev) z|,
+    a light behind the viewer and above the board (below it for a view from under the board, none
+    of either for a view from the side), so that the faces turned towards the viewer and towards the
+    light come out brighter.  s runs from 0.44 to 1.00, so no face goes black and the colours of the
+    nets stay recognisable.  At the default view (24, -58), l = (0.289, -0.462, 0.839) and the formula
+    gives 0.95 for the top, 0.85 for the front (-y) and 0.80 for the right side (+x), close to the
+    hand-set SHADE that is used for that view."""
+    e, a = np.radians(elev), np.radians(azim)
+    v = np.array([np.cos(e) * np.cos(a), np.cos(e) * np.sin(a), np.sin(e)])
+    l = v + np.sign(elev) * np.array([0.0, 0.0, 1.0])
+    l = l / np.linalg.norm(l)
+    out = {}
+    for i, n in enumerate("xyz"):
+        for sign in (-1, +1):
+            out[(n, sign)] = 0.72 + 0.28 * sign * l[i]
+    return out
+
+
+# Viewpoints for the sheets of draw_views: (label, elevation, azimuth) in degrees.
+VIEWS = (
+    ("from the front left, above", 24.0, -58.0),
+    ("from the back right, above", 24.0, 122.0),
+    ("from above", 90.0, -90.0),
+    ("from the front left, below", -24.0, -58.0),
+    ("along y (front)", 0.0, -90.0),
+    ("along x (right side)", 0.0, 0.0),
+)
+
+
+def auto_window(layout, margin: float = 0.4, board_slice: float = 0.4):
+    """A window ((x0, x1), (y0, y1), (z0, z1)) around everything worth seeing in a 3-D layout.
+
+    It is the bounding box of every item except the board slab, the solder mask, the ground planes
+    and air, grown by ``margin`` in x and y and by half of it in z.  Below, it reaches at least
+    ``board_slice`` into the board, so that a layout with parts on top only still shows the board
+    it stands on; a layout with parts, vias or leads below the board reaches below its lowest item."""
+    import math
+    from .geometry import Dielectric, Sheet
+    lo = {a: math.inf for a in "xyz"}
+    hi = {a: -math.inf for a in "xyz"}
+    for it in layout.items:
+        r = it.role
+        if isinstance(r, Dielectric) and r.name in ("board", "solder mask", "air"):
+            continue
+        if isinstance(it, Sheet) and it.normal == "z" and it.name.startswith("plane"):
+            continue
+        for a, (u, v) in layout.item_extent(it).items():
+            lo[a], hi[a] = min(lo[a], u), max(hi[a], v)
+    if any(math.isinf(lo[a]) for a in "xyz"):
+        raise ValueError("the layout has nothing to show apart from the board")
+    return ((lo["x"] - margin, hi["x"] + margin), (lo["y"] - margin, hi["y"] + margin),
+            (min(lo["z"] - margin / 2, -board_slice), hi["z"] + margin / 2))
+
+
+def _tidy_view_axes(ax, elev: float, azim: float) -> None:
+    """Remove the axis labels that a view cannot show, or that collide with the panel's label.
+
+    * From straight above or below, every z tick falls on one point: the z axis is hidden.
+    * From the side (elev 0), the axis that points at the viewer is likewise degenerate: looking
+      along y (azimuth -90 or 90) its y axis is hidden, looking along x (azimuth 0 or 180) its x axis.
+    * From below the board, Matplotlib draws the x and y axes along the top of the box, where their
+      labels and ticks run into the panel's label; they are hidden there (the same x and y scales are
+      in the views from above).
+    * Matplotlib places the z label beyond the z tick labels, outside the axes, where on a sheet of
+      panels it lands in the next panel; and it turns the label with the view, upside down from
+      below.  The box is therefore drawn at 0.8 of its cell (set_box_aspect's zoom), so that the
+      label stays inside the cell, and the label is kept upright (set_rotate_label(False)).
+    * On a short axis seen in perspective, ticks 1 mm apart crowd until their numbers touch, so each
+      axis gets at most about four ticks, at steps of 1, 2 or 5 mm so that the numbers stay whole
+      (MaxNLocator(4, steps=[1, 2, 5, 10])).
+    * For a wide, flat layout the labels "x (mm)" etc. still reach the next panel or the tick
+      numbers, because Matplotlib places them outside the box.  On the sheets the labels are
+      therefore the bare letters, and draw_views states the unit once below the panels; in a view
+      from the side the remaining horizontal label is moved further from its ticks (labelpad)."""
+    from matplotlib.ticker import MaxNLocator
+    for axis in (ax.xaxis, ax.yaxis, ax.zaxis):
+        axis.set_major_locator(MaxNLocator(4, steps=[1, 2, 5, 10]))
+    ax.set_xlabel(r"$x$")
+    ax.set_ylabel(r"$y$")
+    if abs(elev) < 1e-9:
+        ax.xaxis.labelpad = 8
+        ax.yaxis.labelpad = 8
+    lims = (ax.get_xlim3d(), ax.get_ylim3d(), ax.get_zlim3d())
+    ax.set_box_aspect([hi - lo for lo, hi in lims], zoom=0.8)
+    ax.zaxis.set_rotate_label(False)
+    ax.set_zlabel(r"$z$", rotation=0)
+    a = np.radians(azim)
+    if abs(abs(elev) - 90.0) < 1e-9:
+        ax.set_zticks([])
+        ax.set_zlabel("")
+    elif abs(elev) < 1e-9:
+        if abs(np.cos(a)) < 1e-9:
+            ax.set_yticks([])
+            ax.set_ylabel("")
+        elif abs(np.sin(a)) < 1e-9:
+            ax.set_xticks([])
+            ax.set_xlabel("")
+    if elev < 0:
+        for axis in (ax.xaxis, ax.yaxis):
+            axis.set_ticklabels([])
+            axis.set_label_text("")
+
+
+def draw_views(layout, stem=None, views=VIEWS, window=None, ncols: int = 3, panel=(2.6, 2.4),
+               title: str | None = None):
+    """Draw ``layout`` with draw_iso from each of ``views`` on one sheet, and export it to ``stem``
+    (PNG at 600 dpi and PDF, as ``export``) when a stem is given; the figure is returned otherwise.
+
+    Every panel uses the same window (auto_window unless one is given), so the panels show the same
+    piece of the layout from different sides.  The panels are plain 3-D subplots without constrained
+    layout: constrained layout shrinks 3-D axes (make_numerical_figures.iso_axes of the study scripts
+    explains this), and a sheet of equal panels needs no layout engine.  A view straight from above
+    or below hides the z axis, whose ticks would all fall on one point."""
+    import matplotlib.pyplot as plt
+    win = window if window is not None else auto_window(layout)
+    nrows = -(-len(views) // ncols)
+    fig = plt.figure(figsize=(panel[0] * ncols, panel[1] * nrows))
+    for k, (label, elev, azim) in enumerate(views):
+        ax = fig.add_subplot(nrows, ncols, k + 1, projection="3d")
+        draw_iso(ax, layout, win, elev=elev, azim=azim)
+        _tidy_view_axes(ax, elev, azim)
+        ax.text2D(0.0, 1.0, f"({chr(97 + k)}) {label}", transform=ax.transAxes, va="top")
+    fig.subplots_adjust(left=0.0, right=0.98, bottom=0.06, top=0.92 if title else 0.97, wspace=0.2, hspace=0.15)
+    fig.text(0.01, 0.01, "Lengths in mm; z is measured up from the board's top surface.", ha="left", va="bottom")
+    if title:
+        fig.suptitle(title)
+    if stem is not None:
+        export(fig, stem)
+        return None
+    return fig
 
 
 def _rect_minus(cells, b):

@@ -1,0 +1,80 @@
+=== opa846_so8_double_sided_0402 (10:25:06)
+[opa846_so8_double_sided_0402] OPA846 in SO-8: R_F (0402) under the package on the bottom side, refine 5.66
+  refine 5.66: C_F = 56.06 fF, C_A0 = 303.6 fF, C_B0 = 304.3 fF; 908447 elements, 1205952 unknowns, 131 s
+  time 132 s
+=== opa846_so8_vias_under_0402 (10:27:18)
+[opa846_so8_vias_under_0402] OPA846 in SO-8: as before, with the vias under the body beside the pads, refine 5.66
+  refine 5.66: C_F = 66.52 fF, C_A0 = 297.3 fF, C_B0 = 297.9 fF; 921459 elements, 1223174 unknowns, 120 s
+  time 120 s
+=== opa846_so8_under_body_0402 (10:29:20)
+[opa846_so8_under_body_0402] OPA846 in SO-8: R_F (0402) beyond pins 4 and 5, traces under the body, refine 5.66
+  refine 5.66: C_F = 57.48 fF, C_A0 = 285.6 fF, C_B0 = 362.9 fF; 847961 elements, 1125902 unknowns, 113 s
+  time 113 s
+=== opa637_so8_bottom_0805 (10:31:14)
+[opa637_so8_bottom_0805] OPA637 in SOIC-8: R_F (0805) under the package on the bottom side, no planes, refine 11.3
+  refine 11.3: C_F = 93.29 fF, C_A0 = 263.1 fF, C_B0 = 267.1 fF; 704325 elements, 935888 unknowns, 76 s
+  time 76 s
+=== ada4530_so8_1206 (10:32:31)
+[ada4530_so8_1206] ADA4530-1 in SOIC-8: R_F (1206) beside -IN and OUT, guard from pin 7, refine 11.3
+  refine 11.3: C_F = 21.81 fF, C_A0 = 346.5 fF, C_B0 = 464.2 fF; 886419 elements, 1177713 unknowns, 103 s
+  time 103 s
+=== lmp7721_so8_1206 (10:34:16)
+[lmp7721_so8_1206] LMP7721 in SOIC-8: R_F (1206) beside -IN, guard on both sides, refine 11.3
+  refine 11.3: C_F = 11.60 fF, C_A0 = 572.9 fF, C_B0 = 479.4 fF; 1049687 elements, 1394564 unknowns, 121 s
+  time 121 s
+=== lmc6001_dip8_bottom_1206 (10:36:18)
+[lmc6001_dip8_bottom_1206] LMC6001 in PDIP-8: R_F (1206) on the solder side, no planes, refine 11.3
+Traceback (most recent call last):
+  File "TIA_opamp_survey_2026-10-25\scripts_archive\parasitic_cf\numerical\g_eight_lead_3d.py", line 490, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "TIA_opamp_survey_2026-10-25\scripts_archive\parasitic_cf\numerical\g_eight_lead_3d.py", line 485, in main
+    run(a.name, a.record)
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "TIA_opamp_survey_2026-10-25\scripts_archive\parasitic_cf\numerical\g_eight_lead_3d.py", line 455, in run
+    out = fn()
+  File "TIA_opamp_survey_2026-10-25\scripts_archive\parasitic_cf\numerical\g_eight_lead_3d.py", line 438, in fn
+    r = study.solve_layout(build(name), replace(BASE, refine=level, max_elements=MAX_ELEMENTS), order=2)
+  File "pcbcap\pcbcap\study.py", line 165, in solve_layout
+    md = build_mesh(layout, params or MeshParams())
+  File "pcbcap\pcbcap\meshing.py", line 369, in build_mesh
+    raise ValueError(f"the mesh has {n_meshed} elements, above max_elements = {rp.max_elements:.3g}; "
+                     "coarsen the mesh or raise max_elements deliberately")
+ValueError: the mesh has 1346217 elements, above max_elements = 1.25e+06; coarsen the mesh or raise max_elements deliberately
+=== lmc6001_dip8_bottom_guard_1206 (10:37:04)
+[lmc6001_dip8_bottom_guard_1206] LMC6001 in PDIP-8: as before, with a grounded guard ring, refine 11.3
+Traceback (most recent call last):
+  File "TIA_opamp_survey_2026-10-25\scripts_archive\parasitic_cf\numerical\g_eight_lead_3d.py", line 490, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "TIA_opamp_survey_2026-10-25\scripts_archive\parasitic_cf\numerical\g_eight_lead_3d.py", line 485, in main
+    run(a.name, a.record)
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "TIA_opamp_survey_2026-10-25\scripts_archive\parasitic_cf\numerical\g_eight_lead_3d.py", line 455, in run
+    out = fn()
+  File "TIA_opamp_survey_2026-10-25\scripts_archive\parasitic_cf\numerical\g_eight_lead_3d.py", line 438, in fn
+    r = study.solve_layout(build(name), replace(BASE, refine=level, max_elements=MAX_ELEMENTS), order=2)
+  File "pcbcap\pcbcap\study.py", line 165, in solve_layout
+    md = build_mesh(layout, params or MeshParams())
+  File "pcbcap\pcbcap\meshing.py", line 369, in build_mesh
+    raise ValueError(f"the mesh has {n_meshed} elements, above max_elements = {rp.max_elements:.3g}; "
+                     "coarsen the mesh or raise max_elements deliberately")
+ValueError: the mesh has 1413428 elements, above max_elements = 1.25e+06; coarsen the mesh or raise max_elements deliberately
+=== done (10:37:52)
+=== lmc6001_dip8_bottom_1206 (10:40:05), second run
+[lmc6001_dip8_bottom_1206] LMC6001 in PDIP-8: R_F (1206) on the solder side, no planes, refine 16.0
+  refine 16.0: C_F = 88.40 fF, C_A0 = 452.7 fF, C_B0 = 453.7 fF; 1055786 elements, 1401630 unknowns, 126 s
+  time 126 s
+=== lmc6001_dip8_bottom_guard_1206 (10:42:13), second run
+[lmc6001_dip8_bottom_guard_1206] LMC6001 in PDIP-8: as before, with a grounded guard ring, refine 16.0
+  refine 16.0: C_F = 27.41 fF, C_A0 = 564.3 fF, C_B0 = 859.9 fF; 1089448 elements, 1446266 unknowns, 128 s
+  time 128 s
+=== opa637_so8_bottom_0805_refine16 (10:44:22), second run
+[opa637_so8_bottom_0805_refine16] OPA637 case at refine 16 instead of 11.3 (check of the level used for the PDIP cases)
+  refine 16.0: C_F = 93.38 fF, C_A0 = 264.6 fF, C_B0 = 268.7 fF; 616797 elements, 819394 unknowns, 65 s
+  time 65 s
+=== done (10:45:28)
+=== opa846_sot23_double_sided_0402_policy (10:47:04)
+[opa846_sot23_double_sided_0402_policy] Published SOT-23-5 layout double_sided (0402) with this script's mesh policy (check)
+  refine 5.66: C_F = 56.15 fF, C_A0 = 301.2 fF, C_B0 = 282.6 fF; 581464 elements, 771916 unknowns, 68 s
+  time 68 s

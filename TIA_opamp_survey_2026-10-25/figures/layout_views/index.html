@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feedback layouts in three dimensions</title>
+<style>
+  body { margin: 0 auto; max-width: 1000px; padding: 16px; font-family: Arial, sans-serif; color: #272727; }
+  h1 { font-size: 20px; }
+  .item { margin: 18px 0 26px 0; }
+  .item img { width: 100%; border: 1px solid #E0E0E0; }
+  h2 { font-size: 16px; margin: 0 0 4px 0; }
+  p { font-size: 14px; line-height: 1.45; margin: 4px 0; }
+  a { color: #385C9E; }
+</style>
+</head>
+<body>
+<h1>Feedback layouts in three dimensions</h1>
+<p>Each layout as the field solver receives it, from six sides, with a link to an interactive view.
+Conductors of the output net are red, those of the inverting input blue, grounded ones dark grey,
+unconnected pins light grey; the film is purple, the package body brown and translucent, the
+resistor body translucent, the board faint green.</p>
+<div class="item"><h2>OPA855 (WSON-8) and its feedback network</h2><p>The 0402 feedback resistor with its traces to the pins of the OPA855, over a ground plane with a cut-out under the network: the layout of Section G.14.9 and Figure 50 of the note. Only the pin edge of the package is modelled. <a href="opa855_network.html">Interactive view</a>.</p><a href="opa855_network.html"><img src="opa855_network_small.png" alt="OPA855 (WSON-8) and its feedback network"></a></div>
+<div class="item"><h2>OPA846 in SOT-23-5: R_F on the bottom side under the package, through two vias (0402)</h2><p>One of the three layouts of Section G.14.10 and Figure 51 of the note, on a four-layer board whose two inner ground planes are cut out around the network. <a href="opa846_sot23_double_sided_0402.html">Interactive view</a>.</p><a href="opa846_sot23_double_sided_0402.html"><img src="opa846_sot23_double_sided_0402_small.png" alt="OPA846 in SOT-23-5: R_F on the bottom side under the package, through two vias (0402)"></a></div>
+<div class="item"><h2>OPA846 in SOT-23-5: R_F above pin 1, with a trace under the body to pin 4 (0402)</h2><p>One of the three layouts of Section G.14.10 and Figure 51 of the note, on a four-layer board whose two inner ground planes are cut out around the network. <a href="opa846_sot23_under_body_0402.html">Interactive view</a>.</p><a href="opa846_sot23_under_body_0402.html"><img src="opa846_sot23_under_body_0402_small.png" alt="OPA846 in SOT-23-5: R_F above pin 1, with a trace under the body to pin 4 (0402)"></a></div>
+<div class="item"><h2>OPA846 in SOT-23-5: R_F below pin 4, with a trace around the outside of the package (0402)</h2><p>One of the three layouts of Section G.14.10 and Figure 51 of the note, on a four-layer board whose two inner ground planes are cut out around the network. <a href="opa846_sot23_around_0402.html">Interactive view</a>.</p><a href="opa846_sot23_around_0402.html"><img src="opa846_sot23_around_0402_small.png" alt="OPA846 in SOT-23-5: R_F below pin 4, with a trace around the outside of the package (0402)"></a></div>
+<div class="item"><h2>OPA846 in SO-8: R_F (0402) under the package on the bottom side</h2><p>A layout of the eight-lead study (g_eight_lead_3d.py). The package dimensions are those of TI&#x27;s drawings (SOIC-8: D0008A; PDIP-8: P, R-PDIP-T8), as given in pcbcap.packages. <a href="opa846_so8_double_sided_0402.html">Interactive view</a>.</p><a href="opa846_so8_double_sided_0402.html"><img src="opa846_so8_double_sided_0402_small.png" alt="OPA846 in SO-8: R_F (0402) under the package on the bottom side"></a></div>
+<div class="item"><h2>OPA846 in SO-8: as before, with the vias under the body beside the pads</h2><p>A layout of the eight-lead study (g_eight_lead_3d.py). The package dimensions are those of TI&#x27;s drawings (SOIC-8: D0008A; PDIP-8: P, R-PDIP-T8), as given in pcbcap.packages. <a href="opa846_so8_vias_under_0402.html">Interactive view</a>.</p><a href="opa846_so8_vias_under_0402.html"><img src="opa846_so8_vias_under_0402_small.png" alt="OPA846 in SO-8: as before, with the vias under the body beside the pads"></a></div>
+<div class="item"><h2>OPA846 in SO-8: R_F (0402) beyond pins 4 and 5, traces under the body</h2><p>A layout of the eight-lead study (g_eight_lead_3d.py). The package dimensions are those of TI&#x27;s drawings (SOIC-8: D0008A; PDIP-8: P, R-PDIP-T8), as given in pcbcap.packages. <a href="opa846_so8_under_body_0402.html">Interactive view</a>.</p><a href="opa846_so8_under_body_0402.html"><img src="opa846_so8_under_body_0402_small.png" alt="OPA846 in SO-8: R_F (0402) beyond pins 4 and 5, traces under the body"></a></div>
+<div class="item"><h2>OPA637 in SOIC-8: R_F (0805) under the package on the bottom side, no planes</h2><p>A layout of the eight-lead study (g_eight_lead_3d.py). The package dimensions are those of TI&#x27;s drawings (SOIC-8: D0008A; PDIP-8: P, R-PDIP-T8), as given in pcbcap.packages. <a href="opa637_so8_bottom_0805.html">Interactive view</a>.</p><a href="opa637_so8_bottom_0805.html"><img src="opa637_so8_bottom_0805_small.png" alt="OPA637 in SOIC-8: R_F (0805) under the package on the bottom side, no planes"></a></div>
+<div class="item"><h2>ADA4530-1 in SOIC-8: R_F (1206) beside -IN and OUT, guard from pin 7</h2><p>A layout of the eight-lead study (g_eight_lead_3d.py). The package dimensions are those of TI&#x27;s drawings (SOIC-8: D0008A; PDIP-8: P, R-PDIP-T8), as given in pcbcap.packages. <a href="ada4530_so8_1206.html">Interactive view</a>.</p><a href="ada4530_so8_1206.html"><img src="ada4530_so8_1206_small.png" alt="ADA4530-1 in SOIC-8: R_F (1206) beside -IN and OUT, guard from pin 7"></a></div>
+<div class="item"><h2>LMP7721 in SOIC-8: R_F (1206) beside -IN, guard on both sides</h2><p>A layout of the eight-lead study (g_eight_lead_3d.py). The package dimensions are those of TI&#x27;s drawings (SOIC-8: D0008A; PDIP-8: P, R-PDIP-T8), as given in pcbcap.packages. <a href="lmp7721_so8_1206.html">Interactive view</a>.</p><a href="lmp7721_so8_1206.html"><img src="lmp7721_so8_1206_small.png" alt="LMP7721 in SOIC-8: R_F (1206) beside -IN, guard on both sides"></a></div>
+<div class="item"><h2>LMC6001 in PDIP-8: R_F (1206) on the solder side, no planes</h2><p>A layout of the eight-lead study (g_eight_lead_3d.py). The package dimensions are those of TI&#x27;s drawings (SOIC-8: D0008A; PDIP-8: P, R-PDIP-T8), as given in pcbcap.packages. <a href="lmc6001_dip8_bottom_1206.html">Interactive view</a>.</p><a href="lmc6001_dip8_bottom_1206.html"><img src="lmc6001_dip8_bottom_1206_small.png" alt="LMC6001 in PDIP-8: R_F (1206) on the solder side, no planes"></a></div>
+<div class="item"><h2>LMC6001 in PDIP-8: as before, with a grounded guard ring</h2><p>A layout of the eight-lead study (g_eight_lead_3d.py). The package dimensions are those of TI&#x27;s drawings (SOIC-8: D0008A; PDIP-8: P, R-PDIP-T8), as given in pcbcap.packages. <a href="lmc6001_dip8_bottom_guard_1206.html">Interactive view</a>.</p><a href="lmc6001_dip8_bottom_guard_1206.html"><img src="lmc6001_dip8_bottom_guard_1206_small.png" alt="LMC6001 in PDIP-8: as before, with a grounded guard ring"></a></div>
+</body>
+</html>

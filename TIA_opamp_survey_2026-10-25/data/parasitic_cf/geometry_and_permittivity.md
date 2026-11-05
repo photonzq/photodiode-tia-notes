@@ -31,6 +31,13 @@ The terminations are the two electrodes of the parasitic capacitor, so their geo
 | 0805 | Vishay CRCW0805 e3 | $2.0^{+0.20}_{-0.10}$ | $1.25 \pm 0.15$ | $0.5 \pm 0.10$ | $0.3 \pm 0.20$ | $0.3^{+0.20}_{-0.10}$ | Vishay 20035, p. 11 |
 | 0805 | KOA RK73B2A | $2.0 \pm 0.2$ | $1.25 \pm 0.1$ | $0.5 \pm 0.1$ | $0.4 \pm 0.2$ | $0.3^{+0.2}_{-0.1}$ | KOA RK73B, p. 1 |
 | 0805 | TT WCR0805 | $2.0 \pm 0.15$ | $1.25^{+0.15}_{-0.1}$ | $0.55 \pm 0.1$ | $0.4 \pm 0.2$ | $0.4 \pm 0.2$ | TT WCR, p. 1 |
+| 1206 | Panasonic ERJ8G | $3.20^{+0.05}_{-0.20}$ | $1.60^{+0.05}_{-0.15}$ | $0.60 \pm 0.10$ | $0.50 \pm 0.20$ | $0.50 \pm 0.20$ | Panasonic AOA0000C301, p. 3 |
+| 1206 | Yageo RC1206 | $3.10 \pm 0.10$ | $1.60 \pm 0.10$ | $0.55 \pm 0.10$ | $0.45 \pm 0.20$ | $0.45 \pm 0.20$ | Yageo RC_L V.14, p. 4, Table 1 |
+| 1206 | Vishay CRCW1206 e3 | $3.2^{+0.10}_{-0.20}$ | $1.6 \pm 0.15$ | $0.55 \pm 0.05$ | $0.4 \pm 0.20$ | $0.45 \pm 0.20$ | Vishay 20035, p. 11 |
+| 1206 | KOA RK73B2B | $3.2 \pm 0.2$ | $1.6 \pm 0.2$ | $0.6 \pm 0.1$ | $0.5 \pm 0.3$ | $0.4^{+0.2}_{-0.1}$ | KOA RK73B, p. 1 |
+| 1206 | TT WCR1206 | $3.1 \pm 0.15$ | $1.55^{+0.15}_{-0.1}$ | $0.55 \pm 0.1$ | $0.45 \pm 0.2$ | $0.45 \pm 0.2$ | TT WCR, p. 1 |
+
+The 1206 rows were added for the high-gain layouts of Section G.14's eight-lead study; Table G.2 of the note stops at 0805. Panasonic marks the ERJ8G "not recommended for new design" (p. 3). In the TT table one merged cell gives $C$ and $A$ for the 1206 as well. The value used for the model (pcbcap `parts.CHIP_SIZES`) follows the rule of Table G.2: $L$ = 3.20 and $W$ = 1.60, printed by most makers; $H$ = 0.55, printed by three of five, with the range 0.45–0.70 that spans all five; and, since the five nominal values of $a$ are 0.40, 0.45 (twice) and 0.50 (twice), their median 0.45 with the tolerance $\pm 0.20$ that four of them print.
 
 The Vishay D/CRCW e3 data sheet starts at size 0402 and has no 0201 row. The Panasonic precision thick-film series (ERJ1R, 2R, 3R/3E and 6R/6E; document AOA0000C304, p. 4, dated 29-May-25) lists the same dimensions as the general-purpose ERJ series above, and the KOA precision thick-film RK73H (p. 1, dated 10/26/25) lists the same numbers as RK73B. In the TT WCR table a cell without a printed tolerance takes the table's default of $\pm 0.1$ mm, and for 0603 and 0805 a single merged cell gives both $C$ and $A$.
 
@@ -101,6 +108,11 @@ All values are in millimetres and are for reflow soldering unless stated. In eve
 | 0805 | Vishay 28950, p. 1, IPC-7351 | 1.00 | 0.90 | 1.45 | 2.80 |
 | 0805 | Vishay 28950, p. 1, IEC 61188-6-2 | 1.10 | 0.65 | 1.30 | 2.40 |
 | 0805 | KOA Appendix B, p. 1 | 1.3 | 0.6 | 1.05 | 2.5 |
+| 1206 | Vishay 20035 (CRCW), p. 11 | 1.50 | 1.05 | 1.80 | 3.60 |
+| 1206 | Vishay 28950, p. 1, IPC-7351 | 1.75 | 1.15 | 1.80 | 4.05 |
+| 1206 | Vishay 28950, p. 1, IEC 61188-6-2 | 2.10 | 0.80 | 1.65 | 3.70 |
+
+For the 1206 only the two Vishay documents were read; the model uses the IPC-7351 row of Vishay 28950, as for the other sizes.
 
 The wave- and flow-soldering patterns are in the JSON file. They have longer pads, while the gap is the same (KOA), larger (Yageo) or smaller (Vishay D/CRCW) than for reflow: for example, Yageo Table 2 gives 0603 as gap 0.90, pad length 0.90, width 0.80, overall 2.70; Vishay 20035 gives 0603 wave as 0.65, 1.10, 1.25, 2.85; and KOA Appendix B p. 3 (dated 3/28/25) gives 0603 flow as 1.0, 0.7, 0.8, 2.4. The Vishay 28950 0402 pattern also has an IPC and an IEC variant, which differ by 0.15 mm in gap and 0.20 mm in pad length; the choice between them changes the pad-to-pad geometry of the estimate.
 

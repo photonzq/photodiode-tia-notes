@@ -30,6 +30,12 @@
 /TIA_opamp_survey_2026-10-25/data/results_test/
 /TIA_opamp_survey_2026-10-25/data/digitization_checks/*.png
 
+# Three-dimensional views of the layouts: the interactive pages, their small previews and plotly.min.js
+# are published; the 600-dpi sheets that render_layout_views.py also writes stay local.
+/TIA_opamp_survey_2026-10-25/figures/layout_views/*.pdf
+/TIA_opamp_survey_2026-10-25/figures/layout_views/*.png
+!/TIA_opamp_survey_2026-10-25/figures/layout_views/*_small.png
+
 /TIA_opamp_survey_2026-10-25/spice/*
 !/TIA_opamp_survey_2026-10-25/spice/results/
 !/TIA_opamp_survey_2026-10-25/spice/models/

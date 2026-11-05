@@ -106,6 +106,20 @@ print(conv.value(), "fF")
 
 `examples/custom_layout.py` builds a layout by hand: two traces with and without a grounded guard. It also computes a Maxwell matrix.
 
+### Parts and packages
+
+`parts.py` builds chip resistors (0201 to 1206) on their land patterns, boards with planes and solder mask, and the pin edge of a WSON package. `packages.py` adds the leaded packages, SOT-23-5, SOIC-8 (gull-wing leads) and PDIP-8 (leads through plated holes), with vias, traces and parts mounted on the bottom side; a resistor can stand along either axis (`resistor_assembly(..., axis="y")`). Each package's docstring gives every dimension with the drawing and page it comes from, and says which dimensions no drawing gives and how they were chosen.
+
+### Looking at a layout
+
+A layout can be checked by eye before anything is meshed. `plotting.draw_views(layout, stem)` draws it from six sides on one sheet (from the front left and the back right above the board, from above, from below, and along x and y) and saves a PNG and a PDF. `webview.write_page(layout, "layout.html")` writes a page that a browser turns, zooms and inspects part by part. It is drawn by plotly (`python -m pip install plotly`, or the extra `web` of this package). Both use the faces of `plotting.visible_faces`, which are also those of the published three-dimensional views. Only surfaces that exist are drawn, the dielectrics are translucent, and the conductors take the colour of their net.
+
+```python
+from pcbcap import plotting, webview
+plotting.draw_views(lay, "views/my_layout")              # views/my_layout.png and .pdf
+webview.write_page(lay, "views/my_layout.html", title="My layout")
+```
+
 ### Cost
 
 A quarter of a 3-D chip resistor at the finest mesh used in Appendix G has a few hundred thousand elements (0.34 million for the 0402 at refine 2) and takes one to two minutes per solve. The full-domain feedback networks with an amplifier package take 0.6–1.0 million elements and 0.8–1.3 million unknowns; the OPA846 cases used about 3.5–4.5 GB each. The 2-D cases take seconds. Every run lowers its priority and limits itself to two threads, because it is meant to run on a workstation that is in use.

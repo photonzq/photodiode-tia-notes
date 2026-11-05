@@ -19,6 +19,7 @@ dependencies = [
 
 [project.optional-dependencies]
 polite = ["psutil"]
+web = ["plotly>=5"]
 
 [tool.setuptools]
 packages = ["pcbcap"]
