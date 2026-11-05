@@ -219,8 +219,10 @@ log("anchors", len(anchors), {k: sum(1 for a in anchors if a[0] == k) for k in
 KIND = {"Section": "section", "Sections": "section", "Chapter": "chapter", "Chapters": "chapter",
         "Appendix": "appendix", "Appendices": "appendix", "Table": "table", "Tables": "table",
         "Figure": "figure", "Figures": "figure"}
-# A, A6.5, A.8a, B.1, G.2.1, 6.2.4, 4a; a letter only after a digit, and never the start of a word ("and Figure", "and Eq.")
-NUM = r"(?:[A-G](?:\.?\d+(?:\.\d+)*[a-z]?)?|\d+(?:\.\d+)*[a-z]?)(?![A-Za-z])"
+# A, A6.5, A.8a, B.1, G.2.1, 6.2.4, 4a; a letter only after a digit, and never the start of a word ("and Figure", "and Eq.");
+# an appendix letter takes at most two digits directly after it, so a part number such as G12180 in "Table 4a, G12180-050A"
+# is not read as a second table
+NUM = r"(?:[A-G](?:(?:\.\d+|\d{1,2})(?:\.\d+)*[a-z]?)?(?!\d)|\d+(?:\.\d+)*[a-z]?)(?![A-Za-z])"
 SEP = r"(?:,\s*|\s+and\s+|\s+or\s+|–|\s+to\s+)"
 EQN = r"\(" + TAG + r"\)"
 REF_RE = re.compile(
