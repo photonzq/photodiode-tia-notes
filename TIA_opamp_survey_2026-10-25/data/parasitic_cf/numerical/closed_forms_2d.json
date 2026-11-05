@@ -1,0 +1,215 @@
+{
+ "G25_pads_halfplane": {
+  "numeric": 0.8561882873832389,
+  "closed": 0.8561696209918387,
+  "rel_error": 2.180221178438302e-05,
+  "title": "Pads on the edge of a half-plane, Eq. (G.25)",
+  "seconds": 2.5878167000046233,
+  "lines": [
+   "mesh 23576 elements, h_edge 1.0e-04 mm, 47487 unknowns (P2)"
+  ]
+ },
+ "G27_cut_layer": {
+  "numeric": 0.8069509406607648,
+  "closed": 0.8069306524364847,
+  "rel_error": 2.514246325735492e-05,
+  "title": "Pads on a 1.6-mm board whose far face is cut, Eq. (G.27)",
+  "seconds": 1.8505918000009842,
+  "lines": [
+   "mesh 18296 elements, h_edge 1.0e-04 mm, 37199 unknowns (P2)",
+   "layer 1.6 mm thick, 240 mm wide (the formula assumes infinite width)"
+  ]
+ },
+ "G28_block_upper": {
+  "numeric": 0.5833333333333617,
+  "closed": 0.5833333333333334,
+  "rel_error": 4.8627768478581856e-14,
+  "title": "Body with the slots filled with metal, upper bound, Eq. (G.28)",
+  "seconds": 0.23039550000976305,
+  "lines": [
+   "mesh 2674 elements, h_edge 1.0e-04 mm, 5571 unknowns (P2)"
+  ]
+ },
+ "G32_block_lower": {
+  "numeric": 0.4676885203456553,
+  "closed": 0.4676764163200975,
+  "rel_error": 2.5881197202703987e-05,
+  "title": "Body with the film's potential released, lower bound, Eq. (G.32)",
+  "seconds": 0.30079700000351295,
+  "lines": [
+   "mesh 2672 elements, h_edge 1.0e-04 mm, 5567 unknowns (P2)"
+  ]
+ },
+ "G8_block_with_film": {
+  "numeric": 0.48187462369462286,
+  "closed": null,
+  "bracket": [
+   0.4676764163200975,
+   0.5833333333333334
+  ],
+  "position": 0.12276142007918574,
+  "title": "Body with the film's potential kept and the slots open (bracketed by G.28 and G.32)",
+  "seconds": 0.29294410000147764,
+  "lines": [
+   "mesh 2672 elements, h_edge 1.0e-04 mm, 5567 unknowns (P2)",
+   "lower bound (G.32) 0.467676, upper bound (G.28) 0.583333: the value lies 12.3 % of the way from the lower to the upper bound",
+   "per 0.5 mm of width at eps_al = 9.7: 20.69 fF (bracket 20.08-25.05 fF)"
+  ]
+ },
+ "G33_air_no_film": {
+  "numeric": 0.7193017539327753,
+  "closed": 0.7192877279600696,
+  "rel_error": 1.9499808158185417e-05,
+  "title": "Air above the body, electrodes only, Eq. (G.33)",
+  "seconds": 2.3998430000065127,
+  "lines": [
+   "mesh 23596 elements, h_edge 1.0e-04 mm, 47527 unknowns (P2)"
+  ]
+ },
+ "G38_air_with_film": {
+  "numeric": 0.7602536749983787,
+  "closed": 0.7602516149528488,
+  "rel_error": 2.7096891206390694e-06,
+  "title": "Air above the body with the film's potential, Eq. (G.38)",
+  "seconds": 3.05392629999551,
+  "lines": [
+   "mesh 23600 elements, h_edge 1.0e-04 mm, 47535 unknowns (P2)"
+  ]
+ },
+ "G41_plane_0p10": {
+  "numeric": 0.001189188892488162,
+  "closed": 0.0011888523301264442,
+  "to_ground": [
+   6.381562355003974,
+   6.38135465335197
+  ],
+  "rel_error": 0.0002830985423412091,
+  "title": "Pads over a plane 0.10 mm below, Eq. (G.41)",
+  "seconds": 0.5130868999985978,
+  "lines": [
+   "mesh 2385 elements, h_edge 1.0e-04 mm, 5200 unknowns (P2)",
+   "to ground: numeric 6.381562, closed form q_even 6.381355 (rel. +3.25e-05)"
+  ]
+ },
+ "G41_plane_0p20": {
+  "numeric": 0.02753006496003542,
+  "closed": 0.027525544247620992,
+  "to_ground": [
+   3.605686057426018,
+   3.605583613040116
+  ],
+  "rel_error": 0.00016423698560719124,
+  "title": "Pads over a plane 0.20 mm below, Eq. (G.41)",
+  "seconds": 0.31431470000825357,
+  "lines": [
+   "mesh 3417 elements, h_edge 1.0e-04 mm, 7242 unknowns (P2)",
+   "to ground: numeric 3.605686, closed form q_even 3.605584 (rel. +2.84e-05)"
+  ]
+ },
+ "G41_plane_0p36": {
+  "numeric": 0.11184782797807148,
+  "closed": 0.11183799706490638,
+  "to_ground": [
+   2.3070304403626802,
+   2.30698071630909
+  ],
+  "rel_error": 8.790315834605877e-05,
+  "title": "Pads over a plane 0.36 mm below, Eq. (G.41)",
+  "seconds": 0.6342788000038126,
+  "lines": [
+   "mesh 5122 elements, h_edge 1.0e-04 mm, 10659 unknowns (P2)",
+   "to ground: numeric 2.307030, closed form q_even 2.306981 (rel. +2.16e-05)"
+  ]
+ },
+ "G43_guard": {
+  "numeric": 0.5158183443919953,
+  "closed": 0.5158180096744325,
+  "to_ground": [
+   0.7694561003967326,
+   0.7693857138836675
+  ],
+  "rel_error": 6.48906312905595e-07,
+  "title": "Grounded guard strip 0.2 mm wide in the pad gap, Eq. (G.43)",
+  "seconds": 2.539194299999508,
+  "lines": [
+   "mesh 23996 elements, h_edge 1.0e-04 mm, 48359 unknowns (P2)",
+   "pad to guard: numeric 0.769456, closed form 0.769386 (rel. +9.15e-05)"
+  ]
+ },
+ "G45_pins_no_middle": {
+  "numeric": 0.5698570603578276,
+  "closed": 0.5698410519919187,
+  "rel_error": 2.809268629011541e-05,
+  "title": "Pins 1 and 3 with pin 2 removed, Eq. (G.45)",
+  "seconds": 3.2289875999995274,
+  "lines": [
+   "mesh 28392 elements, h_edge 1.0e-04 mm, 57137 unknowns (P2)"
+  ]
+ },
+ "G46_pins_wall": {
+  "numeric": 0.6396849153750013,
+  "closed": 0.6396307855855032,
+  "rel_error": 8.462661697627993e-05,
+  "title": "Pins 1 and 3 with pin 2 as a floating wall, Eq. (G.46)",
+  "seconds": 0.33814440001151524,
+  "lines": [
+   "mesh 3558 elements, h_edge 1.0e-04 mm, 7439 unknowns (P2)"
+  ]
+ },
+ "pins_thin_middle": {
+  "numeric": 0.5850996180946961,
+  "closed": null,
+  "bracket": [
+   0.5698410519919187,
+   0.6396307855855032
+  ],
+  "position": 0.21863625661095917,
+  "title": "Pins 1 and 3 with pin 2 a thin floating strip (between G.45 and G.46)",
+  "seconds": 3.44154850000632,
+  "lines": [
+   "mesh 28821 elements, h_edge 1.0e-04 mm, 58026 unknowns (P2)",
+   "Rule 4 bracket: 0.569841 (removed) to 0.639631 (wall)"
+  ]
+ },
+ "pins_pin4_grounded": {
+  "numeric": 0.3865016115587989,
+  "closed": null,
+  "table": {
+   "removed": [
+    0.5698570603578276,
+    0.3865016115587989
+   ],
+   "thin": [
+    0.5850996180946961,
+    0.4011378374172499
+   ],
+   "wall": [
+    0.6396849153750013,
+    0.4426088102953161
+   ]
+  },
+  "title": "Effect of grounding pin 4 on the three pin models (numerical only)",
+  "seconds": 18.131138299999293,
+  "lines": [
+   "pin 2 removed: 0.569857 -> 0.386502 with pin 4 grounded (-32.2 %)",
+   "pin 2 thin   : 0.585100 -> 0.401138 with pin 4 grounded (-31.4 %)",
+   "pin 2 wall   : 0.639685 -> 0.442609 with pin 4 grounded (-30.8 %)"
+  ]
+ },
+ "A14_pads_under_body": {
+  "numeric": 0.9237371473501668,
+  "closed": null,
+  "table": {
+   "0.03": 0.9237371473501668,
+   "0.01": 1.4089356366800878
+  },
+  "unit": "fF",
+  "title": "Pads reaching under the body across the stand-off (approximation 14)",
+  "seconds": 1.0352331000030972,
+  "lines": [
+   "t_s = 30 um: cut model 41.386 fF/mm, with the pads under the body 43.234 fF/mm; difference over W = 0.5 mm: +0.92 fF",
+   "t_s = 10 um: cut model 41.386 fF/mm, with the pads under the body 44.204 fF/mm; difference over W = 0.5 mm: +1.41 fF",
+   "Table G.6 states 0.3 fF (a parallel-plate estimate) for t_s = 30 um"
+  ]
+ }
+}

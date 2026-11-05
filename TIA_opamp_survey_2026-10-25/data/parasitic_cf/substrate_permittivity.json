@@ -1,0 +1,309 @@
+[
+  {
+    "material": "RO4350B",
+    "vendor": "Rogers Corporation",
+    "document": "RO4000 Series High Frequency Circuit Materials, Data Sheet (RO4003C and RO4350B), PUB# 92-004",
+    "revision": "Revised 1592 080322, PUB# 92-004, (c) 2022 Rogers Corporation (printed on page index 3)",
+    "url": "https://www.rogerscorp.com/-/media/project/rogerscorp/documents/advanced-electronics-solutions/english/data-sheets/ro4000-laminates-ro4003c-and-ro4350b---data-sheet.pdf",
+    "page_pdf_index": 2,
+    "page_printed": "Page 3 of 4",
+    "location": "Property table, column 'Typical Value' RO4350B: rows 'Dielectric Constant, εr Process', 'Dielectric Constant, εr Design' and 'Dissipation Factor tan δ'; notes (1) and (2) and the LoPro paragraph below the table",
+    "dk_values": [
+      {"value": 3.48, "tolerance": "±0.05", "frequency_Hz": 1.0e10, "method": "IPC-TM-650 2.5.5.5 clamped stripline, 23 °C, z direction", "kind": "process"},
+      {"value": 3.33, "tolerance": "±0.05", "frequency_Hz": 1.0e10, "method": "Note (1): process Dk of 4 mil RO4350B laminates; the note states no condition of its own, and the process row it qualifies is defined at 10 GHz and 23 °C by IPC-TM-650 2.5.5.5", "kind": "process"},
+      {"value": 3.66, "tolerance": null, "frequency_Hz": [8.0e9, 4.0e10], "method": "Differential phase length method, z direction; note (2): average of several tested lots on the most common thickness(es)", "kind": "design"}
+    ],
+    "df": [
+      {"value": 0.0037, "frequency_Hz": 1.0e10, "method": "IPC-TM-650 2.5.5.5, 23 °C"},
+      {"value": 0.0031, "frequency_Hz": 2.5e9, "method": "IPC-TM-650 2.5.5.5, 23 °C"}
+    ],
+    "notes": "The column header calls all values typical, and the text below the table describes typical values as an average for the population and refers to Rogers for specification values. Thermal coefficient of εr: +50 ppm/°C from -50 °C to 150 °C (IPC-TM-650 2.5.5.5). Moisture absorption: 0.06 % (48 h immersion, 0.060 in sample, 50 °C, ASTM D570). Below the notes the page gives the LoPro resin Dk as approximately 2.4, says that the average design Dk of the table should still be used for LoPro laminates, and says that the design Dk decreases by about 0.1 as the core thickness decreases from 0.020 in to 0.004 in. The table gives Dk only at 10 GHz (process) and for 8 to 40 GHz (design); Chart 2 on page index 1 gives the frequency dependence from 1 GHz upward (next record). Local copy: appnotes/parasitic_cf/materials/substrates/rogers_ro4000_ro4003c_ro4350b_data_sheet/ro4000-laminates-ro4003c-and-ro4350b---data-sheet.pdf"
+  },
+  {
+    "material": "RO4350B (20 mil) and RO4350B LoPro (20.7 mil)",
+    "vendor": "Rogers Corporation",
+    "document": "RO4000 Series High Frequency Circuit Materials, Data Sheet (RO4003C and RO4350B), PUB# 92-004",
+    "revision": "Revised 1592 080322, PUB# 92-004, (c) 2022 Rogers Corporation (printed on page index 3)",
+    "url": "https://www.rogerscorp.com/-/media/project/rogerscorp/documents/advanced-electronics-solutions/english/data-sheets/ro4000-laminates-ro4003c-and-ro4350b---data-sheet.pdf",
+    "page_pdf_index": 1,
+    "page_printed": "Page 2 of 4",
+    "location": "Chart 2: RO4000 Series Materials Dielectric Constant vs. Frequency (subtitle: microstrip differential phase length method, Dk vs. frequency; logarithmic axis 1 to 100 GHz, data from 1 GHz to about 50 GHz)",
+    "dk_values": [
+      {"value": 3.76, "tolerance": null, "frequency_Hz": 1.0e9, "method": "20 mil RO4350B, microstrip differential phase length method; read by eye from Chart 2 (minor gridlines every 0.01, reading resolution about ±0.005)", "kind": "typical"},
+      {"value": 3.75, "tolerance": null, "frequency_Hz": 2.0e9, "method": "20 mil RO4350B, microstrip differential phase length method; read by eye from Chart 2 (reading resolution about ±0.005)", "kind": "typical"},
+      {"value": 3.73, "tolerance": null, "frequency_Hz": 1.0e10, "method": "20 mil RO4350B, microstrip differential phase length method; read by eye from Chart 2 (reading resolution about ±0.005)", "kind": "typical"},
+      {"value": 3.665, "tolerance": null, "frequency_Hz": 1.0e9, "method": "20.7 mil RO4350B LoPro, microstrip differential phase length method; read by eye from Chart 2 (reading resolution about ±0.005)", "kind": "typical"},
+      {"value": 3.64, "tolerance": null, "frequency_Hz": 1.0e10, "method": "20.7 mil RO4350B LoPro, microstrip differential phase length method; read by eye from Chart 2 (reading resolution about ±0.005)", "kind": "typical"}
+    ],
+    "df": null,
+    "notes": "The curves start at 1 GHz; nothing below 1 GHz is plotted. The 20 mil RO4350B curve falls to about 3.70 near 50 GHz. At 10 GHz the 20 mil curve (about 3.73) lies above both the process Dk (3.48) and the design Dk (3.66) in the table on page index 2, while the LoPro curve (about 3.64) is close to the design Dk; the data sheet does not reconcile these numbers beyond describing the design Dk as an average that depends on core thickness. Chart 1 on the same page plots Dk normalized to its 25 °C value against temperature from -50 °C to 150 °C. Local copy: appnotes/parasitic_cf/materials/substrates/rogers_ro4000_ro4003c_ro4350b_data_sheet/ro4000-laminates-ro4003c-and-ro4350b---data-sheet.pdf"
+  },
+  {
+    "material": "RO4003C",
+    "vendor": "Rogers Corporation",
+    "document": "RO4000 Series High Frequency Circuit Materials, Data Sheet (RO4003C and RO4350B), PUB# 92-004",
+    "revision": "Revised 1592 080322, PUB# 92-004, (c) 2022 Rogers Corporation (printed on page index 3)",
+    "url": "https://www.rogerscorp.com/-/media/project/rogerscorp/documents/advanced-electronics-solutions/english/data-sheets/ro4000-laminates-ro4003c-and-ro4350b---data-sheet.pdf",
+    "page_pdf_index": 2,
+    "page_printed": "Page 3 of 4",
+    "location": "Property table, column 'Typical Value' RO4003C: rows 'Dielectric Constant, εr Process', 'Dielectric Constant, εr Design' and 'Dissipation Factor tan δ'; note (2) and the LoPro paragraph below the table",
+    "dk_values": [
+      {"value": 3.38, "tolerance": "±0.05", "frequency_Hz": 1.0e10, "method": "IPC-TM-650 2.5.5.5 clamped stripline, 23 °C, z direction", "kind": "process"},
+      {"value": 3.55, "tolerance": null, "frequency_Hz": [8.0e9, 4.0e10], "method": "Differential phase length method, z direction; note (2): average of several tested lots on the most common thickness(es)", "kind": "design"}
+    ],
+    "df": [
+      {"value": 0.0027, "frequency_Hz": 1.0e10, "method": "IPC-TM-650 2.5.5.5, 23 °C"},
+      {"value": 0.0021, "frequency_Hz": 2.5e9, "method": "IPC-TM-650 2.5.5.5, 23 °C"}
+    ],
+    "notes": "Typical values as described for RO4350B. Thermal coefficient of εr: +40 ppm/°C from -50 °C to 150 °C (IPC-TM-650 2.5.5.5). Moisture absorption: 0.06 % (48 h immersion, 0.060 in sample, 50 °C, ASTM D570). Page index 0 (printed Page 1 of 4) states that RO4003C is offered with 1080 and 1674 glass fabric styles and that all configurations meet the same laminate electrical specification. The LoPro paragraph below the table (LoPro resin Dk about 2.4; design Dk about 0.1 lower for a 0.004 in core than for a 0.020 in core) applies to both materials. Chart 2 on page index 1 gives the frequency dependence from 1 GHz upward (next record). Local copy: appnotes/parasitic_cf/materials/substrates/rogers_ro4000_ro4003c_ro4350b_data_sheet/ro4000-laminates-ro4003c-and-ro4350b---data-sheet.pdf"
+  },
+  {
+    "material": "RO4003C (20 mil) and RO4003C LoPro (20.7 mil)",
+    "vendor": "Rogers Corporation",
+    "document": "RO4000 Series High Frequency Circuit Materials, Data Sheet (RO4003C and RO4350B), PUB# 92-004",
+    "revision": "Revised 1592 080322, PUB# 92-004, (c) 2022 Rogers Corporation (printed on page index 3)",
+    "url": "https://www.rogerscorp.com/-/media/project/rogerscorp/documents/advanced-electronics-solutions/english/data-sheets/ro4000-laminates-ro4003c-and-ro4350b---data-sheet.pdf",
+    "page_pdf_index": 1,
+    "page_printed": "Page 2 of 4",
+    "location": "Chart 2: RO4000 Series Materials Dielectric Constant vs. Frequency (subtitle: microstrip differential phase length method, Dk vs. frequency; logarithmic axis 1 to 100 GHz, data from 1 GHz to about 50 GHz)",
+    "dk_values": [
+      {"value": 3.69, "tolerance": null, "frequency_Hz": 1.0e9, "method": "20 mil RO4003C, microstrip differential phase length method; read by eye from Chart 2 (minor gridlines every 0.01, reading resolution about ±0.005)", "kind": "typical"},
+      {"value": 3.68, "tolerance": null, "frequency_Hz": 2.0e9, "method": "20 mil RO4003C, microstrip differential phase length method; read by eye from Chart 2 (reading resolution about ±0.005)", "kind": "typical"},
+      {"value": 3.65, "tolerance": null, "frequency_Hz": 1.0e10, "method": "20 mil RO4003C, microstrip differential phase length method; read by eye from Chart 2 (reading resolution about ±0.005)", "kind": "typical"},
+      {"value": 3.56, "tolerance": null, "frequency_Hz": 1.0e9, "method": "20.7 mil RO4003C LoPro, microstrip differential phase length method; read by eye from Chart 2 (reading resolution about ±0.005)", "kind": "typical"},
+      {"value": 3.525, "tolerance": null, "frequency_Hz": 1.0e10, "method": "20.7 mil RO4003C LoPro, microstrip differential phase length method; read by eye from Chart 2 (reading resolution about ±0.005)", "kind": "typical"}
+    ],
+    "df": null,
+    "notes": "The curves start at 1 GHz; nothing below 1 GHz is plotted. The 20 mil RO4003C curve falls to about 3.62 near 50 GHz. At 10 GHz the 20 mil curve (about 3.65) lies above both the process Dk (3.38) and the design Dk (3.55) in the table on page index 2, while the LoPro curve (about 3.52 to 3.53) is close to the design Dk. Local copy: appnotes/parasitic_cf/materials/substrates/rogers_ro4000_ro4003c_ro4350b_data_sheet/ro4000-laminates-ro4003c-and-ro4350b---data-sheet.pdf"
+  },
+  {
+    "material": "RO3003",
+    "vendor": "Rogers Corporation",
+    "document": "RO3000 Series Circuit Materials: RO3003, RO3006, RO3010 and RO3035 High Frequency Laminates, Datasheet, Publication #92-130",
+    "revision": "Revised 1687 013024, Publication #92-130, (c) 2024 Rogers Corporation (printed on page index 3)",
+    "url": "https://www.rogerscorp.com/-/media/project/rogerscorp/documents/advanced-electronics-solutions/english/data-sheets/ro3000-laminate-data-sheet-ro3003----ro3006----ro3010----ro3035.pdf",
+    "page_pdf_index": 1,
+    "page_printed": "2",
+    "location": "Standard Properties Table, Electrical Properties, column RO3003 (typical value): rows 'Dielectric Constant (process)', 'Dielectric Constant (design)' and 'Dissapation Factor' (spelled so in the document); footnotes 1 and 2",
+    "dk_values": [
+      {"value": 3.00, "tolerance": "±0.04", "frequency_Hz": 1.0e10, "method": "IPC TM-650 2.5.5.5, 23 °C", "kind": "process"},
+      {"value": 3.00, "tolerance": null, "frequency_Hz": [8.0e9, 4.0e10], "method": "Differential phase length; footnote 2: average of several tested lots on the most common thickness(es)", "kind": "design"}
+    ],
+    "df": [
+      {"value": 0.0010, "frequency_Hz": 1.0e10, "method": "IPC TM-650 2.5.5.5, 23 °C"}
+    ],
+    "notes": "Thermal coefficient of dielectric constant: -3 ppm/°C from -50 °C to 150 °C at 10 GHz (IPC TM-650 2.5.5.5). Moisture absorption: 0.04 % (D48/50, IPC TM-650 2.6.2.1). Footnote 1: typical values are an average for the population; specification values are available from Rogers. No absolute Dk is given below 10 GHz; Chart 3 on page index 2 gives the normalized frequency dependence from 1 GHz upward (next record). Local copy: appnotes/parasitic_cf/materials/substrates/rogers_ro3000_data_sheet/ro3000-laminate-data-sheet-ro3003----ro3006----ro3010----ro3035.pdf"
+  },
+  {
+    "material": "RO3003 (laminates about 20 mil thick)",
+    "vendor": "Rogers Corporation",
+    "document": "RO3000 Series Circuit Materials: RO3003, RO3006, RO3010 and RO3035 High Frequency Laminates, Datasheet, Publication #92-130",
+    "revision": "Revised 1687 013024, Publication #92-130, (c) 2024 Rogers Corporation (printed on page index 3)",
+    "url": "https://www.rogerscorp.com/-/media/project/rogerscorp/documents/advanced-electronics-solutions/english/data-sheets/ro3000-laminate-data-sheet-ro3003----ro3006----ro3010----ro3035.pdf",
+    "page_pdf_index": 2,
+    "page_printed": "3",
+    "location": "Chart 3: Normalized Dk vs. Frequency using microstrip differential phase length method, 50 ohm microstrip circuits based on ~20 mil thick laminates (logarithmic axis 1 to 50 GHz)",
+    "dk_values": [],
+    "df": null,
+    "notes": "The chart plots normalized Dk, not Dk, and does not state the frequency at which the curves are normalized; all curves cross 1.00 near 20 to 25 GHz. Read by eye (major gridlines every 0.01, reading resolution about ±0.002), the RO3003 curve is about 1.010 at 1 GHz, 1.005 at 2 GHz and 1.001 at 10 GHz, so the chart puts the RO3003 microstrip Dk at 1 GHz about 1 % above its 10 GHz value. The 'High Performance FR-4' curve on the same chart is about 1.041 at 1 GHz and 1.011 at 10 GHz. Nothing below 1 GHz is plotted. Chart 1 on the same page plots the normalized RO3003 and RO3035 dielectric constant against temperature from -50 °C to 150 °C. Local copy: appnotes/parasitic_cf/materials/substrates/rogers_ro3000_data_sheet/ro3000-laminate-data-sheet-ro3003----ro3006----ro3010----ro3035.pdf"
+  },
+  {
+    "material": "RT/duroid 5880",
+    "vendor": "Rogers Corporation",
+    "document": "RT/duroid 5870/5880 High Frequency Laminates, Data Sheet, Publication #92-101",
+    "revision": "Revised 1603 080822, Publication #92-101, (c) 2022 Rogers Corporation (printed on page index 1)",
+    "url": "https://www.rogerscorp.com/-/media/project/rogerscorp/documents/advanced-electronics-solutions/english/data-sheets/rt-duroid-5870---5880-data-sheet.pdf",
+    "page_pdf_index": 1,
+    "page_printed": "Page 2 of 2",
+    "location": "Property table (typical values), column RT/duroid 5880: rows '[1] Dielectric Constant, εr Process', '[4] Dielectric Constant, εr Design' and 'Dissipation Factor, tan δ'; footnotes [1], [2] and [4]",
+    "dk_values": [
+      {"value": 2.20, "tolerance": null, "frequency_Hz": 1.0e6, "method": "IPC-TM-650 2.5.5.3, condition C24/23/50, z direction (first line of the process row)", "kind": "process"},
+      {"value": 2.20, "tolerance": "±0.02 (marked 'spec.')", "frequency_Hz": 1.0e10, "method": "Printed as 'IPC-TM 2.5.5.5'; footnote [1]: IPC-TM-650 method 2.5.5.5 at about 10 GHz and 23 °C with 1 oz electrodeposited copper foil; condition C24/23/50, z direction", "kind": "process"},
+      {"value": 2.20, "tolerance": null, "frequency_Hz": [8.0e9, 4.0e10], "method": "Differential Phase Length Method, z direction; footnote [4]: average of several tested lots on the most common thickness(es)", "kind": "design"}
+    ],
+    "df": [
+      {"value": 0.0004, "frequency_Hz": 1.0e6, "method": "IPC-TM-650 2.5.5.3, C24/23/50"},
+      {"value": 0.0009, "frequency_Hz": 1.0e10, "method": "IPC-TM-650 2.5.5.5, C24/23/50"}
+    ],
+    "notes": "Thermal coefficient of εr: -125 ppm/°C from -50 °C to 150 °C (IPC-TM-650 2.5.5.5). Moisture absorption: 0.02 % (0.062 in sample, D48/50, ASTM D570). Footnote [1] warns that the IPC-TM-650 2.5.5.5 values used for quality acceptance may not be right for design work, especially microstrip, and recommends verifying prototype boards; footnote [2] says that typical values should not be used as specification limits except where noted. The same table gives RT/duroid 5870 a process Dk of 2.33 at 1 MHz and 2.33 ± 0.02 (spec.) at 10 GHz and a design Dk of 2.33. The data sheet has no Dk-versus-frequency chart. Local copy: appnotes/parasitic_cf/materials/substrates/rogers_rt_duroid_5870_5880_data_sheet/rt-duroid-5870---5880-data-sheet.pdf"
+  },
+  {
+    "material": "MEGTRON 6 laminate R-5775 (sample 29.5 mil = 0.750 mm, Core Type 30)",
+    "vendor": "Panasonic Industry",
+    "document": "MEGTRON 6 Data Sheet: Laminate R-5775, Prepreg R-5670 (Ultra-low transmission loss, highly heat resistant multi-layer circuit board materials)",
+    "revision": "Jun. 2026, No. 260630 (cover, page index 0; 'No.; 260630' on every table page)",
+    "url": "https://api.pim.na.industrial.panasonic.com/file_stream/main/fileversion/294878",
+    "page_pdf_index": 1,
+    "page_printed": "1",
+    "location": "Specification / Laminate R-5775: ELECTRICAL rows 'Dielectric Constant (Dk)' at 1 GHz and 13 GHz and 'Dissipation Factor (Df)' at 1 GHz and 13 GHz; sample thickness and Note 1 below the table",
+    "dk_values": [
+      {"value": 3.71, "tolerance": null, "frequency_Hz": 1.0e9, "method": "IPC TM-650 2.5.5.9, condition C-24/23/50", "kind": "typical"},
+      {"value": 3.62, "tolerance": null, "frequency_Hz": 1.3e10, "method": "Note 1: balanced-type circular disk resonance method, IEC 63185 (2020); condition C-24/23/50", "kind": "typical"}
+    ],
+    "df": [
+      {"value": 0.002, "frequency_Hz": 1.0e9, "method": "IPC TM-650 2.5.5.9, C-24/23/50"},
+      {"value": 0.0046, "frequency_Hz": 1.3e10, "method": "IEC 63185 (2020), C-24/23/50"}
+    ],
+    "notes": "Panasonic states under the table that the values are typical reference values and are not guaranteed. Water absorption: 0.14 % (IPC TM-650 2.6.2.1, D-24/23). The Core Type 30 construction appears in the R-5775(K) and R-5775(G) tables (page indices 2 and 6) as 2116 glass, 6 ply, 54 % resin, with the same 3.71 at 1 GHz. The cover (page index 0) says that letters in parentheses at the end of a part number are internal identification codes that are not part of the UL-registered part number. The document is listed as 'Panasonic R-5775/R-5670 Datasheet (G/K)' on the Panasonic Industry North America MEGTRON 6 page, https://na.industrial.panasonic.com/products/electronic-materials/circuit-board-materials/lineup/megtron-series/series/127603. Local copy: appnotes/parasitic_cf/materials/substrates/panasonic_megtron6_r5775_r5670_data_sheet_260630/Panasonic_R-5775_R-5670_data_sheet_No260630_Jun2026.pdf"
+  },
+  {
+    "material": "MEGTRON 6 laminate R-5775(K)",
+    "vendor": "Panasonic Industry",
+    "document": "MEGTRON 6 Data Sheet: Laminate R-5775, Prepreg R-5670 (Ultra-low transmission loss, highly heat resistant multi-layer circuit board materials)",
+    "revision": "Jun. 2026, No. 260630",
+    "url": "https://api.pim.na.industrial.panasonic.com/file_stream/main/fileversion/294878",
+    "page_pdf_index": 2,
+    "page_printed": "2",
+    "location": "Specification / Laminate R-5775(K): typical Dk by core type, actual thickness, cloth style, ply and typical resin content at 1, 2, 4, 6, 8, 10, 13, 24, 35, 46 and 56 GHz; methods in the page header: 1 GHz IPC TM650-2.5.5.9, 2 to 10 GHz IPC TM650-2.5.5.5, 13 to 56 GHz balanced-type circular disk resonance method (IEC 63185 (2020))",
+    "dk_values": [
+      {"value": 3.71, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 54 % (cloth 3313 or 2116; core types 4 to 30, 0.100 to 0.750 mm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.61, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 54 % (same constructions); IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.65, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 57 % (cloth 1080 or 1078; core types 2.6 and 5, 0.065 to 0.130 mm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.55, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 57 % (same constructions); IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.49, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 63 % (cloth 1078 or 1080; core types 3 and 6, 0.075 to 0.150 mm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.39, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 63 % (same constructions); IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.46, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 65 % (cloth 1035; core types 2 and 4, 0.050 and 0.100 mm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.37, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 65 % (same constructions); IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.41, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 68 % (cloth 1078; core types 3.5 and 7, 0.090 and 0.178 mm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.32, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 68 % (same constructions); IPC TM650-2.5.5.5", "kind": "typical"}
+    ],
+    "df": null,
+    "notes": "Df is in a separate table on page index 3 (printed 3): 0.002 at 1 GHz and 0.004 at 10 GHz for every construction, 0.0043 to 0.0046 at 13 GHz. Within one resin content the Dk does not depend on cloth style or thickness. In every row the 1 GHz value is 0.07 above the 2 GHz value, while the change from 2 GHz to 10 GHz is 0.02 to 0.03; the 1 GHz column and the 2 to 10 GHz columns use different methods, and the table does not separate the change of method from the frequency dependence. Typical values, not guaranteed (note under the table). Local copy: appnotes/parasitic_cf/materials/substrates/panasonic_megtron6_r5775_r5670_data_sheet_260630/Panasonic_R-5775_R-5670_data_sheet_No260630_Jun2026.pdf"
+  },
+  {
+    "material": "MEGTRON 6 prepreg R-5670(K)",
+    "vendor": "Panasonic Industry",
+    "document": "MEGTRON 6 Data Sheet: Laminate R-5775, Prepreg R-5670 (Ultra-low transmission loss, highly heat resistant multi-layer circuit board materials)",
+    "revision": "Jun. 2026, No. 260630",
+    "url": "https://api.pim.na.industrial.panasonic.com/file_stream/main/fileversion/294878",
+    "page_pdf_index": 4,
+    "page_printed": "4",
+    "location": "Specification / Prepreg R-5670(K): typical Dk by core style, resin content and typical thickness at 1 to 56 GHz; methods in the page header as for the laminate (1 GHz IPC TM650-2.5.5.9, 2 to 10 GHz IPC TM650-2.5.5.5, 13 to 56 GHz IEC 63185 (2020))",
+    "dk_values": [
+      {"value": 3.71, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 54 % (3313, 98 µm; 2116, 125 µm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.61, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 54 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.67, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 56 % (2116, 132 µm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.57, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 56 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.65, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 57 % (3313, 106 µm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.55, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 57 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.47, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 64 % (1080, 76 µm; 1078, 77 µm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.38, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 64 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.41, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 68 % (1080, 87 µm; 1078, 89 µm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.32, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 68 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.35, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 70 % (1035, 60 µm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.23, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 70 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.31, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 72 % (1078, 104 µm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.22, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 72 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.29, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 73 % (1035, 68 µm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.20, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 73 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.28, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 75 % (1027, 49 µm; 1035, 74 µm; 1078, 118 µm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.19, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 75 %; IPC TM650-2.5.5.5", "kind": "typical"}
+    ],
+    "df": null,
+    "notes": "Df is in a separate table on page index 5 (printed 5): 0.002 at 1 GHz and 0.004 at 10 GHz for every construction. The step from 1 GHz to 2 GHz is 0.07 in every row except the 70 % row (0.10). Typical values, not guaranteed (note under the table). Local copy: appnotes/parasitic_cf/materials/substrates/panasonic_megtron6_r5775_r5670_data_sheet_260630/Panasonic_R-5775_R-5670_data_sheet_No260630_Jun2026.pdf"
+  },
+  {
+    "material": "MEGTRON 6 laminate R-5775(G)",
+    "vendor": "Panasonic Industry",
+    "document": "MEGTRON 6 Data Sheet: Laminate R-5775, Prepreg R-5670 (Ultra-low transmission loss, highly heat resistant multi-layer circuit board materials)",
+    "revision": "Jun. 2026, No. 260630",
+    "url": "https://api.pim.na.industrial.panasonic.com/file_stream/main/fileversion/294878",
+    "page_pdf_index": 6,
+    "page_printed": "6",
+    "location": "Specification / Laminate R-5775(G): typical Dk by core type, actual thickness, cloth style, ply and typical resin content at 1 to 56 GHz; methods in the page header as for R-5775(K)",
+    "dk_values": [
+      {"value": 4.07, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 42 % (cloth 7628; core types 22, 29 and 37, 0.555, 0.740 and 0.925 mm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.95, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 42 % (same constructions); IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.71, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 54 % (cloth 3313 or 2116; core types 4.0 to 30); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.61, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 54 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.65, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 57 % (cloth 1080 or 1078); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.55, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 57 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.49, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 63 % (cloth 1078 or 1080); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.39, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 63 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.47, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 64 % (cloth 1067; core type 2.0, 0.050 mm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.38, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 64 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.46, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 65 % (cloth 1035); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.37, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 65 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.41, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 68 % (cloth 1078); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.32, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 68 %; IPC TM650-2.5.5.5", "kind": "typical"}
+    ],
+    "df": null,
+    "notes": "Df is in a separate table on page index 7 (printed 7): 0.002 at 1 GHz and 0.004 at 10 GHz for every construction, 0.0043 to 0.0049 at 13 GHz. Constructions shared with R-5775(K) carry identical values; the G table adds the 1067 and 7628 rows. The 1 GHz to 2 GHz step is 0.07 in every row. Typical values, not guaranteed (note under the table). Local copy: appnotes/parasitic_cf/materials/substrates/panasonic_megtron6_r5775_r5670_data_sheet_260630/Panasonic_R-5775_R-5670_data_sheet_No260630_Jun2026.pdf"
+  },
+  {
+    "material": "MEGTRON 6 prepreg R-5670(G)",
+    "vendor": "Panasonic Industry",
+    "document": "MEGTRON 6 Data Sheet: Laminate R-5775, Prepreg R-5670 (Ultra-low transmission loss, highly heat resistant multi-layer circuit board materials)",
+    "revision": "Jun. 2026, No. 260630",
+    "url": "https://api.pim.na.industrial.panasonic.com/file_stream/main/fileversion/294878",
+    "page_pdf_index": 8,
+    "page_printed": "8",
+    "location": "Specification / Prepreg R-5670(G): typical Dk by core style, resin content and typical thickness at 1 to 56 GHz; methods in the page header as for the laminate",
+    "dk_values": [
+      {"value": 3.71, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 54 % (3313, 98 µm; 2116, 125 µm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.61, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 54 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.67, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 56 % (2116, 132 µm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.57, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 56 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.65, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 57 % (3313, 106 µm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.55, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 57 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.47, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 64 % (1080, 76 µm; 1078, 77 µm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.38, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 64 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.41, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 68 % (1080, 87 µm; 1078, 89 µm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.32, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 68 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.38, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 69 % (1067, 59 µm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.27, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 69 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.35, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 70 % (1035, 60 µm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.23, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 70 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.31, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 72 % (1067, 67 µm; 1078, 104 µm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.22, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 72 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.29, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 73 % (1035, 68 µm) and 74 % (1067, 72 µm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.20, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 73 % and 74 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.28, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 75 % (1027, 49 µm; 1035, 74 µm; 1078, 118 µm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.19, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 75 %; IPC TM650-2.5.5.5", "kind": "typical"},
+      {"value": 3.25, "tolerance": null, "frequency_Hz": 1.0e9, "method": "Resin content 77 % (1035, 79 µm); IPC TM650-2.5.5.9", "kind": "typical"},
+      {"value": 3.17, "tolerance": null, "frequency_Hz": 1.0e10, "method": "Resin content 77 %; IPC TM650-2.5.5.5", "kind": "typical"}
+    ],
+    "df": null,
+    "notes": "Df is in a separate table on page index 9 (printed 9): 0.002 at 1 GHz and 0.004 at 10 GHz for every construction. Constructions shared with R-5670(K) carry identical values; the G table adds the 1067 rows and the 77 % 1035 row. The step from 1 GHz to 2 GHz is 0.06 to 0.10. Typical values, not guaranteed (note under the table). Local copy: appnotes/parasitic_cf/materials/substrates/panasonic_megtron6_r5775_r5670_data_sheet_260630/Panasonic_R-5775_R-5670_data_sheet_No260630_Jun2026.pdf"
+  },
+  {
+    "material": "Pyralux AP, product AP9121 (35 µm copper on a 50 µm all-polyimide dielectric)",
+    "vendor": "DuPont (Pyralux); the data sheet is served from the Qnity Electronics content hub",
+    "document": "DuPont Pyralux AP All-Polyimide Double-Sided Copper-Clad Laminate, Flexible Circuit Materials (data sheet), EI-10124",
+    "revision": "EI-10124 (2/25), Copyright (c) 2025 DuPont de Nemours Inc. (printed on page index 1)",
+    "url": "https://ekce-p-001.sitecorecontenthub.cloud/api/public/content/06a33e84ff634a258c974036b01b4c8c?v=cd61a673",
+    "page_pdf_index": 1,
+    "page_printed": null,
+    "location": "Table 3 - DuPont Pyralux AP Double-sided Copper-clad Laminate Properties, column 'AP9121 Typical Value': rows 'Dielectric Constant (Dk)' and 'Loss Tangent (Df)'",
+    "dk_values": [
+      {"value": 3.4, "tolerance": null, "frequency_Hz": 1.0e6, "method": "IPC-TM-650 2.5.5.3", "kind": "typical"},
+      {"value": 3.2, "tolerance": null, "frequency_Hz": 1.0e10, "method": "ASTM D2520", "kind": "typical"}
+    ],
+    "df": [
+      {"value": 0.002, "frequency_Hz": 1.0e6, "method": "IPC-TM-650 2.5.5.3"},
+      {"value": 0.003, "frequency_Hz": 1.0e10, "method": "ASTM D2520"}
+    ],
+    "notes": "AP9121 is 35 µm (1.0 oz/ft2) copper on a 50 µm (2.0 mil) dielectric (Table 2, page index 0). The note under Table 3 says that the values are typical for the listed product and that performance can vary with construction and processing. Moisture absorption: 0.8 % (IPC-TM-650 2.6.2). The document has no chart and no Dk value between 1 MHz and 10 GHz, and no printed page numbers. The file is the one listed as the Pyralux AP technical data sheet on https://www.qnityelectronics.com/products/pyralux-ap-all-polyimide-double-sided-copper-clad-laminate, to which https://www.dupont.com/products/pyralux-ap.html now redirects. Local copy: appnotes/parasitic_cf/materials/substrates/qnity_dupont_pyralux_ap_data_sheet/Pyralux_AP_All-Polyimide_Double-Sided_Copper-Clad_Laminate.pdf"
+  },
+  {
+    "material": "I-Tera MT40",
+    "vendor": "Isola Group",
+    "document": "I-Tera MT40 Very Low-Loss Laminate and Prepreg (data sheet)",
+    "revision": "Revision F, last updated December 08, 2025 (page footer); the revision history on page index 2 dates revision F to 3/24",
+    "url": "https://www.isola-group.com/wp-content/uploads/data-sheets/i-tera-mt40.pdf",
+    "page_pdf_index": 1,
+    "page_printed": null,
+    "location": "Typical Values Table: rows 'Dk, Permittivity' (A. @ 2 GHz, B. @ 5 GHz, C. @ 10 GHz) and 'Df, Loss Tangent' (same frequencies)",
+    "dk_values": [
+      {"value": 3.45, "tolerance": null, "frequency_Hz": 2.0e9, "method": "IPC-TM-650 2.5.5.5 (one value printed for 2, 5 and 10 GHz)", "kind": "typical"},
+      {"value": 3.45, "tolerance": null, "frequency_Hz": 5.0e9, "method": "IPC-TM-650 2.5.5.5 (one value printed for 2, 5 and 10 GHz)", "kind": "typical"},
+      {"value": 3.45, "tolerance": null, "frequency_Hz": 1.0e10, "method": "IPC-TM-650 2.5.5.5 (one value printed for 2, 5 and 10 GHz)", "kind": "typical"}
+    ],
+    "df": [
+      {"value": 0.0031, "frequency_Hz": 2.0e9, "method": "Bereskin Stripline (one value printed for 2, 5 and 10 GHz)"},
+      {"value": 0.0031, "frequency_Hz": 5.0e9, "method": "Bereskin Stripline (one value printed for 2, 5 and 10 GHz)"},
+      {"value": 0.0031, "frequency_Hz": 1.0e10, "method": "Bereskin Stripline (one value printed for 2, 5 and 10 GHz)"}
+    ],
+    "notes": "No tolerance, resin content or construction is attached to the values. The front page (index 0) repeats Dk 3.45 and Df 0.0031 in its header and says that the Dk is stable from -55 °C to +125 °C up to W-band frequencies. Moisture absorption: 0.1 % (IPC-TM-650 2.6.2.1A). The data sheet gives nothing below 2 GHz and has no chart, and it has no printed page numbers. The page footer gives https://www.isola-group.com/pcb-laminates-prepreg/i-tera-mt40/ as the product page. Local copy: appnotes/parasitic_cf/materials/substrates/isola_i-tera_mt40_data_sheet/i-tera-mt40.pdf"
+  }
+]

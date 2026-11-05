@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pcbcap"
+version = "1.0.0"
+description = "Finite-element electrostatics for the parasitic capacitances of printed-circuit layouts"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "matplotlib>=3.7",
+    "gmsh>=4.11",
+    "scikit-fem>=10",
+    "pyamg>=5",
+]
+
+[project.optional-dependencies]
+polite = ["psutil"]
+
+[tool.setuptools]
+packages = ["pcbcap"]

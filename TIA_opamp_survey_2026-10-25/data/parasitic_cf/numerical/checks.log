@@ -1,0 +1,92 @@
+=== strips_free_space (23:02:49)
+[strips_free_space] Coplanar strips in free space (2-D)
+  exercises: zero-thickness conductors, edge singularities, open enclosure, mirror shortcut
+  mesh 23339 nodes, 46418 elements, h_edge 5.00e-04 mm; 93095 unknowns (P2); method mirror
+  open box at 200 mm: truncation estimated at about -5e-6 relative (line dipole in a zero-flux circle; see the comment in checks.py)
+  computed   13.84408403 fF/mm
+  reference  13.84265425 fF/mm
+  rel. error +1.033e-04   tolerance 3e-04   -> PASS
+  time 7.9 s
+=== strips_on_interface (23:02:58)
+[strips_on_interface] Coplanar strips on an air/dielectric interface (2-D)
+  exercises: dielectric interface through the conductors' plane
+  mesh 23423 nodes, 46586 elements, h_edge 5.00e-04 mm; 93431 unknowns (P2); method mirror
+  computed   35.99464314 fF/mm
+  reference  35.99090105 fF/mm
+  rel. error +1.040e-04   tolerance 3e-04   -> PASS
+  time 7.2 s
+=== mirror_vs_full (23:03:06)
+[mirror_vs_full] Mirror shortcut against the full-domain solve (2-D)
+  exercises: the even/odd decomposition of capacitance.py, Eq. (6), against Eq. (4)
+  half domain: mesh 23337 nodes, 46422 elements, h_edge 5.00e-04 mm; 93095 unknowns (P2); method mirror
+  full domain: mesh 46490 nodes, 92898 elements, h_edge 5.00e-04 mm; 185877 unknowns (P2); method direct
+  the two meshes differ, so the difference is bounded by their discretisation errors
+  computed   35.99310129 fF/mm
+  reference  35.99285869 fF/mm
+  rel. error +6.740e-06   tolerance 2e-04   -> PASS
+  time 17.6 s
+=== layered_plates_2d (23:03:25)
+[layered_plates_2d] Plates with two dielectric layers in series (2-D)
+  exercises: interface condition (continuous normal flux), insulating side walls
+  mesh 1123 nodes, 2094 elements, h_edge 1.00e-02 mm; 4339 unknowns (P2); method direct
+  the exact potential is piecewise linear, so the elements contain it
+  computed   25.29767947 fF/mm
+  reference  25.29767947 fF/mm
+  rel. error +1.221e-14   tolerance 1e-09   -> PASS
+  time 0.2 s
+=== layered_plates_3d (23:03:27)
+[layered_plates_3d] Plates with two dielectric layers in series (3-D)
+  exercises: 3-D mesher, sheets on enclosure faces, dielectric boxes
+  mesh 756 nodes, 2932 elements, h_edge 2.00e-01 mm; 756 unknowns (P1); method direct
+  computed   50.59535893 fF
+  reference  50.59535893 fF
+  rel. error -3.331e-16   tolerance 1e-09   -> PASS
+  time 0.2 s
+=== floating_slab (23:03:28)
+[floating_slab] Floating conductor slab between plates (2-D)
+  exercises: floating conductor: one shared unknown, zero net charge (fem.py)
+  mesh 1167 nodes, 2180 elements, h_edge 2.00e-02 mm; 4513 unknowns (P2); method direct
+  computed   22.13546953 fF/mm
+  reference  22.13546953 fF/mm
+  rel. error +4.885e-15   tolerance 1e-09   -> PASS
+  time 0.3 s
+=== film_linear_block (23:03:29)
+[film_linear_block] Block with the film's linear potential on top (2-D)
+  exercises: prescribed film potential (geometry.LinearProfile), mirror shortcut with a film
+  mesh 199 nodes, 342 elements, h_edge 1.00e-02 mm; 739 unknowns (P2); method mirror
+  this is the upper bound (G.28) of the companion note, exact here
+  computed   50.09994604 fF/mm
+  reference  50.09994604 fF/mm
+  rel. error -3.442e-15   tolerance 1e-09   -> PASS
+  time 0.2 s
+=== extrusion_3d_vs_2d (23:03:31)
+[extrusion_3d_vs_2d] 3-D model uniform along y against the 2-D model
+  exercises: 3-D mesher, quarter-domain shortcut (x and y mirrors), convergence and Richardson extrapolation (study.py) as used for every 3-D result, against the 2-D solver
+  3-D, refine 4 (h_edge 0.0300 mm): 13.890968 fF/mm, rel. error +8.623e-03; mesh 2996 nodes, 15084 elements, h_edge 3.00e-02 mm; 22109 unknowns (P2); method mirror
+  3-D, refine 2 (h_edge 0.0150 mm): 13.834043 fF/mm, rel. error +4.490e-03; mesh 8138 nodes, 42708 elements, h_edge 1.50e-02 mm; 61288 unknowns (P2); method mirror
+  3-D, refine 1 (h_edge 0.0075 mm): 13.802645 fF/mm, rel. error +2.210e-03; mesh 30841 nodes, 168830 elements, h_edge 7.50e-03 mm; 237694 unknowns (P2); method mirror
+  Richardson: observed order 0.858, extrapolated 13.764025 fF/mm, reported error 0.038620 fF/mm (2.80e-03 relative, used as the tolerance)
+  2-D: mesh 23367 nodes, 46521 elements, h_edge 1.00e-04 mm; 93254 unknowns (P2); method mirror
+  computed   13.76402486 fF/mm
+  reference  13.77221175 fF/mm
+  rel. error -5.945e-04   tolerance 3e-03   -> PASS
+  time 36.1 s
+=== symmetry_declaration (23:04:08)
+[symmetry_declaration] A false symmetry declaration is rejected
+  exercises: Layout.check_symmetry, which guards the halving and quartering of the domain
+  rejected with: layout is not symmetric under x -> -x; e.g. no item matches [('Rect', (('x', -0.2, -0.1), ('z', 0.5, 0.6)), ('diel', 'lopsided', 3.0))]
+  computed   1 
+  reference  1 
+  rel. error +0.000e+00   tolerance 0e+00   -> PASS
+  time 0.0 s
+=== resistor_section_shares (23:04:09)
+[resistor_section_shares] Material shares of C_F add up (2-D section of an 0402)
+  exercises: chip-resistor builder, section y = 0, film, per-material shares (capacitance.py, section 5)
+  mesh 34027 nodes, 67775 elements, h_edge 1.50e-05 mm; 135828 unknowns (P2); method mirror
+  C_F = 70.8165 fF/mm; shares: air 5.078, alumina 43.064, board 22.675
+  C_A0 = 29.0890 fF/mm (grounded enclosure at 3 mm)
+  computed   70.81645154 fF/mm
+  reference  70.81645154 fF/mm
+  rel. error -2.761e-13   tolerance 1e-09   -> PASS
+  time 6.4 s
+=== done (23:04:16)

@@ -1,0 +1,151 @@
+=== size_0201 (23:05:24)
+[size_0201] 0201 on FR-4 (eps 4.2), alumina 9.7, film up, planes removed
+  mesh convergence, refine levels (4.0, 2.83, 2.0):
+    refine 4.000: C_F = 27.1809 fF, C_A0 = 39.7072, 74927 DOFs, 5.2 s
+    refine 2.830: C_F = 27.1172 fF, C_A0 = 39.6654, 142229 DOFs, 10.8 s
+    refine 2.000: C_F = 27.0801 fF, C_A0 = 39.6352, 285865 DOFs, 23.4 s
+  enclosure sizes (8.0, 16.0, 32.0) mm at refine 4.0:
+    enclosure margin 8 mm (R = 8.00 mm): C_F = 27.1768 fF, C_A0 = 39.7064, 74951 unknowns, 4.5 s
+    enclosure margin 16 mm (R = 16.00 mm): C_F = 27.8163 fF, C_A0 = 38.4430, 76418 unknowns, 4.7 s
+    enclosure margin 32 mm (R = 32.00 mm): C_F = 28.1371 fF, C_A0 = 37.7849, 77701 unknowns, 5.0 s
+  C_F (finest mesh, enclosure 8 mm): 27.08 fF
+  C_F extrapolated in the mesh: 27.03 fF (observed order 1.57); discretisation error estimate 0.05 fF
+  enclosure correction to infinity +1.28 fF (observed decay order 1.00)
+  best estimate C_F = 28.31 fF
+  Appendix G at the same permittivities: lower bound 25.51, central 30.16, upper estimate 31.83 fF; the field solution lies at 44 % of that bracket
+  shares at the finest mesh: air 3.44, alumina 13.00, board 10.64 fF; Appendix G terms: board 13.47-13.94, body 12.04-14.82, air 2.97-3.08 fF
+  time 54 s
+=== size_0402 (23:06:19)
+[size_0402] 0402 on FR-4 (eps 4.2), alumina 9.7, film up, planes removed
+  mesh convergence, refine levels (4.0, 2.83, 2.0):
+    refine 4.000: C_F = 40.3165 fF, C_A0 = 54.6160, 119554 DOFs, 8.3 s
+    refine 2.830: C_F = 40.2586 fF, C_A0 = 54.5789, 227660 DOFs, 17.4 s
+    refine 2.000: C_F = 40.2202 fF, C_A0 = 54.5526, 466183 DOFs, 39.2 s
+  enclosure sizes (8.0, 16.0, 32.0) mm at refine 4.0:
+    enclosure margin 8 mm (R = 8.00 mm): C_F = 40.3161 fF, C_A0 = 54.6139, 119042 unknowns, 7.7 s
+    enclosure margin 16 mm (R = 16.00 mm): C_F = 41.4885 fF, C_A0 = 52.2513, 120509 unknowns, 7.8 s
+    enclosure margin 32 mm (R = 32.00 mm): C_F = 42.0780 fF, C_A0 = 51.0443, 121730 unknowns, 8.5 s
+  C_F (finest mesh, enclosure 8 mm): 40.22 fF
+  C_F extrapolated in the mesh: 40.15 fF (observed order 1.19); discretisation error estimate 0.07 fF
+  enclosure correction to infinity +2.36 fF (observed decay order 0.99)
+  best estimate C_F = 42.50 fF
+  Appendix G at the same permittivities: lower bound 38.09, central 45.15, upper estimate 48.28 fF; the field solution lies at 43 % of that bracket
+  shares at the finest mesh: air 4.16, alumina 21.49, board 14.58 fF; Appendix G terms: board 18.00-19.10, body 20.08-25.05, air 3.94-4.12 fF
+  time 89 s
+=== size_0603 (23:07:49)
+[size_0603] 0603 on FR-4 (eps 4.2), alumina 9.7, film up, planes removed
+  mesh convergence, refine levels (4.0, 3.36, 2.83):
+    refine 4.000: C_F = 55.9003 fF, C_A0 = 86.3113, 179608 DOFs, 13.6 s
+    refine 3.360: C_F = 55.8735 fF, C_A0 = 86.2958, 243520 DOFs, 17.6 s
+    refine 2.830: C_F = 55.8505 fF, C_A0 = 86.2760, 333446 DOFs, 27.1 s
+  enclosure sizes (8.0, 16.0, 32.0) mm at refine 4.0:
+    enclosure margin 8 mm (R = 8.00 mm): C_F = 55.9016 fF, C_A0 = 86.3125, 179525 unknowns, 13.7 s
+    enclosure margin 16 mm (R = 16.00 mm): C_F = 58.6908 fF, C_A0 = 80.5387, 180649 unknowns, 13.6 s
+    enclosure margin 32 mm (R = 32.00 mm): C_F = 60.0843 fF, C_A0 = 77.7125, 181468 unknowns, 14.0 s
+  C_F (finest mesh, enclosure 8 mm): 55.85 fF
+  C_F extrapolated in the mesh: 55.70 fF (observed order 0.81); discretisation error estimate 0.15 fF
+  enclosure correction to infinity +5.57 fF (observed decay order 1.00)
+  best estimate C_F = 61.27 fF
+  Appendix G at the same permittivities: lower bound 52.87, central 64.24, upper estimate 69.03 fF; the field solution lies at 52 % of that bracket
+  shares at the finest mesh: air 4.02, alumina 27.34, board 24.49 fF; Appendix G terms: board 26.98-31.24, body 25.89-30.92, air 6.58-6.87 fF
+  time 100 s
+=== size_0805 (23:09:31)
+[size_0805] 0805 on FR-4 (eps 4.2), alumina 9.7, film up, planes removed
+  mesh convergence, refine levels (4.0, 3.36, 2.83):
+    refine 4.000: C_F = 72.9041 fF, C_A0 = 106.0734, 229304 DOFs, 20.8 s
+    refine 3.360: C_F = 72.8772 fF, C_A0 = 106.0549, 308169 DOFs, 26.8 s
+    refine 2.830: C_F = 72.8536 fF, C_A0 = 106.0354, 416161 DOFs, 49.0 s
+  enclosure sizes (8.0, 16.0, 32.0) mm at refine 4.0:
+    enclosure margin 8 mm (R = 8.00 mm): C_F = 72.9038 fF, C_A0 = 106.0728, 229465 unknowns, 31.2 s
+    enclosure margin 16 mm (R = 16.00 mm): C_F = 76.9923 fF, C_A0 = 97.4798, 230404 unknowns, 29.0 s
+    enclosure margin 32 mm (R = 32.00 mm): C_F = 79.0140 fF, C_A0 = 93.3723, 231748 unknowns, 24.5 s
+  C_F (finest mesh, enclosure 8 mm): 72.85 fF
+  C_F extrapolated in the mesh: 72.66 fF (observed order 0.66); discretisation error estimate 0.20 fF
+  enclosure correction to infinity +8.09 fF (observed decay order 1.02)
+  C_F with no ground nearby (mesh-extrapolated + enclosure correction) = 80.74 fF
+  Appendix G at the same permittivities: lower bound 71.66, central 87.91, upper estimate 95.12 fF; the field solution lies at 39 % of that bracket
+  shares at the finest mesh: air 3.78, alumina 39.53, board 29.54 fF; Appendix G terms: board 33.82-40.89, body 37.84-44.73, air 9.04-9.50 fF
+  time 182 s
+=== eps_corners_0402 (23:12:34)
+[eps_corners_0402] 0402 at the permittivity corners of Table G.3 (middle mesh, enclosure 8 mm)
+  low    : eps_pcb 3.65, eps_al 9.4: C_F = 37.68 fF (mesh at refine 2.83, enclosure 8 mm)
+  nominal: eps_pcb 4.2, eps_al 9.7: C_F = 40.26 fF (mesh at refine 2.83, enclosure 8 mm)
+  high   : eps_pcb 4.6, eps_al 10.0: C_F = 42.32 fF (mesh at refine 2.83, enclosure 8 mm)
+  time 76 s
+=== film_down_0402 (23:13:52)
+[film_down_0402] 0402 mounted upside down (film facing the board), single mesh
+  film up  : C_F = 40.26 fF, C_A0 = 54.58 fF (refine 2.83, enclosure 8 mm)
+  film down: C_F = 39.81 fF, C_A0 = 54.54 fF (refine 2.83, enclosure 8 mm)
+  difference down - up: -0.45 fF
+  time 44 s
+=== details_0402 (23:14:37)
+[details_0402] 0402: effect of each modelling detail (single mesh)
+  reference                   : C_F = 40.26 fF, C_A0 = 54.58 fF, 19 s
+  termination metal 30 um     : C_F = 40.89 fF, C_A0 = 54.59 fF, 18 s
+  side wraps                  : C_F = 41.57 fF, C_A0 = 54.62 fF, 18 s
+  stand-off 10 um             : C_F = 40.56 fF, C_A0 = 54.38 fF, 18 s
+  stand-off 50 um             : C_F = 40.37 fF, C_A0 = 54.79 fF, 18 s
+  solder fillet 1/3 of T      : C_F = 40.25 fF, C_A0 = 54.63 fF, 34 s
+  copper 18 um                : C_F = 39.63 fF, C_A0 = 54.16 fF, 21 s
+  copper 70 um                : C_F = 41.40 fF, C_A0 = 55.38 fF, 19 s
+  solder mask 20 um, eps 4.0  : C_F = 40.74 fF, C_A0 = 55.28 fF, 52 s
+  change from the reference: termination metal 30 um: +0.63, side wraps: +1.32, stand-off 10 um: +0.30, stand-off 50 um: +0.11, solder fillet 1/3 of T: -0.01, copper 18 um: -0.63, copper 70 um: +1.14, solder mask 20 um, eps 4.0: +0.48
+  time 217 s
+=== substrates_0402 (23:18:16)
+[substrates_0402] 0402: board permittivity from 1 to 4.6 (single mesh)
+  air (board removed)    eps 1.00: C_F =  29.43 fF; board share  3.16 fF; 19 s
+  RT/duroid 5880         eps 2.20: C_F =  33.38 fF; board share  7.43 fF; 20 s
+  RO3003                 eps 3.00: C_F =  36.11 fF; board share 10.30 fF; 19 s
+  I-Tera MT40            eps 3.45: C_F =  37.66 fF; board share 11.91 fF; 23 s
+  RO4350B (design)       eps 3.66: C_F =  38.38 fF; board share 12.67 fF; 32 s
+  MEGTRON 6 (1 GHz)      eps 3.71: C_F =  38.56 fF; board share 12.85 fF; 24 s
+  FR-4 nominal           eps 4.20: C_F =  40.26 fF; board share 14.62 fF; 24 s
+  FR-4 high              eps 4.60: C_F =  41.65 fF; board share 16.06 fF; 27 s
+  relative to FR-4 (4.2): 1: 0.731, 2.2: 0.829, 3: 0.897, 3.45: 0.935, 3.66: 0.953, 3.71: 0.958, 4.2: 1.000, 4.6: 1.035
+  time 188 s
+=== substrates_0805 (23:21:26)
+[substrates_0805] 0805: board permittivity from 1 to 4.6 (single mesh)
+  air (board removed)    eps 1.00: C_F =  51.28 fF; board share  6.06 fF; 29 s
+  RT/duroid 5880         eps 2.20: C_F =  59.05 fF; board share 14.81 fF; 33 s
+  RO3003                 eps 3.00: C_F =  64.50 fF; board share 20.70 fF; 37 s
+  I-Tera MT40            eps 3.45: C_F =  67.62 fF; board share 24.02 fF; 27 s
+  RO4350B (design)       eps 3.66: C_F =  69.09 fF; board share 25.57 fF; 37 s
+  MEGTRON 6 (1 GHz)      eps 3.71: C_F =  69.44 fF; board share 25.94 fF; 28 s
+  FR-4 nominal           eps 4.20: C_F =  72.88 fF; board share 29.56 fF; 32 s
+  FR-4 high              eps 4.60: C_F =  75.70 fF; board share 32.51 fF; 35 s
+  relative to FR-4 (4.2): 1: 0.704, 2.2: 0.810, 3: 0.885, 3.45: 0.928, 3.66: 0.948, 3.71: 0.953, 4.2: 1.000, 4.6: 1.039
+  time 258 s
+=== opa855_layout (23:25:45)
+[opa855_layout] 0402 beside the OPA855 pins as in Figure 43, full domain (no symmetry)
+  enclosure sizes for the whole network at refine 5.66:
+    enclosure margin 8 mm (R = 8.00 mm): C_F = 51.5351 fF, C_A0 = 108.1292, 858370 unknowns, 80.2 s
+    enclosure margin 16 mm (R = 16.00 mm): C_F = 52.4289 fF, C_A0 = 106.1081, 862324 unknowns, 100.5 s
+    enclosure margin 32 mm (R = 32.00 mm): C_F = 52.8569 fF, C_A0 = 105.1486, 865869 unknowns, 122.5 s
+  refine 6.73: resistor alone 40.32 fF, whole network 51.53 fF, added by traces, pins and package +11.21 fF; C_B0 (summing node) 127.1 fF; 831096 unknowns, 73 s
+  refine 5.66: resistor alone 40.32 fF, whole network 51.54 fF, added by traces, pins and package +11.22 fF; C_B0 (summing node) 127.1 fF; 857079 unknowns, 76 s
+  with a plane 0.2 mm below, cut out 0.5 mm around the network (refine 5.66): C_F = 44.07 fF, C_B0 = 143.6 fF
+  enclosure correction to infinity for the whole network +1.72 fF (observed decay order 1.06)
+  time 601 s
+=== opa855_plane_edge (23:35:48)
+[opa855_plane_edge] Check of the plane's coarser edge size in the OPA855 network (refine 6.73)
+  plane edge 0.04 mm at refine 1 (0.269 mm here): C_F = 44.064 fF, C_B0 = 143.58 fF, 836869 unknowns, 117 s
+  plane edge 0.02 mm at refine 1 (0.135 mm here): C_F = 44.088 fF, C_B0 = 143.50 fF, 838644 unknowns, 125 s
+  change on halving the plane's edge size: +0.024 fF
+  time 242 s
+=== done (23:39:53)
+=== substrates_enclosure_0402 (02:02:00)
+[substrates_enclosure_0402] 0402: enclosure correction for three board permittivities (refine 4)
+    enclosure margin 8 mm (R = 8.00 mm): C_F = 29.4563 fF, C_A0 = 26.7144, 119015 unknowns, 11.3 s
+    enclosure margin 16 mm (R = 16.00 mm): C_F = 29.7832 fF, C_A0 = 26.0499, 120639 unknowns, 12.0 s
+    enclosure margin 32 mm (R = 32.00 mm): C_F = 29.9454 fF, C_A0 = 25.7274, 121713 unknowns, 10.9 s
+    enclosure margin 8 mm (R = 8.00 mm): C_F = 33.4174 fF, C_A0 = 37.5193, 119106 unknowns, 11.5 s
+    enclosure margin 16 mm (R = 16.00 mm): C_F = 34.0244 fF, C_A0 = 36.2942, 120455 unknowns, 12.3 s
+    enclosure margin 32 mm (R = 32.00 mm): C_F = 34.3232 fF, C_A0 = 35.6857, 121853 unknowns, 11.9 s
+    enclosure margin 8 mm (R = 8.00 mm): C_F = 40.3159 fF, C_A0 = 54.6135, 119043 unknowns, 11.7 s
+    enclosure margin 16 mm (R = 16.00 mm): C_F = 41.4883 fF, C_A0 = 52.2513, 120504 unknowns, 11.8 s
+    enclosure margin 32 mm (R = 32.00 mm): C_F = 42.0777 fF, C_A0 = 51.0443, 121791 unknowns, 12.6 s
+  air (board removed)    eps 1.00: enclosure correction +0.649 fF (order 1.01), dC_A0 -1.291 fF
+  RT/duroid 5880         eps 2.20: enclosure correction +1.196 fF (order 1.02), dC_A0 -2.434 fF
+  FR-4 nominal           eps 4.20: enclosure correction +2.358 fF (order 0.99), dC_A0 -4.830 fF
+  time 106 s
+=== done (02:03:48)

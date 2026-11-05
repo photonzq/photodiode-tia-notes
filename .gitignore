@@ -9,8 +9,13 @@
 !/LICENSE
 !/index.html
 !/build/
+!/pcbcap/
 !/TIA_opamp_survey_2026-10-25/
 !/TIA_high_gain_survey_2026-11-02/
+
+# The field-solver package: its outputs (examples write to results/) stay local
+/pcbcap/results/
+/pcbcap/*.egg-info/
 
 # The balanced-photodiode note
 /TIA_opamp_survey_2026-10-25/*

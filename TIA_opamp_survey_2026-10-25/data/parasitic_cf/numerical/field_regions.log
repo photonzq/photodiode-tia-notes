@@ -1,0 +1,22 @@
+0402, refine 2.83, enclosure 8 mm: C_F = 40.2585 fF (solver), sum of elements 40.2585 fF
+geometry: inner edge of the top wraps x = 0.300 mm, inner edge of the pads x = 0.200 mm, pad half-width 0.300 mm, lower face of the body z = 0.065 mm
+  region                            total           positive  negative  (fF)
+  alumina between the wraps        19.378 fF   48.1 %     19.378     0.000
+  alumina inside a termination      2.113 fF    5.2 %      2.113     0.000
+  board under the gap               4.835 fF   12.0 %      4.839    -0.004
+  board elsewhere                   9.780 fF   24.3 %     14.049    -4.269
+  air under the body                1.171 fF    2.9 %      1.195    -0.024
+  air elsewhere                     2.982 fF    7.4 %      6.405    -3.423
+  (elements in no region)           0.000 fF
+  by distance from (0, 0, 0.2) mm:   total     positive  negative  (fF)
+    0.0 to 0.5 mm                 34.433    34.434    -0.001
+    0.5 to 1.0 mm                 13.099    13.162    -0.063
+    1.0 to 2.0 mm                 -1.541     0.383    -1.924
+    2.0 to 4.0 mm                 -3.158     0.000    -3.158
+    4.0 to inf mm                 -2.574     0.000    -2.574
+most negative element density -38.46 fF/mm^3 at centroid (0.003, 0.252, 0.419) mm in air
+largest element density 7808 fF/mm^3 at centroid (0.199, 0.285, -0.003) mm in board
+sum of all negative contributions -7.7203 fF (-19.18 % of C_F)
+on the plane y = 0 within |x| < 0.9 mm, -0.3 < z < 0.6 mm: 1873 elements, density from 0 to 2396 fF/mm^3
+odd potential in the alumina with 0.400 < x < 0.500 mm: 0.4577 to 0.5000 V (termination at 0.5 V)
+recorded in field_regions.json

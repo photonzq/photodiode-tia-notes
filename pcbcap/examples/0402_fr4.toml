@@ -1,0 +1,38 @@
+# An 0402 resistor on its IPC-7351 land pattern, FR-4 board, planes removed under it.
+# Run from the pcbcap folder:  python -m pcbcap run examples/0402_fr4.toml
+# (about seven minutes at below-normal priority: the 0402 study of the companion note took 271 s for
+# its three levels, and the figures solve the finest level once more; memory was not measured)
+name = "0402 on FR-4"
+
+[resistor]
+size = "0402"            # dimensions of the companion note's Table G.2
+corner = "nominal"
+t_term = 0.015           # termination metal, mm (an assumption)
+film = "up"
+
+[pads]
+size = "0402"            # Vishay 28950 land pattern
+t_cu = 0.035             # nominal 1-oz copper (34.1 um; parts.py derives it)
+
+[board]
+thickness = 1.6
+material = "FR4"         # eps_r 4.2; or give eps_r = ... directly
+
+[mount]
+standoff = 0.03          # body above the pads, mm (an assumption)
+
+[enclosure]
+half = 8.0               # grounded box, half-width in mm
+extrapolate = true       # also solve at 16 and 32 mm and extrapolate to an infinite box
+
+[mesh]
+order = 2
+h_edge = 0.00375         # element size at edges at refine 1: the 15-um termination / 4, so that
+                         # refine 4, the coarsest level, reaches the 15-um cap exactly
+h_core = 0.045           # core size at refine 1 (0.18 mm at refine 4): a choice that keeps the finest
+                         # level near 0.34 million elements; it scales with refine like h_edge
+refine = [4.0, 2.83, 2.0]
+
+[output]
+dir = "results/0402_fr4"
+figures = true

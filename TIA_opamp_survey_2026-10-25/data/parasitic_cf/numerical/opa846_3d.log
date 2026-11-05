@@ -1,0 +1,54 @@
+=== under_body_0402 (23:39:54)
+[under_body_0402] OPA846 SOT-23-5, under body, 0402 R_F, refine 5.66
+  refine 5.66: C_F = 71.97 fF, C_A0 = 155.5 fF, C_B0 = 313.7 fF; 857901 elements, 1139384 unknowns, 193 s
+  time 193 s
+=== double_sided_0402 (23:43:09)
+[double_sided_0402] OPA846 SOT-23-5, double sided, 0402 R_F, refine 5.66
+  refine 5.66: C_F = 56.03 fF, C_A0 = 299.9 fF, C_B0 = 281.5 fF; 1079630 elements, 1433288 unknowns, 220 s
+  time 220 s
+=== around_0402 (23:46:51)
+[around_0402] OPA846 SOT-23-5, around, 0402 R_F, refine 5.66
+  refine 5.66: C_F = 53.23 fF, C_A0 = 428.4 fF, C_B0 = 157.0 fF; 942355 elements, 1251375 unknowns, 226 s
+  time 226 s
+=== under_body_0603 (23:50:38)
+[under_body_0603] OPA846 SOT-23-5, under body, 0603 R_F, refine 5.66
+  refine 5.66: C_F = 63.91 fF, C_A0 = 206.3 fF, C_B0 = 333.6 fF; 1002664 elements, 1331235 unknowns, 265 s
+  time 265 s
+=== double_sided_0603 (23:55:06)
+[double_sided_0603] OPA846 SOT-23-5, double sided, 0603 R_F, refine 5.66
+  refine 5.66: C_F = 62.47 fF, C_A0 = 321.3 fF, C_B0 = 301.6 fF; 1196771 elements, 1588500 unknowns, 247 s
+  time 247 s
+=== around_0603 (23:59:15)
+[around_0603] OPA846 SOT-23-5, around, 0603 R_F, refine 5.66
+  refine 5.66: C_F = 56.26 fF, C_A0 = 449.9 fF, C_B0 = 201.9 fF; 1085723 elements, 1441528 unknowns, 245 s
+  time 245 s
+=== under_body_0402_fine (00:03:22)
+[under_body_0402_fine] Under-body layout, 0402, at refine 4.0 (mesh check)
+  refine 4.0: C_F = 72.02 fF, C_A0 = 155.4 fF, C_B0 = 313.4 fF; 1078148 elements, 1430693 unknowns, 236 s
+  time 236 s
+=== under_body_0402_enclosure16 (00:07:20)
+[under_body_0402_enclosure16] Under-body layout, 0402, enclosure 16 mm (enclosure check)
+  refine 5.66: C_F = 72.02 fF, C_A0 = 155.5 fF, C_B0 = 313.6 fF; 864000 elements, 1146947 unknowns, 168 s
+  time 168 s
+=== under_body_0402_parts (00:10:09)
+[under_body_0402_parts] Contributions in the under body layout, 0402 R_F
+  whole       : C_F = 71.98 fF, C_B0 = 313.7 fF, 169 s
+  no_resistor : C_F = 37.94 fF, C_B0 = 286.7 fF, 82 s
+  no_package  : C_F = 60.23 fF, C_B0 = 275.2 fF, 179 s
+  no_planes   : C_F = 84.86 fF, C_B0 = 251.2 fF, 147 s
+  time 577 s
+=== double_sided_0402_parts (00:19:47)
+[double_sided_0402_parts] Contributions in the double sided layout, 0402 R_F
+  whole       : C_F = 56.03 fF, C_B0 = 281.4 fF, 158 s
+  no_resistor : C_F = 20.38 fF, C_B0 = 270.0 fF, 104 s
+  no_package  : C_F = 54.03 fF, C_B0 = 257.9 fF, 201 s
+  no_planes   : C_F = 73.10 fF, C_B0 = 189.0 fF, 170 s
+  time 634 s
+=== around_0402_parts (00:30:22)
+[around_0402_parts] Contributions in the around layout, 0402 R_F
+  whole       : C_F = 53.24 fF, C_B0 = 157.0 fF, 175 s
+  no_resistor : C_F = 15.87 fF, C_B0 = 138.2 fF, 97 s
+  no_package  : C_F = 46.92 fF, C_B0 = 138.0 fF, 206 s
+  no_planes   : C_F = 70.12 fF, C_B0 = 115.0 fF, 149 s
+  time 626 s
+=== done (00:40:49)

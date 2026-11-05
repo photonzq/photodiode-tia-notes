@@ -1,0 +1,117 @@
+=== G25_pads_halfplane (23:04:18)
+[G25_pads_halfplane] Pads on the edge of a half-plane, Eq. (G.25)
+  mesh 23576 elements, h_edge 1.0e-04 mm, 47487 unknowns (P2)
+  numerical   0.85618829 (C'/eps0)
+  closed form 0.85616962
+  rel. difference +2.180e-05
+  time 2.6 s
+=== G27_cut_layer (23:04:22)
+[G27_cut_layer] Pads on a 1.6-mm board whose far face is cut, Eq. (G.27)
+  mesh 18296 elements, h_edge 1.0e-04 mm, 37199 unknowns (P2)
+  layer 1.6 mm thick, 240 mm wide (the formula assumes infinite width)
+  numerical   0.80695094 (C'/eps0)
+  closed form 0.80693065
+  rel. difference +2.514e-05
+  time 1.9 s
+=== G28_block_upper (23:04:25)
+[G28_block_upper] Body with the slots filled with metal, upper bound, Eq. (G.28)
+  mesh 2674 elements, h_edge 1.0e-04 mm, 5571 unknowns (P2)
+  numerical   0.58333333 (C'/eps0)
+  closed form 0.58333333
+  rel. difference +4.863e-14
+  time 0.2 s
+=== G32_block_lower (23:04:27)
+[G32_block_lower] Body with the film's potential released, lower bound, Eq. (G.32)
+  mesh 2672 elements, h_edge 1.0e-04 mm, 5567 unknowns (P2)
+  numerical   0.46768852 (C'/eps0)
+  closed form 0.46767642
+  rel. difference +2.588e-05
+  time 0.3 s
+=== G8_block_with_film (23:04:29)
+[G8_block_with_film] Body with the film's potential kept and the slots open (bracketed by G.28 and G.32)
+  mesh 2672 elements, h_edge 1.0e-04 mm, 5567 unknowns (P2)
+  lower bound (G.32) 0.467676, upper bound (G.28) 0.583333: the value lies 12.3 % of the way from the lower to the upper bound
+  per 0.5 mm of width at eps_al = 9.7: 20.69 fF (bracket 20.08-25.05 fF)
+  numerical   0.48187462 (C'/eps0)
+  time 0.3 s
+=== G33_air_no_film (23:04:30)
+[G33_air_no_film] Air above the body, electrodes only, Eq. (G.33)
+  mesh 23596 elements, h_edge 1.0e-04 mm, 47527 unknowns (P2)
+  numerical   0.71930175 (C'/eps0)
+  closed form 0.71928773
+  rel. difference +1.950e-05
+  time 2.4 s
+=== G38_air_with_film (23:04:34)
+[G38_air_with_film] Air above the body with the film's potential, Eq. (G.38)
+  mesh 23600 elements, h_edge 1.0e-04 mm, 47535 unknowns (P2)
+  numerical   0.76025367 (C'/eps0)
+  closed form 0.76025161
+  rel. difference +2.710e-06
+  time 3.1 s
+=== G41_plane_0p10 (23:04:39)
+[G41_plane_0p10] Pads over a plane 0.10 mm below, Eq. (G.41)
+  mesh 2385 elements, h_edge 1.0e-04 mm, 5200 unknowns (P2)
+  to ground: numeric 6.381562, closed form q_even 6.381355 (rel. +3.25e-05)
+  numerical   0.00118919 (C'/eps0)
+  closed form 0.00118885
+  rel. difference +2.831e-04
+  time 0.5 s
+=== G41_plane_0p20 (23:04:41)
+[G41_plane_0p20] Pads over a plane 0.20 mm below, Eq. (G.41)
+  mesh 3417 elements, h_edge 1.0e-04 mm, 7242 unknowns (P2)
+  to ground: numeric 3.605686, closed form q_even 3.605584 (rel. +2.84e-05)
+  numerical   0.02753006 (C'/eps0)
+  closed form 0.02752554
+  rel. difference +1.642e-04
+  time 0.3 s
+=== G41_plane_0p36 (23:04:43)
+[G41_plane_0p36] Pads over a plane 0.36 mm below, Eq. (G.41)
+  mesh 5122 elements, h_edge 1.0e-04 mm, 10659 unknowns (P2)
+  to ground: numeric 2.307030, closed form q_even 2.306981 (rel. +2.16e-05)
+  numerical   0.11184783 (C'/eps0)
+  closed form 0.11183800
+  rel. difference +8.790e-05
+  time 0.6 s
+=== G43_guard (23:04:45)
+[G43_guard] Grounded guard strip 0.2 mm wide in the pad gap, Eq. (G.43)
+  mesh 23996 elements, h_edge 1.0e-04 mm, 48359 unknowns (P2)
+  pad to guard: numeric 0.769456, closed form 0.769386 (rel. +9.15e-05)
+  numerical   0.51581834 (C'/eps0)
+  closed form 0.51581801
+  rel. difference +6.489e-07
+  time 2.5 s
+=== G45_pins_no_middle (23:04:50)
+[G45_pins_no_middle] Pins 1 and 3 with pin 2 removed, Eq. (G.45)
+  mesh 28392 elements, h_edge 1.0e-04 mm, 57137 unknowns (P2)
+  numerical   0.56985706 (C'/eps0)
+  closed form 0.56984105
+  rel. difference +2.809e-05
+  time 3.2 s
+=== G46_pins_wall (23:04:54)
+[G46_pins_wall] Pins 1 and 3 with pin 2 as a floating wall, Eq. (G.46)
+  mesh 3558 elements, h_edge 1.0e-04 mm, 7439 unknowns (P2)
+  numerical   0.63968492 (C'/eps0)
+  closed form 0.63963079
+  rel. difference +8.463e-05
+  time 0.3 s
+=== pins_thin_middle (23:04:56)
+[pins_thin_middle] Pins 1 and 3 with pin 2 a thin floating strip (between G.45 and G.46)
+  mesh 28821 elements, h_edge 1.0e-04 mm, 58026 unknowns (P2)
+  Rule 4 bracket: 0.569841 (removed) to 0.639631 (wall)
+  numerical   0.58509962 (C'/eps0)
+  time 3.4 s
+=== pins_pin4_grounded (23:05:01)
+[pins_pin4_grounded] Effect of grounding pin 4 on the three pin models (numerical only)
+  pin 2 removed: 0.569857 -> 0.386502 with pin 4 grounded (-32.2 %)
+  pin 2 thin   : 0.585100 -> 0.401138 with pin 4 grounded (-31.4 %)
+  pin 2 wall   : 0.639685 -> 0.442609 with pin 4 grounded (-30.8 %)
+  numerical   0.38650161 (C'/eps0)
+  time 18.1 s
+=== A14_pads_under_body (23:05:21)
+[A14_pads_under_body] Pads reaching under the body across the stand-off (approximation 14)
+  t_s = 30 um: cut model 41.386 fF/mm, with the pads under the body 43.234 fF/mm; difference over W = 0.5 mm: +0.92 fF
+  t_s = 10 um: cut model 41.386 fF/mm, with the pads under the body 44.204 fF/mm; difference over W = 0.5 mm: +1.41 fF
+  Table G.6 states 0.3 fF (a parallel-plate estimate) for t_s = 30 um
+  numerical   0.92373715 (fF)
+  time 1.0 s
+=== done (23:05:24)

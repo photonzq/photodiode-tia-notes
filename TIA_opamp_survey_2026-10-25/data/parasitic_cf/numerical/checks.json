@@ -1,0 +1,193 @@
+{
+ "strips_free_space": {
+  "name": "strips_free_space",
+  "title": "Coplanar strips in free space (2-D)",
+  "exercises": "zero-thickness conductors, edge singularities, open enclosure, mirror shortcut",
+  "computed": 13.844084025575604,
+  "reference": 13.842654250444,
+  "unit": "fF/mm",
+  "rel_error": 0.00010328764308753513,
+  "tolerance": 0.0003,
+  "verdict": "PASS",
+  "seconds": 7.869970100000501,
+  "lines": [
+   "mesh 23339 nodes, 46418 elements, h_edge 5.00e-04 mm; 93095 unknowns (P2); method mirror",
+   "open box at 200 mm: truncation estimated at about -5e-6 relative (line dipole in a zero-flux circle; see the comment in checks.py)"
+  ],
+  "data": null
+ },
+ "strips_on_interface": {
+  "name": "strips_on_interface",
+  "title": "Coplanar strips on an air/dielectric interface (2-D)",
+  "exercises": "dielectric interface through the conductors' plane",
+  "computed": 35.99464313959231,
+  "reference": 35.9909010511544,
+  "unit": "fF/mm",
+  "rel_error": 0.00010397318012667078,
+  "tolerance": 0.0003,
+  "verdict": "PASS",
+  "seconds": 7.1619166000018595,
+  "lines": [
+   "mesh 23423 nodes, 46586 elements, h_edge 5.00e-04 mm; 93431 unknowns (P2); method mirror"
+  ],
+  "data": null
+ },
+ "mirror_vs_full": {
+  "name": "mirror_vs_full",
+  "title": "Mirror shortcut against the full-domain solve (2-D)",
+  "exercises": "the even/odd decomposition of capacitance.py, Eq. (6), against Eq. (4)",
+  "computed": 35.99310129227409,
+  "reference": 35.992858693039,
+  "unit": "fF/mm",
+  "rel_error": 6.74020469348946e-06,
+  "tolerance": 0.0002,
+  "verdict": "PASS",
+  "seconds": 17.599137899989728,
+  "lines": [
+   "half domain: mesh 23337 nodes, 46422 elements, h_edge 5.00e-04 mm; 93095 unknowns (P2); method mirror",
+   "full domain: mesh 46490 nodes, 92898 elements, h_edge 5.00e-04 mm; 185877 unknowns (P2); method direct",
+   "the two meshes differ, so the difference is bounded by their discretisation errors"
+  ],
+  "data": null
+ },
+ "layered_plates_2d": {
+  "name": "layered_plates_2d",
+  "title": "Plates with two dielectric layers in series (2-D)",
+  "exercises": "interface condition (continuous normal flux), insulating side walls",
+  "computed": 25.297679465143165,
+  "reference": 25.297679465142856,
+  "unit": "fF/mm",
+  "rel_error": 1.2212453270876722e-14,
+  "tolerance": 1e-09,
+  "verdict": "PASS",
+  "seconds": 0.21054139999614563,
+  "lines": [
+   "mesh 1123 nodes, 2094 elements, h_edge 1.00e-02 mm; 4339 unknowns (P2); method direct",
+   "the exact potential is piecewise linear, so the elements contain it"
+  ],
+  "data": null
+ },
+ "layered_plates_3d": {
+  "name": "layered_plates_3d",
+  "title": "Plates with two dielectric layers in series (3-D)",
+  "exercises": "3-D mesher, sheets on enclosure faces, dielectric boxes",
+  "computed": 50.5953589302857,
+  "reference": 50.59535893028571,
+  "unit": "fF",
+  "rel_error": -3.3306690738754696e-16,
+  "tolerance": 1e-09,
+  "verdict": "PASS",
+  "seconds": 0.2495766000065487,
+  "lines": [
+   "mesh 756 nodes, 2932 elements, h_edge 2.00e-01 mm; 756 unknowns (P1); method direct"
+  ],
+  "data": null
+ },
+ "floating_slab": {
+  "name": "floating_slab",
+  "title": "Floating conductor slab between plates (2-D)",
+  "exercises": "floating conductor: one shared unknown, zero net charge (fem.py)",
+  "computed": 22.13546953200011,
+  "reference": 22.135469532,
+  "unit": "fF/mm",
+  "rel_error": 4.884981308350689e-15,
+  "tolerance": 1e-09,
+  "verdict": "PASS",
+  "seconds": 0.25134370000159834,
+  "lines": [
+   "mesh 1167 nodes, 2180 elements, h_edge 2.00e-02 mm; 4513 unknowns (P2); method direct"
+  ],
+  "data": null
+ },
+ "film_linear_block": {
+  "name": "film_linear_block",
+  "title": "Block with the film's linear potential on top (2-D)",
+  "exercises": "prescribed film potential (geometry.LinearProfile), mirror shortcut with a film",
+  "computed": 50.099946040759825,
+  "reference": 50.099946040759995,
+  "unit": "fF/mm",
+  "rel_error": -3.4416913763379853e-15,
+  "tolerance": 1e-09,
+  "verdict": "PASS",
+  "seconds": 0.1751866999984486,
+  "lines": [
+   "mesh 199 nodes, 342 elements, h_edge 1.00e-02 mm; 739 unknowns (P2); method mirror",
+   "this is the upper bound (G.28) of the companion note, exact here"
+  ],
+  "data": null
+ },
+ "extrusion_3d_vs_2d": {
+  "name": "extrusion_3d_vs_2d",
+  "title": "3-D model uniform along y against the 2-D model",
+  "exercises": "3-D mesher, quarter-domain shortcut (x and y mirrors), convergence and Richardson extrapolation (study.py) as used for every 3-D result, against the 2-D solver",
+  "computed": 13.764024860410283,
+  "reference": 13.772211753051254,
+  "unit": "fF/mm",
+  "rel_error": -0.00059445009906689,
+  "tolerance": 0.0028042214075813363,
+  "verdict": "PASS",
+  "seconds": 36.08727780000481,
+  "lines": [
+   "3-D, refine 4 (h_edge 0.0300 mm): 13.890968 fF/mm, rel. error +8.623e-03; mesh 2996 nodes, 15084 elements, h_edge 3.00e-02 mm; 22109 unknowns (P2); method mirror",
+   "3-D, refine 2 (h_edge 0.0150 mm): 13.834043 fF/mm, rel. error +4.490e-03; mesh 8138 nodes, 42708 elements, h_edge 1.50e-02 mm; 61288 unknowns (P2); method mirror",
+   "3-D, refine 1 (h_edge 0.0075 mm): 13.802645 fF/mm, rel. error +2.210e-03; mesh 30841 nodes, 168830 elements, h_edge 7.50e-03 mm; 237694 unknowns (P2); method mirror",
+   "Richardson: observed order 0.858, extrapolated 13.764025 fF/mm, reported error 0.038620 fF/mm (2.80e-03 relative, used as the tolerance)",
+   "2-D: mesh 23367 nodes, 46521 elements, h_edge 1.00e-04 mm; 93254 unknowns (P2); method mirror"
+  ],
+  "data": {
+   "h_edge": [
+    0.03,
+    0.015,
+    0.0075
+   ],
+   "refine": [
+    4.0,
+    2.0,
+    1.0
+   ],
+   "values": [
+    13.890967626130509,
+    13.834043226812824,
+    13.802645191437932
+   ],
+   "reference": 13.772211753051254,
+   "order": 0.8583728725040242,
+   "extrapolated": 13.764024860410283,
+   "reported_error": 0.03862033102764961
+  }
+ },
+ "symmetry_declaration": {
+  "name": "symmetry_declaration",
+  "title": "A false symmetry declaration is rejected",
+  "exercises": "Layout.check_symmetry, which guards the halving and quartering of the domain",
+  "computed": 1.0,
+  "reference": 1.0,
+  "unit": "",
+  "rel_error": 0.0,
+  "tolerance": 0.0,
+  "verdict": "PASS",
+  "seconds": 0.013935800001490861,
+  "lines": [
+   "rejected with: layout is not symmetric under x -> -x; e.g. no item matches [('Rect', (('x', -0.2, -0.1), ('z', 0.5, 0.6)), ('diel', 'lopsided', 3.0))]"
+  ],
+  "data": null
+ },
+ "resistor_section_shares": {
+  "name": "resistor_section_shares",
+  "title": "Material shares of C_F add up (2-D section of an 0402)",
+  "exercises": "chip-resistor builder, section y = 0, film, per-material shares (capacitance.py, section 5)",
+  "computed": 70.81645154404949,
+  "reference": 70.81645154406904,
+  "unit": "fF/mm",
+  "rel_error": -2.7611246622427643e-13,
+  "tolerance": 1e-09,
+  "verdict": "PASS",
+  "seconds": 6.359672800012049,
+  "lines": [
+   "mesh 34027 nodes, 67775 elements, h_edge 1.50e-05 mm; 135828 unknowns (P2); method mirror",
+   "C_F = 70.8165 fF/mm; shares: air 5.078, alumina 43.064, board 22.675",
+   "C_A0 = 29.0890 fF/mm (grounded enclosure at 3 mm)"
+  ],
+  "data": null
+ }
+}

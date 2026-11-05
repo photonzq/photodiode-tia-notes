@@ -1,0 +1,1261 @@
+{
+ "size_0201": {
+  "convergence": {
+   "levels": [
+    {
+     "refine": 4.0,
+     "C_F": 27.180861333682177,
+     "C_A0": 39.70721493580452,
+     "dofs": 74927.0,
+     "elements": 53470,
+     "seconds": 5.24315999999817,
+     "contributions": {
+      "air": 3.4298929040350483,
+      "alumina": 13.015505306495946,
+      "board": 10.735463123151344
+     }
+    },
+    {
+     "refine": 2.83,
+     "C_F": 27.11722035088237,
+     "C_A0": 39.66539675259695,
+     "dofs": 142229.0,
+     "elements": 102916,
+     "seconds": 10.82367479999084,
+     "contributions": {
+      "air": 3.432660385485999,
+      "alumina": 13.004950066068467,
+      "board": 10.679609899327893
+     }
+    },
+    {
+     "refine": 2.0,
+     "C_F": 27.080102471581014,
+     "C_A0": 39.63519391975102,
+     "dofs": 285865.0,
+     "elements": 209249,
+     "seconds": 23.446038399997633,
+     "contributions": {
+      "air": 3.4366434698081054,
+      "alumina": 13.002076625973963,
+      "board": 10.641382375799045
+     }
+    }
+   ],
+   "C_F": {
+    "finest": 27.080102471581014,
+    "extrapolated": 27.028671705382735,
+    "order": 1.5651664909895813,
+    "error": 0.0514307661982798,
+    "monotone": true,
+    "note": "Richardson, Eq. (2)"
+   },
+   "C_A0": {
+    "finest": 39.63519391975102,
+    "extrapolated": 39.55771098886178,
+    "order": 0.948233140608145,
+    "error": 0.0774829308892393,
+    "monotone": true,
+    "note": "Richardson, Eq. (2)"
+   },
+   "contributions": {
+    "air": 3.4366434698081054,
+    "alumina": 13.002076625973963,
+    "board": 10.641382375799045
+   }
+  },
+  "enclosure": {
+   "R": [
+    8.0,
+    16.0,
+    32.0
+   ],
+   "C_F": [
+    27.17684751343415,
+    27.816347119205222,
+    28.137134288267074
+   ],
+   "C_A0": [
+    39.70639407850748,
+    38.44301070271424,
+    37.78494410324361
+   ],
+   "order_C_F": 0.9953270321240495,
+   "order_C_A0": 0.9409869897160892,
+   "note_C_F": "Richardson, Eq. (2)",
+   "C_F_inf": 28.460009695631893,
+   "C_A0_inf": 37.0695308414971,
+   "dC_F": 1.2831621821977421,
+   "dC_A0": -2.636863237010381
+  },
+  "C_F_best": 28.311833887580477,
+  "discretisation_error": 0.0514307661982798,
+  "enclosure_correction": 1.2831621821977421,
+  "analytic": {
+   "lower_bound": 25.513291929560687,
+   "central": 30.15579471614598,
+   "upper_estimate": 31.82797341194764,
+   "board": [
+    13.474654150904007,
+    13.936577796665825
+   ],
+   "block": [
+    12.03863777865668,
+    14.8152697577676
+   ],
+   "air": [
+    2.9703240907836324,
+    3.076125857514215
+   ]
+  },
+  "lines": [
+   "C_F (finest mesh, enclosure 8 mm): 27.08 fF",
+   "C_F extrapolated in the mesh: 27.03 fF (observed order 1.57); discretisation error estimate 0.05 fF",
+   "enclosure correction to infinity +1.28 fF (observed decay order 1.00)",
+   "best estimate C_F = 28.31 fF",
+   "Appendix G at the same permittivities: lower bound 25.51, central 30.16, upper estimate 31.83 fF; the field solution lies at 44 % of that bracket",
+   "shares at the finest mesh: air 3.44, alumina 13.00, board 10.64 fF; Appendix G terms: board 13.47-13.94, body 12.04-14.82, air 2.97-3.08 fF"
+  ],
+  "seconds": 53.879597399994964,
+  "title": "0201 on FR-4 (eps 4.2), alumina 9.7, film up, planes removed"
+ },
+ "size_0402": {
+  "convergence": {
+   "levels": [
+    {
+     "refine": 4.0,
+     "C_F": 40.31646307110674,
+     "C_A0": 54.61595821831068,
+     "dofs": 119554.0,
+     "elements": 86429,
+     "seconds": 8.279963099994347,
+     "contributions": {
+      "air": 4.148362806292228,
+      "alumina": 21.499516255439993,
+      "board": 14.668584009374454
+     }
+    },
+    {
+     "refine": 2.83,
+     "C_F": 40.258589555774236,
+     "C_A0": 54.578861912105964,
+     "dofs": 227660.0,
+     "elements": 166332,
+     "seconds": 17.36624230000598,
+     "contributions": {
+      "air": 4.152239164873447,
+      "alumina": 21.49103032458516,
+      "board": 14.615320066315633
+     }
+    },
+    {
+     "refine": 2.0,
+     "C_F": 40.220186545464074,
+     "C_A0": 54.55263603982561,
+     "dofs": 466183.0,
+     "elements": 343778,
+     "seconds": 39.16556049999781,
+     "contributions": {
+      "air": 4.1575839664041645,
+      "alumina": 21.486391476611676,
+      "board": 14.576211102447369
+     }
+    }
+   ],
+   "C_F": {
+    "finest": 40.220186545464074,
+    "extrapolated": 40.145315050936915,
+    "order": 1.1927561456169256,
+    "error": 0.07487149452715869,
+    "monotone": true,
+    "note": "Richardson, Eq. (2)"
+   },
+   "C_A0": {
+    "finest": 54.55263603982561,
+    "extrapolated": 54.49017584847856,
+    "order": 1.0099208282103194,
+    "error": 0.06246019134704994,
+    "monotone": true,
+    "note": "Richardson, Eq. (2)"
+   },
+   "contributions": {
+    "air": 4.1575839664041645,
+    "alumina": 21.486391476611676,
+    "board": 14.576211102447369
+   }
+  },
+  "enclosure": {
+   "R": [
+    8.0,
+    16.0,
+    32.0
+   ],
+   "C_F": [
+    40.31606061533341,
+    41.48850711069622,
+    42.07799106301459
+   ],
+   "C_A0": [
+    54.61390226702979,
+    52.251294869020825,
+    51.044328103640886
+   ],
+   "order_C_F": 0.9919976428301062,
+   "order_C_A0": 0.9689939609143239,
+   "note_C_F": "Richardson, Eq. (2)",
+   "C_F_inf": 42.674069377456874,
+   "C_A0_inf": 49.78375562842628,
+   "dC_F": 2.358008762123461,
+   "dC_A0": -4.830146638603516
+  },
+  "C_F_best": 42.503323813060376,
+  "discretisation_error": 0.07487149452715869,
+  "enclosure_correction": 2.358008762123461,
+  "analytic": {
+   "lower_bound": 38.088023087135866,
+   "central": 45.15376166687308,
+   "upper_estimate": 48.27707726682241,
+   "board": [
+    18.004683182416244,
+    19.103330292166344
+   ],
+   "block": [
+    20.083339904719622,
+    25.04997302038
+   ],
+   "air": [
+    3.9424229797878776,
+    4.123773954276069
+   ]
+  },
+  "lines": [
+   "C_F (finest mesh, enclosure 8 mm): 40.22 fF",
+   "C_F extrapolated in the mesh: 40.15 fF (observed order 1.19); discretisation error estimate 0.07 fF",
+   "enclosure correction to infinity +2.36 fF (observed decay order 0.99)",
+   "best estimate C_F = 42.50 fF",
+   "Appendix G at the same permittivities: lower bound 38.09, central 45.15, upper estimate 48.28 fF; the field solution lies at 43 % of that bracket",
+   "shares at the finest mesh: air 4.16, alumina 21.49, board 14.58 fF; Appendix G terms: board 18.00-19.10, body 20.08-25.05, air 3.94-4.12 fF"
+  ],
+  "seconds": 88.89346859999932,
+  "title": "0402 on FR-4 (eps 4.2), alumina 9.7, film up, planes removed"
+ },
+ "size_0603": {
+  "convergence": {
+   "levels": [
+    {
+     "refine": 4.0,
+     "C_F": 55.90032167985335,
+     "C_A0": 86.31133322393256,
+     "dofs": 179608.0,
+     "elements": 131308,
+     "seconds": 13.576747300001443,
+     "contributions": {
+      "air": 4.010795044294331,
+      "alumina": 27.35162852005591,
+      "board": 24.537898115502568
+     }
+    },
+    {
+     "refine": 3.36,
+     "C_F": 55.87348236157391,
+     "C_A0": 86.29579624131686,
+     "dofs": 243520.0,
+     "elements": 178627,
+     "seconds": 17.632674800013774,
+     "contributions": {
+      "air": 4.012145213792855,
+      "alumina": 27.34698296182769,
+      "board": 24.51435418595331
+     }
+    },
+    {
+     "refine": 2.83,
+     "C_F": 55.85052313429574,
+     "C_A0": 86.27597468446879,
+     "dofs": 333446.0,
+     "elements": 245589,
+     "seconds": 27.066986000005272,
+     "contributions": {
+      "air": 4.015313348784109,
+      "alumina": 27.344215514597515,
+      "board": 24.49099427091361
+     }
+    }
+   ],
+   "C_F": {
+    "finest": 55.85052313429574,
+    "extrapolated": 55.69713750280294,
+    "order": 0.8125528470748531,
+    "error": 0.15338563149280304,
+    "monotone": true,
+    "note": "Richardson, Eq. (2)"
+   },
+   "C_A0": {
+    "finest": 86.27597468446879,
+    "extrapolated": null,
+    "order": null,
+    "error": 0.035358539463771876,
+    "monotone": false,
+    "note": "observed order outside (0.05, 4.0): no extrapolation"
+   },
+   "contributions": {
+    "air": 4.015313348784109,
+    "alumina": 27.344215514597515,
+    "board": 24.49099427091361
+   }
+  },
+  "enclosure": {
+   "R": [
+    8.0,
+    16.0,
+    32.0
+   ],
+   "C_F": [
+    55.90159925166193,
+    58.690819753593495,
+    60.08431595871185
+   ],
+   "C_A0": [
+    86.31252740949391,
+    80.5387483048584,
+    77.7125176208683
+   ],
+   "order_C_F": 1.0011529176021041,
+   "order_C_A0": 1.0306366866304622,
+   "note_C_F": "Richardson, Eq. (2)",
+   "C_F_inf": 61.475587628993054,
+   "C_A0_inf": 75.00261137363547,
+   "dC_F": 5.573988377331126,
+   "dC_A0": -11.309916035858436
+  },
+  "C_F_best": 61.271125880134065,
+  "discretisation_error": 0.15338563149280304,
+  "enclosure_correction": 5.573988377331126,
+  "analytic": {
+   "lower_bound": 52.87038835034535,
+   "central": 64.24138173808072,
+   "upper_estimate": 69.02986665672962,
+   "board": [
+    26.98086962276951,
+    31.238372786164472
+   ],
+   "block": [
+    25.889518727575844,
+    30.9188238422976
+   ],
+   "air": [
+    6.582508469086446,
+    6.872670028267552
+   ]
+  },
+  "lines": [
+   "C_F (finest mesh, enclosure 8 mm): 55.85 fF",
+   "C_F extrapolated in the mesh: 55.70 fF (observed order 0.81); discretisation error estimate 0.15 fF",
+   "enclosure correction to infinity +5.57 fF (observed decay order 1.00)",
+   "best estimate C_F = 61.27 fF",
+   "Appendix G at the same permittivities: lower bound 52.87, central 64.24, upper estimate 69.03 fF; the field solution lies at 52 % of that bracket",
+   "shares at the finest mesh: air 4.02, alumina 27.34, board 24.49 fF; Appendix G terms: board 26.98-31.24, body 25.89-30.92, air 6.58-6.87 fF"
+  ],
+  "seconds": 99.7301337000099,
+  "title": "0603 on FR-4 (eps 4.2), alumina 9.7, film up, planes removed"
+ },
+ "size_0805": {
+  "convergence": {
+   "levels": [
+    {
+     "refine": 4.0,
+     "C_F": 72.90411396099367,
+     "C_A0": 106.07337339152704,
+     "dofs": 229304.0,
+     "elements": 168737,
+     "seconds": 20.836405800000648,
+     "contributions": {
+      "air": 3.7776575324077593,
+      "alumina": 39.54161357774757,
+      "board": 29.58484285083872
+     }
+    },
+    {
+     "refine": 3.36,
+     "C_F": 72.87721380063779,
+     "C_A0": 106.05485999568194,
+     "dofs": 308169.0,
+     "elements": 227271,
+     "seconds": 26.800530399996205,
+     "contributions": {
+      "air": 3.7798841023860295,
+      "alumina": 39.53645525595546,
+      "board": 29.560874442296132
+     }
+    },
+    {
+     "refine": 2.83,
+     "C_F": 72.85359283653746,
+     "C_A0": 106.03537056429289,
+     "dofs": 416161.0,
+     "elements": 307740,
+     "seconds": 48.953982899998664,
+     "contributions": {
+      "air": 3.784043826721464,
+      "alumina": 39.53279710905159,
+      "board": 29.536751900764667
+     }
+    }
+   ],
+   "C_F": {
+    "finest": 72.85359283653746,
+    "extrapolated": 72.657153069712,
+    "order": 0.6614521987091937,
+    "error": 0.19643976682546338,
+    "monotone": true,
+    "note": "Richardson, Eq. (2)"
+   },
+   "C_A0": {
+    "finest": 106.03537056429289,
+    "extrapolated": null,
+    "order": null,
+    "error": 0.03800282723415194,
+    "monotone": false,
+    "note": "observed order outside (0.05, 4.0): no extrapolation"
+   },
+   "contributions": {
+    "air": 3.784043826721464,
+    "alumina": 39.53279710905159,
+    "board": 29.536751900764667
+   }
+  },
+  "enclosure": {
+   "R": [
+    8.0,
+    16.0,
+    32.0
+   ],
+   "C_F": [
+    72.90383569745859,
+    76.99229795834631,
+    79.01398242117757
+   ],
+   "C_A0": [
+    106.07284914831199,
+    97.47979885713721,
+    93.37231512414769
+   ],
+   "order_C_F": 1.0160004792165143,
+   "order_C_A0": 1.064915476810944,
+   "note_C_F": "Richardson, Eq. (2)",
+   "C_F_inf": 80.99155740340217,
+   "C_A0_inf": 89.61104608534781,
+   "dC_F": 8.08772170594358,
+   "dC_A0": -16.46180306296418
+  },
+  "C_F_best": 80.74487477565557,
+  "discretisation_error": 0.19643976682546338,
+  "enclosure_correction": 8.08772170594358,
+  "analytic": {
+   "lower_bound": 71.6575473697726,
+   "central": 87.90658183356604,
+   "upper_estimate": 95.11927055197403,
+   "board": [
+    33.81723997028924,
+    40.88849944510392
+   ],
+   "block": [
+    37.84030739948335,
+    44.73209467925
+   ],
+   "air": [
+    9.036345745385454,
+    9.498676427620113
+   ]
+  },
+  "lines": [
+   "C_F (finest mesh, enclosure 8 mm): 72.85 fF",
+   "C_F extrapolated in the mesh: 72.66 fF (observed order 0.66); discretisation error estimate 0.20 fF",
+   "enclosure correction to infinity +8.09 fF (observed decay order 1.02)",
+   "C_F with no ground nearby (mesh-extrapolated + enclosure correction) = 80.74 fF",
+   "Appendix G at the same permittivities: lower bound 71.66, central 87.91, upper estimate 95.12 fF; the field solution lies at 39 % of that bracket",
+   "shares at the finest mesh: air 3.78, alumina 39.53, board 29.54 fF; Appendix G terms: board 33.82-40.89, body 37.84-44.73, air 9.04-9.50 fF"
+  ],
+  "seconds": 181.52124770000228,
+  "title": "0805 on FR-4 (eps 4.2), alumina 9.7, film up, planes removed"
+ },
+ "eps_corners_0402": {
+  "table": {
+   "low": {
+    "eps_pcb": 3.65,
+    "eps_al": 9.4,
+    "C_F": 37.68458360304462,
+    "shares": {
+     "air": 4.216393923152262,
+     "alumina": 20.832817890301,
+     "board": 12.63537178959107
+    }
+   },
+   "nominal": {
+    "eps_pcb": 4.2,
+    "eps_al": 9.7,
+    "C_F": 40.25867756658867,
+    "shares": {
+     "air": 4.152308113101548,
+     "alumina": 21.49103942571087,
+     "board": 14.615330027776299
+    }
+   },
+   "high": {
+    "eps_pcb": 4.6,
+    "eps_al": 10.0,
+    "C_F": 42.31726127277402,
+    "shares": {
+     "air": 4.110787976679171,
+     "alumina": 22.150671810897517,
+     "board": 16.055801485197506
+    }
+   }
+  },
+  "lines": [
+   "low    : eps_pcb 3.65, eps_al 9.4: C_F = 37.68 fF (mesh at refine 2.83, enclosure 8 mm)",
+   "nominal: eps_pcb 4.2, eps_al 9.7: C_F = 40.26 fF (mesh at refine 2.83, enclosure 8 mm)",
+   "high   : eps_pcb 4.6, eps_al 10.0: C_F = 42.32 fF (mesh at refine 2.83, enclosure 8 mm)"
+  ],
+  "seconds": 75.66824189999897,
+  "title": "0402 at the permittivity corners of Table G.3 (middle mesh, enclosure 8 mm)"
+ },
+ "film_down_0402": {
+  "table": {
+   "up": {
+    "C_F": 40.25883409395533,
+    "C_A0": 54.5790826408672,
+    "shares": {
+     "air": 4.152489758063544,
+     "alumina": 21.491013530689408,
+     "board": 14.615330805202502
+    }
+   },
+   "down": {
+    "C_F": 39.81031180680577,
+    "C_A0": 54.53717909694768,
+    "shares": {
+     "air": 3.815360927110998,
+     "alumina": 21.410733467637186,
+     "board": 14.584217412057697
+    }
+   }
+  },
+  "lines": [
+   "film up  : C_F = 40.26 fF, C_A0 = 54.58 fF (refine 2.83, enclosure 8 mm)",
+   "film down: C_F = 39.81 fF, C_A0 = 54.54 fF (refine 2.83, enclosure 8 mm)",
+   "difference down - up: -0.45 fF"
+  ],
+  "seconds": 44.16325599999982,
+  "title": "0402 mounted upside down (film facing the board), single mesh"
+ },
+ "details_0402": {
+  "table": {
+   "reference": {
+    "C_F": 40.2584248925268,
+    "C_A0": 54.578861322609285,
+    "delta": 0.0
+   },
+   "termination metal 30 um": {
+    "C_F": 40.892414619638465,
+    "C_A0": 54.59033999815598,
+    "delta": 0.6339897271116683
+   },
+   "side wraps": {
+    "C_F": 41.57464358411793,
+    "C_A0": 54.61964032370874,
+    "delta": 1.316218691591132
+   },
+   "stand-off 10 um": {
+    "C_F": 40.559501591820734,
+    "C_A0": 54.38276682389627,
+    "delta": 0.30107669929393666
+   },
+   "stand-off 50 um": {
+    "C_F": 40.37178616678994,
+    "C_A0": 54.79415811304479,
+    "delta": 0.11336127426314135
+   },
+   "solder fillet 1/3 of T": {
+    "C_F": 40.24965703453856,
+    "C_A0": 54.62504694954094,
+    "delta": -0.008767857988239314
+   },
+   "copper 18 um": {
+    "C_F": 39.63261854017446,
+    "C_A0": 54.15622319073304,
+    "delta": -0.6258063523523347
+   },
+   "copper 70 um": {
+    "C_F": 41.3956359792903,
+    "C_A0": 55.380901359419525,
+    "delta": 1.1372110867635001
+   },
+   "solder mask 20 um, eps 4.0": {
+    "C_F": 40.73519107232472,
+    "C_A0": 55.278423156054075,
+    "delta": 0.47676617979792013
+   }
+  },
+  "lines": [
+   "reference                   : C_F = 40.26 fF, C_A0 = 54.58 fF, 19 s",
+   "termination metal 30 um     : C_F = 40.89 fF, C_A0 = 54.59 fF, 18 s",
+   "side wraps                  : C_F = 41.57 fF, C_A0 = 54.62 fF, 18 s",
+   "stand-off 10 um             : C_F = 40.56 fF, C_A0 = 54.38 fF, 18 s",
+   "stand-off 50 um             : C_F = 40.37 fF, C_A0 = 54.79 fF, 18 s",
+   "solder fillet 1/3 of T      : C_F = 40.25 fF, C_A0 = 54.63 fF, 34 s",
+   "copper 18 um                : C_F = 39.63 fF, C_A0 = 54.16 fF, 21 s",
+   "copper 70 um                : C_F = 41.40 fF, C_A0 = 55.38 fF, 19 s",
+   "solder mask 20 um, eps 4.0  : C_F = 40.74 fF, C_A0 = 55.28 fF, 52 s",
+   "change from the reference: termination metal 30 um: +0.63, side wraps: +1.32, stand-off 10 um: +0.30, stand-off 50 um: +0.11, solder fillet 1/3 of T: -0.01, copper 18 um: -0.63, copper 70 um: +1.14, solder mask 20 um, eps 4.0: +0.48"
+  ],
+  "seconds": 217.00793779999367,
+  "title": "0402: effect of each modelling detail (single mesh)"
+ },
+ "substrates_0402": {
+  "rows": [
+   {
+    "material": "air (board removed)",
+    "eps_pcb": 1.0,
+    "C_F": 29.434420697471886,
+    "C_A0": 26.704859985153846,
+    "shares": {
+     "air": 4.748291279800066,
+     "alumina": 21.52726114943529,
+     "board": 3.1588682682365867
+    },
+    "analytic": {
+     "lower_bound": 24.370169233866346,
+     "central": 31.017375581317808,
+     "upper_estimate": 33.72215894898139,
+     "board": [
+      4.286829329146724,
+      4.54841197432532
+     ],
+     "block": [
+      20.083339904719622,
+      25.04997302038
+     ],
+     "air": [
+      3.9424229797878776,
+      4.123773954276069
+     ]
+    },
+    "relative_to_FR4": 0.7311309309685632
+   },
+   {
+    "material": "RT/duroid 5880",
+    "eps_pcb": 2.2,
+    "C_F": 33.38346433426948,
+    "C_A0": 37.501361980164944,
+    "shares": {
+     "air": 4.450435395163078,
+     "alumina": 21.507434614189208,
+     "board": 7.425594324917213
+    },
+    "analytic": {
+     "lower_bound": 29.514364428842416,
+     "central": 36.318520363401035,
+     "upper_estimate": 39.18025331817177,
+     "board": [
+      9.431024524122794,
+      10.006506343515703
+     ],
+     "block": [
+      20.083339904719622,
+      25.04997302038
+     ],
+     "air": [
+      3.9424229797878776,
+      4.123773954276069
+     ]
+    },
+    "relative_to_FR4": 0.8292224810039031
+   },
+   {
+    "material": "RO3003",
+    "eps_pcb": 3.0,
+    "C_F": 36.108672899491005,
+    "C_A0": 44.40855834835229,
+    "shares": {
+     "air": 4.313042985910908,
+     "alumina": 21.49942193976952,
+     "board": 10.296207973810159
+    },
+    "analytic": {
+     "lower_bound": 32.943827892159796,
+     "central": 39.85261688478985,
+     "upper_estimate": 42.818982897632026,
+     "board": [
+      12.860487987440173,
+      13.645235922975958
+     ],
+     "block": [
+      20.083339904719622,
+      25.04997302038
+     ],
+     "air": [
+      3.9424229797878776,
+      4.123773954276069
+     ]
+    },
+    "relative_to_FR4": 0.8969148027197861
+   },
+   {
+    "material": "I-Tera MT40",
+    "eps_pcb": 3.45,
+    "C_F": 37.65803724857255,
+    "C_A0": 48.24275204124045,
+    "shares": {
+     "air": 4.2475116515664375,
+     "alumina": 21.49579480748917,
+     "board": 11.914730789516964
+    },
+    "analytic": {
+     "lower_bound": 34.872901090275825,
+     "central": 41.840546178071065,
+     "upper_estimate": 44.86576828607842,
+     "board": [
+      14.7895611855562,
+      15.692021311422353
+     ],
+     "block": [
+      20.083339904719622,
+      25.04997302038
+     ],
+     "air": [
+      3.9424229797878776,
+      4.123773954276069
+     ]
+    },
+    "relative_to_FR4": 0.9353999562275223
+   },
+   {
+    "material": "RO4350B (design)",
+    "eps_pcb": 3.66,
+    "C_F": 38.38392416898326,
+    "C_A0": 50.02290164355702,
+    "shares": {
+     "air": 4.219062811240898,
+     "alumina": 21.494285511263463,
+     "board": 12.670575846479078
+    },
+    "analytic": {
+     "lower_bound": 35.77313524939663,
+     "central": 42.768246514935626,
+     "upper_estimate": 45.820934800686736,
+     "board": [
+      15.689795344677012,
+      16.64718782603067
+     ],
+     "block": [
+      20.083339904719622,
+      25.04997302038
+     ],
+     "air": [
+      3.9424229797878776,
+      4.123773954276069
+     ]
+    },
+    "relative_to_FR4": 0.9534304921552558
+   },
+   {
+    "material": "MEGTRON 6 (1 GHz)",
+    "eps_pcb": 3.71,
+    "C_F": 38.55714596162524,
+    "C_A0": 50.446027320227124,
+    "shares": {
+     "air": 4.2125989944216755,
+     "alumina": 21.493946883984847,
+     "board": 12.850600083218382
+    },
+    "analytic": {
+     "lower_bound": 35.98747671585397,
+     "central": 42.98912754752243,
+     "upper_estimate": 46.048355399403,
+     "board": [
+      15.904136811134347,
+      16.874608424746935
+     ],
+     "block": [
+      20.083339904719622,
+      25.04997302038
+     ],
+     "air": [
+      3.9424229797878776,
+      4.123773954276069
+     ]
+    },
+    "relative_to_FR4": 0.9577332033184909
+   },
+   {
+    "material": "FR-4 nominal",
+    "eps_pcb": 4.2,
+    "C_F": 40.25875455505451,
+    "C_A0": 54.578904182835,
+    "shares": {
+     "air": 4.152344017138919,
+     "alumina": 21.49109787813994,
+     "board": 14.615312659775848
+    },
+    "analytic": {
+     "lower_bound": 38.088023087135866,
+     "central": 45.15376166687308,
+     "upper_estimate": 48.27707726682241,
+     "board": [
+      18.004683182416244,
+      19.103330292166344
+     ],
+     "block": [
+      20.083339904719622,
+      25.04997302038
+     ],
+     "air": [
+      3.9424229797878776,
+      4.123773954276069
+     ]
+    },
+    "relative_to_FR4": 1.0
+   },
+   {
+    "material": "FR-4 high",
+    "eps_pcb": 4.6,
+    "C_F": 41.65276877424707,
+    "C_A0": 57.937217106856494,
+    "shares": {
+     "air": 4.107334641778511,
+     "alumina": 21.48892634484308,
+     "board": 16.05650778762568
+    },
+    "analytic": {
+     "lower_bound": 39.802754818794554,
+     "central": 46.92080992756749,
+     "upper_estimate": 50.09644205655254,
+     "board": [
+      19.71941491407493,
+      20.922695081896467
+     ],
+     "block": [
+      20.083339904719622,
+      25.04997302038
+     ],
+     "air": [
+      3.9424229797878776,
+      4.123773954276069
+     ]
+    },
+    "relative_to_FR4": 1.0346263622558474
+   }
+  ],
+  "refine": 2.83,
+  "lines": [
+   "air (board removed)    eps 1.00: C_F =  29.43 fF; board share  3.16 fF; 19 s",
+   "RT/duroid 5880         eps 2.20: C_F =  33.38 fF; board share  7.43 fF; 20 s",
+   "RO3003                 eps 3.00: C_F =  36.11 fF; board share 10.30 fF; 19 s",
+   "I-Tera MT40            eps 3.45: C_F =  37.66 fF; board share 11.91 fF; 23 s",
+   "RO4350B (design)       eps 3.66: C_F =  38.38 fF; board share 12.67 fF; 32 s",
+   "MEGTRON 6 (1 GHz)      eps 3.71: C_F =  38.56 fF; board share 12.85 fF; 24 s",
+   "FR-4 nominal           eps 4.20: C_F =  40.26 fF; board share 14.62 fF; 24 s",
+   "FR-4 high              eps 4.60: C_F =  41.65 fF; board share 16.06 fF; 27 s",
+   "relative to FR-4 (4.2): 1: 0.731, 2.2: 0.829, 3: 0.897, 3.45: 0.935, 3.66: 0.953, 3.71: 0.958, 4.2: 1.000, 4.6: 1.035"
+  ],
+  "seconds": 187.87076150000212,
+  "title": "0402: board permittivity from 1 to 4.6 (single mesh)"
+ },
+ "substrates_0805": {
+  "rows": [
+   {
+    "material": "air (board removed)",
+    "eps_pcb": 1.0,
+    "C_F": 51.279926544112634,
+    "C_A0": 54.24322780104809,
+    "shares": {
+     "air": 5.538340064894461,
+     "alumina": 39.68292726757146,
+     "board": 6.0586592116467894
+    },
+    "analytic": {
+     "lower_bound": 45.89203120193317,
+     "central": 59.44725253246388,
+     "upper_estimate": 63.96612811760914,
+     "board": [
+      8.05172380244982,
+      9.735357010739028
+     ],
+     "block": [
+      37.84030739948335,
+      44.73209467925
+     ],
+     "air": [
+      9.036345745385454,
+      9.498676427620113
+     ]
+    },
+    "relative_to_FR4": 0.7036617652405326
+   },
+   {
+    "material": "RT/duroid 5880",
+    "eps_pcb": 2.2,
+    "C_F": 59.04580847262654,
+    "C_A0": 74.66408006486402,
+    "shares": {
+     "air": 4.626431934829684,
+     "alumina": 39.610536460715295,
+     "board": 14.808840077081571
+    },
+    "analytic": {
+     "lower_bound": 55.55409976487295,
+     "central": 70.11950102037719,
+     "upper_estimate": 75.64855653049597,
+     "board": [
+      17.7137923653896,
+      21.417785423625862
+     ],
+     "block": [
+      37.84030739948335,
+      44.73209467925
+     ],
+     "air": [
+      9.036345745385454,
+      9.498676427620113
+     ]
+    },
+    "relative_to_FR4": 0.8102249870455963
+   },
+   {
+    "material": "RO3003",
+    "eps_pcb": 3.0,
+    "C_F": 64.50472471893754,
+    "C_A0": 87.43485109914172,
+    "shares": {
+     "air": 4.227717498781255,
+     "alumina": 39.5758164148601,
+     "board": 20.701190805296186
+    },
+    "analytic": {
+     "lower_bound": 61.99547880683281,
+     "central": 77.23433334565273,
+     "upper_estimate": 83.43684213908719,
+     "board": [
+      24.155171407349457,
+      29.206071032217082
+     ],
+     "block": [
+      37.84030739948335,
+      44.73209467925
+     ],
+     "air": [
+      9.036345745385454,
+      9.498676427620113
+     ]
+    },
+    "relative_to_FR4": 0.8851320881483069
+   },
+   {
+    "material": "I-Tera MT40",
+    "eps_pcb": 3.45,
+    "C_F": 67.62497940885507,
+    "C_A0": 94.47441752891547,
+    "shares": {
+     "air": 4.042741542774786,
+     "alumina": 39.559568203499,
+     "board": 24.022669662580796
+    },
+    "analytic": {
+     "lower_bound": 65.61875451793523,
+     "central": 81.23642652862021,
+     "upper_estimate": 87.81775279391975,
+     "board": [
+      27.778447118451876,
+      33.586981687049644
+     ],
+     "block": [
+      37.84030739948335,
+      44.73209467925
+     ],
+     "air": [
+      9.036345745385454,
+      9.498676427620113
+     ]
+    },
+    "relative_to_FR4": 0.9279481386201945
+   },
+   {
+    "material": "RO4350B (design)",
+    "eps_pcb": 3.66,
+    "C_F": 69.08970555218134,
+    "C_A0": 97.73358093096309,
+    "shares": {
+     "air": 3.9640324799701983,
+     "alumina": 39.5526266609035,
+     "board": 25.57304641130803
+    },
+    "analytic": {
+     "lower_bound": 67.3096165164497,
+     "central": 83.10407001400505,
+     "upper_estimate": 89.86217776617495,
+     "board": [
+      29.46930911696634,
+      35.631406659304844
+     ],
+     "block": [
+      37.84030739948335,
+      44.73209467925
+     ],
+     "air": [
+      9.036345745385454,
+      9.498676427620113
+     ]
+    },
+    "relative_to_FR4": 0.9480470711473367
+   },
+   {
+    "material": "MEGTRON 6 (1 GHz)",
+    "eps_pcb": 3.71,
+    "C_F": 69.43884943553783,
+    "C_A0": 98.50737251575684,
+    "shares": {
+     "air": 3.946023841743693,
+     "alumina": 39.551029380636194,
+     "board": 25.941796213158163
+    },
+    "analytic": {
+     "lower_bound": 67.71220270657219,
+     "central": 83.54874703433477,
+     "upper_estimate": 90.3489456167119,
+     "board": [
+      29.871895307088828,
+      36.11817450984179
+     ],
+     "block": [
+      37.84030739948335,
+      44.73209467925
+     ],
+     "air": [
+      9.036345745385454,
+      9.498676427620113
+     ]
+    },
+    "relative_to_FR4": 0.95283801407262
+   },
+   {
+    "material": "FR-4 nominal",
+    "eps_pcb": 4.2,
+    "C_F": 72.87581772555686,
+    "C_A0": 106.05469499198257,
+    "shares": {
+     "air": 3.780136394180091,
+     "alumina": 39.536381939489814,
+     "board": 29.559299391886668
+    },
+    "analytic": {
+     "lower_bound": 71.6575473697726,
+     "central": 87.90658183356604,
+     "upper_estimate": 95.11927055197403,
+     "board": [
+      33.81723997028924,
+      40.88849944510392
+     ],
+     "block": [
+      37.84030739948335,
+      44.73209467925
+     ],
+     "air": [
+      9.036345745385454,
+      9.498676427620113
+     ]
+    },
+    "relative_to_FR4": 1.0
+   },
+   {
+    "material": "FR-4 high",
+    "eps_pcb": 4.6,
+    "C_F": 75.6985428924262,
+    "C_A0": 112.17299694782494,
+    "shares": {
+     "air": 3.6582052643277456,
+     "alumina": 39.52579111370155,
+     "board": 32.51454651439599
+    },
+    "analytic": {
+     "lower_bound": 74.87823689075252,
+     "central": 91.4639979962038,
+     "upper_estimate": 99.01341335626962,
+     "board": [
+      37.03792949126917,
+      44.78264224939952
+     ],
+     "block": [
+      37.84030739948335,
+      44.73209467925
+     ],
+     "air": [
+      9.036345745385454,
+      9.498676427620113
+     ]
+    },
+    "relative_to_FR4": 1.0387333584029128
+   }
+  ],
+  "refine": 3.36,
+  "lines": [
+   "air (board removed)    eps 1.00: C_F =  51.28 fF; board share  6.06 fF; 29 s",
+   "RT/duroid 5880         eps 2.20: C_F =  59.05 fF; board share 14.81 fF; 33 s",
+   "RO3003                 eps 3.00: C_F =  64.50 fF; board share 20.70 fF; 37 s",
+   "I-Tera MT40            eps 3.45: C_F =  67.62 fF; board share 24.02 fF; 27 s",
+   "RO4350B (design)       eps 3.66: C_F =  69.09 fF; board share 25.57 fF; 37 s",
+   "MEGTRON 6 (1 GHz)      eps 3.71: C_F =  69.44 fF; board share 25.94 fF; 28 s",
+   "FR-4 nominal           eps 4.20: C_F =  72.88 fF; board share 29.56 fF; 32 s",
+   "FR-4 high              eps 4.60: C_F =  75.70 fF; board share 32.51 fF; 35 s",
+   "relative to FR-4 (4.2): 1: 0.704, 2.2: 0.810, 3: 0.885, 3.45: 0.928, 3.66: 0.948, 3.71: 0.953, 4.2: 1.000, 4.6: 1.039"
+  ],
+  "seconds": 257.70954060000076,
+  "title": "0805: board permittivity from 1 to 4.6 (single mesh)"
+ },
+ "opa855_layout": {
+  "table": {
+   "levels": [
+    6.73,
+    5.66
+   ],
+   "refine_6.73": {
+    "alone": 40.317684937656495,
+    "network": 51.5324331684098,
+    "added": 11.214748230753308,
+    "alone_A0": 54.61864011695612,
+    "network_A0": 108.12354714009314,
+    "network_B0": 127.07690057306044,
+    "shares": {
+     "air": 5.887655893900803,
+     "alumina": 21.515976579556813,
+     "board": 20.279290218628077,
+     "mould": 3.8495104763241184
+    },
+    "dofs": 831096.0
+   },
+   "refine_5.66": {
+    "alone": 40.32201524263273,
+    "network": 51.53733036273127,
+    "added": 11.215315120098538,
+    "alone_A0": 54.622534138001384,
+    "network_A0": 108.12419003467937,
+    "network_B0": 127.08271863765425,
+    "shares": {
+     "air": 5.886158303800517,
+     "alumina": 21.516190810465087,
+     "board": 20.285697302321893,
+     "mould": 3.849283946143862
+    },
+    "dofs": 857079.0
+   },
+   "plane_cutout": {
+    "network": 44.07105998010036,
+    "A0": 131.7222372452925,
+    "B0": 143.56568768891066,
+    "shares": {
+     "air": 5.295893614225799,
+     "alumina": 21.470117525658107,
+     "board": 13.410293265948242,
+     "mould": 3.8947555742681885
+    }
+   },
+   "enclosure": {
+    "R": [
+     8.0,
+     16.0,
+     32.0
+    ],
+    "C_F": [
+     51.535066368762706,
+     52.42893235132107,
+     52.85693708644553
+    ],
+    "C_A0": [
+     108.12918765665094,
+     106.108106352802,
+     105.14857984514495
+    ],
+    "order_C_F": 1.0624317865548725,
+    "order_C_A0": 1.0747327918287857,
+    "note_C_F": "Richardson, Eq. (2)",
+    "C_F_inf": 53.250161580429626,
+    "C_A0_inf": 104.28127547027987,
+    "dC_F": 1.7150952116669202,
+    "dC_A0": -3.847912186371076
+   }
+  },
+  "lines": [
+   "refine 6.73: resistor alone 40.32 fF, whole network 51.53 fF, added by traces, pins and package +11.21 fF; C_B0 (summing node) 127.1 fF; 831096 unknowns, 73 s",
+   "refine 5.66: resistor alone 40.32 fF, whole network 51.54 fF, added by traces, pins and package +11.22 fF; C_B0 (summing node) 127.1 fF; 857079 unknowns, 76 s",
+   "with a plane 0.2 mm below, cut out 0.5 mm around the network (refine 5.66): C_F = 44.07 fF, C_B0 = 143.6 fF",
+   "enclosure correction to infinity for the whole network +1.72 fF (observed decay order 1.06)"
+  ],
+  "seconds": 600.939841200001,
+  "title": "0402 beside the OPA855 pins as in Figure 43, full domain (no symmetry)"
+ },
+ "opa855_plane_edge": {
+  "table": {
+   "0.04": {
+    "C_F": 44.064362635471,
+    "B0": 143.57578986938728,
+    "dofs": 836869.0
+   },
+   "0.02": {
+    "C_F": 44.08792456972136,
+    "B0": 143.50423919852756,
+    "dofs": 838644.0
+   }
+  },
+  "lines": [
+   "plane edge 0.04 mm at refine 1 (0.269 mm here): C_F = 44.064 fF, C_B0 = 143.58 fF, 836869 unknowns, 117 s",
+   "plane edge 0.02 mm at refine 1 (0.135 mm here): C_F = 44.088 fF, C_B0 = 143.50 fF, 838644 unknowns, 125 s",
+   "change on halving the plane's edge size: +0.024 fF"
+  ],
+  "seconds": 242.01171990000876,
+  "title": "Check of the plane's coarser edge size in the OPA855 network (refine 6.73)"
+ },
+ "substrates_enclosure_0402": {
+  "table": {
+   "air (board removed)": {
+    "eps_pcb": 1.0,
+    "dC_F": 0.6487838981829164,
+    "order": 1.0110604162789927,
+    "C_F": [
+     29.456319298966267,
+     29.78318868897432,
+     29.945375203184312
+    ],
+    "dC_A0": -1.2908686693215259
+   },
+   "RT/duroid 5880": {
+    "eps_pcb": 2.2,
+    "dC_F": 1.1956060805857618,
+    "order": 1.022385894098059,
+    "C_F": [
+     33.41736235202353,
+     34.02436973902799,
+     34.32320039971681
+    ],
+    "dC_A0": -2.434102050128793
+   },
+   "FR-4 nominal": {
+    "eps_pcb": 4.2,
+    "dC_F": 2.357630490252525,
+    "order": 0.9920769939814101,
+    "C_F": [
+     40.315948739960135,
+     41.48827234747766,
+     42.07766209558632
+    ],
+    "dC_A0": -4.83019412667641
+   }
+  },
+  "lines": [
+   "air (board removed)    eps 1.00: enclosure correction +0.649 fF (order 1.01), dC_A0 -1.291 fF",
+   "RT/duroid 5880         eps 2.20: enclosure correction +1.196 fF (order 1.02), dC_A0 -2.434 fF",
+   "FR-4 nominal           eps 4.20: enclosure correction +2.358 fF (order 0.99), dC_A0 -4.830 fF"
+  ],
+  "seconds": 106.08995219999633,
+  "title": "0402: enclosure correction for three board permittivities (refine 4)"
+ }
+}

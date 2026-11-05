@@ -1,0 +1,37 @@
+# An 0805 on a Rogers RO4350B board (design Dk 3.66, Rogers RO4000 laminates data sheet, PUB# 92-004,
+# p. 3), with a ground plane 0.2 mm below the surface that is cut out under the resistor with a margin
+# of about 0.5 mm around the pads (0.55 mm along x, 0.525 mm along y: the pads reach x = 1.4 mm and
+# y = 0.725 mm).
+# Run from the pcbcap folder:  python -m pcbcap run examples/0805_ro4350b_plane.toml
+name = "0805 on RO4350B over a cut-out plane"
+
+[resistor]
+size = "0805"
+
+[pads]
+size = "0805"
+
+[board]
+thickness = 1.6
+eps_r = 3.66
+
+[[board.planes]]
+depth = 0.2
+cutout = { x = [-1.95, 1.95], y = [-1.25, 1.25] }
+
+[mount]
+standoff = 0.03
+
+[enclosure]
+half = 8.0
+extrapolate = true
+
+[mesh]
+order = 2
+h_edge = 0.00375
+h_core = 0.045
+refine = [4.0, 3.36, 2.83]   # the 0805 levels of the companion note; a coarser level, such as 5.66,
+                             # would be capped at the 15-um termination and is refused
+
+[output]
+dir = "results/0805_ro4350b_plane"
