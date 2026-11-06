@@ -346,7 +346,7 @@ def part_c() -> None:
 # 1/(1 - w^2 L_PD C_D), which grows without bound at the series resonance f_s = 1/(2 pi
 # sqrt(L_PD C_D)).  C_D = 1 pF (Table 4.1).  L_PD is computed from Eq. (B3) for a 0.2-mm trace of
 # the stated length; the lengths are illustrations, not the note's layouts, which put the
-# photodiodes directly at the summing node (Section 8.10).  The 5-mm example is a pair of leads of
+# photodiodes directly at the summing node (Section 8.11).  The 5-mm example is a pair of leads of
 # 0.45-mm diameter, each a round wire with its current on the surface (Eq. (B4)); their partial
 # self-inductances are added, which leaves out the mutual inductance of the two leads.  They carry
 # opposite currents (to the summing node and back from the bias bypass), so that mutual term would

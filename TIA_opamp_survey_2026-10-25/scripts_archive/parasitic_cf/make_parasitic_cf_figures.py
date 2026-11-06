@@ -1,17 +1,17 @@
-"""Figures 38-43 of the note, Appendix G: the parasitic capacitance across the feedback resistor.
+"""Figures 39-44 of the note, Appendix G: the parasitic capacitance across the feedback resistor.
 
 Usage: python make_parasitic_cf_figures.py [outdir]      (default: ../../figures)
 
-fig38  an 0402 resistor on its land pattern, top view and cross-section, drawn to scale (Figure 38)
-fig39  the idealised cross-section, its three regions, and the boundary conditions of each (Figure 39)
+fig38  an 0402 resistor on its land pattern, top view and cross-section, drawn to scale (Figure 39)
+fig39  the idealised cross-section, its three regions, and the boundary conditions of each (Figure 40)
 fig40  the coplanar pads: physical plane -> t-plane (Moebius map) -> rectangle (Schwarz-Christoffel
-       map), with the analytic equipotentials and field lines of Eq. (G.23) (Figure 40)
+       map), with the analytic equipotentials and field lines of Eq. (G.23) (Figure 41)
 fig41  the resistor body without the film: the analytic potential of Eq. (G.32), and the filled-slot
-       construction of Eq. (G.28) (Figure 41)
+       construction of Eq. (G.28) (Figure 42)
 fig42  pads over a ground plane: the half-strip and its image under zeta = cosh(pi q / h) (Eqs. (G.39)-(G.41);
-       Figure 42)
+       Figure 43)
 fig43  the OPA855 pin geometry (DSG0008A land pattern) and the two bounding constructions of Eqs. (G.45)-(G.46)
-       (Figure 43)
+       (Figure 44)
 
 Every potential drawn here is computed from the closed-form maps of Appendix G, using
 cf_parasitic_estimate.py (same folder) for the formulas and scipy.special.elliprf for the map
@@ -110,7 +110,7 @@ def nominal_0402():
     return dict(L=c["L"], W=c["W"], T=c["T"][1], a=a, g=c["L"] - 2 * a, w=p["w"], l=p["l"], s=p["s"])
 
 
-# ------------------------------------------------------------------------- Figure 38
+# ------------------------------------------------------------------------- Figure 39
 def fig_geometry(outdir: Path):
     G = nominal_0402()
     L, W, T, a, g, w, l, s = (G[k] for k in ("L", "W", "T", "a", "g", "w", "l", "s"))
@@ -186,7 +186,7 @@ def fig_geometry(outdir: Path):
     export(fig, outdir, "fig38_parasitic_cf_geometry_0402")
 
 
-# ------------------------------------------------------------------------- Figure 39
+# ------------------------------------------------------------------------- Figure 40
 def fig_regions(outdir: Path):
     G = nominal_0402()
     L, T, g, w, s = G["L"], G["T"], G["g"], G["w"], G["s"]
@@ -266,7 +266,7 @@ def fig_regions(outdir: Path):
     export(fig, outdir, "fig39_parasitic_cf_regions")
 
 
-# ------------------------------------------------------------------------- Figure 40
+# ------------------------------------------------------------------------- Figure 41
 def fig_cps_maps(outdir: Path):
     G = nominal_0402()
     w, s = G["w"], G["s"]
@@ -339,7 +339,7 @@ def fig_cps_maps(outdir: Path):
     return m
 
 
-# ------------------------------------------------------------------------- Figure 41
+# ------------------------------------------------------------------------- Figure 42
 def fig_body(outdir: Path):
     G = nominal_0402()
     L, T, g = G["L"], G["T"], G["g"]
@@ -377,7 +377,7 @@ def fig_body(outdir: Path):
     return d
 
 
-# ------------------------------------------------------------------------- Figure 43
+# ------------------------------------------------------------------------- Figure 44
 def fig_pins(outdir: Path):
     fig = plt.figure(figsize=(6.5, 3.4), constrained_layout=True)
     gs = fig.add_gridspec(2, 2, width_ratios=[1.15, 1.0])
@@ -436,7 +436,7 @@ def fig_pins(outdir: Path):
     export(fig, outdir, "fig43_parasitic_cf_pins_dsg")
 
 
-# ------------------------------------------------------------------------- Figure 42
+# ------------------------------------------------------------------------- Figure 43
 def fig_plane(outdir: Path):
     G = nominal_0402()
     w, s = G["w"], G["s"]

@@ -40,6 +40,9 @@ def anchors_of(lines):
         m = re.match(r"^#{2,4} Appendix ([A-G])\.", ln)
         if m:
             a.add(("appendix", m.group(1)))
+        m = re.match(r"^#{2,4} ([A-G]\d+)\.\s", ln)       # "A6. Tables of Chapter 6", as the build
+        if m:
+            a.add(("appendix", m.group(1)))
         m = re.match(r"^#{2,4} (\d+\.\d+(?:\.\d+)?|[A-G]\.\d+(?:\.\d+)?)\s", ln)
         if m:
             a.add(("section", m.group(1)))

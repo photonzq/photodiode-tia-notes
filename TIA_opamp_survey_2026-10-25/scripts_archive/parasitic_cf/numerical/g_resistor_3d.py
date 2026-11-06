@@ -259,8 +259,8 @@ def _details():
 
 
 # ================================================================================================
-# The layout of Figure 43: an 0402 beside pins 1-4 of the OPA855 (DSG0008A), as in the datasheet's
-# layout example.  Figure 43 draws the resistor along its vertical axis with pin 1 (FB) at the top;
+# The layout of Figure 44: an 0402 beside pins 1-4 of the OPA855 (DSG0008A), as in the datasheet's
+# layout example.  Figure 44 draws the resistor along its vertical axis with pin 1 (FB) at the top;
 # here the drawing is turned by 90 degrees so that the resistor lies along x with net A (pin 1, FB) at
 # +x, which is pcbcap's convention.  Figure coordinates (X, Y) map to x = Y - 0.25, y = X + 1.85, so:
 #   resistor centre (0, 0); pins 1-4 at x = 0.5, 0.0, -0.5, -1.0; package edge at y = 0.85;
@@ -270,9 +270,9 @@ def _details():
 # resistor pad to its pin, centred on the pin, from the pad's edge (y = 0.3) to the pin pad (y = 0.65).
 # Pins 5-8 lie on the far edge, 1.9 mm away, and are left out (pcbcap.parts.WsonPackage gives the sign
 # of that omission as unknown).
-# Where the resistor sits is an assumption too: Figure 43 is a schematic drawing of the datasheet's
+# Where the resistor sits is an assumption too: Figure 44 is a schematic drawing of the datasheet's
 # layout example without dimensions for the resistor's position, which here is centred on pin 2 with
-# its pads 0.35 mm from the pin pads.  Figure 43 also draws the resistor's pads 0.50 mm long with a
+# its pads 0.35 mm from the pin pads.  Figure 44 also draws the resistor's pads 0.50 mm long with a
 # 0.50-mm gap; the model uses the Vishay 28950 land pattern of Table G.2 (0.55 mm, gap 0.40 mm), as
 # every other case does.
 # ================================================================================================
@@ -302,7 +302,7 @@ def opa855_layout(half: float = ENCLOSURE[0], with_package: bool = True, plane: 
     return lay
 
 
-@case("opa855_layout", "0402 beside the OPA855 pins as in Figure 43, full domain (no symmetry)")
+@case("opa855_layout", "0402 beside the OPA855 pins as in Figure 44, full domain (no symmetry)")
 def _opa855():
     """Same-mesh comparison: the resistor alone and the whole feedback network on identical mesh
     parameters, so that the part of their difference that comes from the resistor's own mesh error

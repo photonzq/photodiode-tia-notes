@@ -50,6 +50,7 @@ The PDF and the web page of the note are built by `build/build_pdf.py` and `buil
 | Script | What it does |
 |---|---|
 | `assemble_note.py` | Concatenates `parts/*.md` in file-name order into `TIA_high_gain_survey.md` with LF line endings, and replaces each line `<!-- table: name -->` by the table body `data/results/note_tables/<name>.md`. |
+| `check_assembly.py` | Checks, without writing the note, that `TIA_high_gain_survey.md` equals a fresh assembly of `parts/` by `assemble_note.py`; for edits made to the note and its part files together. Usage: `python check_assembly.py` |
 | `check_refs.py` | Checks the assembled note: equation tags 1…N in order, every cited equation, section, table and figure present, figure files present, no control characters. References to the companion note and to datasheet tables are skipped. |
 | `check_math_extract.py` | Extracts every mathematics span, converts it with latex2mathml and writes the spans to a JSON file; reports non-dollar delimiters and table cells split by `|`. Copied from the companion note. Usage: `python check_math_extract.py TIA_high_gain_survey.md <spans.json>` |
 | `katex_check.js` | Renders the spans with KaTeX, the second parser. Copied from the companion note. Usage: `node katex_check.js <katex.min.js> <spans.json>` |

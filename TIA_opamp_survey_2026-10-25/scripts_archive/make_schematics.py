@@ -203,7 +203,7 @@ def fig22_hv_composite(out: Path) -> None:
     node, THS3491 as a non-inverting stage of gain G_2 = 1 + R_F2/R_G2 inside the R_F
     loop, C_L from the OPA859's output back to the summing node, 100-ohm load.  Values of
     the G_2 = 5.5 design of Table A7.7: R_F2 568 ohm (R_G2 = 568/4.5 = 126 ohm), total
-    C_F 0.100 pF with R_F split into two 1-kOhm resistors (Section 8.10), C_L 3.25 pF."""
+    C_F 0.100 pF with R_F split into two 1-kOhm resistors (Section 8.11), C_L 3.25 pF."""
     s = ss.Sheet()
     pd_pair(s, 0.0)
     x_in = 4.4
@@ -354,7 +354,7 @@ def fig26_option_d(out: Path) -> None:
 
 # ------------------------------------------- Chapter 8: bootstrap and cascode --
 def fig27_bootstrap(out: Path) -> None:
-    """Section 8.6: a unity-gain follower whose input is the summing node drives the far
+    """Section 8.7: a unity-gain follower whose input is the summing node drives the far
     (bias-side) terminal of the photodiode through C_c, so the voltage across C_D stays
     constant; R_B feeds the DC bias.  Bipolar follower at 1 mA (Table A8.4)."""
     s = ss.Sheet()
@@ -385,7 +385,7 @@ def fig27_bootstrap(out: Path) -> None:
 
 
 def fig28_cascode(out: Path) -> None:
-    """Section 8.7: a common-base PNP between the upper photodiode and the summing node,
+    """Section 8.8: a common-base PNP between the upper photodiode and the summing node,
     a common-base NPN between the node and the lower photodiode, bases AC-grounded at
     their bias; optional standing currents I_q through R_q = V_q/I_q from +-12 V
     (Table A8.6); the node sees the collector-base capacitances, 2 C_mu (grey)."""
@@ -434,7 +434,7 @@ def fig28_cascode(out: Path) -> None:
 
 # -------------------------------------------------------- Chapter 8: servos --
 def fig29_optical_servo(out: Path) -> None:
-    """Section 8.8 (b): a slow integrator nulls the TIA's DC output by trimming a tunable
+    """Section 8.9 (b): a slow integrator nulls the TIA's DC output by trimming a tunable
     optical splitter (for example a thermo-optic Mach-Zehnder) ahead of the two diodes."""
     s = ss.Sheet()
     pd_pair(s, 0.0, light="none")
@@ -459,7 +459,7 @@ def fig29_optical_servo(out: Path) -> None:
 
 
 def fig30_current_splitter(out: Path) -> None:
-    """Section 8.8 (c), the topology of Hobbs' Fig. 3 applied to the pair: the lower diode,
+    """Section 8.9 (c), the topology of Hobbs' Fig. 3 applied to the pair: the lower diode,
     made slightly stronger, feeds the common emitters of Q1/Q2; Q2 delivers the fraction f
     to the summing node, Q1 returns 1 - f to a supply; the servo drives Q1's base through a
     divider of at least 20:1 with an RF bypass, Q2's base sits at a bypassed bias; a
@@ -524,11 +524,11 @@ def fig30_current_splitter(out: Path) -> None:
 
 
 def fig31_front_end(out: Path) -> None:
-    """Section 8.9 and Table A8.10: the proposed balanced front end.  Each bias pin is fed
+    """Section 8.10 and Table A8.10: the proposed balanced front end.  Each bias pin is fed
     from a linear regulator through bulk capacitance, a ferrite bead and a 100-ohm monitor
     resistor to one 10-nF low-inductance capacitor at the pin; both diodes at the summing
     node; OPA855 (A, 5 V, V_REF 2.58 V) or OPA818 (B, +-6.5 V, V_REF 0.1 V); R_F 2 kOhm;
-    total C_F 0.25 pF (A) or 0.55 pF (B); the electronic imbalance servo of Section 8.8 (d):
+    total C_F 0.25 pF (A) or 0.55 pF (B); the electronic imbalance servo of Section 8.9 (d):
     sensing through 1 kOhm / 1 nF, integrator on +-12 V with tau = 13 us, injection through
     3.3 kOhm into 10 nF || 100 pF and R_s = 24 kOhm; a second-order low-pass at 200-250 MHz."""
     s = ss.Sheet()

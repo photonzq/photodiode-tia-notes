@@ -45,14 +45,14 @@ def layouts():
     out = [("opa855_network", g855.opa855_layout(with_package=True, plane=True),
             "OPA855 (WSON-8) and its feedback network",
             "The 0402 feedback resistor with its traces to the pins of the OPA855, over a ground plane with a "
-            "cut-out under the network: the layout of Section G.14.9 and Figure 50 of the note. Only the pin "
+            "cut-out under the network: the layout of Section G.14.9 and Figure 51 of the note. Only the pin "
             "edge of the package is modelled.", OPA855_LABELS)]
     for name, what in (("double_sided", "R_F on the bottom side under the package, through two vias"),
                        ("under_body", "R_F above pin 1, with a trace under the body to pin 4"),
                        ("around", "R_F below pin 4, with a trace around the outside of the package")):
         out.append((f"opa846_sot23_{name}_0402", g846.opa846_layout(name, "0402"),
                     f"OPA846 in SOT-23-5: {what} (0402)",
-                    "One of the three layouts of Section G.14.10 and Figure 51 of the note, on a four-layer board "
+                    "One of the three layouts of Section G.14.10 and Figure 52 of the note, on a four-layer board "
                     "whose two inner ground planes are cut out around the network.", SOT23_LABELS))
     for name, d in g8.LAYOUTS.items():
         out.append((name, g8.build(name), d["title"],

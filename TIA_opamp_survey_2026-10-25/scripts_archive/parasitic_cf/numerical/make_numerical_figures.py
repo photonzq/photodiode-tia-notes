@@ -1,6 +1,6 @@
-"""Figures 44-51 of Appendix G (the numerical section), from the recorded results.
+"""Figures 45-52 of Appendix G (the numerical section; files fig44-fig51), from the recorded results.
 
-Usage:  python make_numerical_figures.py [figure numbers ...]      (default: all)
+Usage:  python make_numerical_figures.py [file numbers 44-51 ...]      (default: all)
 
 Why this script exists
 ----------------------
@@ -282,7 +282,7 @@ def fig49():
 
 
 def fig50():
-    """The feedback network of Figure 43 in three dimensions, and what each part adds."""
+    """The feedback network of Figure 44 in three dimensions, and what each part adds."""
     r = load("resistor_3d.json").get("opa855_layout")
     lay = g3.opa855_layout()
     fig = plt.figure(figsize=(6.5, 3.2), constrained_layout=True)

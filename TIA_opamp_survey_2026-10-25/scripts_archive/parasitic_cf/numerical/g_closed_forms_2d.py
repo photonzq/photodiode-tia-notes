@@ -239,7 +239,7 @@ def pins_layout(middle: str, pin4_grounded: bool) -> Layout:
     R = R_HALF
     lay = Layout(2, "pins")
     # Pin 1 = A at +p, pin 3 = B at -p, pin 4 at -2p: the order along the edge is reversed relative to
-    # Figure 43 so that A lies at +x, which changes nothing physical.
+    # Figure 44 so that A lies at +x, which changes nothing physical.
     lay.add_segment("z", 0.0, (p - b / 2, p + b / 2), net="A")
     lay.add_segment("z", 0.0, (-p - b / 2, -p + b / 2), net="B")
     if middle == "thin":
