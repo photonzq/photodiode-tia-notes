@@ -85,7 +85,7 @@ size that g_opa846_3d.py gives the grounded pins, 7.5 um at refine 1, instead of
 edge size, which the 15-um termination caps at 15 um (pcbcap.meshing.resolve_params); the resistor
 keeps its 15-um edges, because most of the coupling sits there: in the 0402 model of Section
 G.14.4, 19.4 of 40.3 fF lie in the alumina between the wraps (Section G.14.7, the paragraph beside
-Figure 46).  The OPA846 cases run at refine 5.66, the level of g_opa846_3d.py (the coarse edges are
+Figure 47).  The OPA846 cases run at refine 5.66, the level of g_opa846_3d.py (the coarse edges are
 then 42 um), the high-gain cases at refine 11.3 (85 um; the core and far sizes double as well).
 Without the coarser edges the leads, holes, traces and guard rings of these packages, with several
 times the edge length of a SOT-23 network, would need 1.4-2.5 million elements (meshing's

@@ -1,6 +1,6 @@
 """Check that draw_iso draws the same polygons, in the same order and colours, before and after the
 face computation was moved out of it into plotting.visible_faces (default view only, which is the
-view of the published Figures 45, 51 and 52, files fig44, fig50 and fig51).
+view of the published Figures 46, 51 and 52, files fig44, fig50 and fig51).
 
 Run:  python check_iso_faces.py <plotting.py before the change>
       (for example the file from the commit before the change, written out with

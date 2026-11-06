@@ -63,7 +63,9 @@ With the noise index NI in uV/V per decade (Section 6.9), the excess voltage den
 with the DC voltage V is 10^(NI/20) uV/V x V / sqrt(f ln 10). As a current at the node, divided by R,
     S_ex = 10^(NI/10) (1 uV/V)^2 I^2 / (f ln 10),                                      (7)
 which depends on the current and the noise index only, not on R or V: the same in both schemes for the
-same resistor technology. Evaluated at NI = -32 dB, the figure Section 6.9 asks of the servo resistor.
+same resistor technology. Evaluated for the 0.05 uV/V (-26.0 dB) of Vishay's chart for TNPW e3 (document 28758,
+p. 9) and, for comparison, -32 dB; also for the balanced pair's servo resistor of Section 6.9, 0.5 mA with 12 V
+across 24 kOhm, against its own Johnson noise, the Johnson noise of R_F and the shot noise of the pair's 20 mA.
 
 6. Power and self-heating of the resistor that carries the DC
 -------------------------------------------------------------
@@ -210,7 +212,18 @@ def main():
           + ", ".join(f"{math.sqrt(4 * KT * r * 1e3) * 1e9:.2f} nV/rtHz at {r:g} kOhm" for r in (1.2, 2.4)))
 
     print("\n== 5. Excess noise of the DC-carrying resistor, Eq. (7)")
-    for ni, why in ((20 * math.log10(0.05), "TNPW e3 chart, 0.05 uV/V (document 28758, p. 9)"), (-32.0, "Section 6.9's requirement")):
+    ni_tnpw = 20 * math.log10(0.05)
+    v_s, r_s, i_s = 12.0, 24e3, 0.5e-3                                   # the balanced pair's servo resistor (Section 6.9)
+    e_ex = 0.05e-6 * v_s / math.sqrt(100 * math.log(10)) * 1e9          # nV/rtHz at 100 Hz
+    e_j = math.sqrt(4 * KT * r_s) * 1e9
+    s_ex = (e_ex / (r_s / 1e3)) ** 2                                      # pA^2/Hz (nV / kOhm = pA)
+    ni_eq_j = 20 * math.log10(e_j * 1e-9 * math.sqrt(100 * math.log(10)) / (v_s * 1e-6))
+    ni_eq_rf = 10 * math.log10(FOUR_KT / R_F * 1e-24 * 100 * math.log(10) / (1e-12 * i_s ** 2))
+    print(f"  servo resistor of Section 6.9, TNPW1206 at 0.05 uV/V: e_ex(100 Hz) = 0.05 uV/V x {v_s:g} V / sqrt(100 ln 10) = "
+          f"{e_ex:.1f} nV/rtHz against its Johnson noise {e_j:.1f} nV/rtHz (equal at NI = {ni_eq_j:.1f} dB); as a current "
+          f"{math.sqrt(s_ex):.2f} pA/rtHz = {s_ex:.2f} pA^2/Hz, {100 * s_ex / (SHOT * 20):.3f} % of the shot noise of 20 mA, "
+          f"{s_ex / (FOUR_KT / R_F):.2f} of R_F's {FOUR_KT / R_F:.2f} pA^2/Hz (equal at NI = {ni_eq_rf:.1f} dB)")
+    for ni, why in ((ni_tnpw, "TNPW e3 chart, 0.05 uV/V (document 28758, p. 9)"), (-32.0, "for comparison")):
         for i_ma in (1.0, 10.0):
             for f in (100.0, 1000.0):
                 s = 10 ** (ni / 10) * 1e-12 * (i_ma * 1e-3) ** 2 / (f * math.log(10)) * 1e24
