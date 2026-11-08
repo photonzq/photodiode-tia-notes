@@ -1,0 +1,9 @@
+* trace 2.8 mm x 0.2 mm x 17.5 um, alone
+.units mm
+.default sigma=58823.5
+N0 x=0 y=0 z=0
+N1 x=2.8 y=0 z=0
+E0 N0 N1 w=0.2 h=0.0175 nwinc=1 nhinc=1 rw=2 rh=2
+.external N0 N1 port
+.freq fmin=1000 fmax=1000 ndec=1
+.end

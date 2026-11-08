@@ -1,0 +1,13 @@
+* trace 3.0 mm x 0.2 mm x 1 um, 0.2 mm over the standard plane
+.units mm
+.default sigma=58823.5
+N0 x=2 y=0 z=0.2005
+N1 x=5 y=0 z=0.2005
+E0 N0 N1 w=0.2 h=0.001 nwinc=13 nhinc=1 rw=2 rh=2
+Gp x1=0 y1=-2 z1=-0.001 x2=10 y2=-2 z2=-0.001 x3=10 y3=2 z3=-0.001 thick=0.002 sigma=58823.5 seg1=20 seg2=80
++ Npa (2,0,-0.001)
++ Npb (5,0,-0.001)
+.equiv N1 Npb
+.external N0 Npa port
+.freq fmin=308000000 fmax=308000000 ndec=1
+.end

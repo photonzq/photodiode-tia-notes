@@ -1,0 +1,10 @@
+# Scripts of the side note on copper thickness
+
+The two scripts below produce every number and figure of `TIA_trace_inductance.md`. Run them from this folder, the FastHenry runs first.
+
+| Script | What it does | Writes |
+|---|---|---|
+| `fasthenry_traces.py` | The FastHenry runs of Sections 3 and 4: a trace 2.8 mm long and 0.2 mm wide of 1, 17.5, 35 and 70 µm alone, at DC (one filament) and at 308 MHz (9 × 5 and 13 × 7 filaments); the same trace 3 and 6 mm long with its lower face 0.2 mm above a copper sheet, at DC and at 308 MHz, with a coarser and a wider sheet as checks. `python fasthenry_traces.py run alone`, `run plane` or `run all` runs them through FastHenry2's automation interface (29 runs of 0.2–5 s each); `python fasthenry_traces.py report` writes the table of all runs and the inductance per unit length over the sheet. Its docstring describes every model. | `../data/fasthenry/alone/`, `../data/fasthenry/plane/` (inputs, `Zc_*.mat`, `results.json`), `../data/fasthenry/README.md` |
+| `trace_thickness.py` | The closed forms of the note: Eqs. (1)–(4) for the trace alone (the average of the partial mutual inductance over the cross-section and its geometric mean distance), Eqs. (5)–(8) for the trace over a plane (Hammerstad and Jensen's formula with their thickness correction, as in the Qucs technical papers), Eqs. (9) and (10) for the field inside the copper, and Eq. (11) for the OPA846 design. `python trace_thickness.py numbers` prints every number that the note quotes, with its substitution; `python trace_thickness.py figures` draws Figures 1 and 2 from the closed forms and the FastHenry records. | `../figures/fig1_thickness.png`, `.pdf`; `../figures/fig2_internal.png`, `.pdf` |
+
+The FastHenry runs need FastHenry2 (FastFieldSolvers) on Windows and Python with pywin32; `trace_thickness.py` needs NumPy, SciPy and Matplotlib, and it reads the FastHenry records through `fasthenry_traces.py`. Copper has the resistivity 1.7 × 10⁻⁸ Ω m throughout, as in the side note on feedback layouts.

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8"/>
+<meta content="pandoc" name="generator"/>
+<meta content="width=device-width, initial-scale=1.0, user-scalable=yes" name="viewport"/>
+<title>How the copper's thickness changes the inductance of a trace</title>
+<style>
+
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+</style>
+<style type="text/css">@page {
+size: A4;
+margin: 15mm 13mm 17mm 13mm;
+@bottom-center {
+content: counter(page) " / " counter(pages);
+font-family: Arial, sans-serif;
+font-size: 7.5pt;
+color: #666;
+}
+}
+@page :first {
+@bottom-center { content: none; }
+}
+html {
+font-family: Arial, "Segoe UI Symbol", "Cambria Math", sans-serif;
+font-size: 9.5pt;
+line-height: 1.38;
+color: #161616;
+-webkit-print-color-adjust: exact;
+print-color-adjust: exact;
+}
+body { margin: 0; padding: 0; max-width: none; }
+h1, h2, h3, h4, h5 { font-family: Arial, sans-serif; color: #1d2f55; line-height: 1.2; break-after: avoid; }
+h1 { font-size: 17pt; margin: 0 0 0.6em 0; padding-bottom: 0.2em; border-bottom: 1.2pt solid #1d2f55; break-before: page; }
+h2 { font-size: 17pt; margin: 0 0 0.6em 0; padding-bottom: 0.2em; border-bottom: 1.2pt solid #1d2f55; break-before: page; }
+h3 { font-size: 12.5pt; margin: 1.4em 0 0.45em 0; }
+h4 { font-size: 10.8pt; margin: 1.1em 0 0.35em 0; }
+h5 { font-size: 9.8pt; margin: 0.9em 0 0.3em 0; }
+h1.doc-title { break-before: auto; font-size: 21pt; border-bottom: none; margin-top: 30mm; }
+p.doc-subtitle { font-size: 13pt; color: #3a4a6b; margin-top: 0.2em; margin-bottom: 8mm; }
+p { margin: 0.35em 0 0.55em 0; orphans: 2; widows: 2; overflow-wrap: break-word; }
+ul, ol { margin: 0.25em 0 0.55em 0; padding-left: 1.4em; }
+ol { padding-left: 2em; } 
+li { margin: 0.12em 0; overflow-wrap: break-word; }
+li > ul, li > ol { margin: 0.1em 0 0.2em 0; }
+strong { color: #0f1a33; }
+a { color: #1a4f9c; text-decoration: none; }
+code { font-family: Consolas, "Courier New", monospace; font-size: 0.9em; overflow-wrap: anywhere; }
+pre { white-space: pre-wrap; font-size: 8pt; }
+hr { border: none; border-top: 0.6pt solid #bbb; margin: 1em 0; }
+blockquote { margin: 0.5em 0 0.5em 1em; padding-left: 0.8em; border-left: 2pt solid #c8d0e0; color: #333; }
+table {
+border-collapse: collapse;
+width: 100%;
+font-size: 7.6pt;
+line-height: 1.26;
+margin: 0.6em 0 0.9em 0;
+}
+table.wide { font-size: 6.9pt; }
+thead { display: table-header-group; }
+tr { break-inside: avoid; }
+th, td {
+border: 0.5pt solid #b9bfca;
+padding: 2pt 3pt;
+vertical-align: top;
+text-align: left;
+overflow-wrap: break-word;
+word-break: normal;
+hyphens: manual;
+}
+td a.url, th a.url, td code { overflow-wrap: anywhere; }
+th { background: #e9edf5; font-weight: bold; }
+tbody tr:nth-child(even) td { background: #fafbfd; }
+img { max-width: 100%; height: auto; display: block; margin: 0.6em auto; break-inside: avoid; }
+math { font-family: "Cambria Math", "STIX Two Math", math; font-size: 1.04em; }
+math[display="block"] { margin: 0.55em 0; }
+nav#TOC { break-before: page; break-after: page; font-size: 8.6pt; line-height: 1.3; }
+nav#TOC h1 { break-before: auto; }
+nav#TOC ul { list-style: none; padding-left: 0; margin: 0; }
+nav#TOC > ul > li { margin-top: 0.55em; font-weight: bold; }
+nav#TOC > ul > li > ul { font-weight: normal; padding-left: 1.2em; }
+nav#TOC a { color: #1d2f55; }
+</style>
+<style>
+.eqn { display: flex; align-items: center; width: 100%; margin: 0.35em 0; }
+.eqn-body { flex: 1 1 auto; text-align: center; }
+.eqn-no { flex: 0 0 3.4em; text-align: right; color: #272727; }
+a.xref { color: #1a4f9c; text-decoration: none; }
+blockquote.disclaimer { margin: 1.4em 0 0.6em; padding: 0.6em 0.9em; border-left: 3px solid #8a94a6;
+  background: #f4f6f9; font-size: 0.92em; color: #161616; }
+blockquote.disclaimer p { margin: 0; }
+</style>
+<style>
+@media screen {
+  html { font-size: 11pt; }
+  body { max-width: 64rem; margin: 0 auto; padding: 1.5rem 1.25rem 4rem; }
+  h1.doc-title { margin-top: 1.5rem; font-size: 2.4rem; }
+  p.doc-subtitle { margin-bottom: 1.2rem; font-size: 1.3rem; }
+  h1, h2 { font-size: 2rem; margin-top: 2.4em; }
+  h3 { font-size: 1.5rem; margin-top: 1.8em; }
+  h4 { font-size: 1.25rem; margin-top: 1.5em; }
+  h5 { font-size: 1.1rem; margin-top: 1.2em; }
+  table { font-size: 9pt; }
+  table.wide { font-size: 8.4pt; }
+  .table-scroll { overflow-x: auto; }
+  nav#TOC { font-size: 10pt; }
+  nav#TOC h1 { font-size: 1.8rem; }
+  p.pdf-link { margin: 0.8em 0 1.6em; }
+  a.to-contents { position: fixed; right: 1.2rem; bottom: 1.2rem; z-index: 10; padding: 0.4em 0.9em;
+    border-radius: 1.2em; background: #1d2f55; color: #fff; font-size: 0.95rem; opacity: 0.85;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3); }
+  a.to-contents:hover, a.to-contents:focus { opacity: 1; }
+}
+@media print {
+  a.to-contents { display: none; }
+}
+</style>
+</head>
+<body>
+
+<h1 class="doc-title" id="how-the-coppers-thickness-changes-the-inductance-of-a-trace">How the copper’s thickness changes the inductance of a trace</h1>
+<p class="doc-subtitle">Side note to the two transimpedance-amplifier notes and to the side note on feedback layouts: closed forms and FastHenry solutions for traces of ½-, 1- and 2-oz copper, alone and over a plane.</p>
+<blockquote class="disclaimer">
+<p>This note was created with significant AI assistance. It may contain errors, so check the cited datasheet pages, tables and scripts before relying on a figure. The note itself is dedicated to the public domain under CC0 1.0; no copyright is reserved.</p>
+</blockquote>
+<p class="pdf-link"><a href="TIA_trace_inductance.pdf">PDF version</a></p><nav id="TOC" role="doc-toc"><h1>Contents</h1>
+<ul>
+<li><a href="#how-the-coppers-thickness-changes-the-inductance-of-a-trace" id="toc-how-the-coppers-thickness-changes-the-inductance-of-a-trace">How the copper’s thickness changes the inductance of a trace</a>
+<ul>
+<li><a href="#what-this-note-answers" id="toc-what-this-note-answers">1. What this note answers</a></li>
+<li><a href="#where-the-thickness-can-enter" id="toc-where-the-thickness-can-enter">2. Where the thickness can enter</a></li>
+<li><a href="#a-trace-alone" id="toc-a-trace-alone">3. A trace alone</a></li>
+<li><a href="#a-trace-over-a-plane" id="toc-a-trace-over-a-plane">4. A trace over a plane</a></li>
+<li><a href="#below-a-few-megahertz-the-field-inside-the-copper" id="toc-below-a-few-megahertz-the-field-inside-the-copper">5. Below a few megahertz: the field inside the copper</a></li>
+<li><a href="#what-this-means-for-the-two-notes" id="toc-what-this-means-for-the-two-notes">6. What this means for the two notes</a></li>
+<li><a href="#appendix-a.-files" id="toc-appendix-a.-files">Appendix A. Files</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
+</ul></li>
+</ul>
+</nav>
+<h2 id="what-this-note-answers">1. What this note answers</h2>
+<p>The <a href="../TIA_feedback_layouts/">side note on feedback layouts</a> estimates the inductance in series with the feedback network from traces 0.2 mm wide and 35 µm thick, the usual 1-oz copper, and finds that it moves the feedback capacitance of the 2-kΩ OPA846 design by 2–4 % at the loop crossover (its Section 4 and its Appendix C). Boards are also made with ½-oz (17.5 µm) and 2-oz (70 µm) outer copper, and plating adds to the foil. The question is therefore whether the copper’s thickness changes that inductance enough to matter, for the layouts of the <a href="../TIA_opamp_survey_2026-10-25/">balanced-photodiode note</a> and the <a href="../TIA_high_gain_survey_2026-11-02/">high-gain note</a> and for traces in general. This note answers it with closed forms and with FastHenry, the field solver of the side note’s Appendix C, for a trace alone and for a trace over a plane.</p>
+<p>The answers, with the sections that derive them, are these.</p>
+<ul>
+<li><strong>The thickness changes the inductance by a few percent, and thicker copper lowers it.</strong> Going from 35 to 70 µm lowers the inductance of a trace 2.8 mm long and 0.2 mm wide by 3.7 % at DC and by 5.0 % at 308 MHz, and the inductance per unit length of the same trace 0.2 mm above a plane by 5.8 % at 308 MHz. Going from 35 to 17.5 µm raises the three by 2.1 %, 3.3 % and 4.1 % (Sections <a class="xref" href="#a-trace-alone">3</a> and <a class="xref" href="#a-trace-over-a-plane">4</a>, Figure <a class="xref" href="#fig-1">1</a>).</li>
+<li><strong>The geometry decides instead.</strong> Halving the trace’s height above its plane or doubling its width changes the inductance per unit length by 17–47 %, against 0.7–5.6 % for doubling the copper (Table <a class="xref" href="#tab-3">3</a>). The inductance measures the magnetic field around the current, and the thickness only adds two side walls, 17.5–70 µm tall, to the outline of the conductor (Section <a class="xref" href="#where-the-thickness-can-enter">2</a>).</li>
+<li><strong>Below a few megahertz the sign reverses, and only wide traces notice.</strong> When the current fills the copper, the field inside it adds a third of the thickness to the gap between a trace and its plane. A wide trace 0.2 mm above its plane, with 2-oz copper in both, is then 10 % more inductive than with 1-oz copper. Above about 10 MHz the copper’s weight drops out of this term; at 100 MHz the skin effect decides where the current flows, but the field inside the skin adds only about 3 % to the inductance (Section <a class="xref" href="#below-a-few-megahertz-the-field-inside-the-copper">5</a>, Figure <a class="xref" href="#fig-2">2</a>).</li>
+<li><strong>Nothing in the two notes changes.</strong> With 2-oz instead of 1-oz copper, the fractional change <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>δ</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\delta_1</annotation></semantics></math> that the inductance makes to the feedback capacitance of the OPA846 design in SOIC-8 at 308 MHz moves from 2.85 % to 2.79 %, and with ½-oz copper to 2.89 % (Section <a class="xref" href="#what-this-means-for-the-two-notes">6</a>).</li>
+</ul>
+<h2 id="where-the-thickness-can-enter">2. Where the thickness can enter</h2>
+<p>An inductance measures the magnetic energy <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>E</mi><annotation encoding="application/x-tex">E</annotation></semantics></math> that a current <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math> stores, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mn>2</mn><mi>E</mi><mi>/</mi><msup><mi>I</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">L = 2E/I^2</annotation></semantics></math>, and that energy lies wherever the magnetic field is. At high frequency the current flows in a thin skin on the copper’s surface, so the field fills the space around the trace, most of it in the gap between the trace and its return current, and the copper only bounds that space. The thickness adds two side walls, 17.5–70 µm tall, to an outline that is 200 µm wide in the layouts of the side note, so it can change the field only near the trace’s edges. Sections <a class="xref" href="#a-trace-alone">3</a> and <a class="xref" href="#a-trace-over-a-plane">4</a> put numbers on this for a trace alone and for a trace over a plane. At low frequency the field also fills the copper itself, and a thicker conductor then holds more of it; Section <a class="xref" href="#below-a-few-megahertz-the-field-inside-the-copper">5</a> treats that case. Section <a class="xref" href="#what-this-means-for-the-two-notes">6</a> applies the results to the designs of the two notes.</p>
+<h2 id="a-trace-alone">3. A trace alone</h2>
+<p>The ground planes of the side note’s field models leave a window under the feedback network, so its traces have no plane directly beneath them, and the side note sums partial self-inductances (its Section 4). Two parallel filaments of length <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>l</mi><annotation encoding="application/x-tex">l</annotation></semantics></math> that lie side by side over the same span, a distance <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>d</mi><annotation encoding="application/x-tex">d</annotation></semantics></math> apart, have the partial mutual inductance of the side note’s Eq. (3),</p>
+<p><span class="eqn" id="eq-1"><span class="eqn-body"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo form="prefix" stretchy="false">(</mo><mi>l</mi><mo>,</mo><mi>d</mi><mo form="postfix" stretchy="false">)</mo><mo>=</mo><mfrac><msub><mi>μ</mi><mn>0</mn></msub><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><mrow><mo form="prefix" stretchy="true">[</mo><mspace width="0.167em"></mspace><mi>l</mi><mspace width="0.167em"></mspace><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">h</mi></mrow><mfrac><mi>l</mi><mi>d</mi></mfrac><mo>−</mo><msqrt><mrow><msup><mi>l</mi><mn>2</mn></msup><mo>+</mo><msup><mi>d</mi><mn>2</mn></msup></mrow></msqrt><mo>+</mo><mi>d</mi><mspace width="0.167em"></mspace><mo form="postfix" stretchy="true">]</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">
+M(l, d) = \frac{\mu_0}{2\pi}\left[\,l\,\mathrm{asinh}\frac{l}{d} - \sqrt{l^2 + d^2} + d\,\right] ,</annotation></semantics></math></span><span class="eqn-no">(1)</span></span></p>
+<p>where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mn>0</mn></msub><mi>/</mi><mn>2</mn><mi>π</mi></mrow><annotation encoding="application/x-tex">\mu_0/2\pi</annotation></semantics></math> = 0.2 nH/mm. A bar of width <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math> and thickness <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> that carries a uniform current is a bundle of such filaments, and its partial self-inductance is the average of Eq. <a class="xref" href="#eq-1">(1)</a> over pairs of points of its cross-section. Two random points of the rectangle lie <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>a</mi><annotation encoding="application/x-tex">a</annotation></semantics></math> apart across the width and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>b</mi><annotation encoding="application/x-tex">b</annotation></semantics></math> apart across the thickness, and each offset has the triangular density of the side note’s Eq. (4), so</p>
+<p><span class="eqn" id="eq-2"><span class="eqn-body"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mrow><mi>b</mi><mi>a</mi><mi>r</mi></mrow></msub><mo form="prefix" stretchy="false">(</mo><mi>l</mi><mo>,</mo><mi>w</mi><mo>,</mo><mi>t</mi><mo form="postfix" stretchy="false">)</mo><mo>=</mo><msubsup><mo>∫</mo><mn>0</mn><mi>w</mi></msubsup><mspace width="-0.167em"></mspace><mspace width="-0.167em"></mspace><msubsup><mo>∫</mo><mn>0</mn><mi>t</mi></msubsup><mfrac><mrow><mn>4</mn><mo form="prefix" stretchy="false">(</mo><mi>w</mi><mo>−</mo><mi>a</mi><mo form="postfix" stretchy="false">)</mo><mo form="prefix" stretchy="false">(</mo><mi>t</mi><mo>−</mo><mi>b</mi><mo form="postfix" stretchy="false">)</mo></mrow><mrow><msup><mi>w</mi><mn>2</mn></msup><msup><mi>t</mi><mn>2</mn></msup></mrow></mfrac><mspace width="0.167em"></mspace><mi>M</mi><mspace width="-0.167em"></mspace><mrow><mo form="prefix" stretchy="true">(</mo><mi>l</mi><mo>,</mo><msqrt><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></mrow></msqrt><mo form="postfix" stretchy="true">)</mo></mrow><mi mathvariant="normal">d</mi><mi>b</mi><mspace width="0.167em"></mspace><mi mathvariant="normal">d</mi><mi>a</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">
+L_{bar}(l, w, t) = \int_0^w\!\!\int_0^t \frac{4(w - a)(t - b)}{w^2t^2}\,M\!\left(l, \sqrt{a^2 + b^2}\right)\mathrm db\,\mathrm da .</annotation></semantics></math></span><span class="eqn-no">(2)</span></span></p>
+<p>FastHenry computes the same quantity when it carries the bar’s current in a single filament, and the two agree to the fourth digit (Table <a class="xref" href="#tab-1">1</a>).</p>
+<p><strong>Why the thickness enters only weakly.</strong> For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mo>≫</mo><mi>d</mi></mrow><annotation encoding="application/x-tex">l \gg d</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">a</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">h</mi></mrow><mo form="prefix" stretchy="false">(</mo><mi>l</mi><mi>/</mi><mi>d</mi><mo form="postfix" stretchy="false">)</mo><mo>=</mo><mrow><mi mathvariant="normal">ln</mi><mo>⁡</mo></mrow><mo form="prefix" stretchy="false">(</mo><mn>2</mn><mi>l</mi><mi>/</mi><mi>d</mi><mo form="postfix" stretchy="false">)</mo><mo>+</mo><mi>O</mi><mo form="prefix" stretchy="false">(</mo><msup><mi>d</mi><mn>2</mn></msup><mi>/</mi><msup><mi>l</mi><mn>2</mn></msup><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathrm{asinh}(l/d) = \ln(2l/d) + O(d^2/l^2)</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mrow><msup><mi>l</mi><mn>2</mn></msup><mo>+</mo><msup><mi>d</mi><mn>2</mn></msup></mrow></msqrt><mo>=</mo><mi>l</mi><mo>+</mo><mi>O</mi><mo form="prefix" stretchy="false">(</mo><msup><mi>d</mi><mn>2</mn></msup><mi>/</mi><mi>l</mi><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\sqrt{l^2 + d^2} = l + O(d^2/l)</annotation></semantics></math>, so Eq. <a class="xref" href="#eq-1">(1)</a> becomes <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo form="prefix" stretchy="false">(</mo><msub><mi>μ</mi><mn>0</mn></msub><mi>/</mi><mn>2</mn><mi>π</mi><mo form="postfix" stretchy="false">)</mo><mo form="prefix" stretchy="false">[</mo><mspace width="0.167em"></mspace><mi>l</mi><mrow><mi mathvariant="normal">ln</mi><mo>⁡</mo></mrow><mo form="prefix" stretchy="false">(</mo><mn>2</mn><mi>l</mi><mi>/</mi><mi>d</mi><mo form="postfix" stretchy="false">)</mo><mo>−</mo><mi>l</mi><mo>+</mo><mi>d</mi><mspace width="0.167em"></mspace><mo form="postfix" stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">(\mu_0/2\pi)[\,l\ln(2l/d) - l + d\,]</annotation></semantics></math>. Averaged over the cross-section, it gives</p>
+<p><span class="eqn" id="eq-3"><span class="eqn-body"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>≈</mo><mfrac><mrow><msub><mi>μ</mi><mn>0</mn></msub><mi>l</mi></mrow><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><mrow><mo form="prefix" stretchy="true">[</mo><mi mathvariant="normal">ln</mi><mfrac><mrow><mn>2</mn><mi>l</mi></mrow><mi>g</mi></mfrac><mo>−</mo><mn>1</mn><mo>+</mo><mfrac><mover><mi>d</mi><mo accent="true">‾</mo></mover><mi>l</mi></mfrac><mo form="postfix" stretchy="true">]</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><mrow><mi mathvariant="normal">ln</mi><mo>⁡</mo></mrow><mi>g</mi><mo>=</mo><mo form="prefix" stretchy="false">⟨</mo><mrow><mi mathvariant="normal">ln</mi><mo>⁡</mo></mrow><mi>d</mi><mo form="postfix" stretchy="false">⟩</mo><mo>,</mo></mrow><annotation encoding="application/x-tex">
+L \approx \frac{\mu_0 l}{2\pi}\left[\ln\frac{2l}{g} - 1 + \frac{\bar d}{l}\right] , \qquad \ln g = \langle\ln d\rangle ,</annotation></semantics></math></span><span class="eqn-no">(3)</span></span></p>
+<p>where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math> is the geometric mean distance of the cross-section from itself and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>d</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar d</annotation></semantics></math> the mean distance, whose term is small. The cross-section enters only through <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math>, inside a logarithm. For a strip without thickness, the density <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mo form="prefix" stretchy="false">(</mo><mi>w</mi><mo>−</mo><mi>s</mi><mo form="postfix" stretchy="false">)</mo><mi>/</mi><msup><mi>w</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">2(w - s)/w^2</annotation></semantics></math> of the side note’s Eq. (4) gives <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">ln</mi><mo>⁡</mo></mrow><mi>g</mi><mo>=</mo><mrow><mi mathvariant="normal">ln</mi><mo>⁡</mo></mrow><mi>w</mi><mo>−</mo><mn>3</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\ln g = \ln w - 3/2</annotation></semantics></math>, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo>=</mo><msup><mi>e</mi><mrow><mi>−</mi><mn>3</mn><mi>/</mi><mn>2</mn></mrow></msup><mi>w</mi></mrow><annotation encoding="application/x-tex">g = e^{-3/2}w</annotation></semantics></math> = 0.04463 mm for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>w</mi><annotation encoding="application/x-tex">w</annotation></semantics></math> = 0.2 mm. For the rectangles, the average of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">ln</mi><mo>⁡</mo></mrow><mi>d</mi></mrow><annotation encoding="application/x-tex">\ln d</annotation></semantics></math> with the density of Eq. <a class="xref" href="#eq-2">(2)</a> gives <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math> = 0.04863, 0.05256 and 0.06039 mm for 17.5, 35 and 70 µm, each equal to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.2236</mn><mspace width="0.167em"></mspace><mo form="prefix" stretchy="false">(</mo><mi>w</mi><mo>+</mo><mi>t</mi><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">0.2236\,(w + t)</annotation></semantics></math> within 0.05 %, so a thickness <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> acts on <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math> as the same extra width would. By Eq. <a class="xref" href="#eq-3">(3)</a>, the thickness lowers the inductance by</p>
+<p><span class="eqn" id="eq-4"><span class="eqn-body"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo form="prefix" stretchy="false">(</mo><mi>t</mi><mo form="postfix" stretchy="false">)</mo><mo>≈</mo><mi>L</mi><mo form="prefix" stretchy="false">(</mo><mn>0</mn><mo form="postfix" stretchy="false">)</mo><mo>−</mo><mfrac><mrow><msub><mi>μ</mi><mn>0</mn></msub><mi>l</mi></mrow><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><mrow><mi mathvariant="normal">ln</mi><mo>⁡</mo></mrow><mfrac><mrow><mi>g</mi><mo form="prefix" stretchy="false">(</mo><mi>t</mi><mo form="postfix" stretchy="false">)</mo></mrow><mrow><mi>g</mi><mo form="prefix" stretchy="false">(</mo><mn>0</mn><mo form="postfix" stretchy="false">)</mo></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">
+L(t) \approx L(0) - \frac{\mu_0 l}{2\pi}\ln\frac{g(t)}{g(0)} .</annotation></semantics></math></span><span class="eqn-no">(4)</span></span></p>
+<p>For the 2.8-mm trace with 35-µm copper, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mn>0</mn></msub><mi>l</mi><mi>/</mi><mn>2</mn><mi>π</mi></mrow><annotation encoding="application/x-tex">\mu_0 l/2\pi</annotation></semantics></math> = 0.2 nH/mm × 2.8 mm = 0.56 nH and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">ln</mi><mo>⁡</mo></mrow><mo form="prefix" stretchy="false">(</mo><mn>0.05256</mn><mi>/</mi><mn>0.04463</mn><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\ln(0.05256/0.04463)</annotation></semantics></math> = 0.1637. The strip without thickness has <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo form="prefix" stretchy="false">(</mo><mn>0</mn><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">L(0)</annotation></semantics></math> = 2.1592 nH by the side note’s Eq. (4), so Eq. <a class="xref" href="#eq-4">(4)</a> gives <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>L</mi><annotation encoding="application/x-tex">L</annotation></semantics></math> = 2.1592 nH − 0.56 nH × 0.1637 = 2.0675 nH, against 2.0681 nH by Eq. <a class="xref" href="#eq-2">(2)</a> and by FastHenry. Relative to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo form="prefix" stretchy="false">(</mo><mn>0</mn><mo form="postfix" stretchy="false">)</mo><mo>≈</mo><mo form="prefix" stretchy="false">(</mo><msub><mi>μ</mi><mn>0</mn></msub><mi>l</mi><mi>/</mi><mn>2</mn><mi>π</mi><mo form="postfix" stretchy="false">)</mo><mo form="prefix" stretchy="false">{</mo><mrow><mi mathvariant="normal">ln</mi><mo>⁡</mo></mrow><mo form="prefix" stretchy="false">[</mo><mn>2</mn><mi>l</mi><mi>/</mi><mi>g</mi><mo form="prefix" stretchy="false">(</mo><mn>0</mn><mo form="postfix" stretchy="false">)</mo><mo form="postfix" stretchy="false">]</mo><mo>−</mo><mn>1</mn><mo form="postfix" stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">L(0) \approx (\mu_0l/2\pi)\{\ln[2l/g(0)] - 1\}</annotation></semantics></math>, Eq. <a class="xref" href="#eq-4">(4)</a> is a change of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mrow><mi mathvariant="normal">ln</mi><mo>⁡</mo></mrow><mo form="prefix" stretchy="false">[</mo><mi>g</mi><mo form="prefix" stretchy="false">(</mo><mi>t</mi><mo form="postfix" stretchy="false">)</mo><mi>/</mi><mi>g</mi><mo form="prefix" stretchy="false">(</mo><mn>0</mn><mo form="postfix" stretchy="false">)</mo><mo form="postfix" stretchy="false">]</mo><mi>/</mi><mo form="prefix" stretchy="false">{</mo><mrow><mi mathvariant="normal">ln</mi><mo>⁡</mo></mrow><mo form="prefix" stretchy="false">[</mo><mn>2</mn><mi>l</mi><mi>/</mi><mi>g</mi><mo form="prefix" stretchy="false">(</mo><mn>0</mn><mo form="postfix" stretchy="false">)</mo><mo form="postfix" stretchy="false">]</mo><mo>−</mo><mn>1</mn><mo form="postfix" stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">-\ln[g(t)/g(0)]/\{\ln[2l/g(0)] - 1\}</annotation></semantics></math>, so a longer trace is affected even less: 70-µm copper lowers the inductance below that of a strip without thickness by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.3025</mn><mi>/</mi><mo form="prefix" stretchy="false">(</mo><mrow><mi mathvariant="normal">ln</mi><mo>⁡</mo></mrow><mn>125.5</mn><mo>−</mo><mn>1</mn><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">0.3025/(\ln 125.5 - 1)</annotation></semantics></math> = 7.9 % at 2.8 mm and by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.3025</mn><mi>/</mi><mo form="prefix" stretchy="false">(</mo><mrow><mi mathvariant="normal">ln</mi><mo>⁡</mo></mrow><mn>896.3</mn><mo>−</mo><mn>1</mn><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">0.3025/(\ln 896.3 - 1)</annotation></semantics></math> = 5.2 % at 20 mm, and 35-µm copper by 2.8 % at 20 mm, so that 2-oz copper lowers the inductance of a 20-mm trace against 1-oz copper by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>−</mo><mn>0.9478</mn><mi>/</mi><mn>0.9718</mn></mrow><annotation encoding="application/x-tex">1 - 0.9478/0.9718</annotation></semantics></math> = 2.5 %.</p>
+<p><strong>At 308 MHz.</strong> The current then crowds towards the trace’s edges and corners, which lowers the inductance of every trace, and more for the thicker ones, whose cross-section gives the current more room to move: from DC to 308 MHz, FastHenry’s traces lose 1.7 % at 1 µm, 3.7 % at 17.5 µm, 4.8 % at 35 µm and 6.1 % at 70 µm. The differences between the copper weights therefore grow a little, to +3.3 % for 17.5 µm and −5.0 % for 70 µm against 35 µm. The filaments are cut as in the side note’s Appendix C; from 9 × 5 to 13 × 7 filaments across the width and the thickness each value changes by 0.1 % or less, and the 35-µm values reproduce the side note’s Table C.1, 2.068 nH at DC and 1.968 nH at 308 MHz. Table <a class="xref" href="#tab-1">1</a> lists the results, and Figure <a class="xref" href="#fig-1">1</a>, in Section <a class="xref" href="#a-trace-over-a-plane">4</a>, plots them.</p>
+<p id="tab-1"><em>Table 1. A trace 2.8 mm long and 0.2 mm wide with no plane beneath it: the geometric mean distance <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math> of its cross-section; its partial self-inductance with a uniform current, by Eq. <a class="xref" href="#eq-2">(2)</a> and by FastHenry at DC; its partial self-inductance by FastHenry at 308 MHz with 13 × 7 filaments; and the changes from 1-oz copper. The strip of 1 µm stands for a strip without thickness: its <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math> is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>e</mi><mrow><mi>−</mi><mn>3</mn><mi>/</mi><mn>2</mn></mrow></msup><mi>w</mi></mrow><annotation encoding="application/x-tex">e^{-3/2}w</annotation></semantics></math>, its value under Eq. <a class="xref" href="#eq-2">(2)</a> is the side note’s Eq. (4), and FastHenry cuts it into 13 × 1 filaments at 308 MHz.</em></p>
+<div class="table-scroll"><table class="wide">
+<thead>
+<tr>
+<th>Copper</th>
+<th><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math> (mm)</th>
+<th>Eq. <a class="xref" href="#eq-2">(2)</a> (nH)</th>
+<th>FastHenry, DC (nH)</th>
+<th>FastHenry, 308 MHz (nH)</th>
+<th>Change from 1 oz at DC</th>
+<th>Change from 1 oz at 308 MHz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Strip, 1 µm</td>
+<td>0.04463</td>
+<td>2.1592</td>
+<td>2.1563</td>
+<td>2.1203</td>
+<td>+4.3 %</td>
+<td>+7.7 %</td>
+</tr>
+<tr>
+<td>½ oz, 17.5 µm</td>
+<td>0.04863</td>
+<td>2.1113</td>
+<td>2.1113</td>
+<td>2.0329</td>
+<td>+2.1 %</td>
+<td>+3.3 %</td>
+</tr>
+<tr>
+<td>1 oz, 35 µm</td>
+<td>0.05256</td>
+<td>2.0681</td>
+<td>2.0681</td>
+<td>1.9682</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>2 oz, 70 µm</td>
+<td>0.06039</td>
+<td>1.9915</td>
+<td>1.9915</td>
+<td>1.8702</td>
+<td>−3.7 %</td>
+<td>−5.0 %</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="a-trace-over-a-plane">4. A trace over a plane</h2>
+<p>Most traces outside the feedback network run over a plane that carries their return current beneath them, and the inductance per unit length of the pair, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>L</mi><mo>′</mo></msup><annotation encoding="application/x-tex">L'</annotation></semantics></math>, then describes them. When the currents flow on the surfaces of perfect conductors, the trace and the plane form a transmission line whose inductance and capacitance per unit length satisfy <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>L</mi><mo>′</mo></msup><msub><msup><mi>C</mi><mo>′</mo></msup><mn>0</mn></msub><mo>=</mo><msub><mi>μ</mi><mn>0</mn></msub><msub><mi>ε</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">L'C'_0 = \mu_0\varepsilon_0</annotation></semantics></math>, where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><msup><mi>C</mi><mo>′</mo></msup><mn>0</mn></msub><annotation encoding="application/x-tex">C'_0</annotation></semantics></math> is the capacitance per unit length with the dielectric removed; the board’s dielectric is not magnetic and leaves <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>L</mi><mo>′</mo></msup><annotation encoding="application/x-tex">L'</annotation></semantics></math> unchanged. Therefore</p>
+<p><span class="eqn" id="eq-5"><span class="eqn-body"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>L</mi><mo>′</mo></msup><mo>=</mo><mfrac><mrow><msub><mi>μ</mi><mn>0</mn></msub><msub><mi>ε</mi><mn>0</mn></msub></mrow><msub><msup><mi>C</mi><mo>′</mo></msup><mn>0</mn></msub></mfrac><mo>=</mo><mfrac><msub><mi>Z</mi><mrow><mi>L</mi><mn>1</mn></mrow></msub><msub><mi>c</mi><mn>0</mn></msub></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">
+L' = \frac{\mu_0\varepsilon_0}{C'_0} = \frac{Z_{L1}}{c_0} ,</annotation></semantics></math></span><span class="eqn-no">(5)</span></span></p>
+<p>where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Z</mi><mrow><mi>L</mi><mn>1</mn></mrow></msub><annotation encoding="application/x-tex">Z_{L1}</annotation></semantics></math> is the characteristic impedance of the line in air and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mn>0</mn></msub><annotation encoding="application/x-tex">c_0</annotation></semantics></math> the speed of light. The thickness can thus change <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>L</mi><mo>′</mo></msup><annotation encoding="application/x-tex">L'</annotation></semantics></math> only through the electrostatic field: the side walls carry part of the trace’s charge, so the trace acts as a wider one. Hammerstad and Jensen’s formula for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Z</mi><mrow><mi>L</mi><mn>1</mn></mrow></msub><annotation encoding="application/x-tex">Z_{L1}</annotation></semantics></math> [3], as the Qucs technical papers give it [2, Eqs. (11.4) and (11.6)], divided by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>c</mi><mn>0</mn></msub><annotation encoding="application/x-tex">c_0</annotation></semantics></math>, with the free-space impedance <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>Z</mi><mrow><mi>F</mi><mn>0</mn></mrow></msub><annotation encoding="application/x-tex">Z_{F0}</annotation></semantics></math> of [2] giving <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mrow><mi>F</mi><mn>0</mn></mrow></msub><mi>/</mi><msub><mi>c</mi><mn>0</mn></msub><mo>=</mo><msub><mi>μ</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">Z_{F0}/c_0 = \mu_0</annotation></semantics></math>, is</p>
+<p><span class="eqn" id="eq-6"><span class="eqn-body"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>L</mi><mo>′</mo></msup><mo>=</mo><mfrac><msub><mi>μ</mi><mn>0</mn></msub><mrow><mn>2</mn><mi>π</mi></mrow></mfrac><mrow><mi mathvariant="normal">ln</mi><mo>⁡</mo></mrow><mrow><mo form="prefix" stretchy="true">[</mo><msub><mi>f</mi><mi>u</mi></msub><mfrac><mi>h</mi><mi>W</mi></mfrac><mo>+</mo><msqrt><mrow><mn>1</mn><mo>+</mo><msup><mrow><mo form="prefix" stretchy="true">(</mo><mfrac><mrow><mn>2</mn><mi>h</mi></mrow><mi>W</mi></mfrac><mo form="postfix" stretchy="true">)</mo></mrow><mn>2</mn></msup></mrow></msqrt><mspace width="0.167em"></mspace><mo form="postfix" stretchy="true">]</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">
+L' = \frac{\mu_0}{2\pi}\ln\left[f_u\frac{h}{W} + \sqrt{1 + \left(\frac{2h}{W}\right)^2}\,\right] ,</annotation></semantics></math></span><span class="eqn-no">(6)</span></span></p>
+<p><span class="eqn" id="eq-7"><span class="eqn-body"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>u</mi></msub><mo>=</mo><mn>6</mn><mo>+</mo><mo form="prefix" stretchy="false">(</mo><mn>2</mn><mi>π</mi><mo>−</mo><mn>6</mn><mo form="postfix" stretchy="false">)</mo><mrow><mi mathvariant="normal">exp</mi><mo>⁡</mo></mrow><mrow><mo form="prefix" stretchy="true">[</mo><mi>−</mi><msup><mrow><mo form="prefix" stretchy="true">(</mo><mn>30.666</mn><mspace width="0.167em"></mspace><mfrac><mi>h</mi><mi>W</mi></mfrac><mo form="postfix" stretchy="true">)</mo></mrow><mn>0.7528</mn></msup><mo form="postfix" stretchy="true">]</mo></mrow><mo>,</mo></mrow><annotation encoding="application/x-tex">
+f_u = 6 + (2\pi - 6)\exp\left[-\left(30.666\,\frac{h}{W}\right)^{0.7528}\right] ,</annotation></semantics></math></span><span class="eqn-no">(7)</span></span></p>
+<p>for a strip without thickness, of width <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>W</mi><annotation encoding="application/x-tex">W</annotation></semantics></math>, at the height <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math> above the plane; [2] gives its accuracy as better than 0.01 % for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>W</mi><mi>/</mi><mi>h</mi><mo>≤</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">W/h \le 1</annotation></semantics></math> and 0.03 % for <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>W</mi><mi>/</mi><mi>h</mi><mo>≤</mo><mn>1000</mn></mrow><annotation encoding="application/x-tex">W/h \le 1000</annotation></semantics></math>. For a narrow strip, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>u</mi></msub><mo>→</mo><mn>6</mn></mrow><annotation encoding="application/x-tex">f_u \to 6</annotation></semantics></math> and Eq. <a class="xref" href="#eq-6">(6)</a> tends to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo form="prefix" stretchy="false">(</mo><msub><mi>μ</mi><mn>0</mn></msub><mi>/</mi><mn>2</mn><mi>π</mi><mo form="postfix" stretchy="false">)</mo><mrow><mi mathvariant="normal">ln</mi><mo>⁡</mo></mrow><mo form="prefix" stretchy="false">(</mo><mn>8</mn><mi>h</mi><mi>/</mi><mi>W</mi><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(\mu_0/2\pi)\ln(8h/W)</annotation></semantics></math>, the inductance of a round wire of radius <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>W</mi><mi>/</mi><mn>4</mn></mrow><annotation encoding="application/x-tex">W/4</annotation></semantics></math> at the height <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>; for a wide one, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>f</mi><mi>u</mi></msub><mo>→</mo><mn>2</mn><mi>π</mi></mrow><annotation encoding="application/x-tex">f_u \to 2\pi</annotation></semantics></math> and it tends to <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mn>0</mn></msub><mi>h</mi><mi>/</mi><mi>W</mi></mrow><annotation encoding="application/x-tex">\mu_0h/W</annotation></semantics></math>, that of two parallel plates. A thickness <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math>, with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math> measured to the strip’s lower face, replaces <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>W</mi><annotation encoding="application/x-tex">W</annotation></semantics></math> in Eqs. <a class="xref" href="#eq-6">(6)</a> and <a class="xref" href="#eq-7">(7)</a> by the wider [2, Eq. (11.22), which writes the widths in units of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math>]</p>
+<p><span class="eqn" id="eq-8"><span class="eqn-body"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mn>1</mn></msub><mo>=</mo><mi>W</mi><mo>+</mo><mfrac><mi>t</mi><mi>π</mi></mfrac><mrow><mi mathvariant="normal">ln</mi><mo>⁡</mo></mrow><mrow><mo form="prefix" stretchy="true">[</mo><mn>1</mn><mo>+</mo><mfrac><mrow><mn>4</mn><mi>e</mi></mrow><mrow><mo form="prefix" stretchy="false">(</mo><mi>t</mi><mi>/</mi><mi>h</mi><mo form="postfix" stretchy="false">)</mo><msup><mrow><mi mathvariant="normal">coth</mi><mo>⁡</mo></mrow><mn>2</mn></msup><msqrt><mrow><mn>6.517</mn><mspace width="0.167em"></mspace><mi>W</mi><mi>/</mi><mi>h</mi></mrow></msqrt></mrow></mfrac><mo form="postfix" stretchy="true">]</mo></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">
+W_1 = W + \frac{t}{\pi}\ln\left[1 + \frac{4e}{(t/h)\coth^2\sqrt{6.517\,W/h}}\right] .</annotation></semantics></math></span><span class="eqn-no">(8)</span></span></p>
+<p>For the trace of Section <a class="xref" href="#a-trace-alone">3</a> with its lower face 0.2 mm above the plane and 35-µm copper, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mi>/</mi><mi>h</mi></mrow><annotation encoding="application/x-tex">t/h</annotation></semantics></math> = 0.175, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mn>6.517</mn></msqrt><annotation encoding="application/x-tex">\sqrt{6.517}</annotation></semantics></math> = 2.5528, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mrow><mi mathvariant="normal">coth</mi><mo>⁡</mo></mrow><mn>2</mn></msup><mn>2.5528</mn></mrow><annotation encoding="application/x-tex">\coth^2 2.5528</annotation></semantics></math> = 1.0245 and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>4</mn><mi>e</mi><mi>/</mi><mo form="prefix" stretchy="false">(</mo><mn>0.175</mn><mo>×</mo><mn>1.0245</mn><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">4e/(0.175 \times 1.0245)</annotation></semantics></math> = 60.64, so Eq. <a class="xref" href="#eq-8">(8)</a> adds <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo form="prefix" stretchy="false">(</mo><mn>35</mn><mspace width="0.222em"></mspace><mi>μ</mi><mi mathvariant="normal">m</mi><mi>/</mi><mi>π</mi><mo form="postfix" stretchy="false">)</mo><mrow><mi mathvariant="normal">ln</mi><mo>⁡</mo></mrow><mn>61.64</mn></mrow><annotation encoding="application/x-tex">(35\ \mu\mathrm m/\pi)\ln 61.64</annotation></semantics></math> = 11.14 µm × 4.121 = 45.9 µm to the width. Then <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mn>1</mn></msub><mi>/</mi><mi>h</mi></mrow><annotation encoding="application/x-tex">W_1/h</annotation></semantics></math> = 1.2296, Eq. <a class="xref" href="#eq-7">(7)</a> gives <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>f</mi><mi>u</mi></msub><annotation encoding="application/x-tex">f_u</annotation></semantics></math> = 6.0000, and Eq. <a class="xref" href="#eq-6">(6)</a> gives <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>L</mi><mo>′</mo></msup><annotation encoding="application/x-tex">L'</annotation></semantics></math> = 0.2 nH/mm × <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">ln</mi><mo>⁡</mo></mrow><mo form="prefix" stretchy="false">[</mo><mspace width="0.167em"></mspace><mn>6.0000</mn><mi>/</mi><mn>1.2296</mn><mo>+</mo><msqrt><mrow><mn>1</mn><mo>+</mo><mo form="prefix" stretchy="false">(</mo><mn>2</mn><mi>/</mi><mn>1.2296</mn><msup><mo form="postfix" stretchy="false">)</mo><mn>2</mn></msup></mrow></msqrt><mspace width="0.167em"></mspace><mo form="postfix" stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">\ln[\,6.0000/1.2296 + \sqrt{1 + (2/1.2296)^2}\,]</annotation></semantics></math> = 0.2 nH/mm × <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">ln</mi><mo>⁡</mo></mrow><mo form="prefix" stretchy="false">(</mo><mn>4.8797</mn><mo>+</mo><mn>1.9094</mn><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\ln(4.8797 + 1.9094)</annotation></semantics></math> = 0.2 nH/mm × 1.9153 = 0.3831 nH/mm.</p>
+<p><strong>FastHenry.</strong> The same trace was computed 3 mm and 6 mm long over a copper sheet 2 µm thick, 10 mm long and 4 mm wide, cut into cells 0.5 mm along the trace and 0.05 mm across it [1, p. 15]. The port lies between the trace’s near end and the node of the sheet below it [1, p. 16], and the far end is joined to the node below it, so the difference of the two loop inductances, divided by 3 mm, is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>L</mi><mo>′</mo></msup><annotation encoding="application/x-tex">L'</annotation></semantics></math> without the ends. At 308 MHz such a sheet acts as the ideal plane of Eq. <a class="xref" href="#eq-6">(6)</a>. Under the trace, the return current has roughly the density <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi><mo form="prefix" stretchy="false">(</mo><mi>x</mi><mo form="postfix" stretchy="false">)</mo><mo>=</mo><mo form="prefix" stretchy="false">(</mo><mi>I</mi><mi>/</mi><mi>π</mi><mo form="postfix" stretchy="false">)</mo><mspace width="0.167em"></mspace><msub><mi>h</mi><mi>c</mi></msub><mi>/</mi><mo form="prefix" stretchy="false">(</mo><msubsup><mi>h</mi><mi>c</mi><mn>2</mn></msubsup><mo>+</mo><msup><mi>x</mi><mn>2</mn></msup><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">K(x) = (I/\pi)\,h_c/(h_c^2 + x^2)</annotation></semantics></math> of the image of a line current at the height <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>h</mi><mi>c</mi></msub><annotation encoding="application/x-tex">h_c</annotation></semantics></math> = 0.2175 mm of the trace’s middle, for which <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∫</mo><msup><mi>K</mi><mn>2</mn></msup><mspace width="0.167em"></mspace><mi mathvariant="normal">d</mi><mi>x</mi><mo>=</mo><msup><mi>I</mi><mn>2</mn></msup><mi>/</mi><mo form="prefix" stretchy="false">(</mo><mn>2</mn><mi>π</mi><msub><mi>h</mi><mi>c</mi></msub><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\int K^2\,\mathrm dx = I^2/(2\pi h_c)</annotation></semantics></math>. The sheet’s resistance per square, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mi>/</mi><msub><mi>t</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">\rho/t_p</annotation></semantics></math> = 8.5 mΩ for its thickness <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>t</mi><mi>p</mi></msub><annotation encoding="application/x-tex">t_p</annotation></semantics></math> = 2 µm and copper’s <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mo>=</mo><mn>1.7</mn><mo>×</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>8</mn></mrow></msup><mspace width="0.222em"></mspace><mi mathvariant="normal">Ω</mi><mspace width="0.167em"></mspace><mi mathvariant="normal">m</mi></mrow><annotation encoding="application/x-tex">\rho = 1.7\times10^{-8}\ \Omega\,\mathrm m</annotation></semantics></math>, then gives the resistance per unit length <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo form="prefix" stretchy="false">(</mo><mi>ρ</mi><mi>/</mi><msub><mi>t</mi><mi>p</mi></msub><mo form="postfix" stretchy="false">)</mo><mi>/</mi><mo form="prefix" stretchy="false">(</mo><mn>2</mn><mi>π</mi><msub><mi>h</mi><mi>c</mi></msub><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(\rho/t_p)/(2\pi h_c)</annotation></semantics></math> = 8.5 mΩ/1.37 mm = 6.2 mΩ/mm, 0.8 % of the line’s reactance <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ω</mi><msup><mi>L</mi><mo>′</mo></msup></mrow><annotation encoding="application/x-tex">\omega L'</annotation></semantics></math> = 2π × 308 MHz × 0.39 nH/mm = 0.76 Ω/mm. The field inside the sheet adds a third of its thickness to the gap (Section <a class="xref" href="#below-a-few-megahertz-the-field-inside-the-copper">5</a>), <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mn>0</mn></msub><msub><mi>t</mi><mi>p</mi></msub><mi>/</mi><mo form="prefix" stretchy="false">(</mo><mn>3</mn><mo>×</mo><mn>2</mn><mi>π</mi><msub><mi>h</mi><mi>c</mi></msub><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mu_0t_p/(3\times2\pi h_c)</annotation></semantics></math> = 0.0006 nH/mm, 0.2 % of <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>L</mi><mo>′</mo></msup><annotation encoding="application/x-tex">L'</annotation></semantics></math>. Cells half as fine across the trace leave <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>L</mi><mo>′</mo></msup><annotation encoding="application/x-tex">L'</annotation></semantics></math> unchanged to 0.01 %, and a sheet twice as wide lowers it by 0.2 %. Table <a class="xref" href="#tab-2">2</a> compares the results with Eqs. <a class="xref" href="#eq-6">(6)</a>–<a class="xref" href="#eq-8">(8)</a>.</p>
+<p id="tab-2"><em>Table 2. A trace 0.2 mm wide with its lower face 0.2 mm above a plane: the widening <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mn>1</mn></msub><mo>−</mo><mi>W</mi></mrow><annotation encoding="application/x-tex">W_1 - W</annotation></semantics></math> of Eq. <a class="xref" href="#eq-8">(8)</a>; the inductance per unit length by Eqs. <a class="xref" href="#eq-6">(6)</a>–<a class="xref" href="#eq-8">(8)</a> and by FastHenry at 308 MHz with 13 × 7 filaments (13 × 1 for the 1-µm strip, which stands for a strip without thickness); and the changes from 1-oz copper.</em></p>
+<div class="table-scroll"><table class="wide">
+<thead>
+<tr>
+<th>Copper</th>
+<th><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mn>1</mn></msub><mo>−</mo><mi>W</mi></mrow><annotation encoding="application/x-tex">W_1 - W</annotation></semantics></math> (µm)</th>
+<th>Eqs. <a class="xref" href="#eq-6">(6)</a>–<a class="xref" href="#eq-8">(8)</a> (nH/mm)</th>
+<th>FastHenry, 308 MHz (nH/mm)</th>
+<th>FastHenry against Eqs. <a class="xref" href="#eq-6">(6)</a>–<a class="xref" href="#eq-8">(8)</a></th>
+<th>Change from 1 oz, Eqs. <a class="xref" href="#eq-6">(6)</a>–<a class="xref" href="#eq-8">(8)</a></th>
+<th>Change from 1 oz, FastHenry</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Strip, 1 µm</td>
+<td>0</td>
+<td>0.4217</td>
+<td>0.4315</td>
+<td>+2.3 %</td>
+<td>+10.1 %</td>
+<td>+10.2 %</td>
+</tr>
+<tr>
+<td>½ oz, 17.5 µm</td>
+<td>26.8</td>
+<td>0.3981</td>
+<td>0.4079</td>
+<td>+2.5 %</td>
+<td>+3.9 %</td>
+<td>+4.1 %</td>
+</tr>
+<tr>
+<td>1 oz, 35 µm</td>
+<td>45.9</td>
+<td>0.3831</td>
+<td>0.3918</td>
+<td>+2.3 %</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>2 oz, 70 µm</td>
+<td>76.7</td>
+<td>0.3615</td>
+<td>0.3692</td>
+<td>+2.1 %</td>
+<td>−5.6 %</td>
+<td>−5.8 %</td>
+</tr>
+</tbody>
+</table></div>
+<p>FastHenry lies 2.1–2.5 % above Eqs. <a class="xref" href="#eq-6">(6)</a>–<a class="xref" href="#eq-8">(8)</a> at every thickness. Equation (6) assumes perfect conductors, while at 308 MHz FastHenry’s copper lets the field into a skin 3.74 µm deep, which adds a little inductance (Section <a class="xref" href="#below-a-few-megahertz-the-field-inside-the-copper">5</a>), and its 1-µm strip, with 17 mΩ per square, is resistive enough to spread its current more evenly across its width than a perfect conductor would. The offset is common to all thicknesses, so the changes from 1-oz copper agree within 0.2 percentage points: 2-oz copper lowers <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>L</mi><mo>′</mo></msup><annotation encoding="application/x-tex">L'</annotation></semantics></math> by 5.6 % or 5.8 %, and ½-oz copper raises it by 3.9 % or 4.1 %.</p>
+<p><strong>At DC.</strong> The return current then no longer follows the trace but spreads across the whole sheet, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>L</mi><mo>′</mo></msup><annotation encoding="application/x-tex">L'</annotation></semantics></math> rises to 0.555 nH/mm for 35-µm copper, 42 % above its value at 308 MHz; that value belongs to this 4-mm sheet, not to a trace over a plane in general. The thickness changes it by +2.4 % for 17.5 µm and −4.1 % for 70 µm, as it changes the trace alone.</p>
+<p><strong>Other traces.</strong> Table <a class="xref" href="#tab-3">3</a> evaluates Eqs. <a class="xref" href="#eq-6">(6)</a>–<a class="xref" href="#eq-8">(8)</a> for other widths and heights. Going from 1-oz to 2-oz copper lowers <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>L</mi><mo>′</mo></msup><annotation encoding="application/x-tex">L'</annotation></semantics></math> by 0.7–5.6 %, while halving the height or doubling the width lowers it by 17–47 %. A model that treats the copper as a sheet without thickness overestimates <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>L</mi><mo>′</mo></msup><annotation encoding="application/x-tex">L'</annotation></semantics></math> by 1.2–10.8 %, more than the copper’s weight changes it.</p>
+<p id="tab-3"><em>Table 3. Inductance per unit length of a trace over a plane by Eqs. <a class="xref" href="#eq-6">(6)</a>–<a class="xref" href="#eq-8">(8)</a> (nH/mm) for ½-, 1- and 2-oz copper, and the change from the 1-oz value when the copper doubles, when it is a sheet without thickness, when the height halves and when the width doubles.</em></p>
+<div class="table-scroll"><table class="wide">
+<thead>
+<tr>
+<th>Trace</th>
+<th>½ oz</th>
+<th>1 oz</th>
+<th>2 oz</th>
+<th>1 oz to 2 oz</th>
+<th>Sheet without thickness</th>
+<th>Height halved</th>
+<th>Width doubled</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.2 mm wide, 0.2 mm above the plane (Table <a class="xref" href="#tab-2">2</a>)</td>
+<td>0.3981</td>
+<td>0.3831</td>
+<td>0.3615</td>
+<td>−5.6 %</td>
+<td>+10.1 %</td>
+<td>−30.0 %</td>
+<td>−27.2 %</td>
+</tr>
+<tr>
+<td>0.3 mm wide, 0.2 mm above</td>
+<td>0.3317</td>
+<td>0.3217</td>
+<td>0.3069</td>
+<td>−4.6 %</td>
+<td>+7.8 %</td>
+<td>−33.1 %</td>
+<td>−31.0 %</td>
+</tr>
+<tr>
+<td>0.2 mm wide, 0.1 mm above</td>
+<td>0.2789</td>
+<td>0.2680</td>
+<td>0.2530</td>
+<td>−5.6 %</td>
+<td>+10.8 %</td>
+<td>−35.1 %</td>
+<td>−32.6 %</td>
+</tr>
+<tr>
+<td>0.3 mm wide, 1.5 mm above, as over a plane on the far side of a 1.6-mm board</td>
+<td>0.7155</td>
+<td>0.6995</td>
+<td>0.6746</td>
+<td>−3.6 %</td>
+<td>+5.5 %</td>
+<td>−19.3 %</td>
+<td>−17.2 %</td>
+</tr>
+<tr>
+<td>3 mm wide, 0.1 mm above</td>
+<td>0.0371</td>
+<td>0.0370</td>
+<td>0.0367</td>
+<td>−0.7 %</td>
+<td>+1.2 %</td>
+<td>−47.4 %</td>
+<td>−47.2 %</td>
+</tr>
+</tbody>
+</table></div>
+<p><img alt="Figure 1" aria-label="Figure 1" role="img" src="figures/fig1_thickness.png"/></p>
+<p id="fig-1"><em>Figure 1. Inductance of a trace 0.2 mm wide against the thickness of its copper, relative to 35-µm copper. Blue: the trace alone, 2.8 mm long, with a uniform current, by Eq. <a class="xref" href="#eq-4">(4)</a> (line) and by FastHenry at DC (points). Red: the same trace at 308 MHz by FastHenry (points, joined by the dashed line). Green: the trace with its lower face 0.2 mm above a plane, inductance per unit length at 308 MHz, by Eqs. <a class="xref" href="#eq-6">(6)</a>–<a class="xref" href="#eq-8">(8)</a> (line) and by FastHenry (points). The points at 1 µm stand for a strip without thickness (Tables <a class="xref" href="#tab-1">1</a> and <a class="xref" href="#tab-2">2</a>).</em></p>
+<h2 id="below-a-few-megahertz-the-field-inside-the-copper">5. Below a few megahertz: the field inside the copper</h2>
+<p>Sections <a class="xref" href="#a-trace-alone">3</a> and <a class="xref" href="#a-trace-over-a-plane">4</a> hold where the current flows in a skin on the copper’s surface. At lower frequencies the current fills the copper, the field inside the copper then adds to the inductance, and this is the one case in which thicker copper is the more inductive. The skin depth of copper, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>=</mo><msqrt><mrow><mn>2</mn><mi>ρ</mi><mi>/</mi><mo form="prefix" stretchy="false">(</mo><mi>ω</mi><msub><mi>μ</mi><mn>0</mn></msub><mo form="postfix" stretchy="false">)</mo></mrow></msqrt></mrow><annotation encoding="application/x-tex">\delta = \sqrt{2\rho/(\omega\mu_0)}</annotation></semantics></math>, is 65.6 µm at 1 MHz, 20.7 µm at 10 MHz and 3.74 µm at 308 MHz, and it equals the copper’s thickness <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>=</mo><mi>ρ</mi><mi>/</mi><mo form="prefix" stretchy="false">(</mo><mi>π</mi><msub><mi>μ</mi><mn>0</mn></msub><msup><mi>t</mi><mn>2</mn></msup><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f = \rho/(\pi\mu_0t^2)</annotation></semantics></math>: for 35-µm copper at <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1.7</mn><mo>×</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>8</mn></mrow></msup><mspace width="0.222em"></mspace><mi mathvariant="normal">Ω</mi><mspace width="0.167em"></mspace><mi mathvariant="normal">m</mi><mi>/</mi><mo form="prefix" stretchy="false">[</mo><mi>π</mi><mo>×</mo><mn>4</mn><mi>π</mi><mo>×</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>7</mn></mrow></msup><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">H</mi><mi mathvariant="normal">/</mi><mi mathvariant="normal">m</mi></mrow><mo>×</mo><mo form="prefix" stretchy="false">(</mo><mn>35</mn><mspace width="0.222em"></mspace><mi>μ</mi><mi mathvariant="normal">m</mi><msup><mo form="postfix" stretchy="false">)</mo><mn>2</mn></msup><mo form="postfix" stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">1.7\times10^{-8}\ \Omega\,\mathrm m/[\pi\times4\pi\times10^{-7}\ \mathrm{H/m}\times(35\ \mu\mathrm m)^2]</annotation></semantics></math> = 3.52 MHz, for 17.5-µm copper at 14.1 MHz and for 70-µm copper at 0.88 MHz.</p>
+<p>Consider a trace much wider than its gap <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>h</mi><annotation encoding="application/x-tex">h</annotation></semantics></math> to the plane, so that the field <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mo>=</mo><mi>I</mi><mi>/</mi><mi>w</mi></mrow><annotation encoding="application/x-tex">H_0 = I/w</annotation></semantics></math> fills the gap and little field lies above the trace or below the plane. Inside each conductor the field obeys the diffusion equation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi mathvariant="normal">d</mi><mn>2</mn></msup><mi>H</mi><mi>/</mi><mi mathvariant="normal">d</mi><msup><mi>y</mi><mn>2</mn></msup><mo>=</mo><msup><mi>k</mi><mn>2</mn></msup><mi>H</mi></mrow><annotation encoding="application/x-tex">\mathrm d^2H/\mathrm dy^2 = k^2H</annotation></semantics></math> with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mo form="prefix" stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>j</mi><mo form="postfix" stretchy="false">)</mo><mi>/</mi><mi>δ</mi></mrow><annotation encoding="application/x-tex">k = (1 + j)/\delta</annotation></semantics></math>, and it falls from <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>H</mi><mn>0</mn></msub><annotation encoding="application/x-tex">H_0</annotation></semantics></math> on the face towards the gap to zero on the far face, so <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo form="prefix" stretchy="false">(</mo><mi>y</mi><mo form="postfix" stretchy="false">)</mo><mo>=</mo><msub><mi>H</mi><mn>0</mn></msub><mrow><mi mathvariant="normal">sinh</mi><mo>⁡</mo></mrow><mo form="prefix" stretchy="false">[</mo><mi>k</mi><mo form="prefix" stretchy="false">(</mo><mi>t</mi><mo>−</mo><mi>y</mi><mo form="postfix" stretchy="false">)</mo><mo form="postfix" stretchy="false">]</mo><mi>/</mi><mrow><mi mathvariant="normal">sinh</mi><mo>⁡</mo></mrow><mo form="prefix" stretchy="false">(</mo><mi>k</mi><mi>t</mi><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">H(y) = H_0\sinh[k(t - y)]/\sinh(kt)</annotation></semantics></math>, with <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>y</mi><annotation encoding="application/x-tex">y</annotation></semantics></math> measured into the conductor from the face towards the gap. The current density is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>−</mi><mi mathvariant="normal">d</mi><mi>H</mi><mi>/</mi><mi mathvariant="normal">d</mi><mi>y</mi></mrow><annotation encoding="application/x-tex">-\mathrm dH/\mathrm dy</annotation></semantics></math>, and the electric field on that face, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ρ</mi><annotation encoding="application/x-tex">\rho</annotation></semantics></math> times the current density there, divided by the current <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>0</mn></msub><mi>w</mi></mrow><annotation encoding="application/x-tex">H_0w</annotation></semantics></math>, gives the impedance per unit length of one conductor:</p>
+<p><span class="eqn" id="eq-9"><span class="eqn-body"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><msup><mi>Z</mi><mo>′</mo></msup><mrow><mi>i</mi><mi>n</mi><mi>t</mi></mrow></msub><mo>=</mo><mfrac><mrow><mi>ρ</mi><mi>k</mi></mrow><mi>w</mi></mfrac><mrow><mi mathvariant="normal">coth</mi><mo>⁡</mo></mrow><mo form="prefix" stretchy="false">(</mo><mi>k</mi><mi>t</mi><mo form="postfix" stretchy="false">)</mo><mo>,</mo><mspace width="2.0em"></mspace><mi>k</mi><mo>=</mo><mfrac><mrow><mn>1</mn><mo>+</mo><mi>j</mi></mrow><mi>δ</mi></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">
+Z'_{int} = \frac{\rho k}{w}\coth(kt) , \qquad k = \frac{1 + j}{\delta} .</annotation></semantics></math></span><span class="eqn-no">(9)</span></span></p>
+<p>For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo form="prefix" stretchy="false">|</mo><mi>k</mi><mi>t</mi><mo form="prefix" stretchy="false">|</mo><mo>≪</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|kt| \ll 1</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">coth</mi><mo>⁡</mo></mrow><mi>x</mi><mo>≈</mo><mn>1</mn><mi>/</mi><mi>x</mi><mo>+</mo><mi>x</mi><mi>/</mi><mn>3</mn></mrow><annotation encoding="application/x-tex">\coth x \approx 1/x + x/3</annotation></semantics></math>, and since <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><msup><mi>k</mi><mn>2</mn></msup><mo>=</mo><mi>j</mi><mi>ω</mi><msub><mi>μ</mi><mn>0</mn></msub></mrow><annotation encoding="application/x-tex">\rho k^2 = j\omega\mu_0</annotation></semantics></math>, Eq. <a class="xref" href="#eq-9">(9)</a> becomes <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mi>/</mi><mo form="prefix" stretchy="false">(</mo><mi>w</mi><mi>t</mi><mo form="postfix" stretchy="false">)</mo><mo>+</mo><mi>j</mi><mi>ω</mi><msub><mi>μ</mi><mn>0</mn></msub><mi>t</mi><mi>/</mi><mo form="prefix" stretchy="false">(</mo><mn>3</mn><mi>w</mi><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\rho/(wt) + j\omega\mu_0t/(3w)</annotation></semantics></math>: the DC resistance and the inductance <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mn>0</mn></msub><mi>t</mi><mi>/</mi><mo form="prefix" stretchy="false">(</mo><mn>3</mn><mi>w</mi><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mu_0t/(3w)</annotation></semantics></math>. For <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo form="prefix" stretchy="false">|</mo><mi>k</mi><mi>t</mi><mo form="prefix" stretchy="false">|</mo><mo>≫</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">|kt| \gg 1</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">coth</mi><mo>⁡</mo></mrow><mo form="prefix" stretchy="false">(</mo><mi>k</mi><mi>t</mi><mo form="postfix" stretchy="false">)</mo><mo>→</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\coth(kt) \to 1</annotation></semantics></math> and Eq. <a class="xref" href="#eq-9">(9)</a> becomes <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo form="prefix" stretchy="false">(</mo><mn>1</mn><mo>+</mo><mi>j</mi><mo form="postfix" stretchy="false">)</mo><mi>ρ</mi><mi>/</mi><mo form="prefix" stretchy="false">(</mo><mi>w</mi><mi>δ</mi><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(1 + j)\rho/(w\delta)</annotation></semantics></math>: the resistance of a skin of depth <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>δ</mi><annotation encoding="application/x-tex">\delta</annotation></semantics></math> and an equal reactance, the inductance <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mi>/</mi><mo form="prefix" stretchy="false">(</mo><mi>ω</mi><mi>δ</mi><mi>w</mi><mo form="postfix" stretchy="false">)</mo><mo>=</mo><msub><mi>μ</mi><mn>0</mn></msub><mi>δ</mi><mi>/</mi><mo form="prefix" stretchy="false">(</mo><mn>2</mn><mi>w</mi><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\rho/(\omega\delta w) = \mu_0\delta/(2w)</annotation></semantics></math>. The wide trace therefore has</p>
+<p><span class="eqn" id="eq-10"><span class="eqn-body"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>L</mi><mo>′</mo></msup><mo>=</mo><mfrac><msub><mi>μ</mi><mn>0</mn></msub><mi>w</mi></mfrac><mrow><mo form="prefix" stretchy="true">(</mo><mi>h</mi><mo>+</mo><msub><mi>h</mi><mn>1</mn></msub><mo>+</mo><msub><mi>h</mi><mn>2</mn></msub><mo form="postfix" stretchy="true">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>h</mi><mi>i</mi></msub><mo>=</mo><mfrac><mrow><mi>w</mi><mspace width="0.167em"></mspace><mrow><mi mathvariant="normal">I</mi><mi mathvariant="normal">m</mi></mrow><mspace width="0.167em"></mspace><msub><msup><mi>Z</mi><mo>′</mo></msup><mrow><mi>i</mi><mi>n</mi><mi>t</mi><mo>,</mo><mi>i</mi></mrow></msub></mrow><mrow><mi>ω</mi><msub><mi>μ</mi><mn>0</mn></msub></mrow></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">
+L' = \frac{\mu_0}{w}\left(h + h_1 + h_2\right) , \qquad h_i = \frac{w\,\mathrm{Im}\,Z'_{int,i}}{\omega\mu_0} ,</annotation></semantics></math></span><span class="eqn-no">(10)</span></span></p>
+<p>where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>h</mi><mn>1</mn></msub><annotation encoding="application/x-tex">h_1</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>h</mi><mn>2</mn></msub><annotation encoding="application/x-tex">h_2</annotation></semantics></math> are the heights that the trace and the plane add to the gap: a third of the thickness at low frequency and half the skin depth at high frequency. Table <a class="xref" href="#tab-4">4</a> and Figure <a class="xref" href="#fig-2">2</a> give them for the three copper weights. Equation (10) holds for wide traces; for a narrow trace the field inside the copper is less uniform, and Eq. <a class="xref" href="#eq-10">(10)</a> only indicates the order of the effect.</p>
+<p id="tab-4"><em>Table 4. The height that one conductor adds to the gap of a wide trace through the field inside it, Eqs. <a class="xref" href="#eq-9">(9)</a> and <a class="xref" href="#eq-10">(10)</a> (µm), and the frequency at which the skin depth equals the copper’s thickness.</em></p>
+<div class="table-scroll"><table class="wide">
+<thead>
+<tr>
+<th>Copper</th>
+<th><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>=</mo><mi>t</mi></mrow><annotation encoding="application/x-tex">\delta = t</annotation></semantics></math> at</th>
+<th>0.1 MHz</th>
+<th>1 MHz</th>
+<th>3 MHz</th>
+<th>10 MHz</th>
+<th>100 MHz</th>
+<th>308 MHz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>½ oz, 17.5 µm</td>
+<td>14.1 MHz</td>
+<td>5.83</td>
+<td>5.83</td>
+<td>5.83</td>
+<td>5.76</td>
+<td>3.33</td>
+<td>1.87</td>
+</tr>
+<tr>
+<td>1 oz, 35 µm</td>
+<td>3.52 MHz</td>
+<td>11.67</td>
+<td>11.64</td>
+<td>11.46</td>
+<td>9.86</td>
+<td>3.28</td>
+<td>1.87</td>
+</tr>
+<tr>
+<td>2 oz, 70 µm</td>
+<td>0.88 MHz</td>
+<td>23.33</td>
+<td>22.60</td>
+<td>18.63</td>
+<td>10.39</td>
+<td>3.28</td>
+<td>1.87</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Below about 1 MHz</strong> each conductor adds a third of its thickness. For a wide trace 0.2 mm above its plane, with both in the same copper, Eq. <a class="xref" href="#eq-10">(10)</a> then exceeds its high-frequency value <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mn>0</mn></msub><mi>h</mi><mi>/</mi><mi>w</mi></mrow><annotation encoding="application/x-tex">\mu_0h/w</annotation></semantics></math> by <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>t</mi><mi>/</mi><mo form="prefix" stretchy="false">(</mo><mn>3</mn><mi>h</mi><mo form="postfix" stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">2t/(3h)</annotation></semantics></math>: 5.8 % for ½-oz, 11.7 % for 1-oz and 23.3 % for 2-oz copper, so 2-oz copper is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1.233</mn><mi>/</mi><mn>1.117</mn><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">1.233/1.117 - 1</annotation></semantics></math> = 10.4 % more inductive than 1-oz copper. With a 0.1-mm gap the shares double, to 11.7, 23.3 and 46.7 %, and the difference becomes 18.9 %. These are small reactances, however. A trace 3 mm wide and 20 mm long, 0.1 mm above its plane, has 0.0370 nH/mm by Eqs. <a class="xref" href="#eq-6">(6)</a>–<a class="xref" href="#eq-8">(8)</a> (Table <a class="xref" href="#tab-3">3</a>) and, with 1-oz copper at 1 MHz, a further <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>μ</mi><mn>0</mn></msub><mo>×</mo><mn>2</mn><mo>×</mo><mn>11.64</mn><mspace width="0.222em"></mspace><mi>μ</mi><mi mathvariant="normal">m</mi><mi>/</mi><mn>3</mn><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">m</mi><mi mathvariant="normal">m</mi></mrow></mrow><annotation encoding="application/x-tex">\mu_0\times2\times11.64\ \mu\mathrm m/3\ \mathrm{mm}</annotation></semantics></math> = 0.0098 nH/mm by Eq. <a class="xref" href="#eq-10">(10)</a>, so 20 mm × 0.0468 nH/mm = 0.94 nH and a reactance of 5.9 mΩ. The effect matters for power-distribution planes rather than for signal traces. At still lower frequencies the return current spreads across the plane, as the DC runs of Section <a class="xref" href="#a-trace-over-a-plane">4</a> show, which raises <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mi>L</mi><mo>′</mo></msup><annotation encoding="application/x-tex">L'</annotation></semantics></math> far more than the copper’s thickness changes it.</p>
+<p><strong>Above about 10 MHz</strong> the copper’s weight drops out of this term: at 10 MHz the three weights add 5.8, 9.9 and 10.4 µm, and at 100 MHz all add half the skin depth, 3.3 µm. At 100 MHz the skin depth is 6.56 µm, a fifth of 1-oz copper, and by the solution above the current density on a conductor’s far face is <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo form="prefix" stretchy="false">|</mo><mn>1</mn><mi>/</mi><mrow><mi mathvariant="normal">cosh</mi><mo>⁡</mo></mrow><mo form="prefix" stretchy="false">(</mo><mi>k</mi><mi>t</mi><mo form="postfix" stretchy="false">)</mo><mo form="prefix" stretchy="false">|</mo></mrow><annotation encoding="application/x-tex">|1/\cosh(kt)|</annotation></semantics></math> times that on its face towards the gap: 14 % for ½-oz, 1.0 % for 1-oz and less than 0.01 % for 2-oz copper. The skin effect then decides where the current flows and what the copper loses, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mi>/</mi><mi>δ</mi></mrow><annotation encoding="application/x-tex">\rho/\delta</annotation></semantics></math> = 2.6 mΩ per square whatever the copper’s weight, against <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi><mi>/</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">\rho/t</annotation></semantics></math> = 0.97, 0.49 and 0.24 mΩ at DC. It hardly decides the inductance, however: the field inside the skin adds <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\delta/2</annotation></semantics></math> = 3.3 µm to the gap for each conductor, 3.3 % of a 0.2-mm gap for a trace and its plane together, and this share falls as <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><msqrt><mi>f</mi></msqrt></mrow><annotation encoding="application/x-tex">1/\sqrt f</annotation></semantics></math>. The inductance at 100 MHz is that of the field outside the copper, which Sections <a class="xref" href="#a-trace-alone">3</a> and <a class="xref" href="#a-trace-over-a-plane">4</a> compute, and the copper’s thickness enters it only through the side walls.</p>
+<p><img alt="Figure 2" aria-label="Figure 2" role="img" src="figures/fig2_internal.png"/></p>
+<p id="fig-2"><em>Figure 2. The height that one conductor adds to the gap of a wide trace through the field inside it, Eqs. <a class="xref" href="#eq-9">(9)</a> and <a class="xref" href="#eq-10">(10)</a>, against frequency, for 17.5-, 35- and 70-µm copper, with half the skin depth, the limit for thick copper (dashed). Below about 1 MHz each conductor adds a third of its thickness; above about 10 MHz all three follow the dashed line.</em></p>
+<h2 id="what-this-means-for-the-two-notes">6. What this means for the two notes</h2>
+<p>The side note’s Section 4 puts <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>L</mi><mi>x</mi></msub><annotation encoding="application/x-tex">L_x</annotation></semantics></math> = 10.14 nH in series with the feedback network of the 2-kΩ OPA846 design in SOIC-8, 4.35 nH of it in traces and vias. With the design’s total feedback capacitance <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>C</mi><mi>F</mi></msub><annotation encoding="application/x-tex">C_F</annotation></semantics></math> = 0.75 pF and its loop crossover at 308 MHz, the side note’s Eqs. (2) and (5) give <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mn>1</mn></msub><mo>=</mo><msup><mi>ω</mi><mn>2</mn></msup><msub><mi>L</mi><mi>x</mi></msub><msub><mi>C</mi><mi>F</mi></msub></mrow><annotation encoding="application/x-tex">\delta_1 = \omega^2L_xC_F</annotation></semantics></math> = 2.85 %, the fraction by which the inductance makes the feedback capacitance look larger. With 2-oz copper a trace loses at most 5.0 % of its inductance at 308 MHz (Table <a class="xref" href="#tab-1">1</a>). Applying that to all 4.35 nH, vias included, overstates the change and gives <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><msub><mi>L</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">\Delta L_x</annotation></semantics></math> = −0.050 × 4.35 nH = −0.22 nH, so</p>
+<p><span class="eqn" id="eq-11"><span class="eqn-body"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mn>1</mn></msub><mo>=</mo><mo form="prefix" stretchy="false">(</mo><mn>2</mn><mi>π</mi><mo>×</mo><mn>308</mn><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">M</mi><mi mathvariant="normal">H</mi><mi mathvariant="normal">z</mi></mrow><msup><mo form="postfix" stretchy="false">)</mo><mn>2</mn></msup><mo>×</mo><mo form="prefix" stretchy="false">(</mo><mn>10.14</mn><mo>−</mo><mn>0.22</mn><mo form="postfix" stretchy="false">)</mo><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">n</mi><mi mathvariant="normal">H</mi></mrow><mo>×</mo><mn>0.75</mn><mspace width="0.222em"></mspace><mrow><mi mathvariant="normal">p</mi><mi mathvariant="normal">F</mi></mrow><mo>=</mo><mn>0.0279</mn><mo>,</mo></mrow><annotation encoding="application/x-tex">
+\delta_1 = (2\pi\times308\ \mathrm{MHz})^2\times(10.14 - 0.22)\ \mathrm{nH}\times0.75\ \mathrm{pF} = 0.0279 ,</annotation></semantics></math></span><span class="eqn-no">(11)</span></span></p>
+<p>that is 2.79 % instead of 2.85 %. With ½-oz copper the traces gain at most 3.3 %, +0.14 nH, and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>δ</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\delta_1</annotation></semantics></math> becomes 2.89 %. Both changes are smaller than 0.1 percentage point, while the designs carry ±13 % as the tolerance of the feedback capacitance (the side note’s Section 4). In the high-gain range the loop crossovers lie far below the frequencies at which the inductance matters (the side note’s Table 4), whatever the copper. The copper’s thickness changes the capacitance across the network little as well: copper of 18 or 70 µm instead of 35 µm changes it by −1.6 % and +2.8 % (the side note’s Appendix D). The copper’s weight can therefore be chosen for what it does change, the resistance below a few megahertz, which falls as <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>t</mi></mrow><annotation encoding="application/x-tex">1/t</annotation></semantics></math> (Section <a class="xref" href="#below-a-few-megahertz-the-field-inside-the-copper">5</a>).</p>
+<h2 id="appendix-a.-files">Appendix A. Files</h2>
+<p>The FastHenry runs need FastHenry2 (FastFieldSolvers) on Windows, with its automation interface, and Python with pywin32; the closed forms and the figures need NumPy, SciPy and Matplotlib. The paths are relative to this note’s folder.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TIA_trace_inductance.md</code></td>
+<td>This note</td>
+</tr>
+<tr>
+<td><code>figures/fig1_thickness.png</code>, <code>figures/fig1_thickness.pdf</code></td>
+<td>Figure <a class="xref" href="#fig-1">1</a></td>
+</tr>
+<tr>
+<td><code>figures/fig2_internal.png</code>, <code>figures/fig2_internal.pdf</code></td>
+<td>Figure <a class="xref" href="#fig-2">2</a></td>
+</tr>
+<tr>
+<td><code>scripts_archive/fasthenry_traces.py</code></td>
+<td>The FastHenry runs of Sections <a class="xref" href="#a-trace-alone">3</a> and <a class="xref" href="#a-trace-over-a-plane">4</a> (<code>run alone</code>, <code>run plane</code>) and their report (<code>report</code>); 29 runs of 0.2–5 s each</td>
+</tr>
+<tr>
+<td><code>scripts_archive/trace_thickness.py</code></td>
+<td>The closed forms, every number of the note (<code>numbers</code>) and the two figures (<code>figures</code>)</td>
+</tr>
+<tr>
+<td><code>scripts_archive/README.md</code></td>
+<td>The index of the scripts</td>
+</tr>
+<tr>
+<td><code>data/fasthenry/</code></td>
+<td>The FastHenry inputs and impedance matrices, <code>results.json</code> of each group, and <code>README.md</code> with every run and the inductance per unit length over the plane</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="references">References</h2>
+<p>The two notes and the side note of this repository are cited by name and linked in Section <a class="xref" href="#what-this-note-answers">1</a>. Page numbers are the PDF pages of each document.</p>
+<ul>
+<li>[1] M. Kamon, C. Smithhisler and J. White, FastHenry User’s Guide, version 3.0, Research Laboratory of Electronics, Massachusetts Institute of Technology, 26 Sep. 1996, distributed with FastHenry2 (FastFieldSolvers); the runs of this note used the installed FastHenry2.exe, file version 3.6.1.0.</li>
+<li>[2] S. Jahn, M. Margraf, V. Habchi and R. Jacob, Qucs Technical Papers, section “Single microstrip line” of the chapter “Microstrip components”, Eqs. (11.4), (11.6) and (11.22), <a class="uri url" href="https://qucs.github.io/tech/node75.html">https://qucs.github.io/tech/node75.html</a>, read 8 Nov. 2026.</li>
+<li>[3] E. Hammerstad and Ø. Jensen, “Accurate models for microstrip computer-aided design”, Symposium on Microwave Theory and Techniques, pp. 407–409, June 1980, as cited in [2]; this note takes the formulas from [2].</li>
+</ul>
+
+<a class="to-contents" href="#TOC" title="Back to the table of contents">&#8593; Contents</a>
+<script>
+(function () {
+  var link = document.querySelector("a.to-contents"), toc = document.getElementById("TOC");
+  if (!link || !toc) return;
+  function update() { link.style.visibility = toc.getBoundingClientRect().bottom < 0 ? "visible" : "hidden"; }
+  window.addEventListener("scroll", update, { passive: true });
+  update();
+})();
+</script>
+</body>
+</html>

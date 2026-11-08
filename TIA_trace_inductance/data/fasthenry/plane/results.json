@@ -1,0 +1,200 @@
+[
+ {
+  "group": "plane",
+  "t_um": 17.5,
+  "length_mm": 3.0,
+  "plane": "standard",
+  "level": "13 x 7",
+  "f": 308000000.0,
+  "R_ohm": 0.0707153,
+  "L_nH": 1.1977442941321566,
+  "seconds": 2.013904299994465
+ },
+ {
+  "group": "plane",
+  "t_um": 17.5,
+  "length_mm": 6.0,
+  "plane": "standard",
+  "level": "13 x 7",
+  "f": 308000000.0,
+  "R_ohm": 0.138445,
+  "L_nH": 2.4214856180920834,
+  "seconds": 2.41317529999651
+ },
+ {
+  "group": "plane",
+  "t_um": 35.0,
+  "length_mm": 3.0,
+  "plane": "standard",
+  "level": "13 x 7",
+  "f": 308000000.0,
+  "R_ohm": 0.063212,
+  "L_nH": 1.1491761996477174,
+  "seconds": 2.2132317000068724
+ },
+ {
+  "group": "plane",
+  "t_um": 35.0,
+  "length_mm": 6.0,
+  "plane": "standard",
+  "level": "13 x 7",
+  "f": 308000000.0,
+  "R_ohm": 0.123423,
+  "L_nH": 2.324452776488849,
+  "seconds": 2.414497699995991
+ },
+ {
+  "group": "plane",
+  "t_um": 70.0,
+  "length_mm": 3.0,
+  "plane": "standard",
+  "level": "13 x 7",
+  "f": 308000000.0,
+  "R_ohm": 0.0541562,
+  "L_nH": 1.081411331994889,
+  "seconds": 2.0166307000035886
+ },
+ {
+  "group": "plane",
+  "t_um": 70.0,
+  "length_mm": 6.0,
+  "plane": "standard",
+  "level": "13 x 7",
+  "f": 308000000.0,
+  "R_ohm": 0.105247,
+  "L_nH": 2.189041890653683,
+  "seconds": 2.0150999999896158
+ },
+ {
+  "group": "plane",
+  "t_um": 1.0,
+  "length_mm": 3.0,
+  "plane": "standard",
+  "level": "13 x 1",
+  "f": 308000000.0,
+  "R_ohm": 0.324896,
+  "L_nH": 1.2682323648697067,
+  "seconds": 1.0079870999907143
+ },
+ {
+  "group": "plane",
+  "t_um": 1.0,
+  "length_mm": 6.0,
+  "plane": "standard",
+  "level": "13 x 1",
+  "f": 308000000.0,
+  "R_ohm": 0.647801,
+  "L_nH": 2.56282864271522,
+  "seconds": 1.0079232999996748
+ },
+ {
+  "group": "plane",
+  "t_um": 17.5,
+  "length_mm": 3.0,
+  "plane": "standard",
+  "level": "1 x 1",
+  "f": 1000.0,
+  "R_ohm": 0.0268454,
+  "L_nH": 1.5805852468893526,
+  "seconds": 0.6038936999975704
+ },
+ {
+  "group": "plane",
+  "t_um": 17.5,
+  "length_mm": 6.0,
+  "plane": "standard",
+  "level": "1 x 1",
+  "f": 1000.0,
+  "R_ohm": 0.0477413,
+  "L_nH": 3.2857538001321793,
+  "seconds": 0.6040051000018138
+ },
+ {
+  "group": "plane",
+  "t_um": 35.0,
+  "length_mm": 3.0,
+  "plane": "standard",
+  "level": "1 x 1",
+  "f": 1000.0,
+  "R_ohm": 0.0195597,
+  "L_nH": 1.5434607648637375,
+  "seconds": 0.8070416999980807
+ },
+ {
+  "group": "plane",
+  "t_um": 35.0,
+  "length_mm": 6.0,
+  "plane": "standard",
+  "level": "1 x 1",
+  "f": 1000.0,
+  "R_ohm": 0.0331699,
+  "L_nH": 3.2094390049196155,
+  "seconds": 0.6064608000160661
+ },
+ {
+  "group": "plane",
+  "t_um": 70.0,
+  "length_mm": 3.0,
+  "plane": "standard",
+  "level": "1 x 1",
+  "f": 1000.0,
+  "R_ohm": 0.0159169,
+  "L_nH": 1.479270393215914,
+  "seconds": 0.8108145000005607
+ },
+ {
+  "group": "plane",
+  "t_um": 70.0,
+  "length_mm": 6.0,
+  "plane": "standard",
+  "level": "1 x 1",
+  "f": 1000.0,
+  "R_ohm": 0.0258842,
+  "L_nH": 3.0769584302899218,
+  "seconds": 0.6097912999975961
+ },
+ {
+  "group": "plane",
+  "t_um": 35.0,
+  "length_mm": 3.0,
+  "plane": "coarse",
+  "level": "13 x 7",
+  "f": 308000000.0,
+  "R_ohm": 0.0632269,
+  "L_nH": 1.1490160112309689,
+  "seconds": 1.2134084000135772
+ },
+ {
+  "group": "plane",
+  "t_um": 35.0,
+  "length_mm": 6.0,
+  "plane": "coarse",
+  "level": "13 x 7",
+  "f": 308000000.0,
+  "R_ohm": 0.123495,
+  "L_nH": 2.3243184249135123,
+  "seconds": 1.0073627000092529
+ },
+ {
+  "group": "plane",
+  "t_um": 35.0,
+  "length_mm": 3.0,
+  "plane": "wide",
+  "level": "13 x 7",
+  "f": 308000000.0,
+  "R_ohm": 0.0630229,
+  "L_nH": 1.148075550203608,
+  "seconds": 4.029310000012629
+ },
+ {
+  "group": "plane",
+  "t_um": 35.0,
+  "length_mm": 6.0,
+  "plane": "wide",
+  "level": "13 x 7",
+  "f": 308000000.0,
+  "R_ohm": 0.122865,
+  "L_nH": 2.32103197868603,
+  "seconds": 4.832411500014132
+ }
+]

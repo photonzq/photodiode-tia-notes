@@ -52,6 +52,8 @@ KEYWORDS = {
                              "feedback resistor; bandwidth; guarding; SPICE"),
     "TIA_feedback_layouts": ("transimpedance amplifier; feedback resistor; parasitic capacitance; guard ring; "
                              "distributed RC line; finite-element method; SOIC-8; PDIP-8"),
+    "TIA_trace_inductance": ("printed circuit board; trace inductance; copper thickness; partial inductance; "
+                             "microstrip; skin effect; FastHenry"),
 }.get(MD.stem, "")
 EQ_MARK = "EQNOMARK"
 TAG = r"(?:[A-Z]\.\d+|\d+[a-z]?)"  # an equation number: 12, 26a or B.1
