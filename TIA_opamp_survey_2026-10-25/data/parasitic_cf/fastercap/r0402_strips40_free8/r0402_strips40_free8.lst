@@ -1,0 +1,10 @@
+* Three-dimensional layout exported by pcbcap.fastercap
+* layout: 0402 on eps 4.2
+* boundary: free space
+* lengths in metres
+* film R-film cut into 40 strips of 12.950 um x 2 um with 2-um gaps, grown into its side of permittivity 1
+C r0402_strips40_free8_c1.txt 1 0 0 0 +
+C r0402_strips40_free8_c2.txt 4.2 0 0 0 +
+C r0402_strips40_free8_c3.txt 9.7 0 0 0
+D r0402_strips40_free8_d1.txt 1 4.2 0 0 0 -8.000500000e-03 0.000000000e+00 -8.000000000e-04
+D r0402_strips40_free8_d2.txt 1 9.7 0 0 0 0.000000000e+00 -2.510000000e-04 2.400000000e-04

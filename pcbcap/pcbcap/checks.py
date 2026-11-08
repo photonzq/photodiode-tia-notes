@@ -34,6 +34,10 @@ extrusion_3d_vs_2d show.  The tolerances are:
   * For extrusion_3d_vs_2d, the error that the Richardson extrapolation itself reports (study.py), so
     that the check tests the error bars quoted for the 3-D results.
   * 0 for symmetry_declaration, which checks a yes-or-no outcome.
+  * 1e-9 for fastercap_export_box and fastercap_export_free, which compare the areas of the exported
+    triangles with those counted from cells of the planes: both are exact sums of the same rectangles,
+    so only rounding remains.  1e-12 for fastercap_reader, which compares two evaluations of the same
+    linear algebra on a made-up matrix.
   * 1e-2 for uniform_rc_line, which checks a convergence order, 2 for linear elements.  Measured
     between 16 and 32 elements at |theta| = 2, where the error is far above rounding (about 1e-4) and
     the asymptotic regime is reached (the order between 8 and 16 elements is already 2.009), the first
@@ -302,6 +306,83 @@ def _uniform_rc_line():
                          f"estimated {abs(y5 - y10) / 3 / abs(y10):.2e}")
     return dict(computed=order[0], reference=2.0, unit="", tolerance=1e-2, lines=lines,
                 data=[dict(n=n, theta=th, err_yF=ef, err_y11=e11) for n, th, ef, e11 in rows])
+
+
+def _fastercap_area_check(lay, opt):
+    """Export ``lay`` for FasterCap into a temporary folder and compare the panels' areas, kind by kind,
+    with those that fastercap.gmsh_areas finds from gmsh's fragments, a route that shares no code with
+    the panels (fastercap.py, "Checking the written geometry without FasterCap")."""
+    import tempfile
+    from . import fastercap as fc
+    with tempfile.TemporaryDirectory() as d:
+        ex = fc.export(lay, d, "layout", opt)
+    cmp_ = fc.compare_areas(ex.panels.areas_by_key(), fc.gmsh_areas(ex.layout, opt.boundary))
+    st = ex.panels.stats
+    lines = [f"{st['panels']} quadrilateral panels from {st['cells']} cells; smallest side "
+             f"{st['smallest_side_mm'] * 1e3:.2f} um"] + ex.meta["notes"]
+    for r in cmp_["rows"]:
+        lines.append(f"  {tuple(r['key'])}: panels {r['panels']:.10g} mm^2, gmsh {r['other']:.10g} mm^2, "
+                     f"rel. difference {r['rel']:+.1e}")
+    lines.append("computed = gmsh total + sum of |panels - gmsh| over the kinds; reference = gmsh total")
+    return dict(computed=cmp_["total_other"] + cmp_["total_abs_difference"], reference=cmp_["total_other"],
+                unit="mm^2", tolerance=1e-9, lines=lines)
+
+
+@register("fastercap_export_box", "Export of an 0402 for FasterCap, grounded box, film as strips (3-D)",
+          "fastercap.py: film cut into strips, panels from cells of the planes and the painter's order, the "
+          "box as a grounded conductor, panel areas against gmsh's fragments")
+def _fastercap_export_box():
+    from . import fastercap as fc
+    lay = parts.resistor_on_pads(parts.ChipResistor.from_size("0402"), parts.LandPattern.from_size("0402"),
+                                 enclosure_half=8.0)
+    return _fastercap_area_check(lay, fc.ExportOptions(boundary="ground", films="strips", film_strips=10))
+
+
+@register("fastercap_export_free", "Export of an 0402 for FasterCap, free space, film removed (3-D)",
+          "fastercap.py in free space: a board of finite size, the enclosure's faces left out, film dropped")
+def _fastercap_export_free():
+    from . import fastercap as fc
+    board = parts.Board(size=(16.0, 16.0))
+    lay = parts.resistor_on_pads(parts.ChipResistor.from_size("0402"), parts.LandPattern.from_size("0402"),
+                                 board=board, enclosure_half=9.0)
+    return _fastercap_area_check(lay, fc.ExportOptions(boundary="free", films="drop"))
+
+
+@register("fastercap_reader", "Reading FasterCap's matrix: floating conductor and film strips (no solve)",
+          "fastercap.read_matrix and fastercap.two_port against a direct computation on a made-up matrix")
+def _fastercap_reader():
+    import numpy as np
+    from . import fastercap as fc
+    rng = np.random.default_rng(7)
+    nets = ["A", "B", "gnd", "pin2", "R_film_s01", "R_film_s02", "R_film_s03"]
+    us = {"R_film_s01": 1 / 6, "R_film_s02": 0.5, "R_film_s03": 5 / 6}
+    n = len(nets)
+    # A Maxwell matrix: negative off-diagonal entries, positive row sums (capacitance to infinity), in F.
+    M = -rng.uniform(1e-15, 5e-14, (n, n))
+    M = 0.5 * (M + M.T)
+    np.fill_diagonal(M, 0.0)
+    np.fill_diagonal(M, -M.sum(axis=1) + rng.uniform(1e-14, 5e-14, n))
+    M_out = M.copy()
+    M_out[0, 1] *= 1 + 1e-4                     # FasterCap's collocation matrix is not exactly symmetric
+    text = ("Capacitance matrix is:\nDimension 2 x 2\ng1_x 1 0\ng1_y 0 1\n"   # an earlier iteration, to be skipped
+            f"some lines\nCapacitance matrix is:\nDimension {n} x {n}\n"
+            + "\n".join(f"g1_{nm}  " + " ".join(f"{x:.15e}" for x in row) + " " for nm, row in zip(nets, M_out)) + "\n")
+    meta = dict(pair=["A", "B"], conductors={nm: dict(net=nm, floating=nm == "pin2") for nm in nets},
+                films=[dict(name="R-film", hi="A", lo="B", strips=[dict(net=k, u=v) for k, v in us.items()])])
+    names, C = fc.read_matrix(text)
+    res = fc.two_port(meta, names, C)
+    # Directly: the floating conductor's potential from its zero net charge, then C_F = -sum v_i Q_i(u).
+    S = 0.5 * (M_out + M_out.T)
+    f = nets.index("pin2")
+    V = np.array([1.0 if nm == "A" else us.get(nm, 0.0) for nm in nets])
+    V[f] = -(S[f] @ V) / S[f, f]                 # V[f] was 0, so S[f] @ V is the sum over the others
+    Q = S @ V
+    w = np.array([1.0 if nm == "B" else (1 - us[nm] if nm in us else 0.0) for nm in nets])
+    direct = -float(w @ Q) * 1e15
+    return dict(computed=res["C_F"], reference=direct, unit="fF", tolerance=1e-12,
+                lines=[f"read {len(names)} conductors from the last matrix block; asymmetry reported "
+                       f"{res['asymmetry']:.2e} of the largest diagonal entry",
+                       f"C_A0 = {res['C_A0']:.6f} fF, C_B0 = {res['C_B0']:.6f} fF; one floating conductor eliminated"])
 
 
 # ================================================================================================

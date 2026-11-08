@@ -1,0 +1,80 @@
+{
+ "format": "pcbcap.fastercap 1",
+ "layout": "0402 on eps 1, film removed",
+ "stem": "r0402_nofilm_air_fine_box8",
+ "boundary": "ground",
+ "options": {
+  "boundary": "ground",
+  "films": "drop",
+  "film_strips": 10,
+  "film_gap": 0.002,
+  "film_thickness": 0.002,
+  "sheet_thickness": null,
+  "max_aspect": 10.0,
+  "max_panel": null,
+  "metal_panel": 1.0,
+  "fine_window": [
+   [
+    -0.85,
+    0.85
+   ],
+   [
+    -0.35,
+    0.35
+   ],
+   [
+    -0.02,
+    0.45
+   ]
+  ],
+  "fine_panel": 0.03
+ },
+ "pair": [
+  "A",
+  "B"
+ ],
+ "conductors": {
+  "A": {
+   "net": "A",
+   "floating": false
+  },
+  "B": {
+   "net": "B",
+   "floating": false
+  },
+  "gnd": {
+   "net": "gnd",
+   "floating": false
+  }
+ },
+ "films": [],
+ "notes": [],
+ "files": {
+  "list": "r0402_nofilm_air_fine_box8.lst",
+  "panel_files": [
+   "r0402_nofilm_air_fine_box8_c1.txt"
+  ],
+  "names": {
+   "A": "A",
+   "B": "B",
+   "gnd": "gnd"
+  }
+ },
+ "units": "m",
+ "areas_mm2": {
+  "[\"C\", \"gnd\", 1.0]": 1638.4,
+  "[\"C\", \"B\", 1.0]": 1.3391000000000957,
+  "[\"C\", \"A\", 1.0]": 1.3391000000000812
+ },
+ "stats": {
+  "panels": 7939,
+  "cells": 1243,
+  "seconds": 0.06098029998247512,
+  "probe_mm": {
+   "x": 0.001,
+   "y": 0.001,
+   "z": 0.001
+  },
+  "smallest_side_mm": 0.014230769230769214
+ }
+}

@@ -1,0 +1,44 @@
+Running FasterCap version 6.0.7
+Copyright 2019 FastFieldSolvers S.R.L. http://www.fastfieldsolvers.com, All Rights reserved
+Starting capacitance extraction with the following parameters:
+Input file: cube_on_block40_free.lst
+
+3D Solver Engine invoked
+Solution scheme (-g): Galerkin, GMRES tolerance (-t): 0.01
+Out-of-core free memory to link memory condition (-f): 5
+Potential interaction coefficient to mesh refinement ratio (-d): 1
+Mesh curvature (-mc): 3
+Mesh refinement (-m): 0.02
+Precond Type(s) (-p): Jacobi 
+Number of input panels to solver engine: 44
+
+***************************************
+Refining the geometry.. 
+Refinement completed
+***************************************
+Computing the links.. 
+Number of panels after refinement: 148375
+Number of links to be computed: 39271974
+Done computing links
+***************************************
+GMRES Iteration: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 
+Capacitance matrix is:
+Dimension 1 x 1
+g1_A  1.80851e-013 
+
+
+Solve statistics:
+Number of input panels: 20 of which 10 conductors and 10 dielectric
+Number of input panels to solver engine: 44
+Number of panels after refinement: 148375
+Number of potential estimates: 38705022
+Number of links: 39420349 (uncompressed 540304145, compression ratio is 92.7%)
+Max recursion level: 54
+Max Mesh relative refinement value: 0.02
+
+Total allocated memory: 719008 kilobytes
+Total time: 17.016001s (0 days, 0 hours, 0 mins, 17 s)
+
+
+
+* run by pcbcap.fastercap: options -m0.02 -g, exit code 0, 17.0 s

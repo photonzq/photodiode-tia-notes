@@ -1,0 +1,26 @@
+
+FastCap 2.0, (c) by M.I.T.
+FastCap2 Windows porting and modifications, version 3.6
+    (c) 1998, 2015 by Enrico Di Lorenzo, www.fastfieldsolvers.com
+
+Running fastcap 2.0 (18Sep92)
+  Input: r0402_nofilm_air_fine_box8.lst
+  Input surfaces:
+   GROUP1
+    r0402_nofilm_air_fine_box8_c1.txt, conductor
+      title: `conductor panels touching relative permittivity 1'
+      outer permittivity: 1
+      number of panels: 7939
+      number of extra evaluation points: 0
+      translation: (0 0 0)
+  Date: Sun Nov 08 12:54:49 2026
+
+INPUT SUMMARY
+  Expansion order: 3
+  Number of partitioning levels: 8
+  Overall permittivity factor: 1
+  Total number of panels: 7939
+    Number of conductor panels: 7939
+    Number of dielectric interface panels: 0
+    Number of thin conductor on dielectric interface panels: 0
+  Number of conductors: 3

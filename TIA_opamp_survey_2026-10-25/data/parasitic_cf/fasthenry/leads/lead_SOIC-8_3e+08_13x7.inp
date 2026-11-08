@@ -1,0 +1,13 @@
+* one SOIC-8 lead
+.units mm
+.default sigma=58823.5
+N0 x=-2.5775 y=0 z=0.13
+N1 x=-2.1575 y=0 z=0.13
+N2 x=-2.1575 y=0 z=1.09
+N3 x=-2.1375 y=0 z=1.09
+E0 N0 N1 w=0.41 h=0.19 nwinc=13 nhinc=7 rw=2 rh=2 wx=0 wy=1 wz=0
+E1 N1 N2 w=0.41 h=0.19 nwinc=13 nhinc=7 rw=2 rh=2 wx=0 wy=1 wz=0
+E2 N2 N3 w=0.41 h=0.19 nwinc=13 nhinc=7 rw=2 rh=2 wx=0 wy=1 wz=0
+.external N0 N3 port
+.freq fmin=308000000 fmax=308000000 ndec=1
+.end

@@ -258,6 +258,76 @@ def _details():
     return dict(table=out, lines=lines)
 
 
+def _fillet_variants() -> list:
+    """The solder fillets of case fillet_0402, one change at a time from the reference mount.  The
+    fillet of details_0402 is a third of T high and reaches 0.15 mm over the pad.  The full-height
+    fillets reach the top of the end cap, (T + standoff)/T of T above the pad, and either the same
+    0.15 mm over the pad or the pad's outer end, 0.25 mm beyond the end face of an 0402 on the Vishay
+    28950 pads (s/2 + w - L/2); each is a staircase of 6 boxes instead of 3, since it is three times as
+    tall.  These shapes are choices that bracket a real fillet, not measured ones."""
+    m = parts.Mount()
+    res = parts.ChipResistor.from_size("0402")
+    pads = parts.LandPattern.from_size("0402")
+    full = (res.T + m.standoff) / res.T
+    to_edge = pads.s / 2 + pads.w - res.L / 2
+    return [
+        ("reference", dict(mount=parts.Mount())),
+        ("fillet 1/3 of T, 0.15 mm", dict(mount=parts.Mount(fillet_height=1 / 3))),
+        ("fillet to the cap's top, 0.15 mm", dict(mount=parts.Mount(fillet_height=full, fillet_steps=6))),
+        ("fillet to the cap's top and the pad's end",
+         dict(mount=parts.Mount(fillet_height=full, fillet_length=to_edge, fillet_steps=6))),
+    ]
+
+
+@case("fillet_0402_views", "0402: drawings of the solder fillets of fillet_0402 (no solve)")
+def _fillet_views():
+    """Cross-sections at y = 0 of every variant of fillet_0402 at true proportions, and the largest
+    fillet from six sides, to check the shapes by eye before they are solved.  Written to
+    data/parasitic_cf/numerical/fillet_views/."""
+    import matplotlib.pyplot as plt
+    from pcbcap import plotting
+    plotting.use_style()
+    out_dir = HERE.parents[3] / "data" / "parasitic_cf" / "numerical" / "fillet_views"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    variants = _fillet_variants()
+    fig, axes = plt.subplots(2, 2, figsize=(9.0, 6.4))
+    for ax, (name, kw) in zip(axes.ravel(), variants):
+        plotting.draw_section(ax, layout("0402", **kw), window=((0.0, 0.85), (-0.05, 0.47)))
+        ax.set_title(name)
+    fig.suptitle("The right-hand termination of the 0402 at y = 0, true proportions")
+    fig.tight_layout()
+    plotting.export(fig, out_dir / "fillet_sections")
+    plt.close(fig)
+    name, kw = variants[-1]
+    plotting.draw_views(layout("0402", **kw), out_dir / "fillet_largest_views",
+                        window=((-0.85, 0.85), (-0.35, 0.35), (-0.02, 0.45)), title=f"0402, {name}")
+    return dict(lines=[f"drawings written to {out_dir}"])
+
+
+@case("fillet_0402", "0402: solder fillets up to the full height of the end cap (single mesh)")
+def _fillets():
+    """One change at a time from the reference model, at the middle mesh of the 0402 study, as
+    details_0402 does: the fillets of _fillet_variants.  details_0402 found the T/3 fillet below the
+    mesh error at this level (about 0.12 fF); this case asks what the largest fillet the pads allow
+    does.  The T/3 fillet and the reference are solved again, so that all four come from one run."""
+    lines, out = [], {}
+    for name, kw in _fillet_variants():
+        r = study.solve_layout(layout("0402", **kw), replace(BASE, refine=2.83), order=2)
+        # contributions: the shares of C_F stored in each medium (air, alumina, board), which show where
+        # a fillet's extra coupling runs
+        out[name] = dict(C_F=r.C_F, C_A0=r.C_A0, contributions=dict(r.contributions))
+        shares = ", ".join(f"{k} {v:.3f}" for k, v in r.contributions.items())
+        lines.append(f"{name:42s}: C_F = {r.C_F:.3f} fF ({shares}), C_A0 = {r.C_A0:.3f} fF, "
+                     f"{r.fem['total_seconds']:.0f} s")
+    ref = out["reference"]
+    for name in out:
+        out[name]["dC_F"] = out[name]["C_F"] - ref["C_F"]
+        out[name]["dC_A0"] = out[name]["C_A0"] - ref["C_A0"]
+    lines.append("change from the reference: " + "; ".join(
+        f"{k}: C_F {v['dC_F']:+.3f}, C_A0 {v['dC_A0']:+.3f}" for k, v in out.items() if k != "reference"))
+    return dict(table=out, lines=lines)
+
+
 # ================================================================================================
 # The layout of Figure 44: an 0402 beside pins 1-4 of the OPA855 (DSG0008A), as in the datasheet's
 # layout example.  Figure 44 draws the resistor along its vertical axis with pin 1 (FB) at the top;

@@ -1,0 +1,130 @@
+Running FasterCap version 6.0.7
+Copyright 2019 FastFieldSolvers S.R.L. http://www.fastfieldsolvers.com, All Rights reserved
+Starting capacitance extraction with the following parameters:
+Input file: r0402_nofilm_air_box8.lst
+Auto calculation with max error: 0.01
+Remark: Auto option overrides all other Manual settings
+
+3D Solver Engine invoked
+Solution scheme (-g): Collocation, GMRES tolerance (-t): 0.005
+Out-of-core free memory to link memory condition (-f): 5
+Potential interaction coefficient to mesh refinement ratio (-d): 1
+Mesh curvature (-mc): 3
+Number of input panels to solver engine: 220
+
+Iteration number #0 ***************************
+
+***************************************
+Refining the geometry.. 
+Refinement completed
+Mesh refinement (-m): 1e+032
+***************************************
+Computing the links.. 
+Number of panels after refinement: 220
+Number of links to be computed: 440
+Done computing links
+***************************************
+Precond Type(s) (-p): Jacobi 
+GMRES Iteration: 0 1 2 3 4 5 6 
+GMRES Iteration: 0 1 2 3 4 
+GMRES Iteration: 0 1 2 3 4 
+Capacitance matrix is:
+Dimension 3 x 3
+g1_gnd  1.36181e-012 -2.12947e-014 -2.16939e-014 
+g1_B  -2.22655e-013 3.11271e-014 -3.53371e-015 
+g1_A  -2.35208e-013 -3.66211e-015 3.15081e-014 
+Warning: capacitance matrix is not diagonally dominant due to row 2
+Warning: capacitance matrix is not diagonally dominant due to row 3
+
+
+Solve statistics:
+Number of input panels: 78 of which 78 conductors and 0 dielectric
+Number of input panels to solver engine: 220
+Number of panels after refinement: 220
+Number of potential estimates: 433
+Number of links: 660 (uncompressed 48400, compression ratio is 98.6%)
+Max recursion level: 10
+Max Mesh relative refinement value: 3.35589
+Iteration time: 0.024000s (0 days, 0 hours, 0 mins, 0 s)
+Iteration allocated memory: 16551 kilobytes
+
+Iteration number #1 ***************************
+
+***************************************
+Increasing the geometric refinement.. 
+Refinement completed
+Mesh refinement (-m): 2.37297
+***************************************
+Computing the links.. 
+Number of panels after refinement: 256
+Number of links to be computed: 2408
+Done computing links
+***************************************
+Precond Type(s) (-p): Jacobi 
+GMRES Iteration: 0 1 2 3 4 5 
+GMRES Iteration: 0 1 2 3 4 
+GMRES Iteration: 0 1 2 3 4 
+Capacitance matrix is:
+Dimension 3 x 3
+g1_gnd  1.21918e-012 -2.13814e-014 -2.17829e-014 
+g1_B  -2.16434e-014 2.8032e-014 -6.68327e-015 
+g1_A  -2.16232e-014 -6.95251e-015 2.81491e-014 
+Warning: capacitance matrix is not diagonally dominant due to row 2
+Warning: capacitance matrix is not diagonally dominant due to row 3
+
+Weighted Frobenius norm of the difference between capacitance (auto option): 0.267244
+
+Solve statistics:
+Number of input panels: 78 of which 78 conductors and 0 dielectric
+Number of input panels to solver engine: 220
+Number of panels after refinement: 256
+Number of potential estimates: 2353
+Number of links: 2664 (uncompressed 65536, compression ratio is 95.9%)
+Max recursion level: 12
+Max Mesh relative refinement value: 2.32357
+Iteration time: 0.013000s (0 days, 0 hours, 0 mins, 0 s)
+Iteration allocated memory: 16567 kilobytes
+
+Iteration number #2 ***************************
+
+***************************************
+Increasing the geometric refinement.. 
+Refinement completed
+Mesh refinement (-m): 1.64301
+***************************************
+Computing the links.. 
+Number of panels after refinement: 304
+Number of links to be computed: 5452
+Done computing links
+***************************************
+Precond Type(s) (-p): Jacobi 
+GMRES Iteration: 0 1 2 3 4 
+GMRES Iteration: 0 1 2 3 4 
+GMRES Iteration: 0 1 2 3 4 
+Capacitance matrix is:
+Dimension 3 x 3
+g1_gnd  1.22932e-012 -2.14666e-014 -2.18569e-014 
+g1_B  -2.18558e-014 2.80756e-014 -6.63984e-015 
+g1_A  -2.17787e-014 -6.91127e-015 2.81906e-014 
+Warning: capacitance matrix is not diagonally dominant due to row 2
+Warning: capacitance matrix is not diagonally dominant due to row 3
+
+Weighted Frobenius norm of the difference between capacitance (auto option): 0.00824469
+
+Solve statistics:
+Number of input panels: 78 of which 78 conductors and 0 dielectric
+Number of input panels to solver engine: 220
+Number of panels after refinement: 304
+Number of potential estimates: 5374
+Number of links: 5756 (uncompressed 92416, compression ratio is 93.8%)
+Max recursion level: 14
+Max Mesh relative refinement value: 1.59944
+Iteration time: 0.014000s (0 days, 0 hours, 0 mins, 0 s)
+Iteration allocated memory: 16587 kilobytes
+
+Total allocated memory: 16587 kilobytes
+Total time: 0.051000s (0 days, 0 hours, 0 mins, 0 s)
+
+
+
+* run by pcbcap.fastercap: options -a0.01 -ap, exit code 0, 0.1 s

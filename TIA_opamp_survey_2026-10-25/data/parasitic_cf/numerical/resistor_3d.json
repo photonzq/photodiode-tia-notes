@@ -1257,5 +1257,62 @@
   ],
   "seconds": 106.08995219999633,
   "title": "0402: enclosure correction for three board permittivities (refine 4)"
+ },
+ "fillet_0402": {
+  "table": {
+   "reference": {
+    "C_F": 40.25867194327902,
+    "C_A0": 54.5789054163577,
+    "contributions": {
+     "air": 4.152331016551255,
+     "alumina": 21.491014463893606,
+     "board": 14.615326462834107
+    },
+    "dC_F": 0.0,
+    "dC_A0": 0.0
+   },
+   "fillet 1/3 of T, 0.15 mm": {
+    "C_F": 40.24911701045191,
+    "C_A0": 54.62446170655562,
+    "contributions": {
+     "air": 4.198067736719348,
+     "alumina": 21.4835084138581,
+     "board": 14.56754085987404
+    },
+    "dC_F": -0.00955493282710762,
+    "dC_A0": 0.04555629019792207
+   },
+   "fillet to the cap's top, 0.15 mm": {
+    "C_F": 40.545570099270265,
+    "C_A0": 55.07961466238789,
+    "contributions": {
+     "air": 4.417341821828626,
+     "alumina": 21.490042948255102,
+     "board": 14.638185329186532
+    },
+    "dC_F": 0.2868981559912456,
+    "dC_A0": 0.5007092460301905
+   },
+   "fillet to the cap's top and the pad's end": {
+    "C_F": 40.83750202239412,
+    "C_A0": 55.6914592022522,
+    "contributions": {
+     "air": 4.668809349955759,
+     "alumina": 21.490626313133127,
+     "board": 14.678066359305046
+    },
+    "dC_F": 0.5788300791151002,
+    "dC_A0": 1.112553785894498
+   }
+  },
+  "lines": [
+   "reference                                 : C_F = 40.259 fF (air 4.152, alumina 21.491, board 14.615), C_A0 = 54.579 fF, 19 s",
+   "fillet 1/3 of T, 0.15 mm                  : C_F = 40.249 fF (air 4.198, alumina 21.484, board 14.568), C_A0 = 54.624 fF, 42 s",
+   "fillet to the cap's top, 0.15 mm          : C_F = 40.546 fF (air 4.417, alumina 21.490, board 14.638), C_A0 = 55.080 fF, 24 s",
+   "fillet to the cap's top and the pad's end : C_F = 40.838 fF (air 4.669, alumina 21.491, board 14.678), C_A0 = 55.691 fF, 20 s",
+   "change from the reference: fillet 1/3 of T, 0.15 mm: C_F -0.010, C_A0 +0.046; fillet to the cap's top, 0.15 mm: C_F +0.287, C_A0 +0.501; fillet to the cap's top and the pad's end: C_F +0.579, C_A0 +1.113"
+  ],
+  "seconds": 105.51728150001145,
+  "title": "0402: solder fillets up to the full height of the end cap (single mesh)"
  }
 }

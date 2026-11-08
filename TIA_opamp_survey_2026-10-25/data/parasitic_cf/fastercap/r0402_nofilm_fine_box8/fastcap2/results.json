@@ -1,0 +1,10 @@
+{
+ "-d0 -t0.001": {
+  "options": "-d0 -t0.001",
+  "log": null,
+  "partitioning_levels": 0,
+  "wall_seconds": 3600,
+  "stopped": true,
+  "note": "stopped at the one-hour limit; FastCap2's console output was not collected"
+ }
+}

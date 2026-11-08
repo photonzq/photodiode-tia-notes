@@ -1,0 +1,11 @@
+* one SOT-23-5 lead
+.units mm
+.default sigma=58823.5
+N0 x=-1.175 y=0 z=0.11
+N1 x=-0.95 y=0 z=0.11
+N2 x=-0.95 y=0 z=0.71
+E0 N0 N1 w=0.4 h=0.15 nwinc=13 nhinc=7 rw=2 rh=2 wx=0 wy=1 wz=0
+E1 N1 N2 w=0.4 h=0.15 nwinc=13 nhinc=7 rw=2 rh=2 wx=0 wy=1 wz=0
+.external N0 N2 port
+.freq fmin=308000000 fmax=308000000 ndec=1
+.end

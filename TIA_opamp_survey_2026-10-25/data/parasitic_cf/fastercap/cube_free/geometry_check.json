@@ -1,0 +1,21 @@
+{
+ "case": "cube_free",
+ "panels": 6,
+ "cells": 60,
+ "smallest_side_mm": 1.0,
+ "worst_relative_area_difference": 0.0,
+ "total_area_mm2": 6.0,
+ "rows": [
+  {
+   "key": [
+    "C",
+    "A",
+    1.0
+   ],
+   "panels": 6.0,
+   "other": 6.0,
+   "rel": 0.0
+  }
+ ],
+ "notes": []
+}

@@ -1,0 +1,244 @@
+{
+ "format": "pcbcap.fastercap 1",
+ "layout": "0402 on eps 4.2",
+ "stem": "r0402_strips10_free8",
+ "boundary": "free",
+ "options": {
+  "boundary": "free",
+  "films": "strips",
+  "film_strips": 10,
+  "film_gap": 0.002,
+  "film_thickness": 0.002,
+  "sheet_thickness": null,
+  "max_aspect": 10.0,
+  "max_panel": null
+ },
+ "pair": [
+  "A",
+  "B"
+ ],
+ "conductors": {
+  "A": {
+   "net": "A",
+   "floating": false
+  },
+  "B": {
+   "net": "B",
+   "floating": false
+  },
+  "R_film_s01": {
+   "net": "R_film_s01",
+   "floating": false
+  },
+  "R_film_s02": {
+   "net": "R_film_s02",
+   "floating": false
+  },
+  "R_film_s03": {
+   "net": "R_film_s03",
+   "floating": false
+  },
+  "R_film_s04": {
+   "net": "R_film_s04",
+   "floating": false
+  },
+  "R_film_s05": {
+   "net": "R_film_s05",
+   "floating": false
+  },
+  "R_film_s06": {
+   "net": "R_film_s06",
+   "floating": false
+  },
+  "R_film_s07": {
+   "net": "R_film_s07",
+   "floating": false
+  },
+  "R_film_s08": {
+   "net": "R_film_s08",
+   "floating": false
+  },
+  "R_film_s09": {
+   "net": "R_film_s09",
+   "floating": false
+  },
+  "R_film_s10": {
+   "net": "R_film_s10",
+   "floating": false
+  }
+ },
+ "films": [
+  {
+   "name": "R-film",
+   "hi": "A",
+   "lo": "B",
+   "axis": "x",
+   "normal": "z",
+   "side": 1,
+   "side_eps": 1.0,
+   "thickness": 0.002,
+   "gap": 0.002,
+   "strips": [
+    {
+     "net": "R_film_s01",
+     "u": 0.051499999999999976,
+     "span": [
+      -0.298,
+      -0.2402
+     ],
+     "conductor": "R_film_s01"
+    },
+    {
+     "net": "R_film_s02",
+     "u": 0.15116666666666667,
+     "span": [
+      -0.2382,
+      -0.1804
+     ],
+     "conductor": "R_film_s02"
+    },
+    {
+     "net": "R_film_s03",
+     "u": 0.25083333333333335,
+     "span": [
+      -0.1784,
+      -0.12060000000000001
+     ],
+     "conductor": "R_film_s03"
+    },
+    {
+     "net": "R_film_s04",
+     "u": 0.3505,
+     "span": [
+      -0.11859999999999998,
+      -0.060799999999999986
+     ],
+     "conductor": "R_film_s04"
+    },
+    {
+     "net": "R_film_s05",
+     "u": 0.4501666666666667,
+     "span": [
+      -0.05879999999999999,
+      -0.000999999999999994
+     ],
+     "conductor": "R_film_s05"
+    },
+    {
+     "net": "R_film_s06",
+     "u": 0.5498333333333333,
+     "span": [
+      0.0010000000000000009,
+      0.0588
+     ],
+     "conductor": "R_film_s06"
+    },
+    {
+     "net": "R_film_s07",
+     "u": 0.6495,
+     "span": [
+      0.06080000000000002,
+      0.11860000000000001
+     ],
+     "conductor": "R_film_s07"
+    },
+    {
+     "net": "R_film_s08",
+     "u": 0.7491666666666668,
+     "span": [
+      0.12059999999999998,
+      0.17839999999999998
+     ],
+     "conductor": "R_film_s08"
+    },
+    {
+     "net": "R_film_s09",
+     "u": 0.8488333333333333,
+     "span": [
+      0.1804,
+      0.2382
+     ],
+     "conductor": "R_film_s09"
+    },
+    {
+     "net": "R_film_s10",
+     "u": 0.9484999999999999,
+     "span": [
+      0.24020000000000002,
+      0.29800000000000004
+     ],
+     "conductor": "R_film_s10"
+    }
+   ]
+  }
+ ],
+ "notes": [
+  "film R-film cut into 10 strips of 57.800 um x 2 um with 2-um gaps, grown into its side of permittivity 1"
+ ],
+ "files": {
+  "list": "r0402_strips10_free8.lst",
+  "panel_files": [
+   "r0402_strips10_free8_c1.txt",
+   "r0402_strips10_free8_c2.txt",
+   "r0402_strips10_free8_c3.txt",
+   "r0402_strips10_free8_d1.txt",
+   "r0402_strips10_free8_d2.txt"
+  ],
+  "names": {
+   "A": "A",
+   "B": "B",
+   "R_film_s01": "R_film_s01",
+   "R_film_s02": "R_film_s02",
+   "R_film_s03": "R_film_s03",
+   "R_film_s04": "R_film_s04",
+   "R_film_s05": "R_film_s05",
+   "R_film_s06": "R_film_s06",
+   "R_film_s07": "R_film_s07",
+   "R_film_s08": "R_film_s08",
+   "R_film_s09": "R_film_s09",
+   "R_film_s10": "R_film_s10"
+  }
+ },
+ "units": "m",
+ "areas_mm2": {
+  "[\"D\", 1.0, 4.2]": 613.7399999999999,
+  "[\"C\", \"B\", 1.0]": 0.6491000000000001,
+  "[\"C\", \"B\", 9.7]": 0.36,
+  "[\"C\", \"R_film_s01\", 1.0]": 0.031131199999999998,
+  "[\"C\", \"R_film_s02\", 1.0]": 0.031131199999999998,
+  "[\"C\", \"R_film_s03\", 1.0]": 0.031131199999999998,
+  "[\"C\", \"R_film_s04\", 1.0]": 0.0311312,
+  "[\"C\", \"R_film_s05\", 1.0]": 0.0311312,
+  "[\"C\", \"R_film_s06\", 1.0]": 0.0311312,
+  "[\"C\", \"R_film_s07\", 1.0]": 0.031131199999999998,
+  "[\"C\", \"R_film_s08\", 1.0]": 0.031131199999999998,
+  "[\"C\", \"R_film_s09\", 1.0]": 0.031131199999999998,
+  "[\"C\", \"A\", 1.0]": 0.6491,
+  "[\"C\", \"R_film_s10\", 1.0]": 0.03113120000000001,
+  "[\"C\", \"A\", 9.7]": 0.36,
+  "[\"D\", 1.0, 9.7]": 0.9678000000000107,
+  "[\"C\", \"B\", 4.2]": 0.33,
+  "[\"C\", \"A\", 4.2]": 0.33,
+  "[\"C\", \"R_film_s01\", 9.7]": 0.028899999999999995,
+  "[\"C\", \"R_film_s02\", 9.7]": 0.028899999999999995,
+  "[\"C\", \"R_film_s03\", 9.7]": 0.028899999999999995,
+  "[\"C\", \"R_film_s04\", 9.7]": 0.0289,
+  "[\"C\", \"R_film_s05\", 9.7]": 0.0289,
+  "[\"C\", \"R_film_s06\", 9.7]": 0.0289,
+  "[\"C\", \"R_film_s07\", 9.7]": 0.028899999999999995,
+  "[\"C\", \"R_film_s08\", 9.7]": 0.028899999999999995,
+  "[\"C\", \"R_film_s09\", 9.7]": 0.028899999999999995,
+  "[\"C\", \"R_film_s10\", 9.7]": 0.02890000000000001
+ },
+ "stats": {
+  "panels": 965,
+  "cells": 2176,
+  "seconds": 0.03156229999149218,
+  "probe_mm": {
+   "x": 0.0004999999999999866,
+   "y": 0.001,
+   "z": 0.0005000000000000004
+  },
+  "smallest_side_mm": 0.0019999999999999463
+ }
+}

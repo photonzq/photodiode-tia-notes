@@ -1,0 +1,48 @@
+Running FasterCap version 6.0.7
+Copyright 2019 FastFieldSolvers S.R.L. http://www.fastfieldsolvers.com, All Rights reserved
+Starting capacitance extraction with the following parameters:
+Input file: r0402_nofilm_air_box8.lst
+
+3D Solver Engine invoked
+Solution scheme (-g): Galerkin, GMRES tolerance (-t): 0.01
+Out-of-core free memory to link memory condition (-f): 5
+Potential interaction coefficient to mesh refinement ratio (-d): 1
+Mesh curvature (-mc): 3
+Mesh refinement (-m): 0.035
+Precond Type(s) (-p): Jacobi 
+Number of input panels to solver engine: 220
+
+***************************************
+Refining the geometry.. 
+Refinement completed
+***************************************
+Computing the links.. 
+Number of panels after refinement: 52691
+Number of links to be computed: 28102610
+Done computing links
+***************************************
+GMRES Iteration: 0 1 2 3 4 5 6 
+GMRES Iteration: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 
+GMRES Iteration: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 
+Capacitance matrix is:
+Dimension 3 x 3
+g1_gnd  1.26902e-012 -2.5998e-014 -2.61049e-014 
+g1_B  -2.5403e-014 3.52764e-014 -9.81265e-015 
+g1_A  -2.53904e-014 -9.81065e-015 3.52627e-014 
+
+
+Solve statistics:
+Number of input panels: 78 of which 78 conductors and 0 dielectric
+Number of input panels to solver engine: 220
+Number of panels after refinement: 52691
+Number of potential estimates: 27582643
+Number of links: 28155301 (uncompressed 2776341481, compression ratio is 101.9%)
+Max recursion level: 36
+Max Mesh relative refinement value: 0.035
+
+Total allocated memory: 470885 kilobytes
+Total time: 12.816000s (0 days, 0 hours, 0 mins, 12 s)
+
+
+
+* run by pcbcap.fastercap: options -m0.035 -g, exit code 0, 12.9 s

@@ -206,7 +206,10 @@ class Mount:
     The fillet defaults (no fillet; 0.15 mm and 3 steps when one is asked for) are choices, not
     measured shapes.  A fillet of T/3 on an 0402 changes C_F by -0.01 fF (details_0402), less than
     the mesh error of that comparison, because it sits on the outer end faces, which face away from
-    the other terminal.
+    the other terminal.  Fillets up to the top of the end cap raise it by 0.29 fF (reaching 0.15 mm
+    over the pad) and 0.58 fF (reaching the pad's outer end), almost wholly through the air around the
+    part, and C_A0 by 0.50 and 1.11 fF (fillet_0402 of g_resistor_3d.py; side note TIA_feedback_layouts,
+    Table D.2).
     """
 
     standoff: float = 0.03

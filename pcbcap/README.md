@@ -121,6 +121,21 @@ plotting.draw_views(lay, "views/my_layout")              # views/my_layout.png a
 webview.write_page(lay, "views/my_layout.html", title="My layout")
 ```
 
+### Exporting a layout to FasterCap
+
+`fastercap.py` writes a layout as input for FasterCap, a free boundary-element capacitance solver (FastFieldSolvers, LGPL 2.1), so that a result can be checked by a method whose discretisation error has nothing in common with this package's. Its docstring explains how each face of the layout becomes a panel, which translations are exact (the grounded enclosure becomes a closed grounded conductor; a symmetric layout is exported whole) and which are not (a resistive film becomes a row of strip conductors, which overstate $C_F$ by an amount it estimates; a conductor sheet between two permittivities needs a small thickness), and how FasterCap's Maxwell matrix is turned back into $C_F$, $C_{A0}$ and $C_{B0}$.
+
+```python
+from pcbcap import fastercap as fc
+ex = fc.export(lay, "out/my_layout", "my_layout", fc.ExportOptions(boundary="ground", film_strips=20))
+check = fc.compare_areas(ex.panels.areas_by_key(), fc.gmsh_areas(ex.layout, "ground"))   # geometry check
+fc.draw_panels(ex, "out/my_layout_views")                                                # look at it
+text = fc.run_fastercap("FasterCap.exe", "out/my_layout/my_layout.lst", ("-a0.001",))
+print(fc.two_port(ex.meta, *fc.read_matrix(text)))
+```
+
+The panels come from cells of the layout's planes, classified by the painter's order; `gmsh_areas` finds the area of every kind of panel a second way, from gmsh's fragments, and the two must agree (checks `fastercap_export_box` and `fastercap_export_free`). The companion note's `scripts_archive/parasitic_cf/numerical/fastercap_validation.py` uses this to check Section G.14; its results and convergence tables are in `data/parasitic_cf/fastercap/README.md`.
+
 ### Cost
 
 A quarter of a 3-D chip resistor at the finest mesh used in Appendix G has a few hundred thousand elements (0.34 million for the 0402 at refine 2) and takes one to two minutes per solve. The full-domain feedback networks with an amplifier package take 0.6–1.0 million elements and 0.8–1.3 million unknowns; the OPA846 cases used about 3.5–4.5 GB each. The 2-D cases take seconds. Every run lowers its priority and limits itself to two threads, because it is meant to run on a workstation that is in use.
@@ -147,6 +162,9 @@ Each check prints what it exercises, the mesh, the computed and reference values
 | symmetry_declaration | a false symmetry is rejected | rejected |
 | resistor_section_shares | builder, film, material shares | $3\times10^{-13}$ ($10^{-9}$) |
 | uniform_rc_line | the film as finite elements (`distributed.py`) against the exact uniform RC line, for both admittances; no mesh | $1.2\times10^{-3}$ ($10^{-2}$) on the convergence order, 2.002 against 2 |
+| fastercap_export_box | export of an 0402 for FasterCap with its film as strips and the grounded box as a conductor: the panels' areas, kind by kind, against gmsh's fragments | $0$ ($10^{-9}$) |
+| fastercap_export_free | the same in free space, with a board of finite size and the film removed | $4\times10^{-16}$ ($10^{-9}$) |
+| fastercap_reader | reading FasterCap's matrix, eliminating a floating conductor and forming $C_F$ with film strips, against a direct computation | $0$ ($10^{-12}$) |
 
 The values are those recorded in `TIA_opamp_survey_2026-10-25/data/parasitic_cf/numerical/checks.json`. In the extrusion check the errors of the three 3-D meshes against the exact 2-D value fall with local orders 0.94 and 1.02, close to the order 1 expected for a sheet edge; the three-level extrapolation, which does not know the exact value, finds 0.86 and lands $5.9\times10^{-4}$ below it, inside the error it reports.
 

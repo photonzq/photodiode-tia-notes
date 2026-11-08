@@ -1,0 +1,41 @@
+{
+ "case": "cube_on_block40_free",
+ "panels": 20,
+ "cells": 210,
+ "smallest_side_mm": 0.5,
+ "worst_relative_area_difference": 1.421307550825017e-16,
+ "total_area_mm2": 6404.999999999999,
+ "rows": [
+  {
+   "key": [
+    "C",
+    "A",
+    1.0
+   ],
+   "panels": 3.0,
+   "other": 3.0,
+   "rel": 0.0
+  },
+  {
+   "key": [
+    "C",
+    "A",
+    4.2
+   ],
+   "panels": 3.0,
+   "other": 3.0,
+   "rel": 0.0
+  },
+  {
+   "key": [
+    "D",
+    1.0,
+    4.2
+   ],
+   "panels": 6399.0,
+   "other": 6398.999999999999,
+   "rel": 1.421307550825017e-16
+  }
+ ],
+ "notes": []
+}

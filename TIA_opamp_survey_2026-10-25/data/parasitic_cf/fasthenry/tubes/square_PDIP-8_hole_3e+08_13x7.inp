@@ -1,0 +1,9 @@
+* PDIP-8 hole: square barrel of side 0.6778 mm
+.units mm
+.default sigma=58823.5
+N0 x=0 y=0 z=0
+N1 x=0 y=0 z=1.6
+E0 N0 N1 w=0.677770468 h=0.677770468 nwinc=13 nhinc=7 rw=2 rh=2 wx=1 wy=0 wz=0
+.external N0 N1 port
+.freq fmin=308000000 fmax=308000000 ndec=1
+.end

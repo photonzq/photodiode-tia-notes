@@ -1,0 +1,9 @@
+  mesh convergence, refine levels (4.0, 2.83, 2.0):
+    refine 4.000: C_F = 39.9413 fF, C_A0 = 54.2646, 115055 DOFs, 8.8 s
+    refine 2.830: C_F = 39.8796 fF, C_A0 = 54.2290, 221911 DOFs, 20.5 s
+    refine 2.000: C_F = 39.8394 fF, C_A0 = 54.2001, 455866 DOFs, 56.6 s
+  enclosure sizes (8.0, 16.0, 32.0) mm at refine 4.0:
+    enclosure margin 8 mm (R = 8.00 mm): C_F = 39.9413 fF, C_A0 = 54.2647, 114971 unknowns, 9.8 s
+    enclosure margin 16 mm (R = 16.00 mm): C_F = 41.1007 fF, C_A0 = 51.9310, 116928 unknowns, 12.3 s
+    enclosure margin 32 mm (R = 32.00 mm): C_F = 41.6823 fF, C_A0 = 50.7388, 118112 unknowns, 10.8 s
+  C_F in the 8-mm box 39.765 +- 0.074 fF; with no ground nearby 42.091 fF

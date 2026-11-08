@@ -1,0 +1,56 @@
+{
+ "format": "pcbcap.fastercap 1",
+ "layout": "cube on a dielectric block of 40 mm",
+ "stem": "cube_on_block40_free",
+ "boundary": "free",
+ "options": {
+  "boundary": "free",
+  "films": "strips",
+  "film_strips": 10,
+  "film_gap": 0.002,
+  "film_thickness": 0.002,
+  "sheet_thickness": null,
+  "max_aspect": 10.0,
+  "max_panel": null
+ },
+ "pair": [
+  "A",
+  "B"
+ ],
+ "conductors": {
+  "A": {
+   "net": "A",
+   "floating": false
+  }
+ },
+ "films": [],
+ "notes": [],
+ "files": {
+  "list": "cube_on_block40_free.lst",
+  "panel_files": [
+   "cube_on_block40_free_c1.txt",
+   "cube_on_block40_free_c2.txt",
+   "cube_on_block40_free_d1.txt"
+  ],
+  "names": {
+   "A": "A"
+  }
+ },
+ "units": "m",
+ "areas_mm2": {
+  "[\"D\", 1.0, 4.2]": 6399.0,
+  "[\"C\", \"A\", 4.2]": 3.0,
+  "[\"C\", \"A\", 1.0]": 3.0
+ },
+ "stats": {
+  "panels": 20,
+  "cells": 210,
+  "seconds": 0.007936699985293671,
+  "probe_mm": {
+   "x": 0.001,
+   "y": 0.001,
+   "z": 0.001
+  },
+  "smallest_side_mm": 0.5
+ }
+}

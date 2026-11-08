@@ -1,0 +1,146 @@
+[
+ {
+  "item": "via as a cage of 8",
+  "level": "8 strips",
+  "estimate_nH": 0.6960821808795813,
+  "f": 1000.0,
+  "R_ohm": 0.00303791,
+  "L_nH": 0.6844394665689724,
+  "seconds": 0.20481480000307783
+ },
+ {
+  "item": "via as a cage of 16",
+  "level": "16 strips",
+  "estimate_nH": 0.6960821808795813,
+  "f": 1000.0,
+  "R_ohm": 0.00303791,
+  "L_nH": 0.68978707265686,
+  "seconds": 0.20388650000677444
+ },
+ {
+  "item": "via as a cage of 32",
+  "level": "32 strips",
+  "estimate_nH": 0.6960821808795813,
+  "f": 1000.0,
+  "R_ohm": 0.00303791,
+  "L_nH": 0.691004607971513,
+  "seconds": 0.20490340000833385
+ },
+ {
+  "item": "via as a cage of 64",
+  "level": "64 strips",
+  "estimate_nH": 0.6960821808795813,
+  "f": 1000.0,
+  "R_ohm": 0.00303791,
+  "L_nH": 0.6912719882759073,
+  "seconds": 0.404919599997811
+ },
+ {
+  "item": "via, square barrel 0.254 mm",
+  "level": "1 x 1",
+  "estimate_nH": 0.6960821808795813,
+  "f": 1000.0,
+  "R_ohm": 0.000421057,
+  "L_nH": 0.7739975445962126,
+  "seconds": 0.20327629998791963
+ },
+ {
+  "item": "via, square barrel 0.254 mm",
+  "level": "5 x 3",
+  "estimate_nH": 0.6960821808795813,
+  "f": 308000000.0,
+  "R_ohm": 0.00147451,
+  "L_nH": 0.7200624353886179,
+  "seconds": 0.2040809000027366
+ },
+ {
+  "item": "via, square barrel 0.254 mm",
+  "level": "9 x 5",
+  "estimate_nH": 0.6960821808795813,
+  "f": 308000000.0,
+  "R_ohm": 0.00460219,
+  "L_nH": 0.704617171593109,
+  "seconds": 0.20394509998732246
+ },
+ {
+  "item": "via, square barrel 0.254 mm",
+  "level": "13 x 7",
+  "estimate_nH": 0.6960821808795813,
+  "f": 308000000.0,
+  "R_ohm": 0.00607933,
+  "L_nH": 0.7005814569647073,
+  "seconds": 0.2030019999947399
+ },
+ {
+  "item": "PDIP-8 hole as a cage of 8",
+  "level": "8 strips",
+  "estimate_nH": 0.4375000405980988,
+  "f": 1000.0,
+  "R_ohm": 0.00113921,
+  "L_nH": 0.429786782973647,
+  "seconds": 0.20319929998368025
+ },
+ {
+  "item": "PDIP-8 hole as a cage of 16",
+  "level": "16 strips",
+  "estimate_nH": 0.4375000405980988,
+  "f": 1000.0,
+  "R_ohm": 0.00113921,
+  "L_nH": 0.4343624875875389,
+  "seconds": 0.20416270001442172
+ },
+ {
+  "item": "PDIP-8 hole as a cage of 32",
+  "level": "32 strips",
+  "estimate_nH": 0.4375000405980988,
+  "f": 1000.0,
+  "R_ohm": 0.00113921,
+  "L_nH": 0.4352919524551957,
+  "seconds": 0.20355580002069473
+ },
+ {
+  "item": "PDIP-8 hole as a cage of 64",
+  "level": "64 strips",
+  "estimate_nH": 0.4375000405980988,
+  "f": 1000.0,
+  "R_ohm": 0.00113921,
+  "L_nH": 0.43565960037373785,
+  "seconds": 0.4048446000088006
+ },
+ {
+  "item": "PDIP-8 hole, square barrel 0.678 mm",
+  "level": "1 x 1",
+  "estimate_nH": 0.4375000405980988,
+  "f": 1000.0,
+  "R_ohm": 5.92112e-05,
+  "L_nH": 0.5002510424781527,
+  "seconds": 0.20374110000557266
+ },
+ {
+  "item": "PDIP-8 hole, square barrel 0.678 mm",
+  "level": "5 x 3",
+  "estimate_nH": 0.4375000405980988,
+  "f": 308000000.0,
+  "R_ohm": 0.000184287,
+  "L_nH": 0.4579109909589964,
+  "seconds": 0.20408870000392199
+ },
+ {
+  "item": "PDIP-8 hole, square barrel 0.678 mm",
+  "level": "9 x 5",
+  "estimate_nH": 0.4375000405980988,
+  "f": 308000000.0,
+  "R_ohm": 0.000613767,
+  "L_nH": 0.4444944359510809,
+  "seconds": 0.20315769998705946
+ },
+ {
+  "item": "PDIP-8 hole, square barrel 0.678 mm",
+  "level": "13 x 7",
+  "estimate_nH": 0.4375000405980988,
+  "f": 308000000.0,
+  "R_ohm": 0.00151375,
+  "L_nH": 0.44062821100233557,
+  "seconds": 0.20372760001919232
+ }
+]

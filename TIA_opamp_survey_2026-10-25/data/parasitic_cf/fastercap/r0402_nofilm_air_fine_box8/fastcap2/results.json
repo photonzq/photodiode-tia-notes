@@ -1,0 +1,24 @@
+{
+ "-d0 -t0.001": {
+  "options": "-d0 -t0.001",
+  "log": null,
+  "partitioning_levels": 0,
+  "wall_seconds": 3600,
+  "stopped": true,
+  "note": "stopped at the one-hour limit; FastCap2's console output was not collected"
+ },
+ "-o3 -t0.001 -d8": {
+  "options": "-o3 -t0.001 -d8",
+  "log": "fastcap2_o3_t0.001_d8.log",
+  "partitioning_levels": 8,
+  "wall_seconds": 1200.0054049491882,
+  "stopped": true
+ },
+ "-o3 -t0.001 -d9 -z": {
+  "options": "-o3 -t0.001 -d9 -z",
+  "log": "fastcap2_o3_t0.001_d9_z.log",
+  "partitioning_levels": 9,
+  "wall_seconds": 1200.0192558765411,
+  "stopped": true
+ }
+}
