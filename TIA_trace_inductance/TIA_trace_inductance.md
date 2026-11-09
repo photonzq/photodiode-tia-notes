@@ -121,9 +121,12 @@ FastHenry lies 2.1–2.5 % above Eqs. (6)–(8) at every thickness. Equation (6)
 | 0.3 mm wide, 1.5 mm above, as over a plane on the far side of a 1.6-mm board | 0.7155 | 0.6995 | 0.6746 | −3.6 % | +5.5 % | −19.3 % | −17.2 % |
 | 3 mm wide, 0.1 mm above | 0.0371 | 0.0370 | 0.0367 | −0.7 % | +1.2 % | −47.4 % | −47.2 % |
 
+::: narrow
 ![Figure 1](figures/fig1_thickness.png)
 
 *Figure 1. Inductance of a trace 0.2 mm wide against the thickness of its copper, relative to 35-µm copper. Blue: the trace alone, 2.8 mm long, with a uniform current, by Eq. (4) (line) and by FastHenry at DC (points). Red: the same trace at 308 MHz by FastHenry (points, joined by the dashed line). Green: the trace with its lower face 0.2 mm above a plane, inductance per unit length at 308 MHz, by Eqs. (6)–(8) (line) and by FastHenry (points). The points at 1 µm stand for a strip without thickness (Tables 1 and 2).*
+
+:::
 
 ## 5. Below a few megahertz: the field inside the copper
 
@@ -157,9 +160,12 @@ where $h_1$ and $h_2$ are the heights that the trace and the plane add to the ga
 
 **Above about 10 MHz** the copper's weight drops out of this term: at 10 MHz the three weights add 5.8, 9.9 and 10.4 µm, and at 100 MHz all add half the skin depth, 3.3 µm. At 100 MHz the skin depth is 6.56 µm, a fifth of 1-oz copper, and by the solution above the current density on a conductor's far face is $|1/\cosh(kt)|$ times that on its face towards the gap: 14 % for ½-oz, 1.0 % for 1-oz and less than 0.01 % for 2-oz copper. The skin effect then decides where the current flows and what the copper loses, $\rho/\delta$ = 2.6 mΩ per square whatever the copper's weight, against $\rho/t$ = 0.97, 0.49 and 0.24 mΩ at DC. It hardly decides the inductance, however: the field inside the skin adds $\delta/2$ = 3.3 µm to the gap for each conductor, 3.3 % of a 0.2-mm gap for a trace and its plane together, and this share falls as $1/\sqrt f$. The inductance at 100 MHz is that of the field outside the copper, which Sections 3 and 4 compute, and the copper's thickness enters it only through the side walls.
 
+::: narrow
 ![Figure 2](figures/fig2_internal.png)
 
 *Figure 2. The height that one conductor adds to the gap of a wide trace through the field inside it, Eqs. (9) and (10), against frequency, for 17.5-, 35- and 70-µm copper, with half the skin depth, the limit for thick copper (dashed). Below about 1 MHz each conductor adds a third of its thickness; above about 10 MHz all three follow the dashed line.*
+
+:::
 
 ## 6. What this means for the two notes
 
@@ -193,3 +199,14 @@ The two notes and the side note of this repository are cited by name and linked 
 - [1] M. Kamon, C. Smithhisler and J. White, FastHenry User's Guide, version 3.0, Research Laboratory of Electronics, Massachusetts Institute of Technology, 26 Sep. 1996, distributed with FastHenry2 (FastFieldSolvers); the runs of this note used the installed FastHenry2.exe, file version 3.6.1.0.
 - [2] S. Jahn, M. Margraf, V. Habchi and R. Jacob, Qucs Technical Papers, section "Single microstrip line" of the chapter "Microstrip components", Eqs. (11.4), (11.6) and (11.22), https://qucs.github.io/tech/node75.html, read 8 Nov. 2026.
 - [3] E. Hammerstad and Ø. Jensen, "Accurate models for microstrip computer-aided design", Symposium on Microwave Theory and Techniques, pp. 407–409, June 1980, as cited in [2]; this note takes the formulas from [2].
+
+<style>
+img.tall { width: 60%; }
+div.side { float: right; width: 52%; margin: 0.15em 0 0.8em 1.4em; break-inside: avoid; }
+div.side img, div.half img, div.narrow img { width: 100%; margin: 0 0 0.3em 0; }
+div.side p, div.half p, div.narrow p { margin: 0.2em 0; }
+div.pair { display: flex; justify-content: space-between; align-items: flex-start; break-inside: avoid; }
+div.half { width: 48%; }
+div.narrow { width: 65%; margin: 0.6em auto; break-inside: avoid; }
+img, table, .eqn, h1, h2, h3, h4, div.pair, div.narrow { clear: both; }
+</style>
