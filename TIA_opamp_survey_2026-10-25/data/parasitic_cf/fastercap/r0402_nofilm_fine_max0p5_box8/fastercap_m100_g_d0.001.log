@@ -1,0 +1,48 @@
+Running FasterCap version 6.0.7
+Copyright 2019 FastFieldSolvers S.R.L. http://www.fastfieldsolvers.com, All Rights reserved
+Starting capacitance extraction with the following parameters:
+Input file: r0402_nofilm_fine_max0p5_box8.lst
+
+3D Solver Engine invoked
+Solution scheme (-g): Galerkin, GMRES tolerance (-t): 0.01
+Out-of-core free memory to link memory condition (-f): 5
+Potential interaction coefficient to mesh refinement ratio (-d): 0.001
+Mesh curvature (-mc): 3
+Mesh refinement (-m): 100
+Precond Type(s) (-p): Jacobi 
+Number of input panels to solver engine: 37714
+
+***************************************
+Refining the geometry.. 
+Refinement completed
+***************************************
+Computing the links.. 
+Number of panels after refinement: 37714
+Number of links to be computed: 7682186
+Done computing links
+***************************************
+GMRES Iteration: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 
+GMRES Iteration: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 
+GMRES Iteration: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 
+Capacitance matrix is:
+Dimension 3 x 3
+g1_gnd  1.50585e-012 -7.04804e-014 -6.96534e-014 
+g1_B  -4.28781e-014 1.08152e-013 -3.72194e-014 
+g1_A  -4.738e-014 -3.74124e-014 1.0711e-013 
+
+
+Solve statistics:
+Number of input panels: 18857 of which 14589 conductors and 4268 dielectric
+Number of input panels to solver engine: 37714
+Number of panels after refinement: 37714
+Number of potential estimates: 7652428
+Number of links: 7719900 (uncompressed 1422345796, compression ratio is 99.5%)
+Max recursion level: 36
+Max Mesh relative refinement value: 0.526016
+
+Total allocated memory: 197588 kilobytes
+Total time: 35.709000s (0 days, 0 hours, 0 mins, 35 s)
+
+
+
+* run by pcbcap.fastercap: options -m100 -g -d0.001, exit code 0, 35.9 s

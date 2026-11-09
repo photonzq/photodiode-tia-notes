@@ -7,11 +7,35 @@ These are the results of `scripts_archive/parasitic_cf/numerical/fastercap_valid
 * The export is right. Every kind of panel has the area that gmsh's fragments give to within 1e-13 (table below); every panel view was looked at; a cube of 1 mm comes out at the exact 73.510 fF (0.6606782 x 4 pi eps0 a, Hwang and Mascagni, J. Appl. Phys. 95, 3798 (2004)) to +0.08 % with collocation and -0.08 % with Galerkin, and exactly 4.2 times that in a medium of 4.2; per-panel reference points and one inner point per dielectric body give the same 0402 result to 1e-5.
 * FasterCap's automatic mode (-a) stops on a small change between two refinements, not on a small error: the cube on a dielectric block stops at -12 % of the half-space bound at -a0.003, while fixed refinements (-m 0.1 to 0.02, Galerkin) rise smoothly to 2.46 times the cube in air.
 * FasterCap does not solve the 0402 model reliably. In the grounded 8-mm box, and in free space once the panels pass about 10 000, its GMRES solves stop converging (the 1000-iteration limit) and C_A0 turns negative; the fixed Galerkin refinement fails the same way at 64 000 to 113 000 panels. Before that point the free-space C_F lies at 31 to 35 fF and has not settled, so it neither confirms nor contradicts pcbcap's 42.09 fF (the same film-free 0402 with no ground nearby) or 39.77 +- 0.07 fF (in the 8-mm box). The cube and block cases run cleanly up to the largest refinement kept, 148 375 panels (the block, Galerkin -m0.02, 28 GMRES iterations). A Galerkin run of the free-space 0402 at -m0.1 was stopped by hand before FasterCap printed anything, so its log is empty.
-* The thin metal is not the cause (the side note's Appendix D). In a uniform medium (r0402_nofilm_air_box8, every permittivity 1) FasterCap converges smoothly, with 10-25 GMRES iterations, to C_F 9.63 fF and C_A0 25.30 fF at 52 691 panels, against pcbcap's 9.870 +- 0.017 and 25.350 +- 0.015 fF (-2.5 % and -0.2 %); the 2.5 % is FasterCap's collocation error, since its Galerkin scheme on fixed meshes (-m 0.07, 0.05, 0.035 -g: 14 122 to 52 691 panels, 6-14 GMRES iterations) gives C_F 9.85, 9.87, 9.81 fF and C_A0 25.37, 25.51, 25.45 fF, within 0.6 % and 0.7 % of pcbcap. The next mesh (-m0.025 -g) stopped with exit code 1 after 212 s without printing anything. With the dielectrics and every face of the metal cut into panels no wider than the metal is thick (r0402_nofilm_finemetal_box8), its first step (15 008 panels, every solve converged) gives C_F 30.0 fF and C_A0 87.2 fF, and the refinement breaks down as before; the run did not finish within 1800 s. A third case (r0402_nofilm_fine_box8) also cuts every face inside a window of 1.7 x 0.7 x 0.47 mm around the part, dielectric ones included, into panels of 30 um or less (fastercap.ExportOptions.fine_window, fine_panel; 10 111 input panels). Galerkin on that input without refinement (-m100 -g, 20 234 panels, 17-25 GMRES iterations) gives C_F 37.18 fF and C_A0 90.58 fF, and the box's row and column still disagree by a factor of two; the automatic collocation run gives 23-32 and 81-100 fF over seven steps, then fails (GMRES at 1000, exit code 1 after 390 s), and a Galerkin run at -m0.07 exited with code 1 after 21 s without printing anything. The fault lies in the dielectrics' treatment; the board's faces away from the part (its bottom face one 16-mm panel 1.6 mm below the pads) stay coarse in every input.
+* The thin metal is not the cause (the side note's Appendix D). In a uniform medium (r0402_nofilm_air_box8, every permittivity 1) FasterCap converges smoothly, with 10-25 GMRES iterations, to C_F 9.63 fF and C_A0 25.30 fF at 52 691 panels, against pcbcap's 9.870 +- 0.017 and 25.350 +- 0.015 fF (-2.5 % and -0.2 %); the 2.5 % is FasterCap's collocation error, since its Galerkin scheme on fixed meshes (-m 0.07, 0.05, 0.035 -g: 14 122 to 52 691 panels, 6-14 GMRES iterations) gives C_F 9.85, 9.87, 9.81 fF and C_A0 25.37, 25.51, 25.45 fF, within 0.6 % and 0.7 % of pcbcap. The next mesh (-m0.025 -g) stopped with exit code 1 after 212 s without printing anything. With the dielectrics and every face of the metal cut into panels no wider than the metal is thick (r0402_nofilm_finemetal_box8), its first step (15 008 panels, every solve converged) gives C_F 30.0 fF and C_A0 87.2 fF, and the refinement breaks down as before; the run did not finish within 1800 s. A third case (r0402_nofilm_fine_box8) also cuts every face inside a window of 1.7 x 0.7 x 0.47 mm around the part, dielectric ones included, into panels of 30 um or less (fastercap.ExportOptions.fine_window, fine_panel; 10 111 input panels). Its automatic collocation run gives 23-32 and 81-100 fF over seven steps, then fails (GMRES at 1000, exit code 1 after 390 s), and a Galerkin run at -m0.07 exited with code 1 after 21 s without printing anything. Solved on its panels as exported, and with the faces away from the part cut finer as well, it gives the results of the section "Solving the exported panels as they are" below.
 * The input was checked again for errors in its dielectric part (the side note's Appendix D) and none was found: the panel files carry permittivities 1, 4.2 and 9.7 on the right faces (pad undersides 4.2, terminations' inner faces 9.7, the box walls beside the board 4.2), the '+' chain returns three conductors (g1_A, g1_B, g1_gnd), coordinates are written in metres to ten significant digits, faces are classified by probing at most 1 um off them, and reference points lie 1 um off each dielectric panel on the lower-permittivity side. FasterCap's dielectric answers break reciprocity: at 12 233 panels in the box the box's row gives -88 and -92 fF for its coupling to B and A, its column -43 and -40 fF, and in free space C_AB and C_BA differ by 7 %, while the uniform-medium matrices are symmetric to about 1 %. FasterCap's source (github.com/ediloren/FasterCap, Solver/Autorefine.cpp, CAutoRefine::PotEstimateOpt) computes a dielectric panel's row from the source panel's exact potential at points one twentieth of the centroid distance either side when the centroids lie closer than the longer side of the two panels, and from field quadratures (orders 5, 3, 2) or a point-charge formula farther out.
 * FasterCap's "not diagonally dominant" warnings do not mark bad solutions in the grounded box: every row of a conductor inside the box sums to zero, so rounding alone sets them off, and the converged uniform-medium runs show them too. A negative C_A0 does mark a bad solution.
 * FastCap 2.0 (the M.I.T. program, in FastFieldSolvers' Windows build 3.6) gives no result on these panel sets and is not used further; the side note's Appendix D explains why it should be avoided for models like these. In r0402_nofilm_air_fine_box8 (7939 panels) the grounded box is six panels, one per face, 16 x 16 and 16 x 17.6 mm, whose centroids lie 7.9 to 9.7 mm from the centroid of the metal; in r0402_nofilm_fine_box8 the box has 14 such panels and the board's bottom face is one 16-mm panel 1.74 mm below the metal's centroid. FastCap2 widens its root cube by the largest panel's diagonal in every direction in which the panel centres spread less than that panel (placeq in mulSetup.c), here from 17.6 to 41.4 mm, so at depth 8 its overlapped preconditioner inverts blocks of up to 2690 panels (2.5e11 operations) and the uniform case's set-up did not finish in 20 minutes. At depth 9 the set-up finished (84 % of the multiplies by multipole expansions), but GMRES on the box's column reached iteration 7448 of the 7939 the program allows (MAXITER in mulGlobal.h, one per panel) without reaching the tolerance 0.001 before the 20-minute limit, in the uniform medium whose answer pcbcap gives to 0.2 %. FastCap2's expansions place each panel's charge at its centroid (mulQ2Multi in mulMulti.c, mulQ2Local in mulLocal.c): seen from the metal's centroid, the six box faces then act on the part 19 to 28 % too strongly and the board's bottom face 3.2 times too strongly (fastcap2_large_panels.py). The program would need the far faces cut into panels small compared with their distance from the part. The dielectric case was not run at depth 8 or 9. Left to itself the program would choose depth 11 for the uniform case (78.5 GB of cube pointers) and depth 3 for the dielectric case (one preconditioner block of 10 103 panels); the runs with -d0 (no partitioning) stopped after one hour inverting the full matrix.
 * The strip cases (the film as 10 to 40 strips) were exported and checked but not run, since the film-free model already fails.
+* Solved on its panels as exported (next section), FasterCap reproduces the uniform medium within 0.3 % and with a symmetric matrix, but with the dielectrics its matrix breaks reciprocity in the coupling to the box by about 50 % (C_A0 69 to 70 fF from the A solve, 45 to 47 fF from the box's solve, against pcbcap's 54.08 fF), however finely the faces away from the part are cut. The coarse faces away from the part are not why it fails.
+
+## Solving the exported panels as they are
+
+FasterCap's option -m sets how far it refines the panels, and -d sets the tolerance of its interaction links relative to -m: the solver takes the link tolerance as d times m (m_dEps = m_dEpsRatio * m_dMeshEps in Solver/SolveCapacitance.cpp, github.com/ediloren/FasterCap). CAutoRefine::RefineMutual (Solver/Autorefine.cpp) splits the larger of two clusters of panels until RefineCriteria, an estimate of their coupling normalised by the area of the largest conductor group, falls below that tolerance, and then joins the two clusters by a single link that treats each cluster's charge as one. A run with -m100 keeps the input panels, since none needs refining at that value, but with the default -d1 it also builds its links to the tolerance 100: 3.4 links per panel on r0402_nofilm_fine_box8, against 418 to 534 in the converged uniform-medium runs at -m0.07 to -m0.035. The results of that run (C_F 37.18 fF, C_A0 90.58 fF, the box's row and column a factor of two apart) are those of the compressed links, not of the panels. The runs below keep -m100 and tighten the links with -d. In the table, C_F comes from the A and the B solve separately, and C_A0 from the A solve (the charge it leaves on the box) and from the box's solve (the charge it puts on A); the two C_A0 must be equal (reciprocity), provided the box's solve converged (below 1000 iterations). The charge closure is the sum of each solve's charges over the driven conductor's own: inside the closed box it is zero.
+
+* The uniform medium on the panels of the 0.5-mm case (r0402_nofilm_air_fine_max0p5_box8: the metal in panels of 30 um or less, the box in panels of 0.5 mm) checks the method. With -d0.0001 it gives C_F 9.843 fF and C_A0 25.344 fF, against pcbcap's 9.870 +- 0.017 and 25.350 +- 0.015 fF (-0.27 % and -0.02 %), and its two C_A0 agree within 0.4 %. With -d0.001 the same panels give 8.96 and 24.53 fF (-9.2 % and -3.2 %). FasterCap therefore solves panels as exported once the links are this tight.
+* With the dielectrics, the faces away from the part (the board's top beyond the window, its bottom face 1.6 mm below the pads, and the box) were cut into panels no longer than 1, 0.5 and 0.25 mm. FasterCap's own measure of its coarsest panel, the largest relative refinement value, falls from 94.6 with the faces whole to 0.85, 0.53 and 0.22. At -d0.001 every solve on the refined panels converged and closes within 0.3 % (with the faces whole the box's solve stopped at 1000 iterations); C_F stays at 36.9 to 37.6 fF and the A solve's C_A0 at 69.0 fF with the faces whole and 69.5, 69.7 and 70.2 fF with them cut, so refining the far faces moves C_A0 by about 1 fF, away from pcbcap's 54.08 fF. The box's solve, converged within 74 to 485 iterations, gives C_A0 45.4, 47.4 and 45.6 fF: these matrices break reciprocity by about 50 %, on panels whose uniform medium is reciprocal within 0.4 %.
+* Tighter links were tried as far as the workstation allowed. With the faces whole, -d0.001 and -d0.0001 give C_F 37.25 and 40.42 fF and the A solve's C_A0 69.0 and 71.6 fF; tightening the links raises both, as it does in the uniform medium, and moves C_A0 further from pcbcap's value (the box's solve stopped at 1000 iterations in both, so reciprocity is untested there). On the refined panels -d0.0001 needs more memory than was free: FasterCap keeps its links on disk when five times their memory exceeds the free memory (its option -f, default 5), as the uniform control did with 1761 MB of links against 1416 MB free. The 0.5-mm case with the dielectrics held 2.3 GB of links on disk and read them back at about 68 MB/s, about 34 s per GMRES iteration, so it was stopped after 26 minutes; the 1-mm case gave no result within its limit of 1800 s, and -d0.00001 with the faces whole was stopped after 33 minutes. Kept in memory (-f0), the 0.5-mm case would need about 3 GB.
+
+| Case | Panels outside the part's window | Solver panels | -d | Links per panel | GMRES iterations (box, B, A) | Charge closure, A / B solve | $C_F$ from the A / B solve | $C_{A0}$ from the A / box solve | pcbcap $C_F$ / $C_{A0}$ | Time (s) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| r0402_nofilm_fine_box8 | whole faces | 20234 | 1 (default) | 3 | 25, 17, 17 | +3.65% / +1.15% | 38.69 / 35.67 | 84.41 / 162.17 | 39.77 / 54.08 | 1 |
+| r0402_nofilm_fine_box8 | whole faces | 20234 | 0.01 | 57 | 443, 35, 35 | -0.69% / -0.66% | 31.72 / 31.88 | 82.97 / 57.42 | 39.77 / 54.08 | 14 |
+| r0402_nofilm_fine_box8 | whole faces | 20234 | 0.001 | 97 | 1000, 57, 57 | -0.49% / -0.50% | 36.90 / 37.60 | 69.03 / 61.08 | 39.77 / 54.08 | 39 |
+| r0402_nofilm_fine_box8 | whole faces | 20234 | 0.0001 | 231 | 1000, 53, 53 | -0.50% / -0.49% | 40.16 / 40.67 | 71.60 / 62.56 | 39.77 / 54.08 | 47 |
+| r0402_nofilm_fine_box8 | whole faces | | 1e-05 | | | | no result: stopped by hand after 1959 s | | | |
+| r0402_nofilm_fine_max1_box8 | 1 mm | 24582 | 0.001 | 326 | 485, 65, 122 | +0.11% / +0.11% | 36.94 / 37.40 | 69.46 / 45.35 | 39.77 / 54.08 | 55 |
+| r0402_nofilm_fine_max1_box8 | 1 mm | | 0.0001 | | | | no result within the time limit of 1800 s | | | |
+| r0402_nofilm_fine_max0p5_box8 | 0.5 mm | 37714 | 0.001 | 205 | 170, 93, 145 | +0.22% / +0.24% | 37.22 / 37.41 | 69.65 / 47.38 | 39.77 / 54.08 | 36 |
+| r0402_nofilm_fine_max0p5_box8 | 0.5 mm | | 0.0001 | | | | no result: stopped by hand after 1572 s | | | |
+| r0402_nofilm_fine_max0p25_box8 | 0.25 mm | 89460 | 0.001 | 104 | 74, 167, 864 | +0.28% / +0.28% | 37.20 / 37.51 | 70.18 / 45.63 | 39.77 / 54.08 | 211 |
+| r0402_nofilm_air_fine_max0p5_box8 | 0.5 mm | 29178 | 0.001 | 114 | 10, 10, 10 | -0.04% / +0.17% | 8.96 / 8.96 | 24.54 / 24.16 | 9.87 / 25.35 | 8 |
+| r0402_nofilm_air_fine_max0p5_box8 | 0.5 mm | 29178 | 0.0001 | 3958 | 10, 11, 11 | +0.12% / +0.14% | 9.84 / 9.84 | 25.30 / 25.40 | 9.87 / 25.35 | 728, links on disk |
 
 ## Geometry checks
 
@@ -30,6 +54,10 @@ Every kind of panel (a conductor net with the permittivity it touches, or a pair
 | r0402_nofilm_finemetal_box8 | 7484 | 699 | 10 | 2.5e-14 |
 | r0402_nofilm_air_fine_box8 | 7939 | 1243 | 3 | 7.1e-14 |
 | r0402_nofilm_fine_box8 | 10111 | 1243 | 10 | 2.5e-14 |
+| r0402_nofilm_fine_max1_box8 | 12291 | 1243 | 10 | 2.5e-14 |
+| r0402_nofilm_fine_max0p5_box8 | 18857 | 1243 | 10 | 3.8e-14 |
+| r0402_nofilm_fine_max0p25_box8 | 44730 | 1243 | 10 | 4.3e-14 |
+| r0402_nofilm_air_fine_max0p5_box8 | 14589 | 1243 | 3 | 7.1e-14 |
 | r0402_strips10_box8 | 975 | 1676 | 30 | 1.1e-14 |
 | r0402_strips20_box8 | 1805 | 2652 | 50 | 2.1e-14 |
 | r0402_strips40_box8 | 3545 | 4536 | 90 | 4.1e-14 |
@@ -103,6 +131,35 @@ The reference is the half-space limit, 2.6 times the cube in air: an upper bound
 | FasterCap options | Panels | $C_F$ | $C_{A0}$ | $-C_{AB}$ / $-C_{BA}$ | Asymmetry | Time (s) |
 |---|---|---|---|---|---|---|
 | -m100 -g | 20234 | 37.182 | 90.577 | 35.670 / 38.694 | 5.8e-02 | 0.9 |
+| -m100 -g -d0.01 | 20234 | 31.797 | 82.107 | 31.877 / 31.718 | 2.0e-02 | 14.1 |
+| -m100 -g -d0.001 | 20234 | 37.249 | 68.160 | 37.602 / 36.897 | 1.0e-02 | 39.1 |
+| -m100 -g -d0.0001 | 20234 | 40.416 | 70.782 | 40.674 / 40.157 | 1.2e-02 | 46.8 |
+
+## r0402_nofilm_fine_max1_box8
+
+| FasterCap options | Panels | $C_F$ | $C_{A0}$ | $-C_{AB}$ / $-C_{BA}$ | Asymmetry | Time (s) |
+|---|---|---|---|---|---|---|
+| -m100 -g -d0.001 | 24582 | 37.166 | 69.342 | 37.398 / 36.935 | 1.7e-02 | 54.8 |
+| -m100 -g -d0.0001 | no result within 1800 s | | | | | |
+
+## r0402_nofilm_fine_max0p5_box8
+
+| FasterCap options | Panels | $C_F$ | $C_{A0}$ | $-C_{AB}$ / $-C_{BA}$ | Asymmetry | Time (s) |
+|---|---|---|---|---|---|---|
+| -m100 -g -d0.001 | 37714 | 37.316 | 69.794 | 37.412 / 37.219 | 1.8e-02 | 35.9 |
+
+## r0402_nofilm_fine_max0p25_box8
+
+| FasterCap options | Panels | $C_F$ | $C_{A0}$ | $-C_{AB}$ / $-C_{BA}$ | Asymmetry | Time (s) |
+|---|---|---|---|---|---|---|
+| -m100 -g -d0.001 | 89460 | 37.357 | 70.328 | 37.510 / 37.204 | 1.9e-02 | 211.2 |
+
+## r0402_nofilm_air_fine_max0p5_box8
+
+| FasterCap options | Panels | $C_F$ | $C_{A0}$ | $-C_{AB}$ / $-C_{BA}$ | Asymmetry | Time (s) |
+|---|---|---|---|---|---|---|
+| -m100 -g -d0.001 | 29178 | 8.964 | 24.528 | 8.964 / 8.964 | 3.0e-04 | 7.7 |
+| -m100 -g -d0.0001 | 29178 | 9.843 | 25.344 | 9.844 / 9.843 | 8.6e-05 | 728.3 |
 
 ## FastCap 2.0 on the same panels
 
@@ -652,6 +709,70 @@ GMRES iterations per solve: 25, 17, 17. GMRES failures: 0; matrix warnings: 2.
 | Step | Panels | Change of the matrix | $C_F$ | $C_{A0}$ |
 |---|---|---|---|---|
 | 1 | 20234 |  | 37.182 | 90.577 |
+
+### r0402_nofilm_fine_box8, fastercap_m100_g_d0.0001.log
+
+GMRES iterations per solve: 1000, 53, 53. GMRES failures: 1; matrix warnings: 0.
+
+| Step | Panels | Change of the matrix | $C_F$ | $C_{A0}$ |
+|---|---|---|---|---|
+| 1 | 20234 |  | 40.416 | 70.782 |
+
+### r0402_nofilm_fine_box8, fastercap_m100_g_d0.001.log
+
+GMRES iterations per solve: 1000, 57, 57. GMRES failures: 1; matrix warnings: 0.
+
+| Step | Panels | Change of the matrix | $C_F$ | $C_{A0}$ |
+|---|---|---|---|---|
+| 1 | 20234 |  | 37.249 | 68.160 |
+
+### r0402_nofilm_fine_box8, fastercap_m100_g_d0.01.log
+
+GMRES iterations per solve: 443, 35, 35. GMRES failures: 0; matrix warnings: 0.
+
+| Step | Panels | Change of the matrix | $C_F$ | $C_{A0}$ |
+|---|---|---|---|---|
+| 1 | 20234 |  | 31.797 | 82.107 |
+
+### r0402_nofilm_fine_max1_box8, fastercap_m100_g_d0.001.log
+
+GMRES iterations per solve: 485, 65, 122. GMRES failures: 0; matrix warnings: 0.
+
+| Step | Panels | Change of the matrix | $C_F$ | $C_{A0}$ |
+|---|---|---|---|---|
+| 1 | 24582 |  | 37.166 | 69.342 |
+
+### r0402_nofilm_fine_max0p5_box8, fastercap_m100_g_d0.001.log
+
+GMRES iterations per solve: 170, 93, 145. GMRES failures: 0; matrix warnings: 0.
+
+| Step | Panels | Change of the matrix | $C_F$ | $C_{A0}$ |
+|---|---|---|---|---|
+| 1 | 37714 |  | 37.316 | 69.794 |
+
+### r0402_nofilm_fine_max0p25_box8, fastercap_m100_g_d0.001.log
+
+GMRES iterations per solve: 74, 167, 864. GMRES failures: 0; matrix warnings: 0.
+
+| Step | Panels | Change of the matrix | $C_F$ | $C_{A0}$ |
+|---|---|---|---|---|
+| 1 | 89460 |  | 37.357 | 70.328 |
+
+### r0402_nofilm_air_fine_max0p5_box8, fastercap_m100_g_d0.0001.log
+
+GMRES iterations per solve: 10, 11, 11. GMRES failures: 0; matrix warnings: 2.
+
+| Step | Panels | Change of the matrix | $C_F$ | $C_{A0}$ |
+|---|---|---|---|---|
+| 1 | 29178 |  | 9.843 | 25.344 |
+
+### r0402_nofilm_air_fine_max0p5_box8, fastercap_m100_g_d0.001.log
+
+GMRES iterations per solve: 10, 10, 10. GMRES failures: 0; matrix warnings: 0.
+
+| Step | Panels | Change of the matrix | $C_F$ | $C_{A0}$ |
+|---|---|---|---|---|
+| 1 | 29178 |  | 8.964 | 24.528 |
 
 ## pcbcap, the film-free 0402
 

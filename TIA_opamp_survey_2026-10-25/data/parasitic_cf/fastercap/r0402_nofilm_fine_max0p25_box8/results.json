@@ -1,0 +1,40 @@
+{
+ "m100_g_d0.001": {
+  "options": [
+   "-m100",
+   "-g",
+   "-d0.001"
+  ],
+  "wall_seconds": 211.1764078999986,
+  "panels": 89460,
+  "seconds": 211.093002,
+  "memory_MB": 774.251953125,
+  "iterations": 0,
+  "C_F": 37.35705000000001,
+  "C_A0": 70.32794999999999,
+  "C_B0": 71.63595,
+  "unit": "fF",
+  "asymmetry": 0.01935873265427123,
+  "C_AB": 37.5099,
+  "C_BA": 37.2042,
+  "conductors": 3,
+  "floating": 0,
+  "gmres": [
+   74,
+   167,
+   864
+  ],
+  "links": 9347684,
+  "links_per_panel": 104.49009613234965,
+  "max_refinement_value": 0.217235,
+  "C_F_from_A": 37.2042,
+  "C_F_from_B": 37.5099,
+  "C_A0_from_box": 70.18379999999999,
+  "C_B0_from_box": 71.1822,
+  "closure_A": 0.002758044295863038,
+  "closure_B": 0.002760727753158447,
+  "out_of_core": false,
+  "C_A0_from_box_solve": 45.6338,
+  "C_B0_from_box_solve": 42.123
+ }
+}

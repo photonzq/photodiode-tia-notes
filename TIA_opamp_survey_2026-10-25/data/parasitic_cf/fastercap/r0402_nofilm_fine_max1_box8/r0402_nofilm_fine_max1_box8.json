@@ -1,0 +1,91 @@
+{
+ "format": "pcbcap.fastercap 1",
+ "layout": "0402 on eps 4.2, film removed",
+ "stem": "r0402_nofilm_fine_max1_box8",
+ "boundary": "ground",
+ "options": {
+  "boundary": "ground",
+  "films": "drop",
+  "film_strips": 10,
+  "film_gap": 0.002,
+  "film_thickness": 0.002,
+  "sheet_thickness": null,
+  "max_aspect": 10.0,
+  "max_panel": 1.0,
+  "metal_panel": 1.0,
+  "fine_window": [
+   [
+    -0.85,
+    0.85
+   ],
+   [
+    -0.35,
+    0.35
+   ],
+   [
+    -0.02,
+    0.45
+   ]
+  ],
+  "fine_panel": 0.03
+ },
+ "pair": [
+  "A",
+  "B"
+ ],
+ "conductors": {
+  "A": {
+   "net": "A",
+   "floating": false
+  },
+  "B": {
+   "net": "B",
+   "floating": false
+  },
+  "gnd": {
+   "net": "gnd",
+   "floating": false
+  }
+ },
+ "films": [],
+ "notes": [],
+ "files": {
+  "list": "r0402_nofilm_fine_max1_box8.lst",
+  "panel_files": [
+   "r0402_nofilm_fine_max1_box8_c1.txt",
+   "r0402_nofilm_fine_max1_box8_c2.txt",
+   "r0402_nofilm_fine_max1_box8_c3.txt",
+   "r0402_nofilm_fine_max1_box8_d1.txt",
+   "r0402_nofilm_fine_max1_box8_d2.txt"
+  ],
+  "names": {
+   "A": "A",
+   "B": "B",
+   "gnd": "gnd"
+  }
+ },
+ "units": "m",
+ "areas_mm2": {
+  "[\"C\", \"gnd\", 1.0]": 1536.0,
+  "[\"C\", \"gnd\", 4.2]": 102.39999999999976,
+  "[\"C\", \"B\", 1.0]": 0.6491000000000022,
+  "[\"C\", \"B\", 9.7]": 0.36000000000000854,
+  "[\"C\", \"A\", 1.0]": 0.6490999999999985,
+  "[\"C\", \"A\", 9.7]": 0.360000000000009,
+  "[\"D\", 1.0, 9.7]": 1.2568000000000157,
+  "[\"D\", 1.0, 4.2]": 511.3399999999933,
+  "[\"C\", \"B\", 4.2]": 0.3299999999999987,
+  "[\"C\", \"A\", 4.2]": 0.3299999999999985
+ },
+ "stats": {
+  "panels": 12291,
+  "cells": 1243,
+  "seconds": 0.09076659998390824,
+  "probe_mm": {
+   "x": 0.001,
+   "y": 0.001,
+   "z": 0.001
+  },
+  "smallest_side_mm": 0.014230769230769214
+ }
+}

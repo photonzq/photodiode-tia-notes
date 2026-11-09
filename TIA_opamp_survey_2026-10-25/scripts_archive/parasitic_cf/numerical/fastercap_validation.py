@@ -7,6 +7,7 @@ Usage (from this folder):
     python fastercap_validation.py pcbcap r0402_nofilm   # the film-free 0402 in pcbcap (box and enclosure studies)
     python fastercap_validation.py fastcap2 <case> [--options "-o3 -t0.001"] [--timeout s]   # the same panels in FastCap 2.0
     python fastercap_validation.py fastcap2-plan <case> [--orders 2 3] [--depth n]   # FastCap2's partitioning, from the panels alone
+    python fastercap_validation.py backfill <case> [--timeout-tag m100_g_d0.0001 --timeout 1800]   # checks of each solve, from the logs
     python fastercap_validation.py report                # data/parasitic_cf/fastercap/README.md
 
 Why this script exists
@@ -33,6 +34,16 @@ within the errors each states checks both.  The cases:
     r0402_nofilm_air").  The second keeps the dielectrics and cuts every face of the metal into panels
     no wider than the metal is thick (fastercap.ExportOptions.metal_panel = 1), against pcbcap's
     r0402_nofilm.
+  * r0402_nofilm_fine_box8 cuts, in addition, every face inside a window of 1.7 x 0.7 x 0.47 mm around
+    the part into panels of 30 um or less (ExportOptions.fine_window, fine_panel), and
+    r0402_nofilm_fine_max1_box8, _max0p5_, _max0p25_ also cut every face outside the window into panels
+    no longer than 1, 0.5 and 0.25 mm (ExportOptions.max_panel); r0402_nofilm_air_fine_max0p5_box8 is the
+    0.5-mm case in the uniform medium, its control against pcbcap's r0402_nofilm_air.  They are solved on the panels as
+    exported: "run <case> --mesh 100 --galerkin --extra d0.0001" (FasterCap's -m100 stops its own
+    refinement; -d, the "direct potential interaction coefficient to mesh refinement ratio", sets the
+    compression of the interaction links relative to -m, FasterCap help, Run chapter 1, so -m100 alone,
+    with the default -d1, also compresses the links: 3.4 links per panel on r0402_nofilm_fine_box8,
+    against 418 to 534 in the converged uniform-medium runs at -m0.07 to -m0.035).
   * r0402_strips10_box8, _strips20_, _strips40_: the published 0402 with its film cut into 10, 20 and 40
     strips (2 um thick, 2-um gaps), against Table G.11 (40.15 fF in the 8-mm box, extrapolated in the
     mesh).  The strips overstate C_F by about 5.1, 2.0 and 0.76 fF (fastercap.py, "Two translations are
@@ -152,6 +163,29 @@ CASES = {
                                    opt=dict(boundary="ground", films="drop", metal_panel=1.0,
                                             fine_window=((-0.85, 0.85), (-0.35, 0.35), (-0.02, 0.45)),
                                             fine_panel=0.03)),
+    # A fourth test: the panels of r0402_nofilm_fine_box8, and every face outside the part's window (the
+    # board's top beyond the window, the board's bottom 1.6 mm below the pads, the box) cut into panels no
+    # longer than 1, 0.5 and 0.25 mm (fastercap.ExportOptions.max_panel).  In r0402_nofilm_fine_box8 those
+    # faces are whole: up to 16 mm, the box 14 panels and the board's bottom one panel.  Solved without
+    # refinement (-m100) and with the interaction links kept down to the input panels (-d small).
+    "r0402_nofilm_fine_max1_box8": dict(make=lambda: r0402(8.0, film=False),
+                                        opt=dict(boundary="ground", films="drop", metal_panel=1.0,
+                                                 fine_window=((-0.85, 0.85), (-0.35, 0.35), (-0.02, 0.45)),
+                                                 fine_panel=0.03, max_panel=1.0)),
+    "r0402_nofilm_fine_max0p5_box8": dict(make=lambda: r0402(8.0, film=False),
+                                          opt=dict(boundary="ground", films="drop", metal_panel=1.0,
+                                                   fine_window=((-0.85, 0.85), (-0.35, 0.35), (-0.02, 0.45)),
+                                                   fine_panel=0.03, max_panel=0.5)),
+    "r0402_nofilm_fine_max0p25_box8": dict(make=lambda: r0402(8.0, film=False),
+                                           opt=dict(boundary="ground", films="drop", metal_panel=1.0,
+                                                    fine_window=((-0.85, 0.85), (-0.35, 0.35), (-0.02, 0.45)),
+                                                    fine_panel=0.03, max_panel=0.25)),
+    # The control of the fourth test: the same panels as r0402_nofilm_fine_max0p5_box8 in the uniform medium,
+    # solved the same way, against pcbcap's r0402_nofilm_air.
+    "r0402_nofilm_air_fine_max0p5_box8": dict(make=lambda: r0402(8.0, film=False, eps_pcb=1.0, eps_al=1.0),
+                                              opt=dict(boundary="ground", films="drop", metal_panel=1.0,
+                                                       fine_window=((-0.85, 0.85), (-0.35, 0.35), (-0.02, 0.45)),
+                                                       fine_panel=0.03, max_panel=0.5)),
     "r0402_strips10_box8": dict(make=lambda: r0402(8.0), opt=dict(boundary="ground", films="strips", film_strips=10)),
     "r0402_strips20_box8": dict(make=lambda: r0402(8.0), opt=dict(boundary="ground", films="strips", film_strips=20)),
     "r0402_strips40_box8": dict(make=lambda: r0402(8.0), opt=dict(boundary="ground", films="strips", film_strips=40)),
@@ -165,7 +199,9 @@ CASES = {
     "r0402_strips20_free32": dict(make=lambda: r0402(board_half=32.0), opt=dict(boundary="free", films="strips", film_strips=20)),
 }
 VIEWED = ("cube_free", "r0402_nofilm_box8", "r0402_nofilm_free8", "r0402_strips10_box8", "r0402_nofilm_air_box8",
-          "r0402_nofilm_finemetal_box8", "r0402_nofilm_fine_box8", "r0402_nofilm_air_fine_box8")
+          "r0402_nofilm_finemetal_box8", "r0402_nofilm_fine_box8", "r0402_nofilm_air_fine_box8",
+          "r0402_nofilm_fine_max1_box8", "r0402_nofilm_fine_max0p5_box8", "r0402_nofilm_fine_max0p25_box8",
+          "r0402_nofilm_air_fine_max0p5_box8")
 PART_WINDOW = ((-0.85, 0.85), (-0.35, 0.35), (-0.02, 0.45))   # the 0402, its pads and solder (mm)
 
 
@@ -176,15 +212,37 @@ def _export(name: str):
     return fc.export(spec["make"](), DATA / name, name, opt), opt
 
 
+def largest_sides(ex, opt) -> dict:
+    """The longest panel side (mm) inside and outside the fine window, and on the grounded box, so that
+    the limits fine_panel and max_panel can be checked on what was written.  A panel counts as inside
+    when its centre lies inside the window."""
+    q = ex.panels.quad
+    side = np.maximum(np.linalg.norm(q[:, 1] - q[:, 0], axis=1), np.linalg.norm(q[:, 3] - q[:, 0], axis=1))
+    centre = q.mean(axis=1)
+    inside = np.zeros(len(q), dtype=bool)
+    if opt.fine_window is not None:
+        inside = np.all([(centre[:, i] > w[0]) & (centre[:, i] < w[1]) for i, w in enumerate(opt.fine_window)], axis=0)
+    box = np.array([k[0] == "C" and k[1] == "gnd" for k in ex.panels.key])
+    out = dict(inside_window=float(side[inside].max()) if inside.any() else None,
+               outside_window=float(side[~inside].max()) if (~inside).any() else None,
+               box=float(side[box].max()) if box.any() else None,
+               panels_inside_window=int(inside.sum()), panels_box=int(box.sum()))
+    return out
+
+
 def cmd_export(name: str) -> None:
     ex, opt = _export(name)
     cmp_ = fc.compare_areas(ex.panels.areas_by_key(), fc.gmsh_areas(ex.layout, opt.boundary))
     rec = dict(case=name, panels=ex.panels.stats["panels"], cells=ex.panels.stats["cells"],
                smallest_side_mm=ex.panels.stats["smallest_side_mm"], worst_relative_area_difference=cmp_["worst"],
-               total_area_mm2=cmp_["total_other"], rows=cmp_["rows"], notes=ex.meta["notes"])
+               total_area_mm2=cmp_["total_other"], rows=cmp_["rows"], notes=ex.meta["notes"],
+               largest_side_mm=largest_sides(ex, opt))
     (DATA / name / "geometry_check.json").write_text(json.dumps(rec, indent=1), encoding="utf-8", newline="\n")
     print(f"{name}: {rec['panels']} panels; areas against gmsh's fragments: worst relative difference "
           f"{rec['worst_relative_area_difference']:.1e} over {len(cmp_['rows'])} kinds")
+    ls = rec["largest_side_mm"]
+    print(f"  longest panel side: {ls['inside_window']} mm inside the fine window ({ls['panels_inside_window']} panels), "
+          f"{ls['outside_window']} mm outside it, {ls['box']} mm on the box ({ls['panels_box']} panels)")
     for n in ex.meta["notes"]:
         print("  " + n)
     if name in VIEWED:
@@ -198,6 +256,21 @@ def cmd_export(name: str) -> None:
         if name.startswith("r0402_nofilm") and name.endswith("_box8"):
             fc.draw_panels(ex, DATA / "views" / f"{name}_part", window=PART_WINDOW, z_stretch=1.0,
                            title=ex.layout.name + ": the panels on and around the part")
+        if opt.boundary == "ground" and opt.max_panel is not None:
+            # The whole model: the closed box hides its inside, so each view stops 0.05 mm short of the
+            # box's faces between the viewer and the board (fc.draw_panels, windows).
+            enc = ex.layout.enclosure.spans
+            (x0, x1), (y0, y1), (z0, z1) = enc["x"], enc["y"], enc["z"]
+            g = 0.05
+            fc.draw_panels(ex, DATA / "views" / f"{name}_whole",
+                           views=[("from above, box lid left out", 90.0, -90.0),
+                                  ("from below, box floor left out", -90.0, -90.0),
+                                  ("front left, lid and near walls left out", 24.0, -58.0)],
+                           windows=[((x0, x1), (y0, y1), (z0, z1 - g)), ((x0, x1), (y0, y1), (z0 + g, z1)),
+                                    ((x0 + g, x1), (y0 + g, y1), (z0, z1 - g))],
+                           panel=(3.4, 3.4),
+                           title=ex.layout.name + f": the whole model, panels outside the part's window "
+                                                  f"no longer than {opt.max_panel:g} mm")
         if opt.boundary == "free" and not name.startswith("cube"):
             enc = ex.layout.enclosure.spans
             win = (enc["x"], enc["y"], (-1.9, 0.6))
@@ -622,6 +695,45 @@ def _summary(text: str) -> dict:
                 iterations=len(re.findall(r"Iteration number #", text)))
 
 
+def solve_stats(text: str) -> dict:
+    """The GMRES iterations of every solve (FasterCap prints one line 'GMRES Iteration: 0 1 2 ...' per solve,
+    in the order of its matrix's rows), and the links, links per panel and largest relative refinement value
+    of the last step."""
+    iters = [len(line.split()) - 2 for line in text.splitlines() if line.startswith("GMRES Iteration")]
+    links = re.findall(r"Number of links: (\d+)", text)
+    panels = re.findall(r"Number of panels after refinement: (\d+)", text)
+    maxref = re.findall(r"Max Mesh relative refinement value: ([0-9.eE+-]+)", text)
+    # FasterCap keeps its links on disk when five times their memory (its option -f) exceeds the free memory
+    out = dict(gmres=iters, out_of_core="Going out-of-core" in text)
+    if links and panels:
+        out.update(links=int(links[-1]), links_per_panel=int(links[-1]) / int(panels[-1]))
+    if maxref:
+        out["max_refinement_value"] = float(maxref[-1])
+    return out
+
+
+def column_checks(meta: dict, names: list[str], C: np.ndarray) -> dict:
+    """What each solve gives by itself, for a model in the grounded box (net "gnd").  Column k of FasterCap's
+    matrix is one solve, conductor k at 1 V and every other at 0 V (pcbcap.fastercap, "What FasterCap
+    solves").  Inside the closed box every field line from A or B ends on a conductor, so the free charges
+    of the A solve add to zero (Gauss's law on a surface just inside the box), and so do those of the B
+    solve; closure_A and closure_B are those sums over the driven conductor's own charge.  The A and B
+    solves alone then give C_F (-C[B,A] and -C[A,B]) and C_A0 (-C[gnd,A], the charge the A solve leaves on
+    the box); the box's own solve, the slowest to converge, enters neither.  The box's solve gives C_A0 a
+    second time, as the charge it puts on A, -C[A,gnd]: the two must be equal (reciprocity, which makes
+    every capacitance matrix of conductors and dielectrics symmetric), so their difference measures the error
+    of the solution, provided the box's solve converged (its GMRES iterations below 1000)."""
+    lookup = {k.lower(): v["net"] for k, v in meta["conductors"].items()}
+    nets = [lookup[n.lower()] for n in names]
+    a, b = meta["pair"]
+    ia, ib, ig = nets.index(a), nets.index(b), nets.index("gnd")
+    col_a, col_b = C[:, ia] * fc.FF_PER_F, C[:, ib] * fc.FF_PER_F
+    return dict(C_F_from_A=float(-col_a[ib]), C_F_from_B=float(-col_b[ia]),
+                C_A0_from_box=float(-col_a[ig]), C_B0_from_box=float(-col_b[ig]),
+                C_A0_from_box_solve=float(-C[ia, ig] * fc.FF_PER_F), C_B0_from_box_solve=float(-C[ib, ig] * fc.FF_PER_F),
+                closure_A=float(col_a.sum() / col_a[ia]), closure_B=float(col_b.sum() / col_b[ib]))
+
+
 def cmd_run(name: str, tols, galerkin: bool, timeout: float, extra=(), meshes=()) -> None:
     folder = DATA / name
     meta = json.loads((folder / f"{name}.json").read_text(encoding="utf-8"))
@@ -641,6 +753,7 @@ def cmd_run(name: str, tols, galerkin: bool, timeout: float, extra=(), meshes=()
         except subprocess.TimeoutExpired:
             print(f"{name} {' '.join(opts)}: no result within {timeout:g} s; larger tolerances only")
             results[tag] = dict(options=opts, timeout=timeout)
+            res_path.write_text(json.dumps(results, indent=1), encoding="utf-8", newline="\n")
             break
         names, C = fc.read_matrix(text)
         rec = dict(options=opts, wall_seconds=time.perf_counter() - t0, **_summary(text))
@@ -653,6 +766,9 @@ def cmd_run(name: str, tols, galerkin: bool, timeout: float, extra=(), meshes=()
         else:
             tp = fc.two_port(meta, names, C)
             rec.update(tp)
+            rec.update(solve_stats(text))
+            if any(c["net"] == "gnd" for c in meta["conductors"].values()):
+                rec.update(column_checks(meta, names, C))
             print(f"{name} {' '.join(opts):14s} C_F = {tp['C_F']:8.3f} fF, C_A0 = {tp['C_A0']:8.3f} fF, "
                   f"asymmetry {tp['asymmetry']:.1e}, {rec['panels']} panels, {rec['wall_seconds']:.1f} s")
         results[tag] = rec
@@ -748,6 +864,95 @@ def _fastcap2_stop(name: str, r: dict) -> str:
             f"when stopped after {secs}")
 
 
+FIXED_MESH_CASES = ("r0402_nofilm_fine_box8", "r0402_nofilm_fine_max1_box8", "r0402_nofilm_fine_max0p5_box8",
+                    "r0402_nofilm_fine_max0p25_box8", "r0402_nofilm_air_fine_max0p5_box8")
+PCBCAP_BOX8 = {"r0402_nofilm": (39.77, 54.08), "r0402_nofilm_air": (9.870, 25.350)}   # C_F, C_A0 (fF)
+
+
+def cmd_backfill(name: str, timeout_tag: str | None = None, timeout: float | None = None) -> None:
+    """Bring the records of case ``name`` up to date with its logs: every run of a model in the grounded box
+    gets the checks of each solve (solve_stats, column_checks), which cmd_run has recorded only since they were
+    added.  With ``timeout_tag`` and ``timeout``, also record that the run of that tag ended at the time limit
+    without a result, which cmd_run did not save before it wrote such records (the log of that run is empty,
+    since FasterCap buffers what it prints and the run was killed)."""
+    folder = DATA / name
+    meta = json.loads((folder / f"{name}.json").read_text(encoding="utf-8"))
+    res_path = folder / "results.json"
+    results = json.loads(res_path.read_text(encoding="utf-8")) if res_path.exists() else {}
+    for tag, rec in results.items():
+        log = folder / f"fastercap_{tag}.log"
+        if "C_F" not in rec or not log.exists():
+            continue
+        text = log.read_text(encoding="utf-8", errors="replace")
+        names, C = fc.read_matrix(text)
+        rec.update(solve_stats(text))
+        if any(c["net"] == "gnd" for c in meta["conductors"].values()):
+            rec.update(column_checks(meta, names, C))
+        print(f"{name} {tag}: checks of each solve added")
+    if timeout_tag is not None:
+        opts = ["-" + o for o in timeout_tag.split("_")]
+        results[timeout_tag] = dict(options=opts, timeout=float(timeout))
+        print(f"{name} {timeout_tag}: recorded as stopped at the time limit of {timeout:g} s")
+    res_path.write_text(json.dumps(results, indent=1), encoding="utf-8", newline="\n")
+
+
+def fixed_mesh_table() -> list[str]:
+    """The runs that solve the exported panels without refinement (-m100), one row per log, with the checks
+    of each solve (column_checks) next to pcbcap's values for the same model."""
+    rows = []
+    for name in FIXED_MESH_CASES:
+        folder = DATA / name
+        meta_path = folder / f"{name}.json"
+        if not meta_path.exists():
+            continue
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+        far = meta["options"].get("max_panel")
+        ref = PCBCAP_BOX8["r0402_nofilm_air" if "_air_" in name else "r0402_nofilm"]
+        def d_of(path):
+            m = re.search(r"_d([0-9.eE+-]+)\.log$", path.name)
+            return float(m.group(1)) if m else 1.0
+
+        for log in sorted(folder.glob("fastercap_m100*.log"), key=lambda p: -d_of(p)):
+            d = f"{d_of(log):g}" + (" (default)" if d_of(log) == 1.0 else "")
+            text = log.read_text(encoding="utf-8", errors="replace")
+            try:
+                names, C = fc.read_matrix(text)
+            except ValueError:
+                # FasterCap buffers what it prints, so a run that ends without a result leaves at most the
+                # footer of run_fastercap: a time limit, or an exit code (4294967295 when stopped by hand)
+                limit = re.findall(r"stopped at the time limit of ([0-9.]+) s", text)
+                end = re.findall(r"exit code (-?\d+), ([0-9.]+) s", text)
+                tag = log.stem.removeprefix("fastercap_")
+                res_path = folder / "results.json"
+                rec = json.loads(res_path.read_text(encoding="utf-8")).get(tag, {}) if res_path.exists() else {}
+                if limit or "timeout" in rec:
+                    what = f"no result within the time limit of {float(limit[-1]) if limit else rec['timeout']:.0f} s"
+                elif end and end[-1][0] == "4294967295":
+                    what = f"no result: stopped by hand after {float(end[-1][1]):.0f} s"
+                elif end:
+                    what = f"no result: exit code {end[-1][0]} after {float(end[-1][1]):.0f} s"
+                else:
+                    what = "no result"
+                rows.append(f"| {name} | {'whole faces' if far is None else f'{far:g} mm'} | | {d} | | | | "
+                            f"{what} | | | |")
+                continue
+            st, cc = solve_stats(text), column_checks(meta, names, C)
+            panels = re.findall(r"Number of panels after refinement: (\d+)", text)
+            secs = re.findall(r"Total time: ([0-9.eE+-]+)s", text)
+            rows.append(f"| {name} | {'whole faces' if far is None else f'{far:g} mm'} | {panels[-1]} | {d} | "
+                        f"{st['links_per_panel']:.0f} | {', '.join(map(str, st['gmres']))} | "
+                        f"{cc['closure_A']:+.2%} / {cc['closure_B']:+.2%} | "
+                        f"{cc['C_F_from_A']:.2f} / {cc['C_F_from_B']:.2f} | "
+                        f"{cc['C_A0_from_box']:.2f} / {cc['C_A0_from_box_solve']:.2f} | "
+                        f"{ref[0]:g} / {ref[1]:g} | {float(secs[-1]):.0f}"
+                        f"{', links on disk' if st['out_of_core'] else ''} |")
+    head = ["| Case | Panels outside the part's window | Solver panels | -d | Links per panel | "
+            "GMRES iterations (box, B, A) | Charge closure, A / B solve | $C_F$ from the A / B solve | "
+            "$C_{A0}$ from the A / box solve | pcbcap $C_F$ / $C_{A0}$ | Time (s) |",
+            "|---|---|---|---|---|---|---|---|---|---|---|"]
+    return head + rows if rows else []
+
+
 def cmd_report() -> None:
     """Write data/parasitic_cf/fastercap/README.md from the records: the geometry checks, every
     FasterCap run (a convergence series per case), FastCap2's runs and pcbcap's studies of the
@@ -787,12 +992,10 @@ def cmd_report() -> None:
            "down as before; the run did not finish within 1800 s. A third case (r0402_nofilm_fine_box8) also cuts "
            "every face inside a window of 1.7 x 0.7 x 0.47 mm around the part, dielectric ones included, into "
            "panels of 30 um or less (fastercap.ExportOptions.fine_window, fine_panel; 10 111 input panels). "
-           "Galerkin on that input without refinement (-m100 -g, 20 234 panels, 17-25 GMRES iterations) gives "
-           "C_F 37.18 fF and C_A0 90.58 fF, and the box's row and column still disagree by a factor of two; "
-           "the automatic collocation run gives 23-32 and 81-100 fF over seven steps, then fails (GMRES at 1000, "
+           "Its automatic collocation run gives 23-32 and 81-100 fF over seven steps, then fails (GMRES at 1000, "
            "exit code 1 after 390 s), and a Galerkin run at -m0.07 exited with code 1 after 21 s without "
-           "printing anything. The fault lies in the dielectrics' treatment; the board's faces away from the "
-           "part (its bottom face one 16-mm panel 1.6 mm below the pads) stay coarse in every input.",
+           "printing anything. Solved on its panels as exported, and with the faces away from the part cut "
+           "finer as well, it gives the results of the section \"Solving the exported panels as they are\" below.",
            "* The input was checked again for errors in its dielectric part (the side note's Appendix D) and none "
            "was found: the panel files carry permittivities 1, 4.2 and 9.7 on the right faces (pad undersides 4.2, "
            "terminations' inner faces 9.7, the box walls beside the board 4.2), the '+' chain returns three "
@@ -829,7 +1032,54 @@ def cmd_report() -> None:
            "dielectric case (one preconditioner block of 10 103 panels); the runs with -d0 (no partitioning) "
            "stopped after one hour inverting the full matrix.",
            "* The strip cases (the film as 10 to 40 strips) were exported and checked but not run, since the "
-           "film-free model already fails.", "",
+           "film-free model already fails.",
+           "* Solved on its panels as exported (next section), FasterCap reproduces the uniform medium within "
+           "0.3 % and with a symmetric matrix, but with the dielectrics its matrix breaks reciprocity in the "
+           "coupling to the box by about 50 % (C_A0 69 to 70 fF from the A solve, 45 to 47 fF from the box's "
+           "solve, against pcbcap's 54.08 fF), however finely the faces away from the part are cut. The coarse "
+           "faces away from the part are not why it fails.", "",
+           "## Solving the exported panels as they are", "",
+           "FasterCap's option -m sets how far it refines the panels, and -d sets the tolerance of its interaction "
+           "links relative to -m: the solver takes the link tolerance as d times m (m_dEps = m_dEpsRatio * "
+           "m_dMeshEps in Solver/SolveCapacitance.cpp, github.com/ediloren/FasterCap). CAutoRefine::RefineMutual "
+           "(Solver/Autorefine.cpp) splits the larger of two clusters of panels until RefineCriteria, an estimate "
+           "of their coupling normalised by the area of the largest conductor group, falls below that tolerance, "
+           "and then joins the two clusters by a single link that treats each cluster's charge as one. A run "
+           "with -m100 keeps the input panels, since none needs refining at that value, but with the default -d1 "
+           "it also builds its links to the tolerance 100: 3.4 links per panel on r0402_nofilm_fine_box8, "
+           "against 418 to 534 in the converged uniform-medium runs at -m0.07 to -m0.035. The results of that "
+           "run (C_F 37.18 fF, C_A0 90.58 fF, the box's row and column a factor of two apart) are those of the "
+           "compressed links, not of the panels. The runs below keep -m100 and tighten the links with -d. In the "
+           "table, C_F comes from the A and the B solve separately, and C_A0 from the A solve (the charge it "
+           "leaves on the box) and from the box's solve (the charge it puts on A); the two C_A0 must be equal "
+           "(reciprocity), provided the box's solve converged (below 1000 iterations). The charge closure is the "
+           "sum of each solve's charges over the driven conductor's own: inside the closed box it is zero.", "",
+           "* The uniform medium on the panels of the 0.5-mm case (r0402_nofilm_air_fine_max0p5_box8: the metal in "
+           "panels of 30 um or less, the box in panels of 0.5 mm) checks the method. With -d0.0001 it gives C_F "
+           "9.843 fF and C_A0 25.344 fF, against pcbcap's 9.870 +- 0.017 and 25.350 +- 0.015 fF (-0.27 % and "
+           "-0.02 %), and its two C_A0 agree within 0.4 %. With -d0.001 the same panels give 8.96 and 24.53 fF "
+           "(-9.2 % and -3.2 %). FasterCap therefore solves panels as exported once the links are this tight.",
+           "* With the dielectrics, the faces away from the part (the board's top beyond the window, its bottom "
+           "face 1.6 mm below the pads, and the box) were cut into panels no longer than 1, 0.5 and 0.25 mm. "
+           "FasterCap's own measure of its coarsest panel, the largest relative refinement value, falls from 94.6 "
+           "with the faces whole to 0.85, 0.53 and 0.22. At -d0.001 every solve on the refined panels converged "
+           "and closes within 0.3 % (with the faces whole the box's solve stopped at 1000 iterations); C_F stays "
+           "at 36.9 to 37.6 fF and the A solve's C_A0 at 69.0 fF with the faces whole and 69.5, 69.7 "
+           "and 70.2 fF with them cut, so refining the far faces moves C_A0 by about 1 fF, away from pcbcap's "
+           "54.08 fF. The box's solve, converged within 74 to 485 iterations, gives C_A0 45.4, 47.4 and 45.6 fF: "
+           "these matrices break reciprocity by about 50 %, on panels whose uniform medium is reciprocal within "
+           "0.4 %.",
+           "* Tighter links were tried as far as the workstation allowed. With the faces whole, -d0.001 and "
+           "-d0.0001 give C_F 37.25 and 40.42 fF and the A solve's C_A0 69.0 and 71.6 fF; tightening the links "
+           "raises both, as it does in the uniform medium, and moves C_A0 further from pcbcap's value (the box's "
+           "solve stopped at 1000 iterations in both, so reciprocity is untested there). On the refined panels "
+           "-d0.0001 needs more memory than was free: FasterCap keeps its links on disk when five times their "
+           "memory exceeds the free memory (its option -f, default 5), as the uniform control did with 1761 MB of "
+           "links against 1416 MB free. The 0.5-mm case with the dielectrics held 2.3 GB of links on disk and read "
+           "them back at about 68 MB/s, about 34 s per GMRES iteration, so it was stopped after 26 minutes; the "
+           "1-mm case gave no result within its limit of 1800 s, and -d0.00001 with the faces whole was stopped "
+           "after 33 minutes. Kept in memory (-f0), the 0.5-mm case would need about 3 GB.", "",
+           *fixed_mesh_table(), "",
            "## Geometry checks", "",
            "Every kind of panel (a conductor net with the permittivity it touches, or a pair of permittivities) has the same "
            "area in the exported panels as in gmsh's fragments of the same layout; the views are in `views/`.", "",
@@ -966,6 +1216,11 @@ def main(argv=None) -> int:
     v.add_argument("--z-stretch", type=float, default=1.0)
     o = sub.add_parser("orientation")
     o.add_argument("case", choices=["r0402_nofilm_free8"])
+    bf = sub.add_parser("backfill", help="add the checks of each solve to a case's records, from its logs")
+    bf.add_argument("case")
+    bf.add_argument("--timeout-tag", default=None, help="also record this run (e.g. m100_g_d0.0001) as stopped "
+                                                        "at the time limit")
+    bf.add_argument("--timeout", type=float, default=None)
     sub.add_parser("report")
     args = ap.parse_args(argv)
     if args.cmd == "list":
@@ -986,6 +1241,10 @@ def main(argv=None) -> int:
         cmd_fastcap2_plan(args.case, args.orders, args.depth)
     elif args.cmd == "orientation":
         cmd_orientation(args.case, ("-a0.01", "-ap"))
+    elif args.cmd == "backfill":
+        if (args.timeout_tag is None) != (args.timeout is None):
+            ap.error("--timeout-tag and --timeout go together")
+        cmd_backfill(args.case, args.timeout_tag, args.timeout)
     elif args.cmd == "report":
         cmd_report()
     return 0

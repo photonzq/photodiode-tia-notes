@@ -67,7 +67,13 @@ How a layout becomes FasterCap's input
    differ by about 1.78 d/s for panels of side s), so the split of the charge between the faces,
    which Eq. (25) of WP130503 weights by the two permittivities, is poorly determined.  On the 0402
    of the companion note, though, cutting the metal this way does not make FasterCap solve the model
-   with its dielectrics (side note TIA_feedback_layouts, Appendix D).
+   with its dielectrics (side note TIA_feedback_layouts, Appendix D).  The options ``fine_window``,
+   ``fine_panel`` and ``max_panel`` cut the faces near the part and away from it as well.  To solve the
+   exported panels without FasterCap's own refinement, run it with a large -m and a small -d (-m100
+   -d0.0001): its link tolerance is -d times -m (m_dEps = m_dEpsRatio * m_dMeshEps in
+   Solver/SolveCapacitance.cpp of its source), so -m100 with the default -d1 also compresses the
+   interactions, to about 3 links per panel on the 0402.  Cutting every face this way does not make it
+   solve the 0402 with its dielectrics either (same appendix).
 4. Files (``write_files``): a list file, one conductor file per outer permittivity, all joined into
    one chain with "+" so that panels of the same conductor name in different files form one
    conductor (help, 3-D chapter 3: "panels with the same conductor name in different files will
@@ -903,6 +909,9 @@ def run_fastercap(exe, lst, options=("-a0.01",), log=None, threads: int = 2, tim
         except subprocess.TimeoutExpired:
             proc.kill()
             proc.wait()
+            # FasterCap buffers what it prints, so a killed run may leave an empty log: say why it ended
+            f.write(f"\n* run by pcbcap.fastercap: options {' '.join(options)}, stopped at the time limit "
+                    f"of {timeout:g} s\n")
             raise
     text = log.read_text(encoding="utf-8", errors="replace")
     with open(log, "a", encoding="utf-8", newline="\n") as f:
@@ -1014,12 +1023,15 @@ def _clip_polygon(poly: np.ndarray, win) -> np.ndarray | None:
 
 
 def draw_panels(ex: Export, stem=None, window=None, views=None, title: str | None = None,
-                ncols: int = 3, panel=(2.6, 2.4), z_stretch: float = 1.0):
+                ncols: int = 3, panel=(2.6, 2.4), z_stretch: float = 1.0, windows=None):
     """Draw the exported panels from several sides (plotting.VIEWS by default), clipped to ``window``
     (plotting.auto_window of the layout by default).  Conductor panels take the colour of their net
     (film strips alternate two shades of the film colour), dielectric interfaces are translucent, and
     every panel's edges are drawn, so the panels themselves can be inspected.  ``z_stretch`` draws the
-    z axis enlarged by that factor, for a window much thinner than it is wide (the figure says so)."""
+    z axis enlarged by that factor, for a window much thinner than it is wide (the figure says so).
+    ``windows``, if given, holds one window per view in place of ``window``: a closed grounded box
+    hides everything inside it, so each view of the whole model needs its own window that stops short
+    of the faces between the viewer and the inside."""
     import matplotlib.pyplot as plt
     from matplotlib.colors import to_rgb
     from matplotlib.patches import Patch
@@ -1046,22 +1058,33 @@ def draw_panels(ex: Export, stem=None, window=None, views=None, title: str | Non
             return to_rgb(plotting.FILM_COLOR if strip_nets.index(net) % 2 == 0 else film_light), 0.95
         return to_rgb(plotting.net_color(net, floating.get(net, False))), 0.9
 
-    lo = np.array([w[0] for w in win])
-    hi = np.array([w[1] for w in win])
-    polys, colors = [], []
-    for i in range(len(p.quad)):
-        q = p.quad[i]
-        if np.any(q.max(axis=0) < lo) or np.any(q.min(axis=0) > hi):
-            continue
-        poly = _clip_polygon(q, win)
-        if poly is None:
-            continue
-        rgb, al = style(p.key[i])
-        polys.append(poly)
-        colors.append((*rgb, al))
+    def clipped(w):
+        """The panels clipped to the window w, and their colours."""
+        lo = np.array([a[0] for a in w])
+        hi = np.array([a[1] for a in w])
+        polys, colors = [], []
+        for i in range(len(p.quad)):
+            q = p.quad[i]
+            if np.any(q.max(axis=0) < lo) or np.any(q.min(axis=0) > hi):
+                continue
+            poly = _clip_polygon(q, w)
+            if poly is None:
+                continue
+            rgb, al = style(p.key[i])
+            polys.append(poly)
+            colors.append((*rgb, al))
+        return polys, colors
+
+    if windows is not None and len(windows) != len(views):
+        raise ValueError("draw_panels: give one window per view")
+    view_windows = [tuple(map(tuple, w)) for w in windows] if windows is not None else [tuple(map(tuple, win))] * len(views)
+    cache = {w: clipped(w) for w in dict.fromkeys(view_windows)}
     nrows = -(-len(views) // ncols)
-    fig = plt.figure(figsize=(panel[0] * ncols, panel[1] * nrows + 0.5))
+    height = panel[1] * nrows + 0.5
+    fig = plt.figure(figsize=(panel[0] * ncols, height))
     for j, (label, elev, azim) in enumerate(views):
+        win = view_windows[j]
+        polys, colors = cache[win]
         ax = fig.add_subplot(nrows, ncols, j + 1, projection="3d")
         ax.add_collection3d(Poly3DCollection(polys, facecolors=colors, edgecolors=(0.15, 0.15, 0.15, 0.7),
                                              linewidths=0.15))
@@ -1091,11 +1114,15 @@ def draw_panels(ex: Export, stem=None, window=None, views=None, title: str | Non
     for pr in diel_pairs:
         handles.append(Patch(facecolor=diel_color[pr], alpha=0.5, label=f"interface {pr[0]:g} | {pr[1]:g}"))
     fig.legend(handles=handles, loc="lower center", ncol=min(len(handles), 6), bbox_to_anchor=(0.5, 0.0))
-    fig.subplots_adjust(left=0.0, right=0.98, bottom=0.10, top=0.92 if title else 0.97, wspace=0.2, hspace=0.15)
+    # Margins in inches, so that the note stays clear of the legend on a figure of any height; they are the
+    # fractions 0.10, 0.92, 0.97 and 0.045 of the default sheet of six views (5.3 in tall), which they
+    # reproduce exactly.
+    fig.subplots_adjust(left=0.0, right=0.98, bottom=0.53 / height,
+                        top=1.0 - (0.424 if title else 0.159) / height, wspace=0.2, hspace=0.15)
     note = "Lengths in mm. Every outlined rectangle is one input panel of FasterCap."
     if z_stretch != 1.0:
         note += f" The z axis is drawn {z_stretch:g} times enlarged."
-    fig.text(0.01, 0.045, note, ha="left", va="bottom")
+    fig.text(0.01, 0.2385 / height, note, ha="left", va="bottom")
     if title:
         fig.suptitle(title)
     if stem is not None:
