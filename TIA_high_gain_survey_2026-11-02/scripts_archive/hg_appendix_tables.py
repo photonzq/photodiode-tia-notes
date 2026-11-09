@@ -10,6 +10,7 @@ import math
 import pathlib
 
 import hg_model as m
+from hg_common_mode import figure_a1_markdown, table_a9
 from hg_tables import ORDER, eng
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -76,7 +77,9 @@ def table_a1() -> str:
                 "come from the companion note's records and are evaluated at 10 kΩ and 100 kΩ only (Section 6.9). "
                 "OPA955's datasheet is Advance Information, for a preproduction part, so its values may change. The "
                 "85-°C bias currents of OPA855 and OPA955 are the 25-°C maximum plus the typical drift over 60 °C, an "
-                "estimate, and LMH6629's $C_{DIFF}$ of 4 pF is a simulated value.")
+                "estimate, and LMH6629's $C_{DIFF}$ of 4 pF is a simulated value. The bias currents hold at the "
+                "input common-mode voltage of each specification, mid-supply unless the Pages column names another; "
+                "Section 8.6 and Table A.9 give their dependence on that voltage.")
     return "\n".join(rows)
 
 
@@ -207,7 +210,9 @@ def main() -> None:
              "### A.5 Limits of equalization", "", table_a5(), "",
              "### A.6 Discrete-JFET composites", "", table_a6(), "",
              "### A.7 Logarithmic amplifier", "", table_a7(), "",
-             "### A.8 Noise at low frequency", "", table_a8(), "", "---", ""]
+             "### A.8 Noise at low frequency", "", table_a8(), "",
+             "### A.9 Bias current against common-mode voltage", "", table_a9(), "", figure_a1_markdown(), "",
+             "---", ""]
     OUT.write_text("\n".join(parts), encoding="utf-8", newline="")
     print("written", OUT)
 

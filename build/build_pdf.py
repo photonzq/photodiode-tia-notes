@@ -214,7 +214,7 @@ for p in body.find_all("p"):
     if m:
         p["id"] = f"tab-{m.group(1)}"
         anchors[("table", m.group(1))] = p["id"]
-    m = re.match(r"^Figure (\d+)\.\s", t)
+    m = re.match(r"^Figure ([A-G]\.\d+|\d+)\.\s", t)  # Figure 12, or an appendix figure such as A.1
     if m:
         p["id"] = f"fig-{m.group(1)}"
         anchors[("figure", m.group(1))] = p["id"]

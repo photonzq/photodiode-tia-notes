@@ -28,7 +28,7 @@
    "c_note": "single CIN value, 8 pF (p. 3)",
    "vos_max_uV": 40,
    "drift_max": 0.5,
-   "cite": "pp. 3-4 (5 V table); 10 V and 15 V tables pp. 4-7 give the same noise, IB and CIN",
+   "cite": "pp. 3-4 (5 V table, IB at V_CM = V_SY/2; the typical IB is printed as '<1' fA); 10 V and 15 V tables pp. 4-7 give the same noise, IB and CIN",
    "aol_db": 143,
    "aol_note": "Large signal voltage gain 143 dB typ, 5 V, RL = 2 kOhm (p. 3); 150 and 155 dB at 10 and 15 V (pp. 5-6)"
   },
@@ -56,7 +56,7 @@
    "c_diff": 3,
    "vos_max_uV": 25,
    "drift_max": 0.8,
-   "cite": "pp. 4-5 (first table); a later table on p. 8 lists IB max 75 fA",
+   "cite": "pp. 4-5 (first table, 4.5-8 V, IB at V_CM = V+ - 3 V; the 8-16 V table on p. 6 gives the same IB at V_S/2); the 16-36 V table on p. 8 lists IB max 75 fA",
    "aol_db": 126,
    "aol_note": "AOL 126 dB typ, RL = 10 kOhm (p. 4); 120 dB with 2 kOhm"
   },
@@ -85,7 +85,7 @@
    "c_note": "input capacitance not specified",
    "vos_max_uV": 150,
    "drift_max": 4,
-   "cite": "pp. 6-7 (5 V table); 2.7 V table pp. 5-6",
+   "cite": "pp. 6-7 (5 V table); 2.5 V table pp. 5-6; IB at V_CM = 1 V in both",
    "aol_db": 111,
    "aol_note": "Large signal voltage gain 111 dB typ at 5 V, RL = 2 kOhm (p. 6); 107 dB at 2.7 V (p. 5)"
   },
@@ -133,7 +133,7 @@
    "c_diff": null,
    "c_note": "input capacitance not specified; RIN > 1 TOhm",
    "vos_max_uV": 3000,
-   "cite": "pp. 6-7; current noise: p. 23 (revision history)",
+   "cite": "pp. 6-7 (5 V, IB at V_CM = 1.5 V); current noise: p. 23 (revision history)",
    "aol_db": 126,
    "aol_note": "AOL 2000 V/mV typ, sourcing, LMC66xAI (p. 7)",
    "in_note": "0.2 fA/rtHz at 1 kHz from Revision C, as quoted in the Revision D history (p. 23): 'Changed input current noise density from 0.0002pA/rtHz to 4fA/rtHz to align with modern noise test setup'. Revision D gives 4 fA/rtHz (p. 6). The shot noise of the ~2-fA input leakage is about 0.025 fA/rtHz."
@@ -694,7 +694,7 @@
    "maker": "TI",
    "doc": "OPA656 data sheet SBOS196I, Feb. 2024",
    "input": "JFET, wideband",
-   "supply": "+-6 V (p. 2)",
+   "supply": "+-4 to +-6 V (p. 4); IB specified at +-5 V (p. 5)",
    "gbw": 230,
    "min_gain": 1,
    "en": {

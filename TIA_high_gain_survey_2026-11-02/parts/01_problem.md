@@ -2,7 +2,7 @@
 
 ### 1.1 The circuit and the symbols
 
-The circuit is the ordinary inverting TIA. The photodiode connects the op amp's inverting input, the summing node, to ground, either directly (zero bias, the photovoltaic mode) or through a bias voltage (reverse bias, the photoconductive mode). The feedback resistor $R_F$ runs from the output back to the summing node, and the non-inverting input is grounded. The circuit holds the summing node at virtual ground, so the photocurrent $I_{ph}$ flows through $R_F$ and the output is $V_{out} = -I_{ph}R_F$. Figure 1 shows the circuit with every element that the analysis of this note uses.
+The circuit is the ordinary inverting TIA. The photodiode connects the op amp's inverting input, the summing node, to ground, either directly (zero bias, the photovoltaic mode) or through a bias voltage (reverse bias, the photoconductive mode). The feedback resistor $R_F$ runs from the output back to the summing node, and the non-inverting input is grounded. Ground is the midpoint of split supplies, so both inputs of the op amp sit at mid-supply, which is also where most datasheets specify the input bias current; Section 8.6 treats a single-supply circuit, whose inputs sit at a reference voltage instead. The circuit holds the summing node at virtual ground, so the photocurrent $I_{ph}$ flows through $R_F$ and the output is $V_{out} = -I_{ph}R_F$. Figure 1 shows the circuit with every element that the analysis of this note uses.
 
 The symbols used throughout are these.
 
