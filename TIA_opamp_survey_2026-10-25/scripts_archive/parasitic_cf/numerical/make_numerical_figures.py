@@ -1,4 +1,4 @@
-"""Figures 45-52 of Appendix G (the numerical section; files fig44-fig51), from the recorded results.
+"""Figures 46-53 of Appendix G (the numerical section; files fig44-fig51), from the recorded results.
 
 Usage:  python make_numerical_figures.py [file numbers 44-51 ...]      (default: all)
 
@@ -10,7 +10,7 @@ its convergence and its results.  Every figure here is drawn from
     g_opa846_3d.py in data/parasitic_cf/numerical/ (checks.json, closed_forms_2d.json,
     resistor_3d.json, opa846_3d.json), and
   * the same layout builders those scripts used,
-so a figure cannot disagree with the numbers in the text.  Only Figures 44c and 45 need a field
+so a figure cannot disagree with the numbers in the text.  Only Figures 47c and 48 (fig44, fig45) need a field
 solution; they solve the 0402 model once at the middle mesh of its convergence study, about 0.23
 million unknowns (17 s on an idle machine, 58 s on a loaded one in this project's runs).
 
@@ -282,7 +282,7 @@ def fig49():
 
 
 def fig50():
-    """The feedback network of Figure 44 in three dimensions, and what each part adds."""
+    """The feedback network of Figure 45 in three dimensions, and what each part adds."""
     r = load("resistor_3d.json").get("opa855_layout")
     lay = g3.opa855_layout()
     fig = plt.figure(figsize=(6.5, 3.2), constrained_layout=True)
