@@ -11,7 +11,7 @@ archive does not keep) and evaluates the closed forms below and our analytical m
 datasheet open-loop curve of Section 3.5); everything goes to <spice>/results/case_opa846_1k5.json.  'report'
 prints the numbers of Section 4.10 and Tables 4.2 and 4.3 from that file; 'figure' draws Figure 9 from it, in
 the files figures/fig37b_case_opa846_1k5.png and .pdf.  --steps runs only the named parts and keeps the others
-from the existing file.  The equation numbers below are those of the note, Eqs. (36a)-(36g).
+from the existing file.  The equation numbers below are those of the note, Eqs. (36a)-(36h).
 
 The circuit is the OPA846 design of Section 4.4 (Table 4.1, Figure 5) with R_F = 1.5 kOhm: the pair's 1 pF plus
 0.35 pF of board at the summing node, and the amplifier's C_CM + C_DIFF = 3.8 pF, so C_T = 5.15 pF (Eq. (7)).
@@ -69,7 +69,11 @@ The closed forms
     from the load current, and the TIA's lighter load makes Eq. (36f) an upper estimate there.
     Solving Eqs. (36e) and (36f) for V gives the amplitudes at which each harmonic reaches a level D (as a ratio):
         V_D,3 = V_SR(f) sqrt(12 D V_SR(f) / (V_ov |H_e(3f)|)),   V_D,2 = D V_SR(f)^2 / (c_2 V_ov |H_e(2f)|);   (36g)
-    the two together, added in power, reach D where HD2^2 + HD3^2 = D^2, a quadratic in V^2.
+    the two together, added in power, reach D where HD2^2 + HD3^2 = D^2, a quadratic in V^2.  Since
+    V_SR/V_ov = GBW/f, the HD3 amplitude is V_D,3 = V_SR(f) x_D with
+        x_D = sqrt(12 D GBW / (f |H_e(3f)|)),                                                           (36h)
+    a fraction of the slew-rate amplitude that does not depend on SR.  'report' prints x_D, the thresholds as
+    peak photocurrents through our |Z_T|, their distance from Eq. (26) and where the lines of Figure 9d cross it.
 
 Datasheet inputs (OPA846, SBOS250E): SR 625 V/us typical, 500 V/us minimum at 25 degC (2-V step, G = +10,
 PDF p3); GBP 1750 MHz (G >= +40, PDF p3); swing -4.44 to +4.16 V on +/-6 V (PDF p8), 4.30 V centred; output
@@ -434,6 +438,25 @@ def analytic():
     return out
 
 
+def onset_curves(an, C_T, c2, fq, D):
+    """For the flat design at the tone frequencies fq: the ceiling of Eq. (26), and the amplitudes at which the
+    closed forms reach the level D (a ratio), the two harmonics added in power (Eqs. (36e) and (36f)) and the
+    third harmonic alone (Eq. (36g)).  Used by Figure 9d and by the report."""
+    fq = np.asarray(fq, dtype=float)
+    v_sr = SR_DS / (2 * math.pi * fq)
+    vpk = np.minimum(V_SW, v_sr)
+    he = {}
+    for k in (2, 3):
+        A = an.ol.A(k * fq)
+        NG = tm.tia_tf(k * fq, an.ol, R_F, C_T, CF_FLAT)[1]
+        he[k] = np.abs(A / (1 + A / NG))
+    a2 = c2 * V_OV * he[2] / v_sr ** 2            # HD2 = a2 V, Eq. (36f)
+    b3 = V_OV * he[3] / (12 * v_sr ** 3)           # HD3 = b3 V^2, Eq. (36e)
+    v_sum = np.sqrt((-a2 ** 2 + np.sqrt(a2 ** 4 + 4 * b3 ** 2 * D ** 2)) / (2 * b3 ** 2))
+    v_hd3 = v_sr * np.sqrt(12 * D * v_sr / (V_OV * he[3]))                        # Eq. (36g)
+    return vpk, v_sum, v_hd3
+
+
 # ---------------------------------------------------------------- driver
 def main_run(a):
     from ngspice_shared import NgSpice
@@ -500,6 +523,25 @@ def main_report(a):
         print(f"  {k} MHz: |Z_T| {d['zt_ohm']:.0f} ohm, V_SR {d['V_SR_V']:.3f} V, V_pk {d['V_pk_V']:.3f} V ({d['set_by']}), I_pk {d['I_pk_mA']:.3f} mA; "
               f"|H_e| {d['He_2f']:.2f} (2f), {d['He_3f']:.2f} (3f); -60 dBc: HD3 {d['V_hd3_m60_V']:.3f}, HD2 {d['V_hd2_m60_V']:.3f}, sum {d['V_thd_m60_V']:.3f} V; "
               f"-40 dBc: HD3 {d['V_hd3_m40_V']:.3f}, HD2 {d['V_hd2_m40_V']:.3f}, sum {d['V_thd_m40_V']:.3f} V; at V_pk {d['hd_at_vpk_dBc']:.1f} dBc")
+    print("== Eq. (36h), x_D = sqrt(12 D GBW/(f |H_e(3f)|)), and the thresholds as peak photocurrents through our |Z_T|")
+    for k, d in an["flat"].items():
+        f0 = float(k) * 1e6
+        for lvl in (-60, -40):
+            D = 10 ** (lvl / 20)
+            xd = math.sqrt(12 * D * GBW_DS / (f0 * d["He_3f"]))
+            v3, vs = d[f"V_hd3_m{-lvl}_V"], d[f"V_thd_m{-lvl}_V"]
+            print(f"  {k} MHz, {lvl} dBc: x_D {xd:.4f} (Eq. (36g): {v3 / d['V_SR_V']:.4f}); HD3 alone {v3:.4f} V, "
+                  f"{v3 / d['zt_ohm'] * 1e3:.4f} mA, {20 * math.log10(v3 / d['V_pk_V']):.1f} dB from Eq. (26); "
+                  f"HD2 + HD3 {vs:.4f} V, {vs / d['zt_ohm'] * 1e3:.4f} mA, {20 * math.log10(vs / d['V_pk_V']):.1f} dB")
+        print(f"  {k} MHz: -40/-60 dBc amplitude ratio, HD3 alone {d['V_hd3_m40_V'] / d['V_hd3_m60_V']:.2f}, "
+              f"HD2 + HD3 {d['V_thd_m40_V'] / d['V_thd_m60_V']:.2f}; at the Eq. (26) amplitude "
+              f"{d['hd_at_vpk_dBc']:.1f} dBc = {100 * 10 ** (d['hd_at_vpk_dBc'] / 20):.2f} %")
+    an_m = cs.Analytic(PART)
+    fq = np.logspace(7, math.log10(3e8), 4000)
+    for lvl in (-60, -40):
+        vpk, v_sum, v_hd3 = onset_curves(an_m, an_m.C_T(C_D), an["c2"], fq, 10 ** (lvl / 20))
+        print(f"  the {lvl}-dBc lines of Figure 9d fall below Eq. (26) from {fq[np.argmax(v_sum < vpk)] / 1e6:.1f} MHz "
+              f"(HD2 + HD3) and {fq[np.argmax(v_hd3 < vpk)] / 1e6:.1f} MHz (HD3 alone)")
     print(f"== Eq. (36d): S_1 = {an['step']['S1_per_ns']:.3f} /ns, V_step,SR = {an['step']['V_step_SR_V']:.3f} V ({an['step']['V_step_SR_min_V']:.3f} V at 500 V/us)")
     if "slew" in res:
         print("== the macromodel in the datasheet's G = +10 circuit")
@@ -643,20 +685,10 @@ def draw(res, out_stem):
     # (d) largest amplitude against the tone frequency: Eq. (26), the closed forms and the macromodel's THD
     ax = axs[1, 1]
     fq = np.logspace(7, math.log10(3e8), 400)
-    v_sr = SR_DS / (2 * math.pi * fq)
-    vpk = np.minimum(V_SW, v_sr)
-    he = {}
-    for k in (2, 3):
-        A = an.ol.A(k * fq)
-        NG = tm.tia_tf(k * fq, an.ol, R_F, C_T, CF_FLAT)[1]
-        he[k] = np.abs(A / (1 + A / NG))
-    a2 = c2 * V_OV * he[2] / v_sr ** 2            # HD2 = a2 V, Eq. (36f)
-    b3 = V_OV * he[3] / (12 * v_sr ** 3)           # HD3 = b3 V^2, Eq. (36e)
+    vpk = onset_curves(an, C_T, c2, fq, 1.0)[0]
     ax.plot(fq, vpk, color=grey, lw=LW, label="Eq. (26)")
     for lvl, col in ((-60, blue), (-40, red)):
-        D = 10 ** (lvl / 20)
-        v_sum = np.sqrt((-a2 ** 2 + np.sqrt(a2 ** 4 + 4 * b3 ** 2 * D ** 2)) / (2 * b3 ** 2))
-        v_hd3 = v_sr * np.sqrt(12 * D * v_sr / (V_OV * he[3]))                    # Eq. (36g)
+        _, v_sum, v_hd3 = onset_curves(an, C_T, c2, fq, 10 ** (lvl / 20))
         ax.plot(fq, np.where(v_sum < vpk, v_sum, np.nan), color=col, lw=LW, ls=DASH,
                 label=f"${lvl}$ dBc, HD2 + HD3, Eqs. (36e)–(36g)")
         ax.plot(fq, np.where(v_hd3 < vpk, v_hd3, np.nan), color=col, lw=LW, ls=":",
