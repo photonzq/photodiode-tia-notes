@@ -856,14 +856,14 @@ def note_tables(out):
     for desc in ("datasheet curve", "macromodel A_-"):
         s = out["slew_tests"][desc]
         gbw = out["fits"][desc]["rational"]["gbw_Hz"]
-        for key, sr, what in (("test2_625", 625e6, "the datasheet's typical value"),
-                              ("test2_cal", s["sr_cal"], "calibrated to the typical 625 V/µs"),
-                              ("test2_min", s["sr_min_cal"], "calibrated to the minimum, 500 V/µs")):
+        for key, sr, what in (("test2_625", 625e6, "the datasheet's value"),
+                              ("test2_cal", s["sr_cal"], "calibrated to 625 V/µs"),
+                              ("test2_min", s["sr_min_cal"], "calibrated to 500 V/µs")):
             r = s[key]
             t1 = s["test1"] if key == "test2_cal" else None
             t1_txt = (f"{t1['ramp_slope'] / 1e6:.2f} V/µs ({signed(100 * t1['rel_error'], 4)} %), steepest {t1['steepest'] / 1e6:.0f} V/µs"
                       if t1 else "–")
-            print(f"| Model, {labels[desc]} | {sr / 1e6:.1f} V/µs, {what} | {sr / (2 * math.pi * gbw) * 1e3:.1f} mV | {t1_txt} | "
+            print(f"| Model, {labels[desc]} | {sr / 1e6:.1f} V/µs ({what}) | {sr / (2 * math.pi * gbw) * 1e3:.1f} mV | {t1_txt} | "
                   f"{r['avg_10_90'] / 1e6:.1f} V/µs | {r['avg_20_80'] / 1e6:.1f} V/µs | {r['steepest'] / 1e6:.0f} V/µs |")
 
 

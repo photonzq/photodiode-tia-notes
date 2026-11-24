@@ -1,4 +1,4 @@
-"""SPICE check of the pulse model of Section 4.11.8 (Section 4.11.9, Table 4.10, Figures 14 and 15): the vendor's OPA846
+"""SPICE check of the pulse model of Section 4.11.8 (Section 4.11.9, Tables 4.10 and 4.11, Figures 14 and 15): the vendor's OPA846
 macromodel in ngspice on the measured board's node, driven by the same short photocurrent pulses as the time-domain
 model of tia_pulse_response.py, and in the datasheet's slew-rate test; the time-domain model beside it.
 
@@ -9,7 +9,7 @@ Usage:
 'run' simulates and writes <spice>/results/board_pulses.json; the decks and ngspice's raw outputs go to
 <spice>/runs/board_pulses/, which stays local.  The fit takes about a minute, the other steps about half a minute.
 'report' runs the time-domain model at the same charges (about a minute), prints every number of Section 4.11.9 and
-Table 4.10, with --figure draws Figure 14 (../figures/fig37g_opa846_1k5_spice_pulses.png and .pdf) and with --summary
+the rows of Tables 4.10 and 4.11, with --figure draws Figure 14 (../figures/fig37g_opa846_1k5_spice_pulses.png and .pdf) and with --summary
 Figure 15 (../figures/fig37h_opa846_1k5_spice_summary.png and .pdf).
 
 The circuit is that of spice_tia_checks.tia_body: the macromodel on +/-5 V with its non-inverting input grounded,
@@ -487,7 +487,7 @@ def report(a):
                   + " / ".join(tp.signed(x).lstrip("+") if abs(x) < 10 else f"{x:.1f}" for x in sh) + " % | "
                   + " / ".join(f"{x:.1f}" if x < 10 else f"{x:.0f}" for x in vn) + " mV |")
     print("\nTable 4.9, the macromodel's row:")
-    print(f"| Macromodel in SPICE | its own input stage: {SR17 / 1e6:.0f} V/µs at its integrating node | {V_OV_MAC * 1e3:.1f} mV | – | "
+    print(f"| Macromodel in SPICE | {SR17 / 1e6:.0f} V/µs at its integrating node (Eq. (36w)) | {V_OV_MAC * 1e3:.1f} mV | – | "
           f"{s['avg_10_90'] / 1e6:.1f} V/µs | {s['avg_20_80'] / 1e6:.1f} V/µs | {s['steepest'] / 1e6:.0f} V/µs |")
 
     # the macromodel's input stage
@@ -529,10 +529,14 @@ def report(a):
         qd = [r["q"] for r in res["doublet"]]
         t, vo, vn, _, _ = tp.simulate(rol, R_F, ct, cf, sr_cal, SWING_100, qd, pulse="doublet:50", window=30e-9, dt=1e-12)
         print("\nA balanced pair, -Q 50 ps after +Q (SPICE | model):")
+        rows = []
         for k, r in enumerate(res["doublet"]):
             j = int(np.argmax(np.abs(vo[k])))
             print(f"  {r['q'] * 1e12:4.1f} pC: largest v_n {r['vn_max'] * 1e3:.0f} | {np.max(np.abs(vn[k])) * 1e3:.0f} mV "
                   f"(base {r['vbase_max'] * 1e3:.0f} mV); output {r['vo_peak'] * 1e3:+.0f} | {vo[k][j] * 1e3:+.0f} mV")
+            rows.append(f"| {r['q'] * 1e12:.1f} pC | {r['vn_max'] * 1e3:.0f} / {np.max(np.abs(vn[k])) * 1e3:.0f} mV | "
+                        f"{r['vbase_max'] * 1e3:.0f} mV | {tp.signed(r['vo_peak'] * 1e3, 0)} / {tp.signed(vo[k][j] * 1e3, 0)} mV |")
+        print("\nTable 4.11 rows:\n" + "\n".join(rows))
     if a.figure:
         draw(res, cmp, rol, sr_cal, a.figure)
     if a.summary:
