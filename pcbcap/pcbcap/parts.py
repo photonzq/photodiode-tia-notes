@@ -89,7 +89,7 @@ _CORNER = {"min": 0, "nominal": 1, "max": 2}
 
 @dataclass
 class ChipResistor:
-    """A two-terminal chip resistor.  Symbols as in the companion note's Figure 40.
+    """A two-terminal chip resistor.  Symbols as in the companion note's Figure 41.
 
     L, W, T : overall length, width and height (mm).
     a       : length of the top (and bottom) termination wrap; the film length is g = L - 2a.

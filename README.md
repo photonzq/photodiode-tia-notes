@@ -45,7 +45,7 @@ In the two tables below, the paths are relative to the note's folder.
 |---|---|
 | `TIA_opamp_survey.md` | The note |
 | `TIA_opamp_survey.pdf`, `index.html` | The note as a PDF and as a web page, with its section, table, figure and equation references as links |
-| `figures/` | Figures 1–53 as PNG and PDF; Appendix E of the note maps the file names to the figure numbers |
+| `figures/` | Figures 1–54 as PNG and PDF; Appendix E of the note maps the file names to the figure numbers |
 | `figures/layout_views/` | The three-dimensional layouts of the field solutions as interactive pages, one per layout, listed in its `index.html`; the pages load the unmodified `plotly.min.js` (plotly.js v3.1.0) from the same folder |
 | `data/specs/` | One extraction record per amplifier, with a page or figure citation for every value and the digitized open-loop and noise curves |
 | `data/market_scan.md`, `data/market_scan.json` | The candidate scan, the rejected parts, lifecycle status and prices, the integrated TIAs and the list of application notes |
