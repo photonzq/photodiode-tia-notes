@@ -207,6 +207,8 @@ def he(ol, f, ct, cf):
 # ---------------------------------------------------------------------------------------------------------------
 def zt_rx(f, ol, ct, cf, rx):
     """Z_T and T with a resistor R_x from the summing node to ground: NG = 1 + Z_F (1/R_x + j w C_T)."""
+    # Eqs. (8)-(10) with the node admittance j w C_T extended by 1/R_x: the noise gain becomes 1 + Z_F Y_node with
+    # Y_node = 1/R_x + j w C_T, while the signal path, Z_T = -Z_F T/(1 + T), keeps its form.
     s = 2j * np.pi * np.asarray(f, dtype=float)
     zf = R_F / (1 + s * R_F * cf)
     ng = 1 + zf * (s * ct + 1.0 / rx)
@@ -215,6 +217,8 @@ def zt_rx(f, ol, ct, cf, rx):
 
 
 def stable_rx(ol, ct, cf, rx):
+    # the stability test of Section 3.5 (first crossing of |T| = 1 with positive phase margin, no second crossing
+    # above 1.2 f_c) for the loop with R_x; returns (stable, phase margin in degrees)
     ff = tm.F_GRID
     t = zt_rx(ff, ol, ct, cf, rx)[1]
     mag, ph = np.abs(t), np.degrees(np.unwrap(np.angle(t)))
@@ -231,11 +235,11 @@ def fit_rx(f, g, ol, h, rx):
     cand = []
     for ct in np.arange(4.0e-12, 8.001e-12, 0.05e-12):
         for cf in np.arange(0.05e-12, 0.6001e-12, 0.005e-12):
-            z = np.abs(zt_rx(f, ol, ct, cf, rx)[0]) * h
-            u = z / g
-            k = np.sum(u) / np.sum(u * u)
-            cand.append((float(np.sqrt(np.mean((1.0 - k * u) ** 2))), float(k), ct, cf))
-    for eps, k, ct, cf in sorted(cand):
+            z = np.abs(zt_rx(f, ol, ct, cf, rx)[0]) * h           # model shape M_k = |Z_T| |H_chain|
+            u = z / g                                            # M_k / G_k
+            k = np.sum(u) / np.sum(u * u)                        # Eq. (36k)
+            cand.append((float(np.sqrt(np.mean((1.0 - k * u) ** 2))), float(k), ct, cf))   # Eq. (36j)
+    for eps, k, ct, cf in sorted(cand):                          # best residual first; the first stable loop wins
         ok, pm = stable_rx(ol, ct, cf, rx)
         if ok:
             return dict(eps=eps, k=k, ct=ct, cf=cf, pm=pm)
@@ -246,17 +250,20 @@ def noise_section(b, fits, models, f_gain, g_gain):
     """Prints the numbers of Section 4.11.6 and Table 4.5; returns what Figure 11 draws."""
     use = (~b["bad"]) & np.isfinite(b["i"]) & (b["f"] >= 25e6)
     f, g = b["f"][use], b["G"][use]
+    # X of Eq. (36l): the floor without light minus the oscilloscope's own record (both on the +/-50 mV range)
     x = (b["s0"] - b["ssc"])[use]                                       # the TIA's output noise at the scope, V^2/Hz
+    # Eq. (19) split into its white part a0 and its capacitive part e_n^2 w^2 C_tot^2 = wn C_tot^2
     a0 = 4 * K_B * T_K / R_F + I_N ** 2 + E_N ** 2 / R_F ** 2
     wn = (E_N * 2 * math.pi * f) ** 2
     ctots = {name: fits[(name, "rc", True)]["ct"] + fits[(name, "rc", True)]["cf"] for name in models}
     print("\nSection 4.11.6: the excess band by band (TIA's output noise at the scope minus Eq. (19) through G)")
     bands = {}
     for name, c in ctots.items():
-        ex = x - g ** 2 * (a0 + wn * c ** 2)
+        ex = x - g ** 2 * (a0 + wn * c ** 2)                    # X_x = X - G^2 [Eq. (19)], at the oscilloscope
         rows = []
         for lo, hi in BANDS:
             m = (f >= lo) & (f < hi)
+            # band averages in power; the input-referred excess divides by the band's rms gain
             e, gi, xx = float(np.mean(ex[m])), math.sqrt(float(np.mean(g[m] ** 2))), float(np.mean(x[m]))
             mod = float(np.mean(g[m] ** 2 * (a0 + wn[m] * c ** 2)))
             rows.append(dict(lo=lo, hi=hi, ex=e, g=gi, x=xx, model=mod))
@@ -264,6 +271,9 @@ def noise_section(b, fits, models, f_gain, g_gain):
                   f"Eq. (19) {math.sqrt(mod) * 1e9:5.2f}, excess {sgnsqrt(e) * 1e9:+6.2f} nV/rtHz at the scope; "
                   f"input-referred {sgnsqrt(e) / gi * 1e12:+5.2f} pA/rtHz (G {gi:.0f} V/A)")
         bands[name] = rows
+    # The shape test of Eq. (36m) in the band where the excess does not depend on e_n C_tot: from 25-50 to 75-100 MHz
+    # a white current at the node scales with G (so the amplitude ratio is G's ratio), a white voltage at the
+    # oscilloscope does not (ratio 1).
     r0 = bands["datasheet"]
     print(f"  the shape over 25-100 MHz (datasheet C_tot): the excess at the scope grows {sgnsqrt(r0[2]['ex']) / sgnsqrt(r0[0]['ex']):.2f} times "
           f"from 25-50 to 75-100 MHz while G grows {r0[2]['g'] / r0[0]['g']:.2f} times; a white source at the input predicts "
@@ -272,10 +282,14 @@ def noise_section(b, fits, models, f_gain, g_gain):
     c = ctots["datasheet"]
     for lo, hi in ((25e6, 50e6), (75e6, 100e6), (150e6, 175e6)):
         m = (f >= lo) & (f < hi)
+        # (1.1 e_n C)^2 - (e_n C)^2 = 0.21 (e_n C)^2 of extra power in the capacitive term, through G^2
         d = float(np.mean(g[m] ** 2 * wn[m] * c ** 2)) * (1.1 ** 2 - 1)
         print(f"  {lo / 1e6:.0f}-{hi / 1e6:.0f} MHz: +10 % in e_n C_tot adds {math.sqrt(d) * 1e9:.2f} nV/rtHz in quadrature to Eq. (19) "
               f"against an excess of {sgnsqrt(np.mean((x - g ** 2 * (a0 + wn * c ** 2))[m])) * 1e9:.2f} nV/rtHz")
     # the two white hypotheses with the capacitance free (the fit of Figure 10d), and what each needs
+    # Input-referred, i^2 = a0 + C_tot^2 wn + (w^2 for a white current at the node, or u^2/G^2 for a white voltage
+    # at the oscilloscope): linear in the two unknowns (amplitude^2, C_tot^2), solved by weighted least squares with
+    # the 1-sigma of i^2 from the measurement's analysis.
     i2 = b["i"][use] ** 2
     si = 2 * b["i"][use] * b["si"][use]
     fits_n = {}
@@ -285,20 +299,23 @@ def noise_section(b, fits, models, f_gain, g_gain):
         rr = (i2 - a0 - d2 @ q) / i2
         amp, cc = math.sqrt(max(q[0], 0.0)), math.sqrt(max(q[1], 0.0))
         fits_n[label] = dict(amp=amp, ctot=cc, rms=float(np.sqrt(np.mean(rr * rr))))
+        # only e_n C_tot is fixed by the noise; the e_n each needs on the node the gain fixes is e_n cc / C_tot(gain)
         need = ", ".join(f"e_n {E_N * cc / ct_ * 1e9:.2f} nV/rtHz at the {n} fit's {ct_ * 1e12:.2f} pF" for n, ct_ in ctots.items())
         unit = f"{amp * 1e12:.2f} pA/rtHz" if label == "input" else f"{amp * 1e9:.2f} nV/rtHz"
         print(f"  white at the {label}: {unit}, C_tot {cc * 1e12:.2f} pF (e_n C_tot {E_N * cc * 1e21:.2f} nV pF/rtHz; {need}), "
               f"rms relative residual {100 * fits_n[label]['rms']:.1f} %")
     w = fits_n["input"]["amp"]
     # what a white current at the node requires
-    r_th = 4 * K_B * T_K / w ** 2
+    r_th = 4 * K_B * T_K / w ** 2                         # thermal noise alone: 4kT/R = w^2
+    # Eq. (36n): with the resistor's own e_n/R_x, 4kT x + e_n^2 (2x/R_F + x^2) = w^2 for x = 1/R_x, a quadratic in x
     aq, bq, cq = E_N ** 2, 4 * K_B * T_K + 2 * E_N ** 2 / R_F, -w ** 2      # e_n^2 x^2 + (4kT + 2 e_n^2/R_F) x - w^2 = 0, x = 1/R_x
-    r_x = 1.0 / ((-bq + math.sqrt(bq * bq - 4 * aq * cq)) / (2 * aq))
-    i_x = w ** 2 / (2 * Q_E)
-    i_n_need = math.hypot(I_N, w)
+    r_x = 1.0 / ((-bq + math.sqrt(bq * bq - 4 * aq * cq)) / (2 * aq))     # the positive root
+    i_x = w ** 2 / (2 * Q_E)                              # shot noise 2 q I = w^2
+    i_n_need = math.hypot(I_N, w)                         # the amplifier's i_n that would carry the excess too
     print(f"  a white current of {w * 1e12:.2f} pA/rtHz at the node is the thermal noise of {r_th:.0f} ohm, or of {r_x:.0f} ohm with "
           f"the e_n/R_x it adds; the shot noise of {i_x * 1e6:.0f} uA; or an amplifier i_n of {i_n_need * 1e12:.2f} pA/rtHz "
           f"against {I_N * 1e12:.1f} typical and {I_N_MAX * 1e12:.1f} maximum")
+    # can the gain see such a resistor?  Refit the gain with R_x in the loop
     rx_fits = {}
     for name, (ol, _) in models.items():
         h = chain(f_gain, "rc")
@@ -308,7 +325,7 @@ def noise_section(b, fits, models, f_gain, g_gain):
               f"K {r['k']:.3f}, eps {100 * r['eps']:.2f} % (without R_x {100 * fits[(name, 'rc', True)]['eps']:.2f} %), PM {r['pm']:.1f} deg, "
               f"C_tot {(r['ct'] + r['cf']) * 1e12:.2f} pF, which with the noise fit's e_n C_tot needs e_n "
               f"{E_N * fits_n['input']['ctot'] / (r['ct'] + r['cf']) * 1e9:.2f} nV/rtHz")
-    # a voltage at the + input
+    # a voltage at the + input: the third line of Eq. (36m); its size from the 25-50 MHz excess, then extrapolated
     m1 = (f >= 25e6) & (f < 50e6)
     f1 = float(np.mean(f[m1]))
     ex1 = float(np.mean((x - g ** 2 * (a0 + wn * c ** 2))[m1])) / float(np.mean(g[m1] ** 2))
@@ -319,8 +336,8 @@ def noise_section(b, fits, models, f_gain, g_gain):
     # aliasing: at 1 GS/s the bins of 25-100 MHz have images at 900-975 MHz
     r = fits[("datasheet", "rc", True)]
     fa = np.array([900e6, 975e6])
-    ia = np.sqrt(a0 + (E_N * 2 * math.pi * fa * c) ** 2)
-    va = np.abs(tm.tia_tf(fa, r["ol"], R_F, r["ct"], r["cf"])[0]) * ia
+    ia = np.sqrt(a0 + (E_N * 2 * math.pi * fa * c) ** 2)          # Eq. (19) there, input-referred
+    va = np.abs(tm.tia_tf(fa, r["ol"], R_F, r["ct"], r["cf"])[0]) * ia   # at the TIA's output
     print(f"  aliasing at 1 GS/s: Eq. (19) at the TIA output is {va[0] * 1e9:.2f} and {va[1] * 1e9:.2f} nV/rtHz at 900 and 975 MHz, "
           f"{va[0] * chain(fa, 'rc')[0] * 1e9:.2f} and {va[1] * chain(fa, 'rc')[1] * 1e9:.2f} nV/rtHz behind the 227-MHz pole, before "
           f"the oscilloscope's own 200-MHz front end")
@@ -338,6 +355,7 @@ def noise_section(b, fits, models, f_gain, g_gain):
 # ---------------------------------------------------------------------------------------------------------------
 def cf_for_peaking(ol, ct, target_db, nt=None):
     """The smallest total C_F with at most target_db of transimpedance peaking (bisection)."""
+    # peaking falls monotonically as C_F grows on these nodes, so 40 halvings of [0.05, 3] pF fix it to < 1e-23 F
     lo, hi = 0.05e-12, 3e-12
     for _ in range(40):
         mid = 0.5 * (lo + hi)
@@ -346,6 +364,7 @@ def cf_for_peaking(ol, ct, target_db, nt=None):
 
 
 def response_at_scope(ol, ct, cf, kind, f=np.linspace(1e6, 1.5e9, 6000)):
+    # |Z_T|/R_F times the chain of Eq. (36i): its peaking relative to the low-frequency value, and its -3-dB point
     z = np.abs(tm.tia_tf(f, ol, R_F, ct, cf)[0]) / R_F * chain(f, kind)
     k = int(np.argmax(z))
     below = np.where(z < z[0] / math.sqrt(2))[0]
@@ -354,6 +373,7 @@ def response_at_scope(ol, ct, cf, kind, f=np.linspace(1e6, 1.5e9, 6000)):
 
 def rms_noise(ol, ct, cf, f_hi):
     """rms of Eq. (19) at the TIA output from 1 MHz to f_hi (V), with C_tot = C_T + C_F."""
+    # v_rms^2 = integral |Z_T(f)|^2 i^2(f) df: the input-referred density of Eq. (19) through the transimpedance
     f = np.linspace(1e6, f_hi, 20000)
     i2 = 4 * K_B * T_K / R_F + I_N ** 2 + E_N ** 2 * (1 / R_F ** 2 + (2 * math.pi * f * (ct + cf)) ** 2)
     z2 = np.abs(tm.tia_tf(f, ol, R_F, ct, cf)[0]) ** 2
@@ -365,6 +385,7 @@ def second_board_section(fits, models, rx_fits, r_x):
     incs = {}
     for name in models:
         for kind in ("rc", "rc2", "rc1", "none"):
+            # each stable fit of Table 4.4 is a complete loop; the increment is the target C_F minus the fit's own
             r = fits[(name, kind, True)]
             ol, ct, cfp = r["ol"], r["ct"], r["cf"]
             row = {}
@@ -372,6 +393,7 @@ def second_board_section(fits, models, rx_fits, r_x):
                 c = cf_for_peaking(ol, ct, target)
                 m = tm.loop_metrics(ol, R_F, ct, c)
                 row[target] = dict(add=c - cfp, total=c, pm=m["pm_deg"], gm=m["gm_dB"], f3=m["f_3dB"])
+            # the minimum-gain rule of Section 6.2.4: 1 + C_T/C_F >= G_min, i.e. C_F <= C_T/(G_min - 1)
             edge = ct / (G_MIN - 1)
             row["edge"] = dict(add=edge - cfp, total=edge)
             incs[(name, kind)] = row
@@ -387,6 +409,7 @@ def second_board_section(fits, models, rx_fits, r_x):
     for name, r in rx_fits.items():
         ol = models[name][0]
 
+        # peaking of the loop with R_x, relative to its low-frequency value
         def pk(cf):
             z = np.abs(zt_rx(np.linspace(1e6, 1.5e9, 8000), ol, r["ct"], cf, r_x)[0])
             return 20 * math.log10(z.max() / z[0])
@@ -399,6 +422,7 @@ def second_board_section(fits, models, rx_fits, r_x):
             out.append(f"{target} dB +{(hi - r['cf']) * 1e12:.3f} pF")
         print(f"  {name:10s} with R_x = {r_x:.0f} ohm (C_T {r['ct'] * 1e12:.2f}, C_F {r['cf'] * 1e12:.3f} pF): " + "; ".join(out))
     for name in models:
+        # the most phase margin any C_F gives on the fitted node (0.40-2.00 pF in 0.01-pF steps)
         r = fits[(name, "rc", True)]
         best = max((tm.loop_metrics(r["ol"], R_F, r["ct"], c)["pm_deg"], c) for c in np.arange(0.40e-12, 2.001e-12, 0.01e-12))
         print(f"  {name}: the largest phase margin on the fitted node is {best[0]:.1f} deg, at C_F = {best[1] * 1e12:.2f} pF in total")
@@ -412,6 +436,7 @@ def second_board_section(fits, models, rx_fits, r_x):
             cf = cfp + add
             m = tm.loop_metrics(ol, R_F, ct, cf)
             pk_s, f3_s = response_at_scope(ol, ct, cf, "rc")
+            # Eq. (19) at 100 MHz with the added capacitance in C_tot
             i100 = math.sqrt(4 * K_B * T_K / R_F + I_N ** 2 + E_N ** 2 * (1 / R_F ** 2 + (2 * math.pi * 100e6 * (ct + cf)) ** 2))
             v200, v1000 = rms_noise(ol, ct, cf, 200e6), rms_noise(ol, ct, cf, 1000e6)
             rows.append(dict(add=add, cf=cf, pm=m["pm_deg"], gm=m["gm_dB"], f_c=m["f_c"], ng_hf=1 + ct / cf, pk=m["peaking_dB"],
@@ -656,9 +681,9 @@ def draw_noise(nz, stem):
     ax.plot(f / 1e6, np.sqrt(nz["s0"]) * 1e9, "o", ms=1.8, color=COLORS["grey_accent"], label="floor without light, $S_0$")
     ax.plot(f / 1e6, np.sqrt(nz["ssc"]) * 1e9, "-", lw=1.0, color=COLORS["grey_accent"], label="oscilloscope alone (TIA off)")
     ax.plot(f / 1e6, np.sqrt(x) * 1e9, "o", ms=2.2, color=grey, label="the TIA's part, $S_0 - S_{\\mathrm{scope}}$")
-    for c, col, lab in ((c_ds, blue, "datasheet-curve"), (c_mm, red, "macromodel")):
+    for c, col, lab in ((c_ds, blue, "datasheet-curve fit"), (c_mm, red, "fit with the macromodel's $A_-$")):
         ax.plot(f / 1e6, np.sqrt(g ** 2 * (a0 + wn * c ** 2)) * 1e9, color=col, lw=LW,
-                label=f"Eq. (19) through $G$, {c * 1e12:.2f} pF ({lab} fit)")
+                label=f"Eq. (19) through $G$, {c * 1e12:.2f} pF ({lab})")
     ex = x - g ** 2 * (a0 + wn * c_ds ** 2)
     ok = ex > 0
     ax.plot(f[ok] / 1e6, np.sqrt(ex[ok]) * 1e9, "s", ms=2.2, color=green, label="excess with 6.47 pF")
@@ -674,7 +699,7 @@ def draw_noise(nz, stem):
 
     # (b) the excess referred to the input, and the two white hypotheses scaled to it over 25-100 MHz
     ax = axs[1]
-    for c, col, mk, lab in ((c_ds, blue, "o", "datasheet-curve fit"), (c_mm, red, "s", "macromodel fit")):
+    for c, col, mk, lab in ((c_ds, blue, "o", "datasheet-curve fit"), (c_mm, red, "s", "fit with the macromodel's $A_-$")):
         e = (x - g ** 2 * (a0 + wn * c ** 2)) / g ** 2
         ok = e > 0
         ax.plot(f[ok] / 1e6, np.sqrt(e[ok]) * 1e12, mk, ms=2.2, color=col, mfc=col if col == blue else "white",
@@ -716,7 +741,7 @@ def draw_second(fits, sb, stem):
         for kind, ls, lab in (("rc", "-", "14-pF chain"), ("rc2", DASH, "and a 2nd-order front end"), ("rc1", ":", "and a 1st-order front end")):
             r = fits[(name, kind, True)]
             pk = [tm.loop_metrics(r["ol"], R_F, r["ct"], r["cf"] + d)["peaking_dB"] for d in adds]
-            ax.plot(adds * 1e12, pk, color=col, ls=ls, lw=LW, label=f"{'datasheet curve' if name == 'datasheet' else 'macromodel'}, {lab}")
+            ax.plot(adds * 1e12, pk, color=col, ls=ls, lw=LW, label=f"{'datasheet curve' if name == 'datasheet' else 'macromodel' + chr(39) + 's $A_-$'}, {lab}")
             edge = sb["incs"][(name, kind)]["edge"]["add"]
             if edge <= 0.8e-12:
                 ax.plot([edge * 1e12], [0.0], marker="v", color=col, ms=5, ls="none")
@@ -743,7 +768,7 @@ def draw_second(fits, sb, stem):
         ax.plot(ff / 1e6, 20 * np.log10(z * chain(ff, "rc")), color=col, lw=1.0, ls=DASH)
     rm = fits[("macromodel", "rc", True)]
     z = np.abs(tm.tia_tf(ff, rm["ol"], R_F, rm["ct"], rm["cf"] + 0.55e-12)[0]) / R_F
-    ax.plot(ff / 1e6, 20 * np.log10(z), color=red, lw=1.0, label="+0.55 pF, macromodel fit")
+    ax.plot(ff / 1e6, 20 * np.log10(z), color=red, lw=1.0, label="+0.55 pF, fit with the macromodel's $A_-$")
     ax.set_xscale("log")
     ax.set_xlim(5, 2000)
     ax.set_ylim(-15, 14)

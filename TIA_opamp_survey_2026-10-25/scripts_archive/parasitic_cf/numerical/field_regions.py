@@ -1,4 +1,4 @@
-"""Where the coupling of the 0402 model sits: C_F split by region, for the text beside Figure 52.
+"""Where the coupling of the 0402 model sits: C_F split by region, for the text beside Figure 54.
 
 Usage:
     python field_regions.py [--record <json>]
@@ -9,7 +9,7 @@ C_F is the integral of eps (|grad phi_o|^2 - |grad phi_e|^2) over the volume, mu
 number of mirror images (Eqs. (G.52) and (G.53) of the note; pcbcap.capacitance, section 2).
 pcbcap.capacitance already splits that integral by material (the shares of Section G.14.6).  This
 script splits it further by position, using each tetrahedron's centroid, so that the paragraph
-describing Figure 52 can give numbers for what the colour map shows:
+describing Figure 54 can give numbers for what the colour map shows:
 
   alumina between the wraps      the body with |x| below the inner edge of the top wraps
   alumina inside a termination   the rest of the body, enclosed by the cap on three sides
@@ -20,7 +20,7 @@ describing Figure 52 can give numbers for what the colour map shows:
   air elsewhere                  the rest of the air
 
 The model, the mesh (the middle level of the 0402 study, refine 2.83) and the enclosure (8 mm) are
-those of Figures 51c and 52 (make_numerical_figures.py, solved_0402), so the regions add up to the
+those of Figures 53c and 54 (make_numerical_figures.py, solved_0402), so the regions add up to the
 C_F printed there.  The quarter model covers x >= 0, y >= 0; its mirror images have the same
 contributions, so every region's sum is multiplied by 4, as C_F is.
 
@@ -122,7 +122,7 @@ def main() -> int:
         print(f"    {lo:3.1f} to {hi:3.1f} mm               {v:8.3f}  {vp:8.3f}  {vn:8.3f}")
 
     vol = _element_measures(prob)                                               # element volumes, mm^3
-    dens = per_el / (f * vol)                                                   # fF mm^-3, as in Figure 52b
+    dens = per_el / (f * vol)                                                   # fF mm^-3, as in Figure 54b
     k = int(np.argmin(dens))
     kmax = int(np.argmax(dens))
     neg = float(per_el[per_el < 0].sum())
@@ -132,14 +132,14 @@ def main() -> int:
           f"({cen[0, kmax]:.3f}, {cen[1, kmax]:.3f}, {cen[2, kmax]:.3f}) mm in {labels[kmax]}")
     print(f"sum of all negative contributions {neg:.4f} fF ({100 * neg / total:.2f} % of C_F)")
 
-    # What Figure 52b shows: the elements cut by the plane y = 0 inside the figure's window.
+    # What Figure 54b shows: the elements cut by the plane y = 0 inside the figure's window.
     _, _, elem, _ = section_triangles(prob)
     sec = np.unique(elem)
     win = sec[(np.abs(cen[0, sec]) < 0.9) & (cen[2, sec] > -0.3) & (cen[2, sec] < 0.6)]
     print(f"on the plane y = 0 within |x| < 0.9 mm, -0.3 < z < 0.6 mm: {win.size} elements, density from "
           f"{dens[win].min():.4g} to {dens[win].max():.4g} fF/mm^3")
 
-    # The odd potential in the outer half of each termination's interior (Figure 52a): element means.
+    # The odd potential in the outer half of each termination's interior (Figure 54a): element means.
     phi_mean = prob.basis.interpolate(phi_o).value.mean(axis=1)
     inner = al & (x > x_wrap + 0.5 * (x_body - x_wrap))
     print(f"odd potential in the alumina with {x_wrap + 0.5 * (x_body - x_wrap):.3f} < x < {x_body:.3f} mm: "

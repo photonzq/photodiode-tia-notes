@@ -2,7 +2,7 @@
 
 Usage: python sink_vs_plain_hv.py [--figure OUT_STEM]
 
-With --figure it also draws Figure 38 of the note, the resistor floor of both schemes against the voltage across
+With --figure it also draws Figure 40 of the note, the resistor floor of both schemes against the voltage across
 the resistor that carries the DC, as OUT_STEM.png (600 dpi) and OUT_STEM.pdf, in the style of the plotting guide
 (the note's file is figures/fig26b_sink_vs_plain).
 
@@ -283,7 +283,7 @@ P_1206 = 0.270     # W: TNPW1206 e3 with its film at up to 125 degC (Vishay docu
 
 
 def draw(out_stem):
-    """Figure 38: Eqs. (1) and (2) in dB on 2 kOhm alone, with the configurations of Table 8.1."""
+    """Figure 40: Eqs. (1) and (2) in dB on 2 kOhm alone, with the configurations of Table 8.1."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -346,7 +346,7 @@ def draw(out_stem):
     fig.savefig(out + ".png", dpi=600)
     fig.savefig(out + ".pdf")
     plt.close(fig)
-    print(f"Figure 38 written to {out}.png and .pdf; the shaded range starts at {P_1206:g} W / {I_MAX:g} mA = {v_limit:.0f} V")
+    print(f"Figure 40 written to {out}.png and .pdf; the shaded range starts at {P_1206:g} W / {I_MAX:g} mA = {v_limit:.0f} V")
 
 
 if __name__ == "__main__":
