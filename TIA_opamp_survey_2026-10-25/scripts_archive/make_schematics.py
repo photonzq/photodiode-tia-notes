@@ -1,4 +1,4 @@
-"""Schematics of the balanced-photodiode TIA note (Figure 1, Figures 3 and 5 of Chapter 4, and Figures 29 onwards).
+"""Schematics of the balanced-photodiode TIA note (Figure 1, Figures 3 and 5 of Chapter 4, and Figures 32 onwards).
 
 Every schematic uses schematic_style.py: one scale, one canvas width, white background.
 Each function draws one figure and names the part values it shows; the values are those
